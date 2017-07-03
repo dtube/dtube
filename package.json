@@ -1,0 +1,29 @@
+{
+  "name": "drtube",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "bufferutil": "^3.0.0",
+    "ipfs-api": "^14.0.2",
+    "meteor-node-stubs": "~0.2.4",
+    "moment": "^2.18.1",
+    "steem": "^0.5.7",
+    "utf-8-validate": "^3.0.1",
+    "wakajs": "0.0.15"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "browsers": [
+          "last 2 versions"
+        ]
+      }
+    }
+  }
+}

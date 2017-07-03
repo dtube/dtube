@@ -1,0 +1,17 @@
+<template name="topbar">
+  <div class="ui borderless main menu fixed">
+    <a href="/" class="header item" id='textlogo'>
+      <i class="play icon"></i>Tube
+    </a>
+    <a href="/upload" class="item">Upload</a>
+    <a href="/settings" class="item">Settings</a>
+    <a href="https://steemit.com/@heimindanger" class="item">Blog</a>
+    {{#if isLoggedOn}}
+      {{> users}}
+    {{else}}
+      <div class="ui inline right floated item">
+        <a href="/login" class="ui youtube button">Login</a>
+      </div>
+    {{/if}}
+  </div>
+</template>

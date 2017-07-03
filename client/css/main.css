@@ -1,0 +1,25 @@
+/* CSS declarations go here */
+.padding-side {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#textlogo {
+  font-size: 22px;
+  color: red;
+}
+
+.input.inputLarge {
+  width: 400px;
+}
+
+.inputLarge > input {
+  max-height: 36px;
+}
+
+.article {
+  margin-left: 3em !important;
+  margin-right: 3em !important;
+  padding: 3em 0em;
+  margin-top: 50px;
+}

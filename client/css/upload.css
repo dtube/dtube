@@ -1,0 +1,44 @@
+#dropzone {
+  font-size: 18px;
+  text-align: center;
+  color: gray;
+  width: 400px;
+  height: 260px;
+  border: 5px solid red;
+}
+#dropzone > div {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#previewzone {
+  margin-top: 20px;
+}
+
+#previewzone canvas {
+  max-width:100%;
+  max-height: 250px;
+}
+
+#previewzone video {
+  max-width:100%;
+  max-height: 250px;
+}
+
+#infozone {
+  margin-top: 20px;
+}
+
+#snapFile {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+#previewzone input[type="file"]{
+  display: none;
+}

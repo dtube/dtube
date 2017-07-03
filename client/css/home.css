@@ -1,0 +1,46 @@
+.videoband {
+  /*text-align:center;*/
+}
+
+.videosnap {
+  margin-right: 4px;
+  display: inline-block;
+  width: 210px;
+  margin-bottom: 24px;
+  vertical-align:top;
+}
+
+.videosnaptitle {
+  color: black;
+  display: block;
+  margin: 8px 0 8px;
+  max-height: 3.2rem;
+  overflow: hidden;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.6rem;
+}
+
+.videosnapsnap {
+  position: relative;
+}
+
+.videosnapsnap .remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 100;
+  background-color: #FFF;
+  padding: 5px 4px 5px;
+  color: #000;
+  cursor: pointer;
+  opacity: .2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+}
+
+.videosnapsnap .remove:hover {
+  opacity: 1;
+}

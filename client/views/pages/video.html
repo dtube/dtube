@@ -1,0 +1,13 @@
+<template name='video'>
+  {{#with video}}
+    <video src='{{ipfsGateway}}/ipfs/{{content.videohash}}' controls autoplay class='videoplayer'></video>
+    <h1>{{info.title}}</h1>
+    {{{customSyntax content.description}}}
+    <hr>
+    Author: {{info.author}}
+    Permlink: {{info.permlink}}
+    Snap Hash: {{info.snaphash}}
+    <br />
+    Video Hash: {{content.videohash}}
+  {{/with}}
+</template>

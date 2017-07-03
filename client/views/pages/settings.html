@@ -1,0 +1,22 @@
+<template name='settings'>
+  <form class="ui form">
+
+    <div class="field">
+      <label>Upload IPFS Node</label>
+      <select name='ipfsUpload'>
+        {{#each uploadNodes}}
+          <option value="{{ip}}">{{owner}} {{ip}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="field">
+      <label>IPFS Gateway</label>
+      <select name='ipfsGateway'>
+        {{#each displayNodes}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <button class="ui youtube button" type="submit">Submit</button>
+  </form>
+</template>
