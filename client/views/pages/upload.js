@@ -120,7 +120,7 @@ Template.upload.events({
     console.log(article)
     Waka.api.Set(article, {}, function(e,r) {
       Videos.refreshWaka()
-
+      console.log('Test')
       // publish on blockchain !!
       var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
       var author = r.article.info.author
@@ -132,6 +132,7 @@ Template.upload.events({
         tags: article.content.tags,
         app: 'dtube'
       }
+      console.log(wif, '', tags[0], author, permlink, title, body, jsonMetadata)
       steem.broadcast.comment(wif, '', tags[0], author, permlink, title, body, jsonMetadata, function(err, result) {
         console.log(err, result);
       });

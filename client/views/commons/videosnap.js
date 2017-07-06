@@ -1,7 +1,8 @@
 Template.videosnap.events({
   'click .remove': function() {
-    Waka.db.Articles.remove(this._id, function(r) {
-      Videos.remove({}, function(r) {
+    var removeId = this._id
+    Waka.db.Articles.remove(removeId, function(r) {
+      Videos.remove({_id: removeId}, function(r) {
         Videos.refreshWaka()
       })
     })

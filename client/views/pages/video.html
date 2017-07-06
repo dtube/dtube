@@ -1,10 +1,106 @@
 <template name='video'>
   {{#with video}}
     <video src='{{ipfsGateway}}/ipfs/{{content.videohash}}' controls autoplay class='videoplayer'></video>
-    <h1>{{info.title}}</h1>
-    {{{customSyntax content.description}}}
-    <hr>
-    Author: {{info.author}}
+    <div class="ui grid">
+      <div class="twelve wide column">
+        <h1>{{info.title}}</h1>
+      </div>
+      <div class="four wide column right aligned">
+        <div class="mini ui labeled button" tabindex="0">
+          <div class="mini ui youtube button">
+            <i class="thumbs up icon"></i>
+          </div>
+          <a class="mini ui basic youtube left pointing label">
+            {{upvotes active_votes}}
+          </a>
+        </div>
+        <div class="mini ui labeled button" tabindex="0">
+          <div class="mini ui button">
+            <i class="thumbs down icon"></i>
+          </div>
+          <a class="mini ui basic left pointing label">
+            {{downvotes active_votes}}
+          </a>
+        </div>
+        <br />
+        <div class='videopayout'>
+          {{pending_payout_value}}
+        </div>
+      </div>
+    </div>
+
+    <div class="sixteen wide column">
+      By
+      <a class="ui avatar image">
+        <img src="{{userPic info.author}}">
+      </a>
+      {{info.author}} <strong>{{created}}</strong>
+      <br />
+      {{{customSyntax content.description}}}
+    </div>
+
+
+    <h3 class="ui dividing header">Comments</h3>
+    {{#if isReplying this}}
+      <form class="ui reply form">
+        <div class="ui grid">
+          <div class="twelve wide column">
+            <div class="field">
+              <textarea style='height: 5em;min-height:5em'></textarea>
+            </div>
+          </div>
+          <div class="four wide column">
+            <div class="tiny ui youtube submit labeled icon button right aligned">
+              <i class="icon edit"></i> Reply
+            </div>
+          </div>
+        </div>
+      </form>
+    {{/if}}
+
+
+
+    <div class="twelve wide column">
+      <div class="ui comments" style='max-width: 9999px'>
+        {{#each comments}}
+          <div class="comment">
+            <a class="avatar">
+              <img src="{{userPic author}}">
+            </a>
+            <div class="content">
+              <a class="author">{{author}}</a>
+              <div class="metadata">
+                <span class="date">Today at 5:42PM</span>
+              </div>
+              <div class="text">
+                {{body}}
+              </div>
+              <div class="actions">
+                <a class="reply">Reply</a>
+              </div>
+              {{#if isReplying this}}
+                <form class="ui reply form">
+                  <div class="ui grid">
+                    <div class="twelve wide column">
+                      <div class="field">
+                        <textarea style='height: 5em;min-height:5em'></textarea>
+                      </div>
+                    </div>
+                    <div class="four wide column">
+                      <div class="tiny ui youtube submit labeled icon button right aligned">
+                        <i class="icon edit"></i> Reply
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    Author:
     Permlink: {{info.permlink}}
     Snap Hash: {{info.snaphash}}
     <br />

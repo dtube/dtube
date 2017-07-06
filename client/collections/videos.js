@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 Videos = new Mongo.Collection(null)
 
 firstLoad = setInterval(function() {
@@ -53,13 +55,13 @@ Videos.refreshWaka = function() {
 }
 
 Videos.refreshBlockchain = function() {
+  if (!steem) return;
   steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": 6}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
         for (i = 0; i < len; i++) {
-            var discussion = result[i];
-            var video = Waka.api.NewHash(JSON.parse(discussion.json_metadata).video);
+            var video = Videos.parseFromChain(result[i])
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
@@ -79,8 +81,7 @@ Videos.refreshBlockchain = function() {
         var i, len = result.length;
         var videos = []
         for (i = 0; i < len; i++) {
-            var discussion = result[i];
-            var video = Waka.api.NewHash(JSON.parse(discussion.json_metadata).video);
+            var video = Videos.parseFromChain(result[i])
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
@@ -100,8 +101,7 @@ Videos.refreshBlockchain = function() {
         var i, len = result.length;
         var videos = []
         for (i = 0; i < len; i++) {
-            var discussion = result[i];
-            var video = Waka.api.NewHash(JSON.parse(discussion.json_metadata).video);
+            var video = Videos.parseFromChain(result[i])
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
@@ -116,4 +116,13 @@ Videos.refreshBlockchain = function() {
         console.log(err);
     }
   });
+}
+
+Videos.parseFromChain = function(video) {
+  var newVideo = JSON.parse(video.json_metadata).video
+  newVideo.active_votes = video.active_votes
+  newVideo.pending_payout_value = video.pending_payout_value
+  newVideo.created = video.created
+  newVideo.created = moment(video.created).fromNow()
+  return newVideo;
 }

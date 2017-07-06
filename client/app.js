@@ -1,7 +1,11 @@
+import './buffer';
+
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
+
+
 
 Meteor.startup(function(){
 
@@ -51,10 +55,10 @@ Meteor.startup(function(){
 
 
 
-  Waka.api.Emitter.on('peerchange', listener = function(){
-    Videos.refreshWaka()
-  })
-  Waka.api.Emitter.on('newshare', listener = function(article){
-    Videos.refreshWaka()
-  })
+  // Waka.api.Emitter.on('peerchange', listener = function(){
+  //   Videos.refreshWaka()
+  // })
+  // Waka.api.Emitter.on('newshare', listener = function(article){
+  //   Videos.refreshWaka()
+  // })
 })

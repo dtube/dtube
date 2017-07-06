@@ -1,15 +1,23 @@
 <template name='videosnap'>
-  <a href='/v/{{info.author}}/{{info.permlink}}'>
-    <div class='videosnap'>
+  <div class='videosnap'>
+    <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div class='videosnapsnap'>
         {{#if equals source 'wakaArticles'}}
           <span title='Stop sharing {{info.title}}' class="remove">&times;</span>
         {{/if}}
         <img id="img" height="118" width="210" alt="" src="{{ipfsGateway}}/ipfs/{{info.snaphash}}"><br />
       </div>
-      <div class='videosnaptitle'>
-        {{info.title}}
-      </div>
+    </a>
+    <div class='videosnaptitle'>
+      <a href='/v/{{info.author}}/{{info.permlink}}'>{{info.title}}</a>
     </div>
-  </a>
+    <div class='videosnapauthor'>
+      {{info.author}}
+    </div>
+    <div class='videosnaprest'>
+      {{pending_payout_value}} -
+      {{created}}
+    </div>
+
+  </div>
 </template>

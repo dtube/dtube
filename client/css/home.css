@@ -10,15 +10,23 @@
   vertical-align:top;
 }
 
+.videosnapauthor {
+  font-size: 0.9rem;
+}
+
+.videosnaprest {
+  font-size: 0.9rem;
+}
+
 .videosnaptitle {
   color: black;
   display: block;
-  margin: 8px 0 8px;
-  max-height: 3.2rem;
+  margin: 0px 0 0px;
+  max-height: 2.2rem;
   overflow: hidden;
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.6rem;
+  font-size: 1.0rem;
+  font-weight: 600;
+  line-height: 1.1rem;
 }
 
 .videosnapsnap {
