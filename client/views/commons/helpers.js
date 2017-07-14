@@ -45,3 +45,10 @@ Template.registerHelper('isReplying', function (content) {
     return true
   return false
 });
+
+Template.registerHelper('displayCurrency', function(string) {
+  var amount = string.split(' ')[0]
+  var currency = string.split(' ')[1]
+  if (currency == 'SBD') return '$'+amount
+  return amount;
+})

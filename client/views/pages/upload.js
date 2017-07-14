@@ -54,6 +54,7 @@ Template.upload.events({
       var nodeUrl = Meteor.settings.public.uploadNodes[0].ip
       if (Session.get('ipfsUpload')) nodeUrl = Session.get('ipfsUpload')
       Template.upload.IPFS(nodeUrl, event.target.result, function(e, r) {
+        if (e) console.log(e)
         console.log('Uploaded video', r);
         $('input[name="videohash"]').val(r[0].hash)
       })
@@ -91,6 +92,7 @@ Template.upload.events({
       var nodeUrl = Meteor.settings.public.uploadNodes[0].ip
       if (Session.get('ipfsUpload')) nodeUrl = Session.get('ipfsUpload')
       Template.upload.IPFS(nodeUrl, event.target.result, function(e, r) {
+        if (e) console.log(e)
         console.log('Uploaded Snap', r)
         $('input[name="snaphash"]').val(r[0].hash)
       })

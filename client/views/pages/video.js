@@ -46,3 +46,9 @@ Template.video.helpers({
     return video
   }
 })
+
+Template.login.events({
+  'click .upvote': function(event) {
+
+  }
+})

@@ -4,41 +4,29 @@
     <div class="ui grid">
       <div class="twelve wide column">
         <h1>{{info.title}}</h1>
+        By
+        <a class="ui avatar image">
+          <img src="{{userPic info.author}}">
+        </a>
+        {{info.author}} <strong>{{created}}</strong>
+        <br />
+        {{{customSyntax content.description}}}
       </div>
       <div class="four wide column right aligned">
-        <div class="mini ui labeled button" tabindex="0">
-          <div class="mini ui youtube button">
-            <i class="thumbs up icon"></i>
-          </div>
-          <a class="mini ui basic youtube left pointing label">
-            {{upvotes active_votes}}
-          </a>
-        </div>
-        <div class="mini ui labeled button" tabindex="0">
-          <div class="mini ui button">
-            <i class="thumbs down icon"></i>
-          </div>
-          <a class="mini ui basic left pointing label">
-            {{downvotes active_votes}}
-          </a>
-        </div>
-        <br />
         <div class='videopayout'>
-          {{pending_payout_value}}
+          {{displayCurrency pending_payout_value}}
         </div>
+        <a class="small ui label basic">
+          <i class="thumbs up icon"></i> {{upvotes active_votes}}
+        </a>
+
+        <a class="small ui label basic">
+          <i class="thumbs down icon"></i> {{downvotes active_votes}}
+        </a>
+        <br />
+
       </div>
     </div>
-
-    <div class="sixteen wide column">
-      By
-      <a class="ui avatar image">
-        <img src="{{userPic info.author}}">
-      </a>
-      {{info.author}} <strong>{{created}}</strong>
-      <br />
-      {{{customSyntax content.description}}}
-    </div>
-
 
     <h3 class="ui dividing header">Comments</h3>
     {{#if isReplying this}}
