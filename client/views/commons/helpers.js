@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 Template.registerHelper('equals', function (one, two) {
   if (one == two) return true;
   return false;
@@ -47,8 +49,14 @@ Template.registerHelper('isReplying', function (content) {
 });
 
 Template.registerHelper('displayCurrency', function(string) {
+  if (!string) return
   var amount = string.split(' ')[0]
   var currency = string.split(' ')[1]
   if (currency == 'SBD') return '$'+amount
   return amount;
+})
+
+Template.registerHelper('timeAgo', function(created) {
+  if (!created) return
+  return moment(created).fromNow()
 })

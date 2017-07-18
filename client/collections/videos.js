@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 Videos = new Mongo.Collection(null)
 
 firstLoad = setInterval(function() {
@@ -16,6 +14,7 @@ Videos.refreshWaka = function() {
     // articles we share
     for (var i = 0; i < r.length; i++) {
       r[i].source = 'wakaArticles'
+      r[i]._id += 'w'
       try {
         Videos.upsert({_id: r[i]._id}, r[i])
       } catch(err) {
@@ -45,6 +44,7 @@ Videos.refreshWaka = function() {
 
     for (var i = 0; i < videos.length; i++) {
       videos[i].source = 'wakaPeers'
+      videos[i]._id += 'p'
       try {
         Videos.upsert({_id: videos[i]._id}, videos[i])
       } catch(err) {
@@ -62,10 +62,11 @@ Videos.refreshBlockchain = function() {
         var videos = []
         for (i = 0; i < len; i++) {
             var video = Videos.parseFromChain(result[i])
-            videos.push(video)
+            if (video) videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
           videos[i].source = 'chainByCreated'
+          videos[i]._id += 'c'
           try {
             Videos.upsert({_id: videos[i]._id}, videos[i])
           } catch(err) {
@@ -82,10 +83,12 @@ Videos.refreshBlockchain = function() {
         var videos = []
         for (i = 0; i < len; i++) {
             var video = Videos.parseFromChain(result[i])
+            if (!video) continue;
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
           videos[i].source = 'chainByHot'
+          videos[i]._id += 'h'
           try {
             Videos.upsert({_id: videos[i]._id}, videos[i])
           } catch(err) {
@@ -102,10 +105,12 @@ Videos.refreshBlockchain = function() {
         var videos = []
         for (i = 0; i < len; i++) {
             var video = Videos.parseFromChain(result[i])
+            if (!video) continue;
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
           videos[i].source = 'chainByTrending'
+          videos[i]._id += 't'
           try {
             Videos.upsert({_id: videos[i]._id}, videos[i])
           } catch(err) {
@@ -120,9 +125,10 @@ Videos.refreshBlockchain = function() {
 
 Videos.parseFromChain = function(video) {
   var newVideo = JSON.parse(video.json_metadata).video
+  if (!newVideo) return null;
   newVideo.active_votes = video.active_votes
+  newVideo.total_payout_value = video.total_payout_value
   newVideo.pending_payout_value = video.pending_payout_value
   newVideo.created = video.created
-  newVideo.created = moment(video.created).fromNow()
   return newVideo;
 }

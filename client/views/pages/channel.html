@@ -1,0 +1,6 @@
+<template name='channel'>
+  <h2>Videos by {{user.name}}</h2>
+  {{#if userVideos}}
+    {{> videoband userVideos}}
+  {{/if}}
+</template>

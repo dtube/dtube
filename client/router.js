@@ -48,6 +48,16 @@ FlowRouter.route('/v/:author/:permlink', {
   }
 });
 
+FlowRouter.route('/c/:author', {
+  name: "channel",
+  action: function(params, queryParams) {
+    BlazeLayout.render('masterLayout', {
+      main: "channel",
+      nav: "nav"
+    });
+  }
+});
+
 FlowRouter.notFound = {
   action: function() {
     BlazeLayout.render('masterLayout', {
