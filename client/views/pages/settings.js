@@ -11,6 +11,11 @@ Template.settings.events({
   'submit .form': function(event) {
     event.preventDefault()
     var ipfsUpload = event.target.ipfsUpload.value;
+    for (var i = 0; i < Meteor.settings.public.uploadNodes.length; i++) {
+      if (Meteor.settings.public.uploadNodes[i].owner == ipfsUpload) {
+        ipfsUpload = Meteor.settings.public.uploadNodes[i].node
+      }
+    }
     var ipfsGateway = event.target.ipfsGateway.value;
     Session.set('ipfsGateway', ipfsGateway)
     Session.set('ipfsUpload', ipfsUpload)

@@ -12,7 +12,7 @@ Template.upload.createPermlink = function(length) {
   return text;
 }
 
-Template.upload.IPFS = function(nodeUrl, buffer, cb) {
+Template.upload.IPFS = function(node, buffer, cb) {
   // native ipfs way
   // var filePair = {
   //   path: file.name,
@@ -22,9 +22,9 @@ Template.upload.IPFS = function(nodeUrl, buffer, cb) {
   //   console.log('Succesfully added file', res)
   // })
 
-  // through our own ipfs node
-  var ipfsApi = IpfsApi(nodeUrl, '5001')
-  ipfsApi.add(new ipfs.types.Buffer(buffer), function(err, res) {
+  // through an existing node
+  var ipfsCon = IpfsApi(node)
+  ipfsCon.add(new ipfs.types.Buffer(buffer), function(err, res) {
     cb(err, res)
   })
 }
@@ -51,9 +51,9 @@ Template.upload.events({
     // uploading to ipfs
     var reader = new window.FileReader()
     reader.onload = function(event) {
-      var nodeUrl = Meteor.settings.public.uploadNodes[0].ip
-      if (Session.get('ipfsUpload')) nodeUrl = Session.get('ipfsUpload')
-      Template.upload.IPFS(nodeUrl, event.target.result, function(e, r) {
+      var node = Meteor.settings.public.uploadNodes[0]
+      if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
+      Template.upload.IPFS(node, event.target.result, function(e, r) {
         if (e) console.log(e)
         console.log('Uploaded video', r);
         $('input[name="videohash"]').val(r[0].hash)
@@ -89,9 +89,9 @@ Template.upload.events({
     var file = event.currentTarget.files[0];
     var reader = new FileReader();
     reader.onload = function(event) {
-      var nodeUrl = Meteor.settings.public.uploadNodes[0].ip
-      if (Session.get('ipfsUpload')) nodeUrl = Session.get('ipfsUpload')
-      Template.upload.IPFS(nodeUrl, event.target.result, function(e, r) {
+      var node = Meteor.settings.public.uploadNodes[0]
+      if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
+      Template.upload.IPFS(node, event.target.result, function(e, r) {
         if (e) console.log(e)
         console.log('Uploaded Snap', r)
         $('input[name="snaphash"]').val(r[0].hash)

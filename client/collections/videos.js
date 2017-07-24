@@ -125,10 +125,24 @@ Videos.refreshBlockchain = function() {
 
 Videos.parseFromChain = function(video) {
   var newVideo = JSON.parse(video.json_metadata).video
-  if (!newVideo) return null;
+  if (!newVideo) newVideo = {}
   newVideo.active_votes = video.active_votes
+  newVideo.author = video.author
+  newVideo.body = video.body
   newVideo.total_payout_value = video.total_payout_value
   newVideo.pending_payout_value = video.pending_payout_value
+  newVideo.permlink = video.permlink
   newVideo.created = video.created
   return newVideo;
+}
+
+Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
+  var rootVideo = content[rootAuthor+'/'+rootPermlink]
+  var comments = []
+  for (var i = 0; i < rootVideo.replies.length; i++) {
+    var comment = Videos.parseFromChain(content[rootVideo.replies[i]])
+    comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink)
+    comments.push(comment)
+  }
+  return comments
 }

@@ -5,7 +5,7 @@
       <label>Upload IPFS Node</label>
       <select name='ipfsUpload'>
         {{#each uploadNodes}}
-          <option value="{{ip}}">{{owner}} {{ip}}</option>
+          <option value="{{owner}}">{{owner}} {{node.protocol}}://{{node.host}}:{{node.port}}</option>
         {{/each}}
       </select>
     </div>

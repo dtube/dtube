@@ -1,16 +1,33 @@
 Meteor.settings.public = {
   "uploadNodes": [
     {
-      "owner": "my own local node",
-      "ip": "127.0.0.1"
+      'owner': 'heimindanger',
+      'node': {
+        'host': 'ipfsstore.it',
+        'port': 4443,
+        'protocol': 'https'
+      }
     },
     {
-      "owner": "lukestokes",
-      "ip": "ipfs.lukestokes.info"
+      'owner': 'lukestokes',
+      'node': {
+        'host': 'ipfs.lukestokes.info',
+        'port': 5001,
+        'protocol': 'http'
+      }
+    },
+    {
+      'owner': 'myself',
+      'node': {
+        'host': 'localhost',
+        'port': 5001,
+        'protocol': 'http'
+      }
     }
   ],
   "displayNodes": [
     "https://gateway.ipfs.io",
-    "http://ipfsstore.it:8080"
+    "http://ipfsstore.it:8080",
+    "https://ipfs.view.ly"
   ]
 }
