@@ -58,6 +58,16 @@ FlowRouter.route('/c/:author', {
   }
 });
 
+FlowRouter.route('/s/:query', {
+  name: "search",
+  action: function(params, queryParams) {
+    BlazeLayout.render('masterLayout', {
+      main: "search",
+      nav: "nav"
+    });
+  }
+});
+
 FlowRouter.notFound = {
   action: function() {
     BlazeLayout.render('masterLayout', {
