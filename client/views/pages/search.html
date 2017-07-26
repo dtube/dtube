@@ -1,9 +1,16 @@
 <template name='search'>
-  <h1>Search results for {{search.query}}</h1>
-  {{#each search.response.results}}
-    <div>
-      <h2>{{title}}</h2>
-      <h3>{{author}}</h3>
+  <div class="ui grid">
+    <div class="twelve wide column">
+      <h1>Search results for {{search.query}}</h1>
+      <h4 class='gray'>{{lengthOf search.response.results}} result{{#if isPlural search.response.results}}s{{/if}}</h4>
     </div>
-  {{/each}}
+    <div class="four wide column">
+      <h1><a href='https://www.asksteem.com/' target='_blank'><img class="ui tiny right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png"></a></h1>
+    </div>
+  </div>
+  <div class="ui grid">
+    {{#each search.response.results}}
+      {{> videosearchresult}}
+    {{/each}}
+  </div>
 </template>

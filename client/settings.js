@@ -26,6 +26,7 @@ Meteor.settings.public = {
     }
   ],
   "displayNodes": [
+    "https://ipfs.io",
     "https://gateway.ipfs.io",
     "http://ipfsstore.it:8080",
     "https://ipfs.view.ly"

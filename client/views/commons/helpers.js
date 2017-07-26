@@ -102,3 +102,14 @@ Template.registerHelper('hasDownvoted', function(video) {
   }
   return false
 })
+
+Template.registerHelper('lengthOf', function(array) {
+  if (!array) return
+  return array.length
+})
+
+Template.registerHelper('isPlural', function(array) {
+  if (!array) return
+  if (array.length == 1) return false
+  return true
+})

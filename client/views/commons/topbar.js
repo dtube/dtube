@@ -14,14 +14,14 @@ Template.topbar.events({
   },
   'keyup #dsearch': function(event) {
     var query = event.target.value
-    if (query.length < 3) {
+    if (query.length < 1) {
       $('.results').hide()
       return
     }
-    $.get("https://api.asksteem.com/suggestions?term=tags:dtube &amp;&amp; "+query, function(rawSuggestions) {
+    $.get("https://api.asksteem.com/suggestions?term=tags:dtube AND "+query, function(rawSuggestions) {
       var suggestions = []
       for (var i = 0; i < rawSuggestions.length; i++) {
-        if (rawSuggestions[i].startsWith("tags:dtube &amp;&amp; ")) {
+        if (rawSuggestions[i].startsWith("tags:dtube and ")) {
           suggestions.push(rawSuggestions[i].substr(15))
         }
       }
@@ -34,10 +34,9 @@ Template.topbar.events({
     event.preventDefault()
     var query = event.target.search.value;
     Session.set('search', {query: query})
-    $.get("https://api.asksteem.com/search?q=tags:dtube &amp;&amp; "+query, function(response) {
+    $.get("https://api.asksteem.com/search?include=meta&q=tags:dtube AND "+query, function(response) {
       Session.set('search', {query: query, response: response})
     });
     FlowRouter.go('/s/'+query)
-    $('.results').hide()
   }
 });
