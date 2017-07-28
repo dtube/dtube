@@ -1,6 +1,10 @@
 <template name='settings'>
   <form class="ui form">
-
+    <div class="field">
+      <label>Vote Percentage</label>
+      <div class="ui vertical hover labeled range"></div>
+      <input type='number' min='0.01' max='100' step='0.01'>
+    </div>
     <div class="field">
       <label>Upload IPFS Node</label>
       <select name='ipfsUpload'>

@@ -1,3 +1,12 @@
+Template.settings.onRendered = function() {
+  $('.ui.range').range({
+    min: 0,
+    max: 10,
+    start: 5,
+    step: 1,
+  });
+}
+
 Template.settings.helpers({
   uploadNodes: function() {
     return Meteor.settings.public.uploadNodes;
