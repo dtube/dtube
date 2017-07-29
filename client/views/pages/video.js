@@ -36,9 +36,10 @@ Template.video.events({
     var voter = Users.findOne({username: Session.get('activeUsername')}).username
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
-    var weight = 10000 // 100%
-    console.log(wif, voter, author, permlink, weight)
+    var weight = Session.get('voteWeight')*100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, 'Could not vote')
+      else toastr.success(weight/100+'% vote for '+author+'/'+permlink)
       Template.video.loadState()
     });
   },
@@ -47,9 +48,10 @@ Template.video.events({
     var voter = Users.findOne({username: Session.get('activeUsername')}).username
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
-    var weight = -10000 // -100%
-    console.log(wif, voter, author, permlink, weight)
+    var weight = Session.get('voteWeight')*-100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, 'Could not vote')
+      else toastr.success(weight/100+'% downvote for '+author+'/'+permlink)
       Template.video.loadState()
     });
   },

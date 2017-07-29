@@ -22,9 +22,7 @@
       <a class="ui item" href='/upload' title='Upload a Video'>
         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
       </a>
-      <a class="ui item" href='/settings' title='Settings'>
-        <i class="settings icon" style='font-size:1.5em; margin:0;'></i>
-      </a>
+      {{> settingsdropdown}}
       {{#if isLoggedOn}}
         {{> users}}
       {{else}}

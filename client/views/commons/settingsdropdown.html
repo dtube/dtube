@@ -1,0 +1,49 @@
+<template name='settingsdropdown'>
+  <div class="ui item top left pointing dropdown dropdownsettings">
+    <i class="settings icon" style='font-size:1.5em; margin:0;'></i>
+    <div class="menu">
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">Voting @ {{voteWeight}}%</span>
+        <div class="left menu">
+          <div class="item voteWeight">+10%</div>
+          <div class="item voteWeight">+1%</div>
+          <div class="item voteWeight">-1%</div>
+          <div class="item voteWeight">-10%</div>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="header">IPFS Settings</div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">Gateway</span>
+        <div class="left menu">
+          {{#each displayNodes}}
+            {{#if equals this ipfsGateway}}
+              <div class="item ipfsGateway"><strong>{{this}}</strong></div>
+            {{else}}
+              <div class="item ipfsGateway">{{this}}</div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">API</span>
+        <div class="left menu">
+          {{#each uploadNodes}}
+            {{#if equals node.host ipfsUpload.host}}
+              <div class="item ipfsUpload">
+                <strong>{{node.protocol}}://{{node.host}}:{{node.port}}</strong>
+              </div>
+            {{else}}
+              <div class="item ipfsUpload">
+                {{node.protocol}}://{{node.host}}:{{node.port}}
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
