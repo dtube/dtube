@@ -1,6 +1,7 @@
 Template.settingsdropdown.rendered = function() {
   $('.dropdownsettings').dropdown({
-    onChange: function(value,text,e) {
+    action: function(text, value, e) {
+      var e = $(e)
       if (e.hasClass('voteWeight')) {
         var currentPercent = Session.get('voteWeight')
         var nextPercent = currentPercent+parseInt(value)
@@ -18,7 +19,6 @@ Template.settingsdropdown.rendered = function() {
       } else {
         console.log(value,text,e)
       }
-      e.stopPropagation();
     }
   })
 
@@ -48,7 +48,5 @@ Template.settingsdropdown.helpers({
 })
 
 Template.settingsdropdown.events({
-  'change .votepercentinput, keyup .votepercentinput': function(event) {
-    console.log(event.target.value)
-  }
+
 })

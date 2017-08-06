@@ -1,18 +1,20 @@
 <template name='videosearchresult'>
-  <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
-    <div class='videosnapsnap'>
-      <img class="ui small left floated image" height="118" width="210" alt="" src="{{ipfsGateway}}/ipfs/{{meta.video.info.snaphash}}"><br />
-    </div>
-  </a>
-  <p>
-    <div class='videosnaptitle'>
-      <a href='/v/{{author}}/{{permlink}}'>{{title}}</a>
-    </div>
-    <div class='videosnapauthor'>
-      <a href='/c/{{author}}'>{{author}}</a>
-    </div>
-    <div class='videosnaprest'>
-      {{timeAgo created}}
-    </div>
-  </p>
+  <div class='row'>
+    <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
+      <div class='videosnapsnap'>
+        <img class="ui small left floated image" height="118" width="210" alt="" src="{{ipfsGateway}}/ipfs/{{meta.video.info.snaphash}}"><br />
+      </div>
+    </a>
+    <p>
+      <div class='videosnaptitle'>
+        <a href='/v/{{author}}/{{permlink}}'>{{title}}</a>
+      </div>
+      <div class='videosnapauthor'>
+        <a href='/c/{{author}}'>{{author}}</a>
+      </div>
+      <div class='videosnaprest'>
+        {{timeAgo created}}
+      </div>
+    </p>
+  </div>
 </template>

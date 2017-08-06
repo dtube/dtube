@@ -38,5 +38,9 @@ Template.topbar.events({
       Session.set('search', {query: query, response: response})
     });
     FlowRouter.go('/s/'+query)
+  },
+  'click .result': function(event) {
+    $('#dsearch').val(this)
+    $('.searchForm').submit()
   }
 });

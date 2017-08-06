@@ -94,7 +94,6 @@ Template.video.loadState = function() {
     video.source = 'chainDirect'
     video._id += 'd'
     Videos.upsert({_id: video._id}, video)
-
     Waka.api.Set({info:video.info, content:video.content}, {}, function(e,r) {
       Videos.refreshWaka()
     })
