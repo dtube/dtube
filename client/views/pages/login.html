@@ -5,14 +5,22 @@
         <div class="ui stacked segment">
           <div class="field">
             <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="username" placeholder="STEEM Username">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
               <i class="lock icon"></i>
               <input type="password" name="privatekey" placeholder="Private Posting Key">
             </div>
           </div>
           <button type="submit" name="button" class="ui fluid large youtube submit button">Login</button>
         </div>
-        <div class="ui error message"></div>
       </form>
+      <div class="ui message">
+        No Account? <a href="https://steemit.com/pick_account" target="_blank">Sign Up on steemit.com</a>
+      </div>
     </div>
   </div>
 </template>
