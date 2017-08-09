@@ -74,7 +74,7 @@ Template.upload.uploadVideo = function(dt) {
 Template.upload.genBody = function(title, snaphash, videohash, description) {
   var body = '<center>'
   body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'>'
-  body += '<img src=\''+snaphash+'\'>'
+  body += '<img src=\'https://ipfs.io/ipfs/'+snaphash+'\'>'
   body += '<h2>Watch '+title+' video on IPFS</h2></a></center><hr>'
   body += description
   return body
@@ -181,8 +181,10 @@ Template.upload.events({
     var tags = ['dtube']
     for (var i = 0; i < event.target.tags.value.split(' ').length; i++) {
       if (i > 3) break
+      if (event.target.tags.value.split(' ')[i] == 'nsfw') tags.push('nsfw')
       tags.push('dtube-'+event.target.tags.value.split(' ')[i])
     }
+    tags = tags.slice(0,5)
     var article = {
       info: {
         title: event.target.title.value,
@@ -212,10 +214,9 @@ Template.upload.events({
       toastr.error('Please upload a video before submitting', 'Error')
       return
     }
-    console.log(article)
+    $('#step3load').show()
     Waka.api.Set(article, {}, function(e,r) {
       Videos.refreshWaka()
-      console.log('Test')
       // publish on blockchain !!
       var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
       var author = r.article.info.author
@@ -227,7 +228,6 @@ Template.upload.events({
         tags: article.content.tags,
         app: Meteor.settings.public.app
       }
-      console.log(wif, '', tags[0], author, permlink, title, body, jsonMetadata)
 
       var operations = [
         ['comment',
@@ -238,7 +238,7 @@ Template.upload.events({
             permlink: permlink,
             title: title,
             body: body,
-            json_metadata : jsonMetadata
+            json_metadata : JSON.stringify(jsonMetadata)
           }
         ],
         ['comment_options', {
@@ -258,14 +258,16 @@ Template.upload.events({
           ]
         }]
       ];
-
+      $('#step3load').show()
+      console.log(operations)
       steem.broadcast.send(
         { operations: operations, extensions: [] },
-        { posting: wif+'zzz' },
+        { posting: wif },
         function(e, r) {
-          console.log(e,r)
+          $('#step3load').hide()
           if (e) {
-
+            console.log(e)
+            toastr.error('Error while submitting to the blockchain.', 'Error')
           } else {
             FlowRouter.go('/v/'+author+'/'+permlink)
           }

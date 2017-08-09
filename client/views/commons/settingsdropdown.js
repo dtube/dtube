@@ -16,12 +16,15 @@ Template.settingsdropdown.rendered = function() {
           port: value.split('://')[1].split(':')[1],
           protocol: value.split('://')[0]
         })
+      } else if (e.hasClass('nsfwSetting')) {
+        Session.set('nsfwSetting', text)
       } else {
         console.log(value,text,e)
       }
     }
   })
 
+  Session.set('nsfwSetting', 'Hide Picture')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
   Session.set('ipfsGateway', Meteor.settings.public.displayNodes[Math.floor(Math.random() * Meteor.settings.public.displayNodes.length)])
@@ -30,6 +33,9 @@ Template.settingsdropdown.rendered = function() {
 }
 
 Template.settingsdropdown.helpers({
+  nsfwSetting: function() {
+    return Session.get('nsfwSetting');
+  },
   voteWeight: function() {
     return Session.get('voteWeight');
   },

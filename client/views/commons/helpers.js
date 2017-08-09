@@ -113,3 +113,31 @@ Template.registerHelper('isPlural', function(array) {
   if (array.length == 1) return false
   return true
 })
+
+Template.registerHelper('isNSFW', function(video) {
+  if (Session.get('nsfwSetting') == 'Show') return false
+  if (!video || !video.content || !video.content.tags) return false
+  if (video.content.tags.indexOf('nsfw') > -1) return true
+  return false
+})
+
+Template.registerHelper('isNSFWsearch', function(video) {
+  if (Session.get('nsfwSetting') == 'Show') return false
+  if (!video || !video.tags) return false
+  if (video.tags.indexOf('nsfw') > -1) return true
+  return false
+})
+
+Template.registerHelper('isNSFWFullyHidden', function(video) {
+  if (Session.get('nsfwSetting') != 'Fully Hidden') return false
+  if (!video || !video.content || !video.content.tags) return false
+  if (video.content.tags.indexOf('nsfw') > -1) return true
+  return false
+})
+
+Template.registerHelper('isNSFWFullyHiddensearch', function(video) {
+  if (Session.get('nsfwSetting') != 'Fully Hidden') return false
+  if (!video || !video.tags) return false
+  if (video.tags.indexOf('nsfw') > -1) return true
+  return false
+})

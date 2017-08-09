@@ -12,6 +12,27 @@
           <div class="item voteWeight">-10%</div>
         </div>
       </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">NSFW Videos</span>
+        <div class="left menu">
+          {{#if equals 'Show' nsfwSetting}}
+            <div class="item nsfwSetting"><strong>Show</strong></div>
+          {{else}}
+            <div class="item nsfwSetting">Show</div>
+          {{/if}}
+          {{#if equals 'Hide Picture' nsfwSetting}}
+            <div class="item nsfwSetting"><strong>Hide Picture</strong></div>
+          {{else}}
+            <div class="item nsfwSetting">Hide Picture</div>
+          {{/if}}
+          {{#if equals 'Fully Hidden' nsfwSetting}}
+            <div class="item nsfwSetting"><strong>Fully Hidden</strong></div>
+          {{else}}
+            <div class="item nsfwSetting">Fully Hidden</div>
+          {{/if}}
+        </div>
+      </div>
       <div class="ui divider"></div>
       <div class="header">IPFS Settings</div>
       <div class="item">

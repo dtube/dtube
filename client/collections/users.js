@@ -19,6 +19,7 @@ var firstLoad = setInterval(function() {
 
 
 Users.refreshUsers = function() {
+  Users.remove({})
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
