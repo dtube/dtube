@@ -5,7 +5,7 @@ ChainUsers.fetchNames = function(names) {
     for (var i = 0; i < result.length; i++) {
       var user = result[i]
       user.json_metadata = JSON.parse(user.json_metadata)
-      ChainUsers.upsert({_id: result[i].id}, user);
+      ChainUsers.upsert({_id: result[i].id}, Waka.api.DeleteFieldsWithDots(user));
     }
   });
 }

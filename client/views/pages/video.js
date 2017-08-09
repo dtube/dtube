@@ -86,7 +86,7 @@ Template.video.loadState = function() {
     for (var key in result.accounts) {
       var user = result.accounts[key]
       user.json_metadata = JSON.parse(user.json_metadata)
-      ChainUsers.upsert({_id: user.id}, user);
+      ChainUsers.upsert({_id: user.id}, Waka.api.DeleteFieldsWithDots(user));
     }
 
     var video = Videos.parseFromChain(result.content[FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink")])

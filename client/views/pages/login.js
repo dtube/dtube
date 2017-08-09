@@ -7,7 +7,7 @@ Template.login.helpers({
 Template.login.events({
   'submit .form': function(event) {
     event.preventDefault()
-    var username = event.target.username.value;
+    var username = event.target.username.value.toLowerCase().replace('@','');
     var privatekey = event.target.privatekey.value;
     if (!username || !privatekey) {
       toastr.error('Please fill both username and private posting key to login', 'Error')

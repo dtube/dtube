@@ -1,6 +1,7 @@
 Template.users.rendered = function() {
   $('.dropdownusers').dropdown({
-    onChange: function(value,text,e) {
+    action: function(text, value, e) {
+      var e = $(e)
       console.log(value,text,e)
     }
   })

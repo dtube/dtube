@@ -24,9 +24,60 @@ Template.upload.IPFS = function(node, buffer, cb) {
 
   // through an existing node
   var ipfsCon = IpfsApi(node)
-  ipfsCon.add(new ipfs.types.Buffer(buffer), function(err, res) {
+  ipfsCon.add(new ipfsCon.Buffer(buffer), function(err, res) {
     cb(err, res)
   })
+}
+
+Template.upload.uploadVideo = function(dt) {
+  if (!dt.files || dt.files.length == 0) {
+    toastr.error('Please select a file for upload', 'Error')
+    return
+  }
+  var file = dt.files[0]
+
+  if (file.type.split('/')[0] != 'video') {
+    toastr.error('The file you are trying to upload is not a video', 'Error')
+    return
+  }
+
+  $('#step1load').show()
+
+  $('#dropzone').hide()
+  $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))
+
+  // displaying the preview
+  var videoNode = document.querySelector('video')
+  var fileURL = URL.createObjectURL(file)
+  videoNode.src = fileURL
+
+  // uploading to ipfs
+  var reader = new window.FileReader()
+  reader.onload = function(event) {
+    var node = Meteor.settings.public.uploadNodes[0]
+    if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
+    Template.upload.IPFS(node, event.target.result, function(e, r) {
+      $('#step1load').hide()
+      if (e) {
+        toastr.error(e, 'IPFS Error while uploading')
+        return
+      } else {
+        $('#step1load').parent().addClass('completed')
+        console.log('Uploaded video', r);
+        $('input[name="videohash"]').val(r[0].hash)
+      }
+    })
+  }
+  reader.readAsArrayBuffer(file);
+}
+
+Template.upload.genBody = function(title, snaphash, videohash, description) {
+  var body = '<center>'
+  body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'>'
+  body += '<img src=\''+snaphash+'\'>'
+  body += '<h2>Watch '+title+' video on IPFS</h2></a></center><hr>'
+  body += description
+  return body
 }
 
 Template.upload.helpers({
@@ -36,30 +87,42 @@ Template.upload.helpers({
 })
 
 Template.upload.events({
+  'click #dropzone': function(event) {
+    $('#fileToUpload').click()
+  },
+  'change #fileToUpload': function(event) {
+    Template.upload.uploadVideo(event.target)
+  },
   'dropped #dropzone': function(event) {
-    $('#dropzone').hide()
-
-    var dt = event.originalEvent.dataTransfer
-    var file = dt.files[0]
-    $('input[name="title"]').val(file.name)
-
-    // displaying the preview
-    var videoNode = document.querySelector('video')
-    var fileURL = URL.createObjectURL(file)
-    videoNode.src = fileURL
-
-    // uploading to ipfs
-    var reader = new window.FileReader()
-    reader.onload = function(event) {
-      var node = Meteor.settings.public.uploadNodes[0]
-      if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-      Template.upload.IPFS(node, event.target.result, function(e, r) {
-        if (e) console.log(e)
-        console.log('Uploaded video', r);
-        $('input[name="videohash"]').val(r[0].hash)
-      })
-    }
-    reader.readAsArrayBuffer(file);
+    Template.upload.uploadVideo(event.originalEvent.dataTransfer)
+    // var dt = event.originalEvent.dataTransfer
+    // var file = dt.files[0]
+    //
+    // if (file.type.split('/')[0] != 'video') {
+    //   toastr.error('The file you are trying to upload is not a video', 'Error')
+    //   return
+    // }
+    //
+    // $('#dropzone').hide()
+    // $('input[name="title"]').val(file.name)
+    //
+    // // displaying the preview
+    // var videoNode = document.querySelector('video')
+    // var fileURL = URL.createObjectURL(file)
+    // videoNode.src = fileURL
+    //
+    // // uploading to ipfs
+    // var reader = new window.FileReader()
+    // reader.onload = function(event) {
+    //   var node = Meteor.settings.public.uploadNodes[0]
+    //   if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
+    //   Template.upload.IPFS(node, event.target.result, function(e, r) {
+    //     if (e) console.log(e)
+    //     console.log('Uploaded video', r);
+    //     $('input[name="videohash"]').val(r[0].hash)
+    //   })
+    // }
+    // reader.readAsArrayBuffer(file);
   },
   'click #snap': function(event) {
   	var video = document.querySelector('video')
@@ -87,14 +150,28 @@ Template.upload.events({
   },
   'change #snapFile': function(event) {
     var file = event.currentTarget.files[0];
+    var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
+    if (file.type.split('/')[0] != 'image') {
+      toastr.error('The file you are trying to upload is not an image', 'Error')
+      return
+    }
+
+    $('#step2load').show()
+
     var reader = new FileReader();
     reader.onload = function(event) {
       var node = Meteor.settings.public.uploadNodes[0]
       if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
       Template.upload.IPFS(node, event.target.result, function(e, r) {
-        if (e) console.log(e)
-        console.log('Uploaded Snap', r)
-        $('input[name="snaphash"]').val(r[0].hash)
+        $('#step2load').hide()
+        if (e) {
+          toastr.error(e, 'IPFS Error while uploading')
+          return
+        } else {
+          $('#step2load').parent().addClass('completed')
+          console.log('Uploaded Snap', r)
+          $('input[name="snaphash"]').val(r[0].hash)
+        }
       })
     };
     reader.readAsArrayBuffer(file);
@@ -119,6 +196,22 @@ Template.upload.events({
         tags: tags
       }
     }
+    if (!article.info.title) {
+      toastr.error('Title is required', 'Error')
+      return
+    }
+    if (!article.info.snaphash) {
+      toastr.error('Please upload a snap picture', 'Error')
+      return
+    }
+    if (!article.info.author) {
+      toastr.error('Please login before uploading', 'Error')
+      return
+    }
+    if (!article.content.videohash) {
+      toastr.error('Please upload a video before submitting', 'Error')
+      return
+    }
     console.log(article)
     Waka.api.Set(article, {}, function(e,r) {
       Videos.refreshWaka()
@@ -128,18 +221,62 @@ Template.upload.events({
       var author = r.article.info.author
       var permlink = r.article.info.permlink
       var title = r.article.info.title
-      var body = 'Please Ignore'
+      var body = Template.upload.genBody(title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
       var jsonMetadata = {
         video: r.article,
         tags: article.content.tags,
-        app: 'dtube'
+        app: Meteor.settings.public.app
       }
       console.log(wif, '', tags[0], author, permlink, title, body, jsonMetadata)
-      steem.broadcast.comment(wif, '', tags[0], author, permlink, title, body, jsonMetadata, function(err, result) {
-        console.log(err, result);
-      });
 
-      FlowRouter.go('/v/'+author+'/'+permlink)
+      var operations = [
+        ['comment',
+          {
+            parent_author: '',
+            parent_permlink: tags[0],
+            author: author,
+            permlink: permlink,
+            title: title,
+            body: body,
+            json_metadata : jsonMetadata
+          }
+        ],
+        ['comment_options', {
+          author: author,
+          permlink: permlink,
+          max_accepted_payout: '1000000.000 SBD',
+          percent_steem_dollars: 10000,
+          allow_votes: true,
+          allow_curation_rewards: true,
+          extensions: [
+            [0, {
+              beneficiaries: [{
+                account: Meteor.settings.public.beneficiary,
+                weight: Meteor.settings.public.dfees
+              }]
+            }]
+          ]
+        }]
+      ];
+
+      steem.broadcast.send(
+        { operations: operations, extensions: [] },
+        { posting: wif+'zzz' },
+        function(e, r) {
+          console.log(e,r)
+          if (e) {
+
+          } else {
+            FlowRouter.go('/v/'+author+'/'+permlink)
+          }
+        }
+      )
+
+      // no fees
+      // steem.broadcast.comment(wif, '', tags[0], author, permlink, title, body, jsonMetadata, function(err, result) {
+      //   console.log(err, result);
+      // });
+
     })
   }
 })

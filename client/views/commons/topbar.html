@@ -19,9 +19,16 @@
       </div>
     </div>
     <div class="right menu">
-      <a class="ui item" href='/upload' title='Upload a Video'>
-        <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
-      </a>
+      {{#if isLoggedOn}}
+        <a class="ui item" href='/upload' title='Upload a Video'>
+          <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
+        </a>
+      {{else}}
+        <a class="ui item" href='/login' title='Upload a Video'>
+          <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
+        </a>
+      {{/if}}
+
       {{> settingsdropdown}}
       {{#if isLoggedOn}}
         {{> users}}

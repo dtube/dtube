@@ -30,5 +30,8 @@ Meteor.settings.public = {
     "https://gateway.ipfs.io",
     "http://ipfsstore.it:8080",
     "https://ipfs.view.ly"
-  ]
+  ],
+  "app": 'dtube/0.1',
+  "dfees": 2500,
+  "beneficiary": "dtube"
 }

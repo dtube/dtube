@@ -1,8 +1,35 @@
 <template name='upload'>
   <center>
-    <div id="dropzone" class="dropzone">
-      <div>Drop a file to start the upload</div>
+    <div id="statuszone">
+      <div class="ui ordered steps">
+        <div class="step">
+          <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
+          <div class="content">
+            <div class="title">Video</div>
+            <div class="description">Upload a video</div>
+          </div>
+        </div>
+        <div class="step">
+          <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
+          <div class="content">
+            <div class="title">Snap</div>
+            <div class="description">Upload a thumbnail</div>
+          </div>
+        </div>
+        <div class="step">
+          <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
+          <div class="content">
+            <div class="title">Submit to the Blockchain</div>
+            <div class="description">Enter a title, description and tags</div>
+          </div>
+        </div>
+      </div>
     </div>
+    <br />
+    <div id="dropzone" class="dropzone">
+      <div>Drop a file or click to start the upload</div>
+    </div>
+    <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
   </center>
   <div id="previewzone">
     <div class="ui grid">
@@ -29,10 +56,10 @@
       </div>
       <div class="field">
         <label>Tags</label>
-        <input id="tags" name="tags" type="text" placeholder="" required="">
+        <input id="tags" name="tags" type="text" placeholder="">
       </div>
 
-      <div class="field">
+      <div class="field" style='display: none'>
         <label>More Info</label>
         <input type="text" name="author" placeholder="author" value="{{mainUser.username}}" disabled>
         <input type="text" name="videohash" placeholder="videohash" disabled>
