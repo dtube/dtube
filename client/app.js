@@ -5,11 +5,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
 
-
-
 Meteor.startup(function(){
-  $.getScript('js/ipfs-api.js', function(){
+  $.getScript('https://ipfs.io/ipfs/QmdatyQqU49jinY3wwNyYWAHXjYCLtPqXm1yYJywsdwVQ2', function(){
     console.log('IPFS API loaded')
+  });
+
+  $.getScript('https://ipfs.io/ipfs/QmYD4SXCBwqnhGm9vAQUSTeUth6Yuab9WPM2M3oeXE2xG2', function(){
+    console.log('Autolinker loaded')
   });
 
   toastr.options = {

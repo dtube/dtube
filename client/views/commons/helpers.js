@@ -1,13 +1,29 @@
 import moment from 'moment'
+import xss from 'xss'
+
+var autolinkerOptions = {
+  urls : {
+    schemeMatches : true,
+    wwwMatches    : true,
+    tldMatches    : true
+  },
+  email       : false,
+  phone       : false,
+  mention     : 'dtube',
+  hashtag     : false,
+  stripPrefix : true,
+  stripTrailingSlash : true,
+  newWindow   : true,
+  truncate : {
+      length   : 0,
+      location : 'end'
+  },
+  className : ''
+}
 
 Template.registerHelper('equals', function (one, two) {
   if (one == two) return true;
   return false;
-});
-
-Template.registerHelper('customSyntax', function (description) {
-  if (!description) return;
-  return description.replace(/(?:\r\n|\r|\n)/g, '<br />');
 });
 
 Template.registerHelper('count', function (array) {
@@ -140,4 +156,31 @@ Template.registerHelper('isNSFWFullyHiddensearch', function(video) {
   if (!video || !video.tags) return false
   if (video.tags.indexOf('nsfw') > -1) return true
   return false
+})
+
+Template.registerHelper('syntaxed', function(text) {
+  if (!text) return
+  // escape the string for security
+  text = xss(text)
+
+  // replace line breaks to html
+  text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+  // time travelling stuff
+  var re = /(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)/g
+  text.replace(re, function(match, p1, p2, p3) {
+    var seconds = parseInt(p3)+60*parseInt(p2)
+    if (p1) seconds += 3600*parseInt(p1)
+    if (p1) text = text.replace(match, '<a href=\'#\' onclick=\'Template.video.setTime('+seconds+')\'>'+p1+':'+p2+':'+p3+'</a>')
+    else {
+      if (!p2) return
+      text = text.replace(match, '<a href=\'#\' onclick=\'Template.video.setTime('+seconds+')\'>'+p2+':'+p3+'</a>')
+    }
+  })
+
+  if (typeof Autolinker != "undefined") {
+    // use autolinker for links and mentions
+    text = Autolinker.link(text, autolinkerOptions)
+  }
+  return text
 })

@@ -266,8 +266,8 @@ Template.upload.events({
         function(e, r) {
           $('#step3load').hide()
           if (e) {
-            console.log(e)
-            toastr.error('Error while submitting to the blockchain.', 'Error')
+            if (e.payload) toastr.error(e.payload.error.data.stack[0].format, 'Error')
+            else toastr.error('Error while submitting to the blockchain.', 'Error')
           } else {
             FlowRouter.go('/v/'+author+'/'+permlink)
           }

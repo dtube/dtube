@@ -75,17 +75,29 @@ Template.video.events({
     }
     steem.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
       console.log(err,result)
+      if (err) {
+        toastr.error(err.payload.error.data.stack[0].format, 'Error')
+        return
+      }
       Template.video.loadState()
+      Session.set('replyingTo', null)
     });
   }
 })
+
+Template.video.setTime = function(seconds) {
+  $('video')[0].currentTime = seconds
+}
 
 Template.video.loadState = function() {
   steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function(err, result) {
     if (err) throw err;
     for (var key in result.accounts) {
       var user = result.accounts[key]
-      user.json_metadata = JSON.parse(user.json_metadata)
+      try {
+        user.json_metadata = JSON.parse(user.json_metadata)
+      } catch(e) {
+      }
       ChainUsers.upsert({_id: user.id}, Waka.api.DeleteFieldsWithDots(user));
     }
 

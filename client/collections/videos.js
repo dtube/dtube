@@ -124,7 +124,10 @@ Videos.refreshBlockchain = function() {
 }
 
 Videos.parseFromChain = function(video) {
-  var newVideo = JSON.parse(video.json_metadata).video
+  try {
+    var newVideo = JSON.parse(video.json_metadata).video
+  } catch(e) {}
+
   if (!newVideo) newVideo = {}
   newVideo.active_votes = video.active_votes
   newVideo.author = video.author
