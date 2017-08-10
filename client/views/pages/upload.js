@@ -1,7 +1,3 @@
-Template.upload.rendered = function() {
-
-}
-
 Template.upload.createPermlink = function(length) {
   var text = "";
   var possible = "abcdefghijklmnopqrstuvwxyz0123456789";

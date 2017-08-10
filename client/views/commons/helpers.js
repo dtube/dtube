@@ -1,5 +1,6 @@
 import moment from 'moment'
 import xss from 'xss'
+import Autolinker from 'autolinker'
 
 var autolinkerOptions = {
   urls : {
@@ -178,9 +179,8 @@ Template.registerHelper('syntaxed', function(text) {
     }
   })
 
-  if (typeof Autolinker != "undefined") {
-    // use autolinker for links and mentions
-    text = Autolinker.link(text, autolinkerOptions)
-  }
+  // use autolinker for links and mentions
+  text = Autolinker.link(text, autolinkerOptions)
+  
   return text
 })

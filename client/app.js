@@ -10,10 +10,6 @@ Meteor.startup(function(){
     console.log('IPFS API loaded')
   });
 
-  $.getScript('https://ipfs.io/ipfs/QmYD4SXCBwqnhGm9vAQUSTeUth6Yuab9WPM2M3oeXE2xG2', function(){
-    console.log('Autolinker loaded')
-  });
-
   toastr.options = {
     "closeButton": true,
     "debug": false,
