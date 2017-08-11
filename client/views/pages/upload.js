@@ -67,11 +67,11 @@ Template.upload.uploadVideo = function(dt) {
   reader.readAsArrayBuffer(file);
 }
 
-Template.upload.genBody = function(title, snaphash, videohash, description) {
+Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
-  body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'>'
+  body += '<a href=\'https://dtube.video/v/'+author+'/'+permlink+'\'>'
   body += '<img src=\'https://ipfs.io/ipfs/'+snaphash+'\'>'
-  body += '<h2>Watch '+title+' video on IPFS</h2></a></center><hr>'
+  body += '<h2>Watch '+title+' video on DTube</h2></a></center><hr>'
   body += description
   return body
 }
@@ -218,7 +218,7 @@ Template.upload.events({
       var author = r.article.info.author
       var permlink = r.article.info.permlink
       var title = r.article.info.title
-      var body = Template.upload.genBody(title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
+      var body = Template.upload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
       var jsonMetadata = {
         video: r.article,
         tags: article.content.tags,
