@@ -8,7 +8,6 @@
     "autolinker": "^1.4.3",
     "babel-runtime": "^6.23.0",
     "bufferutil": "^3.0.0",
-    "ipfs-api": "^14.0.2",
     "meteor-node-stubs": "~0.2.4",
     "moment": "^2.18.1",
     "steem": "^0.5.7",

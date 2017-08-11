@@ -181,6 +181,6 @@ Template.registerHelper('syntaxed', function(text) {
 
   // use autolinker for links and mentions
   text = Autolinker.link(text, autolinkerOptions)
-  
+
   return text
 })

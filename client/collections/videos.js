@@ -56,7 +56,7 @@ Videos.refreshWaka = function() {
 
 Videos.refreshBlockchain = function() {
   if (!steem) return;
-  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": 6}, function(err, result) {
+  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Meteor.settings.public.loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -77,7 +77,7 @@ Videos.refreshBlockchain = function() {
         console.log(err);
     }
   });
-  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": 6}, function(err, result) {
+  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Meteor.settings.public.loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -99,7 +99,7 @@ Videos.refreshBlockchain = function() {
         console.log(err);
     }
   });
-  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": 6}, function(err, result) {
+  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Meteor.settings.public.loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -127,7 +127,7 @@ Videos.parseFromChain = function(video) {
   try {
     var newVideo = JSON.parse(video.json_metadata).video
   } catch(e) {}
-
+  if (!newVideo && !video.parent_author) return
   if (!newVideo) newVideo = {}
   newVideo.active_votes = video.active_votes
   newVideo.author = video.author

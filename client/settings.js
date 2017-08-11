@@ -1,19 +1,11 @@
 Meteor.settings.public = {
   "uploadNodes": [
     {
-      'owner': 'heimindanger',
+      'owner': 'nannal',
       'node': {
         'host': 'ipfsstore.it',
         'port': 4443,
         'protocol': 'https'
-      }
-    },
-    {
-      'owner': 'lukestokes',
-      'node': {
-        'host': 'ipfs.lukestokes.info',
-        'port': 5001,
-        'protocol': 'http'
       }
     },
     {
@@ -33,5 +25,6 @@ Meteor.settings.public = {
   ],
   "app": 'dtube/0.1',
   "dfees": 2500,
-  "beneficiary": "dtube"
+  "beneficiary": "dtube",
+  "loadLimit": 8
 }
