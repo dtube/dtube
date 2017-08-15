@@ -92,7 +92,7 @@ Template.registerHelper('displayPayout', function(active, total) {
 
 Template.registerHelper('timeAgo', function(created) {
   if (!created) return
-  return moment(created).fromNow()
+  return moment(created+'Z').fromNow()
 })
 
 Template.registerHelper('timeDisplay', function(created) {
@@ -162,7 +162,11 @@ Template.registerHelper('isNSFWFullyHiddensearch', function(video) {
 Template.registerHelper('syntaxed', function(text) {
   if (!text) return
   // escape the string for security
-  text = xss(text)
+  text = xss(text, {
+    whiteList: [],
+    stripIgnoreTag: true,
+    stripIgnoreTagBody: ['script']
+  })
 
   // replace line breaks to html
   text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');

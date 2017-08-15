@@ -1,5 +1,6 @@
 .videoplayer {
-  width: 100%
+  width: 100%;
+  max-height: 634px;
 }
 
 .videopayout {
