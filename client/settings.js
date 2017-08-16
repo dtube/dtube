@@ -20,8 +20,7 @@ Meteor.settings.public = {
   "displayNodes": [
     "https://ipfs.io",
     "https://gateway.ipfs.io",
-    "http://ipfsstore.it:8080",
-    "https://ipfs.view.ly"
+    "https://ipfsstore.it:8443"
   ],
   "app": 'dtube/0.1',
   "dfees": 2500,

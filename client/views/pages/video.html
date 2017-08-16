@@ -1,7 +1,7 @@
 <template name='video'>
   {{#with video}}
     <div class="ui container">
-      <video src='{{ipfsGateway}}/ipfs/{{content.videohash}}' controls autoplay class='videoplayer'></video>
+      <video src='{{ipfsGateway}}/ipfs/{{content.videohash}}' poster="{{ipfsGateway}}/ipfs/{{info.snaphash}}" controls autoplay class='videoplayer'></video>
       <div class="ui grid">
         <div class="twelve wide column">
           <h1>{{info.title}}</h1>

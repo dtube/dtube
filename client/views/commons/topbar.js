@@ -42,5 +42,11 @@ Template.topbar.events({
   'click .result': function(event) {
     $('#dsearch').val(this)
     $('.searchForm').submit()
+  },
+  'click .dtube': function() {
+    $('.dtube').addClass('loading')
+    Videos.refreshBlockchain(function() {
+      $('.dtube').removeClass('loading')
+    })
   }
 });

@@ -54,7 +54,7 @@ Videos.refreshWaka = function() {
   })
 }
 
-Videos.refreshBlockchain = function() {
+Videos.refreshBlockchain = function(cb) {
   if (!steem) return;
   steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Meteor.settings.public.loadLimit}, function(err, result) {
     if (err === null) {
@@ -71,10 +71,13 @@ Videos.refreshBlockchain = function() {
             Videos.upsert({_id: videos[i]._id}, videos[i])
           } catch(err) {
             console.log(err)
+            cb(err)
           }
         }
+        cb(null)
     } else {
         console.log(err);
+        cb(err)
     }
   });
   steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Meteor.settings.public.loadLimit}, function(err, result) {
