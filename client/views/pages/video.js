@@ -10,7 +10,10 @@ Template.video.helpers({
     }).fetch()
 
     for (var i = 0; i < videos.length; i++) {
-      if (videos[i].source == 'chainDirect') return videos[i]
+      if (videos[i].source == 'chainDirect') {
+        Session.set("pageTitle", videos[i].info.title)
+        return videos[i]
+      }
     }
 
     Template.video.loadState()
@@ -135,7 +138,6 @@ Template.video.loadComments = function(author, permlink, loadUsers) {
   steem.api.getContentReplies(author, permlink, function(err, result) {
     var oldVideo = Videos.findOne({'info.author': author, 'info.permlink': permlink, source: 'chainDirect'})
     oldVideo.comments = result
-    console.log(oldVideo.comments)
     Videos.upsert({_id: oldVideo._id}, oldVideo)
 
     var usernames = [oldVideo.info.author]

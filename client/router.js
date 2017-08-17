@@ -1,6 +1,7 @@
 FlowRouter.route('/', {
   name: "home",
   action: function(params, queryParams) {
+    Session.set("pageTitle", '')
     BlazeLayout.render('masterLayout', {
       main: "home",
       nav: "nav",
@@ -11,18 +12,9 @@ FlowRouter.route('/', {
 FlowRouter.route('/login', {
   name: "login",
   action: function(params, queryParams) {
+    Session.set("pageTitle", 'Login')
     BlazeLayout.render('masterLayout', {
       main: "login",
-      nav: "nav",
-    });
-  }
-});
-
-FlowRouter.route('/settings', {
-  name: "settings",
-  action: function(params, queryParams) {
-    BlazeLayout.render('masterLayout', {
-      main: "settings",
       nav: "nav",
     });
   }
@@ -31,6 +23,7 @@ FlowRouter.route('/settings', {
 FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
+    Session.set("pageTitle", 'Upload')
     BlazeLayout.render('masterLayout', {
       main: "upload",
       nav: "nav",

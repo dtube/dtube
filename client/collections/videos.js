@@ -5,7 +5,7 @@ firstLoad = setInterval(function() {
   if (!Waka) return
   // loading videos
   Videos.refreshWaka()
-  Videos.refreshBlockchain()
+  Videos.refreshBlockchain(function() {})
   clearInterval(firstLoad)
 }, 50)
 

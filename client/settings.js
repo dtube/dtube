@@ -25,5 +25,7 @@ Meteor.settings.public = {
   "app": 'dtube/0.1',
   "dfees": 2500,
   "beneficiary": "dtube",
-  "loadLimit": 8
+  "loadLimit": 8,
+  "pageTitleSeparator": '-',
+  "appName": 'DTube'
 }
