@@ -1,24 +1,22 @@
 <template name='home'>
-  <!-- <h2>Trending Videos</h2>
-  <h2>Hot Videos</h2> -->
-  {{#if newVideos}}
-    <h2>New Videos</h2>
-    {{> videoband newVideos}}
-  {{/if}}
   {{#if hotVideos}}
     <h2>Hot Videos</h2>
-    {{> videoband hotVideos}}
+    {{> videoslider hotVideos}}
   {{/if}}
   {{#if trendingVideos}}
     <h2>Trending Videos</h2>
-    {{> videoband trendingVideos}}
+    {{> videoslider trendingVideos}}
+  {{/if}}
+  {{#if newVideos}}
+    <h2>New Videos</h2>
+    {{> videoslider newVideos}}
   {{/if}}
   {{#if watchAgain}}
     <h2>Watch Again</h2>
-    {{> videoband watchAgain}}
+    {{> videoslider watchAgain}}
   {{/if}}
   {{#if neighborhood}}
     <h2>Neighborhood</h2>
-    {{> videoband neighborhood}}
+    {{> videoslider neighborhood}}
   {{/if}}
 </template>

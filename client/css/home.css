@@ -1,12 +1,8 @@
-.videoband {
-  /*text-align:center;*/
-}
-
 .videosnap {
   margin-right: 4px;
   display: inline-block;
   width: 210px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   vertical-align:top;
 }
 

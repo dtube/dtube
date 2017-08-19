@@ -27,7 +27,7 @@ Template.settingsdropdown.rendered = function() {
   Session.set('nsfwSetting', 'Hide Picture')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
-  Session.set('ipfsGateway', Meteor.settings.public.displayNodes[Math.floor(Math.random() * Meteor.settings.public.displayNodes.length)])
+  Session.set('ipfsGateway', Meteor.settings.public.displayNodes[Math.floor(Math.random() * Meteor.settings.public.displayNodes.length-1)])
   // first upload node by default
   Session.set('ipfsUpload', Meteor.settings.public.uploadNodes[0].node)
 }

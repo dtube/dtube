@@ -53,7 +53,7 @@ Template.registerHelper('downvotes', function (active_votes) {
 Template.registerHelper('userPic', function (username) {
   var user = ChainUsers.findOne({name: username})
   if (user && user.json_metadata && user.json_metadata.profile && user.json_metadata.profile.profile_image)
-    return user.json_metadata.profile.profile_image
+    return 'https://steemitimages.com/120x120/'+user.json_metadata.profile.profile_image
   return 'https://kontak.me/slpw/plugin_blab/noprofileimage.png'
 });
 
@@ -79,10 +79,15 @@ Template.registerHelper('displayCurrency', function(string) {
   return amount;
 })
 
-Template.registerHelper('displayPayout', function(active, total) {
-  if (!active || !total) return
+Template.registerHelper('displayPayout', function(active, total, curator) {
+  if (!active || !total || !curator) return
   var payout = active
-  if (total.split(' ')[0] > 0) payout = total
+  if (total.split(' ')[0] > 0) {
+    var amount = parseInt(total.split(' ')[0].replace('.','')) + parseInt(curator.split(' ')[0].replace('.',''))
+    amount /= 1000
+    payout = amount + ' SBD'
+  }
+
   if (!payout) return
   var amount = payout.split(' ')[0]
   var currency = payout.split(' ')[1]

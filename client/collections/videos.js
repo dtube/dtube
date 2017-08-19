@@ -136,6 +136,7 @@ Videos.parseFromChain = function(video) {
   newVideo.author = video.author
   newVideo.body = video.body
   newVideo.total_payout_value = video.total_payout_value
+  newVideo.curator_payout_value = video.curator_payout_value
   newVideo.pending_payout_value = video.pending_payout_value
   newVideo.permlink = video.permlink
   newVideo.created = video.created
@@ -150,5 +151,16 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
     comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink)
     comments.push(comment)
   }
+  comments = comments.sort(function(a,b) {
+    var diff = parseInt(b.total_payout_value.split(' ')[0].replace('.',''))
+      +parseInt(b.curator_payout_value.split(' ')[0].replace('.',''))
+      +parseInt(b.pending_payout_value.split(' ')[0].replace('.',''))
+      -parseInt(a.total_payout_value.split(' ')[0].replace('.',''))
+      -parseInt(a.curator_payout_value.split(' ')[0].replace('.',''))
+      -parseInt(a.pending_payout_value.split(' ')[0].replace('.',''))
+    if (diff == 0) {
+      return new Date(b.created) - new Date(a.created)
+    } return diff
+  })
   return comments
 }
