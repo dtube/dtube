@@ -140,6 +140,7 @@ Videos.parseFromChain = function(video) {
   newVideo.pending_payout_value = video.pending_payout_value
   newVideo.permlink = video.permlink
   newVideo.created = video.created
+  newVideo.net_rshares = video.net_rshares
   return newVideo;
 }
 
