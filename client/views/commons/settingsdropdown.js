@@ -27,9 +27,9 @@ Template.settingsdropdown.rendered = function() {
   Session.set('nsfwSetting', 'Hide Picture')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
-  Session.set('ipfsGateway', Meteor.settings.public.displayNodes[Math.floor(Math.random() * Meteor.settings.public.displayNodes.length-1)])
+  Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Math.floor(Math.random() * Meteor.settings.public.remote.displayNodes.length-1)])
   // first upload node by default
-  Session.set('ipfsUpload', Meteor.settings.public.uploadNodes[0].node)
+  Session.set('ipfsUpload', Meteor.settings.public.remote.uploadNodes[0].node)
 }
 
 Template.settingsdropdown.helpers({
@@ -46,10 +46,10 @@ Template.settingsdropdown.helpers({
     return Session.get('ipfsGateway');
   },
   uploadNodes: function() {
-    return Meteor.settings.public.uploadNodes;
+    return Meteor.settings.public.remote.uploadNodes;
   },
   displayNodes: function() {
-    return Meteor.settings.public.displayNodes;
+    return Meteor.settings.public.remote.displayNodes;
   }
 })
 

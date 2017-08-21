@@ -18,7 +18,7 @@ Template.topbar.events({
       $('.results').hide()
       return
     }
-    $.get("https://api.asksteem.com/suggestions?term=tags:dtube AND "+query, function(rawSuggestions) {
+    $.get("https://api.asksteem.com/suggestions?term="+query, function(rawSuggestions) {
       var suggestions = []
       for (var i = 0; i < rawSuggestions.length; i++) {
         if (rawSuggestions[i].startsWith("tags:dtube and ")) {

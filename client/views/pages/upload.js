@@ -50,7 +50,7 @@ Template.upload.uploadVideo = function(dt) {
   // uploading to ipfs
   var reader = new window.FileReader()
   reader.onload = function(event) {
-    var node = Meteor.settings.public.uploadNodes[0]
+    var node = Meteor.settings.public.remote.uploadNodes[0]
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
     Template.upload.IPFS(node, event.target.result, function(e, r) {
       $('#step1load').hide()
@@ -110,7 +110,7 @@ Template.upload.events({
     // // uploading to ipfs
     // var reader = new window.FileReader()
     // reader.onload = function(event) {
-    //   var node = Meteor.settings.public.uploadNodes[0]
+    //   var node = Meteor.settings.public.remote.uploadNodes[0]
     //   if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
     //   Template.upload.IPFS(node, event.target.result, function(e, r) {
     //     if (e) console.log(e)
@@ -156,7 +156,7 @@ Template.upload.events({
 
     var reader = new FileReader();
     reader.onload = function(event) {
-      var node = Meteor.settings.public.uploadNodes[0]
+      var node = Meteor.settings.public.remote.uploadNodes[0]
       if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
       Template.upload.IPFS(node, event.target.result, function(e, r) {
         $('#step2load').hide()
@@ -249,7 +249,7 @@ Template.upload.events({
             [0, {
               beneficiaries: [{
                 account: Meteor.settings.public.beneficiary,
-                weight: Meteor.settings.public.dfees
+                weight: Meteor.settings.public.remote.dfees
               }]
             }]
           ]

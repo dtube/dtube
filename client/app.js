@@ -6,10 +6,17 @@ import wakajs from 'wakajs';
 import steem from 'steem';
 FlowRouter.wait();
 Meteor.startup(function(){
-  FlowRouter.initialize({hashbang: true});
-  // $.getScript('https://ipfs.io/ipfs/QmdatyQqU49jinY3wwNyYWAHXjYCLtPqXm1yYJywsdwVQ2', function(){
-  //   console.log('IPFS API loaded')
-  // });
+
+
+  steem.api.getAccounts(['dtube'], function(err, result) {
+    if (!result || !result[0]) return
+    var jsonMeta = JSON.parse(result[0].json_metadata)
+    console.log(jsonMeta)
+    if (jsonMeta.remoteSettings) {
+      Meteor.settings.public.remote = jsonMeta.remoteSettings
+      FlowRouter.initialize({hashbang: true});
+    }
+  });
 
   toastr.options = {
     "closeButton": true,
