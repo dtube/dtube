@@ -4,11 +4,12 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
-
+FlowRouter.wait();
 Meteor.startup(function(){
-  $.getScript('https://ipfs.io/ipfs/QmdatyQqU49jinY3wwNyYWAHXjYCLtPqXm1yYJywsdwVQ2', function(){
-    console.log('IPFS API loaded')
-  });
+  FlowRouter.initialize({hashbang: true});
+  // $.getScript('https://ipfs.io/ipfs/QmdatyQqU49jinY3wwNyYWAHXjYCLtPqXm1yYJywsdwVQ2', function(){
+  //   console.log('IPFS API loaded')
+  // });
 
   toastr.options = {
     "closeButton": true,

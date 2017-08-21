@@ -1,3 +1,14 @@
+FlowRouter.route('/ipns/Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB/', {
+  name: "home",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", '')
+    BlazeLayout.render('masterLayout', {
+      main: "home",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/', {
   name: "home",
   action: function(params, queryParams) {

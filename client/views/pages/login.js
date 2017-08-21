@@ -32,11 +32,25 @@ Template.login.events({
       if (chainuser.posting.key_auths[0][0] == user.publickey) {
         // correct key for the user, loggin in
         user.username = username
-        Waka.db.Users.upsert(user, function() {
-          Users.refreshUsers()
+        if (event.target.rememberme.checked) {
+          Waka.db.Users.upsert(user, function() {
+            Users.refreshUsers()
+            Session.set('activeUsername', user.username)
+            FlowRouter.go('#!')
+          })
+        } else {
+          Users.insert(user)
           Session.set('activeUsername', user.username)
-          FlowRouter.go('/')
-        })
+          FlowRouter.go('#!')
+          steem.api.getAccounts([user.username], function(e, chainusers) {
+            for (var i = 0; i < chainusers.length; i++) {
+              var user = Users.findOne({username: chainusers[i].name})
+              if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
+                user.json_metadata = JSON.parse(chainusers[i].json_metadata)
+              Users.update({username: user.username}, user)
+            }
+          })
+        }
       } else {
         toastr.error('Username and Private Posting Key do not match', 'Error')
       }
@@ -49,7 +63,7 @@ Template.login.events({
     //   Waka.db.Users.upsert(user, function() {
     //     Users.refreshUsers()
     //     Session.set('activeUsername', user.username)
-    //     FlowRouter.go('/')
+    //     FlowRouter.go('/#!')
     //   })
     // });
   }

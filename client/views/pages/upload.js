@@ -161,6 +161,7 @@ Template.upload.events({
       Template.upload.IPFS(node, event.target.result, function(e, r) {
         $('#step2load').hide()
         if (e) {
+          console.log(e)
           toastr.error(e, 'IPFS Error while uploading')
           return
         } else {

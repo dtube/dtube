@@ -3,7 +3,7 @@ Meteor.settings.public = {
     {
       'owner': 'nannal',
       'node': {
-        'host': 'ipfsstore.it',
+        'host': 'gateway.ipfsstore.it',
         'port': 4443,
         'protocol': 'https'
       }
@@ -32,5 +32,6 @@ Meteor.settings.public = {
   "beneficiary": "dtube",
   "loadLimit": 10,
   "pageTitleSeparator": '-',
-  "appName": 'DTube'
+  "appName": 'DTube',
+  "ipns": "Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB"
 }
