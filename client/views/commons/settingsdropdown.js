@@ -18,6 +18,8 @@ Template.settingsdropdown.rendered = function() {
         })
       } else if (e.hasClass('nsfwSetting')) {
         Session.set('nsfwSetting', text)
+      } else if (e.hasClass('repogc')) {
+        localIpfs.repo.gc()
       } else {
         console.log(value,text,e)
       }
@@ -27,9 +29,11 @@ Template.settingsdropdown.rendered = function() {
   Session.set('nsfwSetting', 'Hide Picture')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
-  Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Math.floor(Math.random() * Meteor.settings.public.remote.displayNodes.length-1)])
-  // first upload node by default
-  Session.set('ipfsUpload', Meteor.settings.public.remote.uploadNodes[0].node)
+  // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Math.floor(Math.random() * Meteor.settings.public.remote.displayNodes.length-1)])
+  Session.set('ipfsGateway', 'automatic')
+
+  // random upload ipfs api
+  Session.set('ipfsUpload', Meteor.settings.public.remote.uploadNodes[Math.floor(Math.random() * (Meteor.settings.public.remote.uploadNodes.length-1))].node)
 }
 
 Template.settingsdropdown.helpers({
@@ -50,6 +54,9 @@ Template.settingsdropdown.helpers({
   },
   displayNodes: function() {
     return Meteor.settings.public.remote.displayNodes;
+  },
+  localIpfs: function() {
+    return Session.get('localIpfs')
   }
 })
 

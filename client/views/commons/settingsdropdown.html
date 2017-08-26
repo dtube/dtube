@@ -35,10 +35,38 @@
       </div>
       <div class="ui divider"></div>
       <div class="header">IPFS Settings</div>
+
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">Local IPFS</span>
+        <div class="left menu">
+          <div class="header">
+            {{#if localIpfs}}
+              <span style='color: green'>You are running IPFS</span>
+            {{else}}
+              <span style='color: red'>You are not running IPFS</span>
+            {{/if}}
+          </div>
+
+          {{#if localIpfs}}
+            {{#with localIpfs}}
+              <div class="ui divider"></div>
+              <div class="header">Pinned: {{humanFilesize RepoSize 1}}</div>
+              <div class="header">Max: {{humanFilesize StorageMax 1}}</div>
+            {{/with}}
+            <div class="item repogc">Empty Garbage</div>
+          {{/if}}
+        </div>
+      </div>
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">Gateway</span>
         <div class="left menu">
+          {{#if equals 'automatic' ipfsGateway}}
+            <div class="item ipfsGateway"><strong>Automatic</strong></div>
+          {{else}}
+            <div class="item ipfsGateway">Automatic</div>
+          {{/if}}
           {{#each displayNodes}}
             {{#if equals this ipfsGateway}}
               <div class="item ipfsGateway"><strong>{{this}}</strong></div>

@@ -6,7 +6,7 @@
           {{#if isNSFWsearch this}}
             <img class="ui left floated image" height="118" width="210" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7"><br />
           {{else}}
-            <img class="ui left floated image" height="118" width="210" src="{{ipfsGateway}}/ipfs/{{meta.video.info.snaphash}}"><br />
+            <img class="ui left floated image" height="118" width="210" src="{{ipfsSrc meta.video.info.snaphash}}"><br />
           {{/if}}
         </div>
       </a>

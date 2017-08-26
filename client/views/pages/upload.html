@@ -34,7 +34,10 @@
   <div id="previewzone">
     <div class="ui grid">
       <div class="two column row">
-        <div class="column"><video controls autoplay></video></div>
+        <div class="column">
+          <video controls autoplay></video>
+          <h6>Video bitrate: {{humanFilesize bitrate 1}}/s</h6>
+        </div>
         <div class="column"><canvas></canvas></div>
       </div>
     </div>

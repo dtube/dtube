@@ -36,12 +36,12 @@ Template.login.events({
           Waka.db.Users.upsert(user, function() {
             Users.refreshUsers()
             Session.set('activeUsername', user.username)
-            FlowRouter.go('#!')
+            FlowRouter.go('#!/')
           })
         } else {
           Users.insert(user)
           Session.set('activeUsername', user.username)
-          FlowRouter.go('#!')
+          FlowRouter.go('#!/')
           steem.api.getAccounts([user.username], function(e, chainusers) {
             for (var i = 0; i < chainusers.length; i++) {
               var user = Users.findOne({username: chainusers[i].name})

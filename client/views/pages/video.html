@@ -1,7 +1,7 @@
 <template name='video'>
   {{#with video}}
     <div class="ui container">
-      <video src='{{ipfsGateway}}/ipfs/{{content.videohash}}' poster="{{ipfsGateway}}/ipfs/{{info.snaphash}}" controls autoplay class='videoplayer'></video>
+      <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video>
       <div class="ui grid">
         <div class="twelve wide column">
           <h1>{{info.title}}</h1>
@@ -17,6 +17,7 @@
           <div class='videopayout'>
             {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
           </div>
+
           {{#if hasUpvoted video}}
             <a class="small ui red label upvote">
               <i class="thumbs up icon"></i> {{upvotes active_votes}}
@@ -39,10 +40,9 @@
 
 
           <br />
-
         </div>
         <div class="sixteen wide column">
-          <strong>Added on {{timeDisplay created}}</strong>
+          <strong title='{{timeAgo created}}'>Added on {{timeDisplay created}}</strong>
           <br />
           {{{syntaxed content.description}}}
         </div>

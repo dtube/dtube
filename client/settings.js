@@ -3,10 +3,10 @@ Meteor.settings.public = {
     "dfees": 2500,
     "loadLimit": 10,
     "uploadNodes": [
-      { 'owner': 'nannal','node': {'host': 'gateway.ipfsstore.it','port': 4443,'protocol': 'https'} },
-      { 'owner': 'dtube','node': {'host': 'dtube1.gateway.ipfsstore.it','port': 4443,'protocol': 'https'} },
-      { 'owner': 'dtube','node': {'host': 'dtube2.gateway.ipfsstore.it','port': 4443,'protocol': 'https'} },
-      { 'owner': null,'node': {'host': 'localhost','port': 5001,'protocol': 'https'} }
+      { 'owner': 'nannal','node': {'host': 'gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
+      { 'owner': 'dtube','node': {'host': 'dtube1.gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
+      { 'owner': 'dtube','node': {'host': 'dtube2.gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
+      { 'owner': null,'node': {'host': '127.0.0.1','port': 5001,'protocol': 'https'} }
     ],
     "displayNodes": [
       "https://ipfs.io",
@@ -18,8 +18,9 @@ Meteor.settings.public = {
       "https://ipfsstore.it:8443",
       "https://scrappy.i.ipfs.io",
       "https://chappy.i.ipfs.io",
-      "http://localhost:8080"
-    ]
+      "http://127.0.0.1:8080"
+    ],
+    "snapMaxFileSizeKB": 150
   },
   "app": 'dtube/0.1',
   "beneficiary": "dtube",

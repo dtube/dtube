@@ -30,6 +30,9 @@ Template.video.helpers({
     }
     if (videos && videos[0]) return videos[0]
     return;
+  },
+  localIpfs: function() {
+    return Session.get('localIpfs')
   }
 })
 
@@ -41,10 +44,13 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = Session.get('voteWeight')*100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, 'Could not vote')
+      if (err) toastr.error(Meteor.blockchainError(err), 'Could not vote')
       else toastr.success(weight/100+'% vote for '+author+'/'+permlink)
       Template.video.loadState()
     });
+    Template.video.pinFile(author, permlink, function(e,r) {
+      console.log(e,r)
+    })
   },
   'click .downvote': function(event) {
     var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
@@ -148,4 +154,18 @@ Template.video.loadComments = function(author, permlink, loadUsers) {
     if (!loadUsers) return
     ChainUsers.fetchNames(usernames)
   });
+}
+
+Template.video.pinFile = function(author, permlink, cb) {
+  if (!Session.get('localIpfs')) return
+  steem.api.getContent(author, permlink, function(e,video) {
+    if (!video) return
+    var video = Videos.parseFromChain(video)
+    localIpfs.pin.add(video.info.snaphash, function(e,r) {
+      console.log('pinned snap',e,r)
+    })
+    localIpfs.pin.add(video.content.videohash, function(e,r) {
+      console.log('pinned video',e,r)
+    })
+  })
 }

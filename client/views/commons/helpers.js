@@ -195,3 +195,30 @@ Template.registerHelper('syntaxed', function(text) {
 
   return text
 })
+
+Template.registerHelper('humanFilesize', function(bits, si) {
+  var thresh = si ? 1000 : 1024;
+  if(Math.abs(bits) < thresh) {
+      return bits + ' B';
+  }
+  var units = si
+      ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+      : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+  var u = -1;
+  do {
+      bits /= thresh;
+      ++u;
+  } while(Math.abs(bits) >= thresh && u < units.length - 1);
+  return bits.toFixed(1)+' '+units[u];
+})
+
+Template.registerHelper('ipfsSrc', function(ipfsHash) {
+  if (Session.get('ipfsGateway') == 'automatic') {
+    var n = Meteor.settings.public.remote.displayNodes.length - 1
+    var i = ipfsHash.charCodeAt(ipfsHash.length-1) % n
+    return Meteor.settings.public.remote.displayNodes[i]+'/ipfs/'+ipfsHash
+  } else {
+    return Session.get('ipfsGateway')+'/ipfs/'+ipfsHash
+  }
+
+})

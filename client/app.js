@@ -7,11 +7,31 @@ import steem from 'steem';
 FlowRouter.wait();
 Meteor.startup(function(){
 
+  window.localIpfs = IpfsApi(Meteor.settings.public.remote.uploadNodes[3])
 
+  setInterval(function() {
+    try {
+      localIpfs.repo.stat(function(e,r) {
+        if (e) {
+          Session.set('localIpfs', false)
+          return;
+        }
+        Session.set('localIpfs', r)
+
+        // using local gateway seems to make my internet very unstable and nothing works
+        // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Meteor.settings.public.remote.displayNodes.length - 1])
+      })
+    } catch(e) {
+      
+    }
+
+  }, 2500)
+
+
+  // loading remote settings
   steem.api.getAccounts(['dtube'], function(err, result) {
     if (!result || !result[0]) return
     var jsonMeta = JSON.parse(result[0].json_metadata)
-    console.log(jsonMeta)
     if (jsonMeta.remoteSettings) {
       Meteor.settings.public.remote = jsonMeta.remoteSettings
       FlowRouter.initialize({hashbang: true});

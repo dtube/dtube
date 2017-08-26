@@ -1,3 +1,7 @@
+Template.upload.rendered = function() {
+  Session.set('bitrate', 0)
+}
+
 Template.upload.createPermlink = function(length) {
   var text = "";
   var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -31,7 +35,6 @@ Template.upload.uploadVideo = function(dt) {
     return
   }
   var file = dt.files[0]
-
   if (file.type.split('/')[0] != 'video') {
     toastr.error('The file you are trying to upload is not a video', 'Error')
     return
@@ -50,6 +53,8 @@ Template.upload.uploadVideo = function(dt) {
   // uploading to ipfs
   var reader = new window.FileReader()
   reader.onload = function(event) {
+    var bitrate = 8*file.size / document.querySelector('video').duration
+    Session.set('bitrate', bitrate)
     var node = Meteor.settings.public.remote.uploadNodes[0]
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
     Template.upload.IPFS(node, event.target.result, function(e, r) {
@@ -79,6 +84,9 @@ Template.upload.genBody = function(author, permlink, title, snaphash, videohash,
 Template.upload.helpers({
   mainUser: function() {
     return Users.findOne({username: Session.get('activeUsername')})
+  },
+  bitrate: function() {
+    return Session.get('bitrate')
   }
 })
 
@@ -149,6 +157,10 @@ Template.upload.events({
     var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
     if (file.type.split('/')[0] != 'image') {
       toastr.error('The file you are trying to upload is not an image', 'Error')
+      return
+    }
+    if (file.size > Meteor.settings.public.remote.snapMaxFileSizeKB*1000) {
+      toastr.error('Maximum snap file size is 150 KB', 'Error')
       return
     }
 
