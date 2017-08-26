@@ -48,5 +48,9 @@ Template.topbar.events({
     Videos.refreshBlockchain(function() {
       $('.dtube').removeClass('loading')
     })
+  },
+  'click #textlogo': function() {
+    window.history.pushState('', '', '/#!/');
+    FlowRouter.go('/#!/')
   }
 });

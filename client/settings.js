@@ -6,7 +6,7 @@ Meteor.settings.public = {
       { 'owner': 'nannal','node': {'host': 'gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
       { 'owner': 'dtube','node': {'host': 'dtube1.gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
       { 'owner': 'dtube','node': {'host': 'dtube2.gateway.ipfsstore.it','port': 8443,'protocol': 'https'} },
-      { 'owner': null,'node': {'host': '127.0.0.1','port': 5001,'protocol': 'https'} }
+      { 'owner': null,'node': {'host': 'localhost','port': 5001,'protocol': 'http'} }
     ],
     "displayNodes": [
       "https://ipfs.io",
@@ -22,7 +22,7 @@ Meteor.settings.public = {
     ],
     "snapMaxFileSizeKB": 150
   },
-  "app": 'dtube/0.1',
+  "app": 'dtube/0.2',
   "beneficiary": "dtube",
   "pageTitleSeparator": '-',
   "appName": 'DTube',
