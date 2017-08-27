@@ -74,10 +74,12 @@ Template.upload.uploadVideo = function(dt) {
 
 Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
-  body += '<a href=\'https://dtube.video/v/'+author+'/'+permlink+'\'>'
-  body += '<img src=\'https://ipfs.io/ipfs/'+snaphash+'\'>'
-  body += '<h2>Watch '+title+' video on DTube</h2></a></center><hr>'
+  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>'
+  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
   body += description
+  body += '<hr>'
+  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>► Watch on DTube</a><br />'
+  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'>► Watch Source (IPFS)</a>'
   return body
 }
 
@@ -160,7 +162,7 @@ Template.upload.events({
       return
     }
     if (file.size > Meteor.settings.public.remote.snapMaxFileSizeKB*1000) {
-      toastr.error('Maximum snap file size is 150 KB', 'Error')
+      toastr.error('Maximum snap file size is '+Meteor.settings.public.remote.snapMaxFileSizeKB+' KB', 'Error')
       return
     }
 

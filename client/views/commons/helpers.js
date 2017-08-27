@@ -213,6 +213,10 @@ Template.registerHelper('humanFilesize', function(bits, si) {
 })
 
 Template.registerHelper('ipfsSrc', function(ipfsHash) {
+  return Meteor.getIpfsSrc(ipfsHash)
+})
+
+Meteor.getIpfsSrc = function(ipfsHash) {
   if (Session.get('ipfsGateway') == 'automatic') {
     var n = Meteor.settings.public.remote.displayNodes.length - 1
     var i = ipfsHash.charCodeAt(ipfsHash.length-1) % n
@@ -220,5 +224,4 @@ Template.registerHelper('ipfsSrc', function(ipfsHash) {
   } else {
     return Session.get('ipfsGateway')+'/ipfs/'+ipfsHash
   }
-
-})
+}

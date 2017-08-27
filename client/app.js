@@ -7,7 +7,7 @@ import steem from 'steem';
 FlowRouter.wait();
 Meteor.startup(function(){
 
-  window.localIpfs = IpfsApi()
+  window.localIpfs = IpfsApi(Meteor.settings.public.remote.uploadNodes[Meteor.settings.public.remote.uploadNodes.length-1].node)
 
   // setInterval(function() {
   //   try {
