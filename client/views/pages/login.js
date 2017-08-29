@@ -34,7 +34,8 @@ Template.login.events({
         user.username = username
         if (event.target.rememberme.checked) {
           Waka.db.Users.upsert(user, function() {
-            Users.refreshUsers()
+            Users.remove({})
+            Users.refreshLocalUsers()
             Session.set('activeUsername', user.username)
             FlowRouter.go('#!/')
           })
@@ -61,7 +62,7 @@ Template.login.events({
     // steem.api.getKeyReferences([publickey], function(err, result) {
     //   user.username = result[0][0]
     //   Waka.db.Users.upsert(user, function() {
-    //     Users.refreshUsers()
+    //     Users.refreshLocalUsers()
     //     Session.set('activeUsername', user.username)
     //     FlowRouter.go('/#!')
     //   })

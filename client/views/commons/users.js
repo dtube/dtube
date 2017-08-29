@@ -7,12 +7,19 @@ Template.users.rendered = function() {
       } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: e.data('username')}, function(user) {
           Waka.db.Users.remove(user._id, function(result) {
-            Users.refreshUsers()
+            Users.remove({})
+            Users.refreshLocalUsers()
             Waka.db.Users.findOne({}, function(user) {
               if (user) Session.set('activeUsername', user.username)
               else Session.set('activeUsername', null)
             })
           })
+        })
+      } else if (e.hasClass('claimRewards')) {
+        var user = Users.findOne({username: e.data('username')})
+        steem.broadcast.claimRewardBalance(user.privatekey, user.username, user.reward_steem_balance, user.reward_sbd_balance, user.reward_vesting_balance, function(err, result) {
+          Users.refreshUsers([user.username])
+          toastr.success('You have claimed ' + Template.users.formatRewards(user), 'Success')
         })
       }
     }
@@ -28,5 +35,26 @@ Template.users.helpers({
   },
   activeUser: function() {
     return Session.get('activeUsername')
+  },
+  hasRewards: function(user) {
+    if (!user || !user.reward_sbd_balance || !user.reward_steem_balance || !user.reward_vesting_balance) return false
+    if (user.reward_sbd_balance.split(' ')[0] > 0
+      || user.reward_steem_balance.split(' ')[0] > 0
+      || user.reward_vesting_balance.split(' ')[0] > 0)
+      return true
+  },
+  displayRewards: function(user) {
+    return Template.users.formatRewards(user)
   }
 });
+
+Template.users.formatRewards = function(user) {
+  var rewards = []
+  if (user.reward_sbd_balance.split(' ')[0] > 0)
+    rewards.push(user.reward_sbd_balance)
+  if (user.reward_steem_balance.split(' ')[0] > 0)
+    rewards.push(user.reward_steem_balance)
+  if (user.reward_vesting_balance.split(' ')[0] > 0)
+    rewards.push(user.reward_vesting_steem.split(' ')[0]+' SP')
+  return rewards.join(', ')
+}

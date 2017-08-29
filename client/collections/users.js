@@ -8,31 +8,37 @@ var firstLoad = setInterval(function() {
     return
   }
 
-  // loading videos
-  Users.refreshUsers()
+  Users.remove({})
+  Users.refreshLocalUsers()
   clearInterval(firstLoad)
   Waka.db.Users.findOne({}, function(user) {
     if (user) Session.set('activeUsername', user.username)
   })
 }, 50)
 
+Users.refreshUsers = function(usernames) {
+  steem.api.getAccounts(usernames, function(e, chainusers) {
+    for (var i = 0; i < chainusers.length; i++) {
+      var user = Users.findOne({username: chainusers[i].name})
+      console.log(chainusers[i])
+      if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
+        user.json_metadata = JSON.parse(chainusers[i].json_metadata)
+      user.reward_sbd_balance = chainusers[i].reward_sbd_balance
+      user.reward_steem_balance = chainusers[i].reward_steem_balance
+      user.reward_vesting_balance = chainusers[i].reward_vesting_balance
+      user.reward_vesting_steem = chainusers[i].reward_vesting_steem
+      Users.update({username: user.username}, user)
+    }
+  })
+}
 
-
-Users.refreshUsers = function() {
-  Users.remove({})
+Users.refreshLocalUsers = function() {
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
       Users.insert(results[i])
       usernames.push(results[i].username)
     }
-    steem.api.getAccounts(usernames, function(e, chainusers) {
-      for (var i = 0; i < chainusers.length; i++) {
-        var user = Users.findOne({username: chainusers[i].name})
-        if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
-          user.json_metadata = JSON.parse(chainusers[i].json_metadata)
-        Users.update({username: user.username}, user)
-      }
-    })
+    Users.refreshUsers(usernames)
   })
 }

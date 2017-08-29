@@ -13,6 +13,11 @@
           <div class="left menu">
             <div class='item logIn' data-username='{{user.username}}'><i class="sign in icon"></i> Use {{user.username}}</div>
             <a class='item' href='/c/{{user.username}}'><i class="video play icon"></i> Channel</a>
+            {{#if hasRewards user}}
+              <a class='item claimRewards' data-username='{{user.username}}' title='{{displayRewards user}}'>
+                <i class="money icon"></i> Claim Rewards
+              </a>
+            {{/if}}
             <a class='item' href='https://steemit.com/@{{user.username}}' target='_blank'><img style='width:16px;heigth:16px' src='https://steemit.com/favicon.ico'>SteemIt Blog</a>
             <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> Log-Out</div>
           </div>
