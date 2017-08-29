@@ -20,7 +20,7 @@ Meteor.settings.public = {
       "https://chappy.i.ipfs.io",
       "http://127.0.0.1:8080"
     ],
-    "snapMaxFileSizeKB": 150
+    "snapMaxFileSizeKB": 500
   },
   "app": 'dtube/0.2',
   "beneficiary": "dtube",

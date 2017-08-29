@@ -101,34 +101,6 @@ Template.upload.events({
   },
   'dropped #dropzone': function(event) {
     Template.upload.uploadVideo(event.originalEvent.dataTransfer)
-    // var dt = event.originalEvent.dataTransfer
-    // var file = dt.files[0]
-    //
-    // if (file.type.split('/')[0] != 'video') {
-    //   toastr.error('The file you are trying to upload is not a video', 'Error')
-    //   return
-    // }
-    //
-    // $('#dropzone').hide()
-    // $('input[name="title"]').val(file.name)
-    //
-    // // displaying the preview
-    // var videoNode = document.querySelector('video')
-    // var fileURL = URL.createObjectURL(file)
-    // videoNode.src = fileURL
-    //
-    // // uploading to ipfs
-    // var reader = new window.FileReader()
-    // reader.onload = function(event) {
-    //   var node = Meteor.settings.public.remote.uploadNodes[0]
-    //   if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    //   Template.upload.IPFS(node, event.target.result, function(e, r) {
-    //     if (e) console.log(e)
-    //     console.log('Uploaded video', r);
-    //     $('input[name="videohash"]').val(r[0].hash)
-    //   })
-    // }
-    // reader.readAsArrayBuffer(file);
   },
   'click #snap': function(event) {
   	var video = document.querySelector('video')

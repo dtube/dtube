@@ -9,23 +9,23 @@ Meteor.startup(function(){
 
   window.localIpfs = IpfsApi(Meteor.settings.public.remote.uploadNodes[Meteor.settings.public.remote.uploadNodes.length-1].node)
 
-  // setInterval(function() {
-  //   try {
-  //     localIpfs.repo.stat(function(e,r) {
-  //       if (e) {
-  //         Session.set('localIpfs', false)
-  //         return;
-  //       }
-  //       Session.set('localIpfs', r)
-  //
-  //       // using local gateway seems to make my internet very unstable and nothing works
-  //       // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Meteor.settings.public.remote.displayNodes.length - 1])
-  //     })
-  //   } catch(e) {
-  //
-  //   }
-  //
-  // }, 2500)
+  setInterval(function() {
+    try {
+      localIpfs.repo.stat(function(e,r) {
+        if (e) {
+          Session.set('localIpfs', false)
+          return;
+        }
+        Session.set('localIpfs', r)
+
+        // using local gateway seems to make my internet very unstable and nothing works
+        // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Meteor.settings.public.remote.displayNodes.length - 1])
+      })
+    } catch(e) {
+
+    }
+
+  }, 10000)
 
 
   // loading remote settings
