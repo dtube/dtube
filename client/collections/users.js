@@ -20,7 +20,6 @@ Users.refreshUsers = function(usernames) {
   steem.api.getAccounts(usernames, function(e, chainusers) {
     for (var i = 0; i < chainusers.length; i++) {
       var user = Users.findOne({username: chainusers[i].name})
-      console.log(chainusers[i])
       if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
         user.json_metadata = JSON.parse(chainusers[i].json_metadata)
       user.reward_sbd_balance = chainusers[i].reward_sbd_balance

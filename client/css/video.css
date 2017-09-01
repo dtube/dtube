@@ -12,3 +12,19 @@
   margin-bottom: 2px;
   margin-right: 5px;
 }
+
+.channelLink {
+  vertical-align: top;
+  font-size: 13px;
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+
+.channelLink > a {
+  color: rgb(51, 51, 51);
+  font-weight: 700;
+}
+
+.channelLink > a:hover, a:focus {
+  text-decoration: underline;
+}

@@ -51,11 +51,14 @@ Template.registerHelper('downvotes', function (active_votes) {
 });
 
 Template.registerHelper('userPic', function (username) {
-  var user = ChainUsers.findOne({name: username})
-  if (user && user.json_metadata && user.json_metadata.profile && user.json_metadata.profile.profile_image)
-    return 'https://steemitimages.com/120x120/'+user.json_metadata.profile.profile_image
-  return 'https://kontak.me/slpw/plugin_blab/noprofileimage.png'
+  return 'https://img.busy.org/@'+username+'?width=48&height=48'
 });
+
+Template.registerHelper('subCount', function(username) {
+  var count = SubCounts.findOne({account: username})
+  if (!count) return;
+  return count.follower_count
+})
 
 Template.registerHelper('isReplying', function (content) {
   if (!Session.get('replyingTo')) return false

@@ -3,6 +3,9 @@ Template.video.rendered = function() {
 }
 
 Template.video.helpers({
+  author: function() {
+    return ChainUsers.findOne({name: FlowRouter.getParam("author")})
+  },
   video: function() {
     var videos = Videos.find({
       'info.author': FlowRouter.getParam("author"),
@@ -17,6 +20,9 @@ Template.video.helpers({
     }
 
     Template.video.loadState()
+    steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
+      SubCounts.upsert({_id: r.account}, r)
+    })
 
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].source == 'chainByBlog') return videos[i]
@@ -91,6 +97,25 @@ Template.video.events({
       Template.video.loadState()
       Session.set('replyingTo', null)
     });
+  },
+  'click .subscribe': function() {
+    var json = JSON.stringify(
+      ['follow', {
+        follower: Session.get('activeUsername'),
+        following: FlowRouter.getParam("author"),
+        what: ['blog']
+      }]
+    );
+    steem.broadcast.customJson(
+      Users.findOne({username: Session.get('activeUsername')}).privatekey,
+      [], // Required_auths
+      [Session.get('activeUsername')], // Required Posting Auths
+      'follow', // Id
+      json, //
+      function(err, result) {
+        console.log(err, result);
+      }
+    );
   }
 })
 

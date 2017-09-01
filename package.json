@@ -10,7 +10,7 @@
     "bufferutil": "^3.0.0",
     "meteor-node-stubs": "~0.2.4",
     "moment": "^2.18.1",
-    "steem": "^0.5.7",
+    "steem": "^0.6.3",
     "utf-8-validate": "^3.0.1",
     "wakajs": "0.0.15",
     "xss": "^0.3.3"

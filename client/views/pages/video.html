@@ -5,13 +5,20 @@
       <div class="ui grid">
         <div class="twelve wide column">
           <h1>{{info.title}}</h1>
-          By
-          <a href="/c/{{info.author}}">
-            <a class="ui avatar image">
-              <img src="{{userPic info.author}}">
+          <img class="ui left floated image" src="{{userPic info.author}}">
+          <div class="channelLink">
+            <a href="/c/{{info.author}}">
+              {{info.author}}
             </a>
-            {{info.author}}
-          </a>
+          </div>
+          <div class="ui labeled mini button" tabindex="0">
+            <div class="ui red mini button subscribe">
+              <i class="play icon"></i> Subscribe
+            </div>
+            <a class="ui basic label">
+              {{subCount info.author}}
+            </a>
+          </div>
         </div>
         <div class="four wide column right aligned">
           <div class='videopayout'>
