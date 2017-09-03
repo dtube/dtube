@@ -7,7 +7,7 @@
       <div class="ui search">
         <div class="ui icon input">
           <form class='searchForm'>
-            <input id='dsearch' type="text" name='search' placeholder="Search Videos..." autocomplete="off">
+            <input id='dsearch' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
           </form>
           <i class="search icon"></i>
         </div>
@@ -20,11 +20,11 @@
     </div>
     <div class="right menu">
       {{#if isLoggedOn}}
-        <a class="ui item" href='/upload' title='Upload a Video'>
+        <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
           <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
         </a>
       {{else}}
-        <a class="ui item" href='/login' title='Upload a Video'>
+        <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
           <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
         </a>
       {{/if}}
@@ -34,7 +34,7 @@
         {{> users}}
       {{else}}
         <a class="ui item">
-          <a href="/login" class="ui youtube button"><i class="sign in icon"></i> Login</a>
+          <a href="/login" class="ui youtube button"><i class="sign in icon"></i> {{ translate "TOPBAR_LOGIN"}}</a>
         </a>
       {{/if}}
     </div>

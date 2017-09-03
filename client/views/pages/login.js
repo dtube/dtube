@@ -10,12 +10,12 @@ Template.login.events({
     var username = event.target.username.value.toLowerCase().replace('@','');
     var privatekey = event.target.privatekey.value;
     if (!username || !privatekey) {
-      toastr.error('Please fill both username and private posting key to login', 'Error')
+      toastr.error(translate('LOGIN_ERROR_EMPTY_USERNAME_POSTING_KEY'), translate('ERROR_TITLE'))
       return
     }
     steem.api.getAccounts([username], function(err, result) {
       if (!result || result.length < 1) {
-        toastr.error('Username does not exist', 'Error')
+        toastr.error(translate('LOGIN_ERROR_UNKNOWN_USERNAME'), translate('ERROR_TITLE'))
         return
       }
       var chainuser = result[0]
@@ -25,7 +25,7 @@ Template.login.events({
       try {
         user.publickey = steem.auth.wifToPublic(user.privatekey)
       } catch (e) {
-        toastr.error('Private Posting Key is wrong', 'Error')
+        toastr.error(translate('LOGIN_ERROR_WRONG_POSTING_KEY'), translate('ERROR_TITLE'))
         return
       }
 
@@ -53,7 +53,7 @@ Template.login.events({
           })
         }
       } else {
-        toastr.error('Username and Private Posting Key do not match', 'Error')
+        toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
       }
     });
 

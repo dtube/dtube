@@ -6,26 +6,26 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" name="username" placeholder="STEEM Username">
+              <input type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" name="privatekey" placeholder="Private Posting Key">
+              <input type="password" name="privatekey" placeholder="{{ translate 'LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY'}}">
             </div>
           </div>
           <div class="field">
             <div class="ui slider checkbox">
               <input type="checkbox" name="rememberme">
-              <label>Remember me</label>
+              <label>{{ translate 'LOGIN_REMEMBER_ME'}}</label>
             </div>
           </div>
-          <button type="submit" name="button" class="ui fluid large youtube submit button"><i class="sign in icon"></i> Login</button>
+          <button type="submit" name="button" class="ui fluid large youtube submit button"><i class="sign in icon"></i> {{ translate 'LOGIN_BUTTON_LOGIN'}}</button>
         </div>
       </form>
       <div class="ui message">
-        No Account? <a href="https://steemit.com/pick_account" target="_blank">Sign Up on steemit.com</a>
+        {{ translate 'LOGIN_LINK_NO_ACCOUNT'}} <a href="https://steemit.com/pick_account" target="_blank">{{ translate 'LOGIN_LINK_SIGN_UP_ON'}}</a>
       </div>
     </div>
   </div>
