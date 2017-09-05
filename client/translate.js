@@ -1,8 +1,10 @@
 // loading en-us by default
 var jsonTranslate = require('./en-us.json')
+var jsonTranslateDef = require('./en-us.json')
+var culture = 'en-us';
 
 window.loadLangAuto = function(cb) {
-  var culture = getCultureAuto();
+  culture = getCultureAuto();
   console.log('Loading translation: '+culture)
   loadJsonTranslate(culture, function() {
     cb()
@@ -22,8 +24,18 @@ function translate(code){
   }
 
   if(!found){
-    console.log('have not found traduction:'+code);
-    return '[['+code+']]';
+    console.log('have not found traduction in ' + culture + ' :'+code);
+    for(var key in jsonTranslateDef){
+      if(key === code){
+        value = jsonTranslateDef[key];
+        found = true;
+        break;
+      }
+    }
+    if(!found){
+      console.log('have not found traduction:'+code);
+      return '[['+code+']]';
+    }
   }
   
   //on remplace %1, %2, ..., %n par les arguments passés dans la fn

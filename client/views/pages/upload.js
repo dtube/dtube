@@ -31,12 +31,12 @@ Template.upload.IPFS = function(node, buffer, cb) {
 
 Template.upload.uploadVideo = function(dt) {
   if (!dt.files || dt.files.length == 0) {
-    toastr.error('Please select a file for upload', 'Error')
+    toastr.error(translate('UPLOAD_ERROR_UPLOAD_FILE'), translate('ERROR_TITLE'))
     return
   }
   var file = dt.files[0]
   if (file.type.split('/')[0] != 'video') {
-    toastr.error('The file you are trying to upload is not a video', 'Error')
+    toastr.error(translate('UPLOAD_ERROR_WRONG_FORMAT'), translate('ERROR_TITLE'))
     return
   }
 
@@ -60,7 +60,7 @@ Template.upload.uploadVideo = function(dt) {
     Template.upload.IPFS(node, event.target.result, function(e, r) {
       $('#step1load').hide()
       if (e) {
-        toastr.error(e, 'IPFS Error while uploading')
+        toastr.error(e, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
         return
       } else {
         $('#step1load').parent().addClass('completed')
@@ -78,8 +78,8 @@ Template.upload.genBody = function(author, permlink, title, snaphash, videohash,
   body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
   body += description
   body += '<hr>'
-  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>► Watch on DTube</a><br />'
-  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'>► Watch Source (IPFS)</a>'
+  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>► '+translate('UPLOAD_WATCH_ON_DTUBE')+' DTube</a><br />'
+  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'>► '+translate('UPLOAD_WATCH_SOURCE_IPFS')+'</a>'
   return body
 }
 
@@ -130,11 +130,11 @@ Template.upload.events({
     var file = event.currentTarget.files[0];
     var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
     if (file.type.split('/')[0] != 'image') {
-      toastr.error('The file you are trying to upload is not an image', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_NOT_IMAGE'), translate('ERROR_TITLE'))
       return
     }
     if (file.size > Meteor.settings.public.remote.snapMaxFileSizeKB*1000) {
-      toastr.error('Maximum snap file size is '+Meteor.settings.public.remote.snapMaxFileSizeKB+' KB', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_REACH_MAX_SIZE')+' '+Meteor.settings.public.remote.snapMaxFileSizeKB+' KB', translate('ERROR_TITLE'))
       return
     }
 
@@ -148,7 +148,7 @@ Template.upload.events({
         $('#step2load').hide()
         if (e) {
           console.log(e)
-          toastr.error(e, 'IPFS Error while uploading')
+          toastr.error(e, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
           return
         } else {
           $('#step2load').parent().addClass('completed')
@@ -182,19 +182,19 @@ Template.upload.events({
       }
     }
     if (!article.info.title) {
-      toastr.error('Title is required', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
       return
     }
     if (!article.info.snaphash) {
-      toastr.error('Please upload a snap picture', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
       return
     }
     if (!article.info.author) {
-      toastr.error('Please login before uploading', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING'), translate('ERROR_TITLE'))
       return
     }
     if (!article.content.videohash) {
-      toastr.error('Please upload a video before submitting', 'Error')
+      toastr.error(translate('UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING'), translate('ERROR_TITLE'))
       return
     }
     $('#step3load').show()
@@ -249,8 +249,8 @@ Template.upload.events({
         function(e, r) {
           $('#step3load').hide()
           if (e) {
-            if (e.payload) toastr.error(e.payload.error.data.stack[0].format, 'Error')
-            else toastr.error('Error while submitting to the blockchain.', 'Error')
+            if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
+            else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
           } else {
             FlowRouter.go('/v/'+author+'/'+permlink)
           }

@@ -5,29 +5,29 @@
         <div class="step">
           <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
           <div class="content">
-            <div class="title">Video</div>
-            <div class="description">Upload a video</div>
+            <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
+            <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
           </div>
         </div>
         <div class="step">
           <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
           <div class="content">
-            <div class="title">Snap</div>
-            <div class="description">Upload a thumbnail</div>
+            <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
+            <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
           </div>
         </div>
         <div class="step">
           <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
           <div class="content">
-            <div class="title">Submit to the Blockchain</div>
-            <div class="description">Enter a title, description and tags</div>
+            <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
+            <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
           </div>
         </div>
       </div>
     </div>
     <br />
     <div id="dropzone" class="dropzone">
-      <div>Drop a file or click to start the upload</div>
+      <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
     </div>
     <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
   </center>
@@ -36,41 +36,41 @@
       <div class="two column row">
         <div class="column">
           <video controls autoplay></video>
-          <h6>Video bitrate: {{humanFilesize bitrate 1}}/s</h6>
+          <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6>
         </div>
         <div class="column"><canvas></canvas></div>
       </div>
     </div>
-    <a class='ui button' id='snap' download='snap.jpg'>Take Snap</a>
+    <a class='ui button' id='snap' download='snap.jpg'>{{ translate 'UPLOAD_TAKE_SNAP'}}</a>
     <label for="snapFile">
-      <a class='ui youtube button' id='uploadSnap'>Upload Snap</a>
+      <a class='ui youtube button' id='uploadSnap'>{{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
     </label>
     <input type="file" id="snapFile">
   </div>
   <div id="infozone">
     <form class="ui form">
       <div class="field">
-        <label>Title</label>
-        <input type="text" name="title" placeholder="Title">
+        <label>{{ translate 'UPLOAD_TITLE'}}</label>
+        <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
       </div>
       <div class="field">
-        <label>Description</label>
+        <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
         <textarea rows="4" name='description'></textarea>
       </div>
       <div class="field">
-        <label>Tags</label>
-        <input id="tags" name="tags" type="text" placeholder="">
+        <label>{{ translate 'UPLOAD_TAGS'}}</label>
+        <input id="tags" name="tags" type="text" placeholder="{{ translate 'UPLOAD_TAGS'}}">
       </div>
 
       <div class="field" style='display: none'>
-        <label>More Info</label>
-        <input type="text" name="author" placeholder="author" value="{{mainUser.username}}" disabled>
-        <input type="text" name="videohash" placeholder="videohash" disabled>
-        <input type="text" name="snaphash" placeholder="snaphash" disabled>
+        <label>{{ translate 'UPLOAD_MORE_INFO'}}</label>
+        <input type="text" name="author" placeholder="{{ translate 'UPLOAD_AUTHOR'}}" value="{{mainUser.username}}" disabled>
+        <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" disabled>
+        <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}" disabled>
       </div>
 
-      <button class="ui button" type="submit">Clear</button>
-      <button class="ui youtube button" type="submit">Submit</button>
+      <button class="ui button" type="submit">{{ translate 'UPLOAD_CLEAR'}}</button>
+      <button class="ui youtube button" type="submit">{{ translate 'UPLOAD_SUBMIT'}}</button>
     </form>
   </div>
 </template>
