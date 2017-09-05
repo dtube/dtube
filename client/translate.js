@@ -12,10 +12,20 @@ window.loadLangAuto = function(cb) {
 function translate(code){
   //find traduction
   var value = code;
-  for(var key in jsonTranslate)
-    if(key === code)
+  var found = false;
+  for(var key in jsonTranslate){
+    if(key === code){
       value = jsonTranslate[key];
+      found = true;
+      break;
+    }
+  }
 
+  if(!found){
+    console.log('have not found traduction:'+code);
+    return '[['+code+']]';
+  }
+  
   //on remplace %1, %2, ..., %n par les arguments passés dans la fn
   var args = arguments
   for (var i = 1; i < args.length; i++) {
@@ -29,7 +39,7 @@ function translate(code){
 
 function getCultureAuto(){
   //default culture
-  var culture = 'en-gb';
+  var culture = 'en-us';
 
   var listCult;
   if(navigator.languages){
@@ -49,16 +59,16 @@ function getCultureAuto(){
       culture = "fr-fr";
       break;
     }
+    else if(cult === "en-us"){
+      culture = "en-us";
+      break;
+    }
     else if(cult.startsWith("fr")){
       culture = "fr-fr";
       break;
     }
     else if(cult.startsWith("en")){
-      culture = "en-gb";
-      break;
-    }
-    else{
-      culture = "en-gb";
+      culture = "en-us";
       break;
     }
   }
@@ -77,14 +87,6 @@ function loadJsonTranslate(culture, cb){
       })
     }
   }
-
-  // switch(culture){
-  //   case "fr-fr":
-  //     return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Videos chaudes","HOME_TITLE_TRENDING_VIDEOS":"Videos tendances"}');
-  //
-  //   case "en-gb":
-  //     return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Hot Videos","HOME_TITLE_TRENDING_VIDEOS":"Trending Videos"}');
-  // }
 }
 
 //for js files

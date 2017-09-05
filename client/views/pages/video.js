@@ -50,8 +50,8 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = Session.get('voteWeight')*100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-      if (err) toastr.error(Meteor.blockchainError(err), translate('VIDEO_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(translate('VIDEO_ERROR_VOTE_FOR', weight/100+'%', author+'/'+permlink))
+      if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight/100+'%', author+'/'+permlink))
       Template.video.loadState()
     });
     Template.video.pinFile(author, permlink, function(e,r) {
@@ -65,8 +65,8 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = Session.get('voteWeight')*-100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, translate('VIDEO_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(weight/100+'% '+translate('COMMENT_ERROR_DOWNVOTE_FOR')+' '+author+'/'+permlink)
+      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+      else toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight/100+'%', author+'/'+permlink))
       Template.video.loadState()
     });
   },

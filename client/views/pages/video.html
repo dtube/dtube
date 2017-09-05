@@ -13,7 +13,7 @@
           </div>
           <div class="ui labeled mini button" tabindex="0">
             <div class="ui red mini button subscribe">
-              <i class="play icon"></i> Subscribe
+              <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
             </div>
             <a class="ui basic label">
               {{subCount info.author}}
@@ -49,24 +49,24 @@
           <br />
         </div>
         <div class="sixteen wide column">
-          <strong title='{{timeAgo created}}'>Added on {{timeDisplay created}}</strong>
+          <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
           <br />
           {{{syntaxed content.description}}}
         </div>
       </div>
 
-      <h3 class="ui dividing header">Comments</h3>
+      <h3 class="ui dividing header">{{ translate 'VIDEO_COMMENTS'}}</h3>
       {{#if isReplying this}}
         <form class="ui reply form">
           <div class="field">
             <textarea style='height: 5em;min-height:5em'></textarea>
           </div>
           <div class="ui red labeled submit icon button">
-            <i class="icon edit"></i> Reply to @{{info.author}}
+            <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}}
           </div>
         </form>
       {{else}}
-        <a class="replyTo ui label basic" data-author='{{info.author}}' data-permlink='{{info.permlink}}'>Reply</a>
+        <a class="replyTo ui label basic" data-author='{{info.author}}' data-permlink='{{info.permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
       {{/if}}
 
       <div class="twelve wide column" style='margin-top: 15px'>

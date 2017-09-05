@@ -19,7 +19,7 @@ Template.users.rendered = function() {
         var user = Users.findOne({username: e.data('username')})
         steem.broadcast.claimRewardBalance(user.privatekey, user.username, user.reward_steem_balance, user.reward_sbd_balance, user.reward_vesting_balance, function(err, result) {
           Users.refreshUsers([user.username])
-          toastr.success('You have claimed ' + Template.users.formatRewards(user), 'Success')
+          toastr.success(translate('USERS_YOU_HAVE_CLAIMED') + ' ' + Template.users.formatRewards(user), translate('USERS_SUCCESS'))
         })
       }
     }
