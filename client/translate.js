@@ -16,6 +16,14 @@ function translate(code){
     if(key === code)
       value = jsonTranslate[key];
 
+  //on remplace %1, %2, ..., %n par les arguments passés dans la fn
+  var args = arguments
+  for (var i = 1; i < args.length; i++) {
+    var find = '%'+i
+    var regex = new RegExp(find, "g");
+    value = value.replace(regex, args[i])
+  }
+
   return value;
 }
 

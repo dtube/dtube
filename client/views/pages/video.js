@@ -51,7 +51,7 @@ Template.video.events({
     var weight = Session.get('voteWeight')*100
     steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('VIDEO_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(weight/100+'% '+translate('VIDEO_ERROR_VOTE_FOR')+' '+author+'/'+permlink)
+      else toastr.success(translate('VIDEO_ERROR_VOTE_FOR', weight/100+'%', author+'/'+permlink))
       Template.video.loadState()
     });
     Template.video.pinFile(author, permlink, function(e,r) {
