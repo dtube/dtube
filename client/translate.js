@@ -1,12 +1,15 @@
-var jsonTranslate;
+// loading en-us by default
+var jsonTranslate = require('./en-us.json')
+
+window.loadLangAuto = function(cb) {
+  var culture = getCultureAuto();
+  console.log('Loading translation: '+culture)
+  loadJsonTranslate(culture, function() {
+    cb()
+  });
+}
 
 function translate(code){
-  //if not loaded yet
-  if(!jsonTranslate){
-    var culture = getCultureAuto();
-    jsonTranslate = loadJsonTranslate(culture);
-  }
-
   //find traduction
   var value = code;
   for(var key in jsonTranslate)
@@ -19,7 +22,7 @@ function translate(code){
 function getCultureAuto(){
   //default culture
   var culture = 'en-gb';
-  
+
   var listCult;
   if(navigator.languages){
     listCult=navigator.languages;
@@ -30,7 +33,7 @@ function getCultureAuto(){
   else if(navigator.userLanguage){
     listCult[0] = navigator.userLanguage;
   }
-  
+
   for(var j = 0;j < listCult.length;j++){
     var cult = listCult[j].toLowerCase();
     //essaye de trouver du plus spécifique au moins spécifique
@@ -54,14 +57,26 @@ function getCultureAuto(){
   return culture;
 }
 
-function loadJsonTranslate(culture){
-  switch(culture){
-    case "fr-fr":
-      return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Videos chaudes","HOME_TITLE_TRENDING_VIDEOS":"Videos tendances"}');
-
-    case "en-gb":
-      return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Hot Videos","HOME_TITLE_TRENDING_VIDEOS":"Trending Videos"}');
+function loadJsonTranslate(culture, cb){
+  for(var key in Meteor.settings.public.translations) {
+    if (key == culture) {
+      steem.api.getContent(
+      Meteor.settings.public.translations[key].author,
+      Meteor.settings.public.translations[key].permlink,
+      function(e,r) {
+        jsonTranslate = JSON.parse(r.body)
+        cb()
+      })
+    }
   }
+
+  // switch(culture){
+  //   case "fr-fr":
+  //     return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Videos chaudes","HOME_TITLE_TRENDING_VIDEOS":"Videos tendances"}');
+  //
+  //   case "en-gb":
+  //     return JSON.parse('{"HOME_TITLE_HOT_VIDEOS":"Hot Videos","HOME_TITLE_TRENDING_VIDEOS":"Trending Videos"}');
+  // }
 }
 
 //for js files

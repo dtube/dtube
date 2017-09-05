@@ -26,5 +26,9 @@ Meteor.settings.public = {
   "beneficiary": "dtube",
   "pageTitleSeparator": '-',
   "appName": 'DTube',
-  "ipns": "Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB"
+  "ipns": "Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB",
+  "translations": {
+    "en-us": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t000249923z'},
+    "fr-fr": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t002032311z'}
+  }
 }
