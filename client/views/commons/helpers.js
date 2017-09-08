@@ -2,6 +2,9 @@ import moment from 'moment'
 import xss from 'xss'
 import Autolinker from 'autolinker'
 
+require("moment/min/locales.min");
+moment.locale(navigator.language);
+
 var autolinkerOptions = {
   urls : {
     schemeMatches : true,
@@ -105,7 +108,7 @@ Template.registerHelper('timeAgo', function(created) {
 
 Template.registerHelper('timeDisplay', function(created) {
   if (!created) return
-  return moment(created).format("MMM Do YY")
+  return moment(created).format("ll")
 })
 
 Template.registerHelper('hasUpvoted', function(video) {
