@@ -12,7 +12,7 @@ window.loadLangAuto = function(cb) {
 }
 
 function translate(code){
-  //find traduction
+  //find translation
   var value = code;
   var found = false;
   for(var key in jsonTranslate){
@@ -24,7 +24,7 @@ function translate(code){
   }
 
   if(!found){
-    console.log('have not found traduction in ' + culture + ' :'+code);
+    console.log('have not found translation in ' + culture + ' :'+code);
     for(var key in jsonTranslateDef){
       if(key === code){
         value = jsonTranslateDef[key];
@@ -33,12 +33,12 @@ function translate(code){
       }
     }
     if(!found){
-      console.log('have not found traduction:'+code);
+      console.log('have not found translation:'+code);
       return '[['+code+']]';
     }
   }
-  
-  //on remplace %1, %2, ..., %n par les arguments passés dans la fn
+
+  //replacing %1, %2, ..., %n by the function arguments
   var args = arguments
   for (var i = 1; i < args.length; i++) {
     var find = '%'+i
@@ -67,22 +67,28 @@ function getCultureAuto(){
   for(var j = 0;j < listCult.length;j++){
     var cult = listCult[j].toLowerCase();
     //essaye de trouver du plus spécifique au moins spécifique
-    if(cult === "fr-fr"){
-      culture = "fr-fr";
-      break;
+
+    for(var key in Meteor.settings.public.translations) {
+      if (key === cult) return key
+      if (cult.substr(0,2) === key.substr(0,2)) culture = key;
     }
-    else if(cult === "en-us"){
-      culture = "en-us";
-      break;
-    }
-    else if(cult.startsWith("fr")){
-      culture = "fr-fr";
-      break;
-    }
-    else if(cult.startsWith("en")){
-      culture = "en-us";
-      break;
-    }
+
+    // if(cult === "fr-fr"){
+    //   culture = "fr-fr";
+    //   break;
+    // }
+    // else if(cult === "en-us"){
+    //   culture = "en-us";
+    //   break;
+    // }
+    // else if(cult.startsWith("fr")){
+    //   culture = "fr-fr";
+    //   break;
+    // }
+    // else if(cult.startsWith("en")){
+    //   culture = "en-us";
+    //   break;
+    // }
   }
   return culture;
 }

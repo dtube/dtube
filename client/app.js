@@ -28,16 +28,18 @@ Meteor.startup(function(){
   }, 10000)
 
   // loading remote settings
+  $('.appLoaderText').html('Loading... 1/2')
   steem.api.getAccounts(['dtube'], function(err, result) {
     if (!result || !result[0]) return
     var jsonMeta = JSON.parse(result[0].json_metadata)
     if (jsonMeta.remoteSettings) {
       Meteor.settings.public.remote = jsonMeta.remoteSettings
       // load language json
+      $('.appLoaderText').html('Loading... 2/2')
       loadLangAuto(function() {
+        $('.appLoader').hide()
         FlowRouter.initialize({hashbang: true});
       })
-
     }
   });
 
