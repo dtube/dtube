@@ -39,8 +39,12 @@ Users.refreshLocalUsers = function() {
       usernames.push(results[i].username)
 
       // fill the subscribes for each local user
-      Subs.loadFollowing(results[i].username, undefined, function() {
-        console.log('Subs loaded')
+      Subs.loadFollowing(results[i].username, undefined, function(follower) {
+        var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
+        if (!sub) Subs.followUs(follower, function(follower){
+          console.log('Subs loaded & Subscribed to dtube')
+        })
+        else console.log('Subs loaded')
       })
     }
     Users.refreshUsers(usernames)
