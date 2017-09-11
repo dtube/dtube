@@ -108,12 +108,49 @@ Template.video.events({
     );
     steem.broadcast.customJson(
       Users.findOne({username: Session.get('activeUsername')}).privatekey,
-      [], // Required_auths
-      [Session.get('activeUsername')], // Required Posting Auths
-      'follow', // Id
-      json, //
+      [],
+      [Session.get('activeUsername')],
+      'follow',
+      json,
       function(err, result) {
-        console.log(err, result);
+        // alternative, inutile jusqua preuve du contraire
+        // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
+        //   SubCounts.upsert({_id: r.account}, r)
+        // })
+
+        var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
+        subCount.follower_count++
+        SubCounts.upsert({_id: subCount._id}, subCount)
+        Subs.insert({
+          follower: Session.get('activeUsername'),
+          following: FlowRouter.getParam("author"),
+          what: ['blog']
+        })
+      }
+    );
+  },
+  'click .unsubscribe': function() {
+    var json = JSON.stringify(
+      ['follow', {
+        follower: Session.get('activeUsername'),
+        following: FlowRouter.getParam("author"),
+        what: []
+      }]
+    );
+    steem.broadcast.customJson(
+      Users.findOne({username: Session.get('activeUsername')}).privatekey,
+      [],
+      [Session.get('activeUsername')],
+      'follow',
+      json,
+      function(err, result) {
+        var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
+        subCount.follower_count--
+        SubCounts.upsert({_id: subCount._id}, subCount)
+        Subs.remove({
+          follower: Session.get('activeUsername'),
+          following: FlowRouter.getParam("author")
+        })
       }
     );
   }
@@ -126,6 +163,7 @@ Template.video.setTime = function(seconds) {
 Template.video.loadState = function() {
   steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function(err, result) {
     if (err) throw err;
+    console.log(result)
     for (var key in result.accounts) {
       var user = result.accounts[key]
       try {

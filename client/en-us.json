@@ -1,7 +1,7 @@
 {
 	"ERROR_UNKNOWN":"Unknown error",
 	"ERROR_TITLE":"Error",
-	"GLOBAL_REPLY":"Reply",	
+	"GLOBAL_REPLY":"Reply",
 	"GLOBAL_REPLY_TO":"Reply to",
 	"GLOBAL_ERROR_COULD_NOT_VOTE":"Could not vote",
 	"GLOBAL_ERROR_DOWNVOTE_FOR":"%1 downvote for %2",
@@ -50,6 +50,7 @@
 	"SEARCH_RESULTS_FOR":"Search results for",
 	"SEARCH_RESULT":"result",
 	"SEARCH_RESULTS":"results",
+	"VIDEO_UNSUBSCRIBE":"Unsubscribe",
 	"VIDEO_SUBSCRIBE":"Subscribe",
 	"VIDEO_ADDED_ON":"Added on",
 	"VIDEO_COMMENTS":"Comments",

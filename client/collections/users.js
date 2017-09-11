@@ -37,6 +37,11 @@ Users.refreshLocalUsers = function() {
     for (var i = 0; i < results.length; i++) {
       Users.insert(results[i])
       usernames.push(results[i].username)
+
+      // fill the subscribes for each local user
+      Subs.loadFollowing(results[i].username, undefined, function() {
+        console.log('Subs loaded')
+      })
     }
     Users.refreshUsers(usernames)
   })

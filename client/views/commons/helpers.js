@@ -231,3 +231,9 @@ Meteor.getIpfsSrc = function(ipfsHash) {
     return Session.get('ipfsGateway')+'/ipfs/'+ipfsHash
   }
 }
+
+Template.registerHelper('isSubscribedTo', function(following) {
+  var sub = Subs.findOne({follower: Session.get('activeUsername'), following: following})
+  if (sub) return true
+  return false;
+})
