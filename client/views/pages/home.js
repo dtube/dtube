@@ -17,5 +17,8 @@ Template.home.helpers({
   },
   trendingVideos: function() {
     return Videos.find({source: 'chainByTrending'}).fetch()
+  },
+  feedVideos: function() {
+    return Videos.find({source: 'chainByFeed'}).fetch()
   }
 })

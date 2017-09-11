@@ -48,3 +48,7 @@
 .videosnapsnap .remove:hover {
   opacity: 1;
 }
+
+.reblogged {
+  color: red;
+}

@@ -1,4 +1,8 @@
 <template name='home'>
+  {{#if feedVideos}}
+    <h2>{{ translate 'HOME_TITLE_FEED_VIDEOS'}}</h2>
+    {{> videoslider feedVideos}}
+  {{/if}}
   {{#if hotVideos}}
     <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
     {{> videoslider hotVideos}}

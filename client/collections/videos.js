@@ -3,6 +3,7 @@ Videos = new Mongo.Collection(null)
 firstLoad = setInterval(function() {
   if (!Videos) return
   if (!Waka) return
+  if (!Session.get('activeUsername')) return
   // loading videos
   Videos.refreshWaka()
   Videos.refreshBlockchain(function() {})
@@ -124,6 +125,29 @@ Videos.refreshBlockchain = function(cb) {
         console.log(err);
     }
   });
+  steem.api.getDiscussionsByFeed({"tag": Session.get('activeUsername'), "limit": 100}, function(err, result) {
+    if (err === null) {
+        var i, len = result.length;
+        var videos = []
+        for (i = 0; i < len; i++) {
+            console.log(result[i].author, result[i].reblogged_by)
+            var video = Videos.parseFromChain(result[i])
+            if (!video) continue;
+            videos.push(video)
+        }
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].source = 'chainByFeed'
+          videos[i]._id += 'f'
+          try {
+            Videos.upsert({_id: videos[i]._id}, videos[i])
+          } catch(err) {
+            console.log(err)
+          }
+        }
+    } else {
+        console.log(err);
+    }
+  });
 }
 
 Videos.parseFromChain = function(video) {
@@ -141,6 +165,7 @@ Videos.parseFromChain = function(video) {
   newVideo.permlink = video.permlink
   newVideo.created = video.created
   newVideo.net_rshares = video.net_rshares
+  newVideo.reblogged_by = video.reblogged_by
   return newVideo;
 }
 

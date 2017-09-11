@@ -237,3 +237,8 @@ Template.registerHelper('isSubscribedTo', function(following) {
   if (sub) return true
   return false;
 })
+
+Template.registerHelper('isResteemed', function(array) {
+  if (array.length && array.length > 0) return true
+  return false
+})
