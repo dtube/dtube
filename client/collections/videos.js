@@ -3,7 +3,6 @@ Videos = new Mongo.Collection(null)
 firstLoad = setInterval(function() {
   if (!Videos) return
   if (!Waka) return
-  if (!Session.get('activeUsername')) return
   // loading videos
   Videos.refreshWaka()
   Videos.refreshBlockchain(function() {})
@@ -125,7 +124,11 @@ Videos.refreshBlockchain = function(cb) {
         console.log(err);
     }
   });
-  steem.api.getDiscussionsByFeed({"tag": Session.get('activeUsername'), "limit": 100}, function(err, result) {
+}
+
+Videos.loadFeed = function(username) {
+  console.log('Loading feed for '+username)
+  steem.api.getDiscussionsByFeed({"tag": username, "limit": 100}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []

@@ -59,7 +59,7 @@ Template.registerHelper('userPic', function (username) {
 
 Template.registerHelper('subCount', function(username) {
   var count = SubCounts.findOne({account: username})
-  if (!count) return;
+  if (!count) return '<i class="loading spinner icon"></i>';
   return count.follower_count
 })
 
@@ -239,6 +239,6 @@ Template.registerHelper('isSubscribedTo', function(following) {
 })
 
 Template.registerHelper('isResteemed', function(array) {
-  if (array.length && array.length > 0) return true
+  if (array && array.length && array.length > 0) return true
   return false
 })
