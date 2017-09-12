@@ -58,7 +58,7 @@ Videos.refreshWaka = function() {
 
 Videos.refreshBlockchain = function(cb) {
   //if (!steem) return;
-  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
+  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -82,7 +82,7 @@ Videos.refreshBlockchain = function(cb) {
         cb(err)
     }
   });
-  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
+  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -104,7 +104,7 @@ Videos.refreshBlockchain = function(cb) {
         console.log(err);
     }
   });
-  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
+  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -130,7 +130,7 @@ Videos.refreshBlockchain = function(cb) {
 
 Videos.loadFeed = function(username) {
   console.log('Loading feed for '+username)
-  steem.api.getDiscussionsByFeed({"tag": username, "limit": 100}, function(err, result) {
+  steem.api.getDiscussionsByFeed({"tag": username, "limit": 100, "truncate_body": 1}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
