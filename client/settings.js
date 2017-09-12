@@ -10,7 +10,7 @@ Meteor.settings.public = {
     ],
     "displayNodes": [
       "https://ipfs.io",
-      "https://dtube1.gateway.ipfsstore.it:8443",
+      "https://dtube1.gateway.ipfsstore.it:8444",
       "https://dtube2.gateway.ipfsstore.it:8443",
       "https://gateway.ipfs.io",
       "https://earth.i.ipfs.io",

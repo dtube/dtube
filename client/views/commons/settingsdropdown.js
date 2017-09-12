@@ -29,11 +29,11 @@ Template.settingsdropdown.rendered = function() {
   Session.set('nsfwSetting', 'Hide Picture')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
-  // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Math.floor(Math.random() * Meteor.settings.public.remote.displayNodes.length-1)])
+  // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Math.floor(Math.random() * Session.get('remoteSettings').displayNodes.length-1)])
   Session.set('ipfsGateway', 'automatic')
 
   // random upload ipfs api
-  Session.set('ipfsUpload', Meteor.settings.public.remote.uploadNodes[Math.floor(Math.random() * (Meteor.settings.public.remote.uploadNodes.length-1))].node)
+  Session.set('ipfsUpload', Session.get('remoteSettings').uploadNodes[Math.floor(Math.random() * (Session.get('remoteSettings').uploadNodes.length-1))].node)
 }
 
 Template.settingsdropdown.helpers({
@@ -50,10 +50,10 @@ Template.settingsdropdown.helpers({
     return Session.get('ipfsGateway');
   },
   uploadNodes: function() {
-    return Meteor.settings.public.remote.uploadNodes;
+    return Session.get('remoteSettings').uploadNodes;
   },
   displayNodes: function() {
-    return Meteor.settings.public.remote.displayNodes;
+    return Session.get('remoteSettings').displayNodes;
   },
   localIpfs: function() {
     return Session.get('localIpfs')

@@ -55,7 +55,7 @@ Template.upload.uploadVideo = function(dt) {
   reader.onload = function(event) {
     var bitrate = 8*file.size / document.querySelector('video').duration
     Session.set('bitrate', bitrate)
-    var node = Meteor.settings.public.remote.uploadNodes[0]
+    var node = Session.get('remoteSettings').uploadNodes[0]
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
     Template.upload.IPFS(node, event.target.result, function(e, r) {
       $('#step1load').hide()
@@ -133,8 +133,8 @@ Template.upload.events({
       toastr.error(translate('UPLOAD_ERROR_NOT_IMAGE'), translate('ERROR_TITLE'))
       return
     }
-    if (file.size > Meteor.settings.public.remote.snapMaxFileSizeKB*1000) {
-      toastr.error(translate('UPLOAD_ERROR_REACH_MAX_SIZE')+' '+Meteor.settings.public.remote.snapMaxFileSizeKB+' KB', translate('ERROR_TITLE'))
+    if (file.size > Session.get('remoteSettings').snapMaxFileSizeKB*1000) {
+      toastr.error(translate('UPLOAD_ERROR_REACH_MAX_SIZE')+' '+Session.get('remoteSettings').snapMaxFileSizeKB+' KB', translate('ERROR_TITLE'))
       return
     }
 
@@ -142,7 +142,7 @@ Template.upload.events({
 
     var reader = new FileReader();
     reader.onload = function(event) {
-      var node = Meteor.settings.public.remote.uploadNodes[0]
+      var node = Session.get('remoteSettings').uploadNodes[0]
       if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
       Template.upload.IPFS(node, event.target.result, function(e, r) {
         $('#step2load').hide()
@@ -235,7 +235,7 @@ Template.upload.events({
             [0, {
               beneficiaries: [{
                 account: Meteor.settings.public.beneficiary,
-                weight: Meteor.settings.public.remote.dfees
+                weight: Session.get('remoteSettings').dfees
               }]
             }]
           ]

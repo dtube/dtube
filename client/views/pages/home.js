@@ -2,7 +2,7 @@ var moment=require('moment')
 
 Template.home.helpers({
   watchAgain: function() {
-    return Videos.find({source: 'wakaArticles'}, {limit: Meteor.settings.public.remote.loadLimit}).fetch()
+    return Videos.find({source: 'wakaArticles'}, {limit: Session.get('remoteSettings').loadLimit}).fetch()
   },
   neighborhood: function() {
     return Videos.find({source: 'wakaPeers'}).fetch()

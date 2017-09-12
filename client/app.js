@@ -4,10 +4,12 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
+
 FlowRouter.wait();
 Meteor.startup(function(){
-
-  window.localIpfs = IpfsApi(Meteor.settings.public.remote.uploadNodes[Meteor.settings.public.remote.uploadNodes.length-1].node)
+  Session.set('remoteSettings', Meteor.settings.public.remote)
+  window.steem = steem
+  window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
 
   setInterval(function() {
     try {
@@ -19,7 +21,7 @@ Meteor.startup(function(){
         Session.set('localIpfs', r)
 
         // using local gateway seems to make my internet very unstable and nothing works
-        // Session.set('ipfsGateway', Meteor.settings.public.remote.displayNodes[Meteor.settings.public.remote.displayNodes.length - 1])
+        // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
       })
     } catch(e) {
 
@@ -27,21 +29,23 @@ Meteor.startup(function(){
 
   }, 10000)
 
+  // start router
+  FlowRouter.initialize({hashbang: true}, function() {
+    console.log('Router initialized')
+  });
+
   // loading remote settings
-  $('.appLoaderText').html('Loading... 1/2')
   steem.api.getAccounts(['dtube'], function(err, result) {
     if (!result || !result[0]) return
     var jsonMeta = JSON.parse(result[0].json_metadata)
-    if (jsonMeta.remoteSettings) {
-      Meteor.settings.public.remote = jsonMeta.remoteSettings
-      // load language json
-      $('.appLoaderText').html('Loading... 2/2')
-      loadLangAuto(function() {
-        $('.appLoader').hide()
-        FlowRouter.initialize({hashbang: true});
-      })
-    }
+    if (jsonMeta.remoteSettings)
+      Session.set('remoteSettings', jsonMeta.remoteSettings)
   });
+
+  // load language
+  loadLangAuto(function() {
+    console.log('Loaded language')
+  })
 
   toastr.options = {
     "closeButton": true,
@@ -67,8 +71,6 @@ Meteor.startup(function(){
 	// 	"path": "/peerjs",
 	// 	"debug": false
 	// })
-
-  window.steem = steem;
 
   // native IPFS node
   // $.getScript('js/ipfs.js', function(){

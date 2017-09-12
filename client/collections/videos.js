@@ -4,8 +4,10 @@ firstLoad = setInterval(function() {
   if (!Videos) return
   if (!Waka) return
   // loading videos
-  Videos.refreshWaka()
-  Videos.refreshBlockchain(function() {})
+
+  Videos.refreshBlockchain(function() {
+    Videos.refreshWaka()
+  })
   clearInterval(firstLoad)
 }, 50)
 
@@ -55,8 +57,8 @@ Videos.refreshWaka = function() {
 }
 
 Videos.refreshBlockchain = function(cb) {
-  if (!steem) return;
-  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Meteor.settings.public.remote.loadLimit}, function(err, result) {
+  //if (!steem) return;
+  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -80,7 +82,7 @@ Videos.refreshBlockchain = function(cb) {
         cb(err)
     }
   });
-  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Meteor.settings.public.remote.loadLimit}, function(err, result) {
+  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -102,7 +104,7 @@ Videos.refreshBlockchain = function(cb) {
         console.log(err);
     }
   });
-  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Meteor.settings.public.remote.loadLimit}, function(err, result) {
+  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit}, function(err, result) {
     if (err === null) {
         var i, len = result.length;
         var videos = []
@@ -133,7 +135,7 @@ Videos.loadFeed = function(username) {
         var i, len = result.length;
         var videos = []
         for (i = 0; i < len; i++) {
-            console.log(result[i].author, result[i].reblogged_by)
+            //console.log(result[i].author, result[i].reblogged_by)
             var video = Videos.parseFromChain(result[i])
             if (!video) continue;
             videos.push(video)

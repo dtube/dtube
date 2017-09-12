@@ -1,11 +1,10 @@
 // loading en-us by default
-var jsonTranslate = require('./en-us.json')
 var jsonTranslateDef = require('./en-us.json')
+Session.set('jsonTranslate', jsonTranslateDef)
 var culture = 'en-us';
 
 window.loadLangAuto = function(cb) {
   culture = getCultureAuto();
-  console.log('Loading translation: '+culture)
   loadJsonTranslate(culture, function() {
     cb()
   });
@@ -15,9 +14,9 @@ function translate(code){
   //find translation
   var value = code;
   var found = false;
-  for(var key in jsonTranslate){
+  for(var key in Session.get('jsonTranslate')){
     if(key === code){
-      value = jsonTranslate[key];
+      value = Session.get('jsonTranslate')[key];
       found = true;
       break;
     }
@@ -94,13 +93,17 @@ function getCultureAuto(){
 }
 
 function loadJsonTranslate(culture, cb){
+  if (culture.substr(0,2) == 'en') {
+    cb()
+    return
+  }
   for(var key in Meteor.settings.public.translations) {
     if (key == culture) {
       steem.api.getContent(
       Meteor.settings.public.translations[key].author,
       Meteor.settings.public.translations[key].permlink,
       function(e,r) {
-        jsonTranslate = JSON.parse(r.body)
+        Session.set('jsonTranslate', JSON.parse(r.body))
         cb()
       })
     }

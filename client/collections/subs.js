@@ -3,7 +3,6 @@ Subs = new Mongo.Collection(null)
 Subs.loadFollowing = function(username, startFollowing = undefined, cb) {
   var limit = 100
   steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
-    console.log(err, results)
     if (err) console.log(err)
     for (var i = 0; i < results.length; i++)
       Subs.upsert(results[i], results[i])

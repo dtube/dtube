@@ -224,9 +224,9 @@ Template.registerHelper('ipfsSrc', function(ipfsHash) {
 
 Meteor.getIpfsSrc = function(ipfsHash) {
   if (Session.get('ipfsGateway') == 'automatic') {
-    var n = Meteor.settings.public.remote.displayNodes.length - 1
+    var n = Session.get('remoteSettings').displayNodes.length - 1
     var i = ipfsHash.charCodeAt(ipfsHash.length-1) % n
-    return Meteor.settings.public.remote.displayNodes[i]+'/ipfs/'+ipfsHash
+    return Session.get('remoteSettings').displayNodes[i]+'/ipfs/'+ipfsHash
   } else {
     return Session.get('ipfsGateway')+'/ipfs/'+ipfsHash
   }

@@ -50,7 +50,7 @@ Template.topbar.events({
     })
   },
   'click #textlogo': function() {
-    window.history.pushState('', '', '/#!/');
+    //window.history.pushState('', '', '/#!/');
     FlowRouter.go('/#!/')
   }
 });
