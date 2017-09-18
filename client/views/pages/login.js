@@ -44,6 +44,7 @@ Template.login.events({
           Users.insert(user)
           Session.set('activeUsername', user.username)
           Videos.loadFeed(user.username)
+          Users.refreshUsers([user.username])
           FlowRouter.go('#!/')
           steem.api.getAccounts([user.username], function(e, chainusers) {
             for (var i = 0; i < chainusers.length; i++) {

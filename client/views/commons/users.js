@@ -7,17 +7,24 @@ Template.users.rendered = function() {
         Videos.loadFeed(e.data('username'))
       } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: e.data('username')}, function(user) {
-          Waka.db.Users.remove(user._id, function(result) {
-            Users.remove({})
-            Users.refreshLocalUsers()
-            Waka.db.Users.findOne({}, function(user) {
-              if (user) {
-                Session.set('activeUsername', user.username)
-                Videos.loadFeed(user.username)
-              }
-              else Session.set('activeUsername', null)
+          if (user) {
+            Waka.db.Users.remove(user._id, function(result) {
+              Users.remove({})
+              Users.refreshLocalUsers()
+              Waka.db.Users.findOne({}, function(user) {
+                if (user) {
+                  Session.set('activeUsername', user.username)
+                  Videos.loadFeed(user.username)
+                }
+                else Session.set('activeUsername', null)
+              })
             })
-          })
+          } else {
+            Users.remove({username: e.data('username')})
+            var newUser = Users.findOne()
+            if (newUser) Session.set('activeUsername', newUser.username)
+            else Session.set('activeUsername', null)
+          }
         })
       } else if (e.hasClass('claimRewards')) {
         var user = Users.findOne({username: e.data('username')})

@@ -10,7 +10,7 @@ Meteor.settings.public = {
     ],
     "displayNodes": [
       "https://ipfs.io",
-      "https://dtube1.gateway.ipfsstore.it:8444",
+      "https://dtube1.gateway.ipfsstore.it:8443",
       "https://dtube2.gateway.ipfsstore.it:8443",
       "https://gateway.ipfs.io",
       "https://earth.i.ipfs.io",
@@ -22,7 +22,7 @@ Meteor.settings.public = {
     ],
     "snapMaxFileSizeKB": 500
   },
-  "app": 'dtube/0.2',
+  "app": 'dtube/0.3',
   "beneficiary": "dtube",
   "pageTitleSeparator": '-',
   "appName": 'DTube',
