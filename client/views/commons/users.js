@@ -4,7 +4,7 @@ Template.users.rendered = function() {
       var e = $(e)
       if (e.hasClass('logIn')) {
         Session.set('activeUsername', e.data('username'))
-        Videos.loadFeed(user.username)
+        Videos.loadFeed(e.data('username'))
       } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: e.data('username')}, function(user) {
           Waka.db.Users.remove(user._id, function(result) {

@@ -141,7 +141,7 @@ Videos.loadFeed = function(username) {
             videos.push(video)
         }
         for (var i = 0; i < videos.length; i++) {
-          videos[i].source = 'chainByFeed'
+          videos[i].source = 'chainByFeed-'+username
           videos[i]._id += 'f'
           try {
             Videos.upsert({_id: videos[i]._id}, videos[i])
