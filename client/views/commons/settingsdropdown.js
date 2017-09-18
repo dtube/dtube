@@ -9,7 +9,8 @@ Template.settingsdropdown.rendered = function() {
         if (nextPercent<1) nextPercent = 1
         Session.set('voteWeight', nextPercent)
       } else if (e.hasClass('ipfsGateway')) {
-        Session.set('ipfsGateway', value)
+        if (e.hasClass('automatic')) Session.set('ipfsGateway', 'automatic')
+        else Session.set('ipfsGateway', value)
       } else if (e.hasClass('ipfsUpload')) {
         Session.set('ipfsUpload', {
           host: value.split('://')[1].split(':')[0],
@@ -17,7 +18,9 @@ Template.settingsdropdown.rendered = function() {
           protocol: value.split('://')[0]
         })
       } else if (e.hasClass('nsfwSetting')) {
-        Session.set('nsfwSetting', text)
+        if (e.hasClass('nsfwShow')) Session.set('nsfwSetting', 'Show')
+        if (e.hasClass('nsfwHidePic')) Session.set('nsfwSetting', 'Hide Picture')
+        if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
       } else {

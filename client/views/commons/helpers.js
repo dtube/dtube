@@ -1,8 +1,7 @@
-import moment from 'moment'
+import moment from 'moment-with-locales-es6';
 import xss from 'xss'
 import Autolinker from 'autolinker'
 
-require("moment/min/locales.min");
 moment.locale(navigator.language);
 
 var autolinkerOptions = {

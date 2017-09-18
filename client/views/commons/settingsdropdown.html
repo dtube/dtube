@@ -17,19 +17,19 @@
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
         <div class="left menu">
           {{#if equals 'Show' nsfwSetting}}
-            <div class="item nsfwSetting"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
+            <div class="item nsfwSetting nsfwShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
           {{else}}
-            <div class="item nsfwSetting">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
+            <div class="item nsfwSetting nsfwShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
           {{/if}}
           {{#if equals 'Hide Picture' nsfwSetting}}
-            <div class="item nsfwSetting"><strong>{{ translate 'SETTINGS_DROPDOWN_HIDE_PICTURE'}}</strong></div>
+            <div class="item nsfwSetting nsfwHidePic"><strong>{{ translate 'SETTINGS_DROPDOWN_HIDE_PICTURE'}}</strong></div>
           {{else}}
-            <div class="item nsfwSetting">{{ translate 'SETTINGS_DROPDOWN_HIDE_PICTURE'}}</div>
+            <div class="item nsfwSetting nsfwHidePic">{{ translate 'SETTINGS_DROPDOWN_HIDE_PICTURE'}}</div>
           {{/if}}
           {{#if equals 'Fully Hidden' nsfwSetting}}
-            <div class="item nsfwSetting"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
+            <div class="item nsfwSetting nsfwHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
           {{else}}
-            <div class="item nsfwSetting">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
+            <div class="item nsfwSetting nsfwHide">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
           {{/if}}
         </div>
       </div>
@@ -63,9 +63,9 @@
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_GATEWAY'}}</span>
         <div class="left menu">
           {{#if equals 'automatic' ipfsGateway}}
-            <div class="item ipfsGateway"><strong>{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</strong></div>
+            <div class="item ipfsGateway automatic"><strong>{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</strong></div>
           {{else}}
-            <div class="item ipfsGateway">{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</div>
+            <div class="item ipfsGateway automatic">{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</div>
           {{/if}}
           {{#each displayNodes}}
             {{#if equals this ipfsGateway}}

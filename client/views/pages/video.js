@@ -108,6 +108,14 @@ Template.video.events({
         what: ['blog']
       }]
     );
+    var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
+    subCount.follower_count++
+    SubCounts.upsert({_id: subCount._id}, subCount)
+    Subs.insert({
+      follower: Session.get('activeUsername'),
+      following: FlowRouter.getParam("author"),
+      what: ['blog']
+    })
     steem.broadcast.customJson(
       Users.findOne({username: Session.get('activeUsername')}).privatekey,
       [],
@@ -119,15 +127,9 @@ Template.video.events({
         // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
         //   SubCounts.upsert({_id: r.account}, r)
         // })
+        if (err)
+          toastr.error(Meteor.blockchainError(err))
 
-        var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
-        subCount.follower_count++
-        SubCounts.upsert({_id: subCount._id}, subCount)
-        Subs.insert({
-          follower: Session.get('activeUsername'),
-          following: FlowRouter.getParam("author"),
-          what: ['blog']
-        })
       }
     );
   },
@@ -139,6 +141,13 @@ Template.video.events({
         what: []
       }]
     );
+    var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
+    subCount.follower_count--
+    SubCounts.upsert({_id: subCount._id}, subCount)
+    Subs.remove({
+      follower: Session.get('activeUsername'),
+      following: FlowRouter.getParam("author")
+    })
     steem.broadcast.customJson(
       Users.findOne({username: Session.get('activeUsername')}).privatekey,
       [],
@@ -146,13 +155,8 @@ Template.video.events({
       'follow',
       json,
       function(err, result) {
-        var subCount = SubCounts.findOne({account: FlowRouter.getParam("author")})
-        subCount.follower_count--
-        SubCounts.upsert({_id: subCount._id}, subCount)
-        Subs.remove({
-          follower: Session.get('activeUsername'),
-          following: FlowRouter.getParam("author")
-        })
+        if (err)
+          toastr.error(Meteor.blockchainError(err))
       }
     );
   }
