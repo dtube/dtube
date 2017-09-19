@@ -29,6 +29,11 @@ Meteor.settings.public = {
   "ipns": "Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB",
   "translations": {
     "en-us": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t000249923z'},
-    "fr-fr": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t002032311z'}
+    "fr-fr": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t002032311z'},
+    "ko-kr": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170919t133419412z'},
+    "pt-pt": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170919t134820783z'},
+    "lt": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170919t135235158z'},
+    "tr": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170919t135734303z'},
+    "pl": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170919t140006611z'}
   }
 }

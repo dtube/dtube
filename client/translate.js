@@ -69,7 +69,7 @@ function getCultureAuto(){
 
     for(var key in Meteor.settings.public.translations) {
       if (key === cult) return key
-      if (cult.substr(0,2) === key.substr(0,2)) culture = key;
+      if (cult.substr(0,2) === key.substr(0,2)) return key;
     }
 
     // if(cult === "fr-fr"){
