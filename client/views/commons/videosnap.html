@@ -1,7 +1,7 @@
 <template name='videosnap'>
   {{#unless isNSFWFullyHidden this}}
     <div class='videosnap'>
-      <a href='#!/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
+      <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
         <div class='videosnapsnap'>
           {{#if equals source 'wakaArticles'}}
             <span title='Stop sharing {{info.title}}' class="remove">&times;</span>
@@ -14,10 +14,10 @@
         </div>
       </a>
       <div class='videosnaptitle'>
-        <a href='#!/v/{{info.author}}/{{info.permlink}}'>{{info.title}}</a>
+        <a href='/v/{{info.author}}/{{info.permlink}}'>{{info.title}}</a>
       </div>
       <div class='videosnapauthor'>
-        <a href='#!/c/{{info.author}}'>{{info.author}}</a>
+        <a href='/c/{{info.author}}'>{{info.author}}</a>
         {{#if isResteemed reblogged_by}}
           <i class="retweet icon reblogged" title={{reblogged_by}}></i>
         {{/if}}
