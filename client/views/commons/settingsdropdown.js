@@ -29,7 +29,7 @@ Template.settingsdropdown.rendered = function() {
     }
   })
 
-  Session.set('nsfwSetting', 'Hide Picture')
+  Session.set('nsfwSetting', 'Fully Hidden')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
   // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Math.floor(Math.random() * Session.get('remoteSettings').displayNodes.length-1)])
