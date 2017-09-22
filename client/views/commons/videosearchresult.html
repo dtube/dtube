@@ -1,7 +1,7 @@
 <template name='videosearchresult'>
   {{#unless isNSFWFullyHiddensearch this}}
     <div class='row'>
-      <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
+      <a href='#!/v/{{author}}/{{permlink}}' title='{{title}}'>
         <div class='videosnapsnap'>
           {{#if isNSFWsearch this}}
             <img class="ui left floated image" height="118" width="210" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7"><br />
@@ -12,7 +12,7 @@
       </a>
       <p>
         <div class='videosnaptitle'>
-          <a href='/v/{{author}}/{{permlink}}'>{{title}}</a>
+          <a href='#!/v/{{author}}/{{permlink}}'>{{title}}</a>
         </div>
         <div class='videosnapauthor'>
           <a href='/c/{{author}}'>{{author}}</a>
