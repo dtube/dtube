@@ -12,21 +12,54 @@ Template.upload.createPermlink = function(length) {
   return text;
 }
 
-Template.upload.IPFS = function(node, buffer, cb) {
-  // native ipfs way
-  // var filePair = {
-  //   path: file.name,
-  //   content: new ipfs.types.Buffer(buffer)
-  // }
-  // ipfs.files.add([filePair], function(err, res) {
-  //   console.log('Succesfully added file', res)
-  // })
+Template.upload.HTTP = function(node, file, progressid, cb) {
+  //var postUrl = 'http://localhost:5000/uploadVideo'
+  var postUrl = node.protocol+'://'+node.host+':'+node.port+'/api/v0/add?stream-channels=true'
+  var formData = new FormData();
+  formData.append('files', file);
+  $(progressid).progress({value: 0, total: 1})
+  $(progressid).show();
+  $.ajax({
+    url: postUrl,
+    type: "POST",
+    data: formData,
+    xhr: function() {
+      var xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          $(progressid).progress({ value: evt.loaded, total: evt.total });
+          if (evt.loaded == evt.total) {
+            $(progressid).progress({ value: evt.loaded, total: evt.total });
+            $('#progressvideo > .label').html('File received. Adding to IPFS Datastore...')
+          }
+        }
+      }, false);
+      return xhr;
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function(result) {
+      $(progressid).hide()
+      cb(null, result)
+    },
+    error: function(error) {
+      $(progressid).hide()
+      cb(error)
+    }
+  });
+}
 
-  // through an existing node
-  var ipfsCon = IpfsApi(node)
-  ipfsCon.add(new ipfsCon.Buffer(buffer), function(err, res) {
-    cb(err, res)
-  })
+Template.upload.IPFS = function(node, file, cb) {
+  console.log(node,file)
+  var reader = new window.FileReader()
+  reader.onload = function(event) {
+    var ipfsCon = IpfsApi(node)
+    ipfsCon.add(new ipfsCon.Buffer(event.target.result), function(err, res) {
+      cb(err, res)
+    })
+  }
+  reader.readAsArrayBuffer(file);
 }
 
 Template.upload.uploadVideo = function(dt) {
@@ -51,25 +84,19 @@ Template.upload.uploadVideo = function(dt) {
   videoNode.src = fileURL
 
   // uploading to ipfs
-  var reader = new window.FileReader()
-  reader.onload = function(event) {
-    var bitrate = 8*file.size / document.querySelector('video').duration
-    Session.set('bitrate', bitrate)
-    var node = Session.get('remoteSettings').uploadNodes[0]
-    if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    Template.upload.IPFS(node, event.target.result, function(e, r) {
-      $('#step1load').hide()
-      if (e) {
-        toastr.error(e, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
-        return
-      } else {
-        $('#step1load').parent().addClass('completed')
-        console.log('Uploaded video', r);
-        $('input[name="videohash"]').val(r[0].hash)
-      }
-    })
-  }
-  reader.readAsArrayBuffer(file);
+  node = Session.get('ipfsUpload')
+  Template.upload.HTTP(node, file, '#progressvideo', function(err, result) {
+    $('#step1load').hide()
+    if (err) {
+      console.log(err)
+      toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
+      return
+    } else {
+      $('#step1load').parent().addClass('completed')
+      console.log('Uploaded video', result);
+      $('input[name="videohash"]').val(result.Hash)
+    }
+  })
 }
 
 Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
@@ -140,31 +167,27 @@ Template.upload.events({
 
     $('#step2load').show()
 
-    var reader = new FileReader();
-    reader.onload = function(event) {
-      var node = Session.get('remoteSettings').uploadNodes[0]
-      if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-      Template.upload.IPFS(node, event.target.result, function(e, r) {
-        $('#step2load').hide()
-        if (e) {
-          console.log(e)
-          toastr.error(e, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
-          return
-        } else {
-          $('#step2load').parent().addClass('completed')
-          console.log('Uploaded Snap', r)
-          $('input[name="snaphash"]').val(r[0].hash)
-        }
-      })
-    };
-    reader.readAsArrayBuffer(file);
+    // uploading to ipfs
+    if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
+    Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
+      $('#step2load').hide()
+      if (err) {
+        console.log(err)
+        toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
+        return
+      } else {
+        $('#step2load').parent().addClass('completed')
+        console.log('Uploaded Snap', result)
+        $('input[name="snaphash"]').val(result.Hash)
+      }
+    })
   },
   'submit .form': function(event) {
     event.preventDefault()
     var tags = ['dtube']
     for (var i = 0; i < event.target.tags.value.split(' ').length; i++) {
       if (i > 3) break
-      if (event.target.tags.value.split(' ')[i] == 'nsfw') tags.push('nsfw')
+      if (event.target.tags.value.split(' ')[i].toLowerCase() == 'nsfw') tags.push('nsfw')
       tags.push('dtube-'+event.target.tags.value.split(' ')[i])
     }
     tags = tags.slice(0,5)
@@ -256,12 +279,6 @@ Template.upload.events({
           }
         }
       )
-
-      // no fees
-      // steem.broadcast.comment(wif, '', tags[0], author, permlink, title, body, jsonMetadata, function(err, result) {
-      //   console.log(err, result);
-      // });
-
     })
   }
 })

@@ -25,6 +25,20 @@
         </div>
       </div>
     </div>
+  </center>
+  <div class="ui active progress" id='progressvideo' style='display:none'>
+    <div class="bar">
+      <div class="progress"></div>
+    </div>
+    <div class="label">Uploading Video</div>
+  </div>
+  <div class="ui active progress" id='progresssnap' style='display:none'>
+    <div class="bar">
+      <div class="progress"></div>
+    </div>
+    <div class="label">Uploading Snap</div>
+  </div>
+  <center>
     <br />
     <div id="dropzone" class="dropzone">
       <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
@@ -36,7 +50,7 @@
       <div class="two column row">
         <div class="column">
           <video controls autoplay></video>
-          <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6>
+          <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
         </div>
         <div class="column"><canvas></canvas></div>
       </div>
