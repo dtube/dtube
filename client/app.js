@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
-steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
+steem.api.setOptions({ url: 'wss://steemd.privex.io' });
 
 FlowRouter.wait();
 Meteor.startup(function(){
