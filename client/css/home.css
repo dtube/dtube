@@ -1,32 +1,76 @@
+.videoslider
+{
+  margin-right: 4px;
+}
+
 .videosnap {
   margin-right: 4px;
   display: inline-block;
   width: 210px;
   margin-bottom: 8px;
   vertical-align:top;
+  color: #212121;
 }
 
 .videosnapauthor {
   font-size: 0.9rem;
+  color: grey;
+  text-decoration-color: grey;
+  text-align: left;
 }
 
 .videosnaprest {
   font-size: 0.9rem;
+  float: left;
+  clear: none; 
+  color: #0A1627;
+  text-decoration-color: #0066FF;
+}
+
+.videosnapmore {
+    font-size: 0.9rem;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    top: auto;
+    color: #0A1627;
+    text-decoration-color: #0066FF;
+  }
+
+.videosnaptime {
+  font-size: 0.9rem; 
+  float: left;
+  clear: none; 
+  color: grey;
+  text-decoration-color: grey;
+  margin-left: 5px;
 }
 
 .videosnaptitle {
   color: black;
   display: block;
-  margin: 0px 0 0px;
-  max-height: 2.2rem;
+  max-height: 2rem;
   overflow: hidden;
-  font-size: 1.0rem;
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.1rem;
+  line-height: 1rem;
+  word-wrap: normal;
+  white-space: normal;
+  text-align: left;
+  width: 90%;
 }
 
 .videosnapsnap {
   position: relative;
+  /* border-radius: 3px 3px 0px 0px; */
+  /* background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; */
+}
+
+#img
+{
+ object-fit: cover;  
 }
 
 .videosnapsnap .remove {
@@ -51,4 +95,31 @@
 
 .reblogged {
   color: red;
+}
+
+.title
+{
+text-align: center;
+}
+
+.showmore
+{
+    margin-top: 10px;
+    text-align: left; 
+}
+
+.menuitem
+{
+  text-align: left;
+  color: black;
+}
+
+.ui.left.visible.sidebar, .ui.right.visible.sidebar {
+  -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15);
+}
+
+.suscriberlist
+{
+  max-height: 320px;
+  overflow-x: auto;
 }

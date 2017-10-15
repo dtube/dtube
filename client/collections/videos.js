@@ -126,6 +126,28 @@ Videos.refreshBlockchain = function(cb) {
         console.log(err);
     }
   });
+  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": 25, "truncate_body": 1}, function(err, result) {
+    if (err === null) {
+        var i, len = result.length;
+        var videos = []
+        for (i = 0; i < len; i++) {
+            var video = Videos.parseFromChain(result[i])
+            if (!video) continue;
+            videos.push(video)
+        }
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].source = 'chainByTrendingPage'
+          videos[i]._id += 't'
+          try {
+            Videos.upsert({_id: videos[i]._id}, videos[i])
+          } catch(err) {
+            console.log(err)
+          }
+        }
+    } else {
+        console.log(err);
+    }
+  });
 }
 
 Videos.loadFeed = function(username) {

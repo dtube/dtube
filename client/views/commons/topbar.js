@@ -8,10 +8,10 @@ Template.topbar.helpers({
 });
 
 Template.topbar.events({
-  // 'click .launch': function(event, instance) {
-  //   console.log('click')
-  //   $('.ui.sidebar').sidebar('toggle');
-  // },
+  'click .sidebartoggleicon': function(event, instance) {
+    $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
+    .sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
+  },
   'keyup #dsearch': function(event) {
     var query = event.target.value
     if (query.length < 1) {

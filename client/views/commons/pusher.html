@@ -1,8 +1,11 @@
 <template name='pusher'>
+  <div id="sidebar" class="ui sidebar fixed overlay left vertical inverted labeled icon menu" style="top:57px;background-color:#f8f8f8;">
+    {{> sidebar}} 
+  </div> 
   <div class="pusher">
     {{> topbar}}
     <div class='article container'>
-      <main>
+      <main class='main'>
         {{> Template.dynamic template=main}}
       </main>
     </div>

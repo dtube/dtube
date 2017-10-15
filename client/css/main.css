@@ -1,4 +1,3 @@
-/* CSS declarations go here */
 .padding-side {
   padding-left: 20px;
   padding-right: 20px;
@@ -18,17 +17,17 @@
 }
 
 .article {
-  margin-left: 3em !important;
-  margin-right: 3em !important;
-  padding: 3em 0em;
-  margin-top: 50px;
+  padding: 5em 0em 3em 0em; 
+  margin-top: 25px;
+  display: -webkit-inline-box;
+  width: 100%;
 }
 
 .icon .menuIcon {
   font-size: 1.5em;
   margin: 0;
 }
-
+ 
 .upvoteComment {
   transition: font 5s ease-in
 }
@@ -46,3 +45,106 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+/* 
+.dtubesidebar
+{
+  background:#EEEEEE;
+  display:block;
+  width:130px;
+} */
+.icon .dtubesidebaricon
+{
+padding: 15px 20px 30px 20px;
+font-size: 18px;
+}
+
+.menuitem .dtubesidebarmenu
+{
+  font-size: 14px;
+  font-weight: 600;
+  padding: none;
+}
+
+.dtubesidebarmenu:hover
+{
+color:red;
+background: rgb(240, 240, 240);
+}
+
+.dtubesidebartitle
+{
+  padding-right: 30px;
+}
+
+main
+{
+  width: 70%;
+  margin: auto;
+}
+
+.mainsided
+{
+  width: 70%;
+  margin-left: 20%;
+}
+
+.notificationdtube
+{
+  background-color: rgb(48, 48, 48);
+  border-radius: 60px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.notificationdtubeactive
+{
+  background-color: rgb(255, 13, 13);
+  border-radius: 60px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.notificationdtube:hover
+{
+  background-color: red;
+  border-radius: 60px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.circular .icon
+{
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.circular .icon:hover
+{
+  background-color: rgb(248, 248, 248);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+
+
+/* .fixedsidebar
+{
+  position: fixed;
+  top: 56px; 
+  left: 0px;
+  right: auto;
+  bottom: auto;
+  margin-top: 56px;
+} */

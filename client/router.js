@@ -42,6 +42,28 @@ FlowRouter.route('/upload', {
   }
 });
 
+FlowRouter.route('/trendingvideos', {
+  name: "trendingvideos",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Trending Videos')
+    BlazeLayout.render('masterLayout', {
+      main: "trendingvideos",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/history', {
+  name: "history",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'History')
+    BlazeLayout.render('masterLayout', {
+      main: "history",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/v/:author/:permlink', {
   name: "video",
   action: function(params, queryParams) {

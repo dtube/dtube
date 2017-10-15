@@ -38,6 +38,7 @@
 	"HOME_TITLE_WATCH_AGAIN":"Watch Again",
 	"HOME_TITLE_NEIGHBORHOOD":"Neighborhood",
 	"CHANNEL_TITLE_VIDEOS_BY":"Videos by ",
+	"CHANNEL_TITLE_NO_VIDEOS":"There is no videos from ",
 	"LOGIN_PLACEHOLDER_STEEM_USERNAME":"STEEM Username",
 	"LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY":"Private Posting Key",
 	"LOGIN_REMEMBER_ME":"Remember me",
@@ -85,5 +86,14 @@
 	"UPLOAD_ERROR_UPLOAD_SNAP_FILE":"Please upload a snap picture",
 	"UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING":"Please login before uploading",
 	"UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING":"Please upload a video before submitting",
-	"UPLOAD_ERROR_SUBMIT_BLOCKCHAIN":"Error while submitting to the blockchain"
+	"UPLOAD_ERROR_SUBMIT_BLOCKCHAIN":"Error while submitting to the blockchain",
+	"SIDEBAR_HOME":"Home",
+	"SIDEBAR_SUSCRIBES":"Suscribes",
+	"SIDEBAR_HISTORY":"History",
+	"SIDEBAR_CHANNEL":"My channel",
+	"SIDEBAR_TRENDING_VIDEOS":"Trending Videos",
+	"SIDEBAR_HELP":"Help",
+	"HISTORY_TITLE":"History",
+	"TRENDING_VIDEOS_TITLE":"Trending videos",
+	"SNAP_IS_LOADING":"Loading snap..."
 }

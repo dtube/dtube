@@ -1,0 +1,56 @@
+<template name="sidebar">
+        <div>
+          <a class="item" id="home" style="padding:0%;" href="/">
+            <div class="menuitem dtubesidebarmenu" style="padding:0%;"> 
+                <i class="home icon dtubesidebaricon"></i>
+                <a class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</a>
+            </div>
+          </a>
+          <a class="item" style="padding:0%;" href="/c/{{activeUser}}">
+            <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+                <i class="block layout icon dtubesidebaricon"></i>
+               <a class="dtubesidebartitle">{{ translate 'SIDEBAR_CHANNEL'}}</a>
+            </div>
+          </a>
+          <a class="item" style="padding:0%;" href="/trendingvideos">
+            <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+                <i class="fire icon dtubesidebaricon"></i>
+               <a class="dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</a>
+            </div>
+          </a>
+          {{#if watchAgain}}
+          <a class="item" style="padding:0%;" href="/history">
+              <div class="menuitem dtubesidebarmenu"  style="padding:0%;">
+                  <i class="history icon dtubesidebaricon"></i>
+                  <a class="dtubesidebartitle">{{ translate 'SIDEBAR_HISTORY'}}</a>
+              </div> 
+            </a>
+            {{/if}}  
+          <a class="item" style="padding:0%;">
+            <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+                <i class="smile icon dtubesidebaricon"></i>
+                <a class="dtubesidebartitle">{{ translate 'SIDEBAR_SUSCRIBES'}}</a>
+            </div> 
+          </a>
+          <div class="suscriberlist">
+          {{#each subscribe}} 
+            <a class="item" style="padding:0%;">
+              <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+                  <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" style="height:24px;width:24px;margin:5px 5px 5px 20px;">
+                  <a class="dtubesidebartitle" href='/c/{{following}}'>{{following}}</a>
+                  <!-- <img class="ui image" src="https://busy.org/img/logo.svg" style="display: inline-block;height:16px;width:16px;">
+                  <a href='https://busy.org/@{{following}}' target="blank">{{what}}</a> -->
+              </div> 
+            </a>
+          {{/each}}
+        </div>
+        <div class="ui divider"></div>      
+          <a id="help" class="item" style="padding:0%;position: absolute; bottom: 60px;width:100%;">
+              <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+                  <i class="help circle outline icon dtubesidebaricon"></i>
+                  <a class="dtubesidebartitle">{{ translate 'SIDEBAR_HELP'}}</a>
+              </div> 
+            </a>
+      </div>
+      {{> helpmodal}}
+</template> 
