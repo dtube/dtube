@@ -159,6 +159,12 @@ Template.video.events({
           toastr.error(Meteor.blockchainError(err))
       }
     );
+  },
+  'click .videoplayer': function(e) {
+    if (e.target.paused)
+      e.target.play()
+    else
+      e.target.pause()
   }
 })
 
