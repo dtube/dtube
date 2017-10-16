@@ -2,28 +2,28 @@
   <div style="display:inline-flex;">
       <img class="ui avatar image" style="width:128px;height:128px;" src="https://img.busy.org/@{{user.name}}">
       <h2 id="channeltitle">{{ translate 'CHANNEL_TITLE_VIDEOS_BY'}}</h2><h2 style="margin-left:5px;">{{user.name}}</h2>
-  </div>
-  {{#if isSubscribedTo info.author}}
-  <div class="ui labeled mini button" tabindex="0">
-    <div class="ui mini button unsubscribe">
-      {{ translate 'VIDEO_UNSUBSCRIBE'}}
     </div>
-    <a class="ui basic label">
-      {{{subCount info.author}}}
-    </a>
-  </div>
-{{else}}
-  <div class="ui labeled mini button" tabindex="0">
-    <div class="ui red mini button subscribe">
-      <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+    {{#if isSubscribedTo info.author}}
+    <div class="ui labeled mini button" tabindex="0">
+      <div class="ui mini button unsubscribe">
+        {{ translate 'VIDEO_UNSUBSCRIBE'}}
+      </div>
+      <a class="ui basic label">
+        {{{subCount info.author}}}
+      </a>
     </div>
-    <a class="ui basic label">
-      {{{subCount info.author}}}
-    </a>
-  </div>
-{{/if}}
-  <div class="ui divider"></div> 
-  {{#if userVideos}}
-    {{> videoband userVideos}} 
-  {{/if}}
+    {{else}}
+    <div class="ui labeled mini button" tabindex="0">
+      <div class="ui red mini button subscribe">
+        <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+      </div>
+      <a class="ui basic label">
+        {{{subCount info.author}}}
+      </a>
+    </div>
+    {{/if}}
+    <div class="ui divider"></div> 
+    {{#if userVideos}}
+      {{> videoband userVideos}} 
+    {{/if}}
 </template>

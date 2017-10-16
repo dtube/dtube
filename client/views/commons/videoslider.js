@@ -15,36 +15,29 @@ Template.videoslider.createSlick = function() {
       slidesToScroll: 6,
       responsive: [
         { 
-          breakpoint: 1620,
+          breakpoint: 1550,
           settings: {
-            slidesToShow: 6,
-            slidesToScroll: 6,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             focusOnSelect: false,
           }
         },
         {
-          breakpoint: 1420,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 5
-          }
-        },
-        {
-          breakpoint: 1220,
+          breakpoint: 1280,
           settings: {
             slidesToShow: 4,
             slidesToScroll: 4
           }
         },
         {
-          breakpoint: 1020,
+          breakpoint: 1060,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3
           }
         },
         {
-          breakpoint: 820,
+          breakpoint: 880,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2
