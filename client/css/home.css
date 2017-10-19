@@ -61,10 +61,8 @@
 
 .videosnapsnap {
   position: relative;
-  /* border-radius: 3px 3px 0px 0px; */
-  /* background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center; */
+  height:120px;
+  margin-bottom: 5px;
 }
 
 #img

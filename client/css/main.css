@@ -203,3 +203,35 @@ button {
 {
   color:rgba(32, 32, 32, 0.87);
 }
+
+.ddvright
+{
+  font-size: 15px;
+  float: right;
+  margin-left: 5px;
+}
+
+.lefter55
+{
+  left:-55px;
+}
+
+.boxdisplayer
+{
+  display:-webkit-box;
+  width: 100%;
+}
+
+
+.videohmore
+{
+  font-size: 18px;
+  float: right;
+  margin-left: 5px;
+}
+
+.dropdownvideosettings
+{
+  margin-top: 5px; 
+  padding: 7px;
+}

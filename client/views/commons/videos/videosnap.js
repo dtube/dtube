@@ -19,7 +19,8 @@ Template.videosnap.rendered = function () {
 
 Template.videosnap.snapLoaded = function () {
   $('#snapimg').imagesLoaded(function () {
-    $('#snapload').remove();
+    //$('#snapload').remove();
+    //let cheat
   });
 }
 

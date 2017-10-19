@@ -2,7 +2,7 @@
   {{#unless isNSFWFullyHidden this}}
   <div class='videosnap'>
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
-      <div class='videosnapsnap' style="height:120px;margin-bottom: 5px;">
+      <div class='videosnapsnap'>
         <div id="snapload" class="ui active dimmer" style="z-index:-1;">
           <div class="ui indeterminate text loader">{{translate 'SNAP_IS_LOADING'}}</div>
         </div>
@@ -17,7 +17,7 @@
         <br /> {{/if}}
       </div>
     </a>
-    <div style="display:-webkit-box;width: 100%;">
+    <div class="boxdisplayer">
       <div class='videosnaptitle'>
         <a href='/v/{{info.author}}/{{info.permlink}}'>
           <span class="customlink">{{info.title}}</span>
