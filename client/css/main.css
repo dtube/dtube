@@ -45,13 +45,7 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
-/* 
-.dtubesidebar
-{
-  background:#EEEEEE;
-  display:block;
-  width:130px;
-} */
+
 .icon .dtubesidebaricon
 {
 padding: 15px 20px 30px 20px;
@@ -68,7 +62,7 @@ font-size: 18px;
 .dtubesidebarmenu:hover
 {
 color:red;
-background: rgb(240, 240, 240);
+background: rgb(233, 233, 233);
 }
 
 .dtubesidebartitle
@@ -112,18 +106,6 @@ main
   font-size: 12px;
 }
 
-.notificationdtube:hover
-{
-  background-color: red;
-  border-radius: 60px;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  color: white;
-  padding-top: 4px;
-  font-size: 12px;
-}
-
 .circular .icon
 {
   -webkit-box-shadow: none;
@@ -137,14 +119,87 @@ main
   box-shadow: none;
 }
 
+#snapimg {
+  max-height: 140px;
+}
 
+li {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 
-/* .fixedsidebar
-{
+li img,
+#status {
+  -webkit-transition: opacity 0.4s;
+     -moz-transition: opacity 0.4s;
+      -ms-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+}
+
+li.is-loading {
+  background-color: black;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif');
+}
+
+li.is-broken {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/broken.png');
+  background-color: #be3730;
+  width: 120px;
+}
+
+li.is-loading img,
+li.is-broken img {
+  opacity: 0;
+}
+
+.buttons { margin-bottom: 1.0em; }
+
+button {
+  font-size: 18px;
+  padding: 0.4em 0.8em;
+  font-family: sans-serif;
+}
+
+#status {
+  opacity: 0;
   position: fixed;
-  top: 56px; 
-  left: 0px;
-  right: auto;
-  bottom: auto;
-  margin-top: 56px;
-} */
+  right: 20px;
+  top: 20px;
+  background: hsla( 0, 0%, 0%, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2; /* over other stuff */
+}
+
+.ui.form textarea:focus {
+  outline: none !important;
+  border:1px solid rgb(175, 175, 175);
+  box-shadow: 0 0 2px rgb(180, 180, 180);
+}
+
+.customlink
+{
+  color:rgba(0, 0, 0, 0.87);
+}
+
+.customlink:active
+{
+  color:rgba(0, 0, 0, 0.87);
+}
+
+.customlink:link
+{
+  color:rgba(0, 0, 0, 0.87);
+}
+
+.customlink:visited
+{
+  color:rgba(32, 32, 32, 0.87);
+}

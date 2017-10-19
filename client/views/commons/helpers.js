@@ -12,7 +12,7 @@ var autolinkerOptions = {
   },
   email       : false,
   phone       : false,
-  mention     : 'dtube',
+  mention     : 'twitter',
   hashtag     : false,
   stripPrefix : true,
   stripTrailingSlash : true,

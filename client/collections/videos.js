@@ -57,97 +57,108 @@ Videos.refreshWaka = function() {
 }
 
 Videos.refreshBlockchain = function(cb) {
-  //if (!steem) return;
-  steem.api.getDiscussionsByCreated({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
-    if (err === null) {
-        var i, len = result.length;
-        var videos = []
-        for (i = 0; i < len; i++) {
-            var video = Videos.parseFromChain(result[i])
-            if (video) videos.push(video)
-        }
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].source = 'chainByCreated'
-          videos[i]._id += 'c'
-          try {
-            Videos.upsert({_id: videos[i]._id}, videos[i])
-          } catch(err) {
-            console.log(err)
-            cb(err)
+  var nbCompleted = 0;
+  Videos.getVideosBy('hot', returnFn)
+  Videos.getVideosBy('trending', returnFn)
+  Videos.getVideosBy('created', returnFn)
+  var returnFn = function() {
+    nbCompleted++
+    if (nbCompleted == 3)
+      cb()
+  }
+}
+
+Videos.getVideosBy = function(type, limit, cb) {
+  var query = {
+    "tag": "dtube",
+    "limit": Session.get('remoteSettings').loadLimit,
+    "truncate_body": 1
+  }
+
+  if (limit) query.limit = limit
+
+  switch(type) {
+    case 'trending':
+        steem.api.getDiscussionsByTrending(query, function(err, result) {
+          if (err === null) {
+              var i, len = result.length;
+              var videos = []
+              for (i = 0; i < len; i++) {
+                  var video = Videos.parseFromChain(result[i])
+                  if (video) videos.push(video)
+              }
+              for (var i = 0; i < videos.length; i++) {
+                videos[i].source = 'chainByTrending'
+                videos[i]._id += 't'
+                try {
+                  Videos.upsert({_id: videos[i]._id}, videos[i])
+                } catch(err) {
+                  console.log(err)
+                  cb(err)
+                }
+              }
+              cb(null)
+          } else {
+              console.log(err);
+              cb(err)
           }
-        }
-        cb(null)
-    } else {
-        console.log(err);
-        cb(err)
-    }
-  });
-  steem.api.getDiscussionsByHot({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
-    if (err === null) {
-        var i, len = result.length;
-        var videos = []
-        for (i = 0; i < len; i++) {
-            var video = Videos.parseFromChain(result[i])
-            if (!video) continue;
-            videos.push(video)
-        }
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].source = 'chainByHot'
-          videos[i]._id += 'h'
-          try {
-            Videos.upsert({_id: videos[i]._id}, videos[i])
-          } catch(err) {
-            console.log(err)
+        });
+        break;
+    case 'hot':
+        steem.api.getDiscussionsByHot(query, function(err, result) {
+          if (err === null) {
+              var i, len = result.length;
+              var videos = []
+              for (i = 0; i < len; i++) {
+                  var video = Videos.parseFromChain(result[i])
+                  if (video) videos.push(video)
+              }
+              for (var i = 0; i < videos.length; i++) {
+                videos[i].source = 'chainByHot'
+                videos[i]._id += 'h'
+                try {
+                  Videos.upsert({_id: videos[i]._id}, videos[i])
+                } catch(err) {
+                  console.log(err)
+                  cb(err)
+                }
+              }
+              cb(null)
+          } else {
+              console.log(err);
+              cb(err)
           }
-        }
-    } else {
-        console.log(err);
-    }
-  });
-  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": Session.get('remoteSettings').loadLimit, "truncate_body": 1}, function(err, result) {
-    if (err === null) {
-        var i, len = result.length;
-        var videos = []
-        for (i = 0; i < len; i++) {
-            var video = Videos.parseFromChain(result[i])
-            if (!video) continue;
-            videos.push(video)
-        }
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].source = 'chainByTrending'
-          videos[i]._id += 't'
-          try {
-            Videos.upsert({_id: videos[i]._id}, videos[i])
-          } catch(err) {
-            console.log(err)
+        });
+        break;
+    case 'created':
+        steem.api.getDiscussionsByCreated(query, function(err, result) {
+          if (err === null) {
+              var i, len = result.length;
+              var videos = []
+              for (i = 0; i < len; i++) {
+                  var video = Videos.parseFromChain(result[i])
+                  if (video) videos.push(video)
+              }
+              for (var i = 0; i < videos.length; i++) {
+                videos[i].source = 'chainByCreated'
+                videos[i]._id += 'c'
+                try {
+                  Videos.upsert({_id: videos[i]._id}, videos[i])
+                } catch(err) {
+                  console.log(err)
+                  cb(err)
+                }
+              }
+              cb(null)
+          } else {
+              console.log(err);
+              cb(err)
           }
-        }
-    } else {
-        console.log(err);
-    }
-  });
-  steem.api.getDiscussionsByTrending({"tag": "dtube", "limit": 25, "truncate_body": 1}, function(err, result) {
-    if (err === null) {
-        var i, len = result.length;
-        var videos = []
-        for (i = 0; i < len; i++) {
-            var video = Videos.parseFromChain(result[i])
-            if (!video) continue;
-            videos.push(video)
-        }
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].source = 'chainByTrendingPage'
-          videos[i]._id += 't'
-          try {
-            Videos.upsert({_id: videos[i]._id}, videos[i])
-          } catch(err) {
-            console.log(err)
-          }
-        }
-    } else {
-        console.log(err);
-    }
-  });
+        });
+        break;
+    default:
+        console.log('Error getVideosBy type unknown')
+  }
 }
 
 Videos.loadFeed = function(username) {

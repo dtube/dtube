@@ -1,0 +1,102 @@
+<template name='video'>
+  {{#with video}}
+  <div class="ui container">
+    <div style="float:right;width:220px;">
+      {{#if userVideosAndResteems}}
+      <h3>{{ translate 'VIDEO_USER_RESTEEMED'}} {{info.author}}</h3>
+      {{> verticalvideoband userVideosAndResteems}} {{/if}}
+    </div>
+    <div class="ui grid" style="width:calc(100% - 230px);display:inline-block;">
+      <div class="wide column" style="width:100%;">
+        <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video>
+        <div class="info" style="width: 100%;">
+          <div style="width:90%;position:relative;display: inline-block;vertical-align: top;">
+            <h1>{{info.title}}</h1>
+          </div>
+          <div style="font-size:20px;position:relative;float:right;vertical-align: top;background-color: rgb(248, 248, 248);" class="button icon">
+            {{> videosettingsdropdown}}
+          </div>
+        </div>
+        <div class="details" style="width:100%;margin-top:20px;">
+          <div class="leftdetails" style="width:50%;position:relative;display: inline-block;vertical-align: top;">
+            <img class="ui left floated image" src="{{userPic info.author}}">
+            <div class="channelLink">
+              <a href="/c/{{info.author}}">
+                {{info.author}}
+              </a>
+            </div>
+            {{#if isSubscribedTo info.author}}
+            <div class="ui labeled mini button" tabindex="0">
+              <div class="ui mini button unsubscribe">
+                {{ translate 'VIDEO_UNSUBSCRIBE'}}
+              </div>
+              <a class="ui basic label">
+                {{{subCount info.author}}}
+              </a>
+            </div>
+            {{else}}
+            <div class="ui labeled mini button" tabindex="0">
+              <div class="ui red mini button subscribe">
+                <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+              </div>
+              <a class="ui basic label">
+                {{{subCount info.author}}}
+              </a>
+            </div>
+            {{/if}}
+          </div>
+
+          <div class="rightdetails" style="position:relative;float:right;
+                vertical-align: top;">
+            <div class="four wide column right aligned" style="float: right;">
+              <div class='videopayout'>
+                {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+              </div>
+              {{#if hasUpvoted video}}
+              <a class="small ui red label upvote">
+                <i class="thumbs up icon"></i> {{upvotes active_votes}}
+              </a>
+              {{else}}
+              <a class="small ui label basic upvote">
+                <i class="thumbs up icon"></i> {{upvotes active_votes}}
+              </a>
+              {{/if}} {{#if hasDownvoted video}}
+              <a class="small ui red label downvote">
+                <i class="thumbs down icon"></i> {{downvotes active_votes}}
+              </a>
+              {{else}}
+              <a class="small ui label basic downvote">
+                <i class="thumbs down icon"></i> {{downvotes active_votes}}
+              </a>
+              {{/if}}
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sixteen wide column" style="overflow: hidden;">
+        <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
+        <br /> {{{syntaxed content.description}}}
+      </div>
+      {{#if isReplying this}}
+      <form class="ui reply form" style="width:100%;">
+        <div class="field" style="width:100%;position:relative;display: inline-block;
+            vertical-align: top;">
+          <textarea rows="3"></textarea>
+        </div>
+        <div class="ui red labeled submit icon button" style="position:relative;float:right;
+            vertical-align: top;">
+          <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}}
+        </div>
+      </form>
+      {{else}}
+      <a class="replyTo ui label basic" data-author='{{info.author}}' data-permlink='{{info.permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
+      {{/if}}
+      <h3 class="ui dividing header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
+      {{> comments}}
+      <div class="twelve wide column" style='margin-top: 15px'>
+      </div>
+    </div>
+  </div>
+  {{/with}}
+</template>

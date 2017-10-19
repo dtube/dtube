@@ -1,0 +1,9 @@
+<template name='channel'>
+  <div style="display:inline-flex;">
+    <img class="ui avatar image" style="width:128px;height:128px;" src="https://img.busy.org/@{{user.name}}">
+    <h2 id="channeltitle">{{ translate 'CHANNEL_TITLE_VIDEOS_BY'}}</h2>
+    <h2 style="margin-left:5px;">{{user.name}}</h2>
+  </div>
+  <div class="ui divider"></div>
+  {{#if userVideos}} {{> videoband userVideos}} {{/if}}
+</template>

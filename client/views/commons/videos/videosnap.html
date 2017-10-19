@@ -1,0 +1,48 @@
+<template name='videosnap'>
+  {{#unless isNSFWFullyHidden this}}
+  <div class='videosnap'>
+    <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
+      <div class='videosnapsnap' style="height:120px;margin-bottom: 5px;">
+        <div id="snapload" class="ui active dimmer" style="z-index:-1;">
+          <div class="ui indeterminate text loader">{{translate 'SNAP_IS_LOADING'}}</div>
+        </div>
+        {{#if equals source 'wakaArticles'}}
+        <i id="remove" class="remove icon videosnapsnap">
+          <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
+        </i>
+        {{/if}} {{#if isNSFW this}}
+        <img id="snapimg" height="120" width="100%" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
+        <br /> {{else}}
+        <img id="snapimg" height="120" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
+        <br /> {{/if}}
+      </div>
+    </a>
+    <div style="display:-webkit-box;width: 100%;">
+      <div class='videosnaptitle'>
+        <a href='/v/{{info.author}}/{{info.permlink}}'>
+          <span class="customlink">{{info.title}}</span>
+        </a>
+      </div>
+      <div class='videosnapmore' style="float: right;z-index:9000">
+        {{> videodropdown}}
+      </div>
+    </div>
+    <div class='videosnapauthor'>
+      <a href='/c/{{info.author}}'>
+        <span class="customlink">{{info.author}}</span>
+      </a>
+      {{#if isResteemed reblogged_by}}
+      <i class="retweet icon reblogged" title={{reblogged_by}}></i>
+      {{/if}}
+    </div>
+    <div class='videosnapdetails'>
+      <div class='videosnaprest'>
+        {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+      </div>
+      <div class='videosnaptime'>
+        {{timeAgo created}}
+      </div>
+    </div>
+  </div>
+  {{/unless}}
+</template>

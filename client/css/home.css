@@ -49,15 +49,14 @@
 .videosnaptitle {
   color: black;
   display: block;
-  max-height: 2rem;
   overflow: hidden;
-  font-size: 1rem;
   font-weight: 600;
-  line-height: 1rem;
-  word-wrap: normal;
   white-space: normal;
   text-align: left;
   width: 90%;
+  display: -webkit-box;
+  line-height: 1.3em;
+  max-height: 2.4em;
 }
 
 .videosnapsnap {
@@ -75,7 +74,7 @@
 
 .videosnapsnap .remove {
   position: absolute;
-  top: 2px;
+  top: 6px;
   right: 2px;
   z-index: 100;
   background-color: #FFF;
@@ -114,12 +113,23 @@ text-align: center;
   color: black;
 }
 
+.activemenu
+{
+  text-align: left;
+  color: red;
+  background: rgb(240, 240, 240);
+}
+
 .ui.left.visible.sidebar, .ui.right.visible.sidebar {
   -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15);
 }
 
 .suscriberlist
 {
-  max-height: 320px;
+  max-height: 310px;
   overflow-x: auto;
+}
+
+body.pushable {
+  background: #ffffff !important;
 }
