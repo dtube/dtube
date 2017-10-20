@@ -1,6 +1,6 @@
 <template name='pusher'>
   <div class="pusher">
-    {{#if checkIfMobile }} 
+    {{#if isOnMobile }} 
       {{> mobiletopbar}}
       <div id="sidebar" class="ui sidebar fixed overlay left vertical inverted labeled icon menu" style="top:57px;background-color:#f8f8f8;">
           {{> sidebar}}
@@ -12,9 +12,16 @@
     </div> 
     {{/if}}
     <div class='article container'>
-    <main class='main'>
-        {{> Template.dynamic template=main}}
-      </main>
+        {{#if isOnMobile }} 
+        <main class='mainmobile'>
+            {{> Template.dynamic template=main}}
+          </main>
+      {{else}}
+      <main class='mainsided'>
+          {{> Template.dynamic template=main}}
+        </main>
+      {{/if}}
+    
     </div>
   </div>
 </template>

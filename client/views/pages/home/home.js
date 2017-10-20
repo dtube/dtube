@@ -23,10 +23,6 @@ Template.home.helpers({
   }
 })
 
-// Template.home.rendered = function () {
-//   Template.home.checkIfMobile();
-// }
-
 Template.home.events({
   'click #remove': function () {
     var removeId = this._id
@@ -39,17 +35,5 @@ Template.home.events({
     event.preventDefault()
 
   }
-}) 
+})
 
-Template.home.helpers({
-  checkIfMobile: function () {
-      if (/Mobi/.test(navigator.userAgent)) {
-        $("#main").addClass("main").removeClass("mainsided");
-      }
-      else
-      {
-        $(".ui.sidebar").sidebar('show');
-        $("#main").addClass("mainsided").removeClass("main");
-      }
-  }
-});

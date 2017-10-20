@@ -31,6 +31,14 @@ Template.video.rendered = function () {
 }
 
 Template.video.helpers({
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      return true;
+    }
+  },
+  switchMobile: function () {
+    $('#videodtube').addClass('videomobile').removeClass('videodesktop');      
+  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
@@ -199,10 +207,10 @@ Template.video.setTime = function (seconds) {
   $('video')[0].currentTime = seconds
 }
 
-Template.video.startPlayer = function(videoGateway, snapGateway) {
+Template.video.startPlayer = function (videoGateway, snapGateway) {
   if (!$('.ui.embed').hasClass('active')) {
     $('.ui.embed').embed({
-      url: "https://skzap.github.io/embedtube/#!/"+FlowRouter.getParam("author")+"/"+FlowRouter.getParam("permlink")+"/true/true/"+videoGateway+"/"+snapGateway
+      url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
     });
   }
 }

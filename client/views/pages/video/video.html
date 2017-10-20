@@ -1,24 +1,26 @@
 <template name='video'>
   {{#with video}}
   <div class="ui">
-    <!-- <div style="float:right;width:220px;">
+    {{#if isOnMobile}} {{switchMobile}}  {{else}}
+    <div style="float:right;width:20%;">
       {{#if userVideosAndResteems}}
       <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
       {{> verticalvideoband userVideosAndResteems}} {{/if}}
-    </div> -->
-    <div class="ui grid" style="width:calc(100%);display:inline-block;">
+    </div>
+    {{/if}}
+    <div id="videodtube" class="ui videodesktop">
       <div class="wide column" style="width:100%;">
         <div class="ui embed"></div>
         <!-- <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video> -->
         <div class="info" style="width: 100%;">
-          <div style="width:90%;position:relative;display: inline-block;vertical-align: top;">
-            <h1>{{info.title}}</h1>
+          <div style="width:calc(100%-43px);position:relative;display: inline-block;vertical-align:top; margin-top: 5px;">
+            <h1 style="font-size:22px; font-weight:500;">{{info.title}}</h1>
           </div>
           <div style="font-size:20px;position:relative;float:right;vertical-align: top;background-color: rgb(248, 248, 248);" class="button icon">
             {{> videosettingsdropdown}}
           </div>
         </div>
-        <div class="details" style="width:100%;margin-top:20px;">
+        <div class="details" style="width:100%;margin-top:10px;">
           <div class="leftdetails" style="width:50%;position:relative;display: inline-block;vertical-align: top;">
             <img class="ui left floated image" src="{{userPic info.author}}">
             <div class="channelLink">
@@ -98,6 +100,13 @@
       <div class="twelve wide column" style='margin-top: 15px'>
       </div>
     </div>
+    {{#if isOnMobile}}
+    <div style="width:100%;">
+      {{#if userVideosAndResteems}}
+      <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+      {{> verticalvideoband userVideosAndResteems}} {{/if}}
+    </div>
+    {{/if}}
   </div>
   {{/with}}
 </template>

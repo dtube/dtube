@@ -6,7 +6,16 @@
 .videosnap {
   margin-right: 4px;
   display: inline-block;
-  width: 210px;
+  margin-bottom: 8px;
+  vertical-align:top;
+  width: 210px; 
+  color: #212121;
+}
+
+.verticalvideosnap {
+  margin-right: 4px;
+  display: inline-block;
+  /* width: 210px; */
   margin-bottom: 8px;
   vertical-align:top;
   color: #212121;
@@ -61,7 +70,7 @@
 
 .videosnapsnap {
   position: relative;
-  height:120px;
+  height:118px;
   margin-bottom: 5px;
 }
 

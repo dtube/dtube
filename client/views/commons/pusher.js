@@ -1,5 +1,5 @@
 Template.pusher.helpers({
-    checkIfMobile: function () {
+    isOnMobile: function () {
         if (/Mobi/.test(navigator.userAgent)) {
             return true;
         }

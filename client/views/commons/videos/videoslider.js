@@ -20,7 +20,7 @@ Template.videoslider.createSlick = function (elemId) {
   $("#"+elemId).slick({
     autoplay: false,
     dots: false,
-    slidesToShow: 7,
+    slidesToShow: 6,
     focusOnSelect: false,
     slidesToScroll: 2,
     responsive: [
@@ -47,7 +47,7 @@ Template.videoslider.createSlick = function (elemId) {
         }
       },
       {
-        breakpoint: 900,
+        breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2

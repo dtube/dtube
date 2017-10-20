@@ -72,14 +72,21 @@ background: rgb(233, 233, 233);
 
 main
 {
-  width: 80%;
+  max-width: 1340px;
   margin: auto;
+  width: 80%;
 }
 
 .mainsided
 {
   width: 80%;
-  margin-left: 15%;
+  max-width: 1340px;
+  margin-left: 20%;
+}
+
+.mainmobile
+{
+  width: 90%;
 }
 
 .notificationdtube
@@ -121,6 +128,7 @@ main
 
 #snapimg {
   max-height: 140px;
+  object-fit: cover;
 }
 
 li {
@@ -239,4 +247,16 @@ button {
 .nosnap
 {
   color:rgb(248, 248, 248);
+}
+
+.videodesktop
+{
+  width:78%;
+  display:inline-block;
+}
+
+.videomobile
+{
+  width:100%;
+  display:inline-block;
 }
