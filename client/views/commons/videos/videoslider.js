@@ -20,7 +20,7 @@ Template.videoslider.createSlick = function (elemId) {
   $("#"+elemId).slick({
     autoplay: false,
     dots: false,
-    slidesToShow: 6,
+    slidesToShow: 7,
     focusOnSelect: false,
     slidesToScroll: 2,
     responsive: [

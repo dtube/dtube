@@ -1,12 +1,5 @@
 Template.sidebar.rendered = function () {
-  $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
   Template.sidebar.OnSidebarToogled();
-  $('.item .ui .avatar .image')
-    .visibility({
-      type: 'image',
-      transition: 'fade in',
-      duration: 1000
-    });
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100
@@ -19,7 +12,6 @@ Template.sidebar.helpers({
     return Session.get('activeUsername')
   }
 });
-
 
 Template.sidebar.helpers({
   subscribe: function () {
@@ -78,10 +70,10 @@ Template.sidebar.events({
   }
 });
 
-
 Template.sidebar.resetActiveMenu = function () {
   $('#homesidebarmenu').removeClass('activemenu');
   $('#channelsidebarmenu').removeClass('activemenu');
   $('#trendingsidebarmenu').removeClass('activemenu');
   $('#watchagainsidebarmenu').removeClass('activemenu');
 }
+

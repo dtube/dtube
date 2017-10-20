@@ -1,12 +1,12 @@
 <template name='video'>
   {{#with video}}
-  <div class="ui container">
-    <div style="float:right;width:220px;">
+  <div class="ui">
+    <!-- <div style="float:right;width:220px;">
       {{#if userVideosAndResteems}}
-      <h3>{{ translate 'VIDEO_USER_RESTEEMED'}} {{info.author}}</h3>
+      <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
       {{> verticalvideoband userVideosAndResteems}} {{/if}}
-    </div>
-    <div class="ui grid" style="width:calc(100% - 230px);display:inline-block;">
+    </div> -->
+    <div class="ui grid" style="width:calc(100%);display:inline-block;">
       <div class="wide column" style="width:100%;">
         <div class="ui embed"></div>
         <!-- <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video> -->
