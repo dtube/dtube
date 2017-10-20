@@ -1,15 +1,6 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
-  var loadEmbed = setTimeout(function() {
-    console.log($('.ui.embed'), FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
-    if (!$('.ui.embed').hasClass('active')) {
-      $('.ui.embed').embed({
-        url: "https://skzap.github.io/embedtube/#!/"+FlowRouter.getParam("author")+"/"+FlowRouter.getParam("permlink")+"/true/true"
-      });
-    }
-  }, 200)
-
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100
@@ -63,7 +54,6 @@ Template.video.helpers({
         return videos[i]
       }
     }
-
     Template.video.loadState()
     steem.api.getFollowCount(FlowRouter.getParam("author"), function (e, r) {
       SubCounts.upsert({ _id: r.account }, r)
@@ -209,6 +199,14 @@ Template.video.setTime = function (seconds) {
   $('video')[0].currentTime = seconds
 }
 
+Template.video.startPlayer = function(videoGateway, snapGateway) {
+  if (!$('.ui.embed').hasClass('active')) {
+    $('.ui.embed').embed({
+      url: "https://skzap.github.io/embedtube/#!/"+FlowRouter.getParam("author")+"/"+FlowRouter.getParam("permlink")+"/true/true/"+videoGateway+"/"+snapGateway
+    });
+  }
+}
+
 Template.video.loadState = function () {
   if (isLoadingState) return
   isLoadingState = true
@@ -233,6 +231,7 @@ Template.video.loadState = function () {
     Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
       Videos.refreshWaka()
     })
+    Template.video.startPlayer(Meteor.ipfsGatewayFor(video.content.videohash), Meteor.ipfsGatewayFor(video.info.snaphash))
   });
 }
 

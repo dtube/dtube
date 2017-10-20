@@ -231,6 +231,12 @@ Meteor.getIpfsSrc = function(ipfsHash) {
   }
 }
 
+Meteor.ipfsGatewayFor = function(ipfsHash) {
+  var n = Session.get('remoteSettings').displayNodes.length - 1
+  var i = ipfsHash.charCodeAt(ipfsHash.length-1) % n
+  return Session.get('remoteSettings').displayNodes[i].split('://')[1]
+}
+
 Template.registerHelper('isSubscribedTo', function(following) {
   var sub = Subs.findOne({follower: Session.get('activeUsername'), following: following})
   if (sub) return true
