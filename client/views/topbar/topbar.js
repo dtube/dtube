@@ -54,3 +54,4 @@ Template.topbar.events({
     FlowRouter.go('/')
   }
 });
+

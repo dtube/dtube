@@ -72,3 +72,7 @@ Template.login.events({
     // });
   }
 })
+
+Template.login.rendered = function () {
+  $(".ui.sidebar").sidebar('hide');
+}
