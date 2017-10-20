@@ -1,6 +1,15 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
+  var loadEmbed = setTimeout(function() {
+    console.log($('.ui.embed'), FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
+    if (!$('.ui.embed').hasClass('active')) {
+      $('.ui.embed').embed({
+        url: "https://skzap.github.io/embedtube/#!/"+FlowRouter.getParam("author")+"/"+FlowRouter.getParam("permlink")+"/true/true"
+      });
+    }
+  }, 200)
+
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100
