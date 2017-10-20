@@ -97,6 +97,12 @@ Template.upload.uploadVideo = function(dt) {
       $('input[name="videohash"]').val(result.Hash)
     }
   })
+
+  console.log(file)
+  $('input[name="filesize"]').val(file.size)
+  Torrent.seed(file, function(torrent) {
+    $('input[name="magnet"]').val(torrent.magnetURI)
+  })
 }
 
 Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
@@ -196,10 +202,13 @@ Template.upload.events({
         title: event.target.title.value,
         snaphash: event.target.snaphash.value,
         author: Users.findOne({username: Session.get('activeUsername')}).username,
-        permlink: Template.upload.createPermlink(8)
+        permlink: Template.upload.createPermlink(8),
+        duration: document.querySelector('video').duration,
+        filesize: event.target.filesize.value
       },
       content: {
         videohash: event.target.videohash.value,
+        magnet: event.target.magnet.value,
         description: event.target.description.value,
         tags: tags
       }
@@ -275,7 +284,8 @@ Template.upload.events({
             if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
             else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
           } else {
-            FlowRouter.go('/v/'+author+'/'+permlink)
+            window.open('/#!/v/'+author+'/'+permlink, '_blank');
+            FlowRouter.go('/torrentStats')
           }
         }
       )
