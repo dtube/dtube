@@ -22,13 +22,13 @@ Template.videoslider.createSlick = function (elemId) {
     dots: false,
     slidesToShow: 6,
     focusOnSelect: false,
-    slidesToScroll: 6,
+    slidesToScroll: 2,
     responsive: [
       {
         breakpoint: 1550,
         settings: {
           slidesToShow: 5,
-          slidesToScroll: 5,
+          slidesToScroll: 2,
           focusOnSelect: false,
         }
       },
