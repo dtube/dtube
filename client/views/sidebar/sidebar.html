@@ -1,6 +1,6 @@
 <template name="sidebar">
   <div>
-    <a class="item" id="home" style="padding:0%;"> 
+    <a class="item" id="home" style="padding:0%;">
       <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="home icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
@@ -39,7 +39,7 @@
       <a class="item" style="padding:0%;">
         <div class="menuitem dtubesidebarmenu" style="padding:0%;">
           <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" style="height:24px;width:24px;margin:5px 5px 5px 20px;">
-          <span class="customlink dtubesidebartitle" href='/c/{{following}}'>{{following}}</span>
+          <a href='/c/{{following}}'><span class="customlink dtubesidebartitle" >{{following}}</span></a>
         </div>
       </a>
       {{/each}}

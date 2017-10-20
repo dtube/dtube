@@ -58,9 +58,15 @@ Videos.refreshWaka = function() {
 
 Videos.refreshBlockchain = function(cb) {
   var nbCompleted = 0;
-  Videos.getVideosBy('hot', returnFn)
-  Videos.getVideosBy('trending', returnFn)
-  Videos.getVideosBy('created', returnFn)
+  Videos.getVideosBy('hot', null, function() {
+    returnFn()
+  })
+  Videos.getVideosBy('trending', null, function() {
+    returnFn()
+  })
+  Videos.getVideosBy('created', null, function() {
+    returnFn()
+  })
   var returnFn = function() {
     nbCompleted++
     if (nbCompleted == 3)

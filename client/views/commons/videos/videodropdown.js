@@ -1,3 +1,5 @@
 Template.videodropdown.rendered = function() {
-    $('.dropdownvideo').dropdown({});
+  // var random = Template.upload.createPermlink(10)
+  // this.firstNode.id = random
+  // $('#'+random).dropdown({});
 }

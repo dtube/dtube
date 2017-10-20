@@ -85,4 +85,3 @@ Template.sidebar.resetActiveMenu = function () {
   $('#trendingsidebarmenu').removeClass('activemenu');
   $('#watchagainsidebarmenu').removeClass('activemenu');
 }
-

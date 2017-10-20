@@ -1,16 +1,23 @@
 var carousel = require('slick-carousel')
 
 Template.videoslider.rendered = function () {
-  Template.videoslider.createSlick();
-  $(window).on('resize', Template.videoslider.createSlick);
+  //Template.videoslider.createSlick();
+  //$(window).on('resize', Template.videoslider.createSlick);
+  console.log('creating slick')
+  var random = Template.upload.createPermlink(10)
+  this.firstNode.id = random
+  Template.videoslider.createSlick(random)
+
+
+  $(this.firstNode).find('.dropdown').dropdown({});
 }
 Template.videoslider.refreshSlider = function () {
   $('.videoslider').slick('refresh');
 }
 
-Template.videoslider.createSlick = function () {
-  console.log("slider ok");
-  $(".videoslider").not('.slick-initialized').slick({
+Template.videoslider.createSlick = function (elemId) {
+  console.log("slider init");
+  $("#"+elemId).slick({
     autoplay: false,
     dots: false,
     slidesToShow: 6,
@@ -48,4 +55,5 @@ Template.videoslider.createSlick = function () {
       }
     ]
   });
+  console.log('slider done')
 }
