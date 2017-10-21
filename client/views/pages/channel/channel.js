@@ -1,6 +1,12 @@
 Template.channel.rendered = function () {
-  $(".ui.sidebar").sidebar('show');
-
+  if (Template.channel.isOnMobile)
+  {
+    alert("on mobile");
+  }
+  else
+  {
+    $(".ui.sidebar").sidebar('show');
+  }
   // loading contents from user from blockchain
   var query = {
     tag: FlowRouter.getParam("author"),
@@ -35,6 +41,11 @@ Template.channel.helpers({
   user: function () {
     return {
       name: FlowRouter.getParam("author")
+    }
+  },
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) { 
+        return true;
     }
   },
   userVideos: function () {

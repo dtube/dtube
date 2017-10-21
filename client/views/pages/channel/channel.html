@@ -5,5 +5,11 @@
     <h2 style="margin-left:5px;">{{user.name}}</h2>
   </div>
   <div class="ui divider"></div>
-  {{#if userVideos}} {{> videoband userVideos}} {{/if}}
+  {{#if userVideos}} 
+    {{#if isOnMobile}} 
+      {{> verticalvideoband userVideos}} 
+    {{else}}
+      {{> videoband userVideos}} 
+    {{/if}}
+  {{/if}}
 </template>

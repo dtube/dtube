@@ -1,6 +1,10 @@
 <template name='history'>
   <div>
     <h2>{{ translate 'HISTORY_TITLE'}}</h2>
-    {{> videoband watchAgain}}
+    {{#if isOnMobile}} 
+      {{> verticalvideoband watchAgain}} 
+    {{else}}
+      {{> videoband watchAgain}} 
+    {{/if}}
   </div>
 </template>

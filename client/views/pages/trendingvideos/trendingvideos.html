@@ -1,6 +1,10 @@
 <template name='trendingvideos'>
     <div>
         <h2>{{ translate 'TRENDING_VIDEOS_TITLE'}}</h2>
-        {{> videoband trendingVideos}}
+        {{#if isOnMobile}} 
+            {{> verticalvideoband trendingVideos}} 
+        {{else}}
+            {{> videoband trendingVideos}} 
+        {{/if}}
     </div>
 </template>
