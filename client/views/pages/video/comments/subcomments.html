@@ -1,7 +1,12 @@
 <template name='subcomments'>
   <div class="comments">
-    {{#each this}}
-      {{> comment}}
-    {{/each}}
+      <!-- <button class="ui labeled icon button">
+          <i class="comments icon"></i>View all {{comment.length}} replies 
+        </button>  -->
+      <div>
+        {{#each this}}
+            {{> comment}}
+        {{/each}} 
+      </div>
   </div>
 </template>

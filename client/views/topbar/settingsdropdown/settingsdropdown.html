@@ -1,11 +1,11 @@
 <template name='settingsdropdown'>
-  <div class="ui item top left pointing dropdown dropdownsettings" style="float: right;">
+  <div class="ui item top right floating  pointing dropdown dropdownsettings" style="float: right;">
     <i class="settings icon" style='font-size:1.5em; margin:0;'></i>
-    <div class="menu">
+    <div id="menu" class="menu">
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} @ {{voteWeight}}%</span>
-        <div class="left menu">
+        <div class="left menu" style="min-width: 0px;">
           <div class="item voteWeight">+10%</div>
           <div class="item voteWeight">+1%</div>
           <div class="item voteWeight">-1%</div>
@@ -15,7 +15,7 @@
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
-        <div class="left menu">
+        <div class="left menu"  style="min-width: 0px;"   >
           {{#if equals 'Show' nsfwSetting}}
             <div class="item nsfwSetting nsfwShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
           {{else}}
@@ -33,13 +33,14 @@
           {{/if}}
         </div>
       </div>
+      {{#if isOnMobile}}
+      {{else}}
       <div class="ui divider"></div>
       <div class="header">{{ translate 'SETTINGS_DROPDOWN_IPFS_SETTINGS'}}</div>
-
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_LOCAL_IPFS'}}</span>
-        <div class="left menu">
+        <div class="left menu" style="min-width: 0px;">
           <div class="header">
             {{#if localIpfs}}
               <span style='color: green'>{{ translate 'SETTINGS_DROPDOWN_RUNNING_IPFS'}}</span>
@@ -93,6 +94,7 @@
           {{/each}}
         </div>
       </div>
+      {{/if}}
     </div>
   </div>
 </template>

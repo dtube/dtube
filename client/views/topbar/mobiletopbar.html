@@ -1,12 +1,12 @@
 <template name="mobiletopbar">
-    <div class="ui large borderless main menu fixed"  style="height:56px;">
+    <div class="ui large borderless main menu fixed"  style="height:56px;z-index:9000;">
         <div style="width: 100%;text-align: left;">
-            <!-- <a class="sidebartoggleicon ui item" style="float:left;">
+            <a class="sidebartoggleicon ui item" style="float:left;">
                 <i class="sidebar icon" style='font-size:1.5em; margin:0;'></i>
-            </a> -->
-            <a class="header item" id='textlogo' style="display: inline-block;">
+            </a>
+            <a class="header item" id='textlogomobile' style="float:left;margin-left: -10px;">
                 <i id="animdtube" class="dtube icon">
-                    <img height="22" width="22" alt="" style="margin-left:5px;" src="/DTube_files/images/dtubeplay.png">
+                    <img height="18" width="18" alt="" src="/DTube_files/images/dtubeplay.png">
                 </i>Tube
             </a>
             <div class="right menu"  style="float:right;">
@@ -25,7 +25,8 @@
                       {{> mobileusers}}
                     {{else}}
                       <a class="ui item">
-                        <a href="/login" class="ui youtube button"><i class="sign in icon"></i> {{ translate "TOPBAR_LOGIN"}}</a>
+                        <a href="/login" class="circular ui icon youtube button">
+                            <i class="user icon"></i></a>
                       </a>
                     {{/if}}
             </div>

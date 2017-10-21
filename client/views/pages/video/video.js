@@ -37,7 +37,10 @@ Template.video.helpers({
     }
   },
   switchMobile: function () {
-    $('#videodtube').addClass('videomobile').removeClass('videodesktop');      
+    $('#videodtube').addClass('videomobile');      
+  },
+  switchDesktop: function () {
+    $('#videodtube').addClass('videodesktop');      
   },
   user: function () {
     return {

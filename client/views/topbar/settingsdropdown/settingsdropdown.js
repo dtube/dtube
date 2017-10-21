@@ -60,9 +60,10 @@ Template.settingsdropdown.helpers({
   },
   localIpfs: function() {
     return Session.get('localIpfs')
-  }
-})
-
-Template.settingsdropdown.events({
-
+  },
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+        return true;
+    }
+}
 })

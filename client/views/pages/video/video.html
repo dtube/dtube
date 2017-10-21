@@ -1,14 +1,17 @@
 <template name='video'>
   {{#with video}}
   <div class="ui">
-    {{#if isOnMobile}} {{switchMobile}}  {{else}}
+    {{#if isOnMobile}} 
+      {{switchMobile}} 
+    {{else}} 
+      {{switchDesktop}}
     <div style="float:right;width:20%;">
       {{#if userVideosAndResteems}}
       <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
-      {{> verticalvideoband userVideosAndResteems}} {{/if}}
+      {{> videoband userVideosAndResteems}} {{/if}}
     </div>
     {{/if}}
-    <div id="videodtube" class="ui videodesktop">
+    <div id="videodtube" class="ui">
       <div class="wide column" style="width:100%;">
         <div class="ui embed"></div>
         <!-- <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video> -->
@@ -48,7 +51,6 @@
             </div>
             {{/if}}
           </div>
-
           <div class="rightdetails" style="position:relative;float:right;
                 vertical-align: top;">
             <div class="four wide column right aligned" style="float: right;">
@@ -77,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="sixteen wide column" style="overflow: hidden;">
+      <div class="sixteen wide column" style="overflow: hidden;margin-top:5px;">
         <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
         <br /> {{{syntaxed content.description}}}
       </div>

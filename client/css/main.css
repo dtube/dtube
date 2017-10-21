@@ -8,6 +8,16 @@
   color: red;
 }
 
+#textlogomobile {
+  font-size: 1.2em;
+  color: red;
+}
+
+.scaledropdown
+{
+  transform: scale(0.5);
+}
+
 .input.inputLarge {
   width: 400px;
 }

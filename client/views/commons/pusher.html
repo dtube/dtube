@@ -2,26 +2,25 @@
   <div class="pusher">
     {{#if isOnMobile }} 
       {{> mobiletopbar}}
-      <div id="sidebar" class="ui sidebar fixed overlay left vertical inverted labeled icon menu" style="top:57px;background-color:#f8f8f8;">
-          {{> sidebar}}
-        </div>
-    {{else}}
-    {{> topbar}}
-        <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
+    <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
       {{> sidebar}}
-    </div> 
+    </div>
+    {{else}} 
+      {{> topbar}}
+    <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
+      {{> sidebar}}
+    </div>
     {{/if}}
     <div class='article container'>
-        {{#if isOnMobile }} 
-        <main class='mainmobile'>
-            {{> Template.dynamic template=main}}
-          </main>
+      {{#if isOnMobile }}
+      <main class='mainmobile'>
+        {{> Template.dynamic template=main}}
+      </main>
       {{else}}
       <main class='mainsided'>
-          {{> Template.dynamic template=main}}
-        </main>
+        {{> Template.dynamic template=main}}
+      </main>
       {{/if}}
-    
     </div>
   </div>
 </template>

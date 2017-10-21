@@ -62,15 +62,35 @@
   font-weight: 600;
   white-space: normal;
   text-align: left;
-  width: 90%;
+  width: 100%;
   display: -webkit-box;
   line-height: 1.3em;
   max-height: 2.4em;
 }
 
+.verticalvideosnaptitle {
+  color: black;
+  display: block;
+  overflow: hidden;
+  font-weight: 600;
+  white-space: normal;
+  text-align: left;
+  width: 100%;
+  display: -webkit-box;
+  line-height: 1.3em;
+  max-height: 3.8em;
+}
+
 .videosnapsnap {
   position: relative;
   height:118px;
+  margin-bottom: 5px;
+}
+
+
+.verticalvideosnapsnap {
+  position: relative;
+  height:90px;
   margin-bottom: 5px;
 }
 
