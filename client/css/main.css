@@ -82,16 +82,14 @@ background: rgb(233, 233, 233);
 
 main
 {
-  max-width: 1340px;
+  max-width: 70%;
   margin: auto;
-  width: 80%;
 }
 
 .mainsided
 {
-  width: 80%;
-  max-width: 1340px;
-  margin-left: 20%;
+  max-width: 70%;
+  margin-left: 320px;
 }
 
 .mainmobile
