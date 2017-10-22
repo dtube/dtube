@@ -74,6 +74,39 @@ Videos.refreshBlockchain = function(cb) {
   }
 }
 
+Videos.getVideosByBlog = function(author, limit, cb) {
+  var query = {
+    tag: author,
+    limit: Session.get('remoteSettings').loadLimit
+  };
+
+  if (limit) query.limit = limit
+
+  steem.api.getDiscussionsByBlog(query, function (err, result) {
+    if (err === null) {
+      var i, len = result.length;
+      var videos = []
+      for (i = 0; i < len; i++) {
+        var video = Videos.parseFromChain(result[i])
+        if (video) videos.push(video)
+      }
+      for (var i = 0; i < videos.length; i++) {
+        videos[i].source = 'chainByBlog'
+        videos[i]._id += 'b'
+        videos[i].fromBlog = FlowRouter.getParam("author")
+        try {
+          Videos.upsert({ _id: videos[i]._id }, videos[i])
+          cb()
+        } catch (err) {
+          cb(err)
+        }
+      }
+    } else {
+      cb(err);
+    }
+  });
+}
+
 Videos.getVideosBy = function(type, limit, cb) {
   var query = {
     "tag": "dtube",

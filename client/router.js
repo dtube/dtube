@@ -71,6 +71,10 @@ FlowRouter.route('/v/:author/:permlink', {
       main: "video",
       nav: "nav"
     });
+    Template.video.loadState()
+    Videos.getVideosByBlog(params.author, null, function() {
+      // call finished
+    })
   }
 });
 
@@ -81,6 +85,9 @@ FlowRouter.route('/c/:author', {
       main: "channel",
       nav: "nav"
     });
+    Videos.getVideosByBlog(params.author, 100, function() {
+      // call finished
+    })
   }
 });
 

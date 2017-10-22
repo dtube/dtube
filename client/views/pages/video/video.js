@@ -1,32 +1,6 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
-  var query = {
-    tag: FlowRouter.getParam("author"),
-    limit: 100
-  };
-  steem.api.getDiscussionsByBlog(query, function (err, result) {
-    if (err === null) {
-      var i, len = result.length;
-      var videos = []
-      for (i = 0; i < len; i++) {
-        var video = Videos.parseFromChain(result[i])
-        if (video) videos.push(video)
-      }
-      for (var i = 0; i < videos.length; i++) {
-        videos[i].source = 'chainByBlog'
-        videos[i]._id += 'b'
-        videos[i].fromBlog = FlowRouter.getParam("author")
-        try {
-          Videos.upsert({ _id: videos[i]._id }, videos[i])
-        } catch (err) {
-          console.log(err)
-        }
-      }
-    } else {
-      console.log(err);
-    }
-  });
   $(".ui.sidebar").sidebar('hide');
 }
 
@@ -37,10 +11,10 @@ Template.video.helpers({
     }
   },
   switchMobile: function () {
-    $('#videodtube').addClass('videomobile');      
+    $('#videodtube').addClass('videomobile');
   },
   switchDesktop: function () {
-    $('#videodtube').addClass('videodesktop');      
+    $('#videodtube').addClass('videodesktop');
   },
   user: function () {
     return {
@@ -65,7 +39,7 @@ Template.video.helpers({
         return videos[i]
       }
     }
-    Template.video.loadState()
+
     steem.api.getFollowCount(FlowRouter.getParam("author"), function (e, r) {
       SubCounts.upsert({ _id: r.account }, r)
     })
@@ -100,9 +74,9 @@ Template.video.events({
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
       Template.video.loadState()
     });
-    Template.video.pinFile(author, permlink, function (e, r) {
-      console.log(e, r)
-    })
+    // Template.video.pinFile(author, permlink, function (e, r) {
+    //   console.log(e, r)
+    // })
   },
   'click .downvote': function (event) {
     var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
@@ -211,11 +185,9 @@ Template.video.setTime = function (seconds) {
 }
 
 Template.video.startPlayer = function (videoGateway, snapGateway) {
-  if (!$('.ui.embed').hasClass('active')) {
-    $('.ui.embed').embed({
-      url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
-    });
-  }
+  $('.ui.embed').embed({
+    url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
+  });
 }
 
 Template.video.loadState = function () {

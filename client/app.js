@@ -6,29 +6,32 @@ import wakajs from 'wakajs';
 import steem from 'steem';
 steem.api.setOptions({ url: 'wss://steemd.privex.io' });
 
+console.log('Starting DTube APP')
+
 FlowRouter.wait();
 Meteor.startup(function(){
+  console.log('DTube APP Started')
   Session.set('remoteSettings', Meteor.settings.public.remote)
   window.steem = steem
-  window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
 
-  setInterval(function() {
-    try {
-      localIpfs.repo.stat(function(e,r) {
-        if (e) {
-          Session.set('localIpfs', false)
-          return;
-        }
-        Session.set('localIpfs', r)
-
-        // using local gateway seems to make my internet very unstable and nothing works
-        // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
-      })
-    } catch(e) {
-
-    }
-
-  }, 10000)
+  //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
+  // setInterval(function() {
+  //   try {
+  //     localIpfs.repo.stat(function(e,r) {
+  //       if (e) {
+  //         Session.set('localIpfs', false)
+  //         return;
+  //       }
+  //       Session.set('localIpfs', r)
+  //
+  //       // using local gateway seems to make my internet very unstable and nothing works
+  //       // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
+  //     })
+  //   } catch(e) {
+  //
+  //   }
+  //
+  // }, 10000)
 
   // start router
   FlowRouter.initialize({hashbang: true}, function() {
