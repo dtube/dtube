@@ -3,13 +3,20 @@
     <i class="ellipsis horizontal icon videohmore"></i>
     <div class="menu">
       <!-- <div class="item">
-            READY TO GO 
+            READY TO GO
           </div> -->
       <div class="item">
-        <a href="mailto:contact@d.tube?subject=Report video id : {{info.permlink}} by : {{info.author}}">
-          <span class="customlink">Report</span>
+        <a>
+          <span class="customlink"><i class="retweet icon"></i> Resteem</span>
         </a>
       </div>
+      {{#if content.magnet}}
+        <div class="item">
+          <a href="{{content.magnet}}">
+            <span class="customlink"><i class="magnet icon"></i> Download from magnet</span>
+          </a>
+        </div>
+      {{/if}}
     </div>
   </div>
 </template>

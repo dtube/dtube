@@ -72,7 +72,7 @@ FlowRouter.route('/v/:author/:permlink', {
       nav: "nav"
     });
     Template.video.loadState()
-    Videos.getVideosByBlog(params.author, null, function() {
+    Videos.getVideosByBlog(params.author, 100, function() {
       // call finished
     })
   }
