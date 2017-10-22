@@ -6,12 +6,12 @@
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
-    <a class="item" style="padding:0%;">
+    <!-- <a class="item" style="padding:0%;">
       <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="block layout icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_CHANNEL'}}</span>
       </div>
-    </a>
+    </a> -->
     <a class="item" style="padding:0%;">
       <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="fire icon dtubesidebaricon"></i>
@@ -51,12 +51,11 @@
     </div>
     {{/if}}
     <div class="ui divider"></div>
-    <a id="help" class="item" style="padding:0%;position: absolute; bottom: 60px;width:100%;">
+    <a href='https://about.d.tube' id="help" class="item" style="padding:0%;position: absolute; bottom: 60px;width:100%;">
       <div class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="help icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HELP'}}</span>
       </div>
     </a>
   </div>
-  {{> helpmodal}}
 </template>

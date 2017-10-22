@@ -46,7 +46,7 @@ Template.sidebar.OnSidebarToogled = function () {
 
 Template.sidebar.events({
   'click #help': function (event, instance) {
-    $('.ui.modal').modal('show')
+    //$('.ui.modal').modal('show')
   },
   'click #homesidebarmenu': function () {
     Template.sidebar.resetActiveMenu()
@@ -76,4 +76,3 @@ Template.sidebar.resetActiveMenu = function () {
   $('#trendingsidebarmenu').removeClass('activemenu');
   $('#watchagainsidebarmenu').removeClass('activemenu');
 }
-
