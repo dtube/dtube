@@ -94,5 +94,8 @@
 	"SIDEBAR_TRENDING_VIDEOS":"Trending Videos",
 	"SIDEBAR_HELP":"Help",
 	"SIDEBAR_SETTINGS":"Settings",
-	"SNAP_MISSING_IMAGE":"Missing Image"
+	"SNAP_MISSING_IMAGE":"Missing Image",
+	"TORRENT_STATS_TITLE": "Torrent Statistics",
+	"TORRENT_STATS_PEERS": "Connected Peers",
+	"TORRENT_STATS_UPLOAD": "Upload Speed"
 }

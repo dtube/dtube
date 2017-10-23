@@ -1,0 +1,23 @@
+<template name='torrentStats'>
+    <div>
+      <h2>{{ translate 'TORRENT_STATS_TITLE'}}</h2>
+      <div class="ui statistics">
+        <div class="statistic">
+          <div class="value">
+            <span id='torrentPeers'>{{stats.numPeers}}</span>
+          </div>
+          <div class="label">
+            {{ translate 'TORRENT_STATS_PEERS'}}
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="value">
+            <span id='torrentUpload'>{{humanFilesize stats.uploadSpeed}}</span>
+          </div>
+          <div class="label">
+            {{ translate 'TORRENT_STATS_UPLOAD'}}
+          </div>
+        </div>
+      </div>
+    </div>
+</template>

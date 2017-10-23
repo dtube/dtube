@@ -64,6 +64,17 @@ FlowRouter.route('/history', {
   }
 });
 
+FlowRouter.route('/torrentStats', {
+  name: "torrentStats",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Torrent Stats')
+    BlazeLayout.render('masterLayout', {
+      main: "torrentStats",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/v/:author/:permlink', {
   name: "video",
   action: function(params, queryParams) {
