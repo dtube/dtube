@@ -10,6 +10,6 @@ Template.trendingvideos.helpers({
 })
 
 Template.trendingvideos.rendered = function () {
-  $(".ui.sidebar").sidebar('show')
+  $("#sidebar").sidebar('show')
   Videos.getVideosBy("trending", 26)
 }
