@@ -107,12 +107,12 @@ Template.upload.uploadVideo = function(dt) {
 
 Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
-  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
   body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
   body += description
   body += '<hr>'
-  body += '<a href=\'https://dtube.video/#!/v/'+author+'/'+permlink+'\'>â–º '+translate('UPLOAD_WATCH_ON_DTUBE')+' DTube</a><br />'
-  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'>â–º '+translate('UPLOAD_WATCH_SOURCE_IPFS')+'</a>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'▶️ '+translate('UPLOAD_WATCH_ON_DTUBE')+' DTube</a><br />'
+  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'▶️ '+translate('UPLOAD_WATCH_SOURCE_IPFS')+'</a>'
   return body
 }
 
