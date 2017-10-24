@@ -1,11 +1,11 @@
 Template.channel.rendered = function () {
-  if (Template.channel.isOnMobile)
+  if (Template.channel.isOnMobile())
   {
     alert("on mobile");
   }
   else
   {
-    $(".ui.sidebar").sidebar('show');
+    $("#sidebar").sidebar('show');
   }
 }
 
