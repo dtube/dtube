@@ -2,15 +2,30 @@
   <div class="ui grid">
     <div class="twelve wide column">
       <h1>{{ translate 'SEARCH_RESULTS_FOR'}} {{search.query}}</h1>
-      <h4 class='gray'>{{lengthOf search.response.results}} {{#if isPlural search.response.results}}{{ translate 'SEARCH_RESULTS'}}{{else}}{{ translate 'SEARCH_RESULT'}}{{/if}}</h4>
+      <h4 class='gray'>{{lengthOf search.response.results}} 
+        {{#if isPlural search.response.results}}
+        {{ translate 'SEARCH_RESULTS'}}
+        {{else}}
+        {{translate 'SEARCH_RESULT'}}
+        {{/if}}</h4>
     </div>
     <div class="four wide column">
-      <h1><a href='https://www.asksteem.com/' target='_blank'><img class="ui tiny right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png"></a></h1>
+      <h1>
+        <a href='https://www.asksteem.com/' target='_blank'>
+          <img class="ui tiny right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+        </a>
+      </h1>
     </div>
   </div>
   <div class="ui grid">
-    {{#each search.response.results}}
-      {{> videosearchresult}}
-    {{/each}}
+    {{#if isOnMobile }} 
+      {{#each search.response.results}} 
+        {{> mobilevideosearchresult}} 
+      {{/each}} 
+    {{else}} 
+      {{#each search.response.results}}
+       {{> videosearchresult}} 
+      {{/each}} 
+    {{/if}}
   </div>
 </template>

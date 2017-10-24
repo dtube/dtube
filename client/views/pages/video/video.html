@@ -83,8 +83,9 @@
         <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
         <br /> {{{syntaxed content.description}}}
       </div>
+      <h3 class="ui dividing header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
       {{#if isReplying this}}
-      <form class="ui reply form" style="width:100%;">
+      <form class="ui reply form" style="width:100%;margin-bottom:40px;">
         <div class="field" style="width:100%;position:relative;display: inline-block;
             vertical-align: top;">
           <textarea rows="3"></textarea>
@@ -97,7 +98,6 @@
       {{else}}
       <a class="replyTo ui label basic" data-author='{{info.author}}' data-permlink='{{info.permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
       {{/if}}
-      <h3 class="ui dividing header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
       {{> comments}}
       <div class="twelve wide column" style='margin-top: 15px'>
       </div>

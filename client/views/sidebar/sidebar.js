@@ -26,7 +26,7 @@ Template.sidebar.helpers({
 });
 
 Template.sidebar.OnSidebarToogled = function () {
-  $(".ui.sidebar").sidebar('setting', 'onShow', function () {
+  $("#sidebar").sidebar('setting', 'onShow', function () {
     if ($(window).innerWidth() > 1280) {
       $('main').addClass('mainsided').removeClass('main');
     }
@@ -34,7 +34,7 @@ Template.sidebar.OnSidebarToogled = function () {
       $('main').removeClass('mainsided').addClass('main');
     }
   })
-  $(".ui.sidebar").sidebar('setting', 'onHide', function () {
+  $("#sidebar").sidebar('setting', 'onHide', function () {
     if ($(window).innerWidth() > 1280) {
       $('main').removeClass('mainsided').addClass('main');
     }

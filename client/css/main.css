@@ -27,8 +27,7 @@
 }
 
 .article {
-  padding: 5em 0em 3em 0em; 
-  margin-top: 25px;
+  padding: 80px 0em 3em 0em;
   display: -webkit-inline-box;
   width: 100%;
 }
@@ -82,7 +81,7 @@ background: rgb(233, 233, 233);
 
 main
 {
-  max-width: 70%;
+  max-width: 90%;
   margin: auto;
 }
 

@@ -1,0 +1,19 @@
+<template name="mobilesearch">
+    <div class="ui search" style="height:70px;width:100%;padding:15px;">
+        <div class="ui big icon input" style="width:100%;">
+            <form class='searchForm' style="width:100%;">
+                <input id='dsearch ' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
+            </form>
+            <i class="search icon"></i>
+        </div>
+        <div class="results">
+            {{#each searchSuggestions}}
+            <a class="result">   
+                <div class="content">
+                    <div class="title">{{this}}</div>
+                </div>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</template>

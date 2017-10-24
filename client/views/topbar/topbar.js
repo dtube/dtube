@@ -12,6 +12,9 @@ Template.topbar.events({
     $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
     .sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
   },
+  'click #mobilesearch': function(event, instance) {
+    $("#mobilesearchsidebar").sidebar('toggle')
+  },
   'keyup #dsearch': function(event) {
     var query = event.target.value
     if (query.length < 1) {

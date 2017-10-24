@@ -1,27 +1,28 @@
 <template name='verticalvideosnap'>
   {{#unless isNSFWFullyHidden this}}
   <div class='verticalvideosnap' style="width:100%;">
-    <div style="width:50%;float: left;">
+    <div style="width:50%;float: left;position:relative;">
+      {{#if equals source 'wakaArticles'}}
+      <i id="remove" class="ui remove icon circular" style="position:absolute;background-color: rgba(241, 241, 241, 0.85);">
+        <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
+      </i>
+      {{/if}}
       <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
-        <div class='verticalvideosnapsnap'>
-          <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);">
-            <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
-            <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
+        <div class='verticalvideosnapsnap' style="height:90px;">
+          <div id="snapload" class="ui active dimmer" style="position:absolute;z-index:-1;background-color: rgba(167, 167, 167, 0.85);float: left;height:90;">
+            <!-- <i class="icon photo nosnap" style="font-size:28px;margin-top:50%;"></i>
+            <div class="ui text nosnap" style="margin-top:60%;">{{translate 'SNAP_MISSING_IMAGE'}}</div> -->
           </div>
-          {{#if equals source 'wakaArticles'}}
-          <i id="remove" class="remove icon videosnapsnap">
-            <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
-          </i>
-          {{/if}} {{#if isNSFW this}}
-          <img id="snapimg" height="90" width="100%" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
+          {{#if isNSFW this}}
+          <img id="snapimg" height="90" width="160" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
           <br /> {{else}}
-          <img id="snapimg" height="90" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
+          <img id="snapimg" height="90" width="160" alt="" src="{{ipfsSrc info.snaphash}}">
           <br /> {{/if}}
         </div>
       </a>
     </div>
     <div style="float:right;width:48%; position:relative;text-align:left;">
-      <div class="boxdisplayer" >
+      <div class="boxdisplayer">
         <div class='verticalvideosnaptitle'>
           <a href='/v/{{info.author}}/{{info.permlink}}'>
             <span class="customlink">{{info.title}}</span>
@@ -32,7 +33,7 @@
         </div> -->
       </div>
       <div class='videosnapauthor'>
-        <a href='/c/{{info.author}}'> 
+        <a href='/c/{{info.author}}'>
           <span class="customlink">{{info.author}}</span>
         </a>
         {{#if isResteemed reblogged_by}}

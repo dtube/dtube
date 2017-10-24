@@ -1,16 +1,19 @@
 <template name="mobiletopbar">
-    <div class="ui large borderless main menu fixed"  style="height:56px;z-index:9000;">
+    <div class="ui large borderless main menu fixed"  style="height:52px;z-index:9000;">
         <div style="width: 100%;text-align: left;">
-            <a class="sidebartoggleicon ui item" style="float:left;">
+            <!-- <a class="sidebartoggleicon ui item" style="float:left;">
                 <i class="sidebar icon" style='font-size:1.5em; margin:0;'></i>
-            </a>
-            <a class="header item" id='textlogomobile' style="float:left;margin-left: -10px;">
+            </a> -->
+            <a class="ui header item" id='textlogomobile' style="float:left;margin-left: -10px;height:52px;">
                 <i id="animdtube" class="dtube icon">
-                    <img height="18" width="18" alt="" src="/DTube_files/images/dtubeplay.png">
+                    <img height="20" width="20" alt="" src="/DTube_files/images/dtubeplay.png">
                 </i>Tube
             </a>
             <div class="right menu"  style="float:right;">
-                    {{#if isLoggedOn}}
+                    <div id="mobilesearch" class="ui item" style="float:right;">
+                            <i class="search icon" style='font-size:1.5em; margin:0;'></i>
+                        </div>
+                    <!-- {{#if isLoggedOn}}
                       <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}' >
                         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
                       </a>
@@ -18,7 +21,7 @@
                       <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
                         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
                       </a>
-                    {{/if}}
+                    {{/if}} -->
                     <!-- {{> notificationdropdown}}  -->
                     {{> settingsdropdown}}
                     {{#if isLoggedOn}}
@@ -26,32 +29,11 @@
                     {{else}}
                       <a class="ui item">
                         <a href="/login" class="circular ui icon youtube button">
-                            <i class="user icon"></i></a>
+                            <i class="user icon" style='font-size:1.5em; margin:0;'></i></a>
                       </a>
                     {{/if}}
             </div>
             <!-- {{> notificationdropdown}}  -->
         </div>
-        <!-- <div style="width:100%;">
-            <div class="item ">
-                <div class="ui search">
-                    <div class="ui icon input">
-                        <form class='searchForm'>
-                            <input id='dsearch ' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
-                        </form>
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="results">
-                        {{#each searchSuggestions}}
-                        <a class="result">
-                            <div class="content">
-                                <div class="title">{{this}}</div>
-                            </div>
-                        </a>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>

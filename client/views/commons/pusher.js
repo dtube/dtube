@@ -4,4 +4,5 @@ Template.pusher.helpers({
             return true;
         }
     }
+    
 });
