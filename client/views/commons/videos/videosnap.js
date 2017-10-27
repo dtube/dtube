@@ -15,6 +15,7 @@ Template.videosnap.events({
 
 Template.videosnap.rendered = function () {
   Template.videosnap.snapLoaded();
+  
 }
 
 Template.videosnap.snapLoaded = function () {

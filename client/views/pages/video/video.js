@@ -1,9 +1,17 @@
 var isLoadingState = false
+var descriptionIsOpen = false
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({scrollTop:0}, 'slow');//IE, FF
   $('body').animate({scrollTop:0}, 'slow')
+
+  $('.overlay.example .overlay')
+  .visibility({
+    type   : 'fixed',
+    offset : 15 // give some space from top of screen
+  })
+;
 }
 
 Template.video.helpers({
@@ -16,15 +24,25 @@ Template.video.helpers({
     $('#videodtube').addClass('videomobile');
   },
   switchDesktop: function () {
-    $('#videodtube').addClass('videodesktop');
+    $('#videodtube').addClass('container').addClass('content');
   },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
     }
   },
+  activeUser: function () {
+    return Session.get('activeUsername')
+  },
   userVideosAndResteems: function () {
-    return Videos.find({ fromBlog: FlowRouter.getParam("author"), source: 'chainByBlog' }, { limit: 6 }).fetch();
+    var suggestions = Videos.find({ fromBlog: FlowRouter.getParam("author"), source: 'chainByBlog' }, { limit: 6 }).fetch();
+    for (var i = 0; i < suggestions.length; i++) {
+      if (suggestions[i].permlink == FlowRouter.getParam("permlink") && suggestions[i].author == FlowRouter.getParam("author")) {
+        suggestions.splice(i, 1)
+        break;
+      }
+    }
+    return suggestions;
   },
   author: function () {
     return ChainUsers.findOne({ name: FlowRouter.getParam("author") })
@@ -42,10 +60,6 @@ Template.video.helpers({
       }
     }
 
-    steem.api.getFollowCount(FlowRouter.getParam("author"), function (e, r) {
-      SubCounts.upsert({ _id: r.account }, r)
-    })
-
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].source == 'chainByBlog') return videos[i]
       if (videos[i].source == 'chainByHot') return videos[i]
@@ -61,6 +75,21 @@ Template.video.helpers({
   },
   localIpfs: function () {
     return Session.get('localIpfs')
+  },
+  checkDescriptionLength : function () {
+    if (this.content.description.length > 50)
+    {
+      return true;
+    }
+  },
+  checkCommentsLength : function () {
+    if (this.comments.length > 0)
+    {
+      return true;
+    }
+  },
+  isLoggedOn: function() {
+    return Session.get('activeUsername')
   }
 })
 
@@ -179,18 +208,27 @@ Template.video.events({
           toastr.error(Meteor.blockchainError(err))
       }
     );
-  }
+  },
+  'click #description': function () {
+    if (descriptionIsOpen == true) {
+      $('#descriptionsegment').addClass('closed');
+    }
+    else {
+      $('#descriptionsegment').removeClass('closed');
+    }
+    descriptionIsOpen = !descriptionIsOpen
+  },
 })
 
 Template.video.setTime = function (seconds) {
   $('video')[0].currentTime = seconds
 }
 
-Template.video.startPlayer = function (videoGateway, snapGateway) {
-  $('.ui.embed').embed({
-    url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
-  });
-}
+// Template.video.startPlayer = function (videoGateway, snapGateway) {
+//   $('.ui.embed').embed({
+//     url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
+//   });
+// }
 
 Template.video.loadState = function () {
   if (isLoadingState) return
@@ -216,7 +254,7 @@ Template.video.loadState = function () {
     Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
       Videos.refreshWaka()
     })
-    Template.video.startPlayer(Meteor.ipfsGatewayFor(video.content.videohash), Meteor.ipfsGatewayFor(video.info.snaphash))
+    Template.player.startPlayer(Meteor.ipfsGatewayFor(video.content.videohash), Meteor.ipfsGatewayFor(video.info.snaphash))
   });
 }
 

@@ -3,18 +3,19 @@
   <div class='videosnap'>
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div class='videosnapsnap'>
-        <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);">
+        <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:210px;">
           <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
           <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
         </div>
-        {{#if equals source 'wakaArticles'}}
-        <i id="remove" class="remove icon videosnapsnap">
-          <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
-        </i>
-        {{/if}} {{#if isNSFW this}}
-        <img id="snapimg" height="118" width="100%" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
+          {{#if equals source 'wakaArticles'}}
+          <i id="remove" class="remove icon videosnapsnap">
+            <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
+          </i>
+          {{/if}}   
+        {{#if isNSFW this}}
+        <img id="snapimg" height="118" width="210" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
         <br /> {{else}}
-        <img id="snapimg" height="118" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
+        <img id="snapimg" height="118" width="210" alt="" src="{{ipfsSrc info.snaphash}}">
         <br /> {{/if}}
       </div>
     </a>
@@ -24,9 +25,6 @@
           <span class="customlink">{{info.title}}</span>
         </a>
       </div>
-      <!-- <div class='videosnapmore' style="float: right;z-index:9000">
-          {{> videodropdown}}
-        </div> -->
     </div>
     <div class='videosnapauthor'>
       <a href='/c/{{info.author}}'>

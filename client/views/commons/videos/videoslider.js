@@ -48,34 +48,40 @@ Template.videoslider.createSlick = function (elemId) {
         {
           breakpoint: 1550,
           settings: {
-            slidesToShow: 5,
+            slidesToShow: 6,
             slidesToScroll: 2,
             focusOnSelect: false,
           }
         },
         {
-          breakpoint: 1280,
+          breakpoint: 1281,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 5
+          }
+        },
+        {
+          breakpoint: 1179,
           settings: {
             slidesToShow: 4,
             slidesToScroll: 4
           }
-        },
-        {
-          breakpoint: 1080,
+        },        {
+          breakpoint: 935,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 640,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2
           }
         },
         {
-          breakpoint: 420,
+          breakpoint: 360,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1

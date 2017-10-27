@@ -57,6 +57,8 @@
 	"VIDEO_ADDED_ON":"Added on",
 	"VIDEO_COMMENTS":"Comments",
 	"VIDEO_RECOMMENDED_BY":"Recommended by",
+	"VIDEO_BE_THE_FIRST_TO_COMMENT":"Be the first to leave a comment !",
+	"VIDEO_YOU_NEED_TO_BE_LOGGED_TO_COMMENT":"You need to login to leave a comment !",
 	"UPLOAD_STEP1_TITLE":"Video",
 	"UPLOAD_STEP1_DESCRITION":"Upload a video",
 	"UPLOAD_STEP2_TITLE":"Snap",

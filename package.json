@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "@polymer/paper-dropdown-menu": "0.0.3",
     "autolinker": "^1.4.3",
     "babel-runtime": "^6.26.0",
     "bufferutil": "^3.0.2",

@@ -27,7 +27,7 @@ Template.sidebar.helpers({
 
 Template.sidebar.OnSidebarToogled = function () {
   $("#sidebar").sidebar('setting', 'onShow', function () {
-    if ($(window).innerWidth() > 1280) {
+    if ($(window).innerWidth() > 1367) {
       $('main').addClass('mainsided').removeClass('main');
     }
     else {
@@ -35,7 +35,7 @@ Template.sidebar.OnSidebarToogled = function () {
     }
   })
   $("#sidebar").sidebar('setting', 'onHide', function () {
-    if ($(window).innerWidth() > 1280) {
+    if ($(window).innerWidth() > 1367) {
       $('main').removeClass('mainsided').addClass('main');
     }
     else {

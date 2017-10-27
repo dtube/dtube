@@ -86,6 +86,7 @@ FlowRouter.route('/v/:author/:permlink', {
     Videos.getVideosByBlog(params.author, 100, function() {
       // call finished
     })
+    SubCounts.loadSubscribers(params.author)
   }
 });
 
@@ -99,6 +100,7 @@ FlowRouter.route('/c/:author', {
     Videos.getVideosByBlog(params.author, 100, function() {
       // call finished
     })
+    SubCounts.loadSubscribers(params.author)
   }
 });
 
