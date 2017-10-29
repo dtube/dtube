@@ -4,3 +4,7 @@
     });
   }
   
+
+  Template.player.setTime = function (seconds) {
+    $('video')[0].currentTime = seconds
+  }

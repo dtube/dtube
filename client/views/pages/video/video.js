@@ -1,17 +1,26 @@
 var isLoadingState = false
 var descriptionIsOpen = false
 
+var rrssb = require('rrssb')
+
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({scrollTop:0}, 'slow');//IE, FF
-  $('body').animate({scrollTop:0}, 'slow')
-
+  $('body').animate({scrollTop:0}, 'slow');
   $('.overlay.example .overlay')
   .visibility({
     type   : 'fixed',
     offset : 15 // give some space from top of screen
-  })
-;
+  });
+  updateTotalVotes();
+  $('.rrssb-buttons').rrssb({
+    // required:
+    title: 'This is the email subject and/or tweet text',
+    url: 'https://d.tube/v/{{author}}/{{permlink}}',
+    // optional:
+    description: 'Longer description used with some providers',
+    emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
+  });
 }
 
 Template.video.helpers({
@@ -77,7 +86,7 @@ Template.video.helpers({
     return Session.get('localIpfs')
   },
   checkDescriptionLength : function () {
-    if (this.content.description.length > 50)
+    if (this.content.description.length > 320)
     {
       return true;
     }
@@ -90,7 +99,13 @@ Template.video.helpers({
   },
   isLoggedOn: function() {
     return Session.get('activeUsername')
-  }
+  },
+  updateTotalVotes : function () {
+      $('#votebar')
+      .progress({
+        label: 'ratio'
+      });
+  },
 })
 
 Template.video.events({

@@ -7,7 +7,7 @@
   display: inline-block;
   margin-bottom: 8px;
   vertical-align:top;
-  width: 210px; 
+  max-width: 210px;
   color: #212121;
 }
 
@@ -44,6 +44,19 @@
     color: #0A1627;
     text-decoration-color: #0066FF;
   }
+
+.videosnapduration{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: white;
+  background-color: rgba(34, 36, 38, 0.75);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 12px;
+}
 
 .videosnaptime {
   font-size: 0.9rem; 
@@ -82,7 +95,7 @@
 
 .videosnapsnap {
   position: relative;
-  height:118px;
+  max-height:118px;
   margin-bottom: 5px;
 }
 
@@ -162,6 +175,11 @@ body.pushable {
 
 input[type="text"] {
   width: 100%;
+}
+
+.subcommentsclosed{
+  height: 0px;
+  overflow: hidden; 
 }
 
 /* .ui.input input {

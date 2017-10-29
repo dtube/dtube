@@ -1,4 +1,18 @@
+var subcommentsIsOpen = false
+
 Template.comment.events({
+  'click #showreplies': function () {
+    if (subcommentsIsOpen == true) {  
+      console.log(this.id)
+      $(this).find('#subcomments').addClass('subcommentsclosed');
+      // $('#subcomments').addClass('subcommentsclosed');
+    }
+    else {
+      $(this).find('#subcomments').removeClass('subcommentsclosed');
+      // $('#subcomments').removeClass('subcommentsclosed');
+    }
+    subcommentsIsOpen = !subcommentsIsOpen
+  },
   'click .downvoteComment': function(event) {
     var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
     var voter = Users.findOne({username: Session.get('activeUsername')}).username
@@ -75,3 +89,15 @@ Template.comment.events({
   //
   // }
 })
+
+Template.comments.rendered = function () {
+  console.log('creating comments')
+  var hello = document.getElementById('subcomments');
+  var random = Template.upload.createPermlink(10)
+  console.log(random)
+  hello.id = random
+}
+
+Template.comments.createSlick = function (elemId) {
+  
+}

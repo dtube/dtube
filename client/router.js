@@ -86,7 +86,13 @@ FlowRouter.route('/v/:author/:permlink', {
     Videos.getVideosByBlog(params.author, 100, function() {
       // call finished
     })
+    Template.video.updateTotalVotes()
     SubCounts.loadSubscribers(params.author)
+    Session.set('replyingTo', {
+      author: params.author,
+      permlink: params.permlink
+    })
+
   }
 });
 

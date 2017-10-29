@@ -1,141 +1,189 @@
 <template name='video'>
   {{#with video}}
   <div class="ui container" style="display:flex;">
-  <div id="videodtube" class="ui container">
-    <!-- <div class="ui embed"></div> -->
-    <div>
-      {{> player}}
-      <!-- <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video> -->
-    </div>
-    <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
-      <div class="ui segment">
-          <div class="info" style="display: -webkit-box;">
-              <div style="width:calc(100%-43px);position:relative;display: inline-block;vertical-align:top; margin-top: 5px;">
-                <h1 style="font-size:22px; font-weight:500;">{{info.title}}</h1>
-              </div>
-              <div style="font-size:20px;position:relative;float:right;vertical-align: top;background-color: rgb(248, 248, 248);" class="button icon">
-                {{> videosettingsdropdown}}
-              </div>
+    <div id="videodtube" class="ui container">
+      <!-- <div class="ui embed"></div> -->
+      <div>
+        {{> player}}
+        <!-- <video src='{{ipfsSrc content.videohash}}' poster="{{ipfsSrc info.snaphash}}" controls autoplay class='videoplayer'></video> -->
+      </div>
+      <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
+        <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
+          <div class="info" style="display:flow-root;">
+            <div style="float:left;vertical-align:top; margin-top: 5px;">
+              <h1 style="font-size:21px; font-weight:500;">{{info.title}}</h1>
             </div>
-        <div class="details" style="width:100%;margin-top:10px;">
-          <div class="leftdetails" style="width:50%;position:relative;display: inline-block;vertical-align: top;">
-            <img class="ui left floated image" src="{{userPic info.author}}">
-            <div class="channelLink">
-              <a href="/c/{{info.author}}">
-                {{info.author}}
-              </a>
+            <div style="bottom: 0px;
+            vertical-align: bottom;
+            display:inline;font-size:20px;float:right;
+            right: 0px;" class="button icon">
+              <div style="display: inline-block;" class="button icon">
+                {{#if hasUpvoted video}}
+                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;   margin-right: 0px;
+            border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+                  <i class="thumbs up icon black"></i>
+                  <span class="customlink">{{upvotes active_votes}}</span>
+                </button>
+                <!-- <a class="small ui red label upvote">
+              <i class="thumbs up icon"></i> {{upvotes active_votes}}
+            </a> -->
+                {{else}}
+                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-right: 0px;
+            border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+                  <i class="thumbs up icon"></i>
+                  <span>{{upvotes active_votes}}</span>
+                </button>
+                <!-- <a class="small ui label basic upvote">
+              <i class="thumbs up icon"></i> {{upvotes active_votes}}
+            </a> -->
+                {{/if}} {{#if hasDownvoted video}}
+                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
+            border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+                  <i class="thumbs down icon black"></i>
+                  <span class="customlink">{{downvotes active_votes}}</span>
+                </button>
+                <!-- <a class="small ui red label downvote">
+              <i class="thumbs down icon"></i> {{downvotes active_votes}}
+            </a> -->
+                {{else}}
+                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
+            border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+                  <i class="thumbs down icon"></i>
+                  <span>{{downvotes active_votes}}</span>
+                </button>
+                <div id="votebar" class="ui progress blue" data-value="{{upvotes active_votes}}" data-total="{{active_votes.length}}" style="height:3px;padding:0px;margin:0px;margin-top: -3px;">
+                  <div class="bar" style="height:3px;">
+                      <div class="progress" style="height:3px;visibility:hidden;"></div>
+                  </div>
+                  <div class="label" style="visibility:hidden;"></div>
+                </div>
+                {{updateTotalVotes}}
+                <!-- <a class="small ui label basic downvote">
+              <i class="thumbs down icon"></i> {{downvotes active_votes}}
+            </a> -->
+                {{/if}}
+              </div> {{> videosettingsdropdown}}
             </div>
-            {{#if isSubscribedTo info.author}}
-            <div class="ui labeled mini button" tabindex="0">
-              <div class="ui mini button unsubscribe">
-                {{ translate 'VIDEO_UNSUBSCRIBE'}}
-              </div>
-              <a class="ui basic label">
-                {{{subCount info.author}}}
-              </a>
-            </div>
-            {{else}}
-            <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red mini button subscribe">
-                <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
-              </div>
-              <a class="ui basic label">
-                {{{subCount info.author}}}
-              </a>
-            </div>
-            {{/if}}
+
           </div>
-          <div class="rightdetails" style="position:relative;float:right;
-                        vertical-align: top;">
-            <div class="four wide column right aligned" style="float: right;">
-              <div class='videopayout'>
-                {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+        </div>
+        <div class="ui segment">
+          <div class="details" style="width:100%;margin-top:10px;">
+            <div class="leftdetails" style="width:50%;position:relative;display: inline-block;vertical-align: top;">
+              <img class="ui left floated image" src="{{userPic info.author}}">
+              <div class="channelLink">
+                <a href="/c/{{info.author}}">
+                  {{info.author}}
+                </a>
               </div>
-              {{#if hasUpvoted video}}
-              <a class="small ui red label upvote">
-                <i class="thumbs up icon"></i> {{upvotes active_votes}}
-              </a>
+              {{#if isSubscribedTo info.author}}
+              <div class="ui labeled mini button" tabindex="0">
+                <div class="ui mini button unsubscribe">
+                  {{ translate 'VIDEO_UNSUBSCRIBE'}}
+                </div>
+                <a class="ui basic label">
+                  {{{subCount info.author}}}
+                </a>
+              </div>
               {{else}}
-              <a class="small ui label basic upvote">
-                <i class="thumbs up icon"></i> {{upvotes active_votes}}
-              </a>
-              {{/if}} {{#if hasDownvoted video}}
-              <a class="small ui red label downvote">
-                <i class="thumbs down icon"></i> {{downvotes active_votes}}
-              </a>
-              {{else}}
-              <a class="small ui label basic downvote">
-                <i class="thumbs down icon"></i> {{downvotes active_votes}}
-              </a>
+              <div class="ui labeled mini button" tabindex="0">
+                <div class="ui red mini button subscribe">
+                  <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+                </div>
+                <a class="ui basic label">
+                  {{{subCount info.author}}}
+                </a>
+              </div>
               {{/if}}
-              <br />
+            </div>
+            <div class="rightdetails" style="position:relative;float:right;
+                        vertical-align: top;">
+              <div class="four wide column right aligned" style="float: right;">
+                <div class='videopayout'>
+                  {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+                </div>
+                <!-- {{#if hasUpvoted video}}
+                <a class="small ui red label upvote">
+                  <i class="thumbs up icon"></i> {{upvotes active_votes}}
+                </a>
+                {{else}}
+                <a class="small ui label basic upvote">
+                  <i class="thumbs up icon"></i> {{upvotes active_votes}}
+                </a>
+                {{/if}} {{#if hasDownvoted video}}
+                <a class="small ui red label downvote">
+                  <i class="thumbs down icon"></i> {{downvotes active_votes}}
+                </a>
+                {{else}}
+                <a class="small ui label basic downvote">
+                  <i class="thumbs down icon"></i> {{downvotes active_votes}}
+                </a>
+                {{/if}} -->
+                <br />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="descriptionsegment" class="ui segment closed" style="overflow: hidden;">
+        <div id="descriptionsegment" class="ui segment closed" style="overflow: hidden;">
           {{#if checkDescriptionLength}}
-        <i id="description" class="ui dropdown icon" style="float:right;"></i>
-        {{/if}}
-        <div class="sixteen wide column ui closed" style="overflow: hidden;">
-          <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
-          <br /> {{{syntaxed content.description}}}
+          <i id="description" class="ui dropdown icon" style="float:right;"></i>
+          {{/if}}
+          <div class="sixteen wide column ui closed" style="overflow: hidden;">
+            <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
+            <br /> {{{syntaxed content.description}}}
+          </div>
         </div>
-      </div>
-      <div class="ui secondary segment">
-        {{#if checkCommentsLength}}
-          {{else}}
-          <h5>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h5>
-        {{/if}}
-        {{#if isLoggedOn}} 
-        <div style="width:100%;display:flex;">
-          <div style="text-align:left;float:left;">
-          <img class="ui avatar image" src="https://img.busy.org/@{{activeUser}}">
-          <div style="margin-top:5px;margin-right:10px;">{{activeUser}}</div>
-        </div>
-          <form class="ui reply form" style="width:100%;">
-              
+        <div class="ui secondary segment">
+            <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
+            
+          {{#if checkCommentsLength}} {{else}}<div style=" text-align: center;">
+          <h5>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h5></div>
+          {{/if}} {{#if isLoggedOn}}
+          <div style="width:100%;display:flex;">
+            <div style="text-align:left;float:left;">
+              <img class="ui avatar image" src="https://img.busy.org/@{{activeUser}}">
+              <div style="margin-top:5px;margin-right:10px;">{{activeUser}}</div>
+            </div>
+            <form class="ui reply form" style="width:100%;">
+
               <div class="field" style="width:100%;position:relative;display: inline-block;
                           vertical-align: top;">
                 <textarea rows="3"></textarea>
               </div>
-              <div class="ui red labeled submit icon button" style="position:relative;float:right;
+              <div class="ui labeled submit icon button" style="position:relative;float:right;
                           vertical-align: top;">
-                <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}}
+                <i class="icon send"></i> SUBMIT
+                <!-- {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}} -->
               </div>
             </form>
-        </div>
-        {{else}} 
-        <h5>{{ translate 'VIDEO_YOU_NEED_TO_BE_LOGGED_TO_COMMENT'}}</h5>
-        {{/if}} 
-        <!-- {{#if isReplying this}} -->
-        <!-- {{else}}
+          </div>
+          {{else}}<div style=" text-align: center;">
+          <h5>{{ translate 'VIDEO_YOU_NEED_TO_BE_LOGGED_TO_COMMENT'}}</h5></div>
+          {{/if}}
+          <!-- {{#if isReplying this}} -->
+          <!-- {{else}}
         <a class="replyTo ui label basic" data-author='{{info.author}}' data-permlink='{{info.permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a> -->
-        <!-- {{/if}} -->
-        <div class="ui divider header"></div>
-        <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
-        <div>
-          {{> comments}} 
+          <!-- {{/if}} -->
+          <div>
+            {{> comments}}
+          </div>
         </div>
       </div>
     </div>
+    {{#if isOnMobile}} {{switchMobile}} {{else}} {{switchDesktop}}
+    <div class="ui grid computer only content" style="float:right;max-width:20%;width:fit-content;padding-left:18px;display: inline-block; ">
+      {{#if userVideosAndResteems}}
+      <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+      {{> videoband userVideosAndResteems}} {{/if}}
+    </div>
+    {{/if}}
   </div>
-  {{#if isOnMobile}} {{switchMobile}} 
-  {{else}} {{switchDesktop}}
-  <div class="ui grid computer only content" style="float:right;max-width:20%;width:fit-content;padding-left:18px;display: inline-block; ">
-    {{#if userVideosAndResteems}}
-    <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
-    {{> videoband userVideosAndResteems}} {{/if}}
-  </div>
-  {{/if}}
-</div>
-<div class="ui container">
+  <div class="ui container">
     <div class="ui container grid mobile only tablet only content" style="float:left;width:100%;margin:10px 10px 0px 10px;">
       {{#if userVideosAndResteems}}
       <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
       {{> verticalvideoband userVideosAndResteems}} {{/if}}
     </div>
-</div>
+  </div>
   {{/with}}
-
 </template>

@@ -1,0 +1,6 @@
+
+
+Template.subcomments.rendered = function() {
+
+}
+

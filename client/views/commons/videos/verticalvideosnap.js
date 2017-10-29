@@ -23,5 +23,16 @@ Template.verticalvideosnap.snapLoaded = function () {
     //let cheat
   });
 }
+Template.verticalvideosnap.durationToTime = function seconds2time(seconds) {
+  var duration = mom.duration(seconds, 'seconds');
+  if (duration.asHours() > 1) {
+    var formatted = duration.format("h:mm:ss", { trim: false });
+  } else {
+    var formatted = duration.format("mm:ss", { trim: false });
+  }
+  console.log(formatted); // 01:03:40
+  return formatted;
+}
+
 
 

@@ -1,3 +1,5 @@
+var mom = require('moment')
+var moment = require('moment-duration-format')
 var imagesLoaded = require('imagesloaded');
 
 Template.videosnap.events({
@@ -12,10 +14,10 @@ Template.videosnap.events({
     event.preventDefault()
   }
 })
-
+  
 Template.videosnap.rendered = function () {
   Template.videosnap.snapLoaded();
-  
+  console.log(Videos.length);
 }
 
 Template.videosnap.snapLoaded = function () {
@@ -23,6 +25,16 @@ Template.videosnap.snapLoaded = function () {
     //$('#snapload').remove();
     //let cheat
   });
+}
+Template.videosnap.durationToTime = function seconds2time(seconds) {
+  var duration = mom.duration(seconds, 'seconds');
+  if (duration.asHours() > 1) {
+    var formatted = duration.format("h:mm:ss", { trim: false });
+  } else {
+    var formatted = duration.format("mm:ss", { trim: false });
+  }
+  console.log(formatted); // 01:03:40
+  return formatted;
 }
 
 

@@ -3,7 +3,7 @@
     <div style="position:relative;width:100%;height:100%;">
       <!-- <div class="ui fixed overlay right vertical inverted labeled icon menu" style="z-index:12;top:57px;width:60%;height:100px;">
           {{> player}} 
-        </div> -->
+        </div> --> 
       </div>
     {{#if isOnMobile }} 
       {{> mobiletopbar}}
@@ -11,7 +11,7 @@
           {{> mobilesearch}}
     </div>
     {{else}} 
-      {{> topbar}}
+      {{> topbar}} 
     <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
       {{> sidebar}}
     </div>
@@ -21,7 +21,7 @@
     {{/if}} 
     <div class='article'>
       {{#if isOnMobile }} 
-      <main class='ui main mobile padder'> 
+      <main class='ui main mobile'> 
         {{> Template.dynamic template=main}}   
       </main>
       {{else}}
