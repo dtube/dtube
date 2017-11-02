@@ -1,22 +1,21 @@
 var isLoadingState = false
 var descriptionIsOpen = false
-
 var rrssb = require('rrssb')
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({scrollTop:0}, 'slow');//IE, FF
   $('body').animate({scrollTop:0}, 'slow');
-  $('.overlay.example .overlay')
-  .visibility({
-    type   : 'fixed',
-    offset : 15 // give some space from top of screen
-  });
+  // $('.overlay.example .overlay')
+  // .visibility({
+  //   type   : 'fixed',
+  //   offset : 15
+  // });
   updateTotalVotes();
   $('.rrssb-buttons').rrssb({
     // required:
-    title: 'This is the email subject and/or tweet text',
-    url: 'https://d.tube/v/{{author}}/{{permlink}}',
+    title: 'This is the subject',
+    url: 'https://d.tube/v/' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"),
     // optional:
     description: 'Longer description used with some providers',
     emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
@@ -31,9 +30,11 @@ Template.video.helpers({
   },
   switchMobile: function () {
     $('#videodtube').addClass('videomobile');
+    $('#videocontent').addClass('videomobile');
   },
   switchDesktop: function () {
-    $('#videodtube').addClass('container').addClass('content');
+    $('#videodtube').addClass('ui container').addClass('content');
+    $('#videocontent').addClass('ui container').addClass('content');
   },
   user: function () {
     return {

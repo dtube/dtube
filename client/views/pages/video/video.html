@@ -1,7 +1,7 @@
 <template name='video'>
   {{#with video}}
-  <div class="ui container" style="display:flex;">
-    <div id="videodtube" class="ui container">
+  <div id="videocontent" style="display:flex;">
+    <div id="videodtube">
       <!-- <div class="ui embed"></div> -->
       <div>
         {{> player}}
@@ -19,16 +19,13 @@
             right: 0px;" class="button icon">
               <div style="display: inline-block;" class="button icon">
                 {{#if hasUpvoted video}}
-                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;   margin-right: 0px;
+                <button class="ui icon button upvote" style="height: 40px !important;border-style: solid;background: transparent none !important;   margin-right: 0px;
             border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                   <i class="thumbs up icon black"></i>
                   <span class="customlink">{{upvotes active_votes}}</span>
                 </button>
-                <!-- <a class="small ui red label upvote">
-              <i class="thumbs up icon"></i> {{upvotes active_votes}}
-            </a> -->
                 {{else}}
-                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-right: 0px;
+                <button class="ui icon button upvote" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-right: 0px;
             border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                   <i class="thumbs up icon"></i>
                   <span>{{upvotes active_votes}}</span>
@@ -37,7 +34,7 @@
               <i class="thumbs up icon"></i> {{upvotes active_votes}}
             </a> -->
                 {{/if}} {{#if hasDownvoted video}}
-                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
+                <button class="ui icon button downvote" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
             border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                   <i class="thumbs down icon black"></i>
                   <span class="customlink">{{downvotes active_votes}}</span>
@@ -46,14 +43,14 @@
               <i class="thumbs down icon"></i> {{downvotes active_votes}}
             </a> -->
                 {{else}}
-                <button class="ui icon button" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
+                <button class="ui icon button downvote" style="height: 40px !important;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
             border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                   <i class="thumbs down icon"></i>
                   <span>{{downvotes active_votes}}</span>
                 </button>
                 <div id="votebar" class="ui progress blue" data-value="{{upvotes active_votes}}" data-total="{{active_votes.length}}" style="height:3px;padding:0px;margin:0px;margin-top: -3px;">
                   <div class="bar" style="height:3px;">
-                      <div class="progress" style="height:3px;visibility:hidden;"></div>
+                    <div class="progress" style="height:3px;visibility:hidden;"></div>
                   </div>
                   <div class="label" style="visibility:hidden;"></div>
                 </div>
@@ -134,10 +131,12 @@
           </div>
         </div>
         <div class="ui secondary segment">
-            <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
-            
-          {{#if checkCommentsLength}} {{else}}<div style=" text-align: center;">
-          <h5>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h5></div>
+          <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
+          {{#if checkCommentsLength}} 
+          {{else}}
+          <div style=" text-align: center;">
+            <h5>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h5>
+          </div>
           {{/if}} {{#if isLoggedOn}}
           <div style="width:100%;display:flex;">
             <div style="text-align:left;float:left;">
@@ -157,8 +156,10 @@
               </div>
             </form>
           </div>
-          {{else}}<div style=" text-align: center;">
-          <h5>{{ translate 'VIDEO_YOU_NEED_TO_BE_LOGGED_TO_COMMENT'}}</h5></div>
+          {{else}}
+          <div style=" text-align: center;">
+            <h5>{{ translate 'VIDEO_YOU_NEED_TO_BE_LOGGED_TO_COMMENT'}}</h5>
+          </div>
           {{/if}}
           <!-- {{#if isReplying this}} -->
           <!-- {{else}}
@@ -170,20 +171,26 @@
         </div>
       </div>
     </div>
-    {{#if isOnMobile}} {{switchMobile}} {{else}} {{switchDesktop}}
+    {{#if isOnMobile}} 
+      {{switchMobile}} 
+        {{else}} 
+      {{switchDesktop}}
     <div class="ui grid computer only content" style="float:right;max-width:20%;width:fit-content;padding-left:18px;display: inline-block; ">
-      {{#if userVideosAndResteems}}
+      {{#if userVideosAndResteems}} 
       <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
       {{> videoband userVideosAndResteems}} {{/if}}
     </div>
+    <div class="ui container grid tablet only content" style="text-align: left;width:100%;margin:10px 0px 0px 0px;">
+        {{#if userVideosAndResteems}}
+        <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+        {{> videoband userVideosAndResteems}} {{/if}}
+      </div>
     {{/if}}
   </div>
-  <div class="ui container">
-    <div class="ui container grid mobile only tablet only content" style="float:left;width:100%;margin:10px 10px 0px 10px;">
-      {{#if userVideosAndResteems}}
-      <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
-      {{> verticalvideoband userVideosAndResteems}} {{/if}}
-    </div>
+  <div class="ui grid mobile only content" style="text-align: left;width:100%;margin:10px 0px 0px 0px;">
+    {{#if userVideosAndResteems}}
+    <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+    {{> verticalvideoband userVideosAndResteems}} {{/if}}
   </div>
   {{/with}}
 </template>

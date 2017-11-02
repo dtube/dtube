@@ -303,3 +303,55 @@ button {
   box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
   border-radius: 0;
 }
+
+.rrssb-buttons li a {
+  background-color: #ccc;
+  border-radius: 2px;
+  display: block;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
+  height: 100%;
+  padding: 5px 0px 5px 0px;
+  position: relative;
+  -webkit-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+  width: 100%;
+}
+
+.rrssb-buttons li.rrssb-facebook a {
+  background-color: #306199;
+}
+
+.rrssb-buttons li.rrssb-email a {
+  background-color: #0a88ff;
+}
+
+.rrssb-buttons li.rrssb-twitter a {
+  background-color: #26c4f1;
+}
+
+.rrssb-buttons li.rrssb-googleplus a {
+  background-color: #e93f2e;
+}
+
+.rrssb-buttons li.rrssb-pinterest a {
+  background-color: #b81621;
+}
+
+.btn, .rrssb-buttons li a, a {
+  text-decoration: none;
+}
+
+.btn, .rrssb-buttons li a {
+  text-align: center;
+  text-decoration: none;
+}
+
+.rrssb-buttons li a .rrssb-text {
+  color: #fff;
+}
+
+.rrssb-buttons li a .rrssb-icon svg path {
+  fill: #fff;
+}

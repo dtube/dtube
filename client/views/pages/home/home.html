@@ -1,28 +1,57 @@
 <template name='home'>
-  <div class="ui container">
-      {{#if feedVideos}}
-      <h2>{{ translate 'HOME_TITLE_FEED_VIDEOS'}}</h2>
-        {{> videoslider feedVideos}}
-      {{/if}}
-      {{#if hotVideos}}
-      <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
-        {{> videoslider hotVideos}} 
-      {{/if}}
-      {{#if trendingVideos}}
-      <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
-        {{> videoslider trendingVideos}}
-      {{/if}}
-      {{#if newVideos}}
-      <h2>{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</h2>
-        {{> videoslider newVideos}}
-      {{/if}}
-      {{#if watchAgain}}
-      <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
-        {{> videoslider watchAgain}}
-      {{/if}}
-      {{#if neighborhood}}
-      <h2>{{ translate 'HOME_TITLE_NEIGHBORHOOD'}}</h2>
-        {{> videoslider neighborhood}}
-      {{/if}}  
-  </div>
+  {{#if isOnMobile}} 
+    <div style="margin-left:4px;" class="ui content">
+        {{#if feedVideos}}
+        <h2>{{ translate 'HOME_TITLE_FEED_VIDEOS'}}</h2>
+          {{> videoslider feedVideos}}
+        {{/if}}
+        {{#if hotVideos}}
+        <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+          {{> videoslider hotVideos}} 
+        {{/if}}
+        {{#if trendingVideos}}
+        <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+          {{> videoslider trendingVideos}}
+        {{/if}}
+        {{#if newVideos}}
+        <h2>{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</h2>
+          {{> videoslider newVideos}}
+        {{/if}}
+        {{#if watchAgain}}
+        <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+          {{> videoslider watchAgain}}
+        {{/if}}
+        {{#if neighborhood}}
+        <h2>{{ translate 'HOME_TITLE_NEIGHBORHOOD'}}</h2>
+          {{> videoslider neighborhood}}
+        {{/if}}  
+    </div>
+  {{else}} 
+    <div  class="ui container">
+        {{#if feedVideos}}
+        <h2>{{ translate 'HOME_TITLE_FEED_VIDEOS'}}</h2>
+          {{> videoslider feedVideos}}
+        {{/if}}
+        {{#if hotVideos}}
+        <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+          {{> videoslider hotVideos}} 
+        {{/if}}
+        {{#if trendingVideos}}
+        <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+          {{> videoslider trendingVideos}}
+        {{/if}}
+        {{#if newVideos}}
+        <h2>{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</h2>
+          {{> videoslider newVideos}}
+        {{/if}}
+        {{#if watchAgain}}
+        <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+          {{> videoslider watchAgain}}
+        {{/if}}
+        {{#if neighborhood}}
+        <h2>{{ translate 'HOME_TITLE_NEIGHBORHOOD'}}</h2>
+          {{> videoslider neighborhood}}
+        {{/if}}  
+    </div>
+  {{/if}}
 </template>

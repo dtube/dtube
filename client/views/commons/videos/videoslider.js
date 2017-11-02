@@ -64,10 +64,17 @@ Template.videoslider.createSlick = function (elemId) {
         {
           breakpoint: 1281,
           settings: {
+            slidesToShow: 5,
+            slidesToScroll: 5
+          }
+        },
+        {
+          breakpoint: 1180,
+          settings: {
             slidesToShow: 4,
             slidesToScroll: 4
           }
-        },        
+        },       
         {
           breakpoint: 993,
           settings: {
@@ -83,7 +90,7 @@ Template.videoslider.createSlick = function (elemId) {
           }
         },
         {
-          breakpoint: 360,
+          breakpoint: 499,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1

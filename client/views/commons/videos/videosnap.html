@@ -2,21 +2,23 @@
   {{#unless isNSFWFullyHidden this}}
   <div class='videosnap'>
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
-      <div class='videosnapsnap'>
-        <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:210px;">
+      <div class='videosnapsnap' style="height:118px">
+        <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;">
           <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
           <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
         </div>
-        <span class="videosnapduration">{{durationToTime(info.duration)}}</span>
+        <span class="videosnapduration">
+          {{durationToTime(info.duration)}}
+        </span>
           {{#if equals source 'wakaArticles'}}
           <i id="remove" class="remove icon videosnapsnap">
             <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
           </i>
           {{/if}}   
         {{#if isNSFW this}}
-        <img id="snapimg" height="118" width="210" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
+        <img id="snapimg" height="118" width="100%" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
         <br /> {{else}}
-        <img id="snapimg" height="118" width="210" alt="" src="{{ipfsSrc info.snaphash}}">
+        <img id="snapimg" height="118" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
         <br /> {{/if}}
       </div>
     </a>

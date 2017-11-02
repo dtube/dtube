@@ -4,12 +4,10 @@ Template.comment.events({
   'click #showreplies': function () {
     if (subcommentsIsOpen == true) {  
       console.log(this.id)
-      $(this).find('#subcomments').addClass('subcommentsclosed');
-      // $('#subcomments').addClass('subcommentsclosed');
+      this.$('#subcomments').addClass('subcommentsclosed');
     }
     else {
-      $(this).find('#subcomments').removeClass('subcommentsclosed');
-      // $('#subcomments').removeClass('subcommentsclosed');
+       this.$('#subcomments').removeClass('subcommentsclosed');
     }
     subcommentsIsOpen = !subcommentsIsOpen
   },
@@ -40,54 +38,7 @@ Template.comment.events({
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight/100+'%', author+'/'+permlink))
       Template.video.loadState()
     });
-  },
-  // 'mouseleave .upvoteComment': function(event) {
-  //   var target = $(event.target)
-  //   if (!target.data('author')) target = target.parent()
-  //   if (Session.get('dateMouseup')) {
-  //     $(target).css('font-size', Session.get('originalThumbSize'))
-  //     Session.set('dateMouseup', null)
-  //   }
-  // },
-  // 'mouseup .upvoteComment': function(event) {
-  //   var target = $(event.target)
-  //   if (!target.data('author')) target = target.parent()
-  //   var timediff = (new Date() - Session.get('dateMouseup'))/1000
-  //   if (timediff > 6) {
-  //     $(target).css('font-size', Session.get('originalThumbSize'))
-  //     return
-  //   } else if (timediff > 5) timediff = 5
-  //   $(target).css('font-size', target.css('font-size'))
-  //   var weight = Math.round(400*timediff*timediff)
-  //   Session.set('dateMouseup', null)
-  //
-  //   var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
-  //   var voter = Users.findOne({username: Session.get('activeUsername')}).username
-  //   var author = $(event.target).data('author')
-  //   if (!author) author = $(event.target).parent().data('author')
-  //   var permlink = $(event.target).data('permlink')
-  //   if (!permlink) permlink = $(event.target).parent().data('permlink')
-  //   steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-  //     if (err) toastr.error(err.cause.payload.error.data.stack[0].format, 'Could not vote')
-  //     else toastr.success(weight/100+'% vote for '+author+'/'+permlink)
-  //     Template.video.loadState()
-  //     $(target).css('font-size', Session.get('originalThumbSize'))
-  //   });
-  // },
-  // 'mousedown .upvoteComment': function(event) {
-  //   Session.set('dateMouseup', new Date())
-  //
-  //   var target = $(event.target)
-  //   if (!target.data('author')) {
-  //     target.parent().css('font-size', '200%')
-  //     Session.set('originalThumbSize', target.parent().css('font-size'))
-  //   }
-  //   else {
-  //     $(target).css('font-size', '200%')
-  //     Session.set('originalThumbSize', target.css('font-size'))
-  //   }
-  //
-  // }
+  }
 })
 
 Template.comments.rendered = function () {
@@ -96,8 +47,12 @@ Template.comments.rendered = function () {
   var random = Template.upload.createPermlink(10)
   console.log(random)
   hello.id = random
+  console.log(hello.id)
+
+  this.firstNode.id = random
+  Template.videoslider.createSubcommnets(random)
 }
 
-Template.comments.createSlick = function (elemId) {
-  
+Template.comments.createSubcommnets = function (elemId) {
+  console.log(elemId)
 }
