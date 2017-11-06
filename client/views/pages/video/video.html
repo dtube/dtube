@@ -54,7 +54,7 @@
                   </div>
                   <div class="label" style="visibility:hidden;"></div>
                 </div>
-                {{updateTotalVotes}}
+                <!-- {{updateTotalVotes}} -->
                 <!-- <a class="small ui label basic downvote">
               <i class="thumbs down icon"></i> {{downvotes active_votes}}
             </a> -->
@@ -175,7 +175,7 @@
       {{switchMobile}} 
         {{else}} 
       {{switchDesktop}}
-    <div class="ui grid computer only content" style="float:right;max-width:20%;width:fit-content;padding-left:18px;display: inline-block; ">
+    <div class="ui grid computer only content" style="float:right;width:320px !important;padding-left:18px;display: inline-block; ">
       {{#if userVideosAndResteems}} 
       <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
       {{> videoband userVideosAndResteems}} {{/if}}

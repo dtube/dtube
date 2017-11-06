@@ -11,7 +11,7 @@ Template.video.rendered = function () {
   //   type   : 'fixed',
   //   offset : 15
   // });
-  updateTotalVotes();
+  // updateTotalVotes();
   $('.rrssb-buttons').rrssb({
     // required:
     title: 'This is the subject',
@@ -92,21 +92,22 @@ Template.video.helpers({
       return true;
     }
   },
-  checkCommentsLength : function () {
-    if (this.comments.length > 0)
-    {
-      return true;
-    }
-  },
+  // checkCommentsLength : function () {
+  //   if (this.comments.length > 0)
+  //   {
+  //     return true;
+  //   }
+  // },
   isLoggedOn: function() {
     return Session.get('activeUsername')
-  },
-  updateTotalVotes : function () {
-      $('#votebar')
-      .progress({
-        label: 'ratio'
-      });
-  },
+  }
+  // ,
+  // updateTotalVotes : function () {
+  //     $('#votebar')
+  //     .progress({
+  //       label: 'ratio'
+  //     })
+  // }
 })
 
 Template.video.events({

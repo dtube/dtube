@@ -1,5 +1,5 @@
 <template name='comment'>
-  <div id="commentn" class="comment">
+  <div id="comment" class="comment">
     <a class="avatar">
       <img src="{{userPic author}}">
     </a>
@@ -40,15 +40,18 @@
         </div>
       </form>
       {{/if}}
-      <i id="showreplies" class="ui dropdown icon" style="float:left;margin-top:5px;"></i>
-      <button id="showreplies" class="ui labeled button" style="margin-top:5px;">
-          View all {{comments.length}} replies 
+      {{#if comments.length}}
+      <i class="ui dropdown icon" style="float:left;margin-top:5px;"></i>
+      <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:5px;">
+          Show {{comments.length}} replies 
         </button> 
       <div id="subcomments" class="subcommentsclosed">
         {{#with comments}}
+        {{newComment}}
          {{> subcomments}} 
          {{/with}}
         </div>
+        {{/if}}
     </div>
   </div>
 </template>
