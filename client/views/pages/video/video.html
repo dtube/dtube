@@ -132,12 +132,12 @@
         </div>
         <div class="ui secondary segment">
           <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
-          {{#if checkCommentsLength}} 
-          {{else}}
+          {{#if equals comments.length 0}} 
           <div style=" text-align: center;">
             <h5>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h5>
           </div>
-          {{/if}} {{#if isLoggedOn}}
+          {{/if}}
+          {{#if isLoggedOn}}
           <div style="width:100%;display:flex;">
             <div style="text-align:left;float:left;">
               <img class="ui avatar image" src="https://img.busy.org/@{{activeUser}}">
@@ -173,14 +173,14 @@
     </div>
     {{#if isOnMobile}} 
       {{switchMobile}} 
-        {{else}} 
+    {{else}} 
       {{switchDesktop}}
-    <div class="ui grid computer only content" style="float:right;width:320px !important;padding-left:18px;display: inline-block; ">
-      {{#if userVideosAndResteems}} 
-      <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
-      {{> videoband userVideosAndResteems}} {{/if}}
-    </div>
-    <div class="ui container grid tablet only content" style="text-align: left;width:100%;margin:10px 0px 0px 0px;">
+      <div class="ui grid computer only content" style="float:right;width:320px !important;padding-left:18px;display: inline-block; ">
+        {{#if userVideosAndResteems}} 
+        <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+        {{> videoband userVideosAndResteems}} {{/if}}
+      </div>
+      <div class="ui container grid tablet only content" style="text-align: left;width:100%;margin:10px 0px 0px 0px;">
         {{#if userVideosAndResteems}}
         <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
         {{> videoband userVideosAndResteems}} {{/if}}

@@ -14,8 +14,7 @@ Meteor.settings.public = {
       "https://dtube2.gateway.ipfsstore.it:8443",
       "https://gateway.ipfs.io",
       "https://earth.i.ipfs.io",
-      "https://mercury.i.ipfs.io",
-      "https://ipfsstore.it:8443",
+      "https://gateway.ipfsstore.it:8443",
       "https://scrappy.i.ipfs.io",
       "https://chappy.i.ipfs.io",
       "http://127.0.0.1:8080"

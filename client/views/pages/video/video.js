@@ -271,7 +271,6 @@ Template.video.loadState = function () {
     Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
       Videos.refreshWaka()
     })
-    Template.player.startPlayer(Meteor.ipfsGatewayFor(video.content.videohash), Meteor.ipfsGatewayFor(video.info.snaphash))
   });
 }
 
