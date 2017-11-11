@@ -86,8 +86,8 @@ Template.video.helpers({
   localIpfs: function () {
     return Session.get('localIpfs')
   },
-  checkDescriptionLength : function () {
-    if (this.content.description.length > 320)
+  hasMoreThan4Lines : function () {
+    if (this.content.description.split('/n').length > 4)
     {
       return true;
     }

@@ -122,8 +122,8 @@
           </div>
         </div>
         <div id="descriptionsegment" class="ui segment closed" style="overflow: hidden;">
-          {{#if checkDescriptionLength}}
-          <i id="description" class="ui dropdown icon" style="float:right;"></i>
+          {{#if hasMoreThan4Lines}}
+            <i id="description" class="ui dropdown icon" style="float:right;"></i>
           {{/if}}
           <div class="sixteen wide column ui closed" style="overflow: hidden;">
             <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
