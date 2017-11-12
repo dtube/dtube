@@ -13,25 +13,20 @@ Template.topbar.events({
     .sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
   },
   'click #mobilesearch': function(event, instance) {
-    $("#mobilesearchsidebar").sidebar('toggle')
+    //$("#mobilesearchsidebar").sidebar('toggle')
   },
-  'keyup #dsearch': function(event) {
-    var query = event.target.value
+  'keyup #dsearch': function(evt) {
+    console.log(evt)
+    var query = evt.target.value
     if (query.length < 1) {
       $('.results').hide()
       return
     }
-    $.get("https://api.asksteem.com/suggestions?term="+query, function(rawSuggestions) {
-      var suggestions = []
-      for (var i = 0; i < rawSuggestions.length; i++) {
-        if (rawSuggestions[i].startsWith("tags:dtube and ")) {
-          suggestions.push(rawSuggestions[i].substr(15))
-        }
-      }
+    AskSteem.getSearchSuggestions(query, function(err, suggestions) {
       if (suggestions.length > 0) $('.results').show()
       else $('.results').hide()
       Session.set('searchSuggestions', suggestions)
-    });
+    })
   },
   'submit .searchForm': function(event) {
     event.preventDefault()
