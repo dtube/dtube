@@ -13,7 +13,7 @@ Template.topbar.events({
     .sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
   },
   'click #mobilesearch': function(event, instance) {
-    //$("#mobilesearchsidebar").sidebar('toggle')
+    $("#mobilesearchsidebar").sidebar('toggle')
   },
   'keyup #dsearch': function(evt) {
     console.log(evt)
@@ -30,12 +30,7 @@ Template.topbar.events({
   },
   'submit .searchForm': function(event) {
     event.preventDefault()
-    var query = event.target.search.value;
-    Session.set('search', {query: query})
-    $.get("https://api.asksteem.com/search?include=meta&q=meta.video.info.title:* AND "+query, function(response) {
-      Session.set('search', {query: query, response: response})
-    });
-    FlowRouter.go('/s/'+query)
+    AskSteem.search(event.target.search.value)
   },
   'click .result': function(event) {
     $('#dsearch').val(this)
