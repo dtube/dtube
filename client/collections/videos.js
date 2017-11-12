@@ -83,7 +83,7 @@ Videos.getVideosByBlog = function(author, limit, cb) {
   if (limit) query.limit = limit
 
   steem.api.getDiscussionsByBlog(query, function (err, result) {
-    if (err === null) {
+    if (err === null || err === '') {
       var i, len = result.length;
       var videos = []
       for (i = 0; i < len; i++) {
@@ -119,7 +119,7 @@ Videos.getVideosBy = function(type, limit, cb) {
   switch(type) {
     case 'trending':
         steem.api.getDiscussionsByTrending(query, function(err, result) {
-          if (err === null) {
+          if (err === null || err === '') {
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
@@ -145,7 +145,7 @@ Videos.getVideosBy = function(type, limit, cb) {
         break;
     case 'hot':
         steem.api.getDiscussionsByHot(query, function(err, result) {
-          if (err === null) {
+          if (err === null || err === '') {
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
@@ -171,7 +171,7 @@ Videos.getVideosBy = function(type, limit, cb) {
         break;
     case 'created':
         steem.api.getDiscussionsByCreated(query, function(err, result) {
-          if (err === null) {
+          if (err === null || err === '') {
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
@@ -203,7 +203,7 @@ Videos.getVideosBy = function(type, limit, cb) {
 Videos.loadFeed = function(username) {
   console.log('Loading feed for '+username)
   steem.api.getDiscussionsByFeed({"tag": username, "limit": 100, "truncate_body": 1}, function(err, result) {
-    if (err === null) {
+    if (err === null || err === '') {
         var i, len = result.length;
         var videos = []
         for (i = 0; i < len; i++) {
