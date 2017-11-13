@@ -355,3 +355,16 @@ button {
 .rrssb-buttons li a .rrssb-icon svg path {
   fill: #fff;
 }
+
+.ui.computergrid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: inherit;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: inherit !important;
+  -ms-flex-align: stretch;
+
+}

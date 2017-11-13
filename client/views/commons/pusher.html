@@ -3,29 +3,32 @@
     <div style="position:relative;width:100%;height:100%;">
       <!-- <div class="ui fixed overlay right vertical inverted labeled icon menu" style="z-index:12;top:57px;width:60%;height:100px;">
           {{> player}} 
-        </div> --> 
-      </div>
+        </div> -->
+    </div>
     {{#if isOnMobile }} 
       {{> mobiletopbar}}
-      <div id="mobilesearchsidebar" class="ui sidebar overlay left inverted labeled icon menu" style="height:70px;width:100%;z-index:10;top:52px;background-color:rgba(32, 32, 32, 0.7);">
-        {{> mobilesearch}}
-      </div>
+    <div id="mobilesearchsidebar" class="ui sidebar overlay left inverted labeled icon menu" style="height:70px;width:100%;z-index:10;top:52px;background-color:rgba(32, 32, 32, 0.7);">
+      {{> mobilesearch}}
+    </div>
     {{else}} 
-      {{> topbar}} 
-      <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
-        {{> sidebar}}
-      </div>
-    {{/if}} 
+      {{> topbar}}
+    <div id="sidebar" class="ui sidebar visible fixed overlay left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:#f8f8f8;">
+      {{> sidebar}}
+    </div>
+    {{/if}}
     <div class='article'>
-      {{#if isOnMobile }} 
-      <main class='ui main mobile'> 
-        {{> Template.dynamic template=main}}   
+      {{#if isOnMobile }}
+      <main class='ui main mobile only '>
+        {{> Template.dynamic template=main}}
       </main>
       {{else}}
-      <main class='ui main computer content' > 
+      <main class='ui grid tablet only container'>
+        {{> Template.dynamic template=main}}
+      </main>
+      <main class='ui grid main computer computergrid only container' style="display:flex !important;">
         {{> Template.dynamic template=main}}
       </main>
       {{/if}}
     </div>
-  </div> 
-</template> 
+  </div>
+</template>

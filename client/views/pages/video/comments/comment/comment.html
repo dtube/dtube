@@ -1,13 +1,15 @@
 <template name='comment'>
-  <div id="comment" class="comment">
-    <a class="avatar">
-      <img src="{{userPic author}}">
-    </a>
-    <div class="content">
-      <a href='/c/{{author}}' class="author">{{author}}</a>
-      <div class="metadata">
-        <span class="date">{{timeAgo created}}</span>
-        <span class="money">{{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
+  <div class="title comment" style="text-align:left;">
+    <div class="ui comment" style='max-width: 9999px;'>
+      <div>
+        <a class="ui avatar image">
+          <img src="{{userPic author}}">
+        </a>
+        <a href='/c/{{author}}' class="ui author">{{author}}</a>
+        <div class="metadata">
+          <span class="date">{{timeAgo created}}</span>
+          <span class="money">{{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
+        </div>
       </div>
       <div class="text">
         {{{syntaxed body}}}
@@ -19,16 +21,14 @@
         {{else}}
         <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
           <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
-        {{/if}} 
-        {{#if hasDownvoted this}}
+        {{/if}} {{#if hasDownvoted this}}
         <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
           <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
         {{else}}
         <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
           <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
         {{/if}}
-
-        <a class="replyTo" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
+        <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
       </div>
       {{#if isReplying this}}
       <form class="ui reply form">
@@ -39,19 +39,15 @@
           <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
         </div>
       </form>
-      {{/if}}
-      {{#if comments.length}}
-      <i class="ui dropdown icon" style="float:left;margin-top:5px;"></i>
+      {{/if}} {{#if comments.length}}
+      <i class="ui angle down icon center"></i>
       <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:5px;">
-          Show {{comments.length}} replies 
-        </button> 
-      <div id="subcomments" class="subcommentsclosed">
-        {{#with comments}}
-        {{newComment}}
-         {{> subcomments}} 
-         {{/with}}
-        </div>
-        {{/if}}
+        Show {{comments.length}} replies
+      </button>
+      {{/if}}
     </div>
+  </div>
+  <div class="content comment">
+    {{#if comments.length}} {{#with comments}} {{> subcomments}} {{/with}} {{/if}}
   </div>
 </template>

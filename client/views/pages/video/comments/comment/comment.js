@@ -1,17 +1,4 @@
-
-var currentCommentIsOpen = false;
 Template.comment.events({
-  'click .commentbutton': function () {
-    var thisOne = "#" + event.srcElement.id + "subcomment";
-    if (currentCommentIsOpen === false) {
-      $(thisOne).addClass('subcommentsclosed');
-    }
-    else {
-      $(thisOne).removeClass('subcommentsclosed');
-      console.log(thisOne + 'closed');
-    }
-    currentCommentIsOpen = !currentCommentIsOpen;
-  },
   'click .downvoteComment': function (event) {
     var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var voter = Users.findOne({ username: Session.get('activeUsername') }).username
@@ -42,15 +29,6 @@ Template.comment.events({
   }
 })
 
+  
+  
 
-Template.comment.helpers({
-  newComment: function () {
-    if (document.getElementById('subcomments') !== null) {
-      var random = Template.upload.createPermlink(6)
-      var currentButton = document.getElementById('showreplies');
-      currentButton.id = random;
-      var currentSubComment = document.getElementById('subcomments');
-      currentSubComment.id = currentButton.id + "subcomment";
-    }
-  }
-})

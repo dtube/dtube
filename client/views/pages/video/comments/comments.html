@@ -1,7 +1,9 @@
 <template name='comments'>
-  <div class="ui threaded comments" style='max-width: 9999px;'>
+    <div class="ui threaded comments" style='max-width: 9999px;'>
+      <div class="ui fluid accordion" >
     {{#each comments}}
       {{> comment}}
     {{/each}}
   </div>
-</template>  
+</div>
+</template>   

@@ -6,12 +6,6 @@ Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({scrollTop:0}, 'slow');//IE, FF
   $('body').animate({scrollTop:0}, 'slow');
-  // $('.overlay.example .overlay')
-  // .visibility({
-  //   type   : 'fixed',
-  //   offset : 15
-  // });
-  // updateTotalVotes();
   $('.rrssb-buttons').rrssb({
     // required:
     title: 'This is the subject',
@@ -87,27 +81,15 @@ Template.video.helpers({
     return Session.get('localIpfs')
   },
   hasMoreThan4Lines : function () {
-    if (this.content.description.split('/n').length > 4)
+    var numberOfLineBreaks = (this.content.description.match(/\n/g)||[]).length;
+    if (numberOfLineBreaks > 4)
     {
       return true;
     }
   },
-  // checkCommentsLength : function () {
-  //   if (this.comments.length > 0)
-  //   {
-  //     return true;
-  //   }
-  // },
   isLoggedOn: function() {
     return Session.get('activeUsername')
   }
-  // ,
-  // updateTotalVotes : function () {
-  //     $('#votebar')
-  //     .progress({
-  //       label: 'ratio'
-  //     })
-  // }
 })
 
 Template.video.events({
