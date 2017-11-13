@@ -1,4 +1,4 @@
-import moment from 'moment-with-locales-es6';
+import moment from 'moment-with-locales-es6'
 import xss from 'xss'
 import Autolinker from 'autolinker'
 
@@ -108,6 +108,18 @@ Template.registerHelper('timeAgo', function(created) {
 Template.registerHelper('timeDisplay', function(created) {
   if (!created) return
   return moment(created).format("ll")
+})
+
+Template.registerHelper('durationDisplay', function(seconds) {
+  var time = moment.duration(seconds, 'seconds')
+  var formatted
+  if (time._data.seconds > 9) {
+    formatted = time._data.seconds
+  } else {
+    formatted = '0'+time._data.seconds
+  }
+  formatted = time._data.minutes+':'+formatted
+  return formatted
 })
 
 Template.registerHelper('hasUpvoted', function(video) {

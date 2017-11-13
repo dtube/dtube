@@ -13,7 +13,9 @@
             <i class="icon photo nosnap" style="font-size:28px;margin-top:20%;"></i>
             <div class="ui text nosnap" style="margin-top:60%;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div>
-          <span class="videosnapduration">{{durationToTime(info.duration)}}</span>
+          {{#if info.duration}}
+            <span class="videosnapduration">{{durationDisplay info.duration}}</span>
+          {{/if}}
           {{#if isNSFW this}}
           <img id="snapimg" height="90" width="160" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
           <br /> {{else}}

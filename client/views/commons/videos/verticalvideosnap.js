@@ -1,6 +1,4 @@
 var imagesLoaded = require('imagesloaded');
-var moment = require('moment')
-var moment_duration = require('moment-duration-format')
 
 Template.verticalvideosnap.events({
   'click #remove': function () {
@@ -27,22 +25,7 @@ Template.verticalvideosnap.snapLoaded = function () {
 }
 
 Template.verticalvideosnap.helpers({
-  durationToTime : function seconds2time(seconds) {
-    var time = moment.duration(seconds, 'seconds');
-    if (moment.duration(seconds, 'seconds') === null) 
-    {
-      return "formatted";
-    }
-      else {
-        var time = moment.duration(seconds, 'seconds');
-        if (time.asHours() > 1) {
-          var formatted = time.format("h:mm:ss", { trim: false });
-        } else {
-          var formatted = time.format("mm:ss", { trim: false });
-        }
-        return formatted;
-      }
-    }
+
 })
 
 

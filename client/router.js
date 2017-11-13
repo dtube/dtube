@@ -92,7 +92,7 @@ FlowRouter.route('/v/:author/:permlink', {
       author: params.author,
       permlink: params.permlink
     })
-
+    Template.player.init()
   }
 });
 

@@ -10,5 +10,10 @@ AskSteem = {
           Session.set('search', {query: query, response: response})
         });
         FlowRouter.go('/s/'+query)
+    },
+    related: function(author, permlink, cb) {
+        $.get("https://api.asksteem.com/related?author="+author+"&permlink="+permlink, function(response) {
+            console.log(response)
+        });
     }
 }
