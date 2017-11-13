@@ -1,19 +1,12 @@
 var isLoadingState = false
 var descriptionIsOpen = false
+var shareIsOpen = false
 var rrssb = require('rrssb')
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({scrollTop:0}, 'slow');//IE, FF
   $('body').animate({scrollTop:0}, 'slow');
-  $('.rrssb-buttons').rrssb({
-    // required:
-    title: 'This is the subject',
-    url: 'https://d.tube/v/' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"),
-    // optional:
-    description: 'Longer description used with some providers',
-    emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
-  });
 }
 
 Template.video.helpers({
@@ -89,7 +82,18 @@ Template.video.helpers({
   },
   isLoggedOn: function() {
     return Session.get('activeUsername')
-  }
+  },
+  updateShareLinks: function() {
+  $('.rrssb-buttons').rrssb({
+    // required:
+    title: 'afzad',
+    url: 'https://d.tube/v/',
+    // optional:
+    description: 'Longer description used with some providers',
+    emailBody: "urldescription"
+    
+  });
+}
 })
 
 Template.video.events({
@@ -208,7 +212,7 @@ Template.video.events({
       }
     );
   },
-  'click #description': function () {
+  'click .description': function () {
     if (descriptionIsOpen == true) {
       $('#descriptionsegment').addClass('closed');
     }
@@ -217,6 +221,16 @@ Template.video.events({
     }
     descriptionIsOpen = !descriptionIsOpen
   },
+  'click .ui.share': function () {
+    console.log("braa");
+    if (shareIsOpen == true) {
+      $('#sharesegment').addClass('subcommentsclosed');
+    }
+    else {
+      $('#sharesegment').removeClass('subcommentsclosed');
+    }
+    shareIsOpen = !shareIsOpen
+  }
 })
 
 Template.video.setTime = function (seconds) {
@@ -286,7 +300,7 @@ Template.video.loadComments = function (author, permlink, loadUsers) {
     Session.set('loadingComments', false)
     if (!loadUsers) return
     ChainUsers.fetchNames(usernames)
-  });
+  })
 }
 
 Template.video.pinFile = function (author, permlink, cb) {

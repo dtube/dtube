@@ -363,3 +363,7 @@ button {
   -ms-flex-wrap: wrap;
   flex-wrap: inherit !important;
 }
+
+.ui.tabletgrid {
+  margin-top: 15px;
+}

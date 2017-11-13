@@ -17,15 +17,12 @@
     </div>
     {{/if}}
     <div class='article'>
-      {{#if isOnMobile }}
+      {{#if isOnMobile }} 
       <main class='ui main mobile only '>
         {{> Template.dynamic template=main}}
       </main>
       {{else}}
-      <main class='ui grid tablet mobile only container'>
-        {{> Template.dynamic template=main}}
-      </main>
-      <main class='ui grid main computer only computergrid container'>
+      <main class='ui maingrid grid container content'>
         {{> Template.dynamic template=main}}
       </main>
       {{/if}}

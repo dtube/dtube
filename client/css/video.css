@@ -10,7 +10,7 @@
   font-size: 22px;
   white-space: nowrap;
   margin-bottom: 2px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .channelLink {
@@ -50,4 +50,23 @@
   padding: 0px; 
   -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15); 
    box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15); 
+}
+
+.shareli
+{
+  width: 48px !important;
+  height: auto;
+  min-width: 0px;
+}
+
+.votebutton
+{
+  border-style: solid;
+  background: transparent none !important;   
+  margin-right: 0px;
+  border-width: 0px 0px 0px 0px; 
+  border-radius:0px; 
+  box-shadow:none;
+  -webkit-box-shadow: none;
+  border-color: rgba(34, 36, 38, 0.15);
 }

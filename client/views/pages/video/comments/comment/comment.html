@@ -2,7 +2,7 @@
   <div class="title comment" style="text-align:left;">
     <div class="ui comment" style='max-width: 9999px;'>
       <div>
-        <a class="ui avatar image">
+        <a class="ui mini circular avatar image" style="margin-right:10px;">
           <img src="{{userPic author}}">
         </a>
         <a href='/c/{{author}}' class="ui author">{{author}}</a>
@@ -10,9 +10,9 @@
           <span class="date">{{timeAgo created}}</span>
           <span class="money">{{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
         </div>
-      </div>
-      <div class="text">
-        {{{syntaxed body}}}
+        <div class="text">
+          {{{syntaxed body}}}
+        </div>
       </div>
       <div class="actions noselect">
         {{#if hasUpvoted this}}
@@ -39,7 +39,8 @@
           <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
         </div>
       </form>
-      {{/if}} {{#if comments.length}}
+      {{/if}} 
+      {{#if comments.length}}
       <i class="ui angle down icon center"></i>
       <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:5px;">
         Show {{comments.length}} replies
@@ -48,6 +49,10 @@
     </div>
   </div>
   <div class="content comment">
-    {{#if comments.length}} {{#with comments}} {{> subcomments}} {{/with}} {{/if}}
+    {{#if comments.length}} 
+      {{#with comments}} 
+        {{> subcomments}} 
+      {{/with}} 
+    {{/if}}
   </div>
 </template>
