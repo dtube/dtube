@@ -15,26 +15,26 @@
             <div style="display: inline-block;" class="button icon">
               {{#if hasUpvoted video}}
               <button class="ui icon button upvote" style="    font-size: 0.9rem;border-style: solid;background: transparent none !important;   margin-right: 0px;
-            border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+            border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                 <i class="thumbs up icon black"></i>
                 <span class="customlink">{{upvotes active_votes}}</span>
               </button>
               {{else}}
               <button class="ui icon button upvote" style="    font-size: 0.9rem;border-style: solid;background: transparent none !important;  margin-right: 0px;
-            border-width: 1px 0px 0px 1px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+            border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                 <i class="thumbs up icon"></i>
                 <span>{{upvotes active_votes}}</span>
               </button>
               {{/if}} 
               {{#if hasDownvoted video}}
               <button class="ui icon button downvote" style="    font-size: 0.9rem;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
-            border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+            border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                 <i class="thumbs down icon black"></i>
                 <span class="customlink">{{downvotes active_votes}}</span>
               </button>
               {{else}}
               <button class="ui icon button downvote" style="    font-size: 0.9rem;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
-            border-width: 1px 1px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+            border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
                 <i class="thumbs down icon"></i>
                 <span>{{downvotes active_votes}}</span>
               </button>
@@ -45,7 +45,7 @@
       </div>
       <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
         <div class="details" style="width:100%;margin-top:10px;">
-          <div class="leftdetails" style="width:50%;position:relative;display: inline-block;vertical-align: top;">
+          <div class="leftdetails" style="width:70%;position:relative;display: inline-block;vertical-align: top;">
             <img class="ui left floated image" src="{{userPic info.author}}">
             <div class="channelLink">
               <a href="/c/{{info.author}}">

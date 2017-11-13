@@ -22,10 +22,10 @@
         {{> Template.dynamic template=main}}
       </main>
       {{else}}
-      <main class='ui grid tablet only container'>
+      <main class='ui grid tablet mobile only container'>
         {{> Template.dynamic template=main}}
       </main>
-      <main class='ui grid main computer computergrid only container' style="display:flex !important;">
+      <main class='ui grid main computer only computergrid container'>
         {{> Template.dynamic template=main}}
       </main>
       {{/if}}
