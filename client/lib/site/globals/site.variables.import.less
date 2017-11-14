@@ -432,6 +432,7 @@
 @pinterestColor  : #BD081C;
 @vkColor         : #4D7198;
 @instagramColor  : #49769C;
+@steemitColor  : #1FBF8F;;
 
 /*-------------------
       Borders
@@ -748,6 +749,7 @@
 @instagramHoverColor  : saturate(darken(@instagramColor, 5), 10, relative);
 @pinterestHoverColor  : saturate(darken(@pinterestColor, 5), 10, relative);
 @vkHoverColor         : saturate(darken(@vkColor, 5), 10, relative);
+@steemitHoverColor         : saturate(darken(@steemitColor, 5), 10, relative);
 
 /*---  Dark Tones  ---*/
 @fullBlackHover       : lighten(@fullBlack, 5);
@@ -806,6 +808,7 @@
 @instagramFocusColor  : saturate(darken(@instagramColor, 8), 20, relative);
 @pinterestFocusColor  : saturate(darken(@pinterestColor, 8), 20, relative);
 @vkFocusColor         : saturate(darken(@vkColor, 8), 20, relative);
+@steemitFocusColor         : saturate(darken(@steemitColor, 8), 20, relative);
 
 /*---  Dark Tones  ---*/
 @fullBlackFocus       : lighten(@fullBlack, 8);
@@ -865,6 +868,7 @@
 @instagramDownColor  : darken(@instagramColor, 10);
 @pinterestDownColor  : darken(@pinterestColor, 10);
 @vkDownColor         : darken(@vkColor, 10);
+@steemitDownColor         : darken(@steemitColor, 10);
 
 /*---  Dark Tones  ---*/
 @fullBlackDown       : lighten(@fullBlack, 10);
@@ -1002,3 +1006,13 @@
 //     margin-right: 2em !important;
 //   }
 // }
+
+.ui.steemit.button {
+  background-color: @steemitColor;
+}
+.ui.steemit.button:hover {
+  background-color: @steemitHoverColor;
+}
+.ui.steemit.button:active {
+  background-color: @steemitDownColor;
+}

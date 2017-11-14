@@ -31,8 +31,8 @@
 
 .author.owner
 {
-  /* background: red;
-  color: white; */
+  background: red;
+  color: white; 
   margin-left:5px;
   border-radius: 10px;
   padding: 6px;
@@ -70,3 +70,123 @@
   -webkit-box-shadow: none;
   border-color: rgba(34, 36, 38, 0.15);
 }
+
+.videocontainer{
+  width:100%;float:left;
+  margin-bottom: 10px;
+}
+
+.videosegment{
+  padding: 0px !important;
+  border-width: 0 !important;
+  overflow: hidden; background: #f9f9f9;
+}
+
+.videotitlecontainer{
+  float:left;vertical-align:top; margin-top: 5px;
+}
+
+.videotitle{
+  font-size:21px; 
+  font-weight:500;
+}
+
+.videoleftdetails{
+  width:70%;position:relative;
+  display: inline-block;vertical-align: top;
+}
+
+.videorightdetails{
+  position:relative;float:right;
+  vertical-align: top;
+}
+
+.videovotecontainer{
+  bottom: 0px;
+  vertical-align: bottom;
+  font-size:20px;float:right;
+  right: 0px;
+}
+
+.ui.content{
+  margin-top: 15px;
+}
+
+.ui.segment.closed
+{
+  max-height:10em;
+}
+
+.ui.segments {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  margin: 1rem 0em;
+  border: 0px solid rgba(34, 36, 38, 0.15);
+  -webkit-box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
+  border-radius: 0;
+}
+
+.rrssb-buttons li a {
+  background-color: #ccc;
+  border-radius: 2px;
+  display: block;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
+  height: 100%;
+  padding: 5px 0px 5px 0px;
+  position: relative;
+  -webkit-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+  width: 100%;
+}
+
+.truncate {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+   font-family: 'Noto Sans', Arial, Helvetica, sans-serif; 
+}
+
+.rrssb-buttons li.rrssb-facebook a {
+  background-color: #306199;
+}
+
+.rrssb-buttons li.rrssb-email a {
+  background-color: #0a88ff;
+}
+
+.rrssb-buttons li.rrssb-twitter a {
+  background-color: #26c4f1;
+}
+
+.rrssb-buttons li.rrssb-googleplus a {
+  background-color: #e93f2e;
+}
+
+.rrssb-buttons li.rrssb-pinterest a {
+  background-color: #b81621;
+}
+
+.btn, .rrssb-buttons li a, a {
+  text-decoration: none;
+}
+
+.btn, .rrssb-buttons li a {
+  text-align: center;
+  text-decoration: none;
+}
+
+.rrssb-buttons li a .rrssb-text {
+  color: #fff;
+}
+
+.rrssb-buttons li a .rrssb-icon svg path {
+  fill: #fff;
+}
+

@@ -5,24 +5,11 @@ var rrssb = require('rrssb')
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
-  $('html').animate({scrollTop:0}, 'slow');//IE, FF
-  $('body').animate({scrollTop:0}, 'slow');
+  $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
+  $('body').animate({ scrollTop: 0 }, 'slow');
 }
 
 Template.video.helpers({
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
-  },
-  switchMobile: function () {
-    $('#videodtube').addClass('videomobile');
-    $('#videocontent').addClass('videomobile');
-  },
-  switchDesktop: function () {
-    $('#videodtube').addClass('ui container').addClass('content');
-    $('#videocontent').addClass('ui container').addClass('content');
-  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
@@ -73,27 +60,35 @@ Template.video.helpers({
   localIpfs: function () {
     return Session.get('localIpfs')
   },
-  hasMoreThan4Lines : function () {
-    var numberOfLineBreaks = (this.content.description.match(/\n/g)||[]).length;
-    if (numberOfLineBreaks > 4)
-    {
+  hasMoreThan4Lines: function () {
+    var numberOfLineBreaks = (this.content.description.match(/\n/g) || []).length;
+    if (numberOfLineBreaks >= 4) {
       return true;
     }
   },
-  isLoggedOn: function() {
+  isLoggedOn: function () {
     return Session.get('activeUsername')
   },
-  updateShareLinks: function() {
-  $('.rrssb-buttons').rrssb({
-    // required:
-    title: 'afzad',
-    url: 'https://d.tube/v/',
-    // optional:
-    description: 'Longer description used with some providers',
-    emailBody: "urldescription"
-    
-  });
-}
+  updateShareLinks: function () {
+    $('.rrssb-buttons').rrssb({
+      title: 'afzad',
+      url: 'https://d.tube/v/',
+      description: 'Longer description used with some providers',
+      emailBody: "urldescription"});
+  },
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      return true;
+    }
+  },
+  switchMobile: function () {
+    $('#videodtube').addClass('videomobile');
+    $('#videocontent').addClass('videomobile');
+  },
+  switchDesktop: function () {
+    $('#videodtube').addClass('ui container').addClass('content');
+    $('#videocontent').addClass('ui container').addClass('content');
+  }
 })
 
 Template.video.events({
@@ -222,7 +217,6 @@ Template.video.events({
     descriptionIsOpen = !descriptionIsOpen
   },
   'click .ui.share': function () {
-    console.log("braa");
     if (shareIsOpen == true) {
       $('#sharesegment').addClass('subcommentsclosed');
     }

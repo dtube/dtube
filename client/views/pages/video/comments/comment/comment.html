@@ -10,7 +10,7 @@
           <span class="date">{{timeAgo created}}</span>
           <span class="money">{{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
         </div>
-        <div class="text">
+        <div class="text" style="display: -webkit-box;">
           {{{syntaxed body}}}
         </div>
       </div>
@@ -42,13 +42,13 @@
       {{/if}} 
       {{#if comments.length}}
       <i class="ui angle down icon center"></i>
-      <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:5px;">
+      <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
         Show {{comments.length}} replies
       </button>
       {{/if}}
     </div>
   </div>
-  <div class="content comment">
+  <div class="content comment" >
     {{#if comments.length}} 
       {{#with comments}} 
         {{> subcomments}} 

@@ -4,30 +4,30 @@
             <!-- <a class="sidebartoggleicon ui item" style="float:left;">
                 <i class="sidebar icon" style='font-size:1.5em; margin:0;'></i>
             </a> -->
-            <a class="ui header item" id='textlogomobile' style="float:left;margin-left: -10px;height:52px;">
+            <a class="ui header item" id='textlogomobile' style="float:left;margin-left: -15px;height:52px;">
                 <i id="animdtube" class="dtube icon">
                     <img height="20" width="20" alt="" src="/DTube_files/images/dtubeplay.png">
                 </i>Tube
             </a>
             <div class="right menu"  style="float:right;">
-                    <div id="mobilesearch" class="ui item" style="float:right;">
+                    <div id="mobilesearch" class="ui item" style="float:right;    padding: 0.928571em">
                             <i class="search icon" style='font-size:1.5em; margin:0;'></i>
                         </div>
-                    <!-- {{#if isLoggedOn}}
-                      <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}' >
+                    {{#if isLoggedOn}}
+                      <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}' style="float:right;    padding: 0.928571em" >
                         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
                       </a>
                     {{else}}
-                      <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
+                      <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}' style="float:right;    padding: 0.928571em">
                         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
                       </a>
-                    {{/if}} -->
+                    {{/if}}
                     <!-- {{> notificationdropdown}}  -->
                     {{> settingsdropdown}}
                     {{#if isLoggedOn}}
                       {{> mobileusers}}
                     {{else}}
-                      <a class="ui item">
+                      <a class="ui item" style="float:right;    padding: 0.928571em">
                         <a href="/login" class="circular ui icon youtube button">
                             <i class="user icon" ></i></a>
                       </a>
