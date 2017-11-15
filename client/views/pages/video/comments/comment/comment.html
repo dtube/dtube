@@ -12,42 +12,43 @@
         </div>
         <div class="text" style="display: -webkit-box;">
           {{{syntaxed body}}}
+          
         </div>
+        <div class="actions noselect">
+            {{#if hasUpvoted this}}
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+              <i class="thumbs up icon red"></i> {{upvotes active_votes}}</a>
+            {{else}}
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+              <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
+            {{/if}} {{#if hasDownvoted this}}
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+              <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
+            {{else}}
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+              <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
+            {{/if}}
+            <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
+          </div>
       </div>
-      <div class="actions noselect">
-        {{#if hasUpvoted this}}
-        <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-          <i class="thumbs up icon red"></i> {{upvotes active_votes}}</a>
-        {{else}}
-        <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-          <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
-        {{/if}} {{#if hasDownvoted this}}
-        <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-          <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
-        {{else}}
-        <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-          <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
-        {{/if}}
-        <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
-      </div>
-      {{#if isReplying this}}
-      <form class="ui reply form">
-        <div class="field">
-          <textarea style='height: 5em;min-height:5em'></textarea>
-        </div>
-        <div class="ui red labeled submit icon button">
-          <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
-        </div>
-      </form>
-      {{/if}} 
-      {{#if comments.length}}
-      <i class="ui angle down icon center"></i>
-      <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
-        Show {{comments.length}} replies
-      </button>
-      {{/if}}
-    </div>
   </div>
+  {{#if isReplying this}}
+  <form class="ui reply form">
+    <div class="field">
+      <textarea style='height: 5em;min-height:5em'></textarea>
+    </div>
+    <div class="ui red labeled submit icon button">
+      <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
+    </div>
+  </form>
+  {{/if}} 
+  {{#if comments.length}}
+  <i class="ui angle down icon center"></i>
+  <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
+    Show {{comments.length}} replies
+  </button>
+  {{/if}}
+</div>
   <div class="content comment" >
     {{#if comments.length}} 
       {{#with comments}} 

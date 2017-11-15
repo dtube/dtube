@@ -36,7 +36,6 @@ Template.video.helpers({
       'info.author': FlowRouter.getParam("author"),
       'info.permlink': FlowRouter.getParam("permlink")
     }).fetch()
-
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].source == 'chainDirect') {
         Session.set("pageTitle", videos[i].info.title)
@@ -70,11 +69,13 @@ Template.video.helpers({
     return Session.get('activeUsername')
   },
   updateShareLinks: function () {
+
     $('.rrssb-buttons').rrssb({
-      title: 'afzad',
-      url: 'https://d.tube/v/',
-      description: 'Longer description used with some providers',
-      emailBody: "urldescription"});
+      title: Session.get("pageTitle"),
+      url: 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink"),
+      description: Session.get('videoDescription'),
+      emailBody: Session.get('videoDescription')});
+
   },
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) {
@@ -224,6 +225,27 @@ Template.video.events({
       $('#sharesegment').removeClass('subcommentsclosed');
     }
     shareIsOpen = !shareIsOpen
+  },
+  'click .ui.button.copy': function () {
+    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink")
+    console.log(text)
+    if (window.clipboardData && window.clipboardData.setData) {
+      return clipboardData.setData("Text", text); 
+  } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+      var textarea = document.createElement("textarea");
+      textarea.textContent = text;
+      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+          return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+      } catch (ex) {
+          console.warn("Copy to clipboard failed.", ex);
+          return false;
+      } finally {
+          document.body.removeChild(textarea);
+      }
+  }
   }
 })
 
@@ -252,8 +274,8 @@ Template.video.loadState = function () {
       }
       ChainUsers.upsert({ _id: user.id }, Waka.api.DeleteFieldsWithDots(user));
     }
-
     var video = Videos.parseFromChain(result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")])
+    Session.set('videoDescription', video.content.description)
     video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     video.source = 'chainDirect'
     video._id += 'd'
@@ -271,7 +293,6 @@ Template.video.loadFromChain = function (loadComments, loadUsers) {
     video.source = 'chainDirect'
     video._id += 'd'
     Videos.upsert({ _id: video._id }, video)
-
     Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
       Videos.refreshWaka()
     })

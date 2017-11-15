@@ -1,6 +1,5 @@
 Template.history.rendered = function () {
   console.log("history loaded")
-  $("#sidebar").sidebar('show');
   $('.dtube').removeClass('loading');
 };
 

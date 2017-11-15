@@ -1,6 +1,6 @@
 <template name="sidebar">
   <div style="height:100%;">
-    <a class="item" id="home" style="padding:0%;">
+    <a href='/' class="item" id="home" style="padding:0%;">
       <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="home icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
@@ -12,14 +12,14 @@
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_CHANNEL'}}</span>
       </div>
     </a> -->
-    <a class="item" style="padding:0%;">
+    <a href='/trendingvideos' class="item" style="padding:0%;">
       <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="fire icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
       </div>
     </a>
     {{#if watchAgain}}
-    <a class="item" style="padding:0%;">
+    <a href='/history' class="item" style="padding:0%;">
       <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="history icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
