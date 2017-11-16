@@ -4,7 +4,7 @@
       <div class="sidebartoggleicon item header">
         <i class="sidebar icon" style="font-size:1.5em; margin:0;"></i>
       </div>
-      <a href='/' class="header item" id='textlogo'> 
+      <a href='/' class="header item" id='textlogo'>
         <i id="animdtube" class="dtube icon">
           <img height="22" width="22" alt="" style="margin-left:5px;" src="/DTube_files/images/dtubeplay.png">
         </i>Tube
@@ -15,11 +15,11 @@
             <form class='searchForm' style="width:100%">
               <input id='dsearch' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
             </form>
-            <i class="search icon"></i> 
-          </div>  
+            <i class="search icon"></i>
+          </div>
           <div class="results">
             {{#each searchSuggestions}}
-            <a class="result"> 
+            <a class="result">
               <div class="content">
                 <div class="title">{{this}}</div>
               </div>
@@ -30,9 +30,9 @@
       </div>
     </div>
     <div class="right floated menu">
-        <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
-            <i class="search icon" style='font-size:1.5em; margin:0;padding:0;'></i>
-        </a>
+      <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
+        <i class="search icon" style='font-size:1.5em; margin:0;padding:0;'></i>
+      </a>
       {{#if isLoggedOn}}
       <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
@@ -43,7 +43,10 @@
       </a>
       {{/if}}
       <!-- {{> notificationdropdown}}  -->
-      {{> settingsdropdown}} {{#if isLoggedOn}} {{> users}} {{else}}
+      {{> settingsdropdown}} 
+      {{#if isLoggedOn}} 
+      {{> users}} 
+      {{else}}
       <a class="ui item">
         <a href="/login" class="ui youtube button">
           <i class="sign in icon"></i> {{ translate "TOPBAR_LOGIN"}}</a>
