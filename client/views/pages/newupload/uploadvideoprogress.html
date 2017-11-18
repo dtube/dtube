@@ -1,0 +1,50 @@
+<template name='uploadvideoprogress'>
+    {{#with progress}}
+        {{#if ipfsAddSourceVideo}}
+          <div class="ui active progress">
+            <div class="bar" style="width:{{ipfsAddSourceVideo.progress}}">
+              <div class="progress"></div>
+            </div>
+            <div class="label">Adding Source to IPFS...</div>
+          </div>
+        {{/if}}
+
+        {{#if sprite}}
+          {{#if sprite.spriteCreation}}
+            <div class="ui active progress">
+                <div class="bar" style="width:{{sprite.spriteCreation.progress}}">
+                    <div class="progress"></div>
+                </div>
+                <div class="label">Creating Sprite...</div>
+            </div>
+          {{/if}}
+          {{#if sprite.ipfsAddSprite}}
+            <div class="ui active progress">
+                <div class="bar" style="width:{{sprite.ipfsAddSprite.progress}}">
+                    <div class="progress"></div>
+                </div>
+                <div class="label">Adding Sprite to IPFS...</div>
+            </div>
+          {{/if}}
+        {{/if}}
+
+        {{#each encodedVideos}}
+          {{#if encode}}
+            <div class="ui active progress">
+                <div class="bar" style="width:{{encode.progress}}">
+                    <div class="progress"></div>
+                </div>
+                <div class="label">Encoding to {{encode.encodeSize}}...</div>
+            </div>
+          {{/if}}
+          {{#if ipfsAddEncodeVideo}}
+            <div class="ui active progress">
+                <div class="bar" style="width:{{ipfsAddEncodeVideo.progress}}">
+                    <div class="progress"></div>
+                </div>
+                <div class="label">Adding {{encode.encodeSize}} to IPFS...</div>
+            </div>
+          {{/if}}
+        {{/each}}
+    {{/with}}
+</template>

@@ -42,6 +42,17 @@ FlowRouter.route('/upload', {
   }
 });
 
+FlowRouter.route('/newupload', {
+  name: "newupload",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'newupload')
+    BlazeLayout.render('masterLayout', {
+      main: "newupload",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/trendingvideos', {
   name: "trendingvideos",
   action: function(params, queryParams) {
