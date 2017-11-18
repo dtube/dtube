@@ -16,6 +16,6 @@ Template.pusher.setScreenMode = function () {
         $('.ui.maingrid').removeClass('computergrid').addClass('tabletgrid').removeClass('grid').removeClass('container');
     }
     else {
-        $('.ui.maingrid').addClass('computergrid').addClass('grid').addClass('container');
+        $('.ui.maingrid').addClass('computergrid').addClass('container');
     }
 }

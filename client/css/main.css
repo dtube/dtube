@@ -272,88 +272,10 @@ button {
   margin:20px;
   width:128px;
   height:128px;
-  border: rgb(247, 247, 247);
-  border-style: solid;
-  border-width: 4px;
-  border-radius: 100px;
 }
 
 .padder{
   padding-left:5px;
-}
-
-.ui.content{
-  margin-top: 15px;
-}
-
-.ui.segment.closed
-{
-  max-height:8.9em;
-}
-
-.ui.segments {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-  margin: 1rem 0em;
-  border: 0px solid rgba(34, 36, 38, 0.15);
-  -webkit-box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
-  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
-  border-radius: 0;
-}
-
-.rrssb-buttons li a {
-  background-color: #ccc;
-  border-radius: 2px;
-  display: block;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 700;
-  height: 100%;
-  padding: 5px 0px 5px 0px;
-  position: relative;
-  -webkit-transition: background-color .2s ease-in-out;
-  transition: background-color .2s ease-in-out;
-  width: 100%;
-}
-
-.rrssb-buttons li.rrssb-facebook a {
-  background-color: #306199;
-}
-
-.rrssb-buttons li.rrssb-email a {
-  background-color: #0a88ff;
-}
-
-.rrssb-buttons li.rrssb-twitter a {
-  background-color: #26c4f1;
-}
-
-.rrssb-buttons li.rrssb-googleplus a {
-  background-color: #e93f2e;
-}
-
-.rrssb-buttons li.rrssb-pinterest a {
-  background-color: #b81621;
-}
-
-.btn, .rrssb-buttons li a, a {
-  text-decoration: none;
-}
-
-.btn, .rrssb-buttons li a {
-  text-align: center;
-  text-decoration: none;
-}
-
-.rrssb-buttons li a .rrssb-text {
-  color: #fff;
-}
-
-.rrssb-buttons li a .rrssb-icon svg path {
-  fill: #fff;
 }
 
 .ui.computergrid {
@@ -362,8 +284,44 @@ button {
   -ms-flex-direction: row;
   -ms-flex-wrap: wrap;
   flex-wrap: inherit !important;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 0em;
 }
+
 
 .ui.tabletgrid {
   margin-top: 15px;
+}
+
+.ui.noshadow{
+  border-width: 0px;
+  -webkit-box-shadow: 0px 0px 0px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 0px 0px 0 rgba(34, 36, 38, 0.15);
+  border-radius: 0;
+}
+
+.mobiletopbar{ 
+  height:52px;
+  z-index:9000;
+}
+.mobilelogoheader{
+  float:left;margin-left: -15px;height:52px;
+}
+.mobiletopbaritem{
+  padding: 0em;
+  margin: 0px;
+  font-size:1.5em;
 }

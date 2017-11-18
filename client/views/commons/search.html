@@ -1,33 +1,56 @@
 <template name='search'>
-  <div class="ui container">
-    <div class="ui grid">
-        <div class="ten wide column">
-          <h1>{{ translate 'SEARCH_RESULTS_FOR'}} {{search.query}}</h1>
-          <h4 class='gray'>{{lengthOf search.response.results}} 
-            {{#if isPlural search.response.results}}
-            {{ translate 'SEARCH_RESULTS'}}
-            {{else}}
-            {{translate 'SEARCH_RESULT'}}
-            {{/if}}</h4>
-        </div>
-        <div class="six wide column">
-          <h1>
-            <a href='https://www.asksteem.com/' target='_blank'>
-              <img class="ui small right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
-            </a>
-          </h1>
-        </div>
+  <div class="ui segment">
+  {{#if isOnMobile }}
+  <div class="ui content" style="padding-left:10px;padding-right:10px;">
+    <div style="
+    display: inline-flex;">
+        <h2 class='gray'>
+            {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+          {{lengthOf search.response.results}} {{#if isPlural search.response.results}} 
+          {{ translate 'SEARCH_RESULTS'}} 
+          {{else}}
+            {{translate 'SEARCH_RESULT'}} 
+            {{/if}} 
+            {{ translate 'SEARCH_RESULTS_FOR'}} 
+            {{search.query}}
+          </h2>
+      <div class="ui mini top right floated" style="float:right;">
+        <a href='https://www.asksteem.com/' target='_blank'>
+          <img class="ui mini top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+        </a>
       </div>
-      <div class="ui grid">
-        {{#if isOnMobile }} 
-          {{#each search.response.results}} 
-            {{> mobilevideosearchresult}} 
-          {{/each}} 
-        {{else}} 
-          {{#each search.response.results}}
-            {{> videosearchresult}} 
-          {{/each}} 
-        {{/if}}
-      </div>
+    </div>
+    {{#each search.response.results}} {{> mobilevideosearchresult}} {{/each}}
   </div>
+  {{else}}
+  <div class="ui content container">
+    <div style="
+    display: inline-flex;">
+        <h2 class='gray'>
+            {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+            {{lengthOf search.response.results}} {{#if isPlural search.response.results}} 
+            {{ translate 'SEARCH_RESULTS'}} 
+            {{else}}
+              {{translate 'SEARCH_RESULT'}} 
+              {{/if}} 
+              {{ translate 'SEARCH_RESULTS_FOR'}} 
+              {{search.query}}
+            </h2>
+        <div class="ui mini top right floated" style="float:right;">
+          <a href='https://www.asksteem.com/' target='_blank'>
+            <img class="ui mini top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+          </a>
+        </div>
+      </div>
+    {{#each search.response.results}} 
+    {{> videosearchresult}} 
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+  <!-- <div class="ui more result segment">
+      <h3 class="ui header">
+        <div class="ui large centered inline text loader"></div>
+        Adding more content...
+      </div> -->
 </template>
