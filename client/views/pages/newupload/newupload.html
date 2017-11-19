@@ -58,40 +58,13 @@
             <div class="column"><canvas></canvas></div>
           </div>
         </div>
-        <a class='ui button' id='snap' download='snap.jpg'>{{ translate 'UPLOAD_TAKE_SNAP'}}</a>
+        <a class='ui button' id='snap' download='snap.jpg'><i class="camera retro icon"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>
         <label for="snapFile">
-          <a class='ui youtube button' id='uploadSnap'>{{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
+          <a class='ui youtube button' id='uploadSnap'><i class="cloud upload icon"></i> {{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
         </label>
         <input type="file" id="snapFile">
       </div>
-      <div id="infozone">
-        <form class="ui form">
-          <div class="field">
-            <label>{{ translate 'UPLOAD_TITLE'}}</label>
-            <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
-            <textarea rows="4" name='description'></textarea>
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_TAGS'}}</label>
-            <input id="tags" name="tags" type="text" placeholder="{{ translate 'UPLOAD_TAGS'}}">
-          </div>
-    
-          <div class="field" style='display: none'>
-            <label>{{ translate 'UPLOAD_MORE_INFO'}}</label>
-            <input type="text" name="author" placeholder="{{ translate 'UPLOAD_AUTHOR'}}" value="{{mainUser.username}}" disabled>
-            <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" disabled>
-            <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}" disabled>
-            <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}" disabled>
-            <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}" disabled>
-          </div>
-    
-          <button class="ui button" type="submit">{{ translate 'UPLOAD_CLEAR'}}</button>
-          <button class="ui youtube button" type="submit">{{ translate 'UPLOAD_SUBMIT'}}</button>
-        </form>
-      </div>
+      {{> uploadform}}
     </div>
     </template>
     

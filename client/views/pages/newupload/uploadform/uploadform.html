@@ -1,0 +1,80 @@
+<template name='uploadform'>
+    <div id="infozone">
+        <form class="ui form">
+          <div class="field">
+            <label>{{ translate 'UPLOAD_TITLE'}}</label>
+            <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
+          </div>
+          <div class="field">
+            <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
+            <textarea rows="4" name='description'></textarea>
+          </div>
+          <div class="field">
+            <label>{{ translate 'UPLOAD_TAGS'}}</label>
+            <div class="ui fluid multiple search selection dropdown">
+              <input name="tags" type="hidden">
+              <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
+            </div>
+          </div>
+          
+          <button class="ui left labeled icon button advanced" type="button"><i class="down arrow icon"></i>
+            {{ translate 'UPLOAD_ADVANCED'}}
+          </button>
+          {{> uploadformsubmit}}
+          <br /><br />
+
+          <div class="field advancedupload" style='display: none'>
+            <div class="field">
+              <label>{{ translate 'UPLOAD_BODY_STEEM'}}</label>
+              <textarea rows="10" name='body'></textarea>
+            </div>
+            <div class="inline field">
+              <div class="ui slider checkbox">
+                <input type="checkbox" name="powerup">
+                <label>{{ translate 'UPLOAD_POWER_UP'}}</label>
+              </div>
+              <label></label>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>{{ translate 'UPLOAD_VIDEOHASH'}}</label>
+                <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}">
+              </div>
+              <div class="field">
+                <label>{{ translate 'UPLOAD_VIDEO480HASH'}}</label>
+                <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}">
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>{{ translate 'UPLOAD_SNAPHASH'}}</label>
+                <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}">
+              </div>
+              <div class="field">
+                <label>{{ translate 'UPLOAD_SPRITEHASH'}}</label>
+                <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}">
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>{{ translate 'UPLOAD_MAGNET'}}</label>
+                <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}">
+              </div>
+              <div class="field">
+                <label>{{ translate 'UPLOAD_FILESIZE'}}</label>
+                <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}">
+              </div>
+            </div>            
+            <br /><br />
+
+            {{> uploadformsubmit}}
+          </div>
+        </form>
+    </div>
+</template>
+
+<template name="uploadformsubmit">
+  <button class="ui red right labeled icon button uploadsubmit" type="button"><i class="checkmark icon"></i>
+    {{ translate 'UPLOAD_SUBMIT'}}
+  </button>
+</template>

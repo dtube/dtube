@@ -1,7 +1,6 @@
 refreshUploadStatus = null
 
 Template.newupload.rendered = function() {
-  Session.set('bitrate', 0)
   Session.set('uploadToken', null)
   Session.set('uploadVideoProgress', null)
 }
@@ -14,36 +13,6 @@ Template.newupload.createPermlink = function(length) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;
-}
-
-Template.newupload.updateProgress = function() {
-  var token = Session.get('uploadToken')
-  var url = 'http://195.154.183.40:5000/getProgressByToken/'+token
-  $.getJSON(url, function( data ) {
-    Session.set('uploadVideoProgress', data)
-
-
-    // if upload is finished, we stop updating the progress
-    var isCompleteUpload = true
-    for (var i = data.encodedVideos.length-1; i >= 0; i--) {
-      if (data.encodedVideos[i].encode.progress !== "100.00%") {
-        isCompleteUpload = false;
-        break;
-      }
-      if (data.encodedVideos[i].ipfsAddEncodeVideo.progress !== "100.00%") {
-        isCompleteUpload = false;
-        break;
-      }
-    }
-    if (data.ipfsAddSourceVideo.progress !== "100.00%") {
-      isCompleteUpload = false;
-    }
-    if (isCompleteUpload) {
-      clearInterval(refreshUploadStatus)
-      Session.set('uploadVideoProgress', null)
-      $('#step1load').parent().addClass('completed')
-    }
-  })
 }
 
 Template.newupload.HTTP = function(node, file, progressid, cb) {
@@ -77,7 +46,7 @@ Template.newupload.HTTP = function(node, file, progressid, cb) {
       $(progressid).hide()
       Session.set('uploadToken', result.token)
       refreshUploadStatus = setInterval(function() {
-        Template.newupload.updateProgress()
+        Template.uploadvideoprogress.update()
       }, 1000)
       cb(null, result)
     },
@@ -152,15 +121,6 @@ Template.newupload.genBody = function(author, permlink, title, snaphash, videoha
   return body
 }
 
-Template.newupload.helpers({
-  mainUser: function() {
-    return Users.findOne({username: Session.get('activeUsername')})
-  },
-  bitrate: function() {
-    return Session.get('bitrate')
-  }
-})
-
 Template.newupload.events({
   'click #dropzone': function(event) {
     $('#fileToUpload').click()
@@ -222,109 +182,6 @@ Template.newupload.events({
         console.log('Uploaded Snap', result)
         $('input[name="snaphash"]').val(result.Hash)
       }
-    })
-  },
-  'submit .form': function(event) {
-    event.preventDefault()
-    var tags = ['dtube']
-    for (var i = 0; i < event.target.tags.value.split(' ').length; i++) {
-      if (i > 3) break
-      if (event.target.tags.value.split(' ')[i].toLowerCase() == 'nsfw') tags.push('nsfw')
-      tags.push('dtube-'+event.target.tags.value.split(' ')[i])
-    }
-    tags = tags.slice(0,5)
-    var article = {
-      info: {
-        title: event.target.title.value,
-        snaphash: event.target.snaphash.value,
-        author: Users.findOne({username: Session.get('activeUsername')}).username,
-        permlink: Template.newupload.createPermlink(8),
-        duration: document.querySelector('video').duration,
-        filesize: event.target.filesize.value
-      },
-      content: {
-        videohash: event.target.videohash.value,
-        magnet: event.target.magnet.value,
-        description: event.target.description.value,
-        tags: tags
-      }
-    }
-    if (!article.info.title) {
-      toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.info.snaphash) {
-      toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.info.author) {
-      toastr.error(translate('UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.content.videohash) {
-      toastr.error(translate('UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING'), translate('ERROR_TITLE'))
-      return
-    }
-    $('#step3load').show()
-    Waka.api.Set(article, {}, function(e,r) {
-      Videos.refreshWaka()
-      // publish on blockchain !!
-      var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
-      var author = r.article.info.author
-      var permlink = r.article.info.permlink
-      var title = r.article.info.title
-      var body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
-      var jsonMetadata = {
-        video: r.article,
-        tags: article.content.tags,
-        app: Meteor.settings.public.app
-      }
-
-      var operations = [
-        ['comment',
-          {
-            parent_author: '',
-            parent_permlink: tags[0],
-            author: author,
-            permlink: permlink,
-            title: title,
-            body: body,
-            json_metadata : JSON.stringify(jsonMetadata)
-          }
-        ],
-        ['comment_options', {
-          author: author,
-          permlink: permlink,
-          max_accepted_payout: '1000000.000 SBD',
-          percent_steem_dollars: 10000,
-          allow_votes: true,
-          allow_curation_rewards: true,
-          extensions: [
-            [0, {
-              beneficiaries: [{
-                account: Meteor.settings.public.beneficiary,
-                weight: Session.get('remoteSettings').dfees
-              }]
-            }]
-          ]
-        }]
-      ];
-      $('#step3load').show()
-      console.log(operations)
-      steem.broadcast.send(
-        { operations: operations, extensions: [] },
-        { posting: wif },
-        function(e, r) {
-          $('#step3load').hide()
-          if (e) {
-            if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
-            else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
-          } else {
-            window.open('/#!/v/'+author+'/'+permlink, '_blank');
-            FlowRouter.go('/torrentStats')
-          }
-        }
-      )
     })
   }
 })
