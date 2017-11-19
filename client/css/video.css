@@ -142,7 +142,7 @@
   display: inline-block;
 }
 
-.ui.button.hidden{
+.hidden{
     display:none;
 }
 

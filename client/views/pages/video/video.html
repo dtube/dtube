@@ -67,9 +67,7 @@
                 {{info.author}}
               </a>
             </div>
-            {{#unless equals activeUser user.name}} 
-            {{#if isLoggedOn}} 
-            {{#if isSubscribedTo info.author}}
+            {{#unless equals activeUser user.name}} {{#if isLoggedOn}} {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui mini button unsubscribe">
                 {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -87,8 +85,7 @@
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}}
-            {{else}}
+            {{/if}} {{else}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui red mini button">
                 <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBERS'}}
@@ -97,14 +94,13 @@
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}}
-            {{else}}
+            {{/if}} {{else}}
             <div class="ui labeled mini button" tabindex="0">
-                <div class="ui red mini button subscribe">
-                  <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
-                </div>
+              <div class="ui red mini button subscribe">
+                <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
               </div>
-            {{/unless}} 
+            </div>
+            {{/unless}}
           </div>
           <div class="videorightdetails">
             <div class='videopayout'>
@@ -123,14 +119,20 @@
       </div>
       {{#if hasMoreThan4Lines}}
       <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
-        <button id="showmore" class="ui button " style="margin-right: 0px;  border-style: solid;     background: transparent;
+        <div id="showmore" style="text-align: center;">
+          <button class="ui button " style="margin-right: 0px;  border-style: solid;     background: transparent;
         border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
-          {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
-        </button>
-        <button id="showless" class="ui button hidden" style="margin-right: 0px;  border-style: solid;     background: transparent;
+            {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
+          </button>
+          <i class="ui icon angle down"></i>
+        </div>
+        <div id="showless" class="hidden" style="text-align: center;">
+          <button class="ui button" style="margin-right: 0px;  border-style: solid;     background: transparent;
         border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
-          {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
-        </button>
+            {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
+          </button>
+          <i class="ui icon angle up"></i>
+        </div>
       </div>
       {{/if}}
       <!-- Comments - Reply -->
@@ -160,10 +162,11 @@
         </div>
         {{else}}
         <div style=" text-align: center;padding:10px;">
-          <a href="/login"><h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5></a>
+          <a href="/login">
+            <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
+          </a>
         </div>
-        {{/if}} 
-        {{> comments}}
+        {{/if}} {{> comments}}
       </div>
     </div>
   </div>
