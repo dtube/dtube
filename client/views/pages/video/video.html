@@ -6,7 +6,7 @@
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
       <!-- Title, Vote - Share - More  -->
       <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
-        <div class="info" style="display:flow-root;">
+        <div class="info" style="display: grid;">
           <div class="videotitlecontainer">
             <h1 class="videotitle">{{info.title}}</h1>
           </div>
@@ -14,8 +14,8 @@
             <div style="display: inline-block;" class="button icon">
               {{#if hasUpvoted video}}
               <button class="ui icon button upvote votebutton">
-                <i class="thumbs up icon black"></i>
-                <span class="customlink">{{upvotes active_votes}}</span>
+                <i class="thumbs up icon red"></i>
+                {{upvotes active_votes}}
               </button>
               {{else}}
               <button class="ui icon button upvote votebutton">
@@ -24,8 +24,8 @@
               </button>
               {{/if}} {{#if hasDownvoted video}}
               <button class="ui icon button downvote votebutton">
-                <i class="thumbs down icon black"></i>
-                <span class="customlink">{{downvotes active_votes}}</span>
+                <i class="thumbs down icon red"></i>
+              {{downvotes active_votes}}
               </button>
               {{else}}
               <button class="ui icon button downvote votebutton">
