@@ -68,15 +68,15 @@ Template.video.helpers({
   isLoggedOn: function () {
     return Session.get('activeUsername')
   },
-  updateShareLinks: function () {
+  // updateShareLinks: function () {
 
-    $('.rrssb-buttons').rrssb({
-      title: Session.get("pageTitle"),
-      url: 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink"),
-      description: Session.get('videoDescription'),
-      emailBody: Session.get('videoDescription')});
+  //   $('.rrssb-buttons').rrssb({
+  //     title: Session.get("pageTitle"),
+  //     url: 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink"),
+  //     description: Session.get('videoDescription'),
+  //     emailBody: Session.get('videoDescription')});
 
-  },
+  // },
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) {
       return true;
@@ -211,9 +211,13 @@ Template.video.events({
   'click .description': function () {
     if (descriptionIsOpen == true) {
       $('#descriptionsegment').addClass('closed');
+      $('#showmore').removeClass('hidden');
+      $('#showless').addClass('hidden');
     }
     else {
       $('#descriptionsegment').removeClass('closed');
+      $('#showmore').addClass('hidden');
+      $('#showless').removeClass('hidden');
     }
     descriptionIsOpen = !descriptionIsOpen
   },
@@ -227,25 +231,46 @@ Template.video.events({
     shareIsOpen = !shareIsOpen
   },
   'click .ui.button.copy': function () {
-    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink")
+    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink")
     console.log(text)
     if (window.clipboardData && window.clipboardData.setData) {
-      return clipboardData.setData("Text", text); 
-  } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+      return clipboardData.setData("Text", text);
+    } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
       var textarea = document.createElement("textarea");
       textarea.textContent = text;
       textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
       document.body.appendChild(textarea);
       textarea.select();
       try {
-          return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
       } catch (ex) {
-          console.warn("Copy to clipboard failed.", ex);
-          return false;
+        console.warn("Copy to clipboard failed.", ex);
+        return false;
       } finally {
-          document.body.removeChild(textarea);
+        document.body.removeChild(textarea);
       }
-  }
+    }
+  },
+  'click .ui.button.copy.embed': function () {
+    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink")
+    console.log(text)
+    if (window.clipboardData && window.clipboardData.setData) {
+      return clipboardData.setData("Text", text);
+    } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+      var textarea = document.createElement("textarea");
+      textarea.textContent = text;
+      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+      } catch (ex) {
+        console.warn("Copy to clipboard failed.", ex);
+        return false;
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
   }
 })
 

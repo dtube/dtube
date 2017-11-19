@@ -48,11 +48,11 @@
     </button>
     {{/if}}
   </div>
-  <div class="content comment">
-    {{#if comments.length}} 
+  {{#if comments.length}} 
+  <div class="content comment" style="margin-top:20px"> 
       {{#with comments}} 
         {{> subcomments}} 
       {{/with}} 
-    {{/if}}
   </div>
+  {{/if}}
 </template>

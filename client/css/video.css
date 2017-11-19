@@ -142,6 +142,10 @@
   display: inline-block;
 }
 
+.ui.button.hidden{
+    display:none;
+}
+
 
 
 .rrssb-buttons{box-sizing:border-box;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
