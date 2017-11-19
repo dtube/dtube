@@ -107,8 +107,10 @@
 	"VIDEO_UNSUBSCRIBE":"Unsubscribe",
 	"VIDEO_SUBSCRIBE":"Subscribe",
 	"VIDEO_ADDED_ON":"Added on",
-	"VIDEO_COMMENTS":"Comments",
-	"VIDEO_SHARE":"SHARE",
+  "VIDEO_COMMENTS":"Comments",
+  "VIDEO_EDIT":"EDIT VIDEO",
+  "VIDEO_SHARE":"SHARE",
+  "VIDEO_SUBMIT":"SUBMIT",
 	"VIDEO_RECOMMENDED_BY":"Recommended by",
 	"VIDEO_BE_THE_FIRST_TO_COMMENT":"Be the first to leave a comment !",
 	"VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT":"You need to login to leave a comment !",
@@ -116,5 +118,8 @@
   "VIDEO_DESCRIPTION_SHOW_LESS": "SHOW LESS",
 	"VIDEO_DESCRIPTION_SHARE": "SHARE",
   "VIDEO_COPY_PERMA_LINK": "Copy link",
-  "VIDEO_COPY_EMBED_LINK": "Copy Embed"
+  "VIDEO_COPY_EMBED_LINK": "Copy Embed",
+  "VIDEO_PERMA_LINK_COPIED": "Permalink successfully copied to your clipboard",
+  "VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
+  "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard"
 }

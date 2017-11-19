@@ -48,12 +48,12 @@
       <div id="sharesegment" class="ui segment subcommentsclosed" style="padding: 0px;border-width: 0;overflow: hidden; background: #f9f9f9;">
         <div>
           <div class="ui fluid action input" style="padding: 5px;">
-            <input type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
-            <div class="ui button copy">{{ translate 'VIDEO_COPY_PERMA_LINK'}}</div>
+            <input id="permalink" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
+            <div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>
           </div>
           <div class="ui fluid action input" style="padding: 5px;">
-            <input type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
-            <div class="ui button copy embed">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div>
+            <input id="embedlink" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
+            <div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div>
           </div>
         </div>
       </div>
@@ -67,6 +67,7 @@
                 {{info.author}}
               </a>
             </div>
+            {{#unless equals activeUser user.name}} 
             {{#if isLoggedOn}} 
             {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
@@ -97,6 +98,13 @@
               </a>
             </div>
             {{/if}}
+            {{else}}
+            <div class="ui labeled mini button" tabindex="0">
+                <div class="ui red mini button subscribe">
+                  <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
+                </div>
+              </div>
+            {{/unless}} 
           </div>
           <div class="videorightdetails">
             <div class='videopayout'>
@@ -139,14 +147,13 @@
             <div class="ui author" style="margin-top:5px;margin-right:10px;font-weight: 600;">{{activeUser}}</div>
           </div>
           <form class="ui reply form" style="width:100%;">
-
             <div class="field" style="width:100%;position:relative;display: inline-block;
                           vertical-align: top;">
               <textarea rows="3"></textarea>
             </div>
-            <div class="ui labeled submit icon button" style="position:relative;float:right;
+            <div class="ui right labeled submit icon button" style="position:relative;float:right;
                           vertical-align: top;">
-              <i class="icon talk"></i> SUBMIT
+              <i class="ui right icon talk"></i>{{ translate 'VIDEO_SUBMIT'}}
               <!-- {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}} -->
             </div>
           </form>
@@ -155,7 +162,8 @@
         <div style=" text-align: center;padding:10px;">
           <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
         </div>
-        {{/if}} {{> comments}}
+        {{/if}} 
+        {{> comments}}
       </div>
     </div>
   </div>

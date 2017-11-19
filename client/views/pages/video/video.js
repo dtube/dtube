@@ -231,7 +231,7 @@ Template.video.events({
     shareIsOpen = !shareIsOpen
   },
   'click .ui.button.copy': function () {
-    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink")
+    var text = document.getElementById('permalink').value;
     console.log(text)
     if (window.clipboardData && window.clipboardData.setData) {
       return clipboardData.setData("Text", text);
@@ -242,17 +242,18 @@ Template.video.events({
       document.body.appendChild(textarea);
       textarea.select();
       try {
-        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        return document.execCommand("copy");  // Security exception may be thrown by some browsers.      
       } catch (ex) {
-        console.warn("Copy to clipboard failed.", ex);
+        toastr.error('VIDEO_LINK_ERROR')
         return false;
       } finally {
+        toastr.success(translate('VIDEO_PERMA_LINK_COPIED'))                
         document.body.removeChild(textarea);
       }
     }
   },
-  'click .ui.button.copy.embed': function () {
-    var text = 'https://d.tube/v/' + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink")
+  'click .ui.button.copyembed': function () {
+    var text = document.getElementById('embedlink').value;
     console.log(text)
     if (window.clipboardData && window.clipboardData.setData) {
       return clipboardData.setData("Text", text);
@@ -265,9 +266,10 @@ Template.video.events({
       try {
         return document.execCommand("copy");  // Security exception may be thrown by some browsers.
       } catch (ex) {
-        console.warn("Copy to clipboard failed.", ex);
+        toastr.error('VIDEO_LINK_ERROR')
         return false;
       } finally {
+        toastr.success(translate('VIDEO_EMBED_LINK_COPIED'))                        
         document.body.removeChild(textarea);
       }
     }
