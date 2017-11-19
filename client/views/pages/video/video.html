@@ -90,8 +90,8 @@
             {{/if}}
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui mini button unsubscribe">
-                {{ translate 'VIDEO_UNSUBSCRIBE'}}
+              <div class="ui red mini button">
+                <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBERS'}}
               </div>
               <a class="ui basic label">
                 {{{subCount info.author}}}
@@ -160,7 +160,7 @@
         </div>
         {{else}}
         <div style=" text-align: center;padding:10px;">
-          <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
+          <a href="/login"><h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5></a>
         </div>
         {{/if}} 
         {{> comments}}
