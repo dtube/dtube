@@ -52,7 +52,7 @@
             <div class="ui button copy">{{ translate 'VIDEO_COPY_PERMA_LINK'}}</div>
           </div>
           <div class="ui fluid action input" style="padding: 5px;">
-            <input type="text" placeholder="Embed" value="" readonly>
+            <input type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
             <div class="ui button copy embed">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div>
           </div>
         </div>
