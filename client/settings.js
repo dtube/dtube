@@ -21,7 +21,7 @@ Meteor.settings.public = {
     ],
     "snapMaxFileSizeKB": 500
   },
-  "app": 'dtube/0.4',
+  "app": 'dtube/0.5',
   "beneficiary": "dtube",
   "pageTitleSeparator": '-',
   "appName": 'DTube',

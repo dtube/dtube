@@ -15,9 +15,19 @@ Template.newupload.createPermlink = function(length) {
   return text;
 }
 
-Template.newupload.HTTP = function(node, file, progressid, cb) {
-  var postUrl = 'http://195.154.183.40:5000/uploadVideo?videoEncodingFormats=480p&sprite=true'
-  //var postUrl = node.protocol+'://'+node.host+':'+node.port+'/api/v0/add?stream-channels=true'
+Template.newupload.genBody = function(author, permlink, title, snaphash, videohash, description) {
+  var body = '<center>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
+  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
+  body += description
+  body += '<hr>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ DTube</a><br />'
+  body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'> ▶️ IPFS</a>'
+  return body
+}
+
+Template.newupload.uploadVideo = function(file, progressid, cb) {
+  var postUrl = 'https://upldr1.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -57,19 +67,44 @@ Template.newupload.HTTP = function(node, file, progressid, cb) {
   });
 }
 
-Template.newupload.IPFS = function(node, file, cb) {
-  console.log(node,file)
-  var reader = new window.FileReader()
-  reader.onload = function(event) {
-    var ipfsCon = IpfsApi(node)
-    ipfsCon.add(new ipfsCon.Buffer(event.target.result), function(err, res) {
-      cb(err, res)
-    })
-  }
-  reader.readAsArrayBuffer(file);
+Template.newupload.uploadImage = function(file, progressid, cb) {
+  var postUrl = 'https://upldr1.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
+  var formData = new FormData();
+  formData.append('files', file);
+  $(progressid).progress({value: 0, total: 1})
+  $(progressid).show();
+  $.ajax({
+    url: postUrl,
+    type: "POST",
+    data: formData,
+    xhr: function() {
+      var xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          $(progressid).progress({ value: evt.loaded, total: evt.total });
+          if (evt.loaded == evt.total) {
+            $(progressid).progress({ value: evt.loaded, total: evt.total });
+            $('#progressvideo > .label').html('Snap Received...')
+          }
+        }
+      }, false);
+      return xhr;
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function(result) {
+      $(progressid).hide()
+      cb(null, result)
+    },
+    error: function(error) {
+      $(progressid).hide()
+      cb(error)
+    }
+  });
 }
 
-Template.newupload.uploadVideo = function(dt) {
+Template.newupload.inputVideo = function(dt) {
   if (!dt.files || dt.files.length == 0) {
     toastr.error(translate('UPLOAD_ERROR_UPLOAD_FILE'), translate('ERROR_TITLE'))
     return
@@ -80,19 +115,22 @@ Template.newupload.uploadVideo = function(dt) {
     return
   }
 
-  $('#step1load').show()
-
   $('#dropzone').hide()
+  $('#step1load').show()
   $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))
 
   // displaying the preview
   var videoNode = document.querySelector('video')
   var fileURL = URL.createObjectURL(file)
+  videoNode.addEventListener('durationchange', function(){
+		if(videoNode.readyState){
+      $('input[name="duration"]').val(videoNode.duration)
+		}
+	})
   videoNode.src = fileURL
 
   // uploading to ipfs
-  node = Session.get('ipfsUpload')
-  Template.newupload.HTTP(node, file, '#progressvideo', function(err, result) {
+  Template.newupload.uploadVideo(file, '#progressvideo', function(err, result) {
     $('#step1load').hide()
     if (err) {
       console.log(err)
@@ -110,47 +148,36 @@ Template.newupload.uploadVideo = function(dt) {
   })
 }
 
-Template.newupload.genBody = function(author, permlink, title, snaphash, videohash, description) {
-  var body = '<center>'
-  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
-  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
-  body += description
-  body += '<hr>'
-  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ '+translate('UPLOAD_WATCH_ON_DTUBE')+' DTube</a><br />'
-  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'> ▶️ '+translate('UPLOAD_WATCH_SOURCE_IPFS')+'</a>'
-  return body
-}
-
 Template.newupload.events({
   'click #dropzone': function(event) {
     $('#fileToUpload').click()
   },
   'change #fileToUpload': function(event) {
-    Template.newupload.uploadVideo(event.target)
+    Template.newupload.inputVideo(event.target)
   },
   'dropped #dropzone': function(event) {
-    Template.newupload.uploadVideo(event.originalEvent.dataTransfer)
+    Template.newupload.inputVideo(event.originalEvent.dataTransfer)
   },
   'click #snap': function(event) {
-      var video = document.querySelector('video')
-      var canvas = document.querySelector('canvas')
-      var context = canvas.getContext('2d')
-      var w,h,ratio
+    var video = document.querySelector('video')
+    var canvas = document.querySelector('canvas')
+    var context = canvas.getContext('2d')
+    var w,h,ratio
 
     // Calculate the ratio of the video's width to height
-        ratio = video.videoWidth / video.videoHeight
-        // Define the required width as 100 pixels smaller than the actual video's width
-        w = video.videoWidth - 100
-        // Calculate the height based on the video's width and the ratio
-        h = parseInt(w / ratio, 10)
-        // Set the canvas width and height to the values just calculated
-        canvas.width = w
-        canvas.height = h
+    ratio = video.videoWidth / video.videoHeight
+    // Define the required width as 100 pixels smaller than the actual video's width
+    w = video.videoWidth - 100
+    // Calculate the height based on the video's width and the ratio
+    h = parseInt(w / ratio, 10)
+    // Set the canvas width and height to the values just calculated
+    canvas.width = w
+    canvas.height = h
 
     // Define the size of the rectangle that will be filled (basically the entire element)
-        context.fillRect(0, 0, w, h)
-        // Grab the image from the video
-        context.drawImage(video, 0, 0, w, h)
+    context.fillRect(0, 0, w, h)
+    // Grab the image from the video
+    context.drawImage(video, 0, 0, w, h)
     // Save snap to disk
     var dt = canvas.toDataURL('image/jpeg')
     $('#snap').attr('href', dt)
@@ -171,7 +198,7 @@ Template.newupload.events({
 
     // uploading to ipfs
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    Template.newupload.HTTP(node, file, '#progresssnap', function(err, result) {
+    Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
       $('#step2load').hide()
       if (err) {
         console.log(err)

@@ -14,6 +14,11 @@ Template.uploadform.helpers({
 })
 
 Template.uploadform.events({
+    'click .external': function(event) {
+      var hash = $(event.currentTarget).parent().next()[0].value
+      if (hash && hash.length > 40)
+        window.open('https://ipfs.io/ipfs/'+hash)
+    },
     'click .advanced': function(event) {
       $('.advancedupload').toggle()
     },
@@ -23,25 +28,26 @@ Template.uploadform.events({
     'click .uploadsubmit': function(event) {
       event.preventDefault()
       var tags = ['dtube']
-      for (var i = 0; i < event.target.tags.value.split(' ').length; i++) {
-        if (i > 3) break
-        if (event.target.tags.value.split(' ')[i].toLowerCase() == 'nsfw') tags.push('nsfw')
-        tags.push('dtube-'+event.target.tags.value.split(' ')[i])
+      var form = document.getElementsByClassName('uploadform')[0]
+      for (var i = 0; i < form.tags.value.split(',').length; i++) {
+        tags.push(form.tags.value.split(',')[i].toLowerCase())
+        tags.push('dtube-'+form.tags.value.split(',')[i].toLowerCase())
       }
-      tags = tags.slice(0,5)
       var article = {
         info: {
-          title: event.target.title.value,
-          snaphash: event.target.snaphash.value,
+          title: form.title.value,
+          snaphash: form.snaphash.value,
           author: Users.findOne({username: Session.get('activeUsername')}).username,
           permlink: Template.newupload.createPermlink(8),
-          duration: document.querySelector('video').duration,
-          filesize: event.target.filesize.value
+          duration: form.duration.value,
+          filesize: form.filesize.value,
+          spritehash: form.spritehash.value
         },
         content: {
-          videohash: event.target.videohash.value,
-          magnet: event.target.magnet.value,
-          description: event.target.description.value,
+          videohash: form.videohash.value,
+          video480hash: form.video480hash.value,
+          magnet: form.magnet.value,
+          description: form.description.value,
           tags: tags
         }
       }
@@ -69,7 +75,12 @@ Template.uploadform.events({
         var author = r.article.info.author
         var permlink = r.article.info.permlink
         var title = r.article.info.title
-        var body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
+        var body = form.body.value
+        if (!body || body.length < 1)
+          body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
+        else
+          body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, body)
+        
         var jsonMetadata = {
           video: r.article,
           tags: article.content.tags,

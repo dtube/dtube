@@ -1,6 +1,6 @@
 <template name='uploadform'>
     <div id="infozone">
-        <form class="ui form">
+        <form class="ui form uploadform">
           <div class="field">
             <label>{{ translate 'UPLOAD_TITLE'}}</label>
             <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
@@ -37,25 +37,25 @@
             </div>
             <div class="two fields">
               <div class="field">
-                <label>{{ translate 'UPLOAD_VIDEOHASH'}}</label>
+                <label>{{ translate 'UPLOAD_VIDEOHASH'}} <i class="external icon"></i></label>
                 <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}">
               </div>
               <div class="field">
-                <label>{{ translate 'UPLOAD_VIDEO480HASH'}}</label>
+                <label>{{ translate 'UPLOAD_VIDEO480HASH'}} <i class="external icon"></i></label>
                 <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}">
               </div>
             </div>
             <div class="two fields">
               <div class="field">
-                <label>{{ translate 'UPLOAD_SNAPHASH'}}</label>
+                <label>{{ translate 'UPLOAD_SNAPHASH'}} <i class="external icon"></i></label>
                 <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}">
               </div>
               <div class="field">
-                <label>{{ translate 'UPLOAD_SPRITEHASH'}}</label>
+                <label>{{ translate 'UPLOAD_SPRITEHASH'}} <i class="external icon"></i></label>
                 <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}">
               </div>
             </div>
-            <div class="two fields">
+            <div class="three fields">
               <div class="field">
                 <label>{{ translate 'UPLOAD_MAGNET'}}</label>
                 <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}">
@@ -63,6 +63,10 @@
               <div class="field">
                 <label>{{ translate 'UPLOAD_FILESIZE'}}</label>
                 <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}">
+              </div>
+              <div class="field">
+                <label>{{ translate 'UPLOAD_DURATION'}}</label>
+                <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}">
               </div>
             </div>            
             <br /><br />

@@ -126,7 +126,7 @@ Template.video.events({
       permlink: $(event.target).data('permlink')
     })
   },
-  'click .submit': function () {
+  'click .submit': function (event) {
     if (!Session.get('replyingTo')) return;
     var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var parentAuthor = Session.get('replyingTo').author
@@ -134,9 +134,9 @@ Template.video.events({
     var author = Users.findOne({ username: Session.get('activeUsername') }).username
     var permlink = Template.upload.createPermlink(9)
     var title = permlink
-    var body = $('textarea')[0].value
+    var body = $(event.currentTarget).prev().children()[0].value
     var jsonMetadata = {
-      app: 'dtube'
+      app: Meteor.settings.public.app
     }
     steem.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, result) {
       console.log(err, result)

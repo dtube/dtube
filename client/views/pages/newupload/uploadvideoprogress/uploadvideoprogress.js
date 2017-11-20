@@ -6,7 +6,7 @@ Template.uploadvideoprogress.helpers({
 
 Template.uploadvideoprogress.update = function() {
   var token = Session.get('uploadToken')
-  var url = 'http://195.154.183.40:5000/getProgressByToken/'+token
+  var url = 'https://upldr1.d.tube/getProgressByToken/'+token
   $.getJSON(url, function( data ) {
     Session.set('uploadVideoProgress', data)
 
@@ -28,6 +28,11 @@ Template.uploadvideoprogress.update = function() {
     }
     if (isCompleteUpload) {
       clearInterval(refreshUploadStatus)
+
+      $('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
+      $('input[name="video480hash"]').val(data.encodedVideos[0].ipfsAddEncodeVideo.hash)
+      $('input[name="spritehash"]').val(data.sprite.ipfsAddSprite.hash)
+
       Session.set('uploadVideoProgress', null)
       $('#step1load').parent().addClass('completed')
     }
