@@ -6,12 +6,13 @@
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
       <!-- Title, Vote - Share - More  -->
       <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
-        <div class="info" style="display: grid;">
+        <div class="ui grid info" style="display: grid;">
           <div class="videotitlecontainer">
             <h1 class="videotitle">{{info.title}}</h1>
           </div>
-          <div class="videovotecontainer">
-            <div style="display: inline-block;" class="button icon">
+          <div class="ui videovotecontainer right floated">
+             {{> videosettingsdropdown}}
+            <div style="float: right;" class="button icon bottom aligned ">
               {{#if hasUpvoted video}}
               <button class="ui icon button upvote votebutton">
                 <i class="thumbs up icon red"></i>
@@ -34,17 +35,16 @@
               </button>
               {{/if}}
             </div>
-            <button class="ui share basic button" style="width: 113px; margin-left: -5px;   margin-right: 0px;  border-style: solid;
-            border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+            <!-- <button class="ui share basic button" style="width: 113px; margin-left: -5px;   margin-right: 0px;  border-style: solid;
+                           border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
               <i class="icon share"></i>
               {{ translate 'VIDEO_SHARE'}}
-            </button>
-            {{> videosettingsdropdown}}
+            </button> -->
           </div>
         </div>
       </div>
       <!-- Share content including all socials network and copy link button -->
-      {{updateShareLinks}}
+      <!-- {{updateShareLinks}}
       <div id="sharesegment" class="ui segment subcommentsclosed" style="padding: 0px;border-width: 0;overflow: hidden; background: #f9f9f9;">
         <div>
           <div class="ui fluid action input" style="padding: 5px;">
@@ -56,7 +56,7 @@
             <div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
       <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
         <div class="details" style="width:100%;">

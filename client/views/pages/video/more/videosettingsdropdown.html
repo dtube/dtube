@@ -1,12 +1,24 @@
 <template name='videosettingsdropdown'>
-  <div class="ui pointing item dropdown dropdownvideosettings  right floated" style="margin-bottom: 0px;padding-right: 0px;    padding-left: 0px;
+  <div class="ui pointing item dropdown dropdownvideosettings  right floated" style="float: right;margin-bottom: 0px;padding-right: 0px;    padding-left: 0px;
   padding-bottom: 0px;">
-    <button class="ui icon button" style="    font-size: 0.9rem;border-style: solid;background: transparent none !important;  margin-left: -5px;  margin-right: 0px;
+    <button class="ui icon button" style="    font-size: 1.4rem;border-style: solid;background: transparent none !important;  margin-right: 0px;
       border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
-      <i class="ellipsis horizontal icon"></i>
+      <i class="ellipsis horizontal icon" style="margin-top: -5px;"></i>
     </button>
     <!-- <i class="ellipsis horizontal icon videohmore"></i> -->
     <div class="menu">
+      <div class="item copylink">
+        <span class="customlink">
+          <i class="share icon"></i>{{ translate 'VIDEO_COPY_PERMA_LINK'}}</span>
+        <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
+        <!--<div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>   -->
+      </div>
+      <div  class="item copyembed">
+        <span class="customlink">
+          <i class="share icon"></i>{{ translate 'VIDEO_COPY_EMBED_LINK'}}</span>
+        <input id="embedlink" style="width:0px;visibility:hidden;" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
+        <!--<div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div> -->
+      </div>
       <div class="item">
         <a>
           <span class="customlink">
