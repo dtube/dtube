@@ -30,9 +30,32 @@ Template.videoslider.createSlick = function (elemId) {
       autoplay: false,
       dots: false,
       arrows: false,
-      slidesToShow: 2,
+      slidesToShow: 3,
       focusOnSelect: false,
-      slidesToScroll: 2,
+      slidesToScroll: 3,
+      responsive: [
+        {
+          breakpoint: 700,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 499,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 299,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
     });
     console.log('slider done')
   }
