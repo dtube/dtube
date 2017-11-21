@@ -86,6 +86,10 @@ Template.uploadform.events({
           tags: article.content.tags,
           app: Meteor.settings.public.app
         }
+
+        var percent_steem_dollars = 10000
+        if (form.powerup && form.powerup.checked)
+          percent_steem_dollars = 0
   
         var operations = [
           ['comment',
@@ -103,7 +107,7 @@ Template.uploadform.events({
             author: author,
             permlink: permlink,
             max_accepted_payout: '1000000.000 SBD',
-            percent_steem_dollars: 10000,
+            percent_steem_dollars: percent_steem_dollars,
             allow_votes: true,
             allow_curation_rewards: true,
             extensions: [

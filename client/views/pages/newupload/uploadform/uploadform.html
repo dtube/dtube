@@ -3,11 +3,12 @@
         <form class="ui form uploadform">
           <div class="field">
             <label>{{ translate 'UPLOAD_TITLE'}}</label>
-            <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
+            <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}" 
+              value="{{info.title}}">
           </div>
           <div class="field">
             <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
-            <textarea rows="4" name='description'></textarea>
+            <textarea rows="4" name='description'>{{content.description}}</textarea>
           </div>
           <div class="field">
             <label>{{ translate 'UPLOAD_TAGS'}}</label>
@@ -72,6 +73,7 @@
             <br /><br />
 
             {{> uploadformsubmit}}
+            <br /><br />
           </div>
         </form>
     </div>

@@ -222,7 +222,7 @@ Template.video.events({
     Session.set('isShareOpen', !Session.get('isShareOpen'))
   },
   'click .editvideo': function() {
-
+    $('#editvideosegment').toggle()
   }
 })
 
