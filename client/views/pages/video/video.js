@@ -1,12 +1,12 @@
 var isLoadingState = false
-var descriptionIsOpen = false
-var shareIsOpen = false
-var rrssb = require('rrssb')
+//var rrssb = require('rrssb')
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
   $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
   $('body').animate({ scrollTop: 0 }, 'slow');
+  Session.set('isShareOpen', false)
+  Session.set('isDescriptionOpen', false)
 }
 
 Template.video.helpers({
@@ -104,9 +104,6 @@ Template.video.events({
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
       Template.video.loadState()
     });
-    // Template.video.pinFile(author, permlink, function (e, r) {
-    //   console.log(e, r)
-    // })
   },
   'click .downvote': function (event) {
     var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
@@ -171,10 +168,6 @@ Template.video.events({
       'follow',
       json,
       function (err, result) {
-        // alternative, inutile jusqua preuve du contraire
-        // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
-        //   SubCounts.upsert({_id: r.account}, r)
-        // })
         if (err)
           toastr.error(Meteor.blockchainError(err))
 
@@ -209,38 +202,33 @@ Template.video.events({
     );
   },
   'click .description': function () {
-    if (descriptionIsOpen == true) {
+    if (Session.get('isDescriptionOpen')) {
       $('#descriptionsegment').addClass('closed');
       $('#showmore').removeClass('hidden');
       $('#showless').addClass('hidden');
-    }
-    else {
+    } else {
       $('#descriptionsegment').removeClass('closed');
       $('#showmore').addClass('hidden');
       $('#showless').removeClass('hidden');
     }
-    descriptionIsOpen = !descriptionIsOpen
+    Session.set('isDescriptionOpen', !Session.get('isDescriptionOpen'))
   },
   'click .ui.share': function () {
-    if (shareIsOpen == true) {
+    if (Session.get('isShareOpen'))
       $('#sharesegment').addClass('subcommentsclosed');
-    }
-    else {
+    else
       $('#sharesegment').removeClass('subcommentsclosed');
-    }
-    shareIsOpen = !shareIsOpen
+
+    Session.set('isShareOpen', !Session.get('isShareOpen'))
+  },
+  'click .editvideo': function() {
+
   }
 })
 
 Template.video.setTime = function (seconds) {
   $('video')[0].currentTime = seconds
 }
-
-// Template.video.startPlayer = function (videoGateway, snapGateway) {
-//   $('.ui.embed').embed({
-//     url: "https://skzap.github.io/embedtube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true/" + videoGateway + "/" + snapGateway
-//   });
-// }
 
 Template.video.loadState = function () {
   if (isLoadingState) return
