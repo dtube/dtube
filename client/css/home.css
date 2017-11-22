@@ -11,6 +11,14 @@
   color: #212121;
 }
 
+.videosnap:hover {
+  display: inline-block;
+  margin-bottom: 8px;
+  vertical-align:top;
+  max-width: 210px;
+  color: #212121;
+}
+
 .verticalvideosnap {
   /* margin-right: 4px; */
   display: inline-block;
@@ -25,6 +33,7 @@
   color: grey;
   text-decoration-color: grey;
   text-align: left;
+  padding-left: 2px;
 }
 
 .videosnaprest {
@@ -33,6 +42,7 @@
   clear: none; 
   color: #0A1627;
   text-decoration-color: #0066FF;
+  margin-right: 5px;
 }
 
 .videosnapmore {
@@ -59,11 +69,12 @@
 }
 
 .videosnaptime {
-  font-size: 0.9rem; 
-  float: left;
-  clear: none; 
   color: grey;
+  -webkit-text-decoration-color: grey;
   text-decoration-color: grey;
+  margin-right: 5px;
+  font-size: 0.9em;
+  float: right;
   margin-left: 5px;
 }
 
@@ -78,6 +89,7 @@
   display: -webkit-box;
   line-height: 1.3em;
   max-height: 2.4em;
+  padding: 0px 2px;
 }
 
 .verticalvideosnaptitle {
@@ -104,6 +116,12 @@
   position: relative;
   height:90px;
   margin-bottom: 5px;
+}
+
+.videosnapdetails{
+  padding-left: 2px;
+  bottom: 10px;
+  display: inline-flex;
 }
 
 #img

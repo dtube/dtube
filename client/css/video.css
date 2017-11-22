@@ -108,6 +108,38 @@
   right: 0px;
 }
 
+.videoshowmore
+{
+  margin-right: 0px!important;  
+  border-style: solid!important;
+  background: transparent!important;
+  border-width: 0px 0px 0px 0px!important; 
+  border-radius:0px!important; 
+  box-shadow:none!important;
+  -webkit-box-shadow: none!important;
+  border-color: rgba(34, 36, 38, 0.15)!important;
+}
+
+.videorecommendedcomputer{
+  width:350px!important;
+  padding-left:20px!important;
+  display: inline-block!important;
+  margin-top:0px!important;
+}
+
+.videorecommendedtablet{
+  float: left;
+  text-align: left;
+  width:100%;
+  margin-top:10px;
+}
+
+.videorecommendedmobile{
+  text-align: left;
+  width:100%;
+  margin:5px
+}
+
 .ui.content{
   margin-top: 15px;
 }

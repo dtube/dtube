@@ -5,7 +5,7 @@
     {{> player}}
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
       <!-- Title, Vote - Share - More  -->
-      <div class="ui segment" style="padding-right: 0px !important;    padding-bottom: 0px !important;">
+      <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
         <div class="ui grid info" style="display: grid;">
           <div class="videotitlecontainer">
             <h1 class="videotitle">{{info.title}}</h1>
@@ -29,7 +29,7 @@
               {{downvotes active_votes}}
               </button>
               {{else}}
-              <button class="ui icon button downvote votebutton">
+              <button class="ui icon button downvote votebutton"> 
                 <i class="thumbs down icon"></i>
                 <span>{{downvotes active_votes}}</span>
               </button>
@@ -112,7 +112,7 @@
         {{> uploadform}}
       </div>
       <!-- Syntaxed video description - Show More -->
-      <div id="descriptionsegment" class="ui segment closed descriptionsegment" style="overflow: hidden;      margin-bottom: 10px;   width: 100%;">
+      <div id="descriptionsegment" class="ui segment closed descriptionsegment" style="overflow: hidden;margin-bottom: 10px;width:100%;">
         <div class="truncate" style="overflow: hidden;">
           <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
           <br/> {{{syntaxed content.description}}}
@@ -121,15 +121,13 @@
       {{#if hasMoreThan4Lines}}
       <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
         <div id="showmore" style="text-align: center;">
-          <button class="ui button " style="margin-right: 0px;  border-style: solid;     background: transparent;
-        border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+          <button class="ui button videoshowmore">
             {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
           </button>
           <i class="ui icon angle down"></i>
         </div>
         <div id="showless" class="hidden" style="text-align: center;">
-          <button class="ui button" style="margin-right: 0px;  border-style: solid;     background: transparent;
-        border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+          <button class="ui button videoshowmore" >
             {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
           </button>
           <i class="ui icon angle up"></i>
@@ -172,16 +170,16 @@
     </div>
   </div>
   <!-- Recommended videos  -->
-  <div class="ui grid computer only" style="width:350px !important;padding-left:20px;display: inline-block;margin-top:0px;">
+  <div class="ui grid computer only videorecommendedcomputer" >
     <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
     {{#if userVideosAndResteems}} {{> videoband userVideosAndResteems}} {{/if}}
   </div>
   {{#if userVideosAndResteems}}
-  <div class="ui container grid tablet only content" style="float: left;text-align: left;width:100%;margin-top:10px;">
+  <div class="ui container grid tablet only content videorecommendedtablet">
     <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
   </div>
-  <div class="ui grid mobile only content" style="text-align: left;width:100%;margin:5px">
+  <div class="ui grid mobile only content videorecommendedmobile">
     <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
   </div>
