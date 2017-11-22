@@ -18,9 +18,9 @@ Template.newupload.createPermlink = function(length) {
 Template.newupload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
   body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
-  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
+  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>\n\n'
   body += description
-  body += '<hr>'
+  body += '\n\n<hr>'
   body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ DTube</a><br />'
   body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'> ▶️ IPFS</a>'
   return body

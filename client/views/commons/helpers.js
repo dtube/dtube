@@ -111,6 +111,7 @@ Template.registerHelper('timeDisplay', function(created) {
 })
 
 Template.registerHelper('durationDisplay', function(seconds) {
+  seconds = parseFloat(seconds)
   var time = moment.duration(seconds, 'seconds')
   var formatted
   if (time._data.seconds > 9) {

@@ -13,7 +13,7 @@
           <div class="field">
             <label>{{ translate 'UPLOAD_TAGS'}}</label>
             <div class="ui fluid multiple search selection dropdown">
-              <input name="tags" type="hidden">
+              <input name="tags" type="hidden" value="{{inputTags content.tags}}">
               <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
             </div>
           </div>
@@ -27,47 +27,58 @@
           <div class="field advancedupload" style='display: none'>
             <div class="field">
               <label>{{ translate 'UPLOAD_BODY_STEEM'}}</label>
-              <textarea rows="10" name='body'></textarea>
+              <textarea rows="10" name='body'>{{body}}</textarea>
             </div>
-            <div class="inline field">
-              <div class="ui slider checkbox">
-                <input type="checkbox" name="powerup">
-                <label>{{ translate 'UPLOAD_POWER_UP'}}</label>
+            {{#if info.title}}
+              <input type="hidden" name="permlink" value="{{info.permlink}}">
+            {{else}}
+              <div class="inline field">
+                <div class="ui slider checkbox">
+                  <input type="checkbox" name="powerup">
+                  <label>{{ translate 'UPLOAD_POWER_UP'}}</label>
+                </div>
+                <label></label>
               </div>
-              <label></label>
-            </div>
+            {{/if}}
             <div class="two fields">
               <div class="field">
                 <label>{{ translate 'UPLOAD_VIDEOHASH'}} <i class="external icon"></i></label>
-                <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}">
+                <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}"
+                  value="{{content.videohash}}">
               </div>
               <div class="field">
                 <label>{{ translate 'UPLOAD_VIDEO480HASH'}} <i class="external icon"></i></label>
-                <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}">
+                <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}"
+                  value="{{content.video480hash}}">
               </div>
             </div>
             <div class="two fields">
               <div class="field">
                 <label>{{ translate 'UPLOAD_SNAPHASH'}} <i class="external icon"></i></label>
-                <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}">
+                <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}"
+                value="{{info.snaphash}}">
               </div>
               <div class="field">
                 <label>{{ translate 'UPLOAD_SPRITEHASH'}} <i class="external icon"></i></label>
-                <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}">
+                <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}"
+                value="{{info.spritehash}}">
               </div>
             </div>
             <div class="three fields">
               <div class="field">
                 <label>{{ translate 'UPLOAD_MAGNET'}}</label>
-                <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}">
+                <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}"
+                value="{{content.magnet}}">
               </div>
               <div class="field">
                 <label>{{ translate 'UPLOAD_FILESIZE'}}</label>
-                <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}">
+                <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}"
+                value="{{info.filesize}}">
               </div>
               <div class="field">
                 <label>{{ translate 'UPLOAD_DURATION'}}</label>
-                <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}">
+                <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}"
+                value="{{info.duration}}">
               </div>
             </div>            
             <br /><br />
@@ -80,7 +91,13 @@
 </template>
 
 <template name="uploadformsubmit">
-  <button class="ui red right labeled icon button uploadsubmit" type="button"><i class="checkmark icon"></i>
-    {{ translate 'UPLOAD_SUBMIT'}}
-  </button>
+  {{#if info.title}}
+    <button class="ui blue right labeled icon button editsubmit" type="button"><i class="checkmark icon"></i>
+      {{ translate 'VIDEO_EDIT'}}
+    </button>
+  {{else}}
+    <button class="ui red right labeled icon button uploadsubmit" type="button"><i class="checkmark icon"></i>
+      {{ translate 'UPLOAD_SUBMIT'}}
+    </button>
+  {{/if}}
 </template>
