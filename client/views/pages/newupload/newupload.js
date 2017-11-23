@@ -71,6 +71,7 @@ Template.newupload.uploadVideo = function(file, progressid, cb) {
       refreshUploadStatus = setInterval(function() {
         Template.uploadvideoprogress.update()
       }, 1000)
+      Template.uploadvideoprogress.update()
       cb(null, result)
     },
     error: function(error) {
