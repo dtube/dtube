@@ -10,7 +10,6 @@ Template.uploadvideoprogress.update = function() {
   $.getJSON(url, function( data ) {
     Session.set('uploadVideoProgress', data)
 
-
     // if upload is finished, we stop updating the progress
     var isCompleteUpload = true
     for (var i = data.encodedVideos.length-1; i >= 0; i--) {

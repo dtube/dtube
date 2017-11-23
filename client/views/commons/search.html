@@ -1,9 +1,9 @@
 <template name='search'>
-  <div class="ui segment">
+  <div class="ui segment" style="max-width: 800px;
+  margin: auto;">
   {{#if isOnMobile }}
   <div class="ui content" style="padding-left:10px;padding-right:10px;">
-    <div style="
-    display: inline-flex;">
+    <div style="display: inline;">
         <h2 class='gray'>
             {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
           {{lengthOf search.response.results}} {{#if isPlural search.response.results}} 
@@ -14,18 +14,19 @@
             {{ translate 'SEARCH_RESULTS_FOR'}} 
             {{search.query}}
           </h2>
-      <div class="ui mini top right floated" style="float:right;">
+      <div class="ui mini top right floated" style="float:right;right:20px;">
         <a href='https://www.asksteem.com/' target='_blank'>
           <img class="ui mini top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
         </a>
       </div>
     </div>
-    {{#each search.response.results}} {{> mobilevideosearchresult}} {{/each}}
+    {{#each search.response.results}} 
+    {{> mobilevideosearchresult}} 
+    {{/each}}
   </div>
   {{else}}
   <div class="ui content container">
-    <div style="
-    display: inline-flex;">
+    <div style="display: inline-flex;">
         <h2 class='gray'>
             {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
             {{lengthOf search.response.results}} {{#if isPlural search.response.results}} 
@@ -36,9 +37,9 @@
               {{ translate 'SEARCH_RESULTS_FOR'}} 
               {{search.query}}
             </h2>
-        <div class="ui mini top right floated" style="float:right;">
+        <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;position: absolute;">
           <a href='https://www.asksteem.com/' target='_blank'>
-            <img class="ui mini top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+            <img class="ui small top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
           </a>
         </div>
       </div>

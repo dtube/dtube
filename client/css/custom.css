@@ -7,3 +7,8 @@ display: none;
 {
 width: 50%;
 }
+
+.ui.progress
+{
+  text-align: left;
+}

@@ -1,37 +1,37 @@
 <template name='videosearchresult'>
     {{#unless isNSFWFullyHidden this}}
-    <div class='verticalvideosnap' style="width:100%;display:flex;">
-      <div style="width:260px;height:100%px;float: left;position:relative;">
+    <div class='verticalvideosnap' style="width:100%;display:-webkit-box;">
+      <div style="height:100%px;">
         <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
           <div class='verticalvideosnapsnap' style="height:auto;">
             <!-- {{#if duration}}
               <span class="videosnapduration">{{durationDisplay duration}}</span>
             {{/if}} -->
             {{#if isNSFW this}}
-            <img id="snapimg" height="100%" width="260" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
+            <img id="snapimg" height="118" width="210" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
             <br /> {{else}}
-            <img id="snapimg" height="100%" width="260" alt="" src="{{ipfsSrc meta.video.info.snaphash}}">
+            <img id="snapimg" height="118" width="210" alt="" src="{{ipfsSrc meta.video.info.snaphash}}">
             <br /> {{/if}}
           </div>  
         </a> 
       </div>
-      <div style="position:relative;text-align:left;width:60%;margin-left: 8px;">
+      <div style="position:relative;text-align:left;width:60%;margin-left: 8px;min-width:200px;">
         <div class="boxdisplayer">
           <div class='verticalvideosnaptitle' style="font-size: 1.2em;">
             <a href='/v/{{author}}/{{permlink}}'>
               <span class="customlink">{{title}}</span>
             </a>
+            <div class='videosnapdetails'>
+                <div class='videosnaptime'>
+                  {{timeAgo created}}
+                </div>
+              </div>
           </div>
         </div>
         <div class='videosnapauthor' style="font-size: 1em;">
           <a href='/c/{{author}}'>
             <span class="customlink">{{author}}</span>
           </a>
-        </div>
-        <div class='videosnapdetails'>
-          <div class='videosnaptime'>
-            {{timeAgo created}}
-          </div>
         </div>
       </div>
     </div>

@@ -27,6 +27,17 @@ Template.newupload.helpers({
   }
 });
 
+// Template.newupload.rendered = function () {
+//   Template.newupload.isOnTablet();
+//   $(window).on('resize', Template.newupload.isOnTablet)
+// }
+
+// Template.newupload.isOnTablet = function () {
+//   if ($(window).width() < 992) 
+//      return true
+//   else 
+//      return false
+// }
 
 Template.newupload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
