@@ -4,6 +4,9 @@ Template.uploadvideoprogress.helpers({
     }
 })
 
+Template.uploadvideoprogress.rendered = function() {
+  $('.initbar').progress();
+}
 Template.uploadvideoprogress.update = function() {
   var token = Session.get('uploadToken')
   var url = 'https://upldr1.d.tube/getProgressByToken/'+token
