@@ -267,3 +267,7 @@ Template.registerHelper('getEmbedCode', function(author, permlink) {
   code = code.replace('@@@permlink@@@', permlink)
   return code
 })
+
+Template.registerHelper('getPercent', function(string) {
+  return parseInt(string)
+})
