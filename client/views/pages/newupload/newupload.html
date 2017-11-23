@@ -1,72 +1,105 @@
 <template name='newupload'>
-    <div class="ui container">
-      <center>
-          <h1 style="color:red;">NEW UPLOADER</h1>
-        <div id="statuszone">
-          <div class="ui ordered steps">
-            <div class="step">
-              <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+  <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
+    <center>
+      <div class="ui segment noshadow">
+        <!-- <h1 style="color:red;">NEW UPLOADER</h1> -->
+        {{#if isOnMobile}} 
+            <div id="statuszone" style="margin:10 0px;">
+              <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
+                <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+                  <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
+                  <div class="content">
+                    <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
+                    <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+                  </div>
+                </div>
+                <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+                  <div id="step2load"  class="ui indeterminate small inline loader" style='display: none'></div>
+                  <div class="content">
+                    <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
+                    <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+                  </div>
+                </div>
+                <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+                  <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
+                  <div class="content">
+                    <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
+                    <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="step">
-              <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+            {{else}}
+            <div id="statuszone" style="margin:10 0px;">
+                <div class="ui ordered steps" style="width: 100%;    border-width: 0px;">
+                  <div class="step" >
+                    <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
+                    <div class="content">
+                      <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
+                      <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+                    </div>
+                  </div>
+                  <div class="step" >
+                    <div id="step2load"  class="ui indeterminate small inline loader" style='display: none'></div>
+                    <div class="content">
+                      <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
+                      <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+                    </div>
+                  </div>
+                  <div class="step" >
+                    <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
+                    <div class="content">
+                      <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
+                      <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="step">
-              <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+              {{/if}}
+        <!-- {{> circularprogressbar}} -->
+        <!-- $('.radial-progress').attr('data-progress', value); -->
+        <div class="ui active progress" id='progressvideo' style='display:none'>
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+          <div class="label">Uploading Video</div>
+        </div>
+        <div class="ui active progress" id='progresssnap' style='display:none'>
+          <div class="bar">
+            <div class="progress"></div>
+          </div>
+          <div class="label">Uploading Snap</div>
+        </div>
+        {{> uploadvideoprogress}}
+          <br />
+          <div id="dropzone" class="dropzone"> 
+            <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
+          </div>
+          <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
+        <div id="previewzone">
+          <div class="ui grid">
+            <div class="two column row">
+              <div class="column">
+                <video controls autoplay style="width:100%;"></video>
+                <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
+              </div>
+              <div class="column">
+                <canvas></canvas>
               </div>
             </div>
           </div>
+          <div style="text-align:left;">
+          <a class='ui videoshowmore icon left labeled  button' style=" border-width:1px!important;padding-left: 3.27142857em !important;" id='snap' download='snap.jpg'>
+            <i class="photo icon"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>
+          <label for="snapFile">
+            <a class='ui youtube videoshowmore icon right labeled button' style="background:#ff1a1a!important;padding-right: 3.27142857em !important;" id='uploadSnap'>
+              <i class="cloud upload icon"></i> {{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
+          </label>
+          <input type="file" id="snapFile">
         </div>
-      </center>
-      <!-- {{> circularprogressbar}} -->
-      <!-- $('.radial-progress').attr('data-progress', value); -->
-      <div class="ui active progress" id='progressvideo' style='display:none'>
-        <div class="bar">
-          <div class="progress"></div>
         </div>
-        <div class="label">Uploading Video</div>
+        {{> uploadform}}
       </div>
-      <div class="ui active progress" id='progresssnap' style='display:none'>
-        <div class="bar">
-          <div class="progress"></div>
-        </div>
-        <div class="label">Uploading Snap</div>
-      </div>
-      {{> uploadvideoprogress}}
-      <center>
-        <br />
-        <div id="dropzone" class="dropzone">
-          <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
-        </div>
-        <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
-      </center>
-      <div id="previewzone">
-        <div class="ui grid">
-          <div class="two column row">
-            <div class="column">
-              <video controls autoplay></video>
-              <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
-            </div>
-            <div class="column"><canvas></canvas></div>
-          </div>
-        </div>
-        <a class='ui button' id='snap' download='snap.jpg'><i class="photo icon"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>
-        <label for="snapFile">
-          <a class='ui youtube button' id='uploadSnap'><i class="cloud upload icon"></i> {{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
-        </label>
-        <input type="file" id="snapFile">
-      </div>
-      {{> uploadform}}
-    </div>
-    </template>
-    
+    </center>
+  </div>
+</template>

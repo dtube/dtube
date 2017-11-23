@@ -3,6 +3,10 @@ refreshUploadStatus = null
 Template.newupload.rendered = function() {
   Session.set('uploadToken', null)
   Session.set('uploadVideoProgress', null)
+  $('.ui.sticky')
+  .sticky({
+    context: '#videouploadsteps'
+  }) ;
 }
 
 Template.newupload.createPermlink = function(length) {
@@ -14,6 +18,15 @@ Template.newupload.createPermlink = function(length) {
 
   return text;
 }
+
+Template.newupload.helpers({
+  isOnMobile: function () {
+      if (/Mobi/.test(navigator.userAgent)) {
+          return true;
+      }
+  }
+});
+
 
 Template.newupload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'

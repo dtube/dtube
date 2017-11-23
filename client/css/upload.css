@@ -2,9 +2,11 @@
   font-size: 18px;
   text-align: center;
   color: gray;
-  width: 400px;
-  height: 260px;
+  width: 100%;
+  max-width: 360px;
+  height: 280px;
   border: 5px solid red;
+  border-radius: 10px;
 }
 #dropzone > div {
   margin-left: auto;

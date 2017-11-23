@@ -308,6 +308,10 @@ button {
   border-radius: 0;
 }
 
+.ui.onepborder{
+  border-width: 1px!important;
+}
+
 .mobiletopbar{ 
   height:52px;
   z-index:9000;
