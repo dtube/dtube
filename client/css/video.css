@@ -137,7 +137,7 @@
 .videorecommendedmobile{
   text-align: left;
   width:100%;
-  margin:5px
+  margin:5px!important;
 }
 
 .ui.content{

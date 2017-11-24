@@ -67,35 +67,39 @@
                 {{info.author}}
               </a>
             </div>
-            {{#unless equals activeUser user.name}} {{#if isLoggedOn}} {{#if isSubscribedTo info.author}}
+            {{#unless equals activeUser user.name}} 
+            {{#if isLoggedOn}}
+             {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui mini button unsubscribe">
-                {{ translate 'VIDEO_UNSUBSCRIBE'}}
+              <div class="ui mini icon button left labeled unsubscribe videoshowmore" style="border-width:1px!important;padding-left: 33px!important;padding-right: 10px!important;" >
+                  <i class="stop icon"></i>{{ translate 'VIDEO_UNSUBSCRIBE'}}
               </div>
-              <a class="ui basic label">
+              <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
             </div>
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red mini button subscribe">
+              <div class="ui red icon mini left labeled button subscribe videoshowmore" style="background:#ff1a1a!important;padding-left: 33px!important;">
                 <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
               </div>
-              <a class="ui basic label">
+              <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}} {{else}}
+            {{/if}} 
+            {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red mini button">
+              <div class="ui red mini icon button left icon labeled videoshowmore" style="background:#ff1a1a!important;">
                 <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBERS'}}
               </div>
-              <a class="ui basic label">
+              <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}} {{else}}
-              <div class="ui blue mini button editvideo">
+            {{/if}} 
+            {{else}}
+              <div class="ui blue mini button editvideo videoshowmore" style="background:#2185d0!important;">
                 <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
               </div>
             {{/unless}}
