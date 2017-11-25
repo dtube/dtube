@@ -1,5 +1,3 @@
-var rrssb = require('rrssb')
-
 Template.channel.rendered = function () {
   console.log(SubCounts.findOne({ account: FlowRouter.getParam("author") }))
 

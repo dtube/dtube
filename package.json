@@ -13,7 +13,6 @@
     "meteor-node-stubs": "~0.2.11",
     "moment": "^2.18.1",
     "moment-with-locales-es6": "^2.18.1",
-    "rrssb": "^1.14.0",
     "slick-carousel": "^1.8.1",
     "steem": "^0.6.3",
     "utf-8-validate": "^3.0.3",
