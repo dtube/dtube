@@ -34,11 +34,23 @@ FlowRouter.route('/login', {
 FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
-    Session.set("pageTitle", 'Upload')
-    BlazeLayout.render('masterLayout', {
-      main: "upload",
-      nav: "nav",
-    });
+    var random = Math.floor((Math.random() * 100) + 1);
+    if (random > 90)
+    {
+      Session.set("pageTitle", 'Upload')
+      BlazeLayout.render('masterLayout', {
+        main: "newupload",
+        nav: "nav",
+      });
+    }
+    else
+    {
+      Session.set("pageTitle", 'Upload')
+      BlazeLayout.render('masterLayout', {
+        main: "upload",
+        nav: "nav",
+      });
+    }
   }
 });
 

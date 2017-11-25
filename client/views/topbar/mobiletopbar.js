@@ -18,6 +18,19 @@ Template.mobiletopbar.helpers({
     'click #textlogomobile': function() {
       //window.history.pushState('', '', '/#!/');
       FlowRouter.go('/')
+    },
+    'click #clickupload': function() {
+      window.history.pushState('', '', '/#!/');
+      var random = Math.floor((Math.random() * 100) + 1);
+      console.log(random);
+      if (random > 80)
+      {
+        FlowRouter.go('/newupload')
+      }
+      else
+      {
+        FlowRouter.go('/upload')
+      }
     }
   });
   
