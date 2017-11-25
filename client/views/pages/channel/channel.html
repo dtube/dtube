@@ -10,19 +10,19 @@
     <div style="padding-left: 10px;">
       {{#unless equals activeUser user.name}} {{#if isSubscribedTo user.name}}
       <div class="ui labeled mini button" tabindex="0">
-        <div class="ui mini button unsubscribe">
+        <div class="ui mini button unsubscribe dtube grey">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
         </div>
-        <a class="ui basic label">
+        <a class="ui basic label videoshowmore" style="border-width:1px!important;">
           {{{subCount}}}
         </a>
       </div>
       {{else}}
       <div class="ui labeled mini button" tabindex="0">
-        <div class="ui red mini button subscribe">
-          <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+        <div class="ui red mini button subscribe dtube">
+            {{ translate 'VIDEO_SUBSCRIBE'}}
         </div>
-        <a class="ui basic label">
+        <a class="ui basic label videoshowmore" style="border-width:1px!important;">
           {{{subCount}}}
         </a>
       </div>

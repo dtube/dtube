@@ -17,6 +17,9 @@ Template.channel.helpers({
     if (/Mobi/.test(navigator.userAgent)) {
         return true;
     }
+  },  
+  isLoggedOn: function () {
+    return Session.get('activeUsername')
   },
   activeUser: function () {
     return Session.get('activeUsername')

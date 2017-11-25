@@ -1,8 +1,27 @@
 <template name='torrentStats'>
-    <div>
-      <h2>{{ translate 'TORRENT_STATS_TITLE'}}</h2>
-      <div class="ui statistics">
-        <div class="statistic">
+  <div class="ui grid " style="max-width:600px;margin:auto;">
+    <div class="ui segments noshadow" style="display:flow-root;padding: 0px;margin: 0px;width:100%;">
+      <div class="ui segment" style="width:100%;">
+        <center>
+          <h2>{{ translate 'TORRENT_CONGRATZ'}}</h2>
+          <i class="big smile icon"></i>
+          <div class="label">
+            {{ translate 'TORRENT_USE_THIS_LINK_TO_SHARE'}}
+          </div>
+          <a id="videolink">LINKLINKLINK</a>
+          <div class="ui divider"></div>
+          <a id="videolink" href="d.tube" target="_blank"> 
+          <div class="ui blue large fluid dtube button">
+            <i class="play icon"></i> {{ translate 'TORRENT_WATCH_VIDEO'}}
+          </div>
+        </a>
+        </center>
+      </div>
+    </div>
+    <div class="ui segments statistics noshadow displaynone" style="padding: 0px;margin: 0px;width:100%;">
+      <div class="ui row">
+        <div class="ui segment statistic noshadow" style="width:100%;">
+          <h2>{{ translate 'TORRENT_STATS_TITLE'}}</h2>
           <div class="value">
             <span id='torrentPeers'>{{stats.numPeers}}</span>
           </div>
@@ -10,7 +29,9 @@
             {{ translate 'TORRENT_STATS_PEERS'}}
           </div>
         </div>
-        <div class="statistic">
+      </div>
+      <div class="ui row">
+        <div class="ui segment statistic noshadow" style="width:100%;">
           <div class="value">
             <span id='torrentUpload'>{{humanFilesize stats.uploadSpeed}}</span>
           </div>
@@ -19,5 +40,12 @@
           </div>
         </div>
       </div>
+      <div class="ui row">
+        <div class="ui segment" style="width:100%;">
+          <i class="info circle icon"></i>
+          {{ translate 'TORRENT_KEEP_THIS_OPEN'}}
+        </div>
+      </div>
     </div>
+  </div>
 </template>

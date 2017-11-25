@@ -80,7 +80,7 @@
             </div>
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red  mini left dtube  button subscribe videoshowmore">
+              <div class="ui red  mini left dtube button subscribe">
                {{ translate 'VIDEO_SUBSCRIBE'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
@@ -90,8 +90,8 @@
             {{/if}} 
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red mini icon button dtube left icon labeled dtube">
-                <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBERS'}}
+              <div class="ui red mini button dtube ">
+                {{ translate 'VIDEO_SUBSCRIBERS'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}

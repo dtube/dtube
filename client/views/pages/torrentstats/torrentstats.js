@@ -8,11 +8,15 @@ Template.torrentStats.rendered = function () {
 
 Template.torrentStats.refreshStats = function () {
   if (Torrent.torrents.length>0) {
+    $('.ui.segments.statistics').removeClass('displaynone');
     Stats.upsert({_id: 'torrent'}, {
       _id: 'torrent',
       uploadSpeed: Torrent.uploadSpeed,
       numPeers:Torrent.torrents[0].numPeers
     })
+  }
+  else{
+    $('.ui.segments.statistics').addClass('displaynone');
   }
 }
 

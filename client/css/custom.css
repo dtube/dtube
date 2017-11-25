@@ -1,6 +1,6 @@
 .displaynone
 {
-display: none;
+display: none!important;
 }
 
 .widthfiftypercent
