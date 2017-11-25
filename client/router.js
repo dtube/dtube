@@ -34,17 +34,14 @@ FlowRouter.route('/login', {
 FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
-    var random = Math.floor((Math.random() * 100) + 1);
-    if (random > 90)
+    if (Math.random() < 0.20)
     {
       Session.set("pageTitle", 'Upload')
       BlazeLayout.render('masterLayout', {
         main: "newupload",
         nav: "nav",
       });
-    }
-    else
-    {
+    } else {
       Session.set("pageTitle", 'Upload')
       BlazeLayout.render('masterLayout', {
         main: "upload",
