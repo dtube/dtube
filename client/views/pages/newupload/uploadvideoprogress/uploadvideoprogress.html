@@ -4,7 +4,12 @@
           <div class="ui indicating progress initbar" data-percent="{{getPercent ipfsAddSourceVideo.progress}}">
             <div class="bar" style="width:{{ipfsAddSourceVideo.progress}}">
             </div>
-            <div class="label">Adding Source to IPFS...</div>
+            <div class="label">
+              Adding Source to IPFS...
+              {{#if ipfsAddSourceVideo.positionInQueue}}
+                Waiting in Queue #{{ipfsAddSourceVideo.positionInQueue}}
+              {{/if}}
+            </div>
           </div>
         {{/if}}
 
@@ -13,14 +18,24 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent sprite.spriteCreation.progress}}">
                 <div class="bar" style="width:{{sprite.spriteCreation.progress}}">
                 </div>
-                <div class="label">Creating Sprite...</div>
+                <div class="label">
+                  Creating Sprite...
+                  {{#if sprite.spriteCreation.positionInQueue}}
+                    Waiting in Queue #{{sprite.spriteCreation.positionInQueue}}
+                  {{/if}}
+                </div>
             </div>
           {{/if}}
           {{#if sprite.ipfsAddSprite}}
             <div class="ui indicating progress initbar" data-percent="{{getPercent sprite.ipfsAddSprite.progress}}">
                 <div class="bar" style="width:{{sprite.ipfsAddSprite.progress}}">
                 </div>
-                <div class="label">Adding Sprite to IPFS...</div>
+                <div class="label">
+                  Adding Sprite to IPFS...
+                  {{#if sprite.ipfsAddSprite.positionInQueue}}
+                    Waiting in Queue #{{sprite.ipfsAddSprite.positionInQueue}}
+                  {{/if}}
+                </div>
             </div>
           {{/if}}
         {{/if}}
@@ -30,14 +45,24 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent encode.progress}}">
                 <div class="bar" style="width:{{encode.progress}}">
                 </div>
-                <div class="label">Encoding to {{encode.encodeSize}}...</div>
+                <div class="label">
+                  Encoding to {{encode.encodeSize}}...
+                  {{#if encode.positionInQueue}}
+                    Waiting in Queue #{{encode.positionInQueue}}
+                  {{/if}}
+                </div>
             </div>
           {{/if}}
           {{#if ipfsAddEncodeVideo}}
             <div class="ui indicating progress initbar" data-percent="{{getPercent ipfsAddEncodeVideo.progress}}">
                 <div class="bar" style="width:{{ipfsAddEncodeVideo.progress}}">
                 </div>
-                <div class="label">Adding {{encode.encodeSize}} to IPFS...</div>
+                <div class="label">
+                  Adding {{encode.encodeSize}} to IPFS...
+                  {{#if ipfsAddEncodeVideo.positionInQueue}}
+                    Waiting in Queue #{{ipfsAddEncodeVideo.positionInQueue}}
+                  {{/if}}
+                </div>
             </div>
           {{/if}}
         {{/each}}
