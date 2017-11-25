@@ -71,8 +71,8 @@
             {{#if isLoggedOn}}
              {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui mini icon button left labeled unsubscribe videoshowmore" style="border-width:1px!important;padding-left: 33px!important;padding-right: 10px!important;" >
-                  <i class="stop icon"></i>{{ translate 'VIDEO_UNSUBSCRIBE'}}
+              <div class="ui mini  button left  unsubscribe dtube grey" style="padding-left:10px;padding-right:10px;">
+                  {{ translate 'VIDEO_UNSUBSCRIBE'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
@@ -80,8 +80,8 @@
             </div>
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red icon mini left labeled button subscribe videoshowmore" style="background:#ff1a1a!important;padding-left: 33px!important;">
-                <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+              <div class="ui red  mini left dtube  button subscribe videoshowmore">
+               {{ translate 'VIDEO_SUBSCRIBE'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
@@ -90,7 +90,7 @@
             {{/if}} 
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
-              <div class="ui red mini icon button left icon labeled videoshowmore" style="background:#ff1a1a!important;">
+              <div class="ui red mini icon button dtube left icon labeled dtube">
                 <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBERS'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
@@ -99,7 +99,7 @@
             </div>
             {{/if}} 
             {{else}}
-              <div class="ui blue mini button editvideo videoshowmore" style="background:#2185d0!important;">
+              <div class="ui blue mini dtube button editvideo dtube">
                 <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
               </div>
             {{/unless}}
@@ -156,7 +156,7 @@
                           vertical-align: top;">
               <textarea rows="3"></textarea>
             </div>
-            <div class="ui right labeled submit icon button" style="position:relative;float:right;
+            <div class="ui right labeled submit icon button white dtube" style="position:relative;float:right;
                           vertical-align: top;">
               <i class="ui right icon talk"></i>{{ translate 'VIDEO_ADD_COMMENT'}}
               <!-- {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}} -->

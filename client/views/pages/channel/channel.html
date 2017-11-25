@@ -1,14 +1,14 @@
 <template name='channel'>
-  <div class="ui container">
+  {{#if isOnMobile}}
+  <div style="width: 100%;">
     <div style="height: 175px; width:100%;display:inline-flex;background-image:url('https://img.busy.org/@{{user.name}}/cover');">
       <img class="image channel" src="https://img.busy.org/@{{user.name}}">
     </div>
-    <div>
+    <div style="padding: 10px;">
       <h2 id="channeltitle">{{ translate 'CHANNEL_TITLE_VIDEOS_BY'}} {{user.name}}</h2>
     </div>
-    <div>
-      {{#unless equals activeUser user.name}} 
-      {{#if isSubscribedTo user.name}}
+    <div style="padding-left: 10px;">
+      {{#unless equals activeUser user.name}} {{#if isSubscribedTo user.name}}
       <div class="ui labeled mini button" tabindex="0">
         <div class="ui mini button unsubscribe">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -29,12 +29,43 @@
       {{/if}} {{/unless}}
     </div>
     <div class="ui divider"></div>
-    {{#if userVideos}} 
-      {{#if isOnMobile}} 
-      {{> verticalvideoband userVideos}} 
-        {{else}} 
-      {{> videoband userVideos}} 
-      {{/if}} 
+    {{#if userVideos}}
+    <div style="padding-left:10px;padding-right:10px;">
+      {{> verticalvideoband userVideos}}
+    </div>
     {{/if}}
   </div>
+  {{else}}
+  <div class="ui container">
+    <div style="height: 175px; width:100%;display:inline-flex;background-image:url('https://img.busy.org/@{{user.name}}/cover');">
+      <img class="image channel" src="https://img.busy.org/@{{user.name}}">
+    </div>
+    <div style="padding: 10px;">
+      <h2 id="channeltitle">{{ translate 'CHANNEL_TITLE_VIDEOS_BY'}} {{user.name}}</h2>
+    </div>
+    <div style="padding-left: 10px;">
+      {{#unless equals activeUser user.name}} {{#if isSubscribedTo user.name}}
+      <div class="ui labeled mini button" tabindex="0">
+        <div class="ui mini button unsubscribe">
+          {{ translate 'VIDEO_UNSUBSCRIBE'}}
+        </div>
+        <a class="ui basic label">
+          {{{subCount}}}
+        </a>
+      </div>
+      {{else}}
+      <div class="ui labeled mini button" tabindex="0">
+        <div class="ui red mini button subscribe">
+          <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+        </div>
+        <a class="ui basic label">
+          {{{subCount}}}
+        </a>
+      </div>
+      {{/if}} {{/unless}}
+    </div>
+    <div class="ui divider"></div>
+    {{#if userVideos}} {{> videoband userVideos}} {{/if}}
+  </div>
+  {{/if}}
 </template>

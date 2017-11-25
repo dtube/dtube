@@ -17,7 +17,7 @@
               <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
             </div>
           </div>
-          <button class="ui left labeled icon button advanced videoshowmore onepborder" type="button"><i class="down arrow icon"></i>
+          <button class="ui left labeled icon button advanced dtube white" type="button"><i class="down arrow icon"></i>
             {{ translate 'UPLOAD_ADVANCED'}}
           </button>
           {{> uploadformsubmit}}
@@ -87,11 +87,11 @@
 </template>
 <template name="uploadformsubmit">
   {{#if info.title}}
-    <button class="ui blue right labeled videoshowmore icon button editsubmit" style="background:#2185d0!important;" type="button"><i class="checkmark icon"></i>
+    <button class="ui blue right labeled dtube icon button editsubmit" type="button"><i class="checkmark icon"></i>
       {{ translate 'VIDEO_EDIT'}}
     </button>
   {{else}}
-    <button class="ui red right labeled videoshowmore icon button uploadsubmit" style="background:#ff1a1a!important;" type="button"><i class="checkmark icon"></i>
+    <button class="ui red right labeled dtube icon button uploadsubmit" type="button"><i class="checkmark icon"></i>
       {{ translate 'UPLOAD_SUBMIT'}}
     </button>
   {{/if}}
