@@ -23,5 +23,8 @@ Template.torrentStats.refreshStats = function () {
 Template.torrentStats.helpers({
   stats: function() {
     return Stats.findOne({_id: 'torrent'})
+  },
+  uploadedVideo: function() {
+    return Session.get('uploadedVideo')
   }
 })

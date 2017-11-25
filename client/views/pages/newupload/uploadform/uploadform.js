@@ -156,7 +156,7 @@ Template.uploadform.events({
               if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
               else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
             } else {
-              window.open('/#!/v/'+author+'/'+permlink, '_blank');
+              Session.set('uploadedVideo', {author: author, permlink: permlink})
               FlowRouter.go('/torrentStats')
             }
           }
