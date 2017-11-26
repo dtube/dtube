@@ -35,6 +35,7 @@
     </div>
     {{/if}}
   </div>
+  <!-- PC  -->
   {{else}}
   <div class="ui container">
     <div style="height: 175px; width:100%;display:inline-flex;background-image:url('https://img.busy.org/@{{user.name}}/cover');">
@@ -46,7 +47,7 @@
     <div style="padding-left: 10px;">
       {{#unless equals activeUser user.name}} {{#if isSubscribedTo user.name}}
       <div class="ui labeled mini button" tabindex="0">
-        <div class="ui mini button unsubscribe">
+        <div class="ui mini button unsubscribe dtube grey">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
         </div>
         <a class="ui basic label">
@@ -55,8 +56,8 @@
       </div>
       {{else}}
       <div class="ui labeled mini button" tabindex="0">
-        <div class="ui red mini button subscribe">
-          <i class="play icon"></i> {{ translate 'VIDEO_SUBSCRIBE'}}
+        <div class="ui red mini button dtube subscribe">
+          {{ translate 'VIDEO_SUBSCRIBE'}}
         </div>
         <a class="ui basic label">
           {{{subCount}}}

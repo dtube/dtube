@@ -16,13 +16,13 @@
       {{> sidebar}}
     </div>
     {{/if}}
-    <div class='article'>
+    <div class='article' style="background:#fafafa!important;">
       {{#if isOnMobile }} 
-      <main class='ui main mobile only '>
+      <main class='ui main mobile only ' style="background:#fafafa!important;">
         {{> Template.dynamic template=main}}
       </main>
       {{else}}
-      <main class='ui maingrid container content'>
+      <main class='ui maingrid container content' style="background:#fafafa!important;">
         {{> Template.dynamic template=main}}
       </main>
       {{/if}}
