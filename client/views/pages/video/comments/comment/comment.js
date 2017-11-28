@@ -29,6 +29,12 @@ Template.comment.events({
   }
 })
 
-  
+Template.comment.helpers({
+  currentAuthor: function () {
+    return FlowRouter.getParam("author")
+  }
+})
+
+ 
   
 

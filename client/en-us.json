@@ -1,6 +1,11 @@
 {
 	"CHANNEL_TITLE_VIDEOS_BY":"Videos by ",
-	"CHANNEL_TITLE_NO_VIDEOS":"There is no videos from ",
+  "CHANNEL_TITLE_NO_VIDEOS":"There is no videos from ",
+  "CHANNEL_EDIT_MY_PROFIL":"Edit my profil",
+  "CHANNEL_MY_FOLLOWERS":"My followers",
+  "CHANNEL_MY_ACCOUNT_VALUE":"My account value",
+  "CHANNEL_MY_WEBSITE":"My website",
+  "CHANNEL_MY_LOCATION":"My location",
 	"COMMENT_SHOW":"Show",
 	"COMMENT_REPLIES":"replies",
 	"ERROR_UNKNOWN":"Unknown error",

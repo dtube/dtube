@@ -5,12 +5,16 @@
         <a class="ui mini circular avatar image" style="margin-right:10px;">
           <img src="{{userPic author}}">
         </a>
+        {{#if equals author currentAuthor}} 
+        <a href='/c/{{author}}' class="ui author owner">{{author}}</a>
+        {{else}}
         <a href='/c/{{author}}' class="ui author">{{author}}</a>
+        {{/if}}
         <div class="metadata">
           <span class="date">{{timeAgo created}}</span>
           <span class="money">{{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
         </div>
-        <div class="text" style=" display: flex;word-wrap: normal;flex-wrap: wrap;overflow: hidden;">
+        <div class="text" style=" display: flex;word-wrap: normal;flex-wrap: wrap;overflow: hidden; margin-top: 10px;">
           {{{syntaxed body}}}
         </div>
         <div class="actions noselect">

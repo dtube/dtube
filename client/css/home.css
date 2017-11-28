@@ -66,6 +66,7 @@
   padding-left: 5px;
   padding-right: 5px;
   font-size: 12px;
+  z-index: 99;
 }
 
 .videosnaptime {

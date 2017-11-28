@@ -1,10 +1,15 @@
 Template.channel.rendered = function () {
-  console.log(SubCounts.findOne({ account: FlowRouter.getParam("author") }))
-
+  console.log(SubCounts.findOne({ account: FlowRouter.getParam("author") }));
+  ChainUsers.fetchNames([FlowRouter.getParam("author")], function(error) {
+    if (error) console.log('Error fetch name')
+  })
+  Session.set('isChannelInfoOpen', false)
 }
 
-
 Template.channel.helpers({
+  mainUser: function() {
+    return Users.findOne({username: Session.get('activeUsername')})
+  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
@@ -29,7 +34,6 @@ Template.channel.helpers({
   },
   userResteems: function () {
     var videos = Videos.find({ source: 'chainByBlog', fromBlog: FlowRouter.getParam("author") }).fetch()
-
     var resteems = []
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].author != FlowRouter.getParam("author"))
@@ -103,5 +107,13 @@ Template.channel.events({
           toastr.error(Meteor.blockchainError(err))
       }
     );
-  }
+  },
+  'click #showchannelabout': function () {
+    $('#channelinfo').transition('slide up')
+    $('#channelabout').transition('slide down')
+  },
+  'click #showchannelinfo': function () {
+    $('#channelinfo').transition('slide down')
+    $('#channelabout').transition('slide up')
+  },
 })

@@ -29,7 +29,8 @@
     <div style="display: inline-flex;">
         <h2 class='gray'>
             {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
-            {{lengthOf search.response.results}} {{#if isPlural search.response.results}} 
+            {{lengthOf search.response.results}} 
+            {{#if isPlural search.response.results}} 
             {{ translate 'SEARCH_RESULTS'}} 
             {{else}}
               {{translate 'SEARCH_RESULT'}} 

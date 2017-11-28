@@ -1,5 +1,5 @@
-var carousel = require('slick-carousel')
-
+// var carousel = require('slick-carousel')
+var carousel = require('owl.carousel')
 
 Template.videoslider.isOnMobile = function () {
   if (/Mobi/.test(navigator.userAgent)) {
@@ -20,107 +20,86 @@ Template.videoslider.rendered = function () {
   $(this.firstNode).find('.dropdown').dropdown({});
 }
 Template.videoslider.refreshSlider = function () {
-  $('.videoslider').slick('refresh');
+  $('.owl-carousel').owlCarousel()('refresh');
 }
 
 Template.videoslider.createSlick = function (elemId) {
   if (Template.videoslider.isOnMobile() == true) {
     console.log("slider init for mobile");
-    $("#" + elemId).slick({
-      autoplay: false,
+    $("#" + elemId).owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: false,
+      items: 6,
+      autoWidth:false,
+      mergeFit:210,
       dots: false,
-      arrows: false,
-      slidesToShow: 3,
-      focusOnSelect: false,
-      slidesToScroll: 3,
-      responsive: [
-        {
-          breakpoint: 700,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3
-          }
+      responsiveRefreshRate: true,
+      responsiveClass: true,
+      responsive: {
+        299: {
+          items: 2,
+          nav: false
         },
-        {
-          breakpoint: 499,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
+        499: {
+          items: 3,
+          nav: false
         },
-        {
-          breakpoint: 299,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
+        700: {
+          items: 3,
+          nav: false,
+          loop: false
         }
-      ]
+      }
     });
     console.log('slider done')
   }
   else {
     console.log("slider init for desktop");
-    $("#" + elemId).slick({
-      autoplay: false,
+    $("#" + elemId).owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsiveRefreshRate: true,
+      items: 6,
+      navText: [ '', '' ],
       dots: false,
-      slidesToShow: 6,
-      focusOnSelect: false,
-      slidesToScroll: 2,
-       responsive: [
-        // {
-        //   breakpoint: 1550,
-        //   settings: {
-        //     slidesToShow: 6,
-        //     slidesToScroll: 2,
-        //     focusOnSelect: false,
-        //   }
-        // },
-
-        {
-          breakpoint: 1367,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 5
-          }
+      responsiveClass: true,
+      responsive: {
+        280: {
+          items: 1,
+          nav: false
         },
-        {
-          breakpoint: 1281,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 5
-          }
+        499: {
+          items: 2,
+          nav: false
         },
-        {
-          breakpoint: 1180,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4
-          }
-        },       
-        {
-          breakpoint: 993,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3
-          }
+        700: {
+          items: 3,
+          nav: false,
+          loop: false
         },
-        {
-          breakpoint: 700,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
-          }
+        993: {
+          items: 4,
+          nav: true,
+          loop: false
         },
-        {
-          breakpoint: 499,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
+        1180: {
+          items: 5,
+          nav: true,
+          loop: false
+        },
+        1281: {
+          items: 5,
+          nav: true,
+          loop: false
+        },
+        1367: {
+          items: 6,
+          nav: true,
+          loop: false
         }
-
-      ]
+      }
     });
     console.log('slider done')
   }
