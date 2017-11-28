@@ -1,4 +1,3 @@
-// var carousel = require('slick-carousel')
 var carousel = require('owl.carousel')
 
 Template.videoslider.isOnMobile = function () {
@@ -9,12 +8,10 @@ Template.videoslider.isOnMobile = function () {
 
 
 Template.videoslider.rendered = function () {
-  //Template.videoslider.createSlick();
-  //$(window).on('resize', Template.videoslider.createSlick);
-  console.log('creating slick')
+  console.log('creating slider')
   var random = Template.upload.createPermlink(10)
   this.firstNode.id = random
-  Template.videoslider.createSlick(random)
+  Template.videoslider.createSlider(random)
 
 
   $(this.firstNode).find('.dropdown').dropdown({});
@@ -23,7 +20,7 @@ Template.videoslider.refreshSlider = function () {
   $('.owl-carousel').owlCarousel()('refresh');
 }
 
-Template.videoslider.createSlick = function (elemId) {
+Template.videoslider.createSlider = function (elemId) {
   if (Template.videoslider.isOnMobile() == true) {
     console.log("slider init for mobile");
     $("#" + elemId).owlCarousel({
