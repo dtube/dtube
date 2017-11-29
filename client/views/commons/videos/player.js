@@ -8,6 +8,6 @@ Template.player.setTime = function (seconds) {
 
 Template.player.init = function() {
   $('.ui.embed.player').embed({
-    url: "https://emb.d.tube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true"
+    url: "https://hightouch67.github.io./#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true"
   });
 }
