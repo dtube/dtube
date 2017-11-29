@@ -1,7 +1,7 @@
 Meteor.settings.public = {
   "remote": {
     "dfees": 2500,
-    "loadLimit": 10,
+    "loadLimit": 12,
     "uploadNodes": [
       { 'owner': 'nannal','node': {'host': 'gateway.ipfsstore.it','port': 443,'protocol': 'https'} },
       { 'owner': 'dtube','node': {'host': 'dtube1.gateway.ipfsstore.it','port': 443,'protocol': 'https'} },
