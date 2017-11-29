@@ -1,5 +1,5 @@
 <template name='videosnap'>
-  {{#unless isNSFWFullyHidden this}}
+  {{#unless isNSFW this}}
   <div class='videosnap' style="width:100%">
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div class='videosnapsnap' style="height:118px;width:100%">

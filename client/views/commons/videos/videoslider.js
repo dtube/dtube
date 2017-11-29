@@ -8,7 +8,6 @@ Template.videoslider.isOnMobile = function () {
 
 
 Template.videoslider.rendered = function () {
-  console.log('creating slider')
   var random = Template.upload.createPermlink(10)
   this.firstNode.id = random
   Template.videoslider.createSlider(random)
@@ -22,7 +21,6 @@ Template.videoslider.refreshSlider = function () {
 
 Template.videoslider.createSlider = function (elemId) {
   if (Template.videoslider.isOnMobile() == true) {
-    console.log("slider init for mobile");
     $("#" + elemId).owlCarousel({
       loop: true,
       margin: 10,
@@ -49,10 +47,8 @@ Template.videoslider.createSlider = function (elemId) {
         }
       }
     });
-    console.log('slider done')
   }
   else {
-    console.log("slider init for desktop");
     $("#" + elemId).owlCarousel({
       loop: true,
       margin: 10,
@@ -98,7 +94,6 @@ Template.videoslider.createSlider = function (elemId) {
         }
       }
     });
-    console.log('slider done')
   }
 
 }

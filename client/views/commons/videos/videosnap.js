@@ -14,6 +14,9 @@ Template.videosnap.events({
 })
   
 Template.videosnap.rendered = function () {
+  // var random = Template.upload.createPermlink(10)
+  // this.firstNode.id = random
+  // Template.videosnap.createSnap(random)
   Template.videosnap.snapLoaded();
 }
 
@@ -27,3 +30,9 @@ Template.videosnap.snapLoaded = function () {
 Template.videosnap.helpers({
 
 })
+
+
+// Template.videosnap.createSnap = function (elemId) {
+//   console.log(elemId)
+//     $("#" + elemId).transition('slide down')
+// }

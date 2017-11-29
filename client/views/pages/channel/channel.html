@@ -8,11 +8,11 @@
                    z-index: 1;
                    margin-left: 50%;
                    /* float: left; */
-                   left: -24px;
+                   left: -24px; 
                    margin-top: 17px;">
       </center>
       <div style="padding: 20px 0px;width:100%">
-        <div class="ui grid center aligned padded">
+        <div class="ui grid center aligned padded"> 
           <div class="two column row" style="padding: 0px;margin: 0px 0px;">
             <div id="showchannelinfo" class="column" style="padding: 0px;">
               <div class="ui medium fluid dtube button red">
@@ -31,6 +31,19 @@
             </div> -->
           </div>
           <div id="channelinfo" class="ui channel three column row" style="padding: 0px;margin: 0px 20px;">
+
+              <div class="column" style="padding: 0px;">
+                  <div class="ui tiny fluid dtube button white" style="border-width:0px!important;">
+                    Last post : {{timeAgo author.last_post}}
+                  </div>
+                  <div class="ui tiny fluid dtube left labeled icon button white" style="border-width:0px!important;">
+                    Total videos : {{userVideos.length}}
+                  </div>
+                  <div class="ui tiny fluid dtube left labeled icon button white" style="border-width:0px!important;">
+                    Joined : {{displayDate author.created}}
+                  </div>
+                </div>
+
             <div class="column" style="padding: 0px;">
               <a href="{{author.json_metadata.profile.website}}" target="_blank" class="row">
                 <div class="ui tiny fluid dtube button white" style="border-width:0px!important;word-wrap: break-word;">
@@ -44,17 +57,7 @@
                 About : {{author.json_metadata.profile.about}}
               </div>
             </div>
-            <div class="column" style="padding: 0px;">
-              <div class="ui tiny fluid dtube button white" style="border-width:0px!important;">
-                Last post : {{timeAgo author.last_post}}
-              </div>
-              <div class="ui tiny fluid dtube left labeled icon button white" style="border-width:0px!important;">
-                Total videos : {{userVideos.length}}
-              </div>
-              <div class="ui tiny fluid dtube left labeled icon button white" style="border-width:0px!important;">
-                Joined : {{displayDate author.created}}
-              </div>
-            </div>
+           
             <div class="column" style="padding: 0px;">
               <div class="ui tiny fluid dtube button white" style="border-width:0px!important;">
                 Value : {{author.estimateAccountValue}}
@@ -187,7 +190,16 @@
                   Location : {{author.json_metadata.profile.location}}
                 </div>
             </div> -->
-
+            <div class="column" style="padding: 20px 0px;">
+                <center>
+                  <img class="ui image channel" src="https://img.busy.org/@{{user.name}}">
+                <div class="ui mini dtube button red">
+                  @{{user.name}}
+                </div>
+                <div class="ui black label">
+                    Reputation : {{displayReputation author.reputation}}
+                </div></center>
+              </div>
             <div class="column" style="padding: 20px 10px;background: #ffffffcf;bottom: 40px;left: 0px;position: absolute;">
               <div class="ui fluid red label">
                 Informations
@@ -202,18 +214,6 @@
                     Account Value : {{author.estimateAccountValue}}
                 </div>
             </div> 
-            <div class="column" style="padding: 20px 0px;">
-                <center>
-                  <img class="ui image channel" src="https://img.busy.org/@{{user.name}}">
-                <div class="ui mini dtube button red">
-                  @{{user.name}}
-                </div>
-                <div class="ui black label">
-                    Reputation : {{displayReputation author.reputation}}
-                </div></center>
-              </div>
-
-          
             <div class="column" style="padding: 20px 10px;background: #ffffffcf;bottom: 40px;
             position: absolute;
             right: 0px;">
