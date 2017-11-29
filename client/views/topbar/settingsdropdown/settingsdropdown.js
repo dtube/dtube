@@ -19,7 +19,6 @@ Template.settingsdropdown.rendered = function() {
         })
       } else if (e.hasClass('nsfwSetting')) {
         if (e.hasClass('nsfwShow')) Session.set('nsfwSetting', 'Show')
-        if (e.hasClass('nsfwHidePic')) Session.set('nsfwSetting', 'Hide Picture')
         if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
