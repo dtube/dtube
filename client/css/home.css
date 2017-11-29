@@ -5,17 +5,17 @@
 
 .videosnap {
   display: inline-block;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   vertical-align:top;
-  max-width: 210px;
+  /* max-width: 210px; */
   color: #212121;
 }
 
 .videosnap:hover {
   display: inline-block;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   vertical-align:top;
-  max-width: 210px;
+  /* max-width: 210px; */
   color: #212121;
 }
 

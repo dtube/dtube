@@ -28,8 +28,6 @@ Template.home.helpers({
   }
 })
 
-
-
 Template.home.events({
   'click #remove': function () {
     var removeId = this._id
@@ -44,3 +42,6 @@ Template.home.events({
   }
 })
 
+Template.home.rendered = function () {
+  Template.sidebar.activeSidebarHome();
+}

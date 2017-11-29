@@ -16,20 +16,21 @@ Template.videoslider.rendered = function () {
   $(this.firstNode).find('.dropdown').dropdown({});
 }
 Template.videoslider.refreshSlider = function () {
-  $('.owl-carousel').owlCarousel()('refresh');
+  var $carousel = $('.owl-carousel');        
+  $carousel.data('owl.carousel')._invalidated.width = true;
+  $carousel.trigger('refresh.owl.carousel');
 }
 
 Template.videoslider.createSlider = function (elemId) {
   if (Template.videoslider.isOnMobile() == true) {
     $("#" + elemId).owlCarousel({
       loop: true,
-      margin: 10,
+      margin: 2,
       nav: false,
       items: 6,
       autoWidth:false,
       mergeFit:210,
       dots: false,
-      responsiveRefreshRate: true,
       responsiveClass: true,
       responsive: {
         299: {
@@ -51,9 +52,8 @@ Template.videoslider.createSlider = function (elemId) {
   else {
     $("#" + elemId).owlCarousel({
       loop: true,
-      margin: 10,
+      margin: 2,
       nav: true,
-      responsiveRefreshRate: true,
       items: 6,
       navText: [ '', '' ],
       dots: false,

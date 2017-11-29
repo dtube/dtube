@@ -278,8 +278,10 @@
         </div>
 
 
-        <!-- {{#if equals activeUser user.name}} 
+        {{#if equals activeUser user.name}} 
+        {{myChannelSidebar}}
           {{else}} 
+          {{resetSidebar}}
           {{#if isSubscribedTo user.name}}
           <div class="ui labeled mini button" tabindex="0">
             <div class="ui mini button unsubscribe dtube grey">
@@ -299,7 +301,7 @@
             </a>
           </div>
           {{/if}} 
-          {{/if}} -->
+          {{/if}} 
 
 
 

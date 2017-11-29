@@ -13,6 +13,7 @@ Template.search.onRendered(function () {
   if (!Session.get('search')) {
     $('#dsearch').val(FlowRouter.getParam("query"))
     $('.searchForm').submit()
+    Template.sidebar.resetActiveMenu()
     // $('.more.video.sgement ')
     // .visibility({
     //   once: false,

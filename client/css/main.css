@@ -27,8 +27,7 @@
 }
 
 .article {
-  padding: 52px 0em 2em 0em;
-  display: -webkit-inline-box;
+  padding: 65px 0em 2em 0em;
   width: 100%;
 }
 
@@ -87,8 +86,7 @@ main
 
 .mainsided
 {
-  max-width: 70%;
-  margin-left: 320px;
+  padding: 65px 3em 2em 18em!important;
 }
 
 .mainmobile

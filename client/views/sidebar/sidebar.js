@@ -27,52 +27,58 @@ Template.sidebar.helpers({
 
 Template.sidebar.OnSidebarToogled = function () {
   $("#sidebar").sidebar('setting', 'onShow', function () {
-    if ($(window).innerWidth() > 1367) {
-      $('main').addClass('mainsided').removeClass('main');
-    }
-    else {
-      $('main').removeClass('mainsided').addClass('main');
-    }
+    //  if ($(window).innerWidth() > 1367) {
+    //    $('.article').addClass('mainsided');
+    //  }
+    //  else {
+    //    $('.article').addClass('mainsided');
+    //  }
   })
   $("#sidebar").sidebar('setting', 'onHide', function () {
-    if ($(window).innerWidth() > 1367) {
-      $('main').removeClass('mainsided').addClass('main');
-    }
-    else {
-      $('main').removeClass('mainsided').addClass('main');
-    }
+    //  if ($(window).innerWidth() > 1367) {
+    //    $('.article').removeClass('mainsided');
+    //  }
+    //  else {
+    //    $('.article').removeClass('mainsided');
+    //  }
   })
 }
 
 Template.sidebar.events({
   'click #help': function (event, instance) {
     //$('.ui.modal').modal('show')
-  },
-  'click #homesidebarmenu': function () {
-    Template.sidebar.resetActiveMenu()
-    $('#homesidebarmenu').addClass('activemenu');
-    FlowRouter.go('/')
-  },
-  'click #channelsidebarmenu': function () {
-    Template.sidebar.resetActiveMenu()
-    $('#channelsidebarmenu').addClass('activemenu');
-    FlowRouter.go("/c/" + Session.get('activeUsername'))
-  },
-  'click #trendingsidebarmenu': function () {
-    Template.sidebar.resetActiveMenu()
-    $('#trendingsidebarmenu').addClass('activemenu');
-    FlowRouter.go('/trendingvideos')
-  },
-  'click #watchagainsidebarmenu': function () {
-    Template.sidebar.resetActiveMenu()
-    FlowRouter.go('/history')
-    $('#watchagainsidebarmenu').addClass('activemenu');
   }
 });
 
 Template.sidebar.resetActiveMenu = function () {
-  $('#homesidebarmenu').removeClass('activemenu');
-  $('#channelsidebarmenu').removeClass('activemenu');
-  $('#trendingsidebarmenu').removeClass('activemenu');
-  $('#watchagainsidebarmenu').removeClass('activemenu');
+  $('#homesidebarmenu').removeClass('activemenu')
+  $('#channelsidebarmenu').removeClass('activemenu')
+  $('#trendingsidebarmenu').removeClass('activemenu')
+  $('#watchagainsidebarmenu').removeClass('activemenu')
+  $('#uploadsidebarmenu').removeClass('activemenu')
+}
+
+Template.sidebar.activeSidebarHome = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#homesidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarChannel = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#channelsidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarTrending = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#trendingsidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarWatchAgain = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#watchagainsidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarUpload = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#uploadsidebarmenu').addClass('activemenu')
 }

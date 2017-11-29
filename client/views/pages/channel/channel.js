@@ -44,6 +44,12 @@ Template.channel.helpers({
   subCount: function () {
     var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
     return subCount.follower_count;
+  },
+  myChannelSidebar:function () {
+    Template.sidebar.activeSidebarChannel();
+  },
+  resetSidebar:function () {
+    Template.sidebar.resetActiveMenu();
   }
 })
 

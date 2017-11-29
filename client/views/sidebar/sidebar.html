@@ -6,26 +6,32 @@
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
-    <!-- <a class="item" style="padding:0%;">
+    <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
       <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="block layout icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_CHANNEL'}}</span>
+        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
-    </a> -->
+    </a> 
     <a href='/trendingvideos' class="item" style="padding:0%;">
       <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="fire icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
       </div>
     </a>
-    {{#if watchAgain}}
+    <!-- {{#if watchAgain}} -->
     <a href='/history' class="item" style="padding:0%;">
       <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="history icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
       </div>
     </a>
-    {{/if}}
+    <!-- {{/if}} -->
+    <a href='/newupload' class="item" style="padding:0%;">
+      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
+        <i class="cloud upload icon dtubesidebaricon"></i>
+        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+      </div>
+    </a>
     <div class="ui divider"></div>
     {{#if subscribe}}
     <a class="item" style="padding:0%;margin-top:-10px;">
