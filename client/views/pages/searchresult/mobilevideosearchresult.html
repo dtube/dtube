@@ -1,5 +1,5 @@
 <template name='mobilevideosearchresult'>
-  {{#unless isNSFWFullyHidden this}}
+  {{#unless isVideoHidden this}}
     <div class='verticalvideosnap' style="width:100%;display:flex;">
       <div style="width:160px;height:90px;float: left;position:relative;">
         <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
@@ -7,11 +7,8 @@
             <!-- {{#if duration}}
               <span class="videosnapduration">{{durationDisplay duration}}</span>
             {{/if}} -->
-            {{#if isNSFW this}}
-            <img id="snapimg" height="90" width="160" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
-            <br /> {{else}}
             <img id="snapimg" height="90" width="160" alt="" src="{{ipfsSrc meta.video.info.snaphash}}">
-            <br /> {{/if}}
+            <br />
           </div>
         </a>
       </div>

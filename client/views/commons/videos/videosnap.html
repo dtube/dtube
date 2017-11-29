@@ -1,5 +1,5 @@
 <template name='videosnap'>
-  {{#unless isNSFW this}}
+  {{#unless isVideoHidden this}}
   <div class='videosnap' style="width:100%">
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div class='videosnapsnap' style="height:118px;width:100%">
@@ -16,11 +16,7 @@
             <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
           </i>
         {{/if}}   
-        {{#if isNSFW this}}
-          <img id="snapimg" height="118" width="100%" src="https://ipfs.io/ipfs/Qmbieark68299dAdykraTQCs8T5NbnKdGYWF1B4gS8uUq7">
-        {{else}}
-          <img id="snapimg" height="118" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
-        {{/if}}
+        <img id="snapimg" height="118" width="100%" alt="" src="{{ipfsSrc info.snaphash}}">
       </div>
         <br />
       </div>

@@ -150,7 +150,7 @@ Template.registerHelper('displayCurrency', function (string) {
     return true
   })
 
-  Template.registerHelper('isNSFW', function (video) {
+  Template.registerHelper('isVideoHidden', function (video) {
     if (video.net_rshares && video.net_rshares < 0) return true
     if (Session.get('nsfwSetting') == 'Show') return false
     if (!video || !video.content || !video.content.tags) return false
@@ -158,7 +158,7 @@ Template.registerHelper('displayCurrency', function (string) {
     return false
   })
 
-  Template.registerHelper('isNSFWsearch', function (video) {
+  Template.registerHelper('isVideoHiddensearch', function (video) {
     if (video.net_rshares && video.net_rshares < 0) return true
     if (Session.get('nsfwSetting') == 'Show') return false
     if (!video || !video.tags) return false
@@ -166,19 +166,19 @@ Template.registerHelper('displayCurrency', function (string) {
     return false
   })
 
-  Template.registerHelper('isNSFWFullyHidden', function (video) {
-    if (Session.get('nsfwSetting') != 'Fully Hidden') return false
-    if (!video || !video.content || !video.content.tags) return false
-    if (video.content.tags.indexOf('nsfw') > -1) return true
-    return false
-  })
+  // Template.registerHelper('isNSFWFullyHidden', function (video) {
+  //   if (Session.get('nsfwSetting') != 'Fully Hidden') return false
+  //   if (!video || !video.content || !video.content.tags) return false
+  //   if (video.content.tags.indexOf('nsfw') > -1) return true
+  //   return false
+  // })
 
-  Template.registerHelper('isNSFWFullyHiddensearch', function (video) {
-    if (Session.get('nsfwSetting') != 'Fully Hidden') return false
-    if (!video || !video.tags) return false
-    if (video.tags.indexOf('nsfw') > -1) return true
-    return false
-  })
+  // Template.registerHelper('isNSFWFullyHiddensearch', function (video) {
+  //   if (Session.get('nsfwSetting') != 'Fully Hidden') return false
+  //   if (!video || !video.tags) return false
+  //   if (video.tags.indexOf('nsfw') > -1) return true
+  //   return false
+  // })
 
   Template.registerHelper('syntaxed', function (text) {
     if (!text) return
