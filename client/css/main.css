@@ -264,9 +264,12 @@ button {
 }
 
 .image.channel{
-  margin:20px;
   width:128px;
   height:128px;
+  border-radius: 100px!important;
+  margin-bottom: -15px;
+  position: initial;
+  border: white 5px solid;
 }
 
 .padder{
