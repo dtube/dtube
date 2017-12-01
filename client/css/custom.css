@@ -35,6 +35,8 @@ width: 50%;
   color: rgba(82, 82, 82, 0.8);
   font-size: 1em;
   text-align: center;
+  width:33%;
+  display: inline-block;
 }
 
 .ui.tabular.menu .item:hover {
