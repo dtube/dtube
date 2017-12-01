@@ -1,47 +1,32 @@
+Notifications = new Mongo.Collection(null)
 
-Transactions = new Mongo.Collection(null)
+stopStreamTransactions = null
 
-Transactions.startListening = function () {
-  steem.api.streamTransactions(function (err, result) {
-    var operation = result.operations
-    var notification;
-    console.log(operation)
-    switch (operation[0][0]) {
-      case "vote":
-        console.log("its a vote")
-        var vote = operation[0][1]
-        if (Session.get('activeUsername') == operation[0][1].author)
-        {
-          notification = [operation[0][0],vote.voter,vote.permlink]
-          console.log("you got a vote")
-        }
-        break;
-      case "comment":
-        console.log("its a comment")
-        var comment = operation[0][1]
-        console.log(comment)
-        if (Session.get('activeUsername') == comment.parent_author) {
-          notification = [operation[0][0],comment.author,comment.parent_permlink]
-          console.log("you got a comment")
-        }
-        break;
-      case "custom_json":
-        console.log("its a follow/unfollow")
-        var followtype = JSON.parse(operation[0][1].json)
-        if (followtype[0] == "follow") {
-          console.log(followtype[1].follower + ' is following ' + followtype[1].following)
-          if (Session.get('activeUsername') == followtype[1].following) {
-            console.log("you got a follower")
-          }
-        }
-        else
-          break;
-      default:
-        console.log("its another thing")
-        break;
+Notifications.startListening = function () {
+  stopStreamTransactions = steem.api.streamTransactions(function (err, result) {
+    if (!result || !result.operations || result.operations.length < 1) return
+    for (let i = 0; i < result.operations.length; i++) {
+      var op = result.operations[i]
+      Notifications.filterOperations(op)
     }
-    //return notification
-    //Template.notificationdropdown.addNotification(notification)
-    // Transactions.upsert({ 'transaction':operation }, operation)
   })
+}
+
+Notifications.filterOperations = function(op) {
+  switch (op[0]) {
+    case "vote":
+      if (Session.get('activeUsername') == op[1].author)
+        Notifications.insert({type: 'vote', tx: op[1]})
+      break;
+    case "comment":
+      if (Session.get('activeUsername') == op[1].parent_author)
+        Notifications.insert({type: 'comment', tx: op[1]})
+      break;
+    case "custom_json":
+      op[1].json = JSON.parse(op[1].json)
+      if (op[1].json[0] == "follow")
+        if (Session.get('activeUsername') == op[1].json[1].following)
+          Notifications.insert({type: 'subscribe', tx: op[1]})
+      break;
+  }
 }

@@ -3,6 +3,11 @@
             <i id="notification" class="alarm icon" style='font-size:1.5em; margin:0;'></i>
             <span id="notificationcount" class="notificationdtube">99</span>
             <div id="notificationmenu" class="menu">
+                {{#each notifications}}
+                <div class="item">
+                    <a><i class="alarm outline icon"></i>{{type}}</a>                        
+                </div>
+                {{/each}}
                 {{#if hasRewards mainUser}}
                 <div class="item notification">
                     <a class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
@@ -10,8 +15,8 @@
                 </div>
                 {{else}}
                 <div class="item">
-                        <a><i class="alarm outline icon"></i>THERE IS NO NOTIFICATION !</a>                        
-                    </div>
+                    <a><i class="alarm outline icon"></i>THERE IS NO NOTIFICATION !</a>                        
+                </div>
                 {{/if}}
             </div>
         </div>

@@ -32,7 +32,9 @@ Template.notificationdropdown.helpers({
     displayRewards: function(user) {
       return Template.users.formatRewards(user)
     },
-
+    notifications: function() {
+      return Notifications.find().fetch()
+    }
 
   //   <div class="ui positive message">
   //   <i class="close icon"></i>
