@@ -31,8 +31,21 @@ Template.notificationdropdown.helpers({
     },
     displayRewards: function(user) {
       return Template.users.formatRewards(user)
-    }
-  });
+    },
+//     addNotification: function() {
+//       var menu = '\
+//       Test \
+//       <i class="dropdown icon"></i> \
+//       \
+//         <a class="item" href="http://google.com">Google</a> \
+//         <a class="item" href="http://amazon.com">Amazon</a> \
+//        \
+// ';
+    
+//     $("#notificationmenu").append(menu)
+//       $('.dropdownnotification').dropdown()
+//     }
+  })
   
   Template.notificationdropdown.formatRewards = function(user) {
     var rewards = []
@@ -44,4 +57,10 @@ Template.notificationdropdown.helpers({
       rewards.push(user.reward_vesting_steem.split(' ')[0]+' SP')
     return rewards.join(', ')
   }
+
+  // Template.notificationdropdown.addNotification = function(type,user,permalink){
+  //   $('#notificationmenu').append(" <div class="/item/">Button" + '(++count)' + "</div>");
+  // }
+
+  
   

@@ -2,10 +2,10 @@
         <div class="ui item top left pointing dropdown dropdownnotification">
             <i id="notification" class="alarm icon" style='font-size:1.5em; margin:0;'></i>
             <span id="notificationcount" class="notificationdtube">99</span>
-            <div class="menu">
+            <div id="notificationmenu" class="menu">
                 {{#if hasRewards mainUser}}
                 <div class="item notification">
-                    <a class='item claimRewards' data-username='{{mainUser}}' title='{{displayRewards mainUser}}'>
+                    <a class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
                     <i class="money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}}</a>
                 </div>
                 {{else}}

@@ -9,6 +9,7 @@ Template.pusher.helpers({
 Template.pusher.rendered = function () {
     Template.pusher.setScreenMode();
     $(window).on('resize', Template.pusher.setScreenMode)
+    // Transactions.startListening();
 }
 
 Template.pusher.setScreenMode = function () {
