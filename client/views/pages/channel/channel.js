@@ -4,6 +4,14 @@ Template.channel.rendered = function () {
     if (error) console.log('Error fetch name')
   })
   Session.set('isChannelInfoOpen', false)
+  $('.ui.sticky').sticky();
+  $('.menu .item').tab();
+  $('.ui.rating').rating({
+    initialRating: 0,
+    maxRating: 5
+  });
+  $('.ui.rating').rating('disable')
+;
 }
 
 Template.channel.helpers({
@@ -47,9 +55,11 @@ Template.channel.helpers({
   },
   myChannelSidebar:function () {
     Template.sidebar.activeSidebarChannel();
+    return
   },
   resetSidebar:function () {
     Template.sidebar.resetActiveMenu();
+    return
   }
 })
 

@@ -40,6 +40,7 @@ Transactions.startListening = function () {
         console.log("its another thing")
         break;
     }
+    //return notification
     //Template.notificationdropdown.addNotification(notification)
     // Transactions.upsert({ 'transaction':operation }, operation)
   })

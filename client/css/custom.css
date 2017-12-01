@@ -12,3 +12,42 @@ width: 50%;
 {
   text-align: left;
 }
+
+.ui.tabular.menu .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 700;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+}
+
+.ui.tabular.menu.mobile .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 700;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+}
+
+.ui.tabular.menu .item:hover {
+  background: transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
+.ui.tabular.menu .active.item {
+  border-bottom: 2px solid rgba(236, 12, 12, 1);
+  color: rgba(0, 0, 0, 1);
+  border-top-width: 0px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0px !important;
+  margin-bottom: 0px; 
+}

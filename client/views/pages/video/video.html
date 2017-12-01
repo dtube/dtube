@@ -29,34 +29,15 @@
               {{downvotes active_votes}}
               </button>
               {{else}}
-              <button class="ui icon button downvote votebutton"> 
+              <button class="ui icon button downvote votebutton">
                 <i class="thumbs down icon"></i>
                 <span>{{downvotes active_votes}}</span>
-              </button> 
+              </button>
               {{/if}}
             </div>
-            <!-- <button class="ui share basic button" style="width: 113px; margin-left: -5px;   margin-right: 0px;  border-style: solid;
-                           border-width: 0px 0px 0px 0px; border-radius:0px; box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
-              <i class="icon share"></i>
-              {{ translate 'VIDEO_SHARE'}}
-            </button> -->
           </div>
         </div>
       </div>
-      <!-- Share content including all socials network and copy link button -->
-      <!-- {{updateShareLinks}}
-      <div id="sharesegment" class="ui segment subcommentsclosed" style="padding: 0px;border-width: 0;overflow: hidden; background: #f9f9f9;">
-        <div>
-          <div class="ui fluid action input" style="padding: 5px;">
-            <input id="permalink" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
-            <div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>
-          </div>
-          <div class="ui fluid action input" style="padding: 5px;">
-            <input id="embedlink" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
-            <div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div>
-          </div>
-        </div>
-      </div> -->
       <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
       <div class="ui segment" style="padding:0px!important;">
         <div class="details" style="width:100%;">
@@ -67,7 +48,7 @@
                 {{info.author}}
               </a>
             </div>
-            {{#unless equals activeUser user.name}} 
+            {{#unless equals activeUser user.name}}
             {{#if isLoggedOn}}
              {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
@@ -87,7 +68,7 @@
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}} 
+            {{/if}}
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui red mini button dtube ">
@@ -97,7 +78,7 @@
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}} 
+            {{/if}}
             {{else}}
               <div class="ui blue mini dtube button editvideo dtube">
                 <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
