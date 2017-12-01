@@ -1,4 +1,5 @@
 Notifications = new Mongo.Collection(null)
+notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications');
 
 stopStreamTransactions = null
 

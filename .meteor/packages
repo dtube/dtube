@@ -28,3 +28,4 @@ raix:ui-dropped-event
 session@1.1.7
 chrismbeckett:toastr
 dynamic-import@0.2.0
+frozeman:persistent-minimongo2
