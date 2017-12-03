@@ -2,7 +2,7 @@
   <div class="ui item right pointing top dropdown dropdownnotification">
     {{#if notifications.length}}
     <i id="notification" class="alarm icon" style='font-size:1.5em; margin:0;'></i>
-    <span id="notificationcount" style="background:red;font-weight:600;" class="notificationdtube">{{notifications.length}}</span>
+    <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">{{notifications.length}}</span>
     {{else}}
     <i id="notification" class="alarm icon outline" style='font-size:1.5em; margin:0;'></i>
     <span class="notificationdtube">0</span>
@@ -13,58 +13,78 @@
       {{#each notifications}} 
       {{#if equals type 'subscribe'}}
       <div class="ui  card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content">
-          <div class="right floated">
-            <i class="remove circle icon notificationremove"></i>
+        <div class="content" style="padding: 0px;">
+            <div class="right floated" style="padding:5px;">
+                <i class="remove circle icon notificationremove"></i>
+              </div>
+          <div style="padding: 10px;display:flex;">
+            <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
+            <div style="display: inline;margin-left: 5px;">
+              <div>
+            <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
+            subscribed to your channel</div>
+              <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+            </div>
           </div>
-          <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
-          <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
-          subscribed to your channel {{date}} {{timeAgo date}}
         </div>
       </div>
       {{/if}} 
       {{#if equals type 'comment'}}
       <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content">
-          <div class="right floated">
-            <i class="remove circle icon"></i>
-          </div>
-          <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
-          <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
-          commented
-          <div style="margin-top:5px;white-space: normal;
-                    display: flex;">
-            <img style="border-radius:5px;" width="105" height="59" src="https://ipfs.io/ipfs/{{getSnap tx.parent_author tx.parent_permlink}}">
-            <span style="margin-left: 5px;"> {{getTitle tx.parent_author tx.parent_permlink}}</span>
+        <div class="content" style="padding: 0px;">
+            <div class="right floated" style="padding:5px;">
+                <img style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.parent_author tx.parent_permlink}}">
+              <i class="remove circle icon"></i>
+            </div>
+          <div style="padding: 10px;">
+            <div style="display:flex;">
+                <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
+                <div style="display: inline;margin-left: 5px;">
+                  <div>
+                <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
+                commented
+              </div>
+                  <span style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</span>
+                  <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
       {{/if}} 
       {{#if equals type 'vote'}}
       <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content">
-          <div class="right floated">
-            <i class="remove circle icon"></i>
-          </div>
-          <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
-          <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>
-          uptoved
-          <div style=" margin-top:5px;white-space: normal;display: flex;">
-            <img style="border-radius:5px;" width="105" height="59" src="https://ipfs.io/ipfs/{{getSnap tx.author tx.permlink}}">
-            <span style="margin-left: 5px;">{{getTitle tx.author tx.permlink}}</span>
+          <div class="content" style="padding: 0px;">
+              <div class="right floated" style="padding:5px;">
+                  <img style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.author tx.permlink}}">
+                <i class="remove circle icon"></i>
+              </div>
+            <div style="padding: 10px;">
+              <div style="display:flex;">
+                  <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+                  <div style="display: inline;margin-left: 5px;">
+                    <div>
+                  <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>
+                  uptoved
+                </div>
+                    <span style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</span>
+                    <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
       {{/if}} 
       {{/each}} 
       {{#if hasRewards mainUser}}
       <div class="ui card" style="margin: 0px 5px 5px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content">
-          <div class="right floated">
-            <i class="validate circle icon notificationremove"></i>
-          </div>
-          <a style="padding: 0px;" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
-            <i class="large money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}}</a>
+        <div class="content" style="padding: 0px;">
+            <div class="right floated" style="padding:5px;">
+                <i class="check circle icon"></i>
+              </div>
+          <a style="padding: 10px;" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
+            <i class="large money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}} {{displayRewards mainUser}}
+          </a>
         </div>
       </div>
       {{/if}}
