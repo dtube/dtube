@@ -17,17 +17,17 @@ Notifications.filterOperations = function(op) {
   switch (op[0]) {
     case "vote":
       if (Session.get('activeUsername') == op[1].author)
-        Notifications.insert({type: 'vote', tx: op[1]})
+        Notifications.insert({type: 'vote', tx: op[1],date: Date.getTime()})
       break;
     case "comment":
       if (Session.get('activeUsername') == op[1].parent_author)
-        Notifications.insert({type: 'comment', tx: op[1]})
+        Notifications.insert({type: 'comment', tx: op[1],date: Date.getTime()})
       break;
     case "custom_json":
       op[1].json = JSON.parse(op[1].json)
       if (op[1].json[0] == "follow")
         if (Session.get('activeUsername') == op[1].json[1].following)
-          Notifications.insert({type: 'subscribe', tx: op[1]})
+          Notifications.insert({type: 'subscribe', tx: op[1],date: Date.getTime()})
       break;
   }
 }

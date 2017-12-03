@@ -53,3 +53,23 @@ width: 50%;
   border-radius: 0px !important;
   margin-bottom: 0px; 
 }
+
+.spritehash {
+  width: 210px;
+  height: 118px;
+}
+
+.ui.card > .content {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
+  background: none;
+  margin: 0em;
+  padding: 0.5em 0.5em;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-size: 1em;
+  border-radius: 0em;
+}
