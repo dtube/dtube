@@ -1,48 +1,48 @@
 Template.topbar.helpers({
-  searchSuggestions: function() {
+  searchSuggestions: function () {
     return Session.get('searchSuggestions')
   },
-  isLoggedOn: function() {
+  isLoggedOn: function () {
     return Session.get('activeUsername')
   }
 });
 
 Template.topbar.events({
-  'click .sidebartoggleicon': function(event, instance) {
+  'click .sidebartoggleicon': function (event, instance) {
     $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
-    .sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
+      .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
   },
-  'click #mobilesearch': function(event, instance) {
+  'click #mobilesearch': function (event, instance) {
     $("#mobilesearchsidebar").sidebar('toggle')
   },
-  'keyup #dsearch': function(evt) {
+  'keyup #dsearch': function (evt) {
     console.log(evt)
     var query = evt.target.value
     if (query.length < 1) {
       $('.results').hide()
       return
     }
-    AskSteem.getSearchSuggestions(query, function(err, suggestions) {
+    AskSteem.getSearchSuggestions(query, function (err, suggestions) {
       if (suggestions.length > 0) $('.results').show()
       else $('.results').hide()
       Session.set('searchSuggestions', suggestions)
     })
   },
-  'submit .searchForm': function(event) {
+  'submit .searchForm': function (event) {
     event.preventDefault()
     AskSteem.search(event.target.search.value)
   },
-  'click .result': function(event) {
+  'click .result': function (event) {
     $('#dsearch').val(this)
     $('.searchForm').submit()
   },
-  'click .dtube': function() {
+  'click .dtube': function () {
     $('.dtube').addClass('loading')
-    Videos.refreshBlockchain(function() {
+    Videos.refreshBlockchain(function () {
       $('.dtube').removeClass('loading')
     })
   },
-  'click #textlogo': function() {
+  'click #textlogo': function () {
     window.history.pushState('', '', '/#!/');
     FlowRouter.go('/')
   }

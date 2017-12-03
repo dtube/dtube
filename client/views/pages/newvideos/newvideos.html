@@ -1,0 +1,13 @@
+<template name='newvideos'>
+    {{#if isOnMobile}}
+    <div class="ui grid" style="margin: 10px 0px">
+      <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+      {{> verticalvideoband newVideos}}
+    </div>
+    {{else}}
+    <div class="ui container">
+      <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+      {{> videoband newVideos}}
+    </div>
+    {{/if}}
+  </template>

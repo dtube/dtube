@@ -10,39 +10,37 @@ Template.sidebar.rendered = function () {
 Template.sidebar.helpers({
   activeUser: function () {
     return Session.get('activeUsername')
-  }
-});
-
-Template.sidebar.helpers({
+  },
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      return true;
+    }
+  },
   subscribe: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-  }
-});
-
-Template.sidebar.helpers({
-  watchAgain: function () {
+  }, watchAgain: function () {
     return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
   }
 });
 
-Template.sidebar.OnSidebarToogled = function () {
-  $("#sidebar").sidebar('setting', 'onShow', function () {
-    //  if ($(window).innerWidth() > 1367) {
-    //    $('.article').addClass('mainsided');
-    //  }
-    //  else {
-    //    $('.article').addClass('mainsided');
-    //  }
-  })
-  $("#sidebar").sidebar('setting', 'onHide', function () {
-    //  if ($(window).innerWidth() > 1367) {
-    //    $('.article').removeClass('mainsided');
-    //  }
-    //  else {
-    //    $('.article').removeClass('mainsided');
-    //  }
-  })
-}
+// Template.sidebar.OnSidebarToogled = function () {
+//   $("#sidebar").sidebar('setting', 'onShow', function () {
+//     //  if ($(window).innerWidth() > 1367) {
+//     //    $('.article').addClass('mainsided');
+//     //  }
+//     //  else {
+//     //    $('.article').addClass('mainsided');
+//     //  }
+//   })
+//   $("#sidebar").sidebar('setting', 'onHide', function () {
+//     //  if ($(window).innerWidth() > 1367) {
+//     //    $('.article').removeClass('mainsided');
+//     //  }
+//     //  else {
+//     //    $('.article').removeClass('mainsided');
+//     //  }
+//   })
+// }
 
 Template.sidebar.events({
   'click #help': function (event, instance) {

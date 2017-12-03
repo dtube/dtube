@@ -34,14 +34,14 @@
         <i class="search icon" style='font-size:1.5em; margin:0;padding:0;'></i>
       </a>
       {{#if isLoggedOn}}
-      <a href='/upload' class="ui item"  title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
+      <a href='/upload' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
       </a>
       {{else}}
       <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
         <i class="cloud upload icon" style='font-size:1.5em; margin:0;'></i>
       </a>
-      {{/if}}
+      {{/if}} 
       {{> notificationdropdown}} 
       {{> settingsdropdown}} 
       {{#if isLoggedOn}} 
@@ -50,7 +50,7 @@
       <a class="ui item">
         <a href="/login" class="ui youtube button left icon labeled videoshowmore" style="background:#ff1a1a!important;">
           <i class="sign in icon"></i> {{ translate "TOPBAR_LOGIN"}}</a>
-        </a>
+      </a>
       {{/if}}
     </div>
   </div>

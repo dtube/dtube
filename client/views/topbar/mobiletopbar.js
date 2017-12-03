@@ -5,6 +5,9 @@ Template.mobiletopbar.helpers({
   });
   
   Template.mobiletopbar.events({
+    'click .sidebartoggleicon': function(event, instance) {
+      $("#sidebar").sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
+    },
     'click #mobilesearch': function(event, instance) {
       $("#sidebar").sidebar('hide')
       $("#mobilesearchsidebar").sidebar('toggle')

@@ -2,13 +2,43 @@
   {{resetSidebar}} {{#if isOnMobile}}
   <!--- /////////////////////////MOBILE TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;">
-    <div style="width:100%;background-position: left;
-      background-size: cover;background-image:url('https://img.busy.org/@{{user.name}}/cover');margin-top:-13px;">
+    <!-- <div style="width:100%;background-position: left;
+      background-size: cover;background-image:url('https://img.busy.org/@{{user.name}}/cover');margin-top:-13px;"> -->
+      <div style="max-height: 145px;position: relative;overflow: hidden;">
+          <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;">
+          <img  style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> 
+        {{#if equals activeUser user.name}}
+        <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
+          <div class="ui mini button unsubscribe dtube blue">
+            {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+          </div>
+        </div>
+        {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
+        <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
+          <div class="ui mini button unsubscribe dtube grey">
+            {{ translate 'VIDEO_UNSUBSCRIBE'}}
+          </div>
+          <a class="ui basic label videoshowmore" style="border-width:1px!important;background:white!important;">
+            {{{subCount}}}
+          </a>
+        </div>
+        {{else}}
+        <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
+          <div class="ui red mini button dtube subscribe">
+            {{ translate 'VIDEO_SUBSCRIBE'}}
+          </div>
+          <a class="ui basic label videoshowmore" style="border-width:1px!important;background:white!important;">
+            {{{subCount}}}
+          </a>
+        </div>
+        {{/if}} 
+        {{/if}}
+      </div>
       <div style="width:100%">
-        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;min-height:120px; max-width: 100%;">
-          <img class="ui medium avatar" style="margin: 20px;" src="https://img.busy.org/@{{user.name}}">
+        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important; max-width: 100%;">
+          <!-- <img class="ui medium avatar" style="margin: 20px;" src="https://img.busy.org/@{{user.name}}"> -->
           <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
-            <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;">
+            <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
               <i class="icon red star"></i>{{displayReputation author.reputation}}
             </div>
             <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
@@ -17,35 +47,9 @@
             <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
               <i class="icon green money"></i>{{author.estimateAccountValue}}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {{#if equals activeUser user.name}}
-    <!-- <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 15px;top: 138px;">
-      <div class="ui mini button unsubscribe dtube blue">
-        {{ translate 'VIDEO_EDIT'}}
-      </div>
-    </div> -->
-    {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
-    <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 15px;top: 138px;">
-      <div class="ui mini button unsubscribe dtube grey">
-        {{ translate 'VIDEO_UNSUBSCRIBE'}}
-      </div>
-      <a class="ui basic label videoshowmore" style="border-width:1px!important;background:white!important;">
-        {{{subCount}}}
-      </a>
-    </div>
-    {{else}}
-    <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 15px;top: 138px;">
-      <div class="ui red mini button dtube subscribe">
-        {{ translate 'VIDEO_SUBSCRIBE'}}
-      </div>
-      <a class="ui basic label videoshowmore" style="border-width:1px!important;background:white!important;">
-        {{{subCount}}}
-      </a>
-    </div>
-    {{/if}} {{/if}}
+  </div>
+</div>
+</div>
     <div class="ui top attached tabular menu mobile" style="margin-top: 0rem;">
       <a class="item active" data-tab="first">VIDEOS</a>
       <a class="item" data-tab="second">ACTIVITIES</a>
@@ -122,19 +126,25 @@
   </div>
   {{else}}
   <!--- /////////////////////////DESKTOP TEMPLATE FOR CHANNEL///////////////////////////// -->
-  <div style="width: 100%;">
-    <div style="width:100%;background-position: left;background-color:#555;
-        background-size: cover;background-image:url('https://img.busy.org/@{{user.name}}/cover');margin-top:-13px;background-repeat: no-repeat;">
-      <div style="width:100%">
-        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;min-height:120px; max-width: 100%;display: block;">
-          <img class="ui medium avatar" style="margin: 20px;" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
-          <!-- <div class="ui labeled mini button" tabindex="0" style="float: right;position: relative; margin-top: 80px;margin-right: 0px; width: 175px;">
-              <div class="ui mini button unsubscribe dtube blue">
-                {{ translate 'VIDEO_EDIT'}}
-              </div>
-            </div> -->
+  <div style="width: 100%;margin-top: -23px;">
+    <!-- <div style="width:100%;background-position: left;background-color:#555;
+        background-size: cover;background-image:url('https://img.busy.org/@{{user.name}}/cover');margin-top:-13px;background-repeat: no-repeat;"> -->
+      <!-- <div style="max-height:150px;position: relative;background:#333;overflow:hidden;">
+        <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;">
+        <img style="max-width:100%;max-height:100%;float:left;position:absolute;top:10px;left:10px;" src="https://img.busy.org/@{{user.name}}"> 
+      </div> -->
+
+      <div style="max-height:120px;position: relative;background:#333;overflow:hidden;">
+          <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;">
+          <img  style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> 
+          {{#if equals activeUser user.name}}
+          <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
+            <div class="ui mini button unsubscribe dtube blue">
+              {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+            </div>
+          </div>
           {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
-          <div class="ui labeled mini button" tabindex="0" style="float: right;position: relative; margin-top: 80px;margin-right: 0px; width: 175px;">
+          <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
             <div class="ui mini button unsubscribe dtube grey">
               {{ translate 'VIDEO_UNSUBSCRIBE'}}
             </div>
@@ -143,7 +153,7 @@
             </a>
           </div>
           {{else}}
-          <div class="ui labeled mini button" tabindex="0" style="float: right;position: relative; margin-top: 80px;margin-right: 0px; width: 175px;">
+          <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
             <div class="ui red mini button dtube subscribe">
               {{ translate 'VIDEO_SUBSCRIBE'}}
             </div>
@@ -151,7 +161,11 @@
               {{{subCount}}}
             </a>
           </div>
-          {{/if}} {{/if}}
+          {{/if}} 
+          {{/if}}
+        </div>
+      <div style="width:100%">
+        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
           <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
             <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
               <i class="icon red star"></i>{{displayReputation author.reputation}}
@@ -165,7 +179,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
     <div class="ui top attached tabular menu" style="margin-top: 0rem;">
       <a class="item active" data-tab="first">VIDEOS</a>
       <a class="item" data-tab="second">ACTIVITIES</a>
