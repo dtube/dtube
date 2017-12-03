@@ -1,5 +1,6 @@
 Notifications = new Mongo.Collection(null)
 notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications');
+var moment = require('moment')
 
 stopStreamTransactions = null
 
@@ -13,21 +14,23 @@ Notifications.startListening = function () {
   })
 }
 
+
 Notifications.filterOperations = function(op) {
+  var timestamp = moment().utc().format("YYYY-MM-DD HH:mm:ss") ;
   switch (op[0]) {
     case "vote":
       if (Session.get('activeUsername') == op[1].author)
-        Notifications.insert({type: 'vote', tx: op[1],date: Date.getTime()})
+        Notifications.insert({type: 'vote', tx: op[1],date: timestamp})
       break;
     case "comment":
       if (Session.get('activeUsername') == op[1].parent_author)
-        Notifications.insert({type: 'comment', tx: op[1],date: Date.getTime()})
+        Notifications.insert({type: 'comment', tx: op[1],date: timestamp})
       break;
     case "custom_json":
       op[1].json = JSON.parse(op[1].json)
-      if (op[1].json[0] == "follow")
+      if (op[1].json[0] == "follow" && op[1].json[1].what[0] == 'blog')
         if (Session.get('activeUsername') == op[1].json[1].following)
-          Notifications.insert({type: 'subscribe', tx: op[1],date: Date.getTime()})
+          Notifications.insert({type: 'subscribe', tx: op[1],date: timestamp})
       break;
   }
 }
