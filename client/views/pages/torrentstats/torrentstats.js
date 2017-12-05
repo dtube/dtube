@@ -16,7 +16,7 @@ Template.torrentStats.refreshStats = function () {
     })
   }
   else{
-    $('.ui.segments.statistics').addClass('displaynone');
+    // $('.ui.segments.statistics').addClass('displaynone');
   }
 }
 

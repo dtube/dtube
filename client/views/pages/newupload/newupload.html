@@ -2,7 +2,7 @@
   <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
     <center>
        <!-- {{> circularprogressbar}} -->
-      <div class="ui segment noshadow" style="margin:20 0px;">
+      <div class="ui segment" style="margin:20 0px;border-radius:0px">
         <!-- <h1 style="color:red;">NEW UPLOADER</h1> -->
         {{#if isOnMobile}}
         <div id="statuszone" style="margin-top:20px;">
@@ -57,8 +57,6 @@
           </div>
         </div>
         {{/if}}
-
-        <!-- $('.radial-progress').attr('data-progress', value); -->
         <div class="ui indicating progress" id='progressvideo' style='display:none'>
           <div class="bar">
           </div>
@@ -79,15 +77,15 @@
           <div class="ui grid">
             <div class="two column row">
               <div class="column">
-                <video controls autoplay style="width:100%;"></video>
+                <video id="videopreview" class="displaynone" controls autoplay style="width:100%;height: 100%;"></video>
                 <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
               </div>
               <div class="column">
-                <canvas></canvas>
+                <canvas id="snappreview" class="displaynone"></canvas>
               </div>
             </div>
           </div>
-          <div style="text-align:left;">
+          <div style="text-align:left;margin-top:20px;">
             <a class='ui icon left labeled dtube white button' style="padding-left: 3.27142857em !important;"
               id='snap' download='snap.jpg'>
               <i class="photo icon"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>

@@ -73,3 +73,7 @@ width: 50%;
   font-size: 1em;
   border-radius: 0em;
 }
+
+.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #ff1a1a !important;
+}

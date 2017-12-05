@@ -1,13 +1,21 @@
 <template name='torrentStats'>
   <div class="ui grid " style="max-width:600px;margin:auto;">
-    <div class="ui segments noshadow" style="display:flow-root;padding: 0px;margin: 0px;width:100%;">
+    <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;width:100%;border-radius:0px;">
+        <div class="ui row" style="width:100%;">
+            <div class="ui segment" style="width:100%;border-radius:0px;">
+                <center>
+            <h2>{{ translate 'TORRENT_CONGRATZ'}}</h2>
+            <i class="big smile icon"></i>
+                </center>
+          </div>
+        </div>
       <div class="ui segment" style="width:100%;">
-        <center>
-          <h2>{{ translate 'TORRENT_CONGRATZ'}}</h2>
-          <i class="big smile icon"></i>
+          <center>
           <div class="label">
             {{ translate 'TORRENT_USE_THIS_LINK_TO_SHARE'}}
           </div>
+        </center>
+        <center>
           <a id="videolink">https://d.tube/#!/v/{{uploadedVideo.author}}/{{uploadedVideo.permlink}}</a>
           <div class="ui divider"></div>
           <a id="videolink" href="https://d.tube/#!/v/{{uploadedVideo.author}}/{{uploadedVideo.permlink}}" target="_blank"> 
@@ -15,11 +23,11 @@
             <i class="play icon"></i> {{ translate 'TORRENT_WATCH_VIDEO'}}
           </div>
         </a>
-        </center>
+      </center>
       </div>
     </div>
-    <div class="ui segments statistics noshadow displaynone" style="padding: 0px;margin: 0px;width:100%;">
-      <div class="ui row">
+    <div class="ui segments statistics noshadow " style="padding: 0px;margin: 0px;width:100%;">
+      <div class="ui row" style="width:100%;">
         <div class="ui segment statistic noshadow" style="width:100%;">
           <h2>{{ translate 'TORRENT_STATS_TITLE'}}</h2>
           <div class="value">
@@ -30,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="ui row">
+      <div class="ui row" style="width:100%;">
         <div class="ui segment statistic noshadow" style="width:100%;">
           <div class="value">
             <span id='torrentUpload'>{{humanFilesize stats.uploadSpeed}}</span>
@@ -40,8 +48,8 @@
           </div>
         </div>
       </div>
-      <div class="ui row">
-        <div class="ui segment" style="width:100%;">
+      <div class="ui row" style="width:100%;">
+        <div class="ui segment" style="width:100%;border-radius:0px;">
           <i class="info circle icon"></i>
           {{ translate 'TORRENT_KEEP_THIS_OPEN'}}
         </div>
