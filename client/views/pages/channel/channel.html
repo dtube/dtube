@@ -51,9 +51,9 @@
 </div>
 </div>
     <div class="ui top attached tabular menu mobile" style="margin-top: 0rem;">
-      <a class="item active" data-tab="first">VIDEOS</a>
-      <a class="item" data-tab="second">ACTIVITIES</a>
-      <a class="item" data-tab="third">ABOUT</a>
+      <a class="item active" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
+      <a class="item" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
+      <a class="item" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
     </div>
     <!-- MOBILE VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -66,19 +66,19 @@
     <!-- MOBILE ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui white" style="padding-bottom:10px;">
-        Last post :
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
         <div class="ui fluid label">{{timeAgo author.last_post}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-        Last vote :
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
         <div class="ui fluid label">{{timeAgo author.last_vote_time}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-        Account update :
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
         <div class="ui fluid label">{{timeAgo author.last_account_update}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-        Joined :
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
         <div class="ui fluid label">{{displayDate author.created}}</div>
       </div>
     </div>
@@ -86,27 +86,27 @@
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if author.json_metadata.profile.name}}
       <div class="ui white" style="padding-bottom:10px;">
-        Name :
+          {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
         <div class="ui fluid label">{{author.json_metadata.profile.name}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.about}}
       <div class="ui white" style="padding-bottom:10px;">
-        About :
+          {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
         <div class="ui fluid label">{{author.json_metadata.profile.about}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.location}}
       <div class="ui white" style="padding-bottom:10px;">
-        Location :
+          {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
         <div class="ui fluid label">{{author.json_metadata.profile.location}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.website}}
       <div class="ui white" style="padding-bottom:10px;">
-        Website :
+          {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
         <div class="ui fluid label">{{author.json_metadata.profile.website}}</div>
       </div>
       {{/if}} {{#if userVideos.length}}
       <div class="ui white" style="padding-bottom:10px;">
-        Total videos :
+          {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
         <div class="ui fluid label">{{userVideos.length}}</div>
       </div>
       {{/if}}
@@ -162,13 +162,13 @@
       <div style="width:100%">
         <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
           <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
-            <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
-              <i class="icon red star"></i>{{displayReputation author.reputation}}
+            <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
+              <i  class="icon red star"></i>{{displayReputation author.reputation}}
             </div>
-            <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
+            <div title="{{ translate 'CHANNEL_TOOLTIP_POWER'}}" class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
               <i class="icon blue lightning"></i>{{author.voting_power}}
             </div>
-            <div class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
+            <div title="{{ translate 'CHANNEL_TOOLTIP_VALUE'}}" class="ui videoshowmore   label" style="margin-left: 0em;background:white!important;float:right;">
               <i class="icon green money"></i>{{author.estimateAccountValue}}
             </div>
           </div>
@@ -176,9 +176,9 @@
       </div>
     <!-- </div> -->
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
-      <a class="item active" style="display:inline-block;" data-tab="first">VIDEOS</a>
-      <a class="item" style="display:inline-block;" data-tab="second">ACTIVITIES</a>
-      <a class="item" style="display:inline-block;" data-tab="third">ABOUT</a>
+      <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
+      <a class="item" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
+      <a class="item" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -189,19 +189,19 @@
       <div class="ui grid two column">
         <div class="column">
           <div class="ui white" style="padding-bottom:10px;">
-            Last post :
+              {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
             <div class="ui fluid label">{{timeAgo author.last_post}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-            Last vote :
+              {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
             <div class="ui fluid label">{{timeAgo author.last_vote_time}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-            Account update :
+              {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
             <div class="ui fluid label">{{timeAgo author.last_account_update}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-            Joined :
+              {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
             <div class="ui fluid label">{{displayDate author.created}}</div>
           </div>
         </div>
@@ -215,27 +215,27 @@
         <div class="column">
           {{#if author.json_metadata.profile.name}}
           <div class="ui white" style="padding-bottom:10px;">
-            Name :
+              {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
             <div class="ui fluid label">{{author.json_metadata.profile.name}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.about}}
           <div class="ui white" style="padding-bottom:10px;">
-            About :
+              {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
             <div class="ui fluid label">{{author.json_metadata.profile.about}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.location}}
           <div class="ui white" style="padding-bottom:10px;">
-            Location :
+              {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
             <div class="ui fluid label">{{author.json_metadata.profile.location}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.website}}
           <div class="ui white" style="padding-bottom:10px;">
-            Website :
+              {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
             <div class="ui fluid label">{{author.json_metadata.profile.website}}</div>
           </div>
           {{/if}} {{#if userVideos.length}}
           <div class="ui white" style="padding-bottom:10px;">
-            Total videos :
+              {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
             <div class="ui fluid label">{{userVideos.length}}</div>
           </div>
           {{/if}}

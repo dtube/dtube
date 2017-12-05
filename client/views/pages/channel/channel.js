@@ -123,13 +123,5 @@ Template.channel.events({
           toastr.error(Meteor.blockchainError(err))
       }
     );
-  },
-  'click #showchannelabout': function () {
-    $('#channelinfo').transition('slide up')
-    $('#channelabout').transition('slide down')
-  },
-  'click #showchannelinfo': function () {
-    $('#channelinfo').transition('slide down')
-    $('#channelabout').transition('slide up')
-  },
+  }
 })

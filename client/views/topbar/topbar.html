@@ -48,8 +48,16 @@
       {{> users}} 
       {{else}}
       <a class="ui item">
-        <a href="/login" class="ui youtube button left icon labeled videoshowmore" style="background:#ff1a1a!important;">
-          <i class="sign in icon"></i> {{ translate "TOPBAR_LOGIN"}}</a>
+        <a href="/login" class="ui labeled mini button">
+          <div class="ui labeled mini button" tabindex="0">
+              <div class="ui red  mini left dtube button subscribe">
+                  {{ translate "TOPBAR_LOGIN"}}
+              </div>
+              <a class="ui basic label videoshowmore" style="border-width:1px!important;">
+                  <i class="sign in icon"></i>
+              </a>
+            </div>
+           </a>
       </a>
       {{/if}}
     </div>

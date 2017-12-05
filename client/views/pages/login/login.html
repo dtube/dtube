@@ -20,14 +20,22 @@
             <label>{{ translate 'LOGIN_REMEMBER_ME'}}</label>
           </div>
         </div>
+        <div id="loginbutton" class="ui fluid labeled mini button" tabindex="0">
         <button type="submit" name="button" style="background:#ff1a1a!important;" 
-        class="ui youtube fluid large dtubebutton icon labeled left submit button">
-          <i class="sign in icon"></i>{{ translate 'LOGIN_BUTTON_LOGIN'}}</button>
+        class="ui fluid red  mini left dtube submit button">
+          <i class="sign in icon"></i>{{ translate 'LOGIN_BUTTON_LOGIN'}}
+        </button>
+        </div>
       </div>
-      <div class="ui message">
+      <div class="ui mini message">
           {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
           <a href="https://steemit.com/pick_account" target="_blank">
             {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} steemit.com</a>
+          <p></p>
+            {{ translate 'LOGIN_DIFFICULTY_FOR_LOGIN'}}
+            <a href="https://about.d.tube/#faq1" target="_blank">
+              {{ translate 'LOGIN_SEE_FAQ'}}</a>
+
         </div>
     </form>
   </div>
