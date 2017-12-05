@@ -14,6 +14,5 @@ Template.newvideos.helpers({
 })
 
 Template.trendingvideos.rendered = function () {
-  Videos.getVideosBy("created", 26)
   Template.sidebar.activeSidebarTrending();
 }

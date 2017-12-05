@@ -10,6 +10,5 @@ Template.hotvideos.helpers({
 })
 
 Template.trendingvideos.rendered = function () {
-  Videos.getVideosBy("hot", 26)
   Template.sidebar.activeSidebarTrending();
 }
