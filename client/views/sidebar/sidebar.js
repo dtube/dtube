@@ -23,24 +23,21 @@ Template.sidebar.helpers({
   }
 });
 
-// Template.sidebar.OnSidebarToogled = function () {
-//   $("#sidebar").sidebar('setting', 'onShow', function () {
-//     //  if ($(window).innerWidth() > 1367) {
-//     //    $('.article').addClass('mainsided');
-//     //  }
-//     //  else {
-//     //    $('.article').addClass('mainsided');
-//     //  }
-//   })
-//   $("#sidebar").sidebar('setting', 'onHide', function () {
-//     //  if ($(window).innerWidth() > 1367) {
-//     //    $('.article').removeClass('mainsided');
-//     //  }
-//     //  else {
-//     //    $('.article').removeClass('mainsided');
-//     //  }
-//   })
-// }
+Template.sidebar.OnSidebarToogled = function () {
+  $("#sidebar").sidebar('setting', 'onShow', function () {
+    if ($('.ui.container').innerWidth() > 643) {
+      $("#sidebar").sidebar('push page','pusher')
+      $('.article').addClass('mainsided');
+    }
+    Session.set('isSidebarOpen', true)
+  })
+  $("#sidebar").sidebar('setting', 'onHide', function () {
+      $("#sidebar").sidebar('pull page','pusher')
+      $('.article').removeClass('mainsided');
+      Session.set('isSidebarOpen', false)
+  })
+  window.dispatchEvent(new Event('resize'))
+}
 
 Template.sidebar.events({
   'click #help': function (event, instance) {

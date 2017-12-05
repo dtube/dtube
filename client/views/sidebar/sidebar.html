@@ -1,28 +1,52 @@
 <template name="sidebar">
   <div style="height:100%;">
-      {{#if isOnMobile }} 
-      <a href='/' class="header item" id='textlogo' style="display: inline-block;">
-        <i id="animdtube" class="dtube icon">
-          <img height="22" width="22" alt="" style="margin-left:5px;" src="/DTube_files/images/dtubeplay.png">
-        </i>Tube
-      </a>
-      {{/if}} 
+    {{#if isOnMobile }}
+    <a href='/' class="header item" id='textlogo' style="display: inline-block;">
+      <i id="animdtube" class="dtube icon">
+        <img height="22" width="22" alt="" style="margin-left:5px;" src="/DTube_files/images/dtubeplay.png">
+      </i>Tube
+    </a>
+    {{/if}}
     <a href='/' class="item" id="home" style="padding:0%;">
-      <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
+      <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="home icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
     <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
-      <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
+      <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="block layout icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
-    </a> 
+    </a>
     <a href='/trendingvideos' class="item" style="padding:0%;">
-      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
-        <i class="fire icon dtubesidebaricon"></i>
+      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
+        <i class="line chart icon dtubesidebaricon"></i>
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
+      </div>
+    </a>
+    <a href='/newvideos' class="item" style="padding:0%;">
+      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
+        <i class="icon dtubesidebaricon" style="font-family: sans-serif;font-weight: 900;font-size: 7px;border: black solid;margin-left: 19px;padding-right: 19px;padding-left: 1px;padding-top: 8px;padding-bottom: 5px;margin-top: 13px;margin-bottom: 13px;margin-right: 4px;height: 19px;border-width: 2px 0px;line-height: 0px;">NEW</i>
+        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</span>
+      </div>
+    </a>
+    <a href='/hotvideos' class="item" style="padding:0%;">
+      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
+        <i class="fire icon dtubesidebaricon"></i>
+        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</span>
+      </div>
+    </a>
+    <a href='/watchlater' class="item" style="padding:0%;">
+      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
+        <i class="time icon dtubesidebaricon"></i>
+        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_LATER'}}</span>
+      </div>
+    </a>
+    <a href='/newupload' class="item" style="padding:0%;">
+      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
+        <i class="cloud upload icon dtubesidebaricon"></i>
+        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
       </div>
     </a>
     <!-- {{#if watchAgain}} -->
@@ -33,12 +57,6 @@
       </div>
     </a>
     <!-- {{/if}} -->
-    <a href='/newupload' class="item" style="padding:0%;">
-      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
-        <i class="cloud upload icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
-      </div>
-    </a>
     <div class="ui divider"></div>
     {{#if subscribe}}
     <a class="item" style="padding:0%;margin-top:-10px;">
@@ -52,7 +70,9 @@
       <a class="item" style="padding:0%;">
         <div class="menuitem dtubesidebarmenu" style="padding:0%;">
           <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" style="height:24px;width:24px;margin:5px 5px 5px 20px;">
-          <a href='/c/{{following}}'><span class="customlink dtubesidebartitle" >{{following}}</span></a>
+          <a href='/c/{{following}}'>
+            <span class="customlink dtubesidebartitle">{{following}}</span>
+          </a>
         </div>
       </a>
       {{/each}}
@@ -64,7 +84,7 @@
     </div>
     {{/if}}
     <div class="ui divider"></div>
-    {{#if isOnMobile }} 
+    {{#if isOnMobile }}
     <a href='https://about.d.tube' target="_blank" id="help" class="item" style="padding:0%;width:100%;">
       <div class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="help icon dtubesidebaricon"></i>

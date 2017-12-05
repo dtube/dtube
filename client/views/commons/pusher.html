@@ -1,31 +1,31 @@
 <template name='pusher'>
+    {{#if isOnMobile }} 
+    {{> mobiletopbar}}
+  <div id="mobilesearchsidebar" class="ui sidebar overlay left inverted labeled icon menu" style="height:70px;width:100%;z-index:10;top:52px;background-color:rgba(32, 32, 32, 0.7);">
+    {{> mobilesearch}}
+  </div>
+  <div id="sidebar" class="ui sidebar fixed overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;background-color:rgb(250, 250, 250);">
+      {{> sidebar}}
+    </div>
+  {{else}} 
+    {{> topbar}}
+  <div id="sidebar" class="ui desktop sidebar fixed overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;top:57px;background-color:white;">
+    {{> sidebar}}
+  </div>
+  {{/if}}
   <div class="pusher">
     <div style="position:relative;width:100%;height:100%;">
       <!-- <div class="ui fixed overlay right vertical inverted labeled icon menu" style="z-index:12;top:57px;width:60%;height:100px;">
           {{> player}} 
         </div> -->
     </div>
-    {{#if isOnMobile }} 
-      {{> mobiletopbar}}
-    <div id="mobilesearchsidebar" class="ui sidebar overlay left inverted labeled icon menu" style="height:70px;width:100%;z-index:10;top:52px;background-color:rgba(32, 32, 32, 0.7);">
-      {{> mobilesearch}}
-    </div>
-    <div id="sidebar" class="ui sidebar fixed overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;background-color:rgb(250, 250, 250);">
-        {{> sidebar}}
-      </div>
-    {{else}} 
-      {{> topbar}}
-    <div id="sidebar" class="ui sidebar  fixed overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;top:57px;background-color:white;">
-      {{> sidebar}}
-    </div>
-    {{/if}}
     <div class='article'>
       {{#if isOnMobile }} 
       <main class='ui main mobile only' style="margin-top: -12px;">
         {{> Template.dynamic template=main}}
       </main>
       {{else}}
-      <main class='ui maingrid container content'>
+      <main class='ui maingrid container content' style="min-width: 80%;">
         {{> Template.dynamic template=main}}
       </main>
       {{/if}}

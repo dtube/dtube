@@ -1,32 +1,20 @@
-<template name="masterLayout">
-  <div id="content">
-    {{> pusher}}
-  </div>
-</template>
-
 <head>
   <title>DTube</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/png" href="/DTube_files/images/dtubeplayfavicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="/DTube_files/images/dtube.svg"/>
   <script src="https://ipfs.io/ipfs/QmYpJyvNMkcBtrvYX5nic62tBvF3wvTFA3uJoquGwh3cGj" crossorigin="anonymous"></script>
 
   <meta name="description" content="DTube, alternative decentralized video platform."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="DTube" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://d.tube" />
-  <meta property="og:image" content="https://d.tube/DTube_files/images/dtubeplayfavicon.png" />
-  <meta property="og:description" content="DTube, alternative decentralized video platform."  />
-
-  <link rel="icon" type="image/png" href="https://d.tube/DTube_files/images/dtubeplayfavicon.png" />
+  <link rel="icon" type="image/png" href="https://d.tube/DTube_files/images/dtube.svg" />
 
 </head>
+<template name="masterLayout">
 <body>
-  <div class="ui appLoader" style='height: 100%; display: none;'>
-    <div class="ui active inverted dimmer">
-      <div class="ui large text loader appLoaderText"></div>
-    </div>
-  </div>
+
+          {{> pusher}}
+
 </body>
+</template>

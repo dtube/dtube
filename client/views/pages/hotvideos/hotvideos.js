@@ -8,3 +8,8 @@ Template.hotvideos.helpers({
     return Videos.find({ source: 'chainByHot' }, { limit: 25 }).fetch()
   }
 })
+
+Template.trendingvideos.rendered = function () {
+  Videos.getVideosBy("hot", 26)
+  Template.sidebar.activeSidebarTrending();
+}

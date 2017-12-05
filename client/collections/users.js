@@ -41,6 +41,8 @@ Users.refreshLocalUsers = function() {
       Users.insert(results[i])
       usernames.push(results[i].username)
 
+
+      //NEED FIX
       // fill the subscribes for each local user
       Subs.loadFollowing(results[i].username, undefined, function(follower) {
         var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})

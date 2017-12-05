@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 Template.newvideos.helpers({
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) { 
@@ -11,3 +13,7 @@ Template.newvideos.helpers({
   }
 })
 
+Template.trendingvideos.rendered = function () {
+  Videos.getVideosBy("created", 26)
+  Template.sidebar.activeSidebarTrending();
+}

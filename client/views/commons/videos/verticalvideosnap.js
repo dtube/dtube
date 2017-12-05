@@ -1,4 +1,3 @@
-var imagesLoaded = require('imagesloaded');
 
 Template.verticalvideosnap.events({
   'click #remove': function () {
@@ -17,12 +16,12 @@ Template.verticalvideosnap.rendered = function () {
   Template.videosnap.snapLoaded();
 }
 
-Template.verticalvideosnap.snapLoaded = function () {
-  $('#snapimg').imagesLoaded(function () {
-    //$('#snapload').remove();
-    //let cheat
-  });
-}
+// Template.verticalvideosnap.snapLoaded = function () {
+//   $('#snapimg').imagesLoaded(function () {
+//     //$('#snapload').remove();
+//     //let cheat
+//   });
+// }
 
 Template.verticalvideosnap.helpers({
 

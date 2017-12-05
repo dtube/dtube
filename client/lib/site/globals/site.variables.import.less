@@ -940,21 +940,26 @@
 @darkWhiteActive       : darken(@darkWhite, 5);
 
 
-
-@media only screen and (min-width: 1367px){
+@media only screen and (min-width: 1620px){
   .ui.container {
     width: 1282px;
   }
 }
 
-@media only screen and (min-width: 1180px)and (max-width: 1366px){
+@media only screen and (min-width: 1367px) and (max-width: 1619px){
   .ui.container {
     width: 1068px;
   }
 }
+
+@media only screen and (max-width: 1366px) and (min-width: 1180px){
+  .ui.container {
+    width: 856px;
+  }
+}
 @media only screen and (max-width: 1179px) and (min-width: 992px){
   .ui.container {
-    width: 856px !important;
+    width: 642px !important;
     margin-left: auto ! important;
     margin-right: auto ! important;
     }
@@ -968,6 +973,14 @@
     margin-right: auto !important;
   }
 }
+
+// @media only screen and (max-width: 898px) and (min-width: 700px){
+//   .ui.container {
+//       width: 430px;
+//       margin-left: auto !important;
+//       margin-right: auto !important;
+//     }
+//   }
 
 @media only screen and (max-width: 699px) and (min-width: 480px){
   .ui.container {

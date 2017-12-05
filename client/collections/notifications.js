@@ -14,9 +14,8 @@ Notifications.startListening = function () {
   })
 }
 
-
 Notifications.filterOperations = function(op) {
-  var timestamp = moment().utc().format("YYYY-MM-DD HH:mm:ss") ;
+  var timestamp = moment(new Date()).format("YYYY-MM-DD HH:mm:ss") ;
   switch (op[0]) {
     case "vote":
       if (Session.get('activeUsername') == op[1].author)

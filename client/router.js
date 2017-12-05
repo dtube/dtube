@@ -73,6 +73,28 @@ FlowRouter.route('/trendingvideos', {
   }
 });
 
+FlowRouter.route('/newvideos', {
+  name: "newvideos",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'New Videos')
+    BlazeLayout.render('masterLayout', {
+      main: "newvideos",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/hotvideos', {
+  name: "hotvideos",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Hot Videos')
+    BlazeLayout.render('masterLayout', {
+      main: "hotvideos",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/history', {
   name: "history",
   action: function(params, queryParams) {

@@ -6,19 +6,11 @@ Template.videoslider.isOnMobile = function () {
   }
 }
 
-
 Template.videoslider.rendered = function () {
   var random = Template.upload.createPermlink(10)
   this.firstNode.id = random
   Template.videoslider.createSlider(random)
-
-
   $(this.firstNode).find('.dropdown').dropdown({});
-}
-Template.videoslider.refreshSlider = function () {
-  var $carousel = $('.owl-carousel');        
-  $carousel.data('owl.carousel')._invalidated.width = true;
-  $carousel.trigger('refresh.owl.carousel');
 }
 
 Template.videoslider.createSlider = function (elemId) {
@@ -27,7 +19,7 @@ Template.videoslider.createSlider = function (elemId) {
       loop: true,
       margin: 2,
       nav: false,
-      items: 6,
+      items: 5,
       autoWidth:false,
       mergeFit:210,
       dots: false,
@@ -54,7 +46,6 @@ Template.videoslider.createSlider = function (elemId) {
       loop: true,
       margin: 2,
       nav: true,
-      items: 6,
       navText: [ '', '' ],
       dots: false,
       responsiveClass: true,
@@ -63,31 +54,27 @@ Template.videoslider.createSlider = function (elemId) {
           items: 1,
           nav: false
         },
-        499: {
+        570: {
           items: 2,
-          nav: false
+          nav: false,
+          loop: false
         },
         700: {
           items: 3,
           nav: false,
           loop: false
         },
-        993: {
+        1184: {
           items: 4,
           nav: true,
           loop: false
         },
-        1180: {
+        1384: {
           items: 5,
           nav: true,
           loop: false
         },
-        1281: {
-          items: 5,
-          nav: true,
-          loop: false
-        },
-        1367: {
+        1620: {
           items: 6,
           nav: true,
           loop: false
@@ -95,5 +82,4 @@ Template.videoslider.createSlider = function (elemId) {
       }
     });
   }
-
 }
