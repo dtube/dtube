@@ -30,11 +30,11 @@ Template.home.helpers({
 
 Template.home.events({
   'click .addwatchlater': function () {
-    WatchLaterCollection.upsert({_id: this._id},this)
+    WatchLater.upsert({_id: this._id},this)
     event.stopPropagation()
 },
 'click .watchlater': function () {
-  WatchLaterCollection.remove(this._id)
+  WatchLater.remove(this._id)
   event.stopPropagation()
 },
   'click #remove': function () {

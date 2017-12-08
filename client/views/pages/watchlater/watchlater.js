@@ -1,7 +1,7 @@
 
 Template.watchlater.helpers({
   watchLater: function () {  
-      return WatchLaterCollection.find().fetch()
+      return WatchLater.find().fetch()
     
   }, 
   isOnMobile: function () {

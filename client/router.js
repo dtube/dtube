@@ -163,6 +163,19 @@ FlowRouter.route('/c/:author', {
   }
 });
 
+FlowRouter.route('/t/:tag', {
+  name: "tags",
+  action: function(params, queryParams) {
+    BlazeLayout.render('masterLayout', {
+      main: "tags",
+      nav: "nav"
+    });
+    Videos.getVideosByTags([params.tag], 30, function(err, response) {
+      // call finished
+    })
+  }
+});
+
 FlowRouter.route('/s/:query', {
   name: "search",
   action: function(params, queryParams) {

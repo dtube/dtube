@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 Videos = new Mongo.Collection(null)
 
 
@@ -76,6 +78,39 @@ Videos.refreshBlockchain = function(cb) {
   }
 }
 
+Videos.getVideosByTags = function(tags, days, cb) {
+  dateTo = moment().format('YYYY-MM-DD');
+  dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
+  var queries = ['created:['+dateFrom+' TO 2099-01-01]']
+  for (let i = 0; i < tags.length; i++)
+    queries.push('meta.video.content.tags:'+tags[i])
+  var query = queries.join(' AND ')
+  AskSteem.search({
+    q: query,
+    include: 'meta',
+    sort_by: 'net_votes',
+    order: 'desc',
+    types: 'post'
+  }, function(err, response) {
+    var videos = []
+    for (let i = 0; i < response.results.length; i++) {
+      var video = Videos.parseFromAskSteemResult(response.results[i])
+      if (video) videos.push(video)
+    }
+    for (let i = 0; i < videos.length; i++) {
+      videos[i].source = 'askSteem'
+      videos[i]._id += 'a'
+      videos[i].byTags = tags.join('+')
+      try {
+        Videos.upsert({ _id: videos[i]._id }, videos[i])
+      } catch (err) {
+        cb(err)
+      }
+    }
+    cb(null)
+  })
+}
+
 Videos.getVideosByBlog = function(author, limit, cb) {
   var query = {
     tag: author,
@@ -98,11 +133,11 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         videos[i].fromBlog = FlowRouter.getParam("author")
         try {
           Videos.upsert({ _id: videos[i]._id }, videos[i])
-          cb()
         } catch (err) {
           cb(err)
         }
       }
+      cb(null)
     } else {
       cb(err);
     }
@@ -245,6 +280,20 @@ Videos.parseFromChain = function(video) {
   newVideo.created = video.created
   newVideo.net_rshares = video.net_rshares
   newVideo.reblogged_by = video.reblogged_by
+  return newVideo;
+}
+
+Videos.parseFromAskSteemResult = function(result) {
+  try {
+    var newVideo = result.meta.video
+  } catch(e) {
+    console.log(e)
+  }
+  if (!newVideo) return
+  newVideo.active_votes = result.net_votes
+  newVideo.author = result.author
+  newVideo.permlink = result.permlink
+  newVideo.created = result.created
   return newVideo;
 }
 

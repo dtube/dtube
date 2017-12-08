@@ -1,2 +1,2 @@
-WatchLaterCollection = new Mongo.Collection(null)
-watchLaterCollectionObserver = new PersistentMinimongo2(WatchLaterCollection, 'watchlatercollection');
+WatchLater = new Mongo.Collection(null)
+watchLaterObserver = new PersistentMinimongo2(WatchLater, 'watchlater');

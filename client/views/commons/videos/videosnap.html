@@ -1,7 +1,7 @@
 <template name='videosnap'>
   {{#unless isVideoHidden this}}
   <div class='videosnap' style="max-width:210px;width:100%;">
-      {{#if isInWatchLaterCollection}}
+      {{#if isInWatchLater}}
       <div id="watchlater" class="watchlater right floated" title='Watch later' style="display:none;cursor: pointer;position: absolute;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
           <i class="checkmark icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
               <span style="z-index:9000;"></span>
@@ -24,7 +24,7 @@
         {{#if info.duration}} 
           <span class="videosnapduration">{{durationDisplay info.duration}}</span>
         {{/if}}
-        <!-- {{#if equals source WatchLaterCollection}}
+        <!-- {{#if equals source WatchLater}}
         <i id="remove" class="remove icon videosnapsnap"> 
           <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span> 
         </i> 
