@@ -264,11 +264,12 @@ Videos.loadFeed = function(username) {
   });
 }
 
-Videos.parseFromChain = function(video) {
+Videos.parseFromChain = function(video, isComment) {
   try {
     var newVideo = JSON.parse(video.json_metadata).video
   } catch(e) {}
-  if (!newVideo && !video.parent_author) return
+  if (!isComment && !newVideo) return
+  if (!isComment && !newVideo.info) return
   if (!newVideo) newVideo = {}
   newVideo.active_votes = video.active_votes
   newVideo.author = video.author
@@ -301,7 +302,7 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
   var rootVideo = content[rootAuthor+'/'+rootPermlink]
   var comments = []
   for (var i = 0; i < rootVideo.replies.length; i++) {
-    var comment = Videos.parseFromChain(content[rootVideo.replies[i]])
+    var comment = Videos.parseFromChain(content[rootVideo.replies[i]], true)
     comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink)
     comments.push(comment)
   }
