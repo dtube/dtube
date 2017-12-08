@@ -33,6 +33,15 @@
         </a>
       </div>
       {{/if}}
+      {{#if isInWatchLaterCollection}}
+      {{else}}
+      <div class="item addvideotowatchlater">
+          <a>
+            <span class="customlink">
+              <i class="plus icon"></i> Add to watch later</span>
+          </a>
+        </div>
+          {{/if}} 
     </div>
   </div>
 </template>

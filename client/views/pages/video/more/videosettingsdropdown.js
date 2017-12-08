@@ -47,6 +47,16 @@ Template.videosettingsdropdown.events({
         document.body.removeChild(textarea);
       }
     }
+  },
+  'click .addvideotowatchlater': function () {
+    WatchLaterCollection.upsert({ _id: this._id }, this)
+    event.stopPropagation()
   }
 })
     
+
+Template.videosettingsdropdown.helpers({
+  isInWatchLaterCollection: function () {
+    return WatchLaterCollection.find({ _id: this._id }).fetch()
+  }
+})

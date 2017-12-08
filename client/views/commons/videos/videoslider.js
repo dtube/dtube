@@ -83,3 +83,7 @@ Template.videoslider.createSlider = function (elemId) {
     });
   }
 }
+
+Template.videoslider.refreshSlider = function () {
+  window.dispatchEvent(new Event('resize'))
+}
