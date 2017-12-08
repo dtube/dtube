@@ -49,14 +49,14 @@ Template.videosettingsdropdown.events({
     }
   },
   'click .addvideotowatchlater': function () {
-    WatchLaterCollection.upsert({ _id: this._id }, this)
+    WatchLater.upsert({ _id: this._id }, this)
     event.stopPropagation()
   }
 })
     
 
 Template.videosettingsdropdown.helpers({
-  isInWatchLaterCollection: function () {
-    return WatchLaterCollection.find({ _id: this._id }).fetch()
+  isInWatchLater: function () {
+    return WatchLater.find({ _id: this._id }).fetch()
   }
 })
