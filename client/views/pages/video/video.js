@@ -19,13 +19,7 @@ Template.video.helpers({
     return Session.get('activeUsername')
   },
   userVideosAndResteems: function () {
-    var suggestions = Videos.find({ fromBlog: FlowRouter.getParam("author"), source: 'chainByBlog' }, { limit: 6 }).fetch();
-    for (var i = 0; i < suggestions.length; i++) {
-      if (suggestions[i].permlink == FlowRouter.getParam("permlink") && suggestions[i].author == FlowRouter.getParam("author")) {
-        suggestions.splice(i, 1)
-        break;
-      }
-    }
+    var suggestions = Videos.find({ relatedTo: FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), source: 'askSteem' }, { limit: 6 }).fetch();
     return suggestions;
   },
   author: function () {
@@ -68,28 +62,19 @@ Template.video.helpers({
   isLoggedOn: function () {
     return Session.get('activeUsername')
   },
-  // updateShareLinks: function () {
-
-  //   $('.rrssb-buttons').rrssb({
-  //     title: Session.get("pageTitle"),
-  //     url: 'https://d.tube/v/' + FlowRouter.getParam("author") +"/" + FlowRouter.getParam("permlink"),
-  //     description: Session.get('videoDescription'),
-  //     emailBody: Session.get('videoDescription')});
-
-  // },
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) {
       return true;
     }
   },
-  switchMobile: function () {
-    $('#videodtube').addClass('videomobile');
-    $('#videocontent').addClass('videomobile');
-  },
-  switchDesktop: function () {
-    $('#videodtube').addClass('ui container').addClass('content');
-    $('#videocontent').addClass('ui container').addClass('content');
-  }
+  // switchMobile: function () {
+  //   $('#videodtube').addClass('videomobile');
+  //   $('#videocontent').addClass('videomobile');
+  // },
+  // switchDesktop: function () {
+  //   $('#videodtube').addClass('ui container').addClass('content');
+  //   $('#videocontent').addClass('ui container').addClass('content');
+  // }
 })
 
 Template.video.events({

@@ -20,6 +20,7 @@ Template.videoslider.createSlider = function (elemId) {
       margin: 2,
       nav: false,
       items: 5,
+      slideBy: 2,
       autoWidth:false,
       mergeFit:210,
       dots: false,
@@ -27,16 +28,19 @@ Template.videoslider.createSlider = function (elemId) {
       responsive: {
         299: {
           items: 2,
-          nav: false
+          nav: false,
+          slideBy: 2
         },
         499: {
           items: 3,
-          nav: false
+          nav: false,
+          slideBy: 2
         },
         700: {
           items: 3,
           nav: false,
-          loop: false
+          loop: false,
+          slideBy: 2
         }
       }
     });
@@ -52,30 +56,36 @@ Template.videoslider.createSlider = function (elemId) {
       responsive: {
         280: {
           items: 1,
+          slideBy: 1,
           nav: false
         },
         570: {
           items: 2,
+          slideBy: 2,
           nav: false,
           loop: false
         },
         700: {
           items: 3,
+          slideBy: 2,
           nav: false,
           loop: false
         },
         1184: {
           items: 4,
+          slideBy: 3,
           nav: true,
           loop: false
         },
         1384: {
           items: 5,
+          slideBy: 4,
           nav: true,
           loop: false
         },
         1620: {
           items: 6,
+          slideBy: 5,
           nav: true,
           loop: false
         }

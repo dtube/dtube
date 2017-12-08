@@ -155,11 +155,11 @@
     </div>
   </div>
   <!-- Recommended videos  -->
+  {{#if userVideosAndResteems}}
   <div class="ui grid computer only videorecommendedcomputer" >
     <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
     {{#if userVideosAndResteems}} {{> videoband userVideosAndResteems}} {{/if}}
   </div>
-  {{#if userVideosAndResteems}}
   <div class="ui container grid tablet only content videorecommendedtablet">
     <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
