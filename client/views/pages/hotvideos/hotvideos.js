@@ -9,6 +9,6 @@ Template.hotvideos.helpers({
   }
 })
 
-Template.trendingvideos.rendered = function () {
-  Template.sidebar.activeSidebarTrending();
+Template.hotvideos.rendered = function () {
+  Template.sidebar.activeSidebarHot();
 }

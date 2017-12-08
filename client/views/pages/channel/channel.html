@@ -1,5 +1,6 @@
 <template name='channel'>
-  {{resetSidebar}} {{#if isOnMobile}}
+  {{resetSidebar}} 
+  {{#if isOnMobile}}
   <!--- /////////////////////////MOBILE TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;">
     <!-- <div style="width:100%;background-position: left;
@@ -13,7 +14,9 @@
             {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
           </div>
         </div>
-        {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
+        {{myChannelSidebar}} 
+        {{else}} 
+        {{#if isSubscribedTo user.name}}
         <div class="ui labeled mini button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
           <div class="ui mini button unsubscribe dtube grey">
             {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -111,15 +114,15 @@
       </div>
       {{/if}}
       <div class="ui white" style="padding-bottom:10px;">
-        <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
-        <div class="ui fluid label" style="background:#4757b2 !important;color:white;">
-          <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
-        </div>
-      </div>
-      <div class="ui white" style="padding-bottom:10px;">
         <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
         <div class="ui fluid label" style="background:#07dfb0 !important;color:white;">
           <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
+        </div>
+      </div>
+      <div class="ui white" style="padding-bottom:10px;">
+        <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
+        <div class="ui fluid label" style="background:#4757b2 !important;color:white;">
+          <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
         </div>
       </div>
     </div>
@@ -182,7 +185,9 @@
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
-     {{#if userVideos}} {{> videoband userVideos}} {{/if}}
+     {{#if userVideos}} 
+     {{> videoband userVideos}} 
+     {{/if}}
     </div>
     <!-- DESKTOP ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
@@ -240,15 +245,15 @@
           </div>
           {{/if}}
           <div class="ui white" style="padding-bottom:10px;">
-            <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
-            <div class="ui fluid label" style="background:#4757b2 !important;color:white;">
-              <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
-            </div>
-          </div>
-          <div class="ui white" style="padding-bottom:10px;">
             <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
             <div class="ui fluid label" style="background:#07dfb0 !important;color:white;">
               <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
+            </div>
+          </div>
+          <div class="ui white" style="padding-bottom:10px;">
+            <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
+            <div class="ui fluid label" style="background:#4757b2 !important;color:white;">
+              <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
             </div>
           </div>
         </div>

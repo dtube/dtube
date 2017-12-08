@@ -12,9 +12,9 @@ Template.verticalvideosnap.events({
   }
 })
 
-Template.verticalvideosnap.rendered = function () {
-  Template.videosnap.snapLoaded();
-}
+// Template.verticalvideosnap.rendered = function () {
+//   Template.videosnap.snapLoaded();
+// }
 
 // Template.verticalvideosnap.snapLoaded = function () {
 //   $('#snapimg').imagesLoaded(function () {
@@ -23,8 +23,8 @@ Template.verticalvideosnap.rendered = function () {
 //   });
 // }
 
-Template.verticalvideosnap.helpers({
+// Template.verticalvideosnap.helpers({
 
-})
+// })
 
 

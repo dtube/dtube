@@ -95,6 +95,17 @@ FlowRouter.route('/hotvideos', {
   }
 });
 
+FlowRouter.route('/watchlater', {
+  name: "watchlater",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Watch Later')
+    BlazeLayout.render('masterLayout', {
+      main: "watchlater",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/history', {
   name: "history",
   action: function(params, queryParams) {

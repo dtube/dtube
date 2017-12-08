@@ -8,6 +8,10 @@ Template.videosnap.events({
       })
     })
     event.preventDefault()
+  },
+  'click .watchlater': function () {
+    var video = this
+    WatchLaterCollection.insert({video})
   }
 })
   

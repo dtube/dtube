@@ -1,8 +1,8 @@
 <template name='torrentStats'>
   <div class="ui grid " style="max-width:600px;margin:auto;">
-    <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;width:100%;border-radius:0px;">
+    <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;width:100%;border-radius:0px;color:white;">
         <div class="ui row" style="width:100%;">
-            <div class="ui segment" style="width:100%;border-radius:0px;">
+            <div class="ui segment" style="width:100%;border-radius:0px;background: #555;">
                 <center>
             <h2>{{ translate 'TORRENT_CONGRATZ'}}</h2>
             <i class="big smile icon"></i>
@@ -11,7 +11,7 @@
         </div>
       <div class="ui segment" style="width:100%;">
           <center>
-          <div class="label">
+          <div class="label" style="color: black;">
             {{ translate 'TORRENT_USE_THIS_LINK_TO_SHARE'}}
           </div>
         </center>
@@ -19,7 +19,7 @@
           <a id="videolink">https://d.tube/#!/v/{{uploadedVideo.author}}/{{uploadedVideo.permlink}}</a>
           <div class="ui divider"></div>
           <a id="videolink" href="https://d.tube/#!/v/{{uploadedVideo.author}}/{{uploadedVideo.permlink}}" target="_blank"> 
-          <div class="ui blue large fluid dtube button">
+          <div class="ui red large fluid dtube button">
             <i class="play icon"></i> {{ translate 'TORRENT_WATCH_VIDEO'}}
           </div>
         </a>

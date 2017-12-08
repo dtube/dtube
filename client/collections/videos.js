@@ -1,5 +1,7 @@
 Videos = new Mongo.Collection(null)
 
+
+
 firstLoad = setInterval(function() {
   if (!Videos) return
   if (!Waka) return

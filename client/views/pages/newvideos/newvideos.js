@@ -13,6 +13,6 @@ Template.newvideos.helpers({
   }
 })
 
-Template.trendingvideos.rendered = function () {
-  Template.sidebar.activeSidebarTrending();
+Template.newvideos.rendered = function () {
+  Template.sidebar.activeSidebarNew();
 }

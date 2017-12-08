@@ -10,8 +10,7 @@ Template.channel.rendered = function () {
     initialRating: 0,
     maxRating: 5
   });
-  $('.ui.rating').rating('disable')
-;
+  $('.ui.rating').rating('disable');
 }
 
 Template.channel.helpers({

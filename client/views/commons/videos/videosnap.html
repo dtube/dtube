@@ -1,6 +1,11 @@
 <template name='videosnap'>
   {{#unless isVideoHidden this}}
   <div class='videosnap' style="max-width:210px;width:100%;">
+      <!-- <div id="watchlater" class="watchlater right floated" title='Watch later' style="position: absolute;right: 0px;z-index: 999;background:#333;margin: 5px; border-radius: 3px;">
+          <i class="time icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
+              <span style="z-index:9000;"></span>
+            </i>
+          </div> -->
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div id='snaphover' class='videosnapsnap' style="height:118px;width:100%">
         <div id="snapload" class="ui active dimmer" style="z-index:0;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;">
@@ -11,11 +16,6 @@
         {{#if info.duration}}
           <span class="videosnapduration">{{durationDisplay info.duration}}</span>
         {{/if}}
-        <!-- <div id="watchlater" class="right floated" title='Watch later' style="position: absolute;right: 0px;z-index: 50;background:#333;margin: 5px; border-radius: 3px;">
-        <i class="time icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
-            <span style="z-index:9000;"></span>
-          </i>
-        </div> -->
         {{#if equals source 'wakaArticles'}}
           <i id="remove" class="remove icon videosnapsnap">
             <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>

@@ -51,6 +51,8 @@ Template.sidebar.resetActiveMenu = function () {
   $('#trendingsidebarmenu').removeClass('activemenu')
   $('#watchagainsidebarmenu').removeClass('activemenu')
   $('#uploadsidebarmenu').removeClass('activemenu')
+  $('#hotsidebarmenu').removeClass('activemenu')
+  $('#newsidebarmenu').removeClass('activemenu')
 }
 
 Template.sidebar.activeSidebarHome = function () {
@@ -68,6 +70,16 @@ Template.sidebar.activeSidebarTrending = function () {
   $('#trendingsidebarmenu').addClass('activemenu')
 }
 
+Template.sidebar.activeSidebarHot= function () {
+  Template.sidebar.resetActiveMenu()
+  $('#hotsidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarNew = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#newsidebarmenu').addClass('activemenu')
+}
+
 Template.sidebar.activeSidebarWatchAgain = function () {
   Template.sidebar.resetActiveMenu()
   $('#watchagainsidebarmenu').addClass('activemenu')
@@ -77,3 +89,4 @@ Template.sidebar.activeSidebarUpload = function () {
   Template.sidebar.resetActiveMenu()
   $('#uploadsidebarmenu').addClass('activemenu')
 }
+
