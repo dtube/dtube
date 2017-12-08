@@ -29,6 +29,14 @@ Template.home.helpers({
 })
 
 Template.home.events({
+  'click .addwatchlater': function () {
+    WatchLaterCollection.upsert({_id: this._id},this)
+    event.stopPropagation()
+},
+'click .watchlater': function () {
+  WatchLaterCollection.remove(this._id)
+  event.stopPropagation()
+},
   'click #remove': function () {
     var removeId = this._id
     Waka.db.Articles.remove(removeId.substring(0, removeId.length - 1), function (r) {

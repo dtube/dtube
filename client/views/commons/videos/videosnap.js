@@ -1,18 +1,21 @@
 Template.videosnap.events({
+  'click .addwatchlater': function () {
+    WatchLaterCollection.upsert({_id: this._id},this)
+    event.stopPropagation()
+},
+'click .watchlater': function () {
+  WatchLaterCollection.remove(this._id)
+  event.stopPropagation()
+},
   'click #remove': function () {
-    console.log("click on remove");
     var removeId = this._id
-    Waka.db.Articles.remove(removeId.substring(0, removeId.length - 1), function (r) {
-      Videos.remove({ _id: removeId }, function (r) {
-        Videos.refreshWaka()
-      })
-    })
-    event.preventDefault()
-  },
-  'click .watchlater': function () {
-    var video = this
-    WatchLaterCollection.insert({video})
+    WatchLaterCollection.remove({_id:removeId})
+    event.stopPropagation()
   }
 })
   
-
+Template.videosnap.helpers({
+  isInWatchLaterCollection: function() {
+    return  WatchLaterCollection.find({_id: this._id}).fetch()
+  }
+})

@@ -19,6 +19,15 @@
   color: #212121;
 }
 
+
+.videosnap:hover  .watchlater {
+  display: block!important;
+}
+
+.videosnap:hover  .addwatchlater {
+  display: block!important;
+}
+
 .verticalvideosnap {
   /* margin-right: 4px; */
   display: inline-block;
