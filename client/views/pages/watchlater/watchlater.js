@@ -10,3 +10,7 @@ Template.watchlater.helpers({
     }
   }
 })
+
+Template.trendingvideos.rendered = function () {
+  Template.sidebar.activeSidebarWatchLater();
+}

@@ -1,13 +1,19 @@
 <template name="tags">
-    {{#if isOnMobile}}
-    <div class="ui grid" style="margin: 10px 0px">
-      <h2>#{{currentTag}}</h2>
-      {{> verticalvideoband tagVideos}}
-    </div>
-    {{else}}
-    <div class="ui container">
-      <h2>#{{currentTag}}</h2>
-      {{> videoband tagVideos}}
-    </div>
-    {{/if}}
+  {{#if isOnMobile}}
+  <div class="ui grid" style="margin: 10px 0px">
+    <h2>#{{currentTag}}</h2>
+    <h2>All time</h2>
+    {{> videoslider tagVideos}}
+  </div>
+  {{else}}
+  <div class="ui container">
+    <h2 style="background:red;color:white;padding:10px;">About {{tagVideos.length}} results for #{{currentTag}}</h2>
+    <h2>New</h2>
+    {{> videoslider tagVideos}}
+    <h2>This month</h2>
+    {{> videoslider tagVideos}}
+    <h2>All time</h2>
+    {{> videoslider tagVideos}}
+  </div>
+  {{/if}}
 </template>

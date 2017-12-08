@@ -53,6 +53,7 @@ Template.sidebar.resetActiveMenu = function () {
   $('#uploadsidebarmenu').removeClass('activemenu')
   $('#hotsidebarmenu').removeClass('activemenu')
   $('#newsidebarmenu').removeClass('activemenu')
+  $('#watchlatersidebarmenu').removeClass('activemenu')
 }
 
 Template.sidebar.activeSidebarHome = function () {
@@ -88,5 +89,10 @@ Template.sidebar.activeSidebarWatchAgain = function () {
 Template.sidebar.activeSidebarUpload = function () {
   Template.sidebar.resetActiveMenu()
   $('#uploadsidebarmenu').addClass('activemenu')
+}
+
+Template.sidebar.activeSidebarWatchLater = function () {
+  Template.sidebar.resetActiveMenu()
+  $('#watchlatersidebarmenu').addClass('activemenu')
 }
 

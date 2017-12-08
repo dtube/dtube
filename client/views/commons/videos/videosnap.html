@@ -65,6 +65,11 @@
         {{timeAgo created}}
       </div>
     </div>
+    <div id='videosnaptags' class='videosnaptags' style="margin-bottom: 10px;">
+        {{#each content.tags}}
+        <a href="/t/{{this}}" class="ui tiny label">{{this}}</a>
+        {{/each}}
+      </div>
   </div>
   {{/unless}}
 </template>
