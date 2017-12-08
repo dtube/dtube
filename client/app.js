@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
+import AskSteem from 'asksteem';
 steem.api.setOptions({ url: 'https://api.steemit.com' });
 
 console.log('Starting DTube APP')
