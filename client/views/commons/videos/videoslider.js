@@ -51,6 +51,8 @@ Template.videoslider.createSlider = function (elemId) {
       margin: 2,
       nav: true,
       navText: [ '', '' ],
+      animateOut: 'slideOutDown',
+      animateIn: 'flipInX',
       dots: false,
       responsiveClass: true,
       responsive: {

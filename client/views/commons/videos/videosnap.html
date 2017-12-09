@@ -3,10 +3,6 @@
   <div class='videosnap' style="max-width:210px;width:100%;">
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div id='snaphover' class='videosnapsnap' style="height:118px;width:100%">
-        <div id="snapload" class="ui active dimmer" style="z-index:0;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;">
-          <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
-          <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
-        </div> 
         <div style="z-index:1;position:absolute;width:100%;height:118px;">
         {{#if info.duration}} 
           <span class="videosnapduration">{{durationDisplay info.duration}}</span>
@@ -37,6 +33,10 @@
               </div>
               {{/if}} 
         {{/if}} 
+        <div id="snapload" class="ui active dimmer" style="z-index:0;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;position: absolute">
+            <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
+            <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
+          </div> 
         <img id="snapimg" class="sprite" width="100%" height="100%" style="max-height:118px;" alt="" src="{{ipfsSrc info.snaphash}}">
       </div>
         <br />
@@ -65,11 +65,11 @@
         {{timeAgo created}}
       </div>
     </div>
-    <div id='videosnaptags' class='videosnaptags' style="margin-bottom: 10px;">
+    <!-- <div id='videosnaptags' class='videosnaptags' style="margin-bottom: 10px;">
         {{#each content.tags}}
         <a href="/t/{{this}}" class="ui tiny label">{{this}}</a>
         {{/each}}
-      </div>
+      </div> -->
   </div>
   {{/unless}}
 </template>
