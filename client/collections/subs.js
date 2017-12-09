@@ -7,7 +7,7 @@ Subs.loadFollowing = function(username, startFollowing = undefined, cb) {
     for (var i = 0; i < results.length; i++)
       Subs.upsert(results[i], results[i])
 
-    if (results.length == limit)
+    if (results.length == limit) 
       Subs.loadFollowing(username, results[results.length-1].following, cb)
     else cb(username)
   });

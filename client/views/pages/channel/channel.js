@@ -11,6 +11,10 @@ Template.channel.rendered = function () {
     maxRating: 5
   });
   $('.ui.rating').rating('disable');
+  Session.set('relatedChannels', [])
+  AskSteem.related({user: FlowRouter.getParam("author")}, function(err, result) {
+    Session.set('relatedChannels', result.results)
+  })
 }
 
 Template.channel.helpers({
@@ -24,6 +28,9 @@ Template.channel.helpers({
   },
   author: function () {
     return ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+  },
+  relatedChannels: function () {
+    return Session.get('relatedChannels')
   },
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) {
@@ -50,6 +57,7 @@ Template.channel.helpers({
   },
   subCount: function () {
     var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
+    if (!subCount || !subCount.follower_count) return 0
     return subCount.follower_count;
   },
   myChannelSidebar:function () {
