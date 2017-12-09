@@ -79,7 +79,7 @@ Videos.refreshBlockchain = function(cb) {
 }
 
 Videos.getVideosRelatedTo = function(author, permlink, cb) {
-  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout'}, function(err, response) {
+  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q: "meta.info.title:*"}, function(err, response) {
     var videos = []
     for (let i = 0; i < response.results.length; i++) {
       var video = Videos.parseFromAskSteemResult(response.results[i])
