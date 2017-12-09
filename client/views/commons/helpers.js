@@ -101,6 +101,26 @@ Template.registerHelper('displayCurrency', function (string) {
     return amount;
   })
 
+  Template.registerHelper('displayVoters', function(votes, isDownvote) {
+    if (!votes) return
+    votes.sort(function(a,b) {
+      var rsa = parseInt(a.rshares)
+      var rsb = parseInt(b.rshares)
+      return rsb-rsa
+    })
+    if (isDownvote) votes.reverse()
+
+    var top20 = []
+    for (let i = 0; i < 20; i++) {
+      if (i == votes.length) break
+      // if (parseInt(votes[i].rshares) < 0 && !isDownvote) break
+      // if (parseInt(votes[i].rshares) > 0 && isDownvote) break
+      top20.push(votes[i])
+    }
+    console.log(top20, isDownvote)
+    return top20
+  })
+
   Template.registerHelper('timeAgo', function (created) {
     if (!created) return
     return moment(created + 'Z').fromNow()

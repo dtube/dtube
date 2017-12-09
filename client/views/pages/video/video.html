@@ -39,22 +39,8 @@
                 <span>{{downvotes active_votes}}</span>
               </button>
               {{/if}}
-              <script>
-                $('.upvote').popup({
-                  boundary: '.videocontainer',
-                  popup: '.popupupvotes'
-                })
-              </script>
-              <div class="ui popup popupupvotes">
-                <div class="header">Upvoted By</div>
-                {{#each this.active_votes}}
-                <a  class="ui tiny label">{{voter}}</a>
-                {{/each}}
-              </div>
-              <div class="ui popup popupdownvotes">
-                <div class="header">Downvoted By</div>
-                <div class="ui star rating" data-rating="3"></div>
-              </div>
+              {{> popupvoter active_votes}}
+              {{> popupdownvoter active_votes}}
             </div>
           </div>
         </div>
