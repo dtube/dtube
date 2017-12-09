@@ -85,6 +85,7 @@ Template.registerHelper('displayCurrency', function (string) {
 })
 
   Template.registerHelper('displayPayout', function (active, total, curator) {
+    if (active && !total || !curator) return active
     if (!active || !total || !curator) return
     var payout = active
     if (total.split(' ')[0] > 0) {
@@ -95,6 +96,7 @@ Template.registerHelper('displayCurrency', function (string) {
     if (!payout) return
     var amount = payout.split(' ')[0]
     var currency = payout.split(' ')[1]
+    amount = parseFloat(amount).toFixed(3)
     if (currency == 'SBD') return '$' + amount
     return amount;
   })

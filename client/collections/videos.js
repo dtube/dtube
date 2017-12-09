@@ -79,8 +79,7 @@ Videos.refreshBlockchain = function(cb) {
 }
 
 Videos.getVideosRelatedTo = function(author, permlink, cb) {
-  AskSteem.related({author: author, permlink: permlink, include: 'meta'}, function(err, response) {
-    console.log(response)
+  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout'}, function(err, response) {
     var videos = []
     for (let i = 0; i < response.results.length; i++) {
       var video = Videos.parseFromAskSteemResult(response.results[i])
@@ -109,7 +108,7 @@ Videos.getVideosByTags = function(tags, days, cb) {
   var query = queries.join(' AND ')
   AskSteem.search({
     q: query,
-    include: 'meta',
+    include: 'meta,payout',
     sort_by: 'net_votes',
     order: 'desc',
     types: 'post'
@@ -317,6 +316,9 @@ Videos.parseFromAskSteemResult = function(result) {
   newVideo.author = result.author
   newVideo.permlink = result.permlink
   newVideo.created = result.created
+  newVideo.pending_payout_value = result.payout+' SBD'
+  newVideo.total_payout_value = '0.000 SBD'
+  newVideo.curator_payout_value = '0.000 SBD'
   return newVideo;
 }
 

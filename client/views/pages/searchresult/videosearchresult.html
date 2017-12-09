@@ -25,6 +25,11 @@
               </div>
           </div>
         </div>
+        {{#if payout}}
+          <div>
+            ${{displayPayout payout}}
+          </div>
+        {{/if}}
         <div class='videosnapauthor' style="font-size: 1em;">
           <a href='/c/{{author}}'>
             <span class="customlink">{{author}}</span>

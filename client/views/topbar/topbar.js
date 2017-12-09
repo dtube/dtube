@@ -16,7 +16,6 @@ Template.topbar.events({
     $("#mobilesearchsidebar").sidebar('toggle')
   },
   'keyup #dsearch': function (evt) {
-    console.log(evt)
     var query = evt.target.value
     if (query.length < 1) {
       $('.results').hide()
@@ -32,7 +31,7 @@ Template.topbar.events({
     event.preventDefault()
     var query = event.target.search.value
     Session.set('search', {query: query})
-    AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta'}, function(err, response){
+    AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta,payout'}, function(err, response){
       Session.set('search', {query: query, response: response})
     })
     FlowRouter.go('/s/'+query)
