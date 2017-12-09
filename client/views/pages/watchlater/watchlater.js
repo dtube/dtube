@@ -11,6 +11,6 @@ Template.watchlater.helpers({
   }
 })
 
-Template.trendingvideos.rendered = function () {
+Template.watchlater.rendered = function () {
   Template.sidebar.activeSidebarWatchLater();
 }

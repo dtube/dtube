@@ -7,6 +7,11 @@ Template.video.rendered = function () {
   $('body').animate({ scrollTop: 0 }, 'slow');
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
+  $('.button')
+  .popup({
+    boundary: '.segment'
+  })
+;
 }
 
 Template.video.helpers({

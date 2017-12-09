@@ -1,5 +1,9 @@
 <template name='video'>
   {{#with video}}
+  <div class="ui segment">
+    <div class="ui button" data-content="This popup is a popup">Hover Me</div>
+    <p>ONE POPUP</p>
+  </div>
   <div class="videocontainer">
     <!-- Player on page -->
     {{> player}}
@@ -93,11 +97,16 @@
               <div class='videopayout'>
                 {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
               </div>
+              {{active_votes.length}}
+              {{#each this.active_votes}}
+              <a  class="ui tiny label">{{voter}}</a>
+              {{/each}}
               <br />
             </div>
           </div>
         </div>
       </div>
+
       <div id='editvideosegment' class="ui segment" style="display: none">
         {{> uploadform}}
       </div>
