@@ -31,13 +31,11 @@ Template.home.helpers({
 Template.home.events({
   'click .addwatchlater': function () {
     WatchLater.upsert({_id: this._id},this)
-    event.stopPropagation()
+    event.preventDefault()
   },
   'click .watchlater': function () {
     WatchLater.remove(this._id)
-    event.stopPropagation()
-      WatchLater.upsert({_id: this._id},this)
-      event.preventDefault()
+    event.preventDefault()
   },
   'click #remove': function () {
     var removeId = this._id
