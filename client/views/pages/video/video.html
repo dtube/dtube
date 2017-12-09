@@ -10,6 +10,11 @@
           <div class="videotitlecontainer">
             <h1 class="videotitle">{{info.title}}</h1>
           </div>
+            <div id='videosnaptags' class='videosnaptags' style="padding-bottom: 20px;bottom: 0px;position: absolute;">
+            {{#each content.tags}}
+            <a href="/t/{{this}}" class="ui tiny label">{{this}}</a>
+            {{/each}}
+            </div> 
           <div class="ui videovotecontainer right floated">
              {{> videosettingsdropdown}}
             <div style="float: right;" class="button icon bottom aligned ">
