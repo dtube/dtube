@@ -7,11 +7,6 @@ Template.video.rendered = function () {
   $('body').animate({ scrollTop: 0 }, 'slow');
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
-  $('.button')
-  .popup({
-    boundary: '.segment'
-  })
-;
 }
 
 Template.video.helpers({
@@ -213,7 +208,14 @@ Template.video.events({
   },
   'click .editvideo': function() {
     $('#editvideosegment').toggle()
-  }
+  },
+  // 'mouseenter .upvote': function() {
+  //   console.log('test')
+  //   $('.upvote').popup({
+  //     boundary: '.videocontainer',
+  //     popup: '.popupupvotes'
+  //   })
+  // }
 })
 
 Template.video.setTime = function (seconds) {
