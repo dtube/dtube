@@ -1,5 +1,4 @@
 var isLoadingState = false
-//var rrssb = require('rrssb')
 
 Template.video.rendered = function () {
   $("#sidebar").sidebar('hide');
