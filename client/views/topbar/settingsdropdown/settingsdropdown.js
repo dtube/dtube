@@ -22,12 +22,18 @@ Template.settingsdropdown.rendered = function() {
         if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
+      } else if (e.hasClass('nightMode')) {
+        Session.set('isInNightMode', !Session.get('isInNightMode'))
+        if (Session.get('isInNightMode')) {
+          Template.settingsdropdown.switchToNightMode();
+        } else {
+          Template.settingsdropdown.switchToNormalMode();
+        }
       } else {
         console.log(value,text,e)
       }
     }
   })
-
   Session.set('nsfwSetting', 'Fully Hidden')
   Session.set('voteWeight', 100)
   // random gateway to maximise propagation in gateways cache
@@ -64,5 +70,47 @@ Template.settingsdropdown.helpers({
     if (/Mobi/.test(navigator.userAgent)) {
         return true;
     }
-}
+  },
+  isInNightMode:function() {
+    return Session.get('isInNightMode')
+  }
 })
+
+
+Template.settingsdropdown.switchToNightMode = function (){
+    $('.pushable').addClass('nightmode');
+    $('.article').addClass('nightmode');
+    $('.customlink').addClass('nightmodetext');
+    $('.dtubesidebaricon').addClass('nightmodetext');
+    $('.videosnaprest').addClass('nightmodetext');
+    $('.ui.item').addClass('nightmodetext');
+    $('.menuitem').addClass('nightmodetext');
+    $('.ui.segment').addClass('nightmode');
+    $('.ui.secondary.segment').addClass('nightmodegray');
+    $('.ui.header').addClass('nightmodetext');
+    $('.item').addClass('nightmodetext');
+    $('.blacklogo').addClass('displaynone');
+    $('.whitelogo').removeClass('displaynone');
+    $('.main.menu.fixed').addClass('nightmodegray');
+    $('.sidebar').addClass('nightmodegray');
+}
+
+Template.settingsdropdown.switchToNormalMode = function (){
+$('.pushable').removeClass('nightmode');
+$('.article').removeClass('nightmode');
+$('.customlink').removeClass('nightmodetext');
+$('.dtubesidebaricon').removeClass('nightmodetext');
+$('.videosnaprest').removeClass('nightmodetext');
+$('.ui.item').removeClass('nightmodetext');
+$('.menuitem').removeClass('nightmodetext');
+
+$('.ui.segment').removeClass('nightmode');
+$('.ui.secondary.segment').removeClass('nightmodegray');
+$('.ui.header').removeClass('nightmodetext');
+$('.item').removeClass('nightmodetext');
+$('.blacklogo').removeClass('displaynone');
+$('.whitelogo').addClass('displaynone');
+
+$('.main.menu.fixed').removeClass('nightmodegray');
+$('.sidebar').removeClass('nightmodegray');
+}

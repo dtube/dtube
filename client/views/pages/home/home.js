@@ -52,4 +52,5 @@ Template.home.events({
 
 Template.home.rendered = function () {
   Template.sidebar.activeSidebarHome();
+
 }

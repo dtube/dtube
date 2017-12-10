@@ -6,6 +6,8 @@ Template.video.rendered = function () {
   $('body').animate({ scrollTop: 0 }, 'slow');
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
+  Template.video.setScreenMode();
+  $(window).on('resize', Template.video.setScreenMode)
 }
 
 Template.video.helpers({
@@ -292,4 +294,13 @@ Template.video.pinFile = function (author, permlink, cb) {
       console.log('pinned video', e, r)
     })
   })
+}
+//.addClass('container') .addClass('container')
+Template.video.setScreenMode = function () {
+  if ($(window).width() < 1072) {
+      $('.ui.maingrid').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
+  }
+  else {
+      $('.ui.maingrid').addClass('computergrid');
+  }
 }

@@ -175,11 +175,6 @@
           </div>
         </div>
       </div>
-      <div>
-        {{#each relatedChannels}}
-          <img src='{{userPic name}}'> {{name}}<br />
-        {{/each}}
-      </div>
     <!-- </div> -->
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
       <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
@@ -214,7 +209,11 @@
           </div>
         </div>
         <div class="column">
-          AJOUT DE GETACCOUNTHISTORY</div>
+                {{#each relatedChannels}}
+                <a href="{{name}}">
+                  <img src='{{userPic name}}'> {{name}}<br /></a>
+                {{/each}}
+              </div>
       </div>
     </div>
     <!-- DESKTOP INFORMATION TAB -->

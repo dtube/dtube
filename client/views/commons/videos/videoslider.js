@@ -56,38 +56,37 @@ Template.videoslider.createSlider = function (elemId) {
       dots: false,
       responsiveClass: true,
       responsive: {
-        280: {
-          items: 1,
-          slideBy: 1,
+         212: {
+           items: 1,
+           slideBy: 1,
+           nav: false
+         },
+        400: {
+           items: 2,
+           slideBy: 2,
           nav: false
-        },
-        570: {
-          items: 2,
-          slideBy: 2,
-          nav: false,
-          loop: false
-        },
-        700: {
+         },
+        661: {
           items: 3,
           slideBy: 2,
+          nav: false
+        },
+        875: {
+          items: 4,
+          slideBy: 2,
+          nav: false,
           nav: false,
           loop: false
         },
-        1184: {
-          items: 4,
-          slideBy: 3,
-          nav: true,
-          loop: false
-        },
-        1384: {
+        1089: {
           items: 5,
-          slideBy: 4,
-          nav: true,
+          slideBy: 2,
+          nav: false,
           loop: false
         },
-        1620: {
+        1304: {
           items: 6,
-          slideBy: 5,
+          slideBy: 3,
           nav: true,
           loop: false
         }

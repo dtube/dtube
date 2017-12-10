@@ -1,6 +1,6 @@
 <template name='video'>
   {{#with video}}
-  <div class="videocontainer">
+  <div class="videocontainer" >
     <!-- Player on page -->
     {{> player}}
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
@@ -158,18 +158,19 @@
   {{> popupvoter active_votes}}
   {{> popupdownvoter active_votes}}
   <!-- Recommended videos  -->
-  {{#if userVideosAndResteems}}
+  <!-- {{#if userVideosAndResteems}} -->
   <div class="ui grid computer only videorecommendedcomputer" >
-    <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
-    {{#if userVideosAndResteems}} {{> videoband userVideosAndResteems}} {{/if}}
+    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+    {{#if userVideosAndResteems}} {{> verticalvideoband userVideosAndResteems}} {{/if}}
   </div>
   <div class="ui container grid tablet only content videorecommendedtablet">
-    <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
   </div>
   <div class="ui grid mobile only content videorecommendedmobile">
-    <h3>{{ translate 'VIDEO_RECOMMENDED_BY'}} {{info.author}}</h3>
+    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
   </div>
-  {{/if}} {{/with}}
+  <!-- {{/if}} -->
+   {{/with}}
 </template>

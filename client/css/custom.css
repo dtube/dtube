@@ -77,3 +77,19 @@ width: 50%;
 .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
   background-color: #ff1a1a !important;
 }
+
+
+.nightmode {
+  background: #111111!important;
+  color: rgb(240,240,240)!important;
+}
+
+.nightmodetext {
+  color: rgb(240,240,240)!important;
+}
+
+
+.nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240,240,240)!important;
+}

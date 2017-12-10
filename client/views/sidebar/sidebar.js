@@ -25,7 +25,7 @@ Template.sidebar.helpers({
 
 Template.sidebar.OnSidebarToogled = function () {
   $("#sidebar").sidebar('setting', 'onShow', function () {
-    if ($('.ui.container').innerWidth() > 643) {
+    if ($('.ui.container').innerWidth() > 540) {
       $("#sidebar").sidebar('push page','pusher')
       $('.article').addClass('mainsided');
     }
