@@ -12,7 +12,7 @@ Template.popupvoter.rendered = function() {
       on: 'hover',
       delay: {
         show: 0,
-        hide: 500
+        hide: 0
       },
       position: 'bottom center',
       hoverable: true
