@@ -1,9 +1,24 @@
+var isOriginal = false
+var isNsfw = false
+
 Template.uploadform.rendered = function() {
   $('.ui.multiple.dropdown').dropdown({
     allowAdditions: true,
     keys: {
       delimiter: 32, // 188 (the comma) by default.
     }
+  });
+  $('.ui.original.toggle').checkbox({
+    onChecked: function () { 
+      isOriginal = true },
+    onUnchecked: function () { 
+      isOriginal = false }
+  });
+  $('.ui.nfsw.toggle').checkbox({
+    onChecked: function () { 
+      isNsfw = true },
+    onUnchecked: function () { 
+      isNsfw = false }
   });
 }
 
@@ -24,6 +39,21 @@ Template.uploadform.helpers({
 
 Template.uploadform.parseTags = function(raw) {
   var tags = ['dtube']
+  // if(isNsfw && isOriginal)
+  // {
+  //   tags = ['dtube','nsfw','original']
+  // }
+  // else if(isNsfw)
+  // {
+  //   tags = ['dtube','nsfw']
+  // }
+  // else if(isOriginal)
+  // {
+  //   tags = ['dtube','original']
+  // }
+  // else{
+  //   tags = ['dtube']
+  // }
   var videoTags = []
   var form = document.getElementsByClassName('uploadform')[0]
   for (var i = 0; i < raw.split(',').length; i++) {

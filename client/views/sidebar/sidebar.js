@@ -28,6 +28,7 @@ Template.sidebar.OnSidebarToogled = function () {
     if ($('.ui.container').innerWidth() > 540) {
       $("#sidebar").sidebar('push page','pusher')
       $('.article').addClass('mainsided');
+      Template.videoslider.refreshSlider();
     }
     Session.set('isSidebarOpen', true)
   })
@@ -35,8 +36,8 @@ Template.sidebar.OnSidebarToogled = function () {
       $("#sidebar").sidebar('pull page','pusher')
       $('.article').removeClass('mainsided');
       Session.set('isSidebarOpen', false)
+      Template.videoslider.refreshSlider();
   })
-  window.dispatchEvent(new Event('resize'))
 }
 
 Template.sidebar.events({

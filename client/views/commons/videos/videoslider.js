@@ -21,8 +21,7 @@ Template.videoslider.createSlider = function (elemId) {
       nav: false,
       items: 5,
       slideBy: 2,
-      autoWidth:false,
-      mergeFit:210,
+      center: true,
       dots: false,
       responsiveClass: true,
       responsive: {
@@ -50,44 +49,50 @@ Template.videoslider.createSlider = function (elemId) {
       loop: true,
       margin: 2,
       nav: true,
+      responsiveBaseElement: document.getElementsByClassName('ui container'),
       navText: [ '', '' ],
       animateOut: 'slideOutDown',
       animateIn: 'flipInX',
       dots: false,
       responsiveClass: true,
       responsive: {
-         212: {
+         211: {
            items: 1,
            slideBy: 1,
            nav: false
          },
-        400: {
+        399: {
            items: 2,
            slideBy: 2,
           nav: false
          },
-        661: {
+         642: {
           items: 3,
+          slideBy: 2,
+         nav: false
+        },
+        854: {
+          items: 4,
           slideBy: 2,
           nav: false
         },
-        875: {
-          items: 4,
-          slideBy: 2,
-          nav: false,
-          nav: false,
-          loop: false
-        },
-        1089: {
+        1060: {
           items: 5,
           slideBy: 2,
           nav: false,
+          nav: false,
           loop: false
         },
-        1304: {
+        1272: {
           items: 6,
-          slideBy: 3,
-          nav: true,
+          slideBy: 2,
+          nav: false,
+          loop: false
+        },
+        1484: {
+          items: 7,
+          slideBy: 2,
+          nav: false,
           loop: false
         }
       }

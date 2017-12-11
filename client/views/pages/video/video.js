@@ -297,10 +297,10 @@ Template.video.pinFile = function (author, permlink, cb) {
 }
 //.addClass('container') .addClass('container')
 Template.video.setScreenMode = function () {
-  if ($(window).width() < 1072) {
-      $('.ui.maingrid').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
+  if ($(window).width() < 1166) {
+      $('.ui.maingrid').removeClass('container').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
   }
   else {
-      $('.ui.maingrid').addClass('computergrid');
+      $('.ui.maingrid').addClass('computergrid').addClass('container');
   }
 }
