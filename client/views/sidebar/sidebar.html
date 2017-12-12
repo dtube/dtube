@@ -50,7 +50,7 @@
     </a>
 
     <div class="ui divider"></div>
-    {{#if subscribe}}
+    {{#if subscribe.length}}
     <a class="item" style="padding:0%;margin-top:-10px;">
       <div class="menuitem " style="padding:0%;cursor: default;">
         <i class="users icon dtubesidebaricon"></i> {{subscribe.length}}
@@ -59,6 +59,7 @@
     </a>
     <div class="suscriberlist">
       {{#each subscribe}}
+      {{#if following}}
       <a class="item" style="padding:0%;">
         <div class="menuitem dtubesidebarmenu" style="padding:0%;">
           <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" style="height:24px;width:24px;margin:5px 5px 5px 20px;">
@@ -67,6 +68,7 @@
           </a>
         </div>
       </a>
+      {{/if}}
       {{/each}}
     </div>
     {{else}}
