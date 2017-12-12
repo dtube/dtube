@@ -1,5 +1,4 @@
 <template name="popupvoter">
-    {{#if upvotes active_votes.length}}
     <div id="popupupvote" class="ui flowing bottom center inverted popup popupupvotes">
         <div class="ui mini middle aligned divided list">
             {{#each displayVoters active_votes 0}}
@@ -14,5 +13,4 @@
             {{/each}}
         </div>
     </div>
-    {{/if}}
 </template>
