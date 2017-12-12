@@ -84,22 +84,25 @@ Template.registerHelper('displayCurrency', function (string) {
   return amount;
 })
 
-  Template.registerHelper('displayPayout', function (active, total, curator) {
-    if (active && !total || !curator) return active
-    if (!active || !total || !curator) return
-    var payout = active
-    if (total.split(' ')[0] > 0) {
-      var amount = parseInt(total.split(' ')[0].replace('.', '')) + parseInt(curator.split(' ')[0].replace('.', ''))
-      amount /= 1000
-      payout = amount + ' SBD'
-    }
-    if (!payout) return
-    var amount = payout.split(' ')[0]
-    var currency = payout.split(' ')[1]
-    amount = parseFloat(amount).toFixed(3)
-    if (currency == 'SBD') return '$' + amount
-    return amount;
-  })
+Template.registerHelper('displayPayout', function (active, total, curator) {
+  if (active && !total || !curator) return active
+  if (!active || !total || !curator) return
+  var payout = active
+  if (total.split(' ')[0] > 0) {
+    var amount = parseInt(total.split(' ')[0].replace('.', '')) + parseInt(curator.split(' ')[0].replace('.', ''))
+    amount /= 1000
+    payout = amount + ' SBD'
+  }
+  if (!payout) return
+  var amount = payout.split(' ')[0]
+  var currency = payout.split(' ')[1]
+  amount = parseFloat(amount).toFixed(3)
+  return amount;
+})
+
+Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
+  return (share*rewards).toFixed(3);
+})
 
   Template.registerHelper('displayVoters', function(votes, isDownvote) {
     if (!votes) return
@@ -110,14 +113,18 @@ Template.registerHelper('displayCurrency', function (string) {
     })
     if (isDownvote) votes.reverse()
 
+    var rsharesTotal = 0;
+    for (let i = 0; i < votes.length; i++)
+      rsharesTotal += parseInt(votes[i].rshares)
+
     var top20 = []
     for (let i = 0; i < 20; i++) {
       if (i == votes.length) break
-      // if (parseInt(votes[i].rshares) < 0 && !isDownvote) break
-      // if (parseInt(votes[i].rshares) > 0 && isDownvote) break
+      votes[i].rsharespercent = parseInt(votes[i].rshares)/rsharesTotal
+      if (parseInt(votes[i].rshares) <= 0 && !isDownvote) break;
+      if (parseInt(votes[i].rshares) >= 0 && isDownvote) break;
       top20.push(votes[i])
     }
-    console.log(top20, isDownvote)
     return top20
   })
 
