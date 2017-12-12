@@ -53,7 +53,7 @@ Template.registerHelper('downvotes', function (active_votes) {
 });
 
 Template.registerHelper('userPic', function (username) {
-  return 'https://img.busy.org/@' + username + '?width=48&height=48'
+  return 'https://img.busy.org/@' + username + '?width=96&height=96'
 });
 
 Template.registerHelper('subCount', function (username) {

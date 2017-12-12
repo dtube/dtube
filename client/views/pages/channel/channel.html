@@ -123,6 +123,16 @@
           <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
         </div>
       </div>
+      <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
+      <div class="ui link cards" style="margin-top:10px;">
+        {{#each relatedChannels}}
+          <div class="ui card noshadow" style="max-width: 140px;text-align:center;border-radius:0px;padding: 10px;">
+            <a href="/c/{{name}}">
+            <img class="ui small image" src='{{userPic name}}'> <br />
+            <span style="display: inline-block;position: relative;">{{name}}</span></a>
+          </div>
+        {{/each}}
+      </div>
     </div>
   </div>
   {{else}}
@@ -208,12 +218,9 @@
             <div class="ui fluid label">{{displayDate author.created}}</div>
           </div>
         </div>
-        <div class="column">
-                {{#each relatedChannels}}
-                <a href="{{name}}">
-                  <img src='{{userPic name}}'> {{name}}<br /></a>
-                {{/each}}
-              </div>
+          <div class="column">
+
+          </div>
       </div>
     </div>
     <!-- DESKTOP INFORMATION TAB -->
@@ -260,7 +267,16 @@
           </div>
         </div>
         <div class="column">
-          AJOUT DE ?
+            <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
+            <div class="ui link cards" style="margin-top:10px;">
+              {{#each relatedChannels}}
+                <div class="ui card noshadow" style="max-width: 140px;text-align:center;border-radius:0px;padding: 10px;">
+                  <a href="/c/{{name}}">
+                  <img class="ui small image" src='{{userPic name}}'> <br />
+                  <span style="display: inline-block;position: relative;">{{name}}</span></a>
+                </div>
+              {{/each}}
+            </div>
         </div>
       </div>
     </div>

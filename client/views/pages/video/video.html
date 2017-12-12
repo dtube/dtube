@@ -22,12 +22,12 @@
             {{> videosettingsdropdown}}
             <div style="float: right;" class="button icon bottom aligned ">
               <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
-                {{#if hasUpvoted video}}
-                <i class="thumbs up icon red"></i>
-                {{else}}
-                <i class="thumbs up icon"></i>
-                {{/if}}
-                <span>{{upvotes active_votes}}</span>
+                    {{#if hasUpvoted video}}
+                    <i class="thumbs up icon red"></i>
+                    {{else}}
+                    <i class="thumbs up icon"></i>
+                    {{/if}}
+                    <span>{{upvotes active_votes}}</span>
               </button>
               <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
                 {{#if hasDownvoted video}}
@@ -157,8 +157,7 @@
       </div>
     </div>
   </div>
-  {{> popupvoter}} 
-  {{> popupdownvoter}}
+
   <!-- Recommended videos  -->
   <!-- {{#if userVideosAndResteems}} -->
   <div class="ui grid computer only videorecommendedcomputer">
@@ -175,6 +174,8 @@
     <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
     {{> verticalvideoband userVideosAndResteems}}
   </div>
+  {{> popupvoter}} 
+  {{> popupdownvoter}}
   <!-- {{/if}} -->
   {{/with}}
 </template>
