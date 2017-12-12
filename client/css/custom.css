@@ -93,3 +93,14 @@ width: 50%;
   background: #1d1d1d!important;
   color: rgb(240,240,240)!important;
 }
+
+.channelcover{
+  min-height: 120px;
+  max-height: 240px;
+  position: relative;
+  overflow: hidden;
+  background-position: left;
+  /* object-fit: contain; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}

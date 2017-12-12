@@ -128,8 +128,8 @@
   {{else}}
   <!--- /////////////////////////DESKTOP TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;margin-top: -23px;">
-      <div style="max-height:120px;position: relative;background:#dbdbdb;;overflow:hidden;">
-          <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;">
+      <div class="channelcover" style="background-image: url('https://img.busy.org/@{{user.name}}/cover')">
+          <!-- <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;"> -->
           <img  style="max-width:100%;float: left;position: absolute;top: 10px;left: 10px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> 
           {{#if equals activeUser user.name}}
           <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">

@@ -1,93 +1,97 @@
 <template name='notificationdropdown'>
-  <div class="ui item right pointing top dropdown dropdownnotification">
-    {{#if notifications.length}}
-    <i id="notification" class="alarm icon" style='font-size:1.5em; margin:0;'></i>
-    <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">{{notifications.length}}</span>
-    {{else}}
-    <i id="notification" class="alarm icon outline" style='font-size:1.5em; margin:0;'></i>
-    <span class="notificationdtube">0</span>
-    {{/if}}
-    <div id="notificationmenu" class="menu" style="overflow-y: auto;max-height: 600px;padding-bottom: 5px;margin-top:0px;">
-      <h4 style="padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
-      <div class="item" style="height:0px!important;width:0px!important;padding:0px!important;"></div>
-      {{#each notifications}} 
-      {{#if equals type 'subscribe'}}
-      <div class="ui  card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content" style="padding: 0px;">
-            <div class="right floated" style="padding:5px;">
-                <i class="remove circle icon notificationremove"></i>
-              </div>
-          <div style="padding: 10px;display:flex;">
-            <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
-            <div style="display: inline;margin-left: 5px;">
-              <div>
-            <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
-            subscribed to your channel</div>
-              <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      {{/if}} 
-      {{#if equals type 'comment'}}
-      <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content" style="padding: 0px;">
-            <div class="right floated" style="padding:5px;">
-                <img style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.parent_author tx.parent_permlink}}">
-              <i class="remove circle icon"></i>
-            </div>
-          <div style="padding: 10px;">
-            <div style="display:flex;">
-                <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
-                <div style="display: inline;margin-left: 5px;">
-                  <div>
-                <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
-                commented
-              </div>
-                  <span style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</span>
-                  <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-      {{/if}} 
-      {{#if equals type 'vote'}}
-      <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+    <div class="ui item right pointing top dropdown dropdownnotification">
+      {{#if notifications.length}}
+      <i id="notification" class="alarm icon" style='font-size:1.5em; margin:0;'></i>
+      <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">{{notifications.length}}</span>
+      {{else}}
+      <i id="notification" class="alarm icon outline" style='font-size:1.5em; margin:0;'></i>
+      <span id="notificationcount" class="notificationdtube">0</span>
+      {{/if}}
+      <div id="notificationmenu" class="menu" style="overflow-y: auto;max-height: 600px;padding-bottom: 5px;margin-top:0px;">
+        <h4 style="padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
+        <div class="item" style="height:0px!important;width:0px!important;padding:0px!important;"></div>
+        {{#each notifications}} 
+        {{#if equals type 'subscribe'}}
+        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px; background: #fafafa;">
           <div class="content" style="padding: 0px;">
               <div class="right floated" style="padding:5px;">
-                  <img style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.author tx.permlink}}">
-                <i class="remove circle icon"></i>
+                  <i class="remove circle icon notificationremove"></i>
+                </div>
+            <div style="padding: 10px;display:flex;">
+              <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
+              <div style="display: inline;margin-left: 5px;">
+                <div>
+              <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
+              subscribed to your channel</div>
+                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/if}} 
+        {{#if equals type 'comment'}}
+        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+          <div class="content" style="padding: 0px;">
+              <div class="right floated" style="padding:5px;">
+                  <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
+                  <img href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.parent_author tx.parent_permlink}}">
+                </a>
+                  <i class="remove circle icon"></i>
               </div>
             <div style="padding: 10px;">
               <div style="display:flex;">
-                  <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+                  <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
                   <div style="display: inline;margin-left: 5px;">
                     <div>
-                  <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>
-                  uptoved
+                  <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
+                  commented
                 </div>
-                    <span style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</span>
+                    <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
                     <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
                   </div>
                 </div>
             </div>
           </div>
         </div>
-      {{/if}} 
-      {{/each}} 
-      {{#if hasRewards mainUser}}
-      <div class="ui card" style="margin: 0px 5px 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
-        <div class="content" style="padding: 0px;">
-            <div class="right floated" style="padding:5px;">
-                <i class="check circle icon"></i>
+        {{/if}} 
+        {{#if equals type 'vote'}}
+        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+            <div class="content" style="padding: 0px;">
+                <div class="right floated" style="padding:5px;">
+                    <a href="/v/{{tx.author}}/{{tx.permlink}}">
+                    <img style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="https://ipfs.io/ipfs/{{getSnap tx.author tx.permlink}}">
+                  </a>
+                    <i class="remove circle icon"></i>
+                </div>
+              <div style="padding: 10px;">
+                <div style="display:flex;">
+                    <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+                    <div style="display: inline;margin-left: 5px;">
+                      <div>
+                    <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>
+                    uptoved
+                  </div>
+                  <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
+                      <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+                    </div>
+                  </div>
               </div>
-          <a style="padding: 10px;" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
-            <i class="large money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}} {{displayRewards mainUser}}
-          </a>
+            </div>
+          </div>
+          {{/if}} 
+        {{/each}} 
+        {{#if hasRewards mainUser}}
+        <div class="ui card" style="margin: 0px 5px 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+          <div class="content" style="padding: 0px;">
+              <div class="right floated" style="padding:5px;">
+                  <i class="check circle icon"></i>
+                </div>
+            <a style="padding: 10px;" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
+              <i class="large money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}} {{displayRewards mainUser}}
+            </a>
+          </div>
         </div>
+        {{/if}}
       </div>
-      {{/if}}
     </div>
-  </div>
-</template>
+  </template>
