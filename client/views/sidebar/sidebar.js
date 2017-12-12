@@ -5,6 +5,7 @@ Template.sidebar.rendered = function () {
     limit: 100
   };
   Videos.refreshWaka();
+  Template.settingsdropdown.nightMode();
 }
 
 Template.sidebar.helpers({
@@ -55,6 +56,7 @@ Template.sidebar.resetActiveMenu = function () {
   $('#hotsidebarmenu').removeClass('activemenu')
   $('#newsidebarmenu').removeClass('activemenu')
   $('#watchlatersidebarmenu').removeClass('activemenu')
+  Template.settingsdropdown.nightMode();
 }
 
 Template.sidebar.activeSidebarHome = function () {

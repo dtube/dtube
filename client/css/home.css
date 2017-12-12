@@ -185,7 +185,7 @@ text-align: center;
 }
 
 body.pushable {
-  background: #fafafa !important;
+  background: #fafafa;
 }
 
 input[type="text"] {

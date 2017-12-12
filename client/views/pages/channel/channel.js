@@ -15,6 +15,7 @@ Template.channel.rendered = function () {
   AskSteem.related({user: FlowRouter.getParam("author")}, function(err, result) {
     Session.set('relatedChannels', result.results)
   })
+  Template.settingsdropdown.nightMode();
 }
 
 Template.channel.helpers({

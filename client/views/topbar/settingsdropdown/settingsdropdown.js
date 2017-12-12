@@ -23,12 +23,12 @@ Template.settingsdropdown.rendered = function() {
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
       } else if (e.hasClass('nightMode')) {
-        Session.set('isInNightMode', !Session.get('isInNightMode'))
-        if (Session.get('isInNightMode')) {
+        if (!Session.get('isInNightMode')) {
           Template.settingsdropdown.switchToNightMode();
         } else {
           Template.settingsdropdown.switchToNormalMode();
         }
+        Session.set('isInNightMode', !Session.get('isInNightMode'))
       } else {
         console.log(value,text,e)
       }
@@ -77,6 +77,13 @@ Template.settingsdropdown.helpers({
 })
 
 
+Template.settingsdropdown.nightMode = function()
+{
+  if (Session.get('isInNightMode')) {
+    Template.settingsdropdown.switchToNightMode();
+  } 
+}
+
 Template.settingsdropdown.switchToNightMode = function (){
     $('.pushable').addClass('nightmode');
     $('.article').addClass('nightmode');
@@ -85,6 +92,13 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.videosnaprest').addClass('nightmodetext');
     $('.ui.item').addClass('nightmodetext');
     $('.menuitem').addClass('nightmodetext');
+    $('.ui.toggle.checkbox label').addClass('nightmodetext');
+    $('.ui.form .field > label').addClass('nightmodetext');
+    $('.text').addClass('nightmodetext');
+    $('.channelLink > a').addClass('nightmodetext');
+    $('.header').addClass('nightmodetext');
+
+    $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
@@ -93,6 +107,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.whitelogo').removeClass('displaynone');
     $('.main.menu.fixed').addClass('nightmodegray');
     $('.sidebar').addClass('nightmodegray');
+
 }
 
 Template.settingsdropdown.switchToNormalMode = function (){
@@ -103,7 +118,13 @@ $('.dtubesidebaricon').removeClass('nightmodetext');
 $('.videosnaprest').removeClass('nightmodetext');
 $('.ui.item').removeClass('nightmodetext');
 $('.menuitem').removeClass('nightmodetext');
+$('.ui.toggle.checkbox label').removeClass('nightmodetext');
+$('.ui.form .field > label').removeClass('nightmodetext');
+$('.text').removeClass('nightmodetext');
+$('.channelLink > a').removeClass('nightmodetext');
+$('.header').removeClass('nightmodetext');
 
+$('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
 $('.ui.secondary.segment').removeClass('nightmodegray');
 $('.ui.header').removeClass('nightmodetext');

@@ -11,6 +11,7 @@ Template.videoslider.rendered = function () {
   this.firstNode.id = random
   Template.videoslider.createSlider(random)
   $(this.firstNode).find('.dropdown').dropdown({});
+  Template.settingsdropdown.nightMode();
 }
 
 Template.videoslider.createSlider = function (elemId) {
