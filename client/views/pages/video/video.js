@@ -134,6 +134,7 @@ Template.video.events({
       }
       Template.video.loadState()
       Session.set('replyingTo', null)
+      document.getElementById('replytext').value = "";
     });
   },
   'click .subscribe': function () {
