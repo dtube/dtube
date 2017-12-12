@@ -69,6 +69,10 @@ Template.video.helpers({
       return true;
     }
   },
+  convertTag:function(tag){
+    var tagWithoutDtube= tag.replace("dtube-", "")
+    return tagWithoutDtube
+  }
   // switchMobile: function () {
   //   $('#videodtube').addClass('videomobile');
   //   $('#videocontent').addClass('videomobile');

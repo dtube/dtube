@@ -1,6 +1,6 @@
 <template name='video'>
   {{#with video}}
-  <div class="videocontainer" >
+  <div class="videocontainer">
     <!-- Player on page -->
     {{> player}}
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
@@ -10,16 +10,19 @@
           <div class="videotitlecontainer">
             <h1 class="videotitle">{{info.title}}</h1>
           </div>
-            <div id='videosnaptags' class='videosnaptags' style="padding-bottom: 20px;bottom: 0px;position: absolute;">
-            {{#each content.tags}}
-            <a href="/t/{{this}}" class="ui tiny label">{{this}}</a>
+          <div id='videosnaptags' class='videosnaptags' style="padding-bottom: 20px;bottom: 0px;position: absolute;">
+            {{#each content.tags}} 
+            {{#if equals this 'dtube'}} 
+            {{else}}
+            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+            {{/if}} 
             {{/each}}
-            </div> 
+          </div>
           <div class="ui videovotecontainer right floated">
-             {{> videosettingsdropdown}}
+            {{> videosettingsdropdown}}
             <div style="float: right;" class="button icon bottom aligned ">
               <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
-                  {{#if hasUpvoted video}}
+                {{#if hasUpvoted video}}
                 <i class="thumbs up icon red"></i>
                 {{else}}
                 <i class="thumbs up icon"></i>
@@ -27,7 +30,7 @@
                 <span>{{upvotes active_votes}}</span>
               </button>
               <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
-                  {{#if hasDownvoted video}}
+                {{#if hasDownvoted video}}
                 <i class="thumbs down icon red"></i>
                 {{else}}
                 <i class="thumbs down icon"></i>
@@ -48,12 +51,12 @@
                 {{info.author}}
               </a>
             </div>
-            {{#unless equals activeUser user.name}}
-            {{#if isLoggedOn}}
-             {{#if isSubscribedTo info.author}}
+            {{#unless equals activeUser user.name}} 
+            {{#if isLoggedOn}} 
+            {{#if isSubscribedTo info.author}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui mini  button left  unsubscribe dtube grey" style="padding-left:10px;padding-right:10px;">
-                  {{ translate 'VIDEO_UNSUBSCRIBE'}}
+                {{ translate 'VIDEO_UNSUBSCRIBE'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
@@ -62,14 +65,13 @@
             {{else}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui red  mini left dtube button subscribe">
-               {{ translate 'VIDEO_SUBSCRIBE'}}
+                {{ translate 'VIDEO_SUBSCRIBE'}}
               </div>
               <a class="ui basic label videoshowmore" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}}
-            {{else}}
+            {{/if}} {{else}}
             <div class="ui labeled mini button" tabindex="0">
               <div class="ui red mini button dtube ">
                 {{ translate 'VIDEO_SUBSCRIBERS'}}
@@ -78,15 +80,14 @@
                 {{{subCount info.author}}}
               </a>
             </div>
-            {{/if}}
-            {{else}}
-              <div class="ui blue mini dtube button editvideo dtube">
-                <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
-              </div>
+            {{/if}} {{else}}
+            <div class="ui blue mini dtube button editvideo dtube">
+              <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
+            </div>
             {{/unless}}
             <div class="videorightdetails">
               <div class='videopayout'>
-                {{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+                ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
               </div>
               <br />
             </div>
@@ -113,7 +114,7 @@
           <i class="ui icon angle down"></i>
         </div>
         <div id="showless" class="hidden" style="text-align: center;">
-          <button class="ui button videoshowmore" >
+          <button class="ui button videoshowmore">
             {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
           </button>
           <i class="ui icon angle up"></i>
@@ -151,17 +152,20 @@
             <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
           </a>
         </div>
-        {{/if}} {{> comments}}
+        {{/if}} 
+        {{> comments}}
       </div>
     </div>
   </div>
-  {{> popupvoter}}
+  {{> popupvoter}} 
   {{> popupdownvoter}}
   <!-- Recommended videos  -->
   <!-- {{#if userVideosAndResteems}} -->
-  <div class="ui grid computer only videorecommendedcomputer" >
+  <div class="ui grid computer only videorecommendedcomputer">
     <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-    {{#if userVideosAndResteems}} {{> verticalvideoband userVideosAndResteems}} {{/if}}
+    {{#if userVideosAndResteems}} 
+    {{> verticalvideoband userVideosAndResteems}} 
+    {{/if}}
   </div>
   <div class="ui container grid tablet only content videorecommendedtablet">
     <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
@@ -172,5 +176,5 @@
     {{> verticalvideoband userVideosAndResteems}}
   </div>
   <!-- {{/if}} -->
-   {{/with}}
+  {{/with}}
 </template>

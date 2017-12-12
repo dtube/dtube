@@ -1,4 +1,5 @@
 <template name="popupvoter">
+    {{#if upvotes active_votes.length}}
     <div id="popupupvote" class="ui flowing bottom center inverted popup popupupvotes">
         <div class="ui mini middle aligned divided list">
             {{#each displayVoters active_votes 0}}
@@ -6,11 +7,12 @@
                     <div class="content">
                         <div class="header">
                             {{voter}}
-                            (${{displayPayoutUpvote rsharespercent (displayPayout ../pending_payout_value ../total_payout_value ../curator_payout_value)}})
+                            <span style="color:#b5b5b5"> (${{displayPayoutUpvote rsharespercent (displayPayout ../pending_payout_value ../total_payout_value ../curator_payout_value)}})</span>
                         </div>
                     </div>
                 </a></div>
             {{/each}}
         </div>
     </div>
+    {{/if}}
 </template>
