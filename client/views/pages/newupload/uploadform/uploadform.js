@@ -39,27 +39,14 @@ Template.uploadform.helpers({
 
 Template.uploadform.parseTags = function(raw) {
   var tags = ['dtube']
-  // if(isNsfw && isOriginal)
-  // {
-  //   tags = ['dtube','nsfw','original']
-  // }
-  // else if(isNsfw)
-  // {
-  //   tags = ['dtube','nsfw']
-  // }
-  // else if(isOriginal)
-  // {
-  //   tags = ['dtube','original']
-  // }
-  // else{
-  //   tags = ['dtube']
-  // }
   var videoTags = []
   var form = document.getElementsByClassName('uploadform')[0]
   for (var i = 0; i < raw.split(',').length; i++) {
-    tags.push(raw.split(',')[i].toLowerCase())
-    videoTags.push(raw.split(',')[i].toLowerCase())
-    tags.push('dtube-'+raw.split(',')[i].toLowerCase())
+    if (tags.length<5)
+      tags.push(raw.split(',')[i].toLowerCase())
+    if (videoTags.length<4)
+      videoTags.push(raw.split(',')[i].toLowerCase())
+    //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
   }
   return [tags, videoTags]
 }

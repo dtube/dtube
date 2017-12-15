@@ -78,8 +78,10 @@ Videos.refreshBlockchain = function(cb) {
   }
 }
 
-Videos.getVideosRelatedTo = function(author, permlink, cb) {
-  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q: "meta.info.title:*"}, function(err, response) {
+Videos.getVideosRelatedTo = function(author, permlink, days, cb) {
+  var dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
+  var dateQuery = 'created:['+dateFrom+' TO 2099-01-01]'
+  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q:dateQuery+" AND meta.video.info.title:*"}, function(err, response) {
     var videos = []
     for (let i = 0; i < response.results.length; i++) {
       var video = Videos.parseFromAskSteemResult(response.results[i])

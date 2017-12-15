@@ -5,6 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
 import AskSteem from 'asksteem';
+import sc2sdk from 'sc2-sdk';
 steem.api.setOptions({ url: 'https://api.steemit.com' });
 
 console.log('Starting DTube APP')
@@ -51,6 +52,16 @@ Meteor.startup(function(){
   loadLangAuto(function() {
     console.log('Loaded language')
   })
+
+  // init steem connect
+  var sc2 = sc2sdk.Initialize({
+    app: 'dtube.app',
+    callbackURL: 'https://d.tube/#!/sc2login',
+    accessToken: 'access_token'
+  });
+  window.sc2 = sc2
+
+  console.log(sc2.getLoginURL())
 
   toastr.options = {
     "closeButton": true,

@@ -139,7 +139,7 @@ FlowRouter.route('/v/:author/:permlink', {
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
     // })
-    Videos.getVideosRelatedTo(params.author, params.permlink, function() {
+    Videos.getVideosRelatedTo(params.author, params.permlink, 7, function() {
       // call finished
     })
     SubCounts.loadSubscribers(params.author)
