@@ -9,27 +9,27 @@
     <div class="menu">
       <div class="item copylink">
         <span class="customlink">
-          <i class="share icon"></i>{{ translate 'VIDEO_COPY_PERMA_LINK'}}</span>
+          <i class="share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}</span>
         <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
         <!--<div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>   -->
       </div>
       <div  class="item copyembed">
         <span class="customlink">
-          <i class="external share icon"></i>{{ translate 'VIDEO_COPY_EMBED_LINK'}}</span>
+          <i class="external share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_EMBED_LINK'}}</span>
         <input id="embedlink" style="width:0px;visibility:hidden;" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
         <!--<div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div> -->
       </div>
       <div class="item">
         <a>
           <span class="customlink">
-            <i class="retweet icon"></i> Resteem</span>
+            <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}} </span>
         </a>
       </div>
       {{#if content.magnet}}
       <div class="item">
         <a href="{{content.magnet}}">
           <span class="customlink"> 
-            <i class="magnet icon"></i> Download from magnet</span>
+            <i class="magnet icon"></i> {{ translate 'VIDEO_SETTINGS_DOWNLOAD_FROM_MAGNET'}}</span>
         </a>
       </div>
       {{/if}}
@@ -38,10 +38,10 @@
       <div class="item addvideotowatchlater">
           <a>
             <span class="customlink">
-              <i class="plus icon"></i> Add to watch later</span>
+              <i class="plus icon"></i>{{ translate 'VIDEO_SETTINGS_ADD_TO_WATCH_LATER'}}</span>
           </a>
         </div>
-          {{/if}} 
+      {{/if}} 
     </div>
   </div>
 </template>

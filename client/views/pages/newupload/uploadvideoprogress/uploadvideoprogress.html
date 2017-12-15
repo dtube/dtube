@@ -5,9 +5,9 @@
             <div class="bar" style="width:{{ipfsAddSourceVideo.progress}}">
             </div>
             <div class="label">
-              Adding Source to IPFS...
+              {{ translate 'UPLOAD_PROGRESS_ADDING_SOURCE_TO_IPFS'}}
               {{#if ipfsAddSourceVideo.positionInQueue}}
-                Waiting in Queue #{{ipfsAddSourceVideo.positionInQueue}}
+              {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{ipfsAddSourceVideo.positionInQueue}}
               {{/if}}
             </div>
           </div>
@@ -19,9 +19,9 @@
                 <div class="bar" style="width:{{sprite.spriteCreation.progress}}">
                 </div>
                 <div class="label">
-                  Creating Sprite...
+                  {{ translate 'UPLOAD_PROGRESS_CREATING_SPRITE'}}
                   {{#if sprite.spriteCreation.positionInQueue}}
-                    Waiting in Queue #{{sprite.spriteCreation.positionInQueue}}
+                  {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sprite.spriteCreation.positionInQueue}}
                   {{/if}}
                 </div>
             </div>
@@ -31,9 +31,9 @@
                 <div class="bar" style="width:{{sprite.ipfsAddSprite.progress}}">
                 </div>
                 <div class="label">
-                  Adding Sprite to IPFS...
+                  {{ translate 'UPLOAD_PROGRESS_ADDING_SPRITE_TO_IPFS'}}
                   {{#if sprite.ipfsAddSprite.positionInQueue}}
-                    Waiting in Queue #{{sprite.ipfsAddSprite.positionInQueue}}
+                  {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sprite.ipfsAddSprite.positionInQueue}}
                   {{/if}}
                 </div>
             </div>
@@ -46,9 +46,9 @@
                 <div class="bar" style="width:{{encode.progress}}">
                 </div>
                 <div class="label">
-                  Encoding to {{encode.encodeSize}}...
+                  {{ translate 'UPLOAD_PROGRESS_ENCODING_TO'}} {{encode.encodeSize}}...
                   {{#if encode.positionInQueue}}
-                    Waiting in Queue #{{encode.positionInQueue}}
+                  {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{encode.positionInQueue}}
                   {{/if}}
                 </div>
             </div>
@@ -58,9 +58,9 @@
                 <div class="bar" style="width:{{ipfsAddEncodeVideo.progress}}">
                 </div>
                 <div class="label">
-                  Adding {{encode.encodeSize}} to IPFS...
+                  {{ translate 'UPLOAD_PROGRESS_ADDING'}} {{encode.encodeSize}} {{ translate 'UPLOAD_PROGRESS_TO_IPFS'}}
                   {{#if ipfsAddEncodeVideo.positionInQueue}}
-                    Waiting in Queue #{{ipfsAddEncodeVideo.positionInQueue}}
+                  {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{ipfsAddEncodeVideo.positionInQueue}}
                   {{/if}}
                 </div>
             </div>

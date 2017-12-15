@@ -80,21 +80,20 @@ Template.videoslider.createSlider = function (elemId) {
         1060: {
           items: 5,
           slideBy: 2,
-          nav: false,
-          nav: false,
-          loop: false
+          nav: true,
+          loop: true
         },
         1272: {
           items: 6,
           slideBy: 2,
-          nav: false,
-          loop: false
+          nav: true,
+          loop: true
         },
         1484: {
           items: 7,
           slideBy: 2,
-          nav: false,
-          loop: false
+          nav: true,
+          loop: true
         }
       }
     });
