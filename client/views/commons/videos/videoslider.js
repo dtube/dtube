@@ -22,7 +22,6 @@ Template.videoslider.createSlider = function (elemId) {
       nav: false,
       items: 5,
       slideBy: 2,
-      center: true,
       dots: false,
       responsiveClass: true,
       responsive: {

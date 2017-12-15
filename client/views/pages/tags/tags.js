@@ -12,5 +12,9 @@ Template.tags.helpers({
         if (/Mobi/.test(navigator.userAgent)) { 
             return true;
         }
-    },
+    }
 })
+
+Template.tags.onRendered(function () {
+    Template.sidebar.resetActiveMenu()
+});

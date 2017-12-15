@@ -8,6 +8,7 @@ Template.video.rendered = function () {
   Session.set('isDescriptionOpen', false)
   Template.video.setScreenMode();
   $(window).on('resize', Template.video.setScreenMode)
+  Template.sidebar.resetActiveMenu()
   Template.settingsdropdown.nightMode();
 }
 

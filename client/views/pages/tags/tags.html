@@ -1,7 +1,7 @@
 <template name="tags">
   {{#if isOnMobile}}
-  <div class="ui grid" style="margin: 10px 0px">
-      <h2 style="background:red;color:white;padding:10px;">{{ translate 'TAGS_ABOUT'}} {{tagVideos.length}} {{ translate 'TAGS_RESULTS_FOR'}} #{{currentTag}}</h2>
+  <h2 style="background:red;color:white;padding:10px;">{{ translate 'TAGS_ABOUT'}} {{tagVideos.length}} {{ translate 'TAGS_RESULTS_FOR'}} #{{currentTag}}</h2>  
+  <div style="margin-left:4px;margin-right:4px;" class="ui content">
       <h2>{{ translate 'TAGS_NEW'}}</h2>
       {{> videoslider tagVideos}}
       <h2>{{ translate 'TAGS_THIS_MONTH'}}</h2>

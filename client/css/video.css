@@ -83,7 +83,10 @@
 }
 
 .videotitlecontainer{
-  float:left;vertical-align:top; margin-top: 10px;
+  float:left;
+  vertical-align:top; 
+  margin-top: 0px; 
+  margin-bottom: 10px;
 }
 
 .videotitle{

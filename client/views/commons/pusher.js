@@ -15,6 +15,6 @@ Template.pusher.rendered = function () {
   else {
     Session.set('isSidebarOpen', false)
   }
-  Notifications.startListening();
+  // Notifications.startListening();
 }
 
