@@ -61,8 +61,6 @@ Meteor.startup(function(){
   });
   window.sc2 = sc2
 
-  console.log(sc2.getLoginURL())
-
   toastr.options = {
     "closeButton": true,
     "debug": false,

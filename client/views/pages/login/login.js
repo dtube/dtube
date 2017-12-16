@@ -5,6 +5,10 @@ Template.login.helpers({
 })
 
 Template.login.events({
+  'click #loginbuttonsc2': function(event) {
+    event.preventDefault()
+    window.location.href = sc2.getLoginURL()
+  },
   'submit .form': function(event) {
     event.preventDefault()
     //TOCHECK
