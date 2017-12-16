@@ -164,9 +164,8 @@ Template.uploadform.events({
         ];
         $('#step3load').show()
         console.log(operations)
-        steem.broadcast.send(
-          { operations: operations, extensions: [] },
-          { posting: wif },
+        broadcast.send(
+          operations,
           function(e, r) {
             $('#step3load').hide()
             if (e) {
@@ -213,9 +212,8 @@ Template.uploadform.events({
           ]
         ];
         console.log(operations)
-        steem.broadcast.send(
-          { operations: operations, extensions: [] },
-          { posting: wif },
+        broadcast.send(
+          operations,
           function(e, r) {
             if (e) {
               console.log(e)

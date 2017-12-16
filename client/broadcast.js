@@ -19,7 +19,7 @@ broadcast = {
             cb(err, result)
         })
     },
-    claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance) {
+    claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
         var voter = Users.findOne({ username: username }).username
         if (!voter) return;
         var wif = Users.findOne({ username: username }).privatekey
@@ -123,6 +123,31 @@ broadcast = {
         }
         sc2.setAccessToken(accessToken);
         sc2.comment(parentAuthor, parentPermlink, voter, permlink, permlink, body, jsonMetadata, function(err, result) {
+            cb(err, result)
+        })
+    },
+    send: function(operations, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var permlink = Template.upload.createPermlink(9)
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.send(
+                { operations: operations, extensions: [] },
+                { posting: wif },
+                function(err, result) {
+                    cb(err, result)
+                }
+            )
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        sc2.broadcast(operations, function(err, result) {
             cb(err, result)
         })
     }
