@@ -90,6 +90,8 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.customlink').addClass('nightmodetext');
     $('.dtubesidebaricon').addClass('nightmodetext');
     $('.videosnaprest').addClass('nightmodetext');
+    $('.videosnapauthor').addClass('nightsecondarytext');
+    $('.verticalvideosnaptitle').addClass('nightmodetext');
     $('.ui.item').addClass('nightmodetext');
     $('.menuitem').addClass('nightmodetext');
     $('.ui.toggle.checkbox label').addClass('nightmodetext');
@@ -97,6 +99,13 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.text').addClass('nightmodetext');
     $('.channelLink > a').addClass('nightmodetext');
     $('.header').addClass('nightmodetext');
+    $('.ui.author').addClass('nightmodetext');
+    $('.ui.comments .comment .metadata').addClass('nightsecondarytext');
+    $('.ui .icon').addClass('nightmodetext');
+    $('.ui.segments > .segment').addClass('nightsegment');
+    $('.commentbutton').addClass('nightmodetext');
+    $('.ui.comments .comment .actions a').addClass('nightsecondarytext');
+    $('.videoshowmore').addClass('nightbutton');
 
     $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
@@ -105,7 +114,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.item').addClass('nightmodetext');
     $('.blacklogo').addClass('displaynone');
     $('.whitelogo').removeClass('displaynone');
-    $('.main.menu.fixed').addClass('nightmodegray');
+    $('.main.menu.fixed').addClass('nightmode');
     $('.sidebar').addClass('nightmodegray');
 
 }
@@ -116,6 +125,8 @@ $('.article').removeClass('nightmode');
 $('.customlink').removeClass('nightmodetext');
 $('.dtubesidebaricon').removeClass('nightmodetext');
 $('.videosnaprest').removeClass('nightmodetext');
+$('.videosnapauthor').removeClass('nightsecondarytext');
+$('.verticalvideosnaptitle').removeClass('nightmodetext');
 $('.ui.item').removeClass('nightmodetext');
 $('.menuitem').removeClass('nightmodetext');
 $('.ui.toggle.checkbox label').removeClass('nightmodetext');
@@ -123,6 +134,13 @@ $('.ui.form .field > label').removeClass('nightmodetext');
 $('.text').removeClass('nightmodetext');
 $('.channelLink > a').removeClass('nightmodetext');
 $('.header').removeClass('nightmodetext');
+$('.ui.author').removeClass('nightmodetext');
+$('.ui.comments .comment .metadata').removeClass('nightsecondarytext');
+$('.ui .icon').removeClass('nightmodetext');
+$('.ui.segments > .segment').removeClass('nightsegment');
+$('.commentbutton').removeClass('nightmodetext');
+$('.ui.comments .comment .actions a').removeClass('nightsecondarytext');
+$('.videoshowmore').removeClass('nightbutton');
 
 $('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
@@ -132,6 +150,6 @@ $('.item').removeClass('nightmodetext');
 $('.blacklogo').removeClass('displaynone');
 $('.whitelogo').addClass('displaynone');
 
-$('.main.menu.fixed').removeClass('nightmodegray');
+$('.main.menu.fixed').removeClass('nightmode');
 $('.sidebar').removeClass('nightmodegray');
 }

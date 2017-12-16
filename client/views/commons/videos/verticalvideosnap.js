@@ -12,9 +12,9 @@ Template.verticalvideosnap.events({
   }
 })
 
-// Template.verticalvideosnap.rendered = function () {
-//   Template.videosnap.snapLoaded();
-// }
+Template.verticalvideosnap.rendered = function () {
+  Template.settingsdropdown.nightMode();
+ }
 
 // Template.verticalvideosnap.snapLoaded = function () {
 //   $('#snapimg').imagesLoaded(function () {

@@ -15,7 +15,9 @@
             {{#each content.tags}} 
             {{#if equals this 'dtube'}} 
             {{else}}
+            {{#if this}} 
             <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+            {{/if}} 
             {{/if}} 
             {{/each}}
           </div>

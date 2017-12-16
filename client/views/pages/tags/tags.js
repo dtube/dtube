@@ -12,7 +12,11 @@ Template.tags.helpers({
         if (/Mobi/.test(navigator.userAgent)) { 
             return true;
         }
-    }
+    },
+    thisWeek: function () {
+      Videos.getVideosByTags(FlowRouter.getParam("tag"), 30, function(err, response) {
+      console.log(response)
+    })}
 })
 
 Template.tags.onRendered(function () {
