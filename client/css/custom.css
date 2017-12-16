@@ -79,6 +79,7 @@ width: 50%;
 }
 
 
+
 .nightmode {
   background: #111111!important;
   color: rgb(240,240,240)!important;
@@ -88,8 +89,20 @@ width: 50%;
   color: rgb(240,240,240)!important;
 }
 
+.nightsecondarytext{
+  color: rgb(180, 180, 180)!important;
+}
+
+.nightsegment{
+  border-top: 1px solid rgba(209, 209, 209, 0.15)!important;
+}
 
 .nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240,240,240)!important;
+}
+
+.nightbutton {
   background: #1d1d1d!important;
   color: rgb(240,240,240)!important;
 }
