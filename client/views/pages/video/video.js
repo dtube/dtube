@@ -113,17 +113,13 @@ Template.video.events({
   },
   'click .submit': function (event) {
     if (!Session.get('replyingTo')) return;
-    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var parentAuthor = Session.get('replyingTo').author
     var parentPermlink = Session.get('replyingTo').permlink
-    var author = Users.findOne({ username: Session.get('activeUsername') }).username
-    var permlink = Template.upload.createPermlink(9)
-    var title = permlink
     var body = $(event.currentTarget).prev().children()[0].value
     var jsonMetadata = {
       app: Meteor.settings.public.app
     }
-    steem.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, result) {
+    broadcast.comment(parentAuthor, parentPermlink, body, jsonMetadata, function (err, result) {
       console.log(err, result)
       if (err) {
         toastr.error(err.payload.error.data.stack[0].format, 'Error')

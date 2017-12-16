@@ -86,8 +86,8 @@ Template.channel.events({
       // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
       //   SubCounts.upsert({_id: r.account}, r)
       // })
-      // if (err)
-      //   toastr.error(Meteor.blockchainError(err))
+      if (err)
+        toastr.error(Meteor.blockchainError(err))
     })
   },
   'click .unsubscribe': function () {
@@ -100,6 +100,8 @@ Template.channel.events({
     })
     broadcast.unfollow(FlowRouter.getParam("author"), function(err, result) {
       // finished unfollowing
+      if (err)
+        toastr.error(Meteor.blockchainError(err))
     })
   }
 })
