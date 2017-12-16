@@ -22,3 +22,7 @@ Template.videosnap.helpers({
     return  WatchLater.find({_id: this._id}).fetch()
   }
 })
+
+Template.videosnap.rendered = function () {
+  Template.settingsdropdown.nightMode();
+}

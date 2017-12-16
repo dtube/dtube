@@ -35,12 +35,22 @@ Template.videoslider.createSlider = function (elemId) {
           nav: false,
           slideBy: 2
         },
-        700: {
-          items: 3,
-          nav: false,
-          loop: false,
-          slideBy: 2
-        }
+        699: {
+         items: 3,
+         slideBy: 2,
+        nav: false
+       },
+       854: {
+         items: 4,
+         slideBy: 3,
+         nav: false
+       },
+       1060: {
+         items: 5,
+         slideBy: 4,
+         nav: true,
+         loop: true
+       }
       }
     });
   }
@@ -73,24 +83,24 @@ Template.videoslider.createSlider = function (elemId) {
         },
         854: {
           items: 4,
-          slideBy: 2,
+          slideBy: 3,
           nav: false
         },
         1060: {
           items: 5,
-          slideBy: 2,
+          slideBy: 4,
           nav: true,
           loop: true
         },
         1272: {
           items: 6,
-          slideBy: 2,
+          slideBy: 5,
           nav: true,
           loop: true
         },
         1484: {
           items: 7,
-          slideBy: 2,
+          slideBy: 5,
           nav: true,
           loop: true
         }
