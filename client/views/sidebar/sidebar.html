@@ -48,7 +48,14 @@
         <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_LATER'}}</span>
       </div>
     </a>
-
+  <!-- {{#if watchAgain}} -->
+  <a href='/history' class="item" style="padding:0%;">
+    <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
+      <i class="history icon dtubesidebaricon"></i>
+      <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
+    </div>
+  </a>
+  <!-- {{/if}} -->
     <div class="ui divider"></div>
     {{#if subscribe.length}}
     <a class="item" style="padding:0%;margin-top:-10px;">
@@ -93,13 +100,5 @@
       </div>
     </a>
     {{/if}}
-        <!-- {{#if watchAgain}} -->
-        <a href='/history' class="item" style="padding:0%;">
-          <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
-            <i class="history icon dtubesidebaricon"></i>
-            <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
-          </div>
-        </a>
-        <!-- {{/if}} -->
   </div>
 </template>

@@ -30,6 +30,9 @@ Template.comment.helpers({
     return FlowRouter.getParam("author")
   }
 })
+Template.comment.rendered = function () {
+  Template.settingsdropdown.nightMode();
+}
 
  
   

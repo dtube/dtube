@@ -4,6 +4,7 @@ Template.torrentStats.rendered = function () {
     Template.torrentStats.refreshStats();
   }, 1000)
   Template.torrentStats.refreshStats();
+  Template.settingsdropdown.nightMode();
 }
 
 Template.torrentStats.refreshStats = function () {

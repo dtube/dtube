@@ -14,6 +14,7 @@ Template.search.onRendered(function () {
     $('#dsearch').val(FlowRouter.getParam("query"))
     $('.searchForm').submit()
     Template.sidebar.resetActiveMenu()
+    Template.settingsdropdown.nightMode();
     // $('.more.video.sgement ')
     // .visibility({
     //   once: false,

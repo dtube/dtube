@@ -18,7 +18,7 @@ Template.mobiletopbar.helpers({
         $('.dtube').removeClass('loading')
       })
     },
-    'click #textlogomobile': function() {
+    'click #textlogo': function() {
       //window.history.pushState('', '', '/#!/');
       FlowRouter.go('/')
     }
