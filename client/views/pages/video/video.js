@@ -135,13 +135,6 @@ Template.video.events({
     });
   },
   'click .subscribe': function () {
-    var json = JSON.stringify(
-      ['follow', {
-        follower: Session.get('activeUsername'),
-        following: FlowRouter.getParam("author"),
-        what: ['blog']
-      }]
-    );
     var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
     subCount.follower_count++
     SubCounts.upsert({ _id: subCount._id }, subCount)
@@ -150,27 +143,17 @@ Template.video.events({
       following: FlowRouter.getParam("author"),
       what: ['blog']
     })
-    steem.broadcast.customJson(
-      Users.findOne({ username: Session.get('activeUsername') }).privatekey,
-      [],
-      [Session.get('activeUsername')],
-      'follow',
-      json,
-      function (err, result) {
-        if (err)
-          toastr.error(Meteor.blockchainError(err))
-
-      }
-    );
+    
+    broadcast.follow(FlowRouter.getParam("author"), function(err, result) {
+      // alternative, inutile jusqua preuve du contraire
+      // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
+      //   SubCounts.upsert({_id: r.account}, r)
+      // })
+      if (err)
+        toastr.error(Meteor.blockchainError(err))
+    })
   },
   'click .unsubscribe': function () {
-    var json = JSON.stringify(
-      ['follow', {
-        follower: Session.get('activeUsername'),
-        following: FlowRouter.getParam("author"),
-        what: []
-      }]
-    );
     var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
     subCount.follower_count--
     SubCounts.upsert({ _id: subCount._id }, subCount)
@@ -178,17 +161,11 @@ Template.video.events({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author")
     })
-    steem.broadcast.customJson(
-      Users.findOne({ username: Session.get('activeUsername') }).privatekey,
-      [],
-      [Session.get('activeUsername')],
-      'follow',
-      json,
-      function (err, result) {
-        if (err)
-          toastr.error(Meteor.blockchainError(err))
-      }
-    );
+    broadcast.unfollow(FlowRouter.getParam("author"), function(err, result) {
+      // finished unfollowing
+      if (err)
+        toastr.error(Meteor.blockchainError(err))
+    })
   },
   'click .description': function () {
     if (Session.get('isDescriptionOpen')) {

@@ -38,5 +38,71 @@ broadcast = {
         sc2.claimRewardBalance(voter, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function(err, result) {
             cb(err, result)
         })
+    },
+    follow: function(following, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.customJson(
+                wif,
+                [],
+                [voter],
+                'follow',
+                JSON.stringify(
+                    ['follow', {
+                        follower: voter,
+                        following: following,
+                        what: ['blog']
+                    }]
+                ),
+                function (err, result) {
+                    cb(err, result)
+                }
+            );
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        sc2.follow(voter, following, function(err, result) {
+            cb(err, result)
+        })
+    },
+    unfollow: function(following, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.customJson(
+                wif,
+                [],
+                [voter],
+                'follow',
+                JSON.stringify(
+                    ['follow', {
+                        follower: voter,
+                        following: following,
+                        what: []
+                    }]
+                ),
+                function (err, result) {
+                    cb(err, result)
+                }
+            );
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        sc2.unfollow(voter, following, function(err, result) {
+            cb(err, result)
+        })
     }
 }

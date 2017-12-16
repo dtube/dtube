@@ -28,22 +28,7 @@ Subs.loadFollowers = function(username, startFollowers = undefined, cb) {
 }
 
 Subs.followUs = function(follower, cb) {
-  var json = JSON.stringify(
-    ['follow', {
-      follower: follower,
-      following: Meteor.settings.public.beneficiary,
-      what: ['blog']
-    }]
-  );
-  steem.broadcast.customJson(
-    Users.findOne({username: follower}).privatekey,
-    [],
-    [Session.get('activeUsername')],
-    'follow',
-    json,
-    function(err, result) {
-      cb()
-    }
-  );
-
+  broadcast.follow(Meteor.settings.public.beneficiary, function(err, result) {
+    cb()
+  })
 }
