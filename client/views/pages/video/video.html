@@ -127,7 +127,15 @@
       {{/if}}
       <!-- Comments - Reply -->
       <div class="ui secondary segment" style="background: #f5f5f5;">
-        <h3 class="ui header"> {{comments.length}} {{ translate 'VIDEO_COMMENTS'}}</h3>
+        <h3 class="ui header">
+          {{#if equals comments.length 1}}
+            {{comments.length}} {{ translate 'COMMENT_REPLY'}}
+          {{else}}
+            {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
+          {{/if}}
+          
+
+        </h3>
         {{#if isLoggedOn}} {{#if equals comments.length 0}}
         <div style=" text-align: center;padding:10px;">
           <h4>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h4>

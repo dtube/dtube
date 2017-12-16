@@ -6,9 +6,9 @@
           <img src="{{userPic author}}">
         </a>
         {{#if equals author currentAuthor}} 
-        <a href='/c/{{author}}' class="ui author owner">{{author}}</a>
+          <a href='/c/{{author}}' class="ui author owner">{{author}}</a>
         {{else}}
-        <a href='/c/{{author}}' class="ui author">{{author}}</a>
+          <a href='/c/{{author}}' class="ui author">{{author}}</a>
         {{/if}}
         <div class="metadata">
           <span class="date">{{timeAgo created}}</span>
@@ -19,16 +19,16 @@
         </div>
         <div class="actions noselect">
           {{#if hasUpvoted this}}
-          <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
             <i class="thumbs up icon red"></i> {{upvotes active_votes}}</a>
           {{else}}
-          <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
             <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
           {{/if}} {{#if hasDownvoted this}}
-          <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
             <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
           {{else}}
-          <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
             <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
           {{/if}}
           <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
@@ -36,27 +36,32 @@
       </div>
     </div>
     {{#if isReplying this}}
-    <form class="ui reply form">
-      <div class="field">
-        <textarea style='height: 5em;min-height:5em'></textarea>
-      </div>
-      <div class="ui videoshowmore right labeled submit icon button" style="border-width:1px!important;background: white!important;">
-        <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
-      </div>
-    </form>
+      <form class="ui reply form">
+        <div class="field">
+          <textarea style='height: 5em;min-height:5em'></textarea>
+        </div>
+        <div class="ui videoshowmore right labeled submit icon button" style="border-width:1px!important;background: white!important;">
+          <i class="icon edit"></i> {{ translate 'GLOBAL_REPLY_TO'}} @{{author}}
+        </div>
+      </form>
     {{/if}} 
     {{#if comments.length}}
-    <i class="ui angle down icon center"></i>
-    <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
-        {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLIES'}} 
-    </button>
+      <i class="ui angle down icon center"></i>
+      <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
+          {{#if equals comments.length 1}}
+            {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLY'}}
+          {{else}}
+            {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
+          {{/if}}
+      </button>
     {{/if}}
   </div>
+  
   {{#if comments.length}} 
-  <div class="content comment" style="margin-top:20px"> 
+    <div class="content comment" style="margin-top:20px"> 
       {{#with comments}} 
         {{> subcomments}} 
       {{/with}} 
-  </div>
+    </div>
   {{/if}}
 </template>
