@@ -33,6 +33,11 @@
                     {{/if}}
                     <span onchange="{{activatePopups}}">{{upvotes active_votes}}</span>
               </button>
+              {{else}}
+              <button class="ui icon button upvote votebutton">
+                  <i class="thumbs up icon"></i>
+                  <span>{{upvotes active_votes}}</span>
+            </button>
               {{/if}}
               {{#if downvotes active_votes}}
               <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
