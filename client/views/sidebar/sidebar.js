@@ -30,6 +30,7 @@ Template.sidebar.OnSidebarToogled = function () {
       $("#sidebar").sidebar('push page','pusher')
       $('.article').addClass('mainsided');
       Template.videoslider.refreshSlider();
+      
     }
     Session.set('isSidebarOpen', true)
   })

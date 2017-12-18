@@ -1,5 +1,5 @@
 <template name='settingsdropdown'>
-  <div class="ui item top right floating  pointing dropdown dropdownsettings" style="float: right;">
+  <div class="ui item top right floated dropdown dropdownsettings" style="float: right;">
     <i class="settings icon" style='font-size:1.5em; margin:0;'></i>
     <div id="menu" class="menu">
       <div class="item">
@@ -28,7 +28,10 @@
           {{/if}}
         </div>
       </div>
-      <div class="item nightMode">{{ translate 'SETTINGS_NIGHTMODE'}}</div>
+      <div class="item nightMode">
+          <i class="adjust icon"></i>
+          <span class="text">{{ translate 'SETTINGS_NIGHTMODE'}}</span>
+      </div>
       {{#if isOnMobile}} 
       {{else}}
       <div class="ui divider"></div>

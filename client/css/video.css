@@ -122,6 +122,16 @@
   -webkit-box-shadow: none!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
 }
+.buttonlabel
+{
+  margin-right: 0px!important;  
+  border-style: solid!important;
+  border-width: 0px 0px 0px 0px!important; 
+  border-radius:0px!important; 
+  box-shadow:none!important;
+  -webkit-box-shadow: none!important;
+  border-color: rgba(34, 36, 38, 0.15)!important;
+}
 
 .dtube.red.button
 {

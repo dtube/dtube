@@ -86,6 +86,11 @@ width: 50%;
   color: rgb(240,240,240)!important;
 }
 
+.nightmodeinverted {
+  background: rgb(240,240,240)!important;
+  color: #111111!important;
+}
+
 .nightmodetext {
   color: rgb(240,240,240)!important;
 }
@@ -104,7 +109,7 @@ width: 50%;
 }
 
 .nightbutton {
-  background: #1d1d1d!important;
+  background: #222222!important;
   color: rgb(240,240,240)!important;
 }
 

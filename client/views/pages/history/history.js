@@ -1,6 +1,7 @@
 Template.history.rendered = function () {
   Template.sidebar.activeSidebarWatchAgain()
   $('.dtube').removeClass('loading')
+  Template.settingsdropdown.nightMode();
 }
 
 Template.history.helpers({

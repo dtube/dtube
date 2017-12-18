@@ -42,6 +42,7 @@ Template.settingsdropdown.rendered = function() {
 
   // random upload ipfs api
   Session.set('ipfsUpload', Session.get('remoteSettings').uploadNodes[Math.floor(Math.random() * (Session.get('remoteSettings').uploadNodes.length-1))].node)
+  Template.settingsdropdown.nightMode();
 }
 
 Template.settingsdropdown.helpers({
@@ -85,8 +86,12 @@ Template.settingsdropdown.nightMode = function()
 }
 
 Template.settingsdropdown.switchToNightMode = function (){
+    //BODY
     $('.pushable').addClass('nightmode');
+    $('.pusher').addClass('nightmode');
     $('.article').addClass('nightmode');
+
+    //TEXT
     $('.customlink').addClass('nightmodetext');
     $('.dtubesidebaricon').addClass('nightmodetext');
     $('.videosnaprest').addClass('nightmodetext');
@@ -100,29 +105,41 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.channelLink > a').addClass('nightmodetext');
     $('.header').addClass('nightmodetext');
     $('.ui.author').addClass('nightmodetext');
+    $('.ui.votebutton').addClass('nightmodetext');
     $('.ui.comments .comment .metadata').addClass('nightsecondarytext');
-    $('.ui .icon').addClass('nightmodetext');
+    $('.videoshowmore').addClass('nightmodetext');
+
+    
+    $('.buttonlabel').addClass('nightbutton');
+
     $('.ui.segments > .segment').addClass('nightsegment');
     $('.commentbutton').addClass('nightmodetext');
     $('.ui.comments .comment .actions a').addClass('nightsecondarytext');
-    $('.videoshowmore').addClass('nightbutton');
     $('.owl-prev, .owl-next').addClass('nightmodegray');
 
+    //COMPONENTS
     $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
-    $('.blacklogo').addClass('displaynone');
-    $('.whitelogo').removeClass('displaynone');
     $('.main.menu.fixed').addClass('nightmode');
     $('.sidebar').addClass('nightmodegray');
+    $('.ui.menu .item:before').addClass('nightmodeinverted');
+    $('.ellipsis.horizontal.icon').addClass('nightmode');
 
+    //LOGO
+    $('.blacklogo').addClass('displaynone');
+    $('.whitelogo').removeClass('displaynone');
 }
 
 Template.settingsdropdown.switchToNormalMode = function (){
+    //BODY
 $('.pushable').removeClass('nightmode');
+$('.pusher').removeClass('nightmode');
 $('.article').removeClass('nightmode');
+
+    //TEXT
 $('.customlink').removeClass('nightmodetext');
 $('.dtubesidebaricon').removeClass('nightmodetext');
 $('.videosnaprest').removeClass('nightmodetext');
@@ -136,22 +153,29 @@ $('.text').removeClass('nightmodetext');
 $('.channelLink > a').removeClass('nightmodetext');
 $('.header').removeClass('nightmodetext');
 $('.ui.author').removeClass('nightmodetext');
+$('.ui.votebutton').removeClass('nightmodetext');
 $('.ui.comments .comment .metadata').removeClass('nightsecondarytext');
-$('.ui .icon').removeClass('nightmodetext');
+$('.videoshowmore').removeClass('nightmodetext');
+$('.buttonlabel').removeClass('nightbutton');
+
 $('.ui.segments > .segment').removeClass('nightsegment');
 $('.commentbutton').removeClass('nightmodetext');
 $('.ui.comments .comment .actions a').removeClass('nightsecondarytext');
-$('.videoshowmore').removeClass('nightbutton');
 $('.owl-prev, .owl-next').removeClass('nightmodegray');
 
+    //COMPONENTS
 $('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
 $('.ui.secondary.segment').removeClass('nightmodegray');
 $('.ui.header').removeClass('nightmodetext');
 $('.item').removeClass('nightmodetext');
-$('.blacklogo').removeClass('displaynone');
-$('.whitelogo').addClass('displaynone');
 
 $('.main.menu.fixed').removeClass('nightmode');
 $('.sidebar').removeClass('nightmodegray');
+$('.ui.menu .item:before').removeClass('nightmodeinverted');
+$('.ellipsis.horizontal.icon').removeClass('nightmode');
+
+//LOGO
+$('.blacklogo').removeClass('displaynone');
+$('.whitelogo').addClass('displaynone');
 }
