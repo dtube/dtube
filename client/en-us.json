@@ -141,7 +141,6 @@
 	"UPLOAD_MAGNET":"Video Magnet Link",
 	"UPLOAD_FILESIZE":"Source Video Filesize",
   "UPLOAD_DURATION":"Video Duration",
-  "UPLOAD_ORIGINAL_CONTENT":"This is an original content",
   "UPLOAD_NFWS_CONTENT":"The content is NSFW",
   "UPLOAD_PROGRESS_ADDING_SOURCE_TO_IPFS":"Adding Source to IPFS...",
   "UPLOAD_PROGRESS_WAITING_IN_QUEUE":"Waiting in Queue #",
