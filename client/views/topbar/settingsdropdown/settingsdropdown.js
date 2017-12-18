@@ -107,6 +107,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ui.author').addClass('nightmodetext');
     $('.ui.votebutton').addClass('nightmodetext');
     $('.ui.comments .comment .metadata').addClass('nightsecondarytext');
+    $('.description').addClass('nightsecondarytext');
     $('.videoshowmore').addClass('nightmodetext');
 
     
@@ -124,7 +125,9 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
     $('.main.menu.fixed').addClass('nightmode');
+    $('.step').addClass('nightmode');
     $('.sidebar').addClass('nightmodegray');
+    $('.sidebar').removeClass('inverted');
     $('.ui.menu .item:before').addClass('nightmodeinverted');
     $('.ellipsis.horizontal.icon').addClass('nightmode');
 
@@ -155,6 +158,7 @@ $('.header').removeClass('nightmodetext');
 $('.ui.author').removeClass('nightmodetext');
 $('.ui.votebutton').removeClass('nightmodetext');
 $('.ui.comments .comment .metadata').removeClass('nightsecondarytext');
+$('.description').removeClass('nightsecondarytext');
 $('.videoshowmore').removeClass('nightmodetext');
 $('.buttonlabel').removeClass('nightbutton');
 
@@ -171,7 +175,9 @@ $('.ui.header').removeClass('nightmodetext');
 $('.item').removeClass('nightmodetext');
 
 $('.main.menu.fixed').removeClass('nightmode');
+$('.step').removeClass('nightmode');
 $('.sidebar').removeClass('nightmodegray');
+$('.sidebar').addClass('inverted');
 $('.ui.menu .item:before').removeClass('nightmodeinverted');
 $('.ellipsis.horizontal.icon').removeClass('nightmode');
 

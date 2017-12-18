@@ -19,7 +19,8 @@ Template.sidebar.helpers({
   },
   subscribe: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-  }, watchAgain: function () {
+  }, 
+  watchAgain: function () {
     return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
   }
 });

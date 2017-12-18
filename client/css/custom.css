@@ -79,7 +79,9 @@ width: 50%;
   background-color: #ff1a1a !important;
 }
 
-
+.ui.toggle.checkbox ~ .box:before, .ui.toggle.checkbox ~ label:before {
+  background-color: #ff1a1a !important;
+}
 
 .nightmode {
   background: #111111!important;
