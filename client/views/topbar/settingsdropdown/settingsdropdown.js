@@ -94,7 +94,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     //TEXT
     $('.customlink').addClass('nightmodetext');
     $('.dtubesidebaricon').addClass('nightmodetext');
-    $('.videosnaprest').addClass('nightmodetext');
+    $('.videosnaprest').addClass('nightsecondarytext');
     $('.videosnapauthor').addClass('nightsecondarytext');
     $('.verticalvideosnaptitle').addClass('nightmodetext');
     $('.ui.item').addClass('nightmodetext');
@@ -145,7 +145,7 @@ $('.article').removeClass('nightmode');
     //TEXT
 $('.customlink').removeClass('nightmodetext');
 $('.dtubesidebaricon').removeClass('nightmodetext');
-$('.videosnaprest').removeClass('nightmodetext');
+$('.videosnaprest').removeClass('nightsecondarytext');
 $('.videosnapauthor').removeClass('nightsecondarytext');
 $('.verticalvideosnaptitle').removeClass('nightmodetext');
 $('.ui.item').removeClass('nightmodetext');
