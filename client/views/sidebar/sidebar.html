@@ -93,12 +93,25 @@
       </div>
     </a>
     {{else}}
-    <a href='https://about.d.tube' target="_blank" id="help" class="item" style="padding:0%;position: absolute; bottom: 60px;width:100%;">
-      <div class="menuitem dtubesidebarmenu" style="padding:0%;">
-        <i class="help icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HELP'}}</span>
+    <div class="item"  style="padding:0%;position: absolute; bottom: 60px;width:100%;">
+      <div class="menuitem dtubesidebarmenu" style="padding: 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
+        <a href='https://about.d.tube/#faq1'  target="_blank" id="help">
+          <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
+        </a>-
+          <a href='https://about.d.tube'  target="_blank" id="about">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+          </a>-
+          <a href='mailto:contact@d.tube?subject=Customize your message'  target="_blank" id="contact">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_CONTACT'}}</span>
+          </a>-
+          <a href='https://discord.gg/RqeQQjf'  target="_blank" id="discord">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
+          </a>-
+          <a href='https://about.d.tube/#mediakit'  target="_blank" id="mediakit">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_MEDIA_KIT'}}</span>
+          </a>
       </div>
-    </a>
+    </div>
     {{/if}}
   </div>
 </template>

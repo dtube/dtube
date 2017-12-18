@@ -200,6 +200,11 @@ button {
   color:rgba(0, 0, 0, 0.87);
 }
 
+.sidebarlink
+{
+  color:rgba(100, 100, 100, 0.87);
+}
+
 .customlink:active
 {
   color:rgba(0, 0, 0, 0.87);
