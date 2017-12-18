@@ -57,6 +57,6 @@ Template.videosettingsdropdown.events({
 
 Template.videosettingsdropdown.helpers({
   isInWatchLater: function () {
-    return WatchLater.find({ _id: this._id }).fetch()
+    return WatchLater.find({ _id: Videos.findOne()._id })
   }
 })

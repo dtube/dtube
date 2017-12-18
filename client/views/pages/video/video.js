@@ -73,7 +73,22 @@ Template.video.helpers({
   convertTag:function(tag){
     var tagWithoutDtube= tag.replace("dtube-", "")
     return tagWithoutDtube
-  }
+  },
+  activatePopups:function(){
+    $('[data-tcs]').each(function() {
+      var $el = $(this);
+      $el.popup({    
+        popup: $el.attr('data-tcs'),
+        on: 'hover',
+        delay: {
+          show: 0,
+          hide: 100
+        },
+        position: 'bottom center',
+        hoverable: true
+      });
+    });
+  },
   // switchMobile: function () {
   //   $('#videodtube').addClass('videomobile');
   //   $('#videocontent').addClass('videomobile');

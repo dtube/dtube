@@ -24,22 +24,31 @@
           <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
             {{> videosettingsdropdown}}
             <div style="float: right;" class="button icon bottom aligned ">
+              {{#if upvotes active_votes}}
               <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
                     {{#if hasUpvoted video}}
                     <i class="thumbs up icon red"></i>
                     {{else}}
                     <i class="thumbs up icon"></i>
                     {{/if}}
-                    <span>{{upvotes active_votes}}</span>
+                    <span onchange="{{activatePopups}}">{{upvotes active_votes}}</span>
               </button>
+              {{/if}}
+              {{#if downvotes active_votes}}
               <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
                 {{#if hasDownvoted video}}
                 <i class="thumbs down icon red"></i>
                 {{else}}
                 <i class="thumbs down icon"></i>
                 {{/if}}
-                <span>{{downvotes active_votes}}</span>
+                <span onchange="{{activatePopups}}">{{downvotes active_votes}}</span>
               </button>
+              {{else}}
+              <button class="ui icon button downvote votebutton">
+                  <i class="thumbs down icon"></i>
+                  <span>{{downvotes active_votes}}</span>
+                </button>
+              {{/if}}
             </div>
           </div>
         </div>

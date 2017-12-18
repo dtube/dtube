@@ -6,5 +6,4 @@ Template.comments.rendered = function () {
       content   : '.content'
     }
   });
-  Template.settingsdropdown.nightMode();
 }
