@@ -42,7 +42,6 @@
   color: grey;
   text-decoration-color: grey;
   text-align: left;
-  padding-left: 2px;
 }
 
 .videosnaprest {
@@ -79,27 +78,23 @@
 }
 
 .videosnaptime {
-  color: grey;
+  color: rgba(20, 20, 20, 0.6);
   -webkit-text-decoration-color: grey;
   text-decoration-color: grey;
-  margin-right: 5px;
   font-size: 0.9em;
-  float: right;
-  margin-left: 5px;
 }
 
 .videosnaptitle {
   color: black;
   display: block;
   overflow: hidden;
-  font-weight: 600;
+  font-weight: 500;
   white-space: normal;
   text-align: left;
   width: 100%;
   display: -webkit-box;
   line-height: 1.25em;
-  max-height: 2.4em;
-  padding: 0px 2px;
+  max-height: 2.5em;
 }
 
 .verticalvideosnaptitle {
@@ -129,9 +124,7 @@
 }
 
 .videosnapdetails{
-  padding-left: 2px;
-  bottom: 10px;
-  display: inline-flex;
+  display: block;
 }
 
 #img

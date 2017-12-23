@@ -1,5 +1,5 @@
 <template name='search'>
-  <div class="ui segment" style="max-width: 800px;
+  <!-- <div class="ui segment" style="max-width: 800px;
   margin: auto;">
   {{#if isOnMobile }}
   <div class="ui content" style="padding-left:10px;padding-right:10px;">
@@ -49,10 +49,46 @@
     {{/each}}
   </div>
   {{/if}}
-</div>
-  <!-- <div class="ui more result segment">
-      <h3 class="ui header">
-        <div class="ui large centered inline text loader"></div>
-        Adding more content...
-      </div> -->
+</div> -->
+  {{#if isOnMobile}}
+  <div style="margin-left:10px;margin-right:10px;" class="ui content">
+    <h2> {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+      {{lengthOf search.response.results}} {{#if isPlural search.response.results}}
+      {{ translate 'SEARCH_RESULTS'}} 
+      {{else}} 
+      {{translate 'SEARCH_RESULT'}} 
+      {{/if}} 
+      {{ translate 'SEARCH_RESULTS_FOR'}}
+      {{search.query}}
+      <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
+        <a href='https://www.asksteem.com/' target='_blank'>
+          <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+        </a>
+      </div>
+    </h2>
+    {{#each search.response.results}} 
+    {{> mobilevideosearchresult}} 
+    {{/each}}
+  </div>
+  {{else}}
+  <div class="ui container">
+    <h2> {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+      {{lengthOf search.response.results}} {{#if isPlural search.response.results}}
+      {{ translate 'SEARCH_RESULTS'}} 
+      {{else}} 
+      {{translate 'SEARCH_RESULT'}} 
+      {{/if}} 
+      {{ translate 'SEARCH_RESULTS_FOR'}}
+      {{search.query}}
+      <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
+        <a href='https://www.asksteem.com/' target='_blank'>
+          <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+        </a>
+      </div>
+    </h2>
+    {{#each search.response.results}} 
+    {{> videosearchresult}} 
+    {{/each}}
+  </div>
+  {{/if}}
 </template>

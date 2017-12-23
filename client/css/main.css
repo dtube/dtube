@@ -195,14 +195,22 @@ button {
   box-shadow: 0 0 2px rgb(180, 180, 180);
 }
 
+.customtitlelink
+{
+  color:black;
+  font-family: 'Roboto Medium', 'Roboto', 'sans-serif';
+  font-weight: 500;
+}
+
 .customlink
 {
-  color:rgba(0, 0, 0, 0.87);
+  color: rgba(20, 20, 20, 0.6);
 }
 
 .sidebarlink
 {
   color:rgba(100, 100, 100, 0.87);
+  font-weight: 300;
 }
 
 .customlink:active

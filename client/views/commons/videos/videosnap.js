@@ -26,3 +26,5 @@ Template.videosnap.helpers({
 Template.videosnap.rendered = function () {
   Template.settingsdropdown.nightMode();
 }
+
+

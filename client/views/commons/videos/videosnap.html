@@ -45,7 +45,7 @@
     <div class="boxdisplayer">
       <div class='videosnaptitle'>
         <a href='/v/{{info.author}}/{{info.permlink}}'>
-          <span class="customlink">{{info.title}}</span>
+          <span class="customtitlelink">{{info.title}}</span>
         </a>
       </div>
     </div>
@@ -58,15 +58,18 @@
       {{/if}}
     </div>
     <div class='videosnapdetails'>
-      <div class='videosnaprest'>
         {{#if displayPayout pending_payout_value total_payout_value curator_payout_value}}
+      <div class='videosnaprest'>
           ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
-          {{/if}}
       </div>
+      {{/if}}
+      {{#if created}}
       <div class='videosnaptime'>
         {{timeAgo created}}
       </div>
+      {{/if}}
     </div>
+    {{ticker}}
     <!-- <div id='videosnaptags' class='videosnaptags' style="margin-bottom: 10px;">
         {{#each content.tags}}
         <a href="/t/{{this}}" class="ui tiny label">{{this}}</a>
