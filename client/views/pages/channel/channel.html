@@ -170,19 +170,19 @@
             <i class="icon red star"></i>{{displayReputation author.reputation}}
           </div>
           <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
-            <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}}%
+            <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}} %
           </div>
           <div class="ui videoshowmore money label" style="margin-left: 0em;float:right;">
-            <i class="icon green money"></i>{{author.estimateAccountValue}}
+            <i class="icon green money"></i>{{author.estimateAccountValue}} $
           </div>
           <div class="ui popup bottom left transition hidden" style="top: 553px; left: 1px; bottom: auto; right: auto; width: 913px;">
             <div class="column">
-              <h4 class="ui header">Account value details</h4>
+              <h4 class="ui header">{{ translate 'CHANNEL_ACCOUNT_VALUE_DETAILS'}}</h4>
               <div class="ui link list">
-                <a class="item">Steem Power : {{displaySteemPower author.vesting_shares}}</a>
-                <a class="item">Steem Balance : {{author.balance}}</a>
-                <a class="item">Steem Dollars Balance : {{author.sbd_balance}}</a>
-                <a class="item">Savings : {{displaySavings author.savings_balance author.savings_sbd_balance}}</a>
+                <a class="item">{{ translate 'CHANNEL_STEEM_POWER'}}{{displaySteemPower author.vesting_shares}}</a>
+                <a class="item">{{ translate 'CHANNEL_STEEM_BALANCE'}}{{author.balance}}</a>
+                <a class="item">{{ translate 'CHANNEL_STEEM_DOLLARS_BALANCE'}}{{author.sbd_balance}}</a>
+                <a class="item">{{ translate 'CHANNEL_SAVINGS'}}{{displaySavings author.savings_balance author.savings_sbd_balance}}</a>
               </div>
             </div>
           </div>

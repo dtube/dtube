@@ -79,6 +79,11 @@ Meteor.startup(function(){
     "hideMethod": "fadeOut"
   }
 
+  if (Session.get('remoteSettings').warning)
+  {
+    toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
+    return
+  }
   // Waka.connect({
 	// 	"host": "steemwhales.com",
 	// 	"port": 3456,

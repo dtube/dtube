@@ -1,7 +1,12 @@
 {
 	"CHANNEL_TITLE_VIDEOS_BY":"Videos by ",
   "CHANNEL_TITLE_NO_VIDEOS":"There is no videos from ",
-  "CHANNEL_EDIT_MY_PROFIL":"Edit my profil",
+  "CHANNEL_EDIT_MY_PROFIL":"Edit my profile",
+  "CHANNEL_ACCOUNT_VALUE_DETAILS":"Account value details",
+  "CHANNEL_STEEM_POWER":"Steem Power : ",
+  "CHANNEL_STEEM_BALANCE":"Steem Balance :",
+  "CHANNEL_STEEM_DOLLARS_BALANCE":"Steem Dollars Balance :",
+  "CHANNEL_SAVINGS":"Savings :",
   "CHANNEL_VIDEOS":"VIDEOS",
   "CHANNEL_ACTIVITIES":"ACTIVITIES",
   "CHANNEL_ABOUT":"ABOUT",
@@ -175,5 +180,6 @@
 	"VIDEO_PERMA_LINK_COPIED": "Permalink successfully copied to your clipboard",
 	"VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
   "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
-  "WATCH_LATER_WATCH_LATER": "Watch Later"
+  "WATCH_LATER_WATCH_LATER": "Watch Later",
+  "WARNING_TITLE":"Warning"
 }
