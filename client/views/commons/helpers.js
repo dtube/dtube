@@ -305,6 +305,10 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
     return parseInt(string)
   })
 
+  Template.registerHelper('displayShortDescription', function(string){
+    return string.substring(0,130)
+  })
+
   Template.registerHelper('displayReputation', function(string){
     return steem.formatter.reputation(string);
   })

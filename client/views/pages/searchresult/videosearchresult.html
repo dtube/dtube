@@ -1,44 +1,52 @@
 <template name='videosearchresult'>
-    {{#unless isVideoHidden this}}
-    <div class='verticalvideosnap' style="width:100%;display:-webkit-box;">
-      <div style="height:100%px;">
-        <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
-          <div class='verticalvideosnapsnap' style="height:auto;">
-            <!-- {{#if duration}}
-              <span class="videosnapduration">{{durationDisplay duration}}</span>
-            {{/if}} -->
-            <img id="snapimg" height="118" width="210" alt="" src="{{ipfsSrc meta.video.info.snaphash}}">
-            <br />
-          </div>  
-        </a> 
+  {{#unless isVideoHidden this}}
+  <div class='verticalvideosnap' style="width:100%;display:-webkit-box;">
+    <div style="height:100%px;">
+      <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
+        <div class='verticalvideosnapsnap' style="height:118px;width:210px;">
+          {{#if meta.video.info.duration}} 
+            <span class="videosnapduration">{{durationDisplay meta.video.info.duration}}</span>
+          {{/if}}
+          <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
+                                                            width:210px;height:118px;position: absolute">
+            <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
+            <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
+          </div>
+          <img id="snapimg" class="sprite" width="210" height="118" alt="" src="{{ipfsSrc meta.video.info.snaphash}}">
+          <br />
+        </div>
+      </a>
+    </div>
+    <div style="position:relative;text-align:left;width:60%;margin-left: 8px;min-width:200px;">
+      <div class="boxdisplayer">
+        <div class='verticalvideosnaptitle' style="font-size: 1.2em;">
+          <a href='/v/{{author}}/{{permlink}}'>
+            <span style="font-weight: 400;font-size: 18px;" class="customtitlelink">{{title}}</span>
+          </a>
+        </div>
       </div>
-      <div style="position:relative;text-align:left;width:60%;margin-left: 8px;min-width:200px;">
-        <div class="boxdisplayer">
-          <div class='verticalvideosnaptitle' style="font-size: 1.2em;">
-            <a href='/v/{{author}}/{{permlink}}'>
-              <span class="customtitlelink">{{title}}</span>
-            </a>
-            <div class='videosnapdetails'>
-                <div class="videosnaptime" style="padding-left: 5px;font-weight:500;">
-                  {{timeAgo created}}
-                </div>
-              </div>
-          </div>
-        </div>
-        {{#if payout}}
-        <div class='videosnapdetails'>
-          <div class='videosnaprest'>
-            ${{displayPayout payout}}
-          </div>
-        </div>
-        {{/if}}
+      <div class="boxdisplayer" style="padding-top:3px;padding-bottom:3px;">
         <div class='videosnapauthor' style="font-size: 1em;">
           <a href='/c/{{author}}'>
             <span class="customlink">{{author}}</span>
           </a>
         </div>
+        {{#if payout}}
+          <div class='videosnaprest' style="padding-left: 5px;float:none;margin-right: 0px;">
+            ${{displayPayout payout}}
+          </div>
+        {{/if}}
+        {{#if created}}
+          <div class="videosnaptime" style="padding-left: 5px;">
+            - {{timeAgo created}}
+          </div>
+          {{/if}}
+      </div>
+      <div class='videosnapdescription'>
+        {{meta.video.content.description}}
       </div>
     </div>
-    <div class="ui divider"></div>
+  </div>
+  <div class="ui divider"></div>
   {{/unless}}
 </template>

@@ -52,7 +52,7 @@
 </div> -->
   {{#if isOnMobile}}
   <div style="margin-left:10px;margin-right:10px;" class="ui content">
-    <h2> {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+    <h2 style="max-width: calc(100% - 90px);margin-bottom:20px;"> {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
       {{lengthOf search.response.results}} {{#if isPlural search.response.results}}
       {{ translate 'SEARCH_RESULTS'}} 
       {{else}} 
@@ -60,12 +60,12 @@
       {{/if}} 
       {{ translate 'SEARCH_RESULTS_FOR'}}
       {{search.query}}
-      <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
+    </h2>
+    <div class="ui top right floated" style="top: 70px;position: absolute;right: 10px;">
         <a href='https://www.asksteem.com/' target='_blank'>
           <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
         </a>
       </div>
-    </h2>
     {{#each search.response.results}} 
     {{> mobilevideosearchresult}} 
     {{/each}}

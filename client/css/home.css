@@ -87,6 +87,32 @@
   font-size: 0.9em;
 }
 
+.videosnapdescription{
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.40em;
+  -webkit-line-clamp: 2;
+  margin: 0 auto;
+  height: 36px;
+}
+
+.videosnapdescriptionmobile{
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.30em;
+  -webkit-line-clamp: 2;
+  margin: 0 auto;
+  height: 32px;
+}
+
+
+
 .videosnaptitle {
   color: black;
   display: block;
