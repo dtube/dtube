@@ -67,14 +67,17 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
-  color: white;
+  color: rgb(226, 226, 226);
   background-color: rgba(34, 36, 38, 0.75);
-  margin-right: 5px;
-  margin-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   font-size: 12px;
   z-index: 99;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 17px;
 }
 
 .videosnaptime {
