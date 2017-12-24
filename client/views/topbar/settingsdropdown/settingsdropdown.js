@@ -110,8 +110,6 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ui.comments .comment .metadata').addClass('nightsecondarytext');
     $('.description').addClass('nightsecondarytext');
     $('.videoshowmore').addClass('nightmodetext');
-
-    
     $('.buttonlabel').addClass('nightbutton');
 
     $('.ui.segments > .segment').addClass('nightsegment');
@@ -125,6 +123,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
+    
     $('.main.menu.fixed').addClass('nightmode');
     $('.step').addClass('nightmode');
     $('.sidebar').addClass('nightmodegray');

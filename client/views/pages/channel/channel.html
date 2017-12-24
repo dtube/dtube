@@ -1,20 +1,16 @@
 <template name='channel'>
-  {{resetSidebar}} 
-  {{#if isOnMobile}}
+  {{resetSidebar}} {{#if isOnMobile}}
   <!--- /////////////////////////MOBILE TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;">
     <div style="max-height: 145px;position: relative;overflow: hidden;">
-        <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;">
-        <img  style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> 
-      {{#if equals activeUser user.name}}
+      <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;">
+      <img style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
       <div class="ui labeled small  button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
         <div class="ui small  button unsubscribe dtube blue">
           {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
         </div>
       </div>
-      {{myChannelSidebar}} 
-      {{else}} 
-      {{#if isSubscribedTo user.name}}
+      {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
       <div class="ui labeled small  button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
         <div class="ui small  button unsubscribe dtube grey">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -32,15 +28,14 @@
           {{{subCount}}}
         </a>
       </div>
-      {{/if}} 
-      {{/if}}
+      {{/if}} {{/if}}
     </div>
     <div style="width:100%">
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important; max-width: 100%;">
         <!-- <img class="ui medium avatar" style="margin: 20px;" src="https://img.busy.org/@{{user.name}}"> -->
         <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
           <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
-            <i class="icon red star"></i>{{displayReputation author.reputation}} 
+            <i class="icon red star"></i>{{displayReputation author.reputation}}
           </div>
           <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
             <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}}%
@@ -67,19 +62,19 @@
     <!-- MOBILE ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
+        {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
         <div class="ui fluid label">{{timeAgo author.last_post}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
+        {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
         <div class="ui fluid label">{{timeAgo author.last_vote_time}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
+        {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
         <div class="ui fluid label">{{timeAgo author.last_account_update}}</div>
       </div>
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
+        {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
         <div class="ui fluid label">{{displayDate author.created}}</div>
       </div>
     </div>
@@ -87,27 +82,27 @@
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if author.json_metadata.profile.name}}
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
+        {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
         <div class="ui fluid label">{{author.json_metadata.profile.name}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.about}}
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
+        {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
         <div class="ui fluid label">{{author.json_metadata.profile.about}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.location}}
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
+        {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
         <div class="ui fluid label">{{author.json_metadata.profile.location}}</div>
       </div>
       {{/if}} {{#if author.json_metadata.profile.website}}
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
+        {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
         <div class="ui fluid label">{{author.json_metadata.profile.website}}</div>
       </div>
       {{/if}} {{#if userVideos.length}}
       <div class="ui white" style="padding-bottom:10px;">
-          {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
+        {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
         <div class="ui fluid label">{{userVideos.length}}</div>
       </div>
       {{/if}}
@@ -138,53 +133,63 @@
   {{else}}
   <!--- /////////////////////////DESKTOP TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;margin-top: -23px;">
-      <div class="channelcover" style="background-image: url('https://img.busy.org/@{{user.name}}/cover')">
-          <!-- <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;"> -->
-          <img  style="max-width:100%;float: left;position: absolute;top: 10px;left: 10px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> 
-          {{#if equals activeUser user.name}}
-          <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
-          <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;"> 
-            <div class="ui small  button dtube blue">
-              {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
-            </div>
+    <div class="channelcover" style="background-image: url('https://img.busy.org/@{{user.name}}/cover')">
+      <!-- <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;"> -->
+      <img style="max-width:100%;float: left;position: absolute;top: 10px;left: 10px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
+      <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
+        <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
+          <div class="ui small  button dtube blue">
+            {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
           </div>
-        </a>
-          {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
-          <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
-            <div class="ui small  button unsubscribe dtube grey">
-              {{ translate 'VIDEO_UNSUBSCRIBE'}}
-            </div>
-            <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-              {{{subCount}}}
-            </a>
-          </div>
-          {{else}}
-          <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
-            <div class="ui red small  button dtube subscribe">
-              {{ translate 'VIDEO_SUBSCRIBE'}}
-            </div>
-            <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-              {{{subCount}}}
-            </a>
-          </div>
-          {{/if}} 
-          {{/if}}
         </div>
-      <div style="width:100%">
-        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
-          <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
-            <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
-              <i  class="icon red star"></i>{{displayReputation author.reputation}}
-            </div>
-            <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
-              <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}}%
-            </div>
-            <div title="{{ translate 'CHANNEL_TOOLTIP_VALUE'}}" class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
-              <i class="icon green money"></i>{{author.estimateAccountValue}}
+      </a>
+      {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
+      <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
+        <div class="ui small  button unsubscribe dtube grey">
+          {{ translate 'VIDEO_UNSUBSCRIBE'}}
+        </div>
+        <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+          {{{subCount}}}
+        </a>
+      </div>
+      {{else}}
+      <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
+        <div class="ui red small  button dtube subscribe">
+          {{ translate 'VIDEO_SUBSCRIBE'}}
+        </div>
+        <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+          {{{subCount}}}
+        </a>
+      </div>
+      {{/if}} {{/if}}
+    </div>
+    <div style="width:100%">
+      <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
+        <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
+          <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
+            <i class="icon red star"></i>{{displayReputation author.reputation}}
+          </div>
+          <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
+            <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}}%
+          </div>
+          <div class="ui videoshowmore money label" style="margin-left: 0em;float:right;">
+            <i class="icon green money"></i>{{author.estimateAccountValue}}
+          </div>
+          <div class="ui popup bottom left transition hidden" style="top: 553px; left: 1px; bottom: auto; right: auto; width: 913px;">
+            <div class="column">
+              <h4 class="ui header">Account value details</h4>
+              <div class="ui link list">
+                <a class="item">Steem Power : {{displaySteemPower author.vesting_shares}}</a>
+                <a class="item">Steem Balance : {{author.balance}}</a>
+                <a class="item">Steem Dollars Balance : {{author.sbd_balance}}</a>
+                <a class="item">Savings : {{displaySavings author.savings_balance author.savings_sbd_balance}}</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+    </div>
     <!-- </div> -->
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
       <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
@@ -193,34 +198,32 @@
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
-     {{#if userVideos}} 
-     {{> videoband userVideos}} 
-     {{/if}}
+      {{#if userVideos}} {{> videoband userVideos}} {{/if}}
     </div>
     <!-- DESKTOP ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui grid two column">
         <div class="column">
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
+            {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
             <div class="ui fluid label">{{timeAgo author.last_post}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
+            {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
             <div class="ui fluid label">{{timeAgo author.last_vote_time}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
+            {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
             <div class="ui fluid label">{{timeAgo author.last_account_update}}</div>
           </div>
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
+            {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
             <div class="ui fluid label">{{displayDate author.created}}</div>
           </div>
         </div>
-          <div class="column">
+        <div class="column">
 
-          </div>
+        </div>
       </div>
     </div>
     <!-- DESKTOP INFORMATION TAB -->
@@ -229,27 +232,27 @@
         <div class="column">
           {{#if author.json_metadata.profile.name}}
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
+            {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
             <div class="ui fluid label">{{author.json_metadata.profile.name}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.about}}
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
+            {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
             <div class="ui fluid label">{{author.json_metadata.profile.about}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.location}}
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
+            {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
             <div class="ui fluid label">{{author.json_metadata.profile.location}}</div>
           </div>
           {{/if}} {{#if author.json_metadata.profile.website}}
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
+            {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
             <div class="ui fluid label">{{author.json_metadata.profile.website}}</div>
           </div>
           {{/if}} {{#if userVideos.length}}
           <div class="ui white" style="padding-bottom:10px;">
-              {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
+            {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
             <div class="ui fluid label">{{userVideos.length}}</div>
           </div>
           {{/if}}
@@ -267,7 +270,7 @@
           </div>
         </div>
         <div class="column">
-            <!-- <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
+          <!-- <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
             <div class="ui link cards" style="margin-top:10px;">
               {{#each relatedChannels}}
                 <div class="ui card noshadow" style="max-width: 90px;text-align:center;border-radius:0px;">
