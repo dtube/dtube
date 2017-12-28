@@ -21,22 +21,11 @@
 }
 
 .channelLink > a {
-  color: rgb(120, 120, 120);
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.channelLink > a:focus {
-  color: red;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.channelLink > a:hover {
   color: rgb(0, 0, 0);
   font-weight: 500;
   font-size: 14px;
 }
+
 
 .author.owner
 {
