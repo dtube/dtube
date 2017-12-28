@@ -21,13 +21,21 @@
 }
 
 .channelLink > a {
-  color: rgb(0, 0, 0);
-  font-weight: 700;
+  color: rgb(50, 50, 50);
+  font-weight: 500;
+  font-size: 14px;
 }
 
-.channelLink > a:hover, a:focus {
-  color: #0075cd;
-  font-weight: 700;
+.channelLink > a:focus {
+  color: red;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.channelLink > a:hover {
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .author.owner
