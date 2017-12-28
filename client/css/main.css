@@ -74,6 +74,7 @@ background: rgb(61, 61, 61);
 .dtubesidebartitle
 {
   padding-right: 30px;
+  color: black!important;
 }
 
 main
@@ -335,4 +336,37 @@ button {
   padding: 0em;
   margin: 0px;
   font-size:1.5em;
+}
+
+
+#subscriberslist::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+#subscriberslist::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#subscriberslist::-webkit-scrollbar-thumb
+{
+	background-color: #ff0000;
+}
+
+.pushable::-webkit-scrollbar-track
+{
+	background-color: rgb(139, 139, 139);
+}
+
+.pushable::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #fafafa;
+}
+
+.pushable::-webkit-scrollbar-thumb
+{
+	background-color: #080808;
 }
