@@ -23,6 +23,7 @@ Template.videoslider.createSlider = function (elemId) {
       items: 5,
       slideBy: 2,
       dots: false,
+      lazyLoad: true,
       responsiveClass: true,
       responsive: {
         299: {
