@@ -11,7 +11,6 @@ Template.hotvideos.helpers({
 
 Template.hotvideos.rendered = function () {
   Template.sidebar.activeSidebarHot();
-  Template.settingsdropdown.nightMode();
 
   $('.ui.infinite')
   .visibility({
