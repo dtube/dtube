@@ -10,6 +10,11 @@ Template.video.rendered = function () {
   $(window).on('resize', Template.video.setScreenMode)
   Template.sidebar.resetActiveMenu()
   Template.settingsdropdown.nightMode();
+  $('.ui.avatar.image img').visibility({
+    type       : 'image',
+    transition : 'fade in',
+    duration   : 1000
+  })
 }
 
 Template.video.helpers({

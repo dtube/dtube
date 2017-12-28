@@ -3,7 +3,7 @@
     <div class="ui comment" style='max-width: 9999px;'>
       <div>
         <a class="ui mini circular avatar image" style="margin-right:10px;">
-          <img src="{{userPic author}}">
+          <img data-src="{{userPic author}}" >
         </a>
         {{#if equals author currentAuthor}} 
           <a href='/c/{{author}}' class="ui author owner">{{author}}</a>

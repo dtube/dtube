@@ -6,6 +6,11 @@ Template.sidebar.rendered = function () {
   };
   Videos.refreshWaka();
   Template.settingsdropdown.nightMode();
+  $('.menuitem.dtubesidebarmenu.lazy img').visibility({
+    type       : 'image',
+    transition : 'fade in',
+    duration   : 1000
+  })
 }
 
 Template.sidebar.helpers({
@@ -31,7 +36,6 @@ Template.sidebar.OnSidebarToogled = function () {
       $("#sidebar").sidebar('push page','pusher')
       $('.article').addClass('mainsided');
       Template.videoslider.refreshSlider();
-      
     }
     Session.set('isSidebarOpen', true)
   })

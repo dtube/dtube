@@ -32,6 +32,11 @@ Template.comment.helpers({
 })
 Template.comment.rendered = function () {
   Template.settingsdropdown.nightMode();
+  $('.ui.avatar.image img').visibility({
+    type       : 'image',
+    transition : 'fade in',
+    duration   : 1000
+  })
 }
 
  
