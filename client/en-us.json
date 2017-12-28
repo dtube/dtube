@@ -42,7 +42,7 @@
 	"HOME_TITLE_NEW_VIDEOS":"New Videos",
 	"HOME_TITLE_WATCH_AGAIN":"Watch Again",
   "HOME_TITLE_NEIGHBORHOOD":"Neighborhood",
-  "HOME_TITLE_WATCH_LATER": "Watch later",
+  "HOME_TITLE_WATCH_LATER": "Watch Later",
 	"LOGIN_PLACEHOLDER_STEEM_USERNAME":"STEEM Username",
 	"LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY":"Private Posting Key",
 	"LOGIN_REMEMBER_ME":"Remember me",
@@ -78,7 +78,7 @@
   "SETTINGS_DROPDOWN_API":"API",
   "SETTINGS_NIGHTMODE":"Night Mode (Beta)",
 	"SIDEBAR_HOME":"Home",
-  "SIDEBAR_MY_CHANNEL":"My channel",
+  "SIDEBAR_MY_CHANNEL":"My Channel",
 	"SIDEBAR_SUBSCRIBES":"Subscribes",
 	"SIDEBAR_NO_SUSCRIBERS":"No suscribes to display",
   "SIDEBAR_TRENDING_VIDEOS":"Trending Videos",
@@ -180,6 +180,5 @@
 	"VIDEO_PERMA_LINK_COPIED": "Permalink successfully copied to your clipboard",
 	"VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
   "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
-  "WATCH_LATER_WATCH_LATER": "Watch Later",
   "WARNING_TITLE":"Warning"
 }
