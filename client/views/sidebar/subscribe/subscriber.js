@@ -1,16 +1,10 @@
 Template.subscriber.rendered = function () {
-  $('.ui.avatar.image').visibility({
+  //console.log()
+  $(this.firstNode).find('img').visibility({
     type       : 'image',
     transition : 'fade in',
     duration   : 1000,
-    offset:100,
-    includeMargin:false,
-    initialCheck:false,
-    continuous : true,
-    context: $('#subscriberslist') ,
-    onBottomVisible: function() {
-      // loads a max of 5 times
-      Template.subscriber.rendered()
-    }
+    context: $('#subscriberslist'),
+    offset : 500
   })
 }
