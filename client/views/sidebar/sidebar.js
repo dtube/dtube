@@ -6,7 +6,7 @@ Template.sidebar.rendered = function () {
   };
   Videos.refreshWaka();
   Template.settingsdropdown.nightMode();
-  $('.menuitem.dtubesidebarmenu.lazy img').visibility({
+  $('.ui.avatar.image').visibility({
     type       : 'image',
     transition : 'fade in',
     duration   : 1000
