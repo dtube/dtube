@@ -1,5 +1,5 @@
 Template.subscriber.rendered = function () {
-  $('.menuitem.dtubesidebarmenu.lazy img').visibility({
+  $('.ui.avatar.image').visibility({
     type       : 'image',
     transition : 'fade in',
     duration   : 1000
