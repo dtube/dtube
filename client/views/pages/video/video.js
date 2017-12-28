@@ -181,10 +181,12 @@ Template.video.events({
   'click .description': function () {
     if (Session.get('isDescriptionOpen')) {
       $('#descriptionsegment').addClass('closed');
+      $('#truncateddesc').addClass('truncate');
       $('#showmore').removeClass('hidden');
       $('#showless').addClass('hidden');
     } else {
       $('#descriptionsegment').removeClass('closed');
+      $('#truncateddesc').removeClass('truncate');
       $('#showmore').addClass('hidden');
       $('#showless').removeClass('hidden');
     }

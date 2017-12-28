@@ -251,11 +251,32 @@
 }
 
 
+/* .truncate {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 6;
+  margin: 0 auto;
+  max-height: 113px;
+} */
+
 .truncate {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 6;
+  margin: 0 auto;
+  max-height: 113px;
 }
 
 .hidden{
