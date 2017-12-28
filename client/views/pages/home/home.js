@@ -8,15 +8,16 @@ Template.home.helpers({
     return Videos.find({ source: 'wakaPeers' }).fetch()
   },
   newVideos: function () {
-    return Videos.find({ source: 'chainByCreated' }).fetch().sort(function (a, b) {
-      return moment(b.created) - moment(a.created)
-    })
+    return Videos.find({ source: 'chainByCreated' }, {limit: 25}).fetch()
+    // .sort(function (a, b) {
+    //   return moment(b.created) - moment(a.created)
+    // })
   },
   hotVideos: function () {
-    return Videos.find({ source: 'chainByHot' }).fetch()
+    return Videos.find({ source: 'chainByHot' }, {limit: 25}).fetch()
   },
   trendingVideos: function () {
-    return Videos.find({ source: 'chainByTrending' }).fetch()
+    return Videos.find({ source: 'chainByTrending' }, {limit: 25}).fetch()
   },
   feedVideos: function () {
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername') }).fetch()
