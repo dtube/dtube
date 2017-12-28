@@ -171,10 +171,8 @@ Videos.getVideosBy = function(type, limit, cb) {
           query.start_author = Session.get('lastTrending').author
           query.start_permlink = Session.get('lastTrending').permlink
         }
-        console.log(query)
         steem.api.getDiscussionsByTrending(query, function(err, result) {
           if (err === null || err === '') {
-            console.log(result)
               Session.set('lastTrending', result[result.length-1])
               var i, len = result.length;
               var videos = []
@@ -200,8 +198,13 @@ Videos.getVideosBy = function(type, limit, cb) {
         });
         break;
     case 'hot':
+        if (Session.get('lastHot')) {
+          query.start_author = Session.get('lastHot').author
+          query.start_permlink = Session.get('lastHot').permlink
+        }
         steem.api.getDiscussionsByHot(query, function(err, result) {
           if (err === null || err === '') {
+              Session.set('lastHot', result[result.length-1])
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
@@ -226,7 +229,12 @@ Videos.getVideosBy = function(type, limit, cb) {
         });
         break;
     case 'created':
+        if (Session.get('lastCreated')) {
+          query.start_author = Session.get('lastCreated').author
+          query.start_permlink = Session.get('lastCreated').permlink
+        }
         steem.api.getDiscussionsByCreated(query, function(err, result) {
+          Session.set('lastCreated', result[result.length-1])
           if (err === null || err === '') {
               var i, len = result.length;
               var videos = []

@@ -1,13 +1,16 @@
 <template name='hotvideos'>
+  <div class="ui infinite">
     {{#if isOnMobile}}
-    <div class="ui grid" style="margin: 10px 0px">
-      <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
-      {{> verticalvideoband hotVideos}}
-    </div>
+      <div class="ui grid" style="margin: 10px 0px">
+        <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+        {{> verticalvideoband hotVideos}}
+      </div>
     {{else}}
-    <div class="ui container">
-      <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
-      {{> videoband hotVideos}}
-    </div>
+      <div class="ui container">
+        <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+        {{> videoband hotVideos}}
+      </div>
     {{/if}}
-  </template>
+    <div class="ui large centered inline text loader"></div>
+  </div>
+</template>

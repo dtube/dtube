@@ -16,7 +16,7 @@ Template.home.helpers({
     return Videos.find({ source: 'chainByHot' }).fetch()
   },
   trendingVideos: function () {
-    return Videos.find({ source: 'chainByTrending' }, {limit: 50}).fetch()
+    return Videos.find({ source: 'chainByTrending' }).fetch()
   },
   feedVideos: function () {
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername') }).fetch()

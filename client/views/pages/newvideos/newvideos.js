@@ -7,12 +7,27 @@ Template.newvideos.helpers({
     }
   },
   newVideos: function () {
-    return Videos.find({ source: 'chainByCreated' }).fetch().sort(function (a, b) {
-      return moment(b.created) - moment(a.created)
-    })
+    return Videos.find({ source: 'chainByCreated' }).fetch()
+      // a quoi ca sert ?
+      // .sort(function (a, b) {
+      //   return moment(b.created) - moment(a.created)
+      // })
   }
 })
 
 Template.newvideos.rendered = function () {
   Template.sidebar.activeSidebarNew();
+
+  $('.ui.infinite')
+  .visibility({
+    once: false,
+    observeChanges: true,
+    onBottomVisible: function() {
+      $('.ui.infinite .loader').show()
+      Videos.getVideosBy('created', 25, function(err){
+        if (err) console.log(err)
+        $('.ui.infinite .loader').hide()
+      })
+    }
+  });
 }

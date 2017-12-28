@@ -5,11 +5,24 @@ Template.hotvideos.helpers({
     }
   },
   hotVideos: function () {
-    return Videos.find({ source: 'chainByHot' }, { limit: 25 }).fetch()
+    return Videos.find({ source: 'chainByHot' }).fetch()
   }
 })
 
 Template.hotvideos.rendered = function () {
   Template.sidebar.activeSidebarHot();
   Template.settingsdropdown.nightMode();
+
+  $('.ui.infinite')
+  .visibility({
+    once: false,
+    observeChanges: true,
+    onBottomVisible: function() {
+      $('.ui.infinite .loader').show()
+      Videos.getVideosBy('hot', 25, function(err){
+        if (err) console.log(err)
+        $('.ui.infinite .loader').hide()
+      })
+    }
+  });
 }
