@@ -150,6 +150,7 @@
   -webkit-box-shadow: none!important;
   background:#ff1a1a!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
+  font-weight: 500;
 }
 
 .dtube.white.button
@@ -163,6 +164,7 @@
   -webkit-box-shadow: none!important;
   background:#ffffff!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
+  font-weight: 500;
 }
 
 .dtube.grey.button
@@ -176,6 +178,7 @@
   -webkit-box-shadow: none!important;
   background:#ebebeb!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
+  font-weight: 500;
 }
 
 .dtube.grey.button:hover
@@ -189,6 +192,7 @@
   -webkit-box-shadow: none!important;
   background:#dbdbdb!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
+  font-weight: 500;
 }
 
 
@@ -202,6 +206,7 @@
   -webkit-box-shadow: none!important;
   background:#2185d0!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
+  font-weight: 500;
 }
 
 

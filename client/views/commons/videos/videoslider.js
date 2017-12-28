@@ -64,6 +64,7 @@ Template.videoslider.createSlider = function (elemId) {
       animateOut: 'slideOutDown',
       animateIn: 'flipInX',
       dots: false,
+      lazyLoad: true,
       responsiveClass: true,
       responsive: {
          211: {

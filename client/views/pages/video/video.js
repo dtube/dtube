@@ -1,7 +1,7 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
-  $("#sidebar").sidebar('hide');
+  // $("#sidebar").sidebar('hide');
   $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
   $('body').animate({ scrollTop: 0 }, 'slow');
   Session.set('isShareOpen', false)
