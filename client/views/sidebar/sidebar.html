@@ -9,50 +9,50 @@
     <a href='/' class="item" id="home" style="padding:0%;">
       <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="home icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
     <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
       <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="block layout icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
     </a>
     <a href='/newupload' class="item" style="padding:0%;">
       <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="cloud upload icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
       </div>
     </a>
     <a href='/trendingvideos' class="item" style="padding:0%;">
       <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="line chart icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/newvideos' class="item" style="padding:0%;">
       <div id="newsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
           <i class="film  icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/hotvideos' class="item" style="padding:0%;">
       <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="fire icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/watchlater' class="item" style="padding:0%;">
       <div id="watchlatersidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
         <i class="time icon dtubesidebaricon"></i>
-        <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_LATER'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_LATER'}}</span>
       </div>
     </a>
   <!-- {{#if watchAgain}} -->
   <a href='/history' class="item" style="padding:0%;">
     <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
       <i class="history icon dtubesidebaricon"></i>
-      <span class="customlink dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
+      <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
     </div>
   </a>
   <!-- {{/if}} -->
@@ -61,7 +61,7 @@
     <a class="item" style="padding:0%;margin-top:-10px;">
       <div class="menuitem " style="padding:0%;cursor: default;">
         <i class="users icon dtubesidebaricon"></i> {{subscribe.length}}
-        <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_SUBSCRIBES'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_SUBSCRIBES'}}</span>
       </div>
     </a>
     <div id="subscriberslist" class="subscriberslist">
@@ -71,7 +71,7 @@
         <div class="menuitem dtubesidebarmenu" style="padding:0%;">
           <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" style="height:24px;width:24px;margin:5px 5px 5px 20px;">
           <a href='/c/{{following}}'>
-            <span class="customlink dtubesidebartitle">{{following}}</span>
+            <span class="dtubesidebartitle">{{following}}</span>
           </a>
         </div>
       </a>
@@ -81,7 +81,7 @@
     {{else}}
     <div class="menuitem dtubesidebarmenu" style="padding:0%;">
       <i class="smile icon dtubesidebaricon"></i>
-      <span class="customlink dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBERS'}}</span>
+      <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBERS'}}</span>
     </div>
     {{/if}}
     <div class="ui divider"></div>
