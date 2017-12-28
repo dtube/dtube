@@ -346,7 +346,7 @@ button {
 
 #subscriberslist::-webkit-scrollbar
 {
-	width: 6px;
+	width: 2px;
 	background-color: #F5F5F5;
 }
 

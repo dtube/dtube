@@ -67,16 +67,9 @@
     <div id="subscriberslist" class="subscriberslist">
       {{#each subscribe}}
       {{#if following}}
-      <a class="item" style="padding:0%;">
-        <div class="menuitem dtubesidebarmenu lazy" style="padding:0%;">
-          <img class="ui avatar image" src="https://img.busy.org/@{{following}}?width=48&height=48" data-src="https://img.busy.org/@{{following}}?width=48&height=48"  style="height:24px;width:24px;margin:5px 5px 5px 20px;">
-          <a href='/c/{{following}}'>
-            <span class="dtubesidebartitle">{{following}}</span>
-          </a>
-        </div>
-      </a>
+      {{> subscriber}}
       {{/if}}
-      {{/each}}
+      {{/each}} 
     </div>
     {{else}}
     <div class="menuitem dtubesidebarmenu" style="padding:0%;">
