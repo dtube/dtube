@@ -2,19 +2,6 @@ var moment = require('moment')
 
 Videos = new Mongo.Collection(null)
 
-
-
-firstLoad = setInterval(function() {
-  if (!Videos) return
-  if (!Waka) return
-  // loading videos
-
-  Videos.refreshBlockchain(function() {
-    Videos.refreshWaka()
-  })
-  clearInterval(firstLoad)
-}, 50)
-
 Videos.refreshWaka = function() {
   Waka.db.Articles.find({}).fetch(function(r) {
     // articles we share
@@ -62,18 +49,20 @@ Videos.refreshWaka = function() {
 
 Videos.refreshBlockchain = function(cb) {
   var nbCompleted = 0;
-  Videos.getVideosBy('hot', null, function() {
-    returnFn()
-  })
-  Videos.getVideosBy('trending', null, function() {
-    returnFn()
-  })
-  Videos.getVideosBy('created', null, function() {
-    returnFn()
-  })
+  if (!Session.get('lastHot'))
+    Videos.getVideosBy('hot', null, function() {
+      returnFn()
+    })
+  if (!Session.get('lastTrending'))
+    Videos.getVideosBy('trending', null, function() {
+      returnFn()
+    })
+  if (!Session.get('lastCreated'))
+    Videos.getVideosBy('created', null, function() {
+      returnFn()
+    })
   var returnFn = function() {
-    nbCompleted++
-    if (nbCompleted == 3)
+    if (Session.get('lastHot') && Session.get('lastTrending') && Session.get('lastCreated'))
       cb()
   }
 }
@@ -178,8 +167,15 @@ Videos.getVideosBy = function(type, limit, cb) {
 
   switch(type) {
     case 'trending':
+        if (Session.get('lastTrending')) {
+          query.start_author = Session.get('lastTrending').author
+          query.start_permlink = Session.get('lastTrending').permlink
+        }
+        console.log(query)
         steem.api.getDiscussionsByTrending(query, function(err, result) {
           if (err === null || err === '') {
+            console.log(result)
+              Session.set('lastTrending', result[result.length-1])
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {

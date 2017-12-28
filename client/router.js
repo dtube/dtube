@@ -13,6 +13,15 @@ FlowRouter.route('/', {
   name: "home",
   action: function(params, queryParams) {
     Session.set("pageTitle", '')
+    firstLoad = setInterval(function() {
+      if (!Videos) return
+      if (!Waka) return
+      // loading home data
+      Videos.refreshBlockchain(function() {
+        Videos.refreshWaka()
+      })
+      clearInterval(firstLoad)
+    }, 50)
     BlazeLayout.render('masterLayout', {
       main: "home",
       nav: "nav",

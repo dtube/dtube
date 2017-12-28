@@ -16,6 +16,10 @@ Meteor.startup(function(){
   Session.set('remoteSettings', Meteor.settings.public.remote)
   window.steem = steem
 
+  Session.set('lastHot', null)
+  Session.set('lastTrending', null)
+  Session.set('lastCreated', null)
+
   //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
   // setInterval(function() {
   //   try {
