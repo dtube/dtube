@@ -54,4 +54,5 @@ Template.home.events({
 Template.home.rendered = function () {
   Template.sidebar.activeSidebarHome();
   Template.settingsdropdown.nightMode();
+  Session.set('isOnWatchAgain', false)
 }

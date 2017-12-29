@@ -1,4 +1,5 @@
 Template.history.rendered = function () {
+  Session.set('isOnWatchAgain', true)
   Template.sidebar.activeSidebarWatchAgain()
   $('.dtube').removeClass('loading')
   Template.settingsdropdown.nightMode();

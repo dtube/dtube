@@ -13,6 +13,11 @@ Template.verticalvideosnap.events({
 })
 
 Template.verticalvideosnap.rendered = function () {
+  $(this.firstNode.nextSibling).find('img').visibility({
+    type       : 'image',
+    transition : 'fade in',
+    duration   : 1000
+  })
   Template.settingsdropdown.nightMode();
  }
 
@@ -23,8 +28,10 @@ Template.verticalvideosnap.rendered = function () {
 //   });
 // }
 
-// Template.verticalvideosnap.helpers({
-
-// })
+ Template.verticalvideosnap.helpers({
+  isOnWatchAgain: function() {
+    return Session.get('isOnWatchAgain')
+  }
+ })
 
 

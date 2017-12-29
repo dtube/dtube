@@ -3,9 +3,11 @@
   <div class='verticalvideosnap' style="width:100%;display:flex;">
     <div style="width:160px;height:90px;float: left;position:relative;">
       {{#if equals source 'wakaArticles'}}
+      {{#if isOnWatchAgain}}
       <i id="remove" class="ui remove icon circular" style="position:absolute;background-color: rgba(241, 241, 241, 0.85);">
         <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
       </i>
+      {{/if}}
       {{/if}}
       <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
         <div class='verticalvideosnapsnap' style="height:90px;">
@@ -16,7 +18,7 @@
           {{#if info.duration}}
             <span class="videosnapduration">{{durationDisplay info.duration}}</span>
           {{/if}}
-          <img id="snapimg" height="90" width="160" alt="" src="{{ipfsSrc info.snaphash}}">
+          <img id="snapimg" height="90" width="160" alt="" data-src="{{ipfsSrc info.snaphash}}">
           <br /> 
         </div>
       </a>
