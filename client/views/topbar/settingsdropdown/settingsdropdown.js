@@ -124,6 +124,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     //COMPONENTS
     $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
+    $('.item.sidebarlink').addClass('nightmodegray');
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
@@ -179,6 +180,7 @@ $('.owl-prev, .owl-next').removeClass('nightmodegray');
     //COMPONENTS
 $('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
+$('.item.sidebarlink').removeClass('nightmodegray');
 $('.ui.secondary.segment').removeClass('nightmodegray');
 $('.ui.header').removeClass('nightmodetext');
 $('.item').removeClass('nightmodetext');

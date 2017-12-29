@@ -219,6 +219,12 @@ button {
   font-weight: 300;
 }
 
+.item.sidebarlink
+{
+  color:rgba(100, 100, 100, 0.87);
+  font-weight: 300;
+}
+
 .customlink:active
 {
   color:rgba(0, 0, 0, 0.87);
