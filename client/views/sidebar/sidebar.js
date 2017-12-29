@@ -6,11 +6,6 @@ Template.sidebar.rendered = function () {
   };
   Videos.refreshWaka();
   Template.settingsdropdown.nightMode();
-  $('.ui.avatar.image').visibility({
-    type       : 'image',
-    transition : 'fade in',
-    duration   : 1000
-  })
 }
 
 Template.sidebar.helpers({
