@@ -14,7 +14,7 @@
     </a>
     <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
       <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;    display: inherit;">
-        <i class="block layout icon dtubesidebaricon"></i>
+        <i class="grid layout icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
     </a>
@@ -81,18 +81,21 @@
     {{#if isOnMobile }}
     <a class="item" style="width:100%;margin-bottom: 50px;">
       <div class="menuitem dtubesidebarmenu" style="font-weight: 600;font-size: 13px;line-height: 1.5em;    display: grid;">
-          <a href='https://about.d.tube/#faq1'  target="_blank" id="help">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
+        <a href='https://about.d.tube' target="_blank" id="about">
+          <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+      </a>
+      <a href='https://about.d.tube/#faq1' target="_blank" id="help">
+          <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
+        </a>
+        <a href='https://github.com/dtube' target="_blank" id="github">
+         <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
+        </a>
+          <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
           </a>
-            <a href='https://about.d.tube'  target="_blank" id="about">
-              <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
-            </a>
-            <a href='mailto:contact@d.tube?subject=Customize your message' id="contact">
-              <span class="sidebarlink">{{ translate 'SIDEBAR_CONTACT'}}</span>
-            </a>
-            <a href='https://discord.gg/RqeQQjf'  target="_blank" id="discord">
-              <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
-            </a>
+          <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
+          </a>
             <!-- <a href='https://about.d.tube/#mediakit'  target="_blank" id="mediakit">
               <span class="sidebarlink">{{ translate 'SIDEBAR_MEDIA_KIT'}}</span>
             </a> -->
@@ -100,19 +103,22 @@
       </a>
     {{else}}
     <div class="item sidebarlink" style="padding: 0%;position: absolute;bottom: 56px;color: red; background: white;padding: 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
-        <a href='https://about.d.tube/#faq1' target="_blank" id="help">
+      <a href='https://about.d.tube' target="_blank" id="about">
+          <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+      </a>-
+      <a href='https://about.d.tube/#faq1' target="_blank" id="help">
           <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
         </a>-
-          <a href='https://about.d.tube' target="_blank" id="about">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+        <a href='https://github.com/dtube' target="_blank" id="github">
+         <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
+        </a>-
+          <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
           </a>-
-          <a href='mailto:contact@d.tube?subject=Customize your message'  id="contact">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_CONTACT'}}</span>
-          </a>
           <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
             <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
           </a>
-          <!-- -
+          <!-- 
           <a href='https://about.d.tube/#mediakit' target="_blank" id="mediakit">
             <span class="sidebarlink">{{ translate 'SIDEBAR_MEDIA_KIT'}}</span>
           </a> -->
