@@ -10,9 +10,35 @@ broadcast = {
             return;
         }
         var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        var expires_at = Users.findOne({ username: Session.get('activeUsername') }).expires_at
         if (!accessToken) {
             cb('ERROR_BROADCAST')
             return;
+        }
+        if (expires_at < new Date()) {
+            cb('ERROR_TOKEN_EXPIRED')
+            Waka.db.Users.findOne({username: Session.get('activeUsername')}, function(user) {
+                if (user) {
+                  Waka.db.Users.remove(user._id, function(result) {
+                    Users.remove({})
+                    Users.refreshLocalUsers()
+                    Waka.db.Users.findOne({}, function(user) {
+                      if (user) {
+                        Session.set('activeUsername', user.username)
+                        Videos.loadFeed(user.username)
+                      }
+                      else Session.set('activeUsername', null)
+                    })
+                  })
+                } else {
+                  Users.remove({username: Session.get('activeUsername')})
+                  var newUser = Users.findOne()
+                  if (newUser) Session.set('activeUsername', newUser.username)
+                  else Session.set('activeUsername', null)
+                }
+            })
+            FlowRouter.go('/login')
+            return
         }
         sc2.setAccessToken(accessToken);
         sc2.vote(voter, author, permlink, weight, function(err, result) {

@@ -142,6 +142,8 @@ FlowRouter.route('/sc2login', {
   action: function(params, queryParams) {
     var trick = setInterval(function() {
       console.log(queryParams, Waka)
+      var expires_at = new Date(); 
+      queryParams.expires_at = new Date(expires_at .getTime() + queryParams.expires_in*1000);
       if (!Waka.db.Users) return
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
