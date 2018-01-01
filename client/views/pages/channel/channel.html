@@ -32,7 +32,6 @@
     </div>
     <div style="width:100%">
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important; max-width: 100%;">
-        <!-- <img class="ui medium avatar" style="margin: 20px;" src="https://img.busy.org/@{{user.name}}"> -->
         <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
           <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
             <i class="icon red star"></i>{{displayReputation author.reputation}}
@@ -118,23 +117,12 @@
           <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
         </div>
       </div>
-      <!-- <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
-      <div class="ui link cards" style="margin-top:10px;">
-        {{#each relatedChannels}}
-          <div class="ui card noshadow" style="max-width: 140px;text-align:center;border-radius:0px;padding: 10px;">
-            <a href="/c/{{name}}">
-            <img class="ui small image" src='{{userPic name}}'> <br />
-            <span style="display: inline-block;position: relative;">{{name}}</span></a>
-          </div>
-        {{/each}}
-      </div> -->
     </div>
   </div>
   {{else}}
   <!--- /////////////////////////DESKTOP TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;margin-top: -23px;">
     <div class="channelcover" style="background-image: url('https://img.busy.org/@{{user.name}}/cover')">
-      <!-- <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;"> -->
       <img style="max-width:100%;float: left;position: absolute;top: 10px;left: 10px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
       <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
         <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
@@ -190,7 +178,6 @@
       </div>
 
     </div>
-    <!-- </div> -->
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
       <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
       <a class="item" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
@@ -268,18 +255,6 @@
               <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
             </div>
           </div>
-        </div>
-        <div class="column">
-          <!-- <div class="ui large blue fluid label">{{ translate 'CHANNEL_RELATED_CHANNELS'}}</div>
-            <div class="ui link cards" style="margin-top:10px;">
-              {{#each relatedChannels}}
-                <div class="ui card noshadow" style="max-width: 90px;text-align:center;border-radius:0px;">
-                  <a href="/c/{{name}}">
-                  <img class="ui image" src='{{userPic name}}'>
-                  <span style="display: inline-block;position: relative;margin-top:5px;margin-bottom:5px;color:#111111;">{{name}}</span></a>
-                </div>
-              {{/each}}
-            </div> -->
         </div>
       </div>
     </div>
