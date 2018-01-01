@@ -27,6 +27,7 @@ Template.uploadform.helpers({
     return Users.findOne({username: Session.get('activeUsername')})
   },
   inputTags: function(tags) {
+    if (!tags) return ''
     var ok = []
     for (var i = 0; i < tags.length; i++) {
       if (tags[i].startsWith('dtube'))

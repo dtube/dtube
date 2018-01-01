@@ -52,7 +52,7 @@ Template.newupload.genBody = function(author, permlink, title, snaphash, videoha
 }
 
 Template.newupload.uploadVideo = function(file, progressid, cb) {
-  var postUrl = 'https://upldr1.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
+  var postUrl = 'https://upldr3.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -93,7 +93,7 @@ Template.newupload.uploadVideo = function(file, progressid, cb) {
 }
 
 Template.newupload.uploadImage = function(file, progressid, cb) {
-  var postUrl = 'https://upldr1.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
+  var postUrl = 'https://upldr4.d.tube/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -120,7 +120,28 @@ Template.newupload.uploadImage = function(file, progressid, cb) {
     processData: false,
     success: function(result) {
       $(progressid).hide()
-      cb(null, result)
+      console.log(result)
+
+      refreshUploadSnapStatus = setInterval(function() {
+        var url = 'https://upldr4.d.tube/getProgressByToken/'+result.token
+        $.getJSON(url, function( data ) {
+          var isCompleteUpload = true
+          if (data.ipfsAddSource.progress !== "100.00%") {
+            isCompleteUpload = false;
+          }
+          if (data.ipfsAddOverlay.progress !== "100.00%") {
+            isCompleteUpload = false;
+          }
+          if (isCompleteUpload) {
+            clearInterval(refreshUploadSnapStatus)
+      
+            //$('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
+            console.log(data)
+            $('#step2load').hide()
+            $('#step2load').parent().addClass('completed')
+          }
+        })
+      },1000)
     },
     error: function(error) {
       $(progressid).hide()
@@ -224,7 +245,8 @@ Template.newupload.events({
 
     // uploading to ipfs
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
+    //Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
+    Template.newupload.uploadImage(file, '#progresssnap', function(err, result) {
       $('#step2load').hide()
       if (err) {
         console.log(err)
