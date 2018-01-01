@@ -93,7 +93,7 @@ Template.newupload.uploadVideo = function(file, progressid, cb) {
 }
 
 Template.newupload.uploadImage = function(file, progressid, cb) {
-  var postUrl = 'https://upldr4.d.tube/uploadImage'
+  var postUrl = 'http://localhost:5000/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -123,7 +123,7 @@ Template.newupload.uploadImage = function(file, progressid, cb) {
       console.log(result)
 
       refreshUploadSnapStatus = setInterval(function() {
-        var url = 'https://upldr4.d.tube/getProgressByToken/'+result.token
+        var url = 'http://localhost:5000/getProgressByToken/'+result.token
         $.getJSON(url, function( data ) {
           var isCompleteUpload = true
           if (data.ipfsAddSource.progress !== "100.00%") {
