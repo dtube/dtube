@@ -22,6 +22,7 @@ Template.channel.rendered = function () {
         hide: 0
       }
     })
+    Template.channel.RandomBackgroundColor();
 }
 
 Template.channel.helpers({

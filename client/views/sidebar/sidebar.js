@@ -24,11 +24,6 @@ Template.sidebar.helpers({
   }
 });
 
-
-Template.sidebar.CheckIfOpen = function(){
-  return Session.get('isSidebarOpen')
-}
-
 Template.sidebar.events({
   'click #help': function (event, instance) {
     //$('.ui.modal').modal('show')
