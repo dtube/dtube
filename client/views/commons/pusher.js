@@ -6,14 +6,4 @@ Template.pusher.helpers({
   }
 });
 
-Template.pusher.rendered = function () {
-  if (Session.get('isSidebarOpen')) {
-    $(".ui.desktop.sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
-      .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
-  }
-  else {
-    Session.set('isSidebarOpen', false)
-  }
-  // Notifications.startListening();
-}
 

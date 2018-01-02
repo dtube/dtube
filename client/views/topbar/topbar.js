@@ -9,8 +9,20 @@ Template.topbar.helpers({
 
 Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
-    $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
+    if (!Session.get('isSidebarOpen'))
+    {
+      $('.article').addClass('mainsided');
+      Session.set('isSidebarOpen', true)
+      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
       .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
+    }
+    else
+    {
+      $('.article').removeClass('mainsided');
+      Session.set('isSidebarOpen', false)
+      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
+      .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
+    }
   },
   'click #mobilesearch': function (event, instance) {
     $("#mobilesearchsidebar").sidebar('toggle')

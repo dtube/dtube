@@ -167,15 +167,9 @@
     <div style="width:100%">
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
         <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
-          {{#if author.reputation}}
           <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
             <i class="icon red star"></i>{{displayReputation author.reputation}}
           </div>
-          {{else}}
-          <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
-              <i class="icon red star"></i>{{displayReputation author.reputation}}
-            </div>
-          {{/if}}
           <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
             <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}} %
           </div>

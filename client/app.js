@@ -88,6 +88,12 @@ Meteor.startup(function(){
     toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
     return
   }
+
+  if (!Session.get('SteemGlobalProp'))
+  steem.api.getDynamicGlobalProperties(function(err, result) {
+    if (result)
+    Session.set('SteemGlobalProp', result)
+  })
   // Waka.connect({
 	// 	"host": "steemwhales.com",
 	// 	"port": 3456,

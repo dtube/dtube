@@ -1,5 +1,4 @@
 Template.sidebar.rendered = function () {
-  Template.sidebar.OnSidebarToogled();
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100
@@ -25,21 +24,9 @@ Template.sidebar.helpers({
   }
 });
 
-Template.sidebar.OnSidebarToogled = function () {
-  $("#sidebar").sidebar('setting', 'onShow', function () {
-    if ($('.ui.container').innerWidth() > 540) {
-      $("#sidebar").sidebar('push page','pusher')
-      $('.article').addClass('mainsided');
-      Template.videoslider.refreshSlider();
-    }
-    Session.set('isSidebarOpen', true)
-  })
-  $("#sidebar").sidebar('setting', 'onHide', function () {
-      $("#sidebar").sidebar('pull page','pusher')
-      $('.article').removeClass('mainsided');
-      Session.set('isSidebarOpen', false)
-      Template.videoslider.refreshSlider();
-  })
+
+Template.sidebar.CheckIfOpen = function(){
+  return Session.get('isSidebarOpen')
 }
 
 Template.sidebar.events({

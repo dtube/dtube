@@ -20,7 +20,14 @@
 .article {
   padding: 65px 0em 2em 0em;
   width: 100%;
+  transition: padding 0.5s;
 }
+
+.article.mainsided
+{
+  padding: 65px 3em 2em 18em!important;
+}
+
 
 .icon .menuIcon {
   font-size: 1.5em;
@@ -81,12 +88,9 @@ main
 {
   max-width: 100%;
   margin:auto;
+
 }
 
-.mainsided
-{
-  padding: 65px 3em 2em 18em!important;
-}
 
 .mainmobile
 {
