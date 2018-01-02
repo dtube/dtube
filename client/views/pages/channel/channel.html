@@ -181,8 +181,8 @@
               <h4 class="ui header">{{ translate 'CHANNEL_ACCOUNT_VALUE_DETAILS'}}</h4>
               <div class="ui link list">
                 <a class="item">{{ translate 'CHANNEL_STEEM_POWER'}}{{displaySteemPower author.vesting_shares}} <span>(+{{displaySteemPower author.received_vesting_shares}})</span></a>
-                <a class="item">{{ translate 'CHANNEL_STEEM_BALANCE'}}{{author.balance}}</a>
-                <a class="item">{{ translate 'CHANNEL_STEEM_DOLLARS_BALANCE'}}{{author.sbd_balance}}</a>
+                <a class="item">{{ translate 'CHANNEL_STEEM_BALANCE'}} {{author.balance}}</a>
+                <a class="item">{{ translate 'CHANNEL_STEEM_DOLLARS_BALANCE'}} {{displayCurrency author.sbd_balance}}</a>
               </div>
             </div>
           </div>
