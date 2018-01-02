@@ -13,15 +13,13 @@ Template.topbar.events({
     {
       $('.article').addClass('mainsided');
       Session.set('isSidebarOpen', true)
-      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
-      .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
+      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
     }
     else
     {
       $('.article').removeClass('mainsided');
       Session.set('isSidebarOpen', false)
-      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false)
-      .sidebar('setting', 'transition', 'overlay').sidebar('toggle')
+      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
     }
   },
   'click #mobilesearch': function (event, instance) {

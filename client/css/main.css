@@ -20,7 +20,6 @@
 .article {
   padding: 65px 0em 2em 0em;
   width: 100%;
-  transition: padding 0.5s;
 }
 
 .article.mainsided
