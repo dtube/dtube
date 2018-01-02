@@ -168,3 +168,11 @@ h1, h2, h3, h4, h5{
   background: linear-gradient(to right, #6A82FB, #FC5C7D);
   
 }
+
+.dspinh{
+  display: inherit;
+}
+
+.pdgnone{
+  padding:0px;
+}

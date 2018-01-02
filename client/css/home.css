@@ -202,7 +202,7 @@ text-align: center;
 
 .subscriberslist
 {
-  max-height: 30%;
+  max-height: 300px;
   overflow-x: auto;
 }
 

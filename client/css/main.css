@@ -394,11 +394,11 @@ button {
 
 .desktop.sidebar::-webkit-scrollbar
 {
-	width: 2px;
+	width: 6px;
 	background-color: #F5F5F5;
 }
 
 .desktop.sidebar::-webkit-scrollbar-thumb
 {
-	background-color: #ff0000;
+	background-color: #262626;
 }

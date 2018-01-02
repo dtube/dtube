@@ -6,6 +6,13 @@ Template.sidebar.rendered = function () {
   };
   Videos.refreshWaka();
   Template.settingsdropdown.nightMode();
+  $('.subscribers.accordion').accordion({
+    selector: {
+      trigger: '.title'
+    }
+  });
+  Session.set('isSubscribesOpen', false)
+
 }
 
 Template.sidebar.helpers({
@@ -26,12 +33,6 @@ Template.sidebar.helpers({
   tags: function() {
     return TrendingTags.find().fetch()
   },
-});
-
-Template.sidebar.events({
-  'click #help': function (event, instance) {
-    //$('.ui.modal').modal('show')
-  }
 });
 
 Template.sidebar.resetActiveMenu = function () {

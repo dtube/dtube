@@ -1,82 +1,84 @@
 <template name="sidebar">
   <div style="height:100%;">
     <a href='/' class="item" id="home" style="padding:0%;">
-      <div id="homesidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="homesidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="home icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
     <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
-      <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="grid layout icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
     </a>
     <a href='/newupload' class="item" style="padding:0%;">
-      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="cloud upload icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
       </div>
     </a>
     <a href='/hotvideos' class="item" style="padding:0%;">
-      <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="fire icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/trendingvideos' class="item" style="padding:0%;">
-      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="trendingsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="trophy icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/newvideos' class="item" style="padding:0%;">
-      <div id="newsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="newsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="hourglass start icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</span>
       </div>
     </a>
     <a href='/watchlater' class="item" style="padding:0%;">
-      <div id="watchlatersidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;display: inherit;">
+      <div id="watchlatersidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="time icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_LATER'}}</span>
       </div>
     </a>
-    <!-- {{#if watchAgain}} -->
     <a href='/history' class="item" style="padding:0%;">
-      <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu" style="padding:0%;">
+      <div id="watchagainsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone" style="padding:0%;">
         <i class="history icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
       </div>
     </a>
-    <!-- {{/if}} -->
-    <!-- <div class="ui divider"></div>
-    {{#if subscribe.length}}
-    <a class="item" style="padding:0%;margin-top:-10px;">
-      <div class="menuitem " style="padding:0%;cursor: default;">
-        <i class="users icon dtubesidebaricon"></i> {{subscribe.length}}
-        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_SUBSCRIBES'}}</span>
+    <div class="ui divider"></div>
+    <div class="ui subscribers accordion">
+      {{#if subscribe.length}}
+      <a class="item title" style="padding:0%;">
+        <div class="menuitem " style="padding:0%;cursor: default;">
+          <i class="dropdown icon dtubesidebaricon" style="padding-left:0px!important;"></i>
+          <i class="users icon dtubesidebaricon" style="padding-left:0px!important;padding-right:0px!important;margin:0px;"></i> {{subscribe.length}}
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_SUBSCRIBES'}}</span>
+        </div>
+      </a>
+      <div class="content">
+        <p class="transition hidden" style="display: block !important;">
+          <div id="subscriberslist" class="subscriberslist">
+            {{#each subscribe}} {{#if following}} {{> subscriber}} {{/if}} {{/each}}
+          </div>
+        </p>
       </div>
-    </a>
-    <div id="subscriberslist" class="subscriberslist">
-      {{#each subscribe}} 
-      {{#if following}} 
-      {{> subscriber}} 
-      {{/if}} 
-      {{/each}}
+      {{else}}
+      <div class="menuitem dtubesidebarmenu" style="padding:0%;">
+        <i class="smile icon dtubesidebaricon"></i>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBERS'}}</span>
+      </div>
+      {{/if}}
     </div>
-    {{else}}
-    <div class="menuitem dtubesidebarmenu" style="padding:0%;">
-      <i class="smile icon dtubesidebaricon"></i>
-      <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBERS'}}</span>
-    </div>
-    {{/if}}  -->
+
     <div class="ui divider"></div>
     <div id="tagslist" class="tagslist">
       {{#each tags}}
       <div class="menuitem dtubesidebarmenu" style="padding:4px 0% 0% 0%;display: inherit;">
         <a style="margin: 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{name}}'>
-          {{name}}
+          #{{name}}
         </a>
       </div>
       {{/each}}
@@ -99,14 +101,11 @@
         <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
           <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
         </a>
-        <!-- <a href='https://about.d.tube/#mediakit'  target="_blank" id="mediakit">
-              <span class="sidebarlink">{{ translate 'SIDEBAR_MEDIA_KIT'}}</span>
-            </a> -->
       </div>
     </a>
     {{else}}
-    <div class="item sidebarlink" style="padding: 0%;position: absolute;bottom: 56px;
-    color: red; background: white;padding: 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
+    <div class="ui divider"></div>
+    <div class="item sidebarlink" style="color: red; background: white;padding: 20px 10px 70px 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
       <a href='https://about.d.tube' target="_blank" id="about">
         <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
       </a>-
@@ -122,10 +121,6 @@
       <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
         <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
       </a>
-      <!-- 
-          <a href='https://about.d.tube/#mediakit' target="_blank" id="mediakit">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_MEDIA_KIT'}}</span>
-          </a> -->
     </div>
     {{/if}}
   </div>

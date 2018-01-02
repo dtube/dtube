@@ -4,7 +4,6 @@ Template.subscriber.rendered = function () {
     type       : 'image',
     transition : 'fade in',
     duration   : 1000,
-    context: $('#subscriberslist'),
-    offset : 500
+    context: $('#subscriberslist')
   })
 }
