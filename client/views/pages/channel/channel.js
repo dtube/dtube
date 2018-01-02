@@ -1,5 +1,5 @@
 Template.channel.rendered = function () {
-  console.log(SubCounts.findOne({ account: FlowRouter.getParam("author") }));
+  // console.log(SubCounts.findOne({ account: FlowRouter.getParam("author") }));
   ChainUsers.fetchNames([FlowRouter.getParam("author")], function (error) {
     if (error) console.log('Error fetch name')
   })
@@ -112,3 +112,30 @@ Template.channel.events({
     })
   }
 })
+
+
+Template.channel.RandomBackgroundColor = function () {
+  var rnd = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
+  switch (rnd) {
+    case 1:
+      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbga');
+      break;
+    case 2:
+      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgb');
+      break;
+    case 3:
+      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgc');
+      break;
+    case 4:
+      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgd');
+      break;
+    default:
+      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbge');
+  }
+}
+
+Template.channel.ForceUserLoading = function () {
+  ChainUsers.fetchNames([FlowRouter.getParam("author")], function (error) {
+    if (error) console.log('Error fetch name')
+  })
+}

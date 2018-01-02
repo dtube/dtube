@@ -208,7 +208,7 @@ Template.video.events({
   //   $('.upvote').popup({
   //     boundary: '.videocontainer',
   //     popup: '.popupupvotes'
-  //   })
+  //   }) 
   // }
 })
 

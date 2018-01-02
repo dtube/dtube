@@ -138,3 +138,33 @@ h1, h2, h3, h4, h5{
 .ui.inline.dropdown > .text {
   font-weight: 500;
 }
+
+.channelbga{
+  background: #40E0D0;  
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+  
+}
+.channelbgb{
+  background: #ee0979; 
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979); 
+  background: linear-gradient(to right, #ff6a00, #ee0979); 
+}
+.channelbgc{
+  background: #f85032;  
+  background: -webkit-linear-gradient(to right, #e73827, #f85032); 
+  background: linear-gradient(to right, #e73827, #f85032);
+  
+}
+.channelbgd{
+  background: #16A085;
+  background: -webkit-linear-gradient(to right, #F4D03F, #16A085); 
+  background: linear-gradient(to right, #F4D03F, #16A085);
+  
+}
+.channelbge{
+  background: #FC5C7D;  
+  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D); 
+  background: linear-gradient(to right, #6A82FB, #FC5C7D);
+  
+}

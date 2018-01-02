@@ -192,6 +192,10 @@ FlowRouter.route('/c/:author', {
       // call finished
     })
     SubCounts.loadSubscribers(params.author)
+    Template.channel.RandomBackgroundColor();
+
+    //TO DO
+    Template.channel.ForceUserLoading();
   }
 });
 
