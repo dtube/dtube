@@ -68,13 +68,16 @@
       {{else}}
       <div class="menuitem dtubesidebarmenu" style="padding:0%;">
         <i class="smile icon dtubesidebaricon"></i>
-        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBERS'}}</span>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUSCRIBES'}}</span>
       </div>
       {{/if}}
     </div>
 
     <div class="ui divider"></div>
     <div id="tagslist" class="tagslist">
+        <div class="menuitem dspinh pdgnone" style="padding:0%;">
+            <h4 class="dtubesidebartitle" style="padding-left: 20px;">Trending Tags</h4>
+          </div>
       {{#each tags}}
       <div class="menuitem dtubesidebarmenu" style="padding:4px 0% 0% 0%;display: inherit;">
         <a style="margin: 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{name}}'>
@@ -105,7 +108,7 @@
     </a>
     {{else}}
     <div class="ui divider"></div>
-    <div class="item sidebarlink" style="color: red; background: white;padding: 20px 10px 70px 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
+    <div class="item sidebarlink" style="color: red; background: white;padding: 0px 10px 70px 10px;font-weight: 600;font-size: 13px;line-height: 1.5em;">
       <a href='https://about.d.tube' target="_blank" id="about">
         <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
       </a>-
@@ -114,7 +117,8 @@
       </a>-
       <a href='https://github.com/dtube' target="_blank" id="github">
         <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
-      </a>-
+      </a>
+      <br>
       <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
         <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
       </a>-

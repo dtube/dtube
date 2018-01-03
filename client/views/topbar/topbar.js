@@ -11,9 +11,14 @@ Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
     if (!Session.get('isSidebarOpen'))
     {
-      $('.article').addClass('mainsided');
       Session.set('isSidebarOpen', true)
+      if ($('.article').innerWidth() > 943) {
       $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
+      $('.article').addClass('mainsided');
+      }
+      else{
+        $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
+      }
     }
     else
     {
