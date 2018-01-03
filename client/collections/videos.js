@@ -90,13 +90,18 @@ Videos.getVideosRelatedTo = function(author, permlink, days, cb) {
   })
 }
 
-Videos.getVideosByTags = function(tags, days, cb) {
-  dateTo = moment().format('YYYY-MM-DD');
-  dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
-  var queries = ['created:['+dateFrom+' TO 2099-01-01]']
+Videos.getVideosByTags = function(tags, days, sort_by, order, cb) {
+  var queries = []
+  if (days) {
+    dateTo = moment().format('YYYY-MM-DD');
+    dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
+    queries.push(['created:['+dateFrom+' TO 2099-01-01]'])
+  }
   for (let i = 0; i < tags.length; i++)
     queries.push('meta.video.content.tags:'+tags[i])
+
   var query = queries.join(' AND ')
+
   AskSteem.search({
     q: query,
     include: 'meta,payout',
@@ -112,7 +117,12 @@ Videos.getVideosByTags = function(tags, days, cb) {
     for (let i = 0; i < videos.length; i++) {
       videos[i].source = 'askSteem'
       videos[i]._id += 'a'
-      videos[i].byTags = tags.join('+')
+      videos[i].askSteemQuery = {
+        tags: tags.join('+'),
+        byDays: days,
+        sort_by: sort_by,
+        order: order
+      }
       try {
         Videos.upsert({ _id: videos[i]._id }, videos[i])
       } catch (err) {

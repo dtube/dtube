@@ -206,7 +206,7 @@ FlowRouter.route('/t/:tag', {
       main: "tags",
       nav: "nav"
     });
-    Videos.getVideosByTags([params.tag], 30, function(err, response) {
+    Videos.getVideosByTags([params.tag], 30, 'net_votes', 'desc', function(err, response) {
       // call finished
     })
   }
