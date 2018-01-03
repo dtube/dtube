@@ -104,6 +104,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.verticalvideosnaptitle').addClass('nightmodetext');
     $('.ui.item').addClass('nightmodetext');
     $('.menuitem').addClass('nightmodetext');
+    $('.dtubesidebarmenu a').addClass('nightsecondarytext');
     $('.ui.toggle.checkbox label').addClass('nightmodetext');
     $('.ui.form .field > label').addClass('nightmodetext');
     $('.text').addClass('nightmodetext');
@@ -124,7 +125,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     //COMPONENTS
     $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
-    $('.item.sidebarlink').addClass('nightmodegray');
+    $('.sidebarlink').addClass('nightmodegray');
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
@@ -160,6 +161,7 @@ $('.videosnapdescriptionmobile').removeClass('nightsecondarytext');
 $('.verticalvideosnaptitle').removeClass('nightmodetext');
 $('.ui.item').removeClass('nightmodetext');
 $('.menuitem').removeClass('nightmodetext');
+$('.dtubesidebarmenu a').removeClass('nightsecondarytext');
 $('.ui.toggle.checkbox label').removeClass('nightmodetext');
 $('.ui.form .field > label').removeClass('nightmodetext');
 $('.text').removeClass('nightmodetext');
@@ -180,7 +182,7 @@ $('.owl-prev, .owl-next').removeClass('nightmodegray');
     //COMPONENTS
 $('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
-$('.item.sidebarlink').removeClass('nightmodegray');
+$('.sidebarlink').removeClass('nightmodegray');
 $('.ui.secondary.segment').removeClass('nightmodegray');
 $('.ui.header').removeClass('nightmodetext');
 $('.item').removeClass('nightmodetext');

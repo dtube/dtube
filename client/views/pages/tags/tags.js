@@ -17,4 +17,9 @@ Template.tags.helpers({
 
 Template.tags.onRendered(function () {
     Template.sidebar.resetActiveMenu()
+    $('.ui.selection.dropdown').dropdown({
+      onChange: function(value, text, $selectedItem) {
+        console.log(value,text,$selectedItem)
+      }
+    });
 });
