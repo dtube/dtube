@@ -79,9 +79,9 @@
             <h4 class="dtubesidebartitle" style="padding-left: 20px;">Trending Tags</h4>
           </div>
       {{#each tags}}
-      <div class="menuitem dtubesidebarmenu" style="padding:4px 0% 0% 0%;display: inherit;">
-        <a style="margin: 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{name}}'>
-          #{{name}}
+      <div class="menuitem dtubesidebarmenu" style="padding:4px 0% 0% 0%;display: inherit;" title='{{./count}}'>
+        <a style="margin: 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{term}}'>
+          #{{term}}
         </a>
       </div>
       {{/each}}

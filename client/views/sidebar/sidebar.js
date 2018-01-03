@@ -1,5 +1,5 @@
 Template.sidebar.rendered = function () {
-  TrendingTags.loadTopTags(15);
+  TrendingTags.loadTopTags(50);
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100
@@ -31,7 +31,7 @@ Template.sidebar.helpers({
     return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
   },
   tags: function() {
-    return TrendingTags.find().fetch()
+    return TrendingTags.find({}, {sort: {count: -1}, limit: 15}).fetch()
   },
 });
 
