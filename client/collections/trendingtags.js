@@ -1,9 +1,15 @@
+const excludedTags = [
+  'dtube',
+  // we can add more if needed
+]
+
 TrendingTags = new Mongo.Collection(null)
 
-TrendingTags.loadTags = function(tag,limite, cb) {
-  steem.api.getTrendingTags(tag, limite, function(err, results) {
+TrendingTags.loadTopTags = function(limit, cb) {
+  steem.api.getTrendingTags('dtube', limit, function(err, results) {
     if (err) console.log(err)
     for (var i = 0; i < results.length; i++)
-    TrendingTags.upsert(results[i], results[i])
+      if (excludedTags.indexOf(results[i].name) == -1)
+        TrendingTags.upsert(results[i], results[i])
   });
 }
