@@ -21,6 +21,7 @@ Template.newvideos.rendered = function () {
   $('.ui.infinite')
   .visibility({
     once: false,
+    continuous: true,
     observeChanges: true,
     onBottomVisible: function() {
       $('.ui.infinite .loader').show()
