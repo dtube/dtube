@@ -1,15 +1,50 @@
 <template name="tags">
   {{#if isOnMobile}}
-  <h2 style="background:red;color:white;padding:10px;">
-    {{ translate 'TAGS_ABOUT'}} {{tagVideos.length}} {{ translate 'TAGS_RESULTS_FOR'}} #{{currentTag}}
+  <div style="margin-left:10px;margin-right:10px;" class="ui content">
+    <h2 style="max-width: calc(100% - 90px);margin-bottom: 0px;"> 
+    {{ translate 'TAGS_RESULTS_FOR'}} {{currentTag}}
   </h2>
-  <div style="margin-left:4px;margin-right:4px;" class="ui content">
-    <h2>{{ translate 'TAGS_NEW'}}</h2>
-    {{> videoband tagVideos}}
-    <h2>{{ translate 'TAGS_THIS_MONTH'}}</h2>
-    {{> videoband tagVideos}}
-    <h2>{{ translate 'TAGS_ALL_TIME'}}</h2>
-    {{> videoband tagVideos}}
+  <div class="ui grid mrgnone">
+    <div class="three column row">
+      <div class="column" style="z-index: 999;padding-left:0px;">
+        <div name="date" class="ui selection dropdown ddtag" style="min-width:7.5em;">
+          <input type="hidden" name="date">
+          <i class="dropdown icon"></i>
+          <div class="default text almostblack">Date</div>
+          <div class="menu">
+            <div class="item period" data-value="7">This Week</div>
+            <div class="item period" data-value="30">This Month</div>
+            <div class="item period" data-value="99999">All Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="column" style="z-index: 999;padding-left:0px;">
+        <div class="ui selection dropdown ddtag" style="min-width:7.5em;">
+          <input type="hidden" name="sort">
+          <i class="dropdown icon"></i>
+          <div class="default text almostblack">Sort By</div>
+          <div class="menu">
+            <div class="item sortby" data-value="net_votes">Votes</div>
+            <div class="item sortby" data-value="payout">Payout</div>
+            <div class="item sortby" data-value="created">Date</div>
+          </div>
+        </div>
+      </div>
+      <div class="column" style="z-index: 999;padding-left:0px;">
+        <div class="ui selection dropdown ddtag" style="min-width:7.5em;">
+          <input type="hidden" name="duration">
+          <i class="dropdown icon"></i>
+          <div class="default text almostblack">Duration</div>
+          <div class="menu">
+            <div class="item duration" data-value="9999999">All</div>
+            <div class="item duration" data-value="1200">Short ( &#60; 20 minutes)</div>
+            <div class="item duration" data-value="300">Very Short ( &#60; 5 minutes)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {{> verticalvideoband tagVideos}}
   </div>
   {{else}}
   <div class="ui container">
@@ -20,7 +55,7 @@
       <div name="date" class="ui selection dropdown ddtag">
         <input type="hidden" name="date">
         <i class="dropdown icon"></i>
-        <div class="default text almostblack">Upload Date</div>
+        <div class="default text almostblack">Date</div>
         <div class="menu">
           <div class="item period" data-value="7">This Week</div>
           <div class="item period" data-value="30">This Month</div>

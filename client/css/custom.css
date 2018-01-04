@@ -177,6 +177,10 @@ h1, h2, h3, h4, h5{
   padding:0px;
 }
 
+.mrgnone{
+  margin:0px!important;
+}
+
 .dropdown.ddtag{
 height:30px;
 }
