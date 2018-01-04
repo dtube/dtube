@@ -19,6 +19,9 @@ Meteor.startup(function(){
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
+  Session.set('tagDays', 7)
+  Session.set('tagSortBy', 'net_votes')
+  Session.set('tagDuration', 999999)
 
   //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
   // setInterval(function() {

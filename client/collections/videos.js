@@ -90,13 +90,15 @@ Videos.getVideosRelatedTo = function(author, permlink, days, cb) {
   })
 }
 
-Videos.getVideosByTags = function(tags, days, sort_by, order, cb) {
+Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration, cb) {
   var queries = []
   if (days) {
     dateTo = moment().format('YYYY-MM-DD');
     dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
     queries.push('created:['+dateFrom+' TO 2099-01-01]')
   }
+  if (maxDuration && maxDuration < 99999)
+    queries.push('meta.video.info.duration:<='+maxDuration)
   for (let i = 0; i < tags.length; i++)
     queries.push('meta.video.content.tags:'+tags[i])
 
@@ -105,8 +107,9 @@ Videos.getVideosByTags = function(tags, days, sort_by, order, cb) {
   AskSteem.search({
     q: query,
     include: 'meta,payout',
-    sort_by: 'net_votes',
-    order: 'desc',
+    sort_by: sort_by,
+    pg: page,
+    order: order,
     types: 'post'
   }, function(err, response) {
     var videos = []

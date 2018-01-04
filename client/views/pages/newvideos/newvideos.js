@@ -21,13 +21,17 @@ Template.newvideos.rendered = function () {
   $('.ui.infinite')
   .visibility({
     once: false,
-    continuous: true,
     observeChanges: true,
     onBottomVisible: function() {
       $('.ui.infinite .loader').show()
-      Videos.getVideosBy('created', 25, function(err){
+      Videos.getVideosBy('created', 10, function(err){
         if (err) console.log(err)
         $('.ui.infinite .loader').hide()
+        setTimeout(function() {
+          if (document.body.scrollHeight <= document.body.clientHeight) {
+            console.log(this)
+          }
+        },300)
       })
     }
   });

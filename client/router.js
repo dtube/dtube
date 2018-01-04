@@ -206,9 +206,16 @@ FlowRouter.route('/t/:tag', {
       main: "tags",
       nav: "nav"
     });
-    Videos.getVideosByTags([params.tag], 30, 'net_votes', 'desc', function(err, response) {
+    Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
       // call finished
     })
+    Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+      // call finished
+    })
+    Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+      // call finished
+    })
+    Session.set('askSteemCurrentPage', 3)
   }
 });
 
