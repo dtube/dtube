@@ -4,6 +4,6 @@ Template.subscriber.rendered = function () {
     type       : 'image',
     transition : 'fade in',
     duration   : 1000,
-    context: $('#subscriberslist')
+    context: $('#sidebar')
   })
 }

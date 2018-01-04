@@ -24,7 +24,11 @@ Template.sidebar.helpers({
       return true;
     }
   },
+  subscribelength: function () {
+    return Subs.find({ follower: Session.get('activeUsername') }).fetch()
+  }, 
   subscribe: function () {
+    if (Session.get('isSubscribesOpen'))
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
   }, 
   watchAgain: function () {
@@ -33,7 +37,21 @@ Template.sidebar.helpers({
   tags: function() {
     return TrendingTags.find({}, {sort: {count: -1}, limit: 15}).fetch()
   },
+  subsOpen: function(){
+    return Session.get('isSubscribesOpen')
+  }
 });
+
+
+Template.sidebar.events({
+  'click .loadsubs': function () {
+    if (!Session.get('isSubscribesOpen')) {
+      Session.set('isSubscribesOpen', true)
+      Subs.find({ follower: Session.get('activeUsername') }).fetch()
+    }
+    else Session.set('isSubscribesOpen', false)
+  }
+})
 
 Template.sidebar.resetActiveMenu = function () {
   $('#homesidebarmenu').removeClass('activemenu')

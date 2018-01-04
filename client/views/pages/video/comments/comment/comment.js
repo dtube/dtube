@@ -32,21 +32,21 @@ Template.comment.helpers({
 })
 Template.comment.rendered = function () {
 
-  $(this.firstNode).find('.title').find({
- onVisible: function() {
-   $('.ui.avatar.image img').visibility('refresh');
- }
-})
-;
-  $(this.firstNode).find('.ui.avatar.image img').visibility({
-    once: true,
-    // update size when new content loads
-    observeChanges: true,
-    refreshOnResize:false,
-    type       : 'image',
-    transition : 'fade in',
-    duration   : 1000
-  })
+//   $(this.firstNode).find('.title').find({
+//  onVisible: function() {
+//    $('.ui.avatar.image img').visibility('refresh');
+//  }
+// })
+// ;
+//   $(this.firstNode).find('.ui.avatar.image img').visibility({
+//     once: true,
+//     // update size when new content loads
+//     observeChanges: true,
+//     refreshOnResize:false,
+//     type       : 'image',
+//     transition : 'fade in',
+//     duration   : 1000
+//   })
   Template.settingsdropdown.nightMode();
 }
 
