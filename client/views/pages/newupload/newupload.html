@@ -1,9 +1,7 @@
 <template name='newupload'>
   <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
     <center>
-       <!-- {{> circularprogressbar}} -->
       <div class="ui segment" style="margin:20 0px;border-radius:0px">
-        <!-- <h1 style="color:red;">NEW UPLOADER</h1> -->
         {{#if isOnMobile}}
         <div id="statuszone" style="margin-top:20px;">
           <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
@@ -78,7 +76,6 @@
             <div class="two column row">
               <div class="column">
                 <video id="videopreview" class="displaynone" controls autoplay style="width:100%;height: 100%;"></video>
-                <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
               </div>
               <div class="column">
                 <canvas id="snappreview" class="displaynone"></canvas>

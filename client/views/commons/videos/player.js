@@ -8,6 +8,6 @@ Template.player.setTime = function (seconds) {
 
 Template.player.init = function() {
   $('.ui.embed.player').embed({
-    url: "https://skzap.github.io/player/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true"
+    url: "https://emb.d.tube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true"
   });
 }
