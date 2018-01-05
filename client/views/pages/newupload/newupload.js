@@ -134,9 +134,7 @@ Template.newupload.uploadImage = function(file, progressid, cb) {
           // }
           if (isCompleteUpload) {
             clearInterval(refreshUploadSnapStatus)
-      
-            //$('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
-            console.log(data)
+            $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
             $('#step2load').hide()
             $('#step2load').parent().addClass('completed')
           }
