@@ -9,7 +9,7 @@ Template.uploadvideoprogress.rendered = function() {
 }
 Template.uploadvideoprogress.update = function() {
   var token = Session.get('uploadToken')
-  var url = 'https://upldr3.d.tube/getProgressByToken/'+token
+  var url = 'https://upldr'+Session.get('upldr')+'.d.tube/getProgressByToken/'+token
   $.getJSON(url, function( data ) {
     Session.set('uploadVideoProgress', data)
 

@@ -24,7 +24,7 @@ Template.newvideos.rendered = function () {
     observeChanges: true,
     onBottomVisible: function() {
       $('.ui.infinite .loader').show()
-      Videos.getVideosBy('created', 10, function(err){
+      Videos.getVideosBy('created', 25, function(err){
         if (err) console.log(err)
         $('.ui.infinite .loader').hide()
         setTimeout(function() {
