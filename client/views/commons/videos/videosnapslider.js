@@ -28,7 +28,6 @@ Template.videosnapslider.helpers({
 
 Template.videosnapslider.rendered = function () {
   Template.settingsdropdown.nightMode();
-  // $(this.firstNode.nextSibling).find('#snapload').addClass('loaded');
 }
 
 
