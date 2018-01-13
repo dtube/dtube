@@ -75,6 +75,9 @@ Template.channel.helpers({
   resetSidebar: function () {
     Template.sidebar.resetActiveMenu();
     return
+  }, 
+  subscribe: function () {
+    return Subs.find({ follower: Session.get('activeUsername') }).fetch()
   }
 })
 

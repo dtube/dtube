@@ -33,6 +33,7 @@ Template.videosnap.rendered = function () {
     duration   : 1000
   })
   Template.settingsdropdown.nightMode();
+  $(this.firstNode.nextSibling).find('#snapload').addClass('loaded');
 }
 
 

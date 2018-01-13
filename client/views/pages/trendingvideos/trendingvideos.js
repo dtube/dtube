@@ -18,7 +18,7 @@ Template.trendingvideos.rendered = function () {
       observeChanges: true,
       onBottomVisible: function() {
         $('.ui.infinite .loader').show()
-        Videos.getVideosBy('trending', 25, function(err){
+        Videos.getVideosBy('trending', 50, function(err){
           if (err) console.log(err)
           $('.ui.infinite .loader').hide()
         })

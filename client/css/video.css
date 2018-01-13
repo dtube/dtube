@@ -125,6 +125,21 @@
   margin-bottom: 5px;
 }
 
+.videoband {
+  padding-bottom: 3em;
+}
+
+.snaploader{
+  opacity: 0;
+  -moz-transition: opacity 5s;
+  -webkit-transition: opacity 5s;
+  -o-transition: opacity 5s;
+  transition: opacity 5s;
+}
+
+.snaploader.loaded{
+  opacity: 1;
+}
 
 .buttonlabel
 {
@@ -229,6 +244,7 @@
 
 .ui.content{
   margin-top: 15px;
+  padding-bottom: 1em;
 }
 
 .ui.segment.closed

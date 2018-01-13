@@ -204,6 +204,17 @@ text-align: center;
 {
   max-height: 300px;
   overflow-x: auto;
+  padding-left: 20px;
+}
+
+.channelsubscriberslist
+{
+  max-height: 500px;
+  overflow-x: auto;
+}
+
+.ui.fluid.label{
+  word-wrap: break-word;
 }
 
 body.pushable {
