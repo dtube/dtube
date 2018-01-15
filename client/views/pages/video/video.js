@@ -243,51 +243,19 @@ Template.video.loadState = function () {
   });
 }
 
-Template.video.loadFromChain = function (loadComments, loadUsers) {
-  steem.api.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
-    var video = Videos.parseFromChain(result)
-    if (!video) return;
-    video.source = 'chainDirect'
-    video._id += 'd'
-    Videos.upsert({ _id: video._id }, video)
-    Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
-      Videos.refreshWaka()
-    })
-    if (!loadComments) return
-    Template.video.loadComments(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), true)
-  });
-}
-
-Template.video.loadComments = function (author, permlink, loadUsers) {
-  Session.set('loadingComments', true)
-  steem.api.getContentReplies(author, permlink, function (err, result) {
-    var oldVideo = Videos.findOne({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' })
-    oldVideo.comments = result
-    Videos.upsert({ _id: oldVideo._id }, oldVideo)
-
-    var usernames = [oldVideo.info.author]
-    for (var i = 0; i < oldVideo.comments.length; i++) {
-      usernames.push(oldVideo.comments[i].author)
-    }
-    Session.set('loadingComments', false)
-    if (!loadUsers) return
-    ChainUsers.fetchNames(usernames)
-  })
-}
-
-Template.video.pinFile = function (author, permlink, cb) {
-  if (!Session.get('localIpfs')) return
-  steem.api.getContent(author, permlink, function (e, video) {
-    if (!video) return
-    var video = Videos.parseFromChain(video)
-    localIpfs.pin.add(video.info.snaphash, function (e, r) {
-      console.log('pinned snap', e, r)
-    })
-    localIpfs.pin.add(video.content.videohash, function (e, r) {
-      console.log('pinned video', e, r)
-    })
-  })
-}
+// Template.video.pinFile = function (author, permlink, cb) {
+//   if (!Session.get('localIpfs')) return
+//   steem.api.getContent(author, permlink, function (e, video) {
+//     if (!video) return
+//     var video = Videos.parseFromChain(video)
+//     localIpfs.pin.add(video.info.snaphash, function (e, r) {
+//       console.log('pinned snap', e, r)
+//     })
+//     localIpfs.pin.add(video.content.videohash, function (e, r) {
+//       console.log('pinned video', e, r)
+//     })
+//   })
+// }
 //.addClass('container') .addClass('container')
 Template.video.setScreenMode = function () {
   if ($(window).width() < 1166) {

@@ -362,3 +362,32 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
   })
   return comments
 }
+
+Videos.getContent = function (author, permlink, loadComments, loadUsers) {
+  steem.api.getContent(author, permlink, function (err, result) {
+    var video = Videos.parseFromChain(result)
+    if (!video) return;
+    video.source = 'chainDirect'
+    video._id += 'd'
+    Videos.upsert({ _id: video._id }, video)
+    if (!loadComments) return
+    Template.video.loadComments(author, permlink, false)
+  });
+}
+
+Video.loadComments = function (author, permlink, loadUsers) {
+  Session.set('loadingComments', true)
+  steem.api.getContentReplies(author, permlink, function (err, result) {
+    var oldVideo = Videos.findOne({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' })
+    oldVideo.comments = result
+    Videos.upsert({ _id: oldVideo._id }, oldVideo)
+    Session.set('loadingComments', false)
+    
+    if (!loadUsers) return
+    var usernames = [oldVideo.info.author]
+    for (var i = 0; i < oldVideo.comments.length; i++) {
+      usernames.push(oldVideo.comments[i].author)
+    }
+    ChainUsers.fetchNames(usernames)
+  })
+}
