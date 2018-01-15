@@ -12,11 +12,11 @@ var autolinkerOptions = {
   },
   email: false,
   phone: false,
-  mention: 'twitter',
-  hashtag: false,
+  mention: 'dtube',
+  hashtag: 'dtube',
   stripPrefix: true,
   stripTrailingSlash: true,
-  newWindow: true,
+  newWindow: false,
   truncate: {
     length: 0,
     location: 'end'

@@ -39,16 +39,17 @@ Template.uploadform.helpers({
 })
 
 Template.uploadform.parseTags = function(raw) {
-  var tags = ['dtube']
+  var tags = []
   var videoTags = []
   var form = document.getElementsByClassName('uploadform')[0]
   for (var i = 0; i < raw.split(',').length; i++) {
-    if (tags.length<5)
+    if (tags.length<4)
       tags.push(raw.split(',')[i].toLowerCase())
     if (videoTags.length<4)
       videoTags.push(raw.split(',')[i].toLowerCase())
     //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
   }
+  tags.push('dtube')
   return [tags, videoTags]
 }
 
@@ -58,7 +59,7 @@ Template.uploadform.generateVideo = function(form, tags, permlink) {
       title: form.title.value,
       snaphash: form.snaphash.value,
       author: Users.findOne({username: Session.get('activeUsername')}).username,
-      permlink: Template.newupload.createPermlink(8),
+      permlink: Template.upload.createPermlink(8),
       duration: parseFloat(form.duration.value),
       filesize: parseInt(form.filesize.value),
       spritehash: form.spritehash.value
@@ -119,9 +120,9 @@ Template.uploadform.events({
         var body = form.body.value
 
         if (!body || body.length < 1)
-          body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
+          body = Template.upload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
         else
-          body = Template.newupload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, body)
+          body = Template.upload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, body)
       
 
         var jsonMetadata = {

@@ -43,7 +43,7 @@ Template.upload.helpers({
 Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
   body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
-  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>\n\n'
+  body += '<img src=\'https://ipfs.io/ipfs/'+Session.get('overlayHash')+'\'></a></center><hr>\n\n'
   body += description
   body += '\n\n<hr>'
   body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ DTube</a><br />'
@@ -93,7 +93,7 @@ Template.upload.uploadVideo = function(file, progressid, cb) {
 }
 
 Template.upload.uploadImage = function(file, progressid, cb) {
-  var postUrl = 'https://snap1.d.tube/uploadImage'
+  var postUrl = 'http://localhost:5000/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -123,18 +123,19 @@ Template.upload.uploadImage = function(file, progressid, cb) {
       console.log(result)
 
       refreshUploadSnapStatus = setInterval(function() {
-        var url = 'https://snap1.d.tube/getProgressByToken/'+result.token
+        var url = 'http://localhost:5000/getProgressByToken/'+result.token
         $.getJSON(url, function( data ) {
           var isCompleteUpload = true
           if (data.ipfsAddSource.progress !== "100.00%") {
             isCompleteUpload = false;
           }
-          // if (data.ipfsAddOverlay.progress !== "100.00%") {
-          //   isCompleteUpload = false;
-          // }
+          if (data.ipfsAddOverlay.progress !== "100.00%") {
+            isCompleteUpload = false;
+          }
           if (isCompleteUpload) {
             clearInterval(refreshUploadSnapStatus)
             $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
+            Session.set('overlayHash', data.ipfsAddOverlay.hash)
             $('#step2load').hide()
             $('#step2load').parent().addClass('completed')
           }
