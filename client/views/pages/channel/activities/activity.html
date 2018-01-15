@@ -9,7 +9,7 @@
                         src="{{getSnap tx.comment_author tx.comment_permlink}}">
                 </a>
             </div>
-            {{else}}
+                {{else}}
                 {{#if getTitleFromChain tx.comment_author tx.comment_permlink}}
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
@@ -27,13 +27,7 @@
                             <a style="color:#ff1a1a!important;" href="/c/{{tx.curator}}" target="_blank" class="user">{{tx.curator}}</a>
                             curation rewards : {{displaySteemPower tx.reward}}
                         </div>
-                        {{#if getTitle tx.comment_author tx.comment_permlink}}
-                        <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
-                        {{else}}
-                        {{#if getTitleFromChain tx.comment_author tx.comment_permlink}}
-                        <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitleFromChain tx.parent_author tx.parent_permlink}}</a>
-                        {{/if}}
-                        {{/if}}
+                        <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.comment_author tx.comment_permlink}}</a>
                         <div>
                             <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
                         </div>
@@ -91,7 +85,8 @@
             </div>
         </div>
     </div>
-    {{/if}} {{#if equals type 'comment'}} {{#if getTitle tx.parent_author tx.parent_permlink}}
+    {{/if}} 
+    {{#if equals type 'comment'}} 
     <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:98%!important;border-radius:0px;    background: #ffffff;">
         <div class="content" style="padding: 0px;">
             <div class="right floated" style="padding:5px;">
@@ -108,7 +103,13 @@
                             <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
                             commented
                         </div>
+                        {{#if getTitle tx.parent_author tx.parent_permlink}}
                         <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
+                        {{else}}
+                        {{#if getTitleFromChain tx.parent_author tx.parent_permlink}}
+                        <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
+                        {{/if}}
+                        {{/if}}
                         <div>
                             <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
                         </div>
@@ -117,6 +118,8 @@
             </div>
         </div>
     </div>
-    {{/if}} {{/if}} {{#if equals type 'account_update'}} {{/if}} {{#if equals type 'custom_json'}} {{/if}}
+
+    {{/if}} 
+    {{#if equals type 'account_update'}} {{/if}} {{#if equals type 'custom_json'}} {{/if}}
 
 </template>
