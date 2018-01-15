@@ -1,17 +1,21 @@
 <template name='channel'>
-  {{resetSidebar}} {{#if isOnMobile}}
+  {{resetSidebar}} 
+  {{#if isOnMobile}}
   <!--- /////////////////////////MOBILE TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;">
     <div class="channelcover" style="max-height: 145px;position: relative;overflow: hidden;">
       {{#if author.json_metadata.profile.cover_image}}
       <img src="https://img.busy.org/@{{user.name}}/cover" style="max-width:100%;max-height:100%;"> {{/if}}
-      <img style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
+      <img style="max-width:100%;max-height:100%;float: left;position: absolute;top: 10px;left: 10px;" src="https://img.busy.org/@{{user.name}}"> 
+      {{#if equals activeUser user.name}}
       <div class="ui labeled small  button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
         <div class="ui small  button unsubscribe dtube blue">
           {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
         </div>
       </div>
-      {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
+      {{myChannelSidebar}} 
+      {{else}} 
+      {{#if isSubscribedTo user.name}}
       <div class="ui labeled small  button" tabindex="0" style="float: right;position: absolute;right: 10px;bottom: 10px;">
         <div class="ui small  button unsubscribe dtube grey">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -29,7 +33,8 @@
           {{{subCount}}}
         </a>
       </div>
-      {{/if}} {{/if}}
+      {{/if}} 
+      {{/if}}
     </div>
     <div style="width:100%">
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important; max-width: 100%;">
@@ -126,8 +131,10 @@
     <div id="channelcover" class="channelcover">
       <h3 style="position:absolute;left:120px;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 4px #262626;">{{user.name}}</h3>
       {{#if author.json_metadata.profile.cover_image}}
-      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{else}}
-      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{/if}}
+      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+      {{else}}
+      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+      {{/if}}
       <img class="ui image circular" style="max-width:100%;float: left;position: absolute;top: 10px;left: 20px; max-height: calc(100% - 20px);"
         src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
       <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
@@ -137,7 +144,9 @@
           </div>
         </div>
       </a>
-      {{myChannelSidebar}} {{else}} {{#if isSubscribedTo user.name}}
+      {{myChannelSidebar}} 
+      {{else}} 
+      {{#if isSubscribedTo user.name}}
       <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
         <div class="ui small  button unsubscribe dtube grey">
           {{ translate 'VIDEO_UNSUBSCRIBE'}}
@@ -155,7 +164,8 @@
           {{{subCount}}}
         </a>
       </div>
-      {{/if}} {{/if}}
+      {{/if}} 
+      {{/if}}
     </div>
     <div style="width:100%">
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
@@ -173,11 +183,12 @@
             <div class="column">
               <h4 class="ui header">{{ translate 'CHANNEL_ACCOUNT_VALUE_DETAILS'}}</h4>
               <div class="ui link list">
-                <a class="item">{{ translate 'CHANNEL_STEEM_POWER'}}{{displaySteemPower author.vesting_shares}}
+                <a class="item black">{{ translate 'CHANNEL_STEEM_POWER'}}
+                  {{displaySteemPower author.vesting_shares}}
                   <span>
-                    (+{{displaySteemPower author.received_vesting_shares}}
-                    {{#if author.delegated_vesting_shares}}
-                    - {{displaySteemPower author.delegated_vesting_shares}}
+                    (+{{displaySteemPower author.received_vesting_shares}} 
+                    {{#if author.delegated_vesting_shares}} - 
+                    {{displaySteemPower author.delegated_vesting_shares}}
                     {{/if}})
                   </span>
                 </a>
@@ -197,95 +208,40 @@
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
-      {{#if userVideos}} 
-      {{> videoband userVideos}} 
-      {{/if}}
+      {{#if userVideos}} {{> videoband userVideos}} {{/if}}
     </div>
     <!-- DESKTOP ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui grid two column">
-        <div class="column">
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
-            <div class="ui fluid label">{{timeAgo author.last_post}}</div>
-          </div>
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
-            <div class="ui fluid label">{{timeAgo author.last_vote_time}}</div>
-          </div>
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
-            <div class="ui fluid label">{{timeAgo author.last_account_update}}</div>
-          </div>
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
-            <div class="ui fluid label">{{displayDate author.created}}</div>
-          </div>
+        <div class="column" style="padding-left:5px;">
+          {{> channelhistory}}
         </div>
-        <div class="column">
-          {{#each activities}} 
-          {{> activity}} 
-          {{/each}} 
+        <div class="column"  style="padding-right:5px;">
+          <div id="channelsubscriberslist" class="channelsubscriberslist" style="padding-top:1px;padding-bottom:1px;">
+            {{#each activities}}
+            {{#if equals user.name username}}
+            {{> activity}} 
+            {{/if}}
+            {{/each}}
+          </div>
         </div>
       </div>
     </div>
     <!-- DESKTOP ABOUT TAB -->
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui grid two column">
-        <div class="column">
-          {{#if author.json_metadata.profile.name}}
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
-            <div class="ui fluid label">{{author.json_metadata.profile.name}}</div>
-          </div>
-          {{/if}} 
-          {{#if author.json_metadata.profile.about}}
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
-            <div class="ui fluid label">{{author.json_metadata.profile.about}}</div>
-          </div>
-          {{/if}} 
-          {{#if author.json_metadata.profile.location}}
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
-            <div class="ui fluid label">{{author.json_metadata.profile.location}}</div>
-          </div>
-          {{/if}} 
-          {{#if author.json_metadata.profile.website}}
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
-            <div class="ui fluid label"><a href='{{author.json_metadata.profile.website}}' style="opacity:1!important;" target='_blank'>{{author.json_metadata.profile.website}}</a></div>
-          
-          </div>
-          {{/if}} 
-          {{#if userVideos.length}}
-          <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
-            <div class="ui fluid label">{{userVideos.length}}</div>
-          </div>
-          {{/if}}
-          <div class="ui white" style="padding-bottom:10px;">
-            <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
-            <div class="ui fluid label" style="background:#07dfb0 !important;color:white;">
-              <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
-            </div>
-          </div>
-          <div class="ui white" style="padding-bottom:10px;">
-            <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
-            <div class="ui fluid label" style="background:#4757b2 !important;color:white;">
-              <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
-            </div>
-          </div>
+        <div class="column" style="padding-left:5px;">
+          {{> channelabout}}
         </div>
-        <div class="column">
+        <div class="column" style="padding-right:5px;">
           <div class="ui white" style="padding-bottom:10px;">
             {{ translate 'CHANNEL_SUBSCRIBES'}}
           </div>
-          <div class="channelsubscriberslist">
+          <div  class="channelsubscriberslist">
             {{#each subscribe}} 
-            {{#if following}} 
-            {{> subscriber}} 
-            {{/if}} 
+              {{#if following}} 
+                {{> subscriber}} 
+              {{/if}} 
             {{/each}}
           </div>
         </div>

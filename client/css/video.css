@@ -131,10 +131,11 @@
 
 .snaploader{
   opacity: 0;
-  -moz-transition: opacity 5s;
-  -webkit-transition: opacity 5s;
-  -o-transition: opacity 5s;
-  transition: opacity 5s;
+  -moz-transition: opacity 2s;
+  -webkit-transition: opacity 2s;
+  -o-transition: opacity 2s;
+  transition: opacity 2s;
+  transition-delay: 2s;
 }
 
 .snaploader.loaded{

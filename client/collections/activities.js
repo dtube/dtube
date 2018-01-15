@@ -4,7 +4,6 @@ Activities.getAccountHistory = function (username) {
     steem.api.getAccountHistory(username, -1, 100, function (e, r) {
         if (!r || r.length < 1) return
         for (let i = 0; i < r.length; i++) {
-            console.log(r[i])
             var op = r[i][1].op
             var date = r[i][1].timestamp
             Activities.filterOperations(username,op,date)

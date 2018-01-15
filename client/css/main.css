@@ -402,3 +402,20 @@ button {
 {
 	background-color: #777777;
 }
+
+.channelsubscriberslist::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+.channelsubscriberslist::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.channelsubscriberslist::-webkit-scrollbar-thumb
+{
+	background-color: #777777;
+}
+

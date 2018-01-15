@@ -28,6 +28,10 @@
   display: block!important;
 }
 
+.videosnap:hover  .videosnapduration {
+  display: block!important;
+}
+
 .verticalvideosnap {
   /* margin-right: 4px; */
   display: inline-block;

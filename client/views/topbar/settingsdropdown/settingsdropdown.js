@@ -90,6 +90,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.pushable').addClass('nightmode');
     $('.pusher').addClass('nightmode');
     $('.article').addClass('nightmode');
+    $('body').addClass('nightmode');
 
     //TEXT
     $('.customlink').addClass('nightmodetext');
@@ -147,6 +148,7 @@ Template.settingsdropdown.switchToNormalMode = function (){
 $('.pushable').removeClass('nightmode');
 $('.pusher').removeClass('nightmode');
 $('.article').removeClass('nightmode');
+$('body').removeClass('nightmode');
 
     //TEXT
 $('.customlink').removeClass('nightmodetext');
