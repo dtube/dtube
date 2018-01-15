@@ -208,19 +208,29 @@
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
-      {{#if userVideos}} {{> videoband userVideos}} {{/if}}
+      {{#if userVideos}} 
+      {{> videoband userVideos}} 
+      {{/if}}
     </div>
     <!-- DESKTOP ACTIVITIES TAB -->
     <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-      <div class="ui grid two column">
-        <div class="column" style="padding-left:5px;">
-          {{> channelhistory}}
+      <div class="ui stackable grid column">
+        <div class="ten wide column" style="padding-left:5px;">
+            <h4 style="padding-left:5px;">{{ translate 'CHANNEL_SOCIAL'}}</h4>
+            <div id="channelsubscriberslist" class="channelsubscriberslist" style="padding-top:1px;padding-bottom:1px;">
+            {{#each activities}}
+            {{#if equals user.name username}}
+            {{> socialactivity}} 
+            {{/if}}
+            {{/each}}
+          </div>
         </div>
-        <div class="column"  style="padding-right:5px;">
+        <div class="six wide  column"  style="padding-right:5px;">
+            <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FINANCIAL'}}</h4>
           <div id="channelsubscriberslist" class="channelsubscriberslist" style="padding-top:1px;padding-bottom:1px;">
             {{#each activities}}
             {{#if equals user.name username}}
-            {{> activity}} 
+            {{> monetaryactivity}} 
             {{/if}}
             {{/each}}
           </div>
@@ -229,7 +239,7 @@
     </div>
     <!-- DESKTOP ABOUT TAB -->
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-      <div class="ui grid two column">
+      <div class="ui stackable grid two column">
         <div class="column" style="padding-left:5px;">
           {{> channelabout}}
         </div>
