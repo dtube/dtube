@@ -1,4 +1,4 @@
-Template.subscriber.rendered = function () {
+Template.socialactivity.rendered = function () {
   $('.items .image img')
   .visibility({
     type       : 'image',
@@ -7,7 +7,7 @@ Template.subscriber.rendered = function () {
   });
 }
 
-Template.activity.helpers({
+Template.socialactivity.helpers({
     getTitle: function(author,permlink) {
       var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
       if (video) return video.info.title;

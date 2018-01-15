@@ -26,6 +26,8 @@
   "CHANNEL_TOOLTIP_REPUTATION":"Reputation",
 	"CHANNEL_RELATED_CHANNELS":"Related channels",
 	"CHANNEL_SUBSCRIBES":"Subscribes",
+	"CHANNEL_SOCIAL":"Social",
+	"CHANNEL_FINANCIAL":"Financial",
   "COMMENT_SHOW":"Show",
   "COMMENT_HIDE":"Hide",
 	"COMMENT_REPLIES":"replies",
