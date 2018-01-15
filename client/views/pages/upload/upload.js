@@ -189,9 +189,9 @@ Template.upload.inputVideo = function(dt) {
 
   console.log(file)
   $('input[name="filesize"]').val(file.size)
-  Torrent.seed(file, function(torrent) {
-    $('input[name="magnet"]').val(torrent.magnetURI)
-  })
+  // Torrent.seed(file, function(torrent) {
+  //   $('input[name="magnet"]').val(torrent.magnetURI)
+  // })
 }
 
 Template.upload.events({
