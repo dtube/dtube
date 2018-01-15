@@ -226,10 +226,10 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
     text.replace(re, function (match, p1, p2, p3) {
       var seconds = parseInt(p3) + 60 * parseInt(p2)
       if (p1) seconds += 3600 * parseInt(p1)
-      if (p1) text = text.replace(match, '<a href=\'#\' onclick=\'Template.video.setTime(' + seconds + ')\'>' + p1 + ':' + p2 + ':' + p3 + '</a>')
+      if (p1) text = text.replace(match, '<a class="seekTo" onclick=\'Template.video.seekTo(' + seconds + ')\'>' + p1 + ':' + p2 + ':' + p3 + '</a>')
       else {
         if (!p2) return
-        text = text.replace(match, '<a href=\'#\' onclick=\'Template.video.setTime(' + seconds + ')\'>' + p2 + ':' + p3 + '</a>')
+        text = text.replace(match, '<a class="seekTo" onclick=\'Template.video.seekTo(' + seconds + ')\'>' + p2 + ':' + p3 + '</a>')
       }
     })
 

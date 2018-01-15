@@ -212,8 +212,11 @@ Template.video.events({
   // }
 })
 
-Template.video.setTime = function (seconds) {
-  $('video')[0].currentTime = seconds
+Template.video.seekTo = function (seconds) {
+  $('iframe')[0].contentWindow.postMessage({
+    seekTo: true,
+    seekTime: seconds
+  }, '*')
 }
 
 Template.video.loadState = function () {
