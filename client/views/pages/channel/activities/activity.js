@@ -22,7 +22,7 @@ Template.activity.helpers({
         name: FlowRouter.getParam("author")
       }
     },
-    content : function (author, permlink){
+    getTitleFromChain : function (author, permlink){
       var content = Videos.getContent(author,permlink,false,false)
       return
     }
