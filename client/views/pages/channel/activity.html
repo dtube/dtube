@@ -1,0 +1,114 @@
+<template name='activity'>
+{{#if equals type 'curation_reward'}}
+{{#if getTitle tx.comment_author tx.comment_permlink}}
+<div class="ui card" style="margin: 0px 5px;white-space: inherit;width:100%!important;border-radius:0px;background: #fafafa;">
+    <div class="content" style="padding: 0px;">
+            <div class="right floated" style="padding:5px;">
+                    <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
+                    <img href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="{{getSnap tx.comment_author tx.comment_permlink}}">
+                  </a>
+                </div>
+      <div style="padding: 10px;">
+        <div style="display:flex;">
+            <img class="ui avatar image" src="https://img.busy.org/@{{tx.curator}}">
+            <div style="display: inline;margin-left: 5px;">
+              <div>
+            <a style="color:#ff1a1a!important;" href="/c/{{tx.curator}}" target="_blank" class="user">{{tx.curator}}</a>
+            curator rewards : {{displaySteemPower tx.reward}} 
+          </div>
+              <a style="font-size:13px;color:rgb(27, 27, 27);"></a>
+              <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  {{/if}} 
+{{/if}} 
+
+{{#if equals type 'vote'}}
+{{#if getTitle tx.author tx.permlink}}
+<div class="ui card" style="margin: 0px 5px;white-space: inherit;width:100%!important;border-radius:0px;    background: #fafafa;">
+    <div class="content" style="padding: 0px;">
+        <div class="right floated" style="padding:5px;">
+            <a href="/v/{{tx.author}}/{{tx.permlink}}">
+            <img href="/v/{{tx.author}}/{{tx.permlink}}" style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="{{getSnap tx.author tx.permlink}}">
+          </a>
+        </div>
+      <div style="padding: 10px;">
+        <div style="display:flex;">
+            <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+            <div style="display: inline;margin-left: 5px;">
+              <div>
+            <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>
+            upvoted
+          </div>
+              <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
+              <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  {{/if}} 
+{{/if}} 
+
+{{#if equals type 'claim_reward_balance'}}
+<div class="ui card" style="margin: 0px 5px;white-space: inherit;width:100%!important;border-radius:0px;    background: #fafafa;">
+    <div class="content" style="padding: 0px;">
+      <div style="padding: 10px;">
+        <div style="display:flex;">
+            <img class="ui avatar image" src="https://img.busy.org/@{{tx.account}}">
+            <div style="display: inline;margin-left: 5px;">
+              <div>
+            <a style="color:#ff1a1a!important;" href="/c/{{tx.account}}" target="_blank" class="user">{{tx.account}}</a>
+            claimed rewards : {{displaySteemPower tx.reward_vests}} 
+          </div>
+              <a style="font-size:13px;color:rgb(27, 27, 27);"></a>
+              <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+{{/if}} 
+{{#if equals type 'comment'}}
+{{#if getTitle tx.parent_author tx.parent_permlink}}
+<div class="ui card" style="margin: 0px 5px;white-space: inherit;width:100%!important;border-radius:0px;    background: #fafafa;">
+    <div class="content" style="padding: 0px;">
+        <div class="right floated" style="padding:5px;">
+            <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
+            <img href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="border-radius:5px;margin-top: 5px;" width="70" height="40" src="{{getSnap tx.parent_author tx.parent_permlink}}">
+          </a>
+        </div>
+      <div style="padding: 10px;">
+        <div style="display:flex;">
+            <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
+            <div style="display: inline;margin-left: 5px;">
+              <div>
+            <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
+            commented
+          </div>
+              <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
+              <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  {{/if}} 
+{{/if}} 
+
+{{#if equals type 'account_witness_vote'}}
+{{/if}} 
+
+{{#if equals type 'transfer_to_vesting'}}
+{{/if}} 
+
+{{#if equals type 'account_update'}}
+{{/if}} 
+
+{{#if equals type 'custom_json'}}
+{{/if}} 
+
+</template>

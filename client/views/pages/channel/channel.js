@@ -78,6 +78,9 @@ Template.channel.helpers({
   }, 
   subscribe: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
+  },
+  activities: function() {
+    return Activities.find().fetch()
   }
 })
 
