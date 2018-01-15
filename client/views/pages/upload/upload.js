@@ -1,5 +1,13 @@
+refreshUploadStatus = null
+
 Template.upload.rendered = function() {
-  Session.set('bitrate', 0)
+  Template.sidebar.activeSidebarUpload()
+  Session.set('uploadToken', null)
+  Session.set('uploadVideoProgress', null)
+  $('.ui.sticky')
+  .sticky({
+    context: '#videouploadsteps'
+  }) ;
 }
 
 Template.upload.createPermlink = function(length) {
@@ -12,9 +20,39 @@ Template.upload.createPermlink = function(length) {
   return text;
 }
 
-Template.upload.HTTP = function(node, file, progressid, cb) {
-  //var postUrl = 'http://localhost:5000/uploadVideo'
-  var postUrl = node.protocol+'://'+node.host+':'+node.port+'/api/v0/add?stream-channels=true'
+Template.upload.helpers({
+  isOnMobile: function () {
+      if (/Mobi/.test(navigator.userAgent)) {
+          return true;
+      }
+  }
+});
+
+// Template.upload.rendered = function () {
+//   Template.upload.isOnTablet();
+//   $(window).on('resize', Template.upload.isOnTablet)
+// }
+
+// Template.upload.isOnTablet = function () {
+//   if ($(window).width() < 992) 
+//      return true
+//   else 
+//      return false
+// }
+
+Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
+  var body = '<center>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
+  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>\n\n'
+  body += description
+  body += '\n\n<hr>'
+  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ DTube</a><br />'
+  body += '<a href=\'https://ipfs.io/ipfs/'+videohash+'\'> ▶️ IPFS</a>'
+  return body
+}
+
+Template.upload.uploadVideo = function(file, progressid, cb) {
+  var postUrl = 'https://upldr'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -30,7 +68,7 @@ Template.upload.HTTP = function(node, file, progressid, cb) {
           $(progressid).progress({ value: evt.loaded, total: evt.total });
           if (evt.loaded == evt.total) {
             $(progressid).progress({ value: evt.loaded, total: evt.total });
-            $('#progressvideo > .label').html('File received. Adding to IPFS Datastore...')
+            $('#progressvideo > .label').html('File received. Requesting Token...')
           }
         }
       }, false);
@@ -41,6 +79,10 @@ Template.upload.HTTP = function(node, file, progressid, cb) {
     processData: false,
     success: function(result) {
       $(progressid).hide()
+      Session.set('uploadToken', result.token)
+      refreshUploadStatus = setInterval(function() {
+        Template.uploadvideoprogress.update()
+      }, 1000)
       cb(null, result)
     },
     error: function(error) {
@@ -50,19 +92,63 @@ Template.upload.HTTP = function(node, file, progressid, cb) {
   });
 }
 
-Template.upload.IPFS = function(node, file, cb) {
-  console.log(node,file)
-  var reader = new window.FileReader()
-  reader.onload = function(event) {
-    var ipfsCon = IpfsApi(node)
-    ipfsCon.add(new ipfsCon.Buffer(event.target.result), function(err, res) {
-      cb(err, res)
-    })
-  }
-  reader.readAsArrayBuffer(file);
+Template.upload.uploadImage = function(file, progressid, cb) {
+  var postUrl = 'https://snap1.d.tube/uploadImage'
+  var formData = new FormData();
+  formData.append('files', file);
+  $(progressid).progress({value: 0, total: 1})
+  $(progressid).show();
+  $.ajax({
+    url: postUrl,
+    type: "POST",
+    data: formData,
+    xhr: function() {
+      var xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          $(progressid).progress({ value: evt.loaded, total: evt.total });
+          if (evt.loaded == evt.total) {
+            $(progressid).progress({ value: evt.loaded, total: evt.total });
+            $('#progressvideo > .label').html('Snap Received...')
+          }
+        }
+      }, false);
+      return xhr;
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function(result) {
+      $(progressid).hide()
+      console.log(result)
+
+      refreshUploadSnapStatus = setInterval(function() {
+        var url = 'https://snap1.d.tube/getProgressByToken/'+result.token
+        $.getJSON(url, function( data ) {
+          var isCompleteUpload = true
+          if (data.ipfsAddSource.progress !== "100.00%") {
+            isCompleteUpload = false;
+          }
+          // if (data.ipfsAddOverlay.progress !== "100.00%") {
+          //   isCompleteUpload = false;
+          // }
+          if (isCompleteUpload) {
+            clearInterval(refreshUploadSnapStatus)
+            $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
+            $('#step2load').hide()
+            $('#step2load').parent().addClass('completed')
+          }
+        })
+      },1000)
+    },
+    error: function(error) {
+      $(progressid).hide()
+      cb(error)
+    }
+  });
 }
 
-Template.upload.uploadVideo = function(dt) {
+Template.upload.inputVideo = function(dt) {
   if (!dt.files || dt.files.length == 0) {
     toastr.error(translate('UPLOAD_ERROR_UPLOAD_FILE'), translate('ERROR_TITLE'))
     return
@@ -72,29 +158,31 @@ Template.upload.uploadVideo = function(dt) {
     toastr.error(translate('UPLOAD_ERROR_WRONG_FORMAT'), translate('ERROR_TITLE'))
     return
   }
-
-  $('#step1load').show()
-
+  $('#videopreview').removeClass('displaynone')
+  $('#snappreview').removeClass('displaynone')
   $('#dropzone').hide()
+  $('#step1load').show()
   $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))
 
   // displaying the preview
   var videoNode = document.querySelector('video')
   var fileURL = URL.createObjectURL(file)
+  videoNode.addEventListener('durationchange', function(){
+		if(videoNode.readyState){
+      $('input[name="duration"]').val(videoNode.duration)
+		}
+	})
   videoNode.src = fileURL
 
   // uploading to ipfs
-  node = Session.get('ipfsUpload')
-  Template.upload.HTTP(node, file, '#progressvideo', function(err, result) {
+  Template.upload.uploadVideo(file, '#progressvideo', function(err, result) {
     $('#step1load').hide()
     if (err) {
       console.log(err)
       toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
       return
     } else {
-      $('#step1load').parent().addClass('completed')
       console.log('Uploaded video', result);
-      $('input[name="videohash"]').val(result.Hash)
     }
   })
 
@@ -105,56 +193,36 @@ Template.upload.uploadVideo = function(dt) {
   })
 }
 
-Template.upload.genBody = function(author, permlink, title, snaphash, videohash, description) {
-  var body = '<center>'
-  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'>'
-  body += '<img src=\''+Meteor.getIpfsSrc(snaphash)+'\'></a></center><hr>'
-  body += description
-  body += '<hr>'
-  body += '<a href=\'https://d.tube/#!/v/'+author+'/'+permlink+'\'> ▶️ '+translate('UPLOAD_WATCH_ON_DTUBE')+' DTube</a><br />'
-  body += '<a href=\''+Meteor.getIpfsSrc(videohash)+'\'> ▶️ '+translate('UPLOAD_WATCH_SOURCE_IPFS')+'</a>'
-  return body
-}
-
-Template.upload.helpers({
-  mainUser: function() {
-    return Users.findOne({username: Session.get('activeUsername')})
-  },
-  bitrate: function() {
-    return Session.get('bitrate')
-  }
-})
-
 Template.upload.events({
   'click #dropzone': function(event) {
     $('#fileToUpload').click()
   },
   'change #fileToUpload': function(event) {
-    Template.upload.uploadVideo(event.target)
+    Template.upload.inputVideo(event.target)
   },
   'dropped #dropzone': function(event) {
-    Template.upload.uploadVideo(event.originalEvent.dataTransfer)
+    Template.upload.inputVideo(event.originalEvent.dataTransfer)
   },
   'click #snap': function(event) {
-  	var video = document.querySelector('video')
-  	var canvas = document.querySelector('canvas')
-  	var context = canvas.getContext('2d')
-  	var w,h,ratio
+    var video = document.querySelector('video')
+    var canvas = document.querySelector('canvas')
+    var context = canvas.getContext('2d')
+    var w,h,ratio
 
     // Calculate the ratio of the video's width to height
-		ratio = video.videoWidth / video.videoHeight
-		// Define the required width as 100 pixels smaller than the actual video's width
-		w = video.videoWidth - 100
-		// Calculate the height based on the video's width and the ratio
-		h = parseInt(w / ratio, 10)
-		// Set the canvas width and height to the values just calculated
-		canvas.width = w
-		canvas.height = h
+    ratio = video.videoWidth / video.videoHeight
+    // Define the required width as 100 pixels smaller than the actual video's width
+    w = video.videoWidth - 100
+    // Calculate the height based on the video's width and the ratio
+    h = parseInt(w / ratio, 10)
+    // Set the canvas width and height to the values just calculated
+    canvas.width = w
+    canvas.height = h
 
     // Define the size of the rectangle that will be filled (basically the entire element)
-		context.fillRect(0, 0, w, h)
-		// Grab the image from the video
-		context.drawImage(video, 0, 0, w, h)
+    context.fillRect(0, 0, w, h)
+    // Grab the image from the video
+    context.drawImage(video, 0, 0, w, h)
     // Save snap to disk
     var dt = canvas.toDataURL('image/jpeg')
     $('#snap').attr('href', dt)
@@ -175,7 +243,8 @@ Template.upload.events({
 
     // uploading to ipfs
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
+    //Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
+    Template.upload.uploadImage(file, '#progresssnap', function(err, result) {
       $('#step2load').hide()
       if (err) {
         console.log(err)
@@ -186,109 +255,6 @@ Template.upload.events({
         console.log('Uploaded Snap', result)
         $('input[name="snaphash"]').val(result.Hash)
       }
-    })
-  },
-  'submit .form': function(event) {
-    event.preventDefault()
-    var tags = ['dtube']
-    for (var i = 0; i < event.target.tags.value.split(' ').length; i++) {
-      if (i > 3) break
-      if (event.target.tags.value.split(' ')[i].toLowerCase() == 'nsfw') tags.push('nsfw')
-      tags.push('dtube-'+event.target.tags.value.split(' ')[i])
-    }
-    tags = tags.slice(0,5)
-    var article = {
-      info: {
-        title: event.target.title.value,
-        snaphash: event.target.snaphash.value,
-        author: Users.findOne({username: Session.get('activeUsername')}).username,
-        permlink: Template.upload.createPermlink(8),
-        duration: document.querySelector('video').duration,
-        filesize: event.target.filesize.value
-      },
-      content: {
-        videohash: event.target.videohash.value,
-        magnet: event.target.magnet.value,
-        description: event.target.description.value,
-        tags: tags
-      }
-    }
-    if (!article.info.title) {
-      toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.info.snaphash) {
-      toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.info.author) {
-      toastr.error(translate('UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING'), translate('ERROR_TITLE'))
-      return
-    }
-    if (!article.content.videohash) {
-      toastr.error(translate('UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING'), translate('ERROR_TITLE'))
-      return
-    }
-    $('#step3load').show()
-    Waka.api.Set(article, {}, function(e,r) {
-      Videos.refreshWaka()
-      // publish on blockchain !!
-      var wif = Users.findOne({username: Session.get('activeUsername')}).privatekey
-      var author = r.article.info.author
-      var permlink = r.article.info.permlink
-      var title = r.article.info.title
-      var body = Template.upload.genBody(author, permlink, title, r.article.info.snaphash, r.article.content.videohash, r.article.content.description)
-      var jsonMetadata = {
-        video: r.article,
-        tags: article.content.tags,
-        app: Meteor.settings.public.app
-      }
-
-      var operations = [
-        ['comment',
-          {
-            parent_author: '',
-            parent_permlink: tags[0],
-            author: author,
-            permlink: permlink,
-            title: title,
-            body: body,
-            json_metadata : JSON.stringify(jsonMetadata)
-          }
-        ],
-        ['comment_options', {
-          author: author,
-          permlink: permlink,
-          max_accepted_payout: '1000000.000 SBD',
-          percent_steem_dollars: 10000,
-          allow_votes: true,
-          allow_curation_rewards: true,
-          extensions: [
-            [0, {
-              beneficiaries: [{
-                account: Meteor.settings.public.beneficiary,
-                weight: Session.get('remoteSettings').dfees
-              }]
-            }]
-          ]
-        }]
-      ];
-      $('#step3load').show()
-      console.log(operations)
-      steem.broadcast.send(
-        { operations: operations, extensions: [] },
-        { posting: wif },
-        function(e, r) {
-          $('#step3load').hide()
-          if (e) {
-            if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
-            else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
-          } else {
-            window.open('/#!/v/'+author+'/'+permlink, '_blank');
-            FlowRouter.go('/torrentStats')
-          }
-        }
-      )
     })
   }
 })

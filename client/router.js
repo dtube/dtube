@@ -40,32 +40,13 @@ FlowRouter.route('/login', {
   }
 });
 
+
 FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
-    if (Math.random() < 1)
-    {
-      Session.set("pageTitle", 'Upload')
-      BlazeLayout.render('masterLayout', {
-        main: "newupload",
-        nav: "nav",
-      });
-    } else {
-      Session.set("pageTitle", 'Upload')
-      BlazeLayout.render('masterLayout', {
-        main: "upload",
-        nav: "nav",
-      });
-    }
-  }
-});
-
-FlowRouter.route('/newupload', {
-  name: "newupload",
-  action: function(params, queryParams) {
-    Session.set("pageTitle", 'newupload')
+    Session.set("pageTitle", 'Upload')
     BlazeLayout.render('masterLayout', {
-      main: "newupload",
+      main: "upload",
       nav: "nav",
     });
   }
@@ -184,6 +165,7 @@ FlowRouter.route('/v/:author/:permlink', {
 FlowRouter.route('/c/:author', {
   name: "channel",
   action: function(params, queryParams) {
+    Session.set("pageTitle", params.author + '\'s channel')
     BlazeLayout.render('masterLayout', {
       main: "channel",
       nav: "nav"

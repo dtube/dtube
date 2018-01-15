@@ -1,94 +1,101 @@
 <template name='upload'>
-<div class="ui container">
-  <center>
-    <div id="statuszone">
-      <div class="ui ordered steps">
-        <div class="step">
-          <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
-          <div class="content">
-            <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
-            <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+  <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
+    <center>
+      <div class="ui segment" style="margin:20px 0px;border-radius:0px;padding:30px;">
+        {{#if isOnMobile}}
+        <div id="statuszone" style="margin-top:20px;">
+          <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
+            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+              <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
+                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+              </div>
+            </div>
+            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+              <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
+                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+              </div>
+            </div>
+            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
+              <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
+                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+              </div>
+            </div> 
           </div>
         </div>
-        <div class="step">
-          <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
-          <div class="content">
-            <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
-            <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+        {{else}}
+        <div id="statuszone" style="margin:10 0px;">
+          <div class="ui ordered steps computer" style="width: 100%;    border-width: 0px;">
+            <div class="step">
+              <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
+                <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
+              </div>
+            </div>
+            <div class="step">
+              <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
+                <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
+              </div>
+            </div>
+            <div class="step">
+              <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
+              <div class="content">
+                <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
+                <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="step">
-          <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
-          <div class="content">
-            <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
-            <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
+        {{/if}}
+        <div class="ui indicating progress" id='progressvideo' style='display:none'>
+          <div class="bar">
+          </div>
+          <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
+        </div>
+        <div class="ui indicating progress" id='progresssnap' style='display:none'>
+          <div class="bar">
+          </div>
+          <div class="label">{{ translate 'UPLOAD_UPLOADING_SNAP'}}</div>
+        </div>
+        {{> uploadvideoprogress}}
+        <br />
+        <div id="dropzone" class="dropzone">
+          <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
+        </div>
+        <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
+        <div id="previewzone">
+          <div class="ui grid">
+            <div class="two column row">
+              <div class="column">
+                <video id="videopreview" class="displaynone" controls autoplay style="width:100%;height: 100%;"></video>
+              </div>
+              <div class="column">
+                <canvas id="snappreview" class="displaynone"></canvas>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:left;margin-top:20px;">
+            <a class='ui icon left labeled dtube white button' style="padding-left: 3.27142857em !important;"
+              id='snap' download='snap.jpg'>
+              <i class="photo icon"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>
+            <label for="snapFile">
+              <a class='ui red dtube icon right labeled button' style="padding-right: 3.27142857em !important;"
+                id='uploadSnap'>
+                <i class="cloud upload icon"></i> {{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
+            </label>
+            <input type="file" id="snapFile">
           </div>
         </div>
+        {{> uploadform}}
       </div>
-    </div>
-  </center>
-  <div class="ui active progress" id='progressvideo' style='display:none'>
-    <div class="bar">
-      <div class="progress"></div>
-    </div>
-    <div class="label">Uploading Video</div>
+    </center>
   </div>
-  <div class="ui active progress" id='progresssnap' style='display:none'>
-    <div class="bar">
-      <div class="progress"></div>
-    </div>
-    <div class="label">Uploading Snap</div>
-  </div>
-  <center>
-    <br />
-    <div id="dropzone" class="dropzone">
-      <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
-    </div>
-    <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
-  </center>
-  <div id="previewzone">
-    <div class="ui grid">
-      <div class="two column row">
-        <div class="column">
-          <video controls autoplay></video>
-          <!-- <h6>{{ translate 'UPLOAD_VIDEO_BITRATE'}}: {{humanFilesize bitrate 1}}/s</h6> -->
-        </div>
-        <div class="column"><canvas></canvas></div>
-      </div>
-    </div>
-    <a class='ui button' id='snap' download='snap.jpg'>{{ translate 'UPLOAD_TAKE_SNAP'}}</a>
-    <label for="snapFile">
-      <a class='ui youtube button' id='uploadSnap'>{{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
-    </label>
-    <input type="file" id="snapFile">
-  </div>
-  <div id="infozone">
-    <form class="ui form">
-      <div class="field">
-        <label>{{ translate 'UPLOAD_TITLE'}}</label>
-        <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}">
-      </div>
-      <div class="field">
-        <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
-        <textarea rows="4" name='description'></textarea>
-      </div>
-      <div class="field">
-        <label>{{ translate 'UPLOAD_TAGS'}}</label>
-        <input id="tags" name="tags" type="text" placeholder="{{ translate 'UPLOAD_TAGS'}}">
-      </div>
-
-      <div class="field" style='display: none'>
-        <label>{{ translate 'UPLOAD_MORE_INFO'}}</label>
-        <input type="text" name="author" placeholder="{{ translate 'UPLOAD_AUTHOR'}}" value="{{mainUser.username}}" disabled>
-        <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" disabled>
-        <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}" disabled>
-        <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}" disabled>
-        <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}" disabled>
-      </div>
-
-      <button class="ui button" type="submit">{{ translate 'UPLOAD_CLEAR'}}</button>
-      <button class="ui youtube button" type="submit">{{ translate 'UPLOAD_SUBMIT'}}</button>
-    </form>
-  </div>
-</div>
 </template>
