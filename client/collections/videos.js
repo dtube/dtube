@@ -375,14 +375,14 @@ Videos.getContent = function (author, permlink, loadComments, loadUsers) {
   });
 }
 
-Video.loadComments = function (author, permlink, loadUsers) {
+Videos.loadComments = function (author, permlink, loadUsers) {
   Session.set('loadingComments', true)
   steem.api.getContentReplies(author, permlink, function (err, result) {
     var oldVideo = Videos.findOne({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' })
     oldVideo.comments = result
     Videos.upsert({ _id: oldVideo._id }, oldVideo)
     Session.set('loadingComments', false)
-    
+
     if (!loadUsers) return
     var usernames = [oldVideo.info.author]
     for (var i = 0; i < oldVideo.comments.length; i++) {
