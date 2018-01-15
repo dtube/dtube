@@ -18,7 +18,7 @@ TrendingTags.loadTopTags = function(limit, cb) {
   // });
   dateTo = moment().format('YYYY-MM-DD');
   dateFrom = moment().subtract(30,'d').format('YYYY-MM-DD');
-  timeQ = 'created:['+dateFrom+' TO 2099-01-01]'
+  timeQ = 'created:>='+dateFrom
   AskSteem.trending({q: 'meta.video.info.title:* AND '+timeQ, types: 'tags', size: limit}, function(err, res) {
     if (err) console.log(err)
     var results = res.results
