@@ -1,28 +1,26 @@
 Subs = new Mongo.Collection(null)
 
-Subs.loadFollowing = function(username, startFollowing = undefined, cb) {
+Subs.loadFollowing = function(username, startFollowing = undefined, recursive = true, cb) {
   var limit = 100
   steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
     if (err) console.log(err)
     for (var i = 0; i < results.length; i++)
-      Subs.upsert(results[i], results[i])
-
-    if (results.length == limit) 
-      Subs.loadFollowing(username, results[results.length-1].following, cb)
+    Subs.upsert(results[i], results[i])
+    if (results.length == limit && recursive) 
+      Subs.loadFollowing(username, results[results.length-1].following, true, cb)
     else cb(username)
   });
 }
 
-Subs.loadFollowers = function(username, startFollowers = undefined, cb) {
+Subs.loadFollowers = function(username, startFollowers = undefined, recursive = true, cb) {
   var limit = 100
   steem.api.getFollowers(username, startFollowers, 'blog', limit, function(err, results) {
-    console.log(err, results)
     if (err) console.log(err)
     for (var i = 0; i < results.length; i++)
       Subs.upsert(results[i], results[i])
 
-    if (results.length == limit)
-      Subs.loadFollowers(username, results[results.length-1].follower, cb)
+    if (results.length == limit && recursive)
+      Subs.loadFollowers(username, results[results.length-1].follower, true, cb)
     else cb(username)
   });
 }

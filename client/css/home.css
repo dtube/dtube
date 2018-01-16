@@ -217,6 +217,12 @@ text-align: center;
   overflow-x: auto;
 }
 
+.channelfollowerslist
+{
+  max-height: 600px;
+  overflow-x: auto;
+}
+
 .ui.fluid.label{
   word-wrap: break-word;
 }
@@ -232,6 +238,10 @@ input[type="text"] {
 .subcommentsclosed{
   height: 0px;
   overflow: hidden; 
+}
+
+.seekTo{
+  cursor: pointer;
 }
 
 /* .ui.input input {

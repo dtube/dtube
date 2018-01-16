@@ -203,8 +203,8 @@
     </div>
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
       <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
-      <a class="item" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
-      <a class="item" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+      <a class="item activities" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
+      <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
     </div>
     <!-- DESKTOP VIDEOS TAB -->
     <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -239,22 +239,46 @@
     </div>
     <!-- DESKTOP ABOUT TAB -->
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-      <div class="ui stackable grid two column">
-        <div class="column" style="padding-left:5px;">
+      <div class="ui stackable grid column">
+        <div class="eight wide column" style="padding-left:5px;">
           {{> channelabout}}
         </div>
-        <div class="column" style="padding-right:5px;">
+        <div class="four wide column" style="padding-right:5px;">
           <div class="ui white" style="padding-bottom:10px;">
-            {{ translate 'CHANNEL_SUBSCRIBES'}}
+              <h4 style="padding-left:5px;"> {{ translate 'CHANNEL_FOLLOWERS'}} {{{subCount}}}</h4>
           </div>
-          <div  class="channelsubscriberslist">
-            {{#each subscribe}} 
-              {{#if following}} 
-                {{> subscriber}} 
+          <div class="ui infinite channelfollowerslist" style="padding-top:1px;padding-bottom:1px;">
+            {{#each followers}} 
+              {{#if equals following user.name}}
+              <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:90%!important;border-radius:0px;    background: #ffffff;">
+                  <div class="content" style="padding: 0px;">
+                      {{> follower}} 
+                  </div>
+              </div>
               {{/if}} 
             {{/each}}
+            <div class="ui large centered inline text loader hidden"></div>
           </div>
         </div>
+        <div class="four wide column" style="padding-right:5px;">
+            <div class="ui white" style="padding-bottom:10px;">
+                <h4 style="padding-left:5px;"> {{ translate 'CHANNEL_FOLLOWING'}} {{followingCount}}</h4>
+            </div>
+            <div  class="ui infinite channelsubscriberslist" style="padding-top:1px;padding-bottom:1px;">
+              {{#each subscribe}} 
+              {{#if following}}
+                {{#if equals follower user.name}}
+                <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:90%!important;border-radius:0px;    background: #ffffff;">
+                    <div class="content" style="padding: 0px;">
+                        {{> subscriber}} 
+                    </div>
+                </div>
+                {{/if}} 
+                {{/if}} 
+              {{/each}}
+              <div class="ui large centered inline text loader hidden"></div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

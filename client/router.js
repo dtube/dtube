@@ -174,7 +174,7 @@ FlowRouter.route('/c/:author', {
       // call finished
     })
     SubCounts.loadSubscribers(params.author)
-    Activities.getAccountHistory(params.author)
+    // SubCounts.loadFollowers(params.author)
     Template.channel.RandomBackgroundColor();
 
     //TO DO

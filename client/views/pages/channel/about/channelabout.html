@@ -1,14 +1,14 @@
 <template name='channelabout'>
   {{#if author.json_metadata.profile.name}}
   <div class="ui card" style="white-space: inherit;width:100%!important;border-radius:0px;background: #ffffff;">
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
       <div>
         <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.name}}</span>
       </div>
     </div>
     {{#if author.json_metadata.profile.about}}
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
       <div>
         <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.about}}</span>
@@ -16,7 +16,7 @@
     </div>
     {{/if}} 
     {{#if author.json_metadata.profile.location}}
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
       <div>
         <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.location}}</span>
@@ -24,7 +24,7 @@
     </div>
     {{/if}} 
     {{#if author.json_metadata.profile.website}}
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
       <div>
         <span style="font-size:13px;color:#555;">
@@ -33,7 +33,7 @@
       </div>
     </div>
     {{#if userVideos.length}}
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
       <div>
         <span style="font-size:13px;color:#555;">{{userVideos.length}}</span>
@@ -41,25 +41,25 @@
     </div>
     {{/if}} 
     {{/if}}
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
         {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
         <div>
             <span style="font-size:13px;color:#555;">{{timeAgo author.last_post}}</span>
         </div>
     </div>
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
         {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
         <div>
             <span style="font-size:13px;color:#555;">{{timeAgo author.last_post}}</span>
         </div>
     </div>
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
         {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
         <div>
             <span style="font-size:13px;color:#555;">{{timeAgo author.last_account_update}}</span>
         </div>
     </div>
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
         {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
         <div>
             <span style="font-size:13px;color:#555;">{{displayDate author.created}}</span>
@@ -68,7 +68,7 @@
   </div>
   {{/if}}
   <div class="ui card" style="white-space: inherit;width:100%!important;border-radius:0px;background: #ffffff;">
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
       <div>
         <span style="font-size:13px;color:#555;">
@@ -76,7 +76,7 @@
         </span>
       </div>
     </div>
-    <div style="display: inline;margin-left: 5px;padding: 10px;">
+    <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
       <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
       <div>
         <span style="font-size:13px;color:#555;">
