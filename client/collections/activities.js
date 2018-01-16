@@ -1,7 +1,7 @@
 Activities = new Mongo.Collection(null)
 
 Activities.getAccountHistory = function (username) {
-    steem.api.getAccountHistory(username, -1, 100, function (e, r) {
+    steem.api.getAccountHistory(username, -1, 200, function (e, r) {
         if (!r || r.length < 1) return
         for (let i = 0; i < r.length; i++) {
             var op = r[i][1].op
@@ -35,7 +35,8 @@ Activities.filterOperations = function (username, op, date) {
             Activities.insert({username : username, type: 'account_update', tx: op[1], date : date })
             break;
         case "custom_json":
-            Activities.insert({username : username, type: 'custom_json', tx: op[1], date : date })
+            op[1].json = JSON.parse(op[1].json)
+            Activities.insert({username : username, type: 'custom_json', tx: op[1].json, date : date })
             break;
     }
 }

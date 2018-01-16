@@ -2,13 +2,12 @@ Template.channel.rendered = function () {
   ChainUsers.fetchNames([FlowRouter.getParam("author")], function (error) {
     if (error) console.log('Error fetch name')
   })
-  $('.ui.sticky').sticky();
-  $('.menu .item').tab();
-  $('.ui.rating').rating('disable');
   Session.set('relatedChannels', [])
   AskSteem.related({ user: FlowRouter.getParam("author") }, function (err, result) {
     Session.set('relatedChannels', result.results)
   })
+  Template.settingsdropdown.nightMode();
+  Template.channel.RandomBackgroundColor();
   // $('.ui.infinite.channelsubscriberslist')
   //   .visibility({
   //     once: false,
@@ -33,7 +32,9 @@ Template.channel.rendered = function () {
   //       })
   //     }
   //   });
-  Template.settingsdropdown.nightMode();
+  $('.ui.sticky').sticky();
+  $('.menu .item').tab();
+  $('.ui.rating').rating('disable');
   $('.ui.menu .videoshowmore.money')
     .popup({
       inline: true,
@@ -45,7 +46,6 @@ Template.channel.rendered = function () {
         hide: 0
       }
     })
-  Template.channel.RandomBackgroundColor();
 }
 
 Template.channel.helpers({
@@ -113,7 +113,6 @@ Template.channel.helpers({
   activities: function () {
     return Activities.find().fetch()
   }
-
 })
 
 
