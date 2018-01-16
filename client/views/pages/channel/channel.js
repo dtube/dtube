@@ -8,30 +8,35 @@ Template.channel.rendered = function () {
   })
   Template.settingsdropdown.nightMode();
   Template.channel.RandomBackgroundColor();
-  // $('.ui.infinite.channelsubscriberslist')
-  //   .visibility({
-  //     once: false,
-  //     observeChanges: true,
-  //     onBottomVisible: function() {
-  //       $('.ui.infinite .loader').show()
-  //       Subs.loadFollowing(FlowRouter.getParam("author"), undefined, true, function(username){
-  //         if (err) console.log(err)
-  //         $('.ui.infinite .loader').hide()
-  //       })
-  //     }
-  //   });
-  //   $('.ui.infinite.channelfollowerslist')
-  //   .visibility({
-  //     once: false,
-  //     observeChanges: true,
-  //     onBottomVisible: function() {
-  //       $('.ui.infinite .loader').show()
-  //       Subs.loadFollowers(FlowRouter.getParam("author"), undefined, true, function(username){
-  //         if (err) console.log(err)
-  //         $('.ui.infinite .loader').hide()
-  //       })
-  //     }
-  //   });
+
+  //TODO
+  $('.ui.infinite.channelsubscriberslist')
+    .visibility({
+      once: false,
+      observeChanges: true,
+      onBottomVisible: function() {
+        $('.ui.infinite .loader').show()
+        Subs.loadFollowing(FlowRouter.getParam("author"), undefined, true, function(username){
+          console.log("load following")
+          if (err) console.log(err)
+          $('.ui.infinite .loader').hide()
+        })
+      }
+    });
+    $('.ui.infinite.channelfollowerslist')
+    .visibility({
+      once: false,
+      observeChanges: true,
+      onBottomVisible: function() {
+        $('.ui.infinite .loader').show()
+        Subs.loadFollowers(FlowRouter.getParam("author"), undefined, true, function(username){
+          console.log("load followers")
+          if (err) console.log(err)
+          $('.ui.infinite .loader').hide()
+        })
+      }
+    });
+    
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
   $('.ui.rating').rating('disable');
