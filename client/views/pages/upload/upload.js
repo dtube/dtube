@@ -93,7 +93,7 @@ Template.upload.uploadVideo = function(file, progressid, cb) {
 }
 
 Template.upload.uploadImage = function(file, progressid, cb) {
-  var postUrl = 'http://localhost:5000/uploadImage'
+  var postUrl = 'https://snap1.d.tube/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({value: 0, total: 1})
@@ -123,7 +123,7 @@ Template.upload.uploadImage = function(file, progressid, cb) {
       console.log(result)
 
       refreshUploadSnapStatus = setInterval(function() {
-        var url = 'http://localhost:5000/getProgressByToken/'+result.token
+        var url = 'https://snap1.d.tube/getProgressByToken/'+result.token
         $.getJSON(url, function( data ) {
           var isCompleteUpload = true
           if (data.ipfsAddSource.progress !== "100.00%") {

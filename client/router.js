@@ -174,11 +174,10 @@ FlowRouter.route('/c/:author', {
       // call finished
     })
     SubCounts.loadSubscribers(params.author)
-    // SubCounts.loadFollowers(params.author)
-    Template.channel.RandomBackgroundColor();
-
-    //TO DO
-    Template.channel.ForceUserLoading();
+    Template.channel.randomBackgroundColor();
+    ChainUsers.fetchNames([params.author], function (error) {
+      if (error) console.log('Error fetch name')
+    })
   }
 });
 

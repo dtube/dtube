@@ -20,7 +20,9 @@ var firstLoad = setInterval(function() {
 }, 50)
 
 Users.refreshUsers = function(usernames) {
+  if (usernames.length < 1) return;
   steem.api.getAccounts(usernames, function(e, chainusers) {
+    if (!chainusers) return;
     for (var i = 0; i < chainusers.length; i++) {
       var user = Users.findOne({username: chainusers[i].name})
       if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
@@ -42,9 +44,8 @@ Users.refreshLocalUsers = function() {
       usernames.push(results[i].username)
 
 
-      //NEED FIX
       // fill the subscribes for each local user
-      Subs.loadFollowing(results[i].username, undefined, function(follower) {
+      Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
         var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
         if (!sub) Subs.followUs(follower, function(follower){
           console.log('Subs loaded & Subscribed to dtube')

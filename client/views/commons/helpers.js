@@ -294,10 +294,10 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
   })
 
   Template.registerHelper('getSteemGProp', function() {
-    if (!Session.get('SteemGlobalProp'))
+    if (!Session.get('steemGlobalProp'))
     steem.api.getDynamicGlobalProperties(function(err, result) {
       if (result)
-      Session.set('SteemGlobalProp', result)
+      Session.set('steemGlobalProp', result)
     })
   })
 
@@ -311,22 +311,6 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
 
   Template.registerHelper('displayReputation', function(string){
     return steem.formatter.reputation(string);
-  })
-
-  Template.registerHelper('displayAmount', function(string){
-    return steem.formatter.amount(string);
-  })
-
-  Template.registerHelper('displayAccountValue', function(string){
-    return steem.formatter.estimateAccountValue(string);
-  })
-
-  Template.registerHelper('displayVestingSteem', function(string){
-    return steem.formatter.vestingSteem(string);
-  })
-
-  Template.registerHelper('displayVestToSteem', function(vestingShares, totalVestingShares, totalVestingFundSteem){
-    return steem.formatter.vestToSteem(vestingShares, totalVestingShares, totalVestingFundSteem);
   })
 
   Template.registerHelper('displayDate', function (date) {
@@ -345,20 +329,18 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
   })
 
   Template.registerHelper('displaySteemPower', function (vesting_shares) {
-    if (Session.get('SteemGlobalProp') && vesting_shares) {
-      var globals = Session.get('SteemGlobalProp')
-      var totalSteem = Number(globals.total_vesting_fund_steem.split(' ')[0]);
-      var totalVests = Number(globals.total_vesting_shares.split(' ')[0]);
-      var userVests = Number(vesting_shares.split(' ')[0]);
-      var SP = totalSteem * (userVests / totalVests);
-      return `${SP.toFixed(3)} SP`}
+    if (vesting_shares) {
+      var SP = Market.vestToSteemPower(vesting_shares.split(' ')[0])
+      return `${SP.toFixed(3)} SP`
+    }
+      
   })
 
   Template.registerHelper('displaySavings', function (savings_balance, savings_sbd_balance) {
     if (!savings_balance || !savings_sbd_balance) return
     else {
-      var savings_balance = Number(savings_balance.split(' ')[0]);
-      var savings_sbd_balance = Number(savings_sbd_balance.split(' ')[0]);
+      var savings_balance = parseFloat(savings_balance.split(' ')[0]);
+      var savings_sbd_balance = parseFloat(savings_sbd_balance.split(' ')[0]);
       var amount = savings_balance*Session.get('steemprice') + savings_sbd_balance**Session.get('steemdollarsprice')
       if (isNaN(amount)) return 0 + ' $'
       else return (amount +' $') }
@@ -389,23 +371,6 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
     //TODO if rewards = 50/50
     amount = ((amount/2)*Session.get('steemprice')) + ((amount/2)*Session.get('steemdollarsprice'))
     return (amount.toFixed(2));
-  })
-  
-  Template.registerHelper('getCoinMarketPrice', function (currency) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://api.coinmarketcap.com/v1/ticker/' + currency + '/', true);
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var ticker = JSON.parse(xhr.responseText)[0],
-                    html = '';
-                    Session.set(currency,(/\${PRICE_USD}/g, parseFloat(ticker.price_usd).toFixed(2)))
-            } else {
-              console.log("Error: API not responding!");
-            }
-        }
-    }
   })
 
   Template.registerHelper('displayActiveBalance', function (balance) {

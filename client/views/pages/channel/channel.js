@@ -1,41 +1,7 @@
 Template.channel.rendered = function () {
-  ChainUsers.fetchNames([FlowRouter.getParam("author")], function (error) {
-    if (error) console.log('Error fetch name')
-  })
   Session.set('relatedChannels', [])
-  AskSteem.related({ user: FlowRouter.getParam("author") }, function (err, result) {
-    Session.set('relatedChannels', result.results)
-  })
   Template.settingsdropdown.nightMode();
-  Template.channel.RandomBackgroundColor();
-
-  //TODO
-  // $('.ui.infinite.channelsubscriberslist')
-  //   .visibility({
-  //     once: false,
-  //     observeChanges: true,
-  //     onBottomVisible: function() {
-  //       $('.ui.infinite .loader').show()
-  //       Subs.loadFollowing(FlowRouter.getParam("author"), undefined, true, function(username){
-  //         console.log("load following")
-  //         if (err) console.log(err)
-  //         $('.ui.infinite .loader').hide()
-  //       })
-  //     }
-  //   });
-  //   $('.ui.infinite.channelfollowerslist')
-  //   .visibility({
-  //     once: false,
-  //     observeChanges: true,
-  //     onBottomVisible: function() {
-  //       $('.ui.infinite .loader').show()
-  //       Subs.loadFollowers(FlowRouter.getParam("author"), undefined, true, function(username){
-  //         console.log("load followers")
-  //         if (err) console.log(err)
-  //         $('.ui.infinite .loader').hide()
-  //       })
-  //     }
-  //   });
+  Template.channel.randomBackgroundColor();
 
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
@@ -101,14 +67,6 @@ Template.channel.helpers({
     if (!subCount || !subCount.following_count) return 0
     return subCount.following_count;
   },
-  myChannelSidebar: function () {
-    Template.sidebar.activeSidebarChannel();
-    return
-  },
-  resetSidebar: function () {
-    Template.sidebar.resetActiveMenu();
-    return
-  },
   subscribe: function () {
     return Subs.find({ follower: FlowRouter.getParam("author") }).fetch()
   },
@@ -153,19 +111,11 @@ Template.channel.events({
       if (err)
         toastr.error(Meteor.blockchainError(err))
     })
-  },
-  'click .item.about': function () {
-    Subs.loadFollowing(FlowRouter.getParam("author"), undefined, false, function (username) {
-      Subs.loadFollowers(FlowRouter.getParam("author"), undefined, false, function (username) { })
-    })
-  },
-  'click .item.activities': function () {
-    Activities.getAccountHistory(FlowRouter.getParam("author"))
   }
 })
 
 
-Template.channel.RandomBackgroundColor = function () {
+Template.channel.randomBackgroundColor = function () {
   var rnd = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
   switch (rnd) {
     case 1:
@@ -183,10 +133,4 @@ Template.channel.RandomBackgroundColor = function () {
     default:
       $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbge');
   }
-}
-
-Template.channel.ForceUserLoading = function () {
-  ChainUsers.fetchNames([FlowRouter.getParam("author")], function (error) {
-    if (error) console.log('Error fetch name')
-  })
 }
