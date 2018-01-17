@@ -103,8 +103,6 @@ FlowRouter.route('/newvideos', {
   }
 });
 
-
-
 FlowRouter.route('/watchlater', {
   name: "watchlater",
   action: function(params, queryParams) {

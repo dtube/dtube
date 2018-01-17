@@ -38,7 +38,9 @@
       </div>
     </div>
     <div style="margin-top:20px;">
-      {{> verticalvideoband tagVideos}}
+      {{#each tagVideos}}
+      {{> mobilevideosearchresult}}
+      {{/each}}
     </div>
   </div>
   {{else}}
@@ -79,7 +81,9 @@
         </div>
       </div>
     </div>
-    {{> videoband tagVideos}}
+      {{#each tagVideos}}
+      {{> videosearchresult}}
+      {{/each}}
   </div>
   {{/if}}
 </template>
