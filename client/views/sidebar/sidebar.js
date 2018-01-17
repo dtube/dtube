@@ -12,7 +12,7 @@ Template.sidebar.rendered = function () {
     }
   });
   Session.set('isSubscribesOpen', false)
-
+  Template.sidebar.selectMenu();
 }
 
 Template.sidebar.helpers({
@@ -26,18 +26,18 @@ Template.sidebar.helpers({
   },
   subscribelength: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-  }, 
+  },
   subscribe: function () {
     if (Session.get('isSubscribesOpen'))
-    return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-  }, 
+      return Subs.find({ follower: Session.get('activeUsername') }).fetch()
+  },
   watchAgain: function () {
     return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
   },
-  tags: function() {
-    return TrendingTags.find({}, {sort: {count: -1}, limit: 15}).fetch()
+  tags: function () {
+    return TrendingTags.find({}, { sort: { count: -1 }, limit: 15 }).fetch()
   },
-  subsOpen: function(){
+  subsOpen: function () {
     return Session.get('isSubscribesOpen')
   }
 });
@@ -65,43 +65,32 @@ Template.sidebar.resetActiveMenu = function () {
   Template.settingsdropdown.nightMode();
 }
 
-Template.sidebar.activeSidebarHome = function () {
+Template.sidebar.selectMenu = function () {
   Template.sidebar.resetActiveMenu()
-  $('#homesidebarmenu').addClass('activemenu')
+  switch (Session.get('currentSidebarMenu')) {
+    case 1:
+      $('#homesidebarmenu').addClass('activemenu')
+      break;
+    case 2:
+      $('#channelsidebarmenu').addClass('activemenu')
+      break;
+    case 3:
+      $('#uploadsidebarmenu').addClass('activemenu')
+      break;
+    case 4:
+      $('#hotsidebarmenu').addClass('activemenu')
+      break;
+    case 5:
+      $('#trendingsidebarmenu').addClass('activemenu')
+      break;
+    case 6:
+      $('#newsidebarmenu').addClass('activemenu')
+      break;
+    case 7:
+      $('#watchlatersidebarmenu').addClass('activemenu')
+      break;
+    case 8:
+      $('#watchagainsidebarmenu').addClass('activemenu')
+      break;
+  }
 }
-
-Template.sidebar.activeSidebarChannel = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#channelsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarTrending = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#trendingsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarHot= function () {
-  Template.sidebar.resetActiveMenu()
-  $('#hotsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarNew = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#newsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarWatchAgain = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#watchagainsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarUpload = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#uploadsidebarmenu').addClass('activemenu')
-}
-
-Template.sidebar.activeSidebarWatchLater = function () {
-  Template.sidebar.resetActiveMenu()
-  $('#watchlatersidebarmenu').addClass('activemenu')
-}
-

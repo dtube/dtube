@@ -12,5 +12,4 @@ Template.watchlater.helpers({
 })
 
 Template.watchlater.rendered = function () {
-  Template.sidebar.activeSidebarWatchLater();
 }

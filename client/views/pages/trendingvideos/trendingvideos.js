@@ -10,8 +10,6 @@ Template.trendingvideos.helpers({
 })
 
 Template.trendingvideos.rendered = function () {
-  Template.sidebar.activeSidebarTrending();
-
   $('.ui.infinite')
     .visibility({
       once: false,

@@ -1,7 +1,6 @@
 Activities = new Mongo.Collection(null)
 
 Activities.getAccountHistory = function (username) {
-
     if (Activities.find({ username: username }).fetch().length)
     {
         var lastActivity = Activities.findOne({ username: FlowRouter.getParam("author") }, { sort: { n: 1 } }).n
@@ -21,7 +20,6 @@ Activities.getAccountHistory = function (username) {
             }
         })
     }
-
 }
 Activities.filterOperations = function (username, r) {
     var op = r[1].op

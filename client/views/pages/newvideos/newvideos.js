@@ -16,8 +16,6 @@ Template.newvideos.helpers({
 })
 
 Template.newvideos.rendered = function () {
-  Template.sidebar.activeSidebarNew();
-
   $('.ui.infinite')
     .visibility({
       once: false,

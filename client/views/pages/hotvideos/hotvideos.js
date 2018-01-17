@@ -10,8 +10,6 @@ Template.hotvideos.helpers({
 })
 
 Template.hotvideos.rendered = function () {
-  Template.sidebar.activeSidebarHot();
-
   $('.ui.infinite')
   .visibility({
     once: false,

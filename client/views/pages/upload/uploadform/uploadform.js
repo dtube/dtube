@@ -175,7 +175,7 @@ Template.uploadform.events({
               else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
             } else {
               Session.set('uploadedVideo', {author: author, permlink: permlink})
-              FlowRouter.go('/torrentStats')
+              FlowRouter.go('/v/'+author+"/"+permlink)
             }
           }
         )

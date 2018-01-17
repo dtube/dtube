@@ -23,3 +23,10 @@ Template.activity.helpers({
         }
     }
 })
+
+
+Template.activity.events({
+    'click a': function () {
+        $('.ui.menu').find('.item').tab('change tab', 'first')
+    }
+  })

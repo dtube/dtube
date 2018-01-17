@@ -1,5 +1,6 @@
 Template.channel.rendered = function () {
   Session.set('relatedChannels', [])
+  Session.set('currentTab', 'videos')
   Template.settingsdropdown.nightMode();
   Template.channel.randomBackgroundColor();
   $('.ui.maingrid').removeClass('container');
@@ -73,6 +74,9 @@ Template.channel.helpers({
   },
   activities: function () {
       return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
+  },
+  currentTab: function () {
+    return Session.get('currentTab')
   }
 })
 
@@ -111,17 +115,10 @@ Template.channel.events({
     })
   },
   'click .item.activities': function () {
-    $('.ui.activities').addClass('infinite')
-    Activities.getAccountHistory(FlowRouter.getParam("author") ,-1,20)
-    $('.ui.infinite.activities').visibility({
-      once: false,
-      observeChanges: true,
-      onBottomVisible: function () {
-        $('.ui.infinite.activities .loader').show()
-        Activities.getAccountHistory(FlowRouter.getParam("author"))
-        $('.ui.infinite.activities .loader').hide()
-      }
-    });
+    Session.set('currentTab', 'activities')
+  },
+  'click .item.about': function () {
+    Session.set('currentTab', 'about')
   }
 })
 

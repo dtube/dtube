@@ -1,7 +1,6 @@
 refreshUploadStatus = null
 
 Template.upload.rendered = function() {
-  Template.sidebar.activeSidebarUpload()
   Session.set('uploadToken', null)
   Session.set('uploadVideoProgress', null)
   $('.ui.sticky')
