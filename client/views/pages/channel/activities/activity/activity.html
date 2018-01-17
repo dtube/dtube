@@ -4,7 +4,9 @@
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
+                        {{#if getSnap tx.comment_author tx.comment_permlink}} 
                         <img href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.comment_author tx.comment_permlink}}">
+                        {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
@@ -51,7 +53,9 @@
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
+                        {{#if getSnap tx.author tx.permlink}} 
                         <img href="/v/{{tx.author}}/{{tx.permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.author tx.permlink}}">
+                        {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
@@ -77,8 +81,10 @@
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
+                        {{#if getSnap tx.parent_author tx.parent_permlink}} 
                         <img href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="margin-top:10px;" width="70" height="40"
                             src="{{getSnap tx.parent_author tx.parent_permlink}}">
+                            {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
@@ -87,7 +93,7 @@
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" class="user">{{tx.author}}</a>
-                                commented
+                                replied
                             </div>
                             <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
                             <div>
@@ -99,10 +105,7 @@
             </div>
         </div>
         {{/if}} 
-        {{#if equals type 'account_update'}} 
-        {{/if}} 
-        {{#if equals type 'custom_json'}} 
-        {{#if equals tx.[0] 'follow'}}
+        {{#if equals type 'follow'}} 
         <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div style="padding: 10px;">
@@ -125,14 +128,37 @@
             </div>
         </div>
         {{/if}} 
+        {{#if equals type 'unfollow'}} 
+        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+            <div class="content" style="padding: 0px;">
+                <div style="padding: 10px;">
+                    <div style="display:flex;">
+                        <img class="ui avatar image" src="https://img.busy.org/@{{tx.[1].follower}}">
+                        <div style="display: inline;margin-left: 5px;">
+                            <div>
+                                <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
+                                unsubscribed from
+                                <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
+                                    <img class="ui avatar image" src="https://img.busy.org/@{{tx.[1].following}}">
+                                </a>
+                            </div>
+                            <div>
+                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{/if}} 
-        {{#if equals type 'custom_json'}} 
-        {{#if equals tx.[0] 'reblog'}} 
+        {{#if equals type 'reblog'}} 
         <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}">
+                        {{#if getSnap tx.[1].author tx.[1].permlink}} 
                         <img href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.[1].author tx.[1].permlink}}">
+                        {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
@@ -141,7 +167,7 @@
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.[1].author}}" class="user">{{tx.[1].account}}</a>
-                                reblogged
+                                resteemed
                             </div>
                             <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
                             <div>
@@ -153,6 +179,4 @@
             </div>
         </div>
         {{/if}} 
-        {{/if}} 
-
 </template>
