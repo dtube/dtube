@@ -121,7 +121,7 @@ width: 50%;
 }
 
 .channelcover{
-  min-height: 120px;
+  min-height: 150px;
   max-height: 240px;
   position: relative;
   overflow: hidden;

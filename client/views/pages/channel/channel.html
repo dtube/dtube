@@ -127,46 +127,48 @@
   <!--- /////////////////////////DESKTOP TEMPLATE FOR CHANNEL///////////////////////////// -->
   <div style="width: 100%;margin-top: -23px;">
     <div id="channelcover" class="channelcover">
-      <h3 style="position:absolute;left:120px;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 4px #262626;">{{user.name}}</h3>
       {{#if author.json_metadata.profile.cover_image}}
-      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
-      {{else}}
-      <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+        <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+        {{else}}
+        <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
       {{/if}}
-      <img class="ui image circular" style="max-width:100%;float: left;position: absolute;top: 10px;left: 20px; max-height: calc(100% - 20px);"
-        src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
-      <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
-        <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
-          <div class="ui small  button dtube blue">
-            {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+      <div class="ui container">
+        <h3 style="position:absolute;margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
+        <img class="ui image circular" style="max-width:100%;float: left;top: 10px;left: 20px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
+        <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
+          <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+            <div class="ui small  button dtube blue">
+              {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+            </div>
           </div>
-        </div>
-      </a>
-      {{else}} 
-      {{#if isSubscribedTo user.name}}
-      <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
-        <div class="ui small  button unsubscribe dtube grey">
-          {{ translate 'VIDEO_UNSUBSCRIBE'}}
-        </div>
-        <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-          {{{subCount}}}
         </a>
+        {{else}} 
+          {{#if isSubscribedTo user.name}}
+          <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+            <div class="ui small  button unsubscribe dtube grey">
+              {{ translate 'VIDEO_UNSUBSCRIBE'}}
+            </div>
+            <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+              {{{subCount}}}
+            </a>
+          </div>
+          {{else}}
+          <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+            <div class="ui red small  button dtube subscribe">
+              {{ translate 'VIDEO_SUBSCRIBE'}}
+            </div>
+            <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+              {{{subCount}}}
+            </a>
+          </div>
+          {{/if}} 
+        {{/if}}
       </div>
-      {{else}}
-      <div class="ui labeled small  button" tabindex="0" style="float: right;bottom: 20px;position: absolute;right: 20px;">
-        <div class="ui red small  button dtube subscribe">
-          {{ translate 'VIDEO_SUBSCRIBE'}}
-        </div>
-        <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-          {{{subCount}}}
-        </a>
-      </div>
-      {{/if}} 
-      {{/if}}
     </div>
-    <div style="width:100%">
+
       <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
         <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
+            <div class="ui container" style="display: block;">
           <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
             <i class="icon red star"></i>{{displayReputation author.reputation}}
           </div>
@@ -196,11 +198,12 @@
           </div>
         </div>
       </div>
+      </div>
 
-    </div>
+    <div class="ui container">
     <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
       <a class="item active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
-      <!-- <a class="item activities" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a> -->
+      <a class="item activities" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
       <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
     </div>
     <!-- DESKTOP VIDEOS TAB -->
@@ -210,38 +213,73 @@
       {{/if}}
     </div>
     <!-- DESKTOP ACTIVITIES TAB -->
-    <!-- <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+    <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       <div class="ui stackable grid column">
-        <div class="ten wide column" style="padding-left:5px;">
+        <div class="twelve wide column" style="padding-left:5px;">
           <h4 style="padding-left:5px;">{{ translate 'CHANNEL_SOCIAL'}}</h4>
-          <div style="padding-top:1px;padding-bottom:1px;">
-            {{#each activities}}
-              {{#if equals user.name username}}
-                {{> socialactivity}} 
-              {{/if}}
+          <div class="ui activities">
+            {{#each activities}} 
+                {{> activity}}
             {{/each}}
-          </div>
-        </div>
-        <div class="six wide  column"  style="padding-right:5px;">
-          <h4 style="padding-left:5px;">{{ translate 'CHANNEL_REWARDS'}}</h4>
-          <div style="padding-top:1px;padding-bottom:1px;">
-            {{#each activities}}
-              {{#if equals user.name username}}
-                {{> monetaryactivity}} 
-              {{/if}}
-            {{/each}}
-          </div>
-        </div>
+          <div class="ui large centered inline text loader"></div>
       </div>
-    </div> -->
-    <!-- DESKTOP ABOUT TAB -->
-    <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-      <div class="ui stackable grid column">
-        <div class="sixteen wide column" style="padding-left:5px;">
-          {{> channelabout}}
+        </div>
+        <div class="four wide column" style="padding-left:5px;">
+            <div class="ui form">
+                <div class="grouped fields">
+                  <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
+                  <div class="field">
+                      <div class="ui checkbox liked">
+                          <input type="checkbox" name="liked">
+                          <label>Liked</label>
+                        </div>
+                  </div>
+                  <div class="field">
+                      <div class="ui checkbox">
+                          <input type="checkbox" name="shared">
+                          <label>Shared</label>
+                        </div>
+                  </div>
+                  <div class="field">
+                      <div class="ui checkbox">
+                          <input type="checkbox" name="replied">
+                          <label>Replied</label>
+                        </div>
+                  </div>
+                  <div class="field">
+                      <div class="ui checkbox">
+                          <input type="checkbox" name="subscribed">
+                          <label>Subscribed</label>
+                        </div>
+                  </div>
+                  <div class="field">
+                      <div class="ui checkbox">
+                          <input type="checkbox" name="curation">
+                          <label>Curation reward</label>
+                        </div>
+                  </div>
+                  <div class="field">
+                      <div class="ui checkbox">
+                          <input type="checkbox" name="author">
+                          <label>Author reward</label>
+                        </div>
+                  </div>
+                </div>
+              </div>
         </div>
       </div>
     </div>
+    <!-- DESKTOP ABOUT TAB -->
+    <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      <div class="ui stackable grid column">
+        <div class="eight wide column" style="padding-left:5px;">
+          {{> channelabout}}
+        </div>
+        <div class="eight wide column" style="padding-left:5px;">
+          </div>
+      </div>
+    </div>
+  </div>
   </div>
   {{/if}}
 </template>

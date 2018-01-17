@@ -2,21 +2,19 @@ Template.channel.rendered = function () {
   Session.set('relatedChannels', [])
   Template.settingsdropdown.nightMode();
   Template.channel.randomBackgroundColor();
-
+  $('.ui.maingrid').removeClass('container');
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
   $('.ui.rating').rating('disable');
-  $('.ui.menu .videoshowmore.money')
-    .popup({
-      inline: true,
-      hoverable: true,
-      boundary: '.container',
-      position: 'bottom left',
-      delay: {
-        show: 100,
-        hide: 0
-      }
-    })
+  $('.ui.menu .videoshowmore.money').popup({
+    inline: true,
+    hoverable: true,
+    position: 'bottom right',
+    delay: {
+      show: 100,
+      hide: 0
+    }
+  })
 }
 
 Template.channel.helpers({
@@ -74,7 +72,7 @@ Template.channel.helpers({
     return Subs.find({ following: FlowRouter.getParam("author") }).fetch()
   },
   activities: function () {
-    return Activities.find().fetch()
+      return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
   }
 })
 
@@ -111,6 +109,19 @@ Template.channel.events({
       if (err)
         toastr.error(Meteor.blockchainError(err))
     })
+  },
+  'click .item.activities': function () {
+    $('.ui.activities').addClass('infinite')
+    Activities.getAccountHistory(FlowRouter.getParam("author") ,-1,20)
+    $('.ui.infinite.activities').visibility({
+      once: false,
+      observeChanges: true,
+      onBottomVisible: function () {
+        $('.ui.infinite.activities .loader').show()
+        Activities.getAccountHistory(FlowRouter.getParam("author"))
+        $('.ui.infinite.activities .loader').hide()
+      }
+    });
   }
 })
 

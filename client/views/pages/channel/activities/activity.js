@@ -1,4 +1,4 @@
-Template.monetaryactivity.rendered = function () {
+Template.activity.rendered = function () {
     $('.items .image img')
         .visibility({
             type: 'image',
@@ -7,7 +7,7 @@ Template.monetaryactivity.rendered = function () {
         });
 }
 
-Template.monetaryactivity.helpers({
+Template.activity.helpers({
     getTitle: function (author, permlink) {
         var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
         if (video) return video.info.title;
@@ -21,9 +21,5 @@ Template.monetaryactivity.helpers({
         return {
             name: FlowRouter.getParam("author")
         }
-    },
-    getTitleFromChain: function (author, permlink) {
-        var content = Videos.getContent(author, permlink, false, false)
-        return
     }
 })
