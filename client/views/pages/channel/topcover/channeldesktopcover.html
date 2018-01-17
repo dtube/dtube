@@ -1,0 +1,67 @@
+<template name='channeldesktopcover'>
+        <div id="channelcover" class="channelcover">
+            {{#if author.json_metadata.profile.cover_image}}
+            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{else}}
+            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{/if}}
+            <div class="ui container">
+                <h3 style="position:absolute;margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
+                <img class="ui image circular" style="max-width:100%;float: left;top: 10px;left: 20px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
+                <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
+                    <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+                        <div class="ui small  button dtube blue">
+                            {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+                        </div>
+                    </div>
+                </a>
+                {{else}} {{#if isSubscribedTo user.name}}
+                <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+                    <div class="ui small  button unsubscribe dtube grey">
+                        {{ translate 'VIDEO_UNSUBSCRIBE'}}
+                    </div>
+                    <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+                        {{{subCount}}}
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui labeled small  button" tabindex="0" style="position:relative;float: right;top: 100px;">
+                    <div class="ui red small  button dtube subscribe">
+                        {{ translate 'VIDEO_SUBSCRIBE'}}
+                    </div>
+                    <a class="ui basic label buttonlabel" style="border-width:1px!important;">
+                        {{{subCount}}}
+                    </a>
+                </div>
+                {{/if}} {{/if}}
+            </div>
+        </div>
+        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
+            <div class="ui fluid compact menu" style="min-height:0px!important;display: block;border-width:0px;border-radius:0px;">
+                <div class="ui container" style="display: block;">
+                    <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
+                        <i class="icon red star"></i>{{displayReputation author.reputation}}
+                    </div>
+                    <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
+                        <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}} %
+                    </div>
+                    <div class="ui videoshowmore money label" style="margin-left: 0em;float:right;">
+                        <i class="icon green money"></i>${{author.estimateAccountValue}}
+                    </div>
+                    <div class="ui popup bottom left transition hidden" style="max-width: 100%;">
+                        <div class="column">
+                            <h4 class="ui header">{{ translate 'CHANNEL_ACCOUNT_VALUE_DETAILS'}}</h4>
+                            <div class="ui link list">
+                                <a class="item black">{{ translate 'CHANNEL_STEEM_POWER'}} {{displaySteemPower author.vesting_shares}}
+                                    <span>
+                                        (+{{displaySteemPower author.received_vesting_shares}} {{#if author.delegated_vesting_shares}} - {{displaySteemPower author.delegated_vesting_shares}}
+                                        {{/if}})
+                                    </span>
+                                </a>
+                                <a class="item">{{ translate 'CHANNEL_STEEM_BALANCE'}} {{author.balance}}</a>
+                                <a class="item">{{ translate 'CHANNEL_STEEM_DOLLARS_BALANCE'}} {{displayCurrency author.sbd_balance}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>

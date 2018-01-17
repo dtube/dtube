@@ -1,10 +1,13 @@
 Template.activity.rendered = function () {
-    $('.items .image img')
-        .visibility({
-            type: 'image',
-            transition: 'fade in',
-            duration: 1000
-        });
+  $(this.firstNode).find('img').visibility({
+    once: true,
+    // update size when new content loads
+    observeChanges: true,
+    refreshOnResize:false,
+    type       : 'image',
+    transition : 'fade in',
+    duration   : 1000
+  })
 }
 
 Template.activity.helpers({
