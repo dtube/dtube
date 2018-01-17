@@ -322,17 +322,19 @@ Videos.parseFromChain = function(video, isComment) {
   newVideo.created = video.created
   newVideo.net_rshares = video.net_rshares
   newVideo.reblogged_by = video.reblogged_by
-  // hmmm
-  var xssTags = []
-  for (let i = 0; i < newVideo.content.tags.length; i++) {
-    xssTags.push(xss(newVideo.content.tags[i], {
-      whiteList: [],
-      stripIgnoreTag: true,
-      stripIgnoreTagBody: ['script']
-    }))
+  
+  // xss attack fix
+  if (newVideo.content && newVideo.content.tags) {
+    var xssTags = []
+    for (let i = 0; i < newVideo.content.tags.length; i++) {
+      xssTags.push(xss(newVideo.content.tags[i], {
+        whiteList: [],
+        stripIgnoreTag: true,
+        stripIgnoreTagBody: ['script']
+      }))
+    }
+    newVideo.content.tags = xssTags
   }
-  console.log(xssTags)
-  newVideo.content.tags = xssTags
   return newVideo;
 }
 
