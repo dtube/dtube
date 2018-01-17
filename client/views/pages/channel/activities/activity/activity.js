@@ -21,3 +21,8 @@ Template.activity.events({
         $('.ui.menu').find('.item').tab('change tab', 'first')
     }
   })
+
+  
+Template.activity.rendered = function(){
+    Template.settingsdropdown.nightMode();
+  }

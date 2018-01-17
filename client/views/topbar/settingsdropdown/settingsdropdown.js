@@ -117,6 +117,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.description').addClass('nightsecondarytext');
     $('.videoshowmore').addClass('nightmodetext');
     $('.buttonlabel').addClass('nightbutton');
+    $('.ui.checkbox label').addClass('nightmodetext');
 
     $('.ui.segments > .segment').addClass('nightsegment');
     $('.commentbutton').addClass('nightmodetext');
@@ -126,6 +127,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     //COMPONENTS
     $('.menu').addClass('nightmode');
     $('.ui.segment').addClass('nightmode');
+    $('.ui.card').addClass('nightmode');
     $('.sidebarlink').addClass('nightmodegray');
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
@@ -175,6 +177,7 @@ $('.ui.comments .comment .metadata').removeClass('nightsecondarytext');
 $('.description').removeClass('nightsecondarytext');
 $('.videoshowmore').removeClass('nightmodetext');
 $('.buttonlabel').removeClass('nightbutton');
+$('.ui.checkbox label').removeClass('nightmodetext');
 
 $('.ui.segments > .segment').removeClass('nightsegment');
 $('.commentbutton').removeClass('nightmodetext');
@@ -184,6 +187,7 @@ $('.owl-prev, .owl-next').removeClass('nightmodegray');
     //COMPONENTS
 $('.menu').removeClass('nightmode');
 $('.ui.segment').removeClass('nightmode');
+$('.ui.card').removeClass('nightmode');
 $('.sidebarlink').removeClass('nightmodegray');
 $('.ui.secondary.segment').removeClass('nightmodegray');
 $('.ui.header').removeClass('nightmodetext');

@@ -17,6 +17,7 @@ Template.channelactivities.rendered = function () {
             Template.channelactivities.removeFilterType(this.name);
         }
     })
+        Template.settingsdropdown.nightMode(); 
 }
 
 Template.channelactivities.helpers({

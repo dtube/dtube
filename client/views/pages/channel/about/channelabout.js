@@ -1,3 +1,7 @@
+Template.channelabout.rendered = function () {
+    Template.settingsdropdown.nightMode();
+  }
+
 Template.channelabout.helpers({
     author: function () {
         return ChainUsers.findOne({ name: FlowRouter.getParam("author") })
