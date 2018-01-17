@@ -1,7 +1,5 @@
 Template.channelactivities.rendered = function () {
     Activities.getAccountHistory(FlowRouter.getParam("author"), -1, 20)
-    $('.ui.infinite.activities').visibility('refresh')
-    $('.ui.activities').addClass('infinite')
     $('.ui.infinite.activities').visibility({
         once: false,
         observeChanges: true,
@@ -24,3 +22,8 @@ Template.channelactivities.helpers({
     }
 })
 
+Template.channelactivities.events({
+    'click .checkbox.liked': function () {
+        Activities.direct.update({ username: FlowRouter.getParam("author"), type : 'vote' }, { sort: { date: -1 } })
+    }
+  })

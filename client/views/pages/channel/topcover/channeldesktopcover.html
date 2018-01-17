@@ -1,8 +1,10 @@
 <template name='channeldesktopcover'>
         <div id="channelcover" class="channelcover">
             {{#if author.json_metadata.profile.cover_image}}
-            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{else}}
-            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> {{/if}}
+            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+            {{else}}
+            <img src="https://img.busy.org/@{{user.name}}/cover" style="position:absolute;object-fit: cover;width: 100%;height: 100%;"> 
+            {{/if}}
             <div class="ui container">
                 <h3 style="position:absolute;margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
                 <img class="ui image circular" style="max-width:100%;float: left;top: 10px;left: 20px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}

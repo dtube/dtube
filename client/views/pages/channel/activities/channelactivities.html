@@ -1,15 +1,6 @@
 <template name='channelactivities'>
     <div class="ui stackable grid column">
-        <div class="thirteen wide column computer only" style="padding-left:0px;padding-right: 10px;">
-            <h4 style="padding-left:5px;">{{ translate 'CHANNEL_SOCIAL'}}</h4>
-            <div class="ui activities">
-                {{#each activities}} 
-                    {{> activity}} 
-                {{/each}}
-                <div class="ui large centered inline text loader"></div>
-            </div>
-        </div>
-        <div class="three wide column" style="padding-left:20px;">
+        <div class="three wide column mobile only tablet only" style="padding-left:20px;">
             <div class="ui form">
                 <div class="grouped fields">
                     <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
@@ -20,31 +11,31 @@
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
+                        <div class="ui checkbox shared">
                             <input type="checkbox" name="shared">
                             <label>Shared</label>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
+                        <div class="ui checkbox replied">
                             <input type="checkbox" name="replied">
                             <label>Replied</label>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
+                        <div class="ui checkbox subscribed">
                             <input type="checkbox" name="subscribed">
                             <label>Subscribed</label>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
+                        <div class="ui checkbox curation">
                             <input type="checkbox" name="curation">
                             <label>Curation reward</label>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui checkbox">
+                        <div class="ui checkbox author">
                             <input type="checkbox" name="author">
                             <label>Author reward</label>
                         </div>
@@ -52,11 +43,56 @@
                 </div>
             </div>
         </div>
-        <div class="thirteen wide column mobile only tablet only" style="padding-left:0px;padding-right: 10px;">
+        <div class="thirteen wide column" style="padding-left:0px;padding-right: 10px;">
             <h4 style="padding-left:5px;">{{ translate 'CHANNEL_SOCIAL'}}</h4>
-            <div class="ui activities">
-                {{#each activities}} {{> activity}} {{/each}}
+            <div class="ui infinite activities">
+                {{#each activities}} 
+                {{> activity}} 
+                {{/each}}
                 <div class="ui large centered inline text loader"></div>
+            </div>
+        </div>
+        <div class="three wide column computer only" style="padding-left:20px;">
+            <div class="ui form">
+                <div class="grouped fields">
+                    <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
+                    <div class="field">
+                        <div class="ui checkbox liked">
+                            <input type="checkbox" name="liked">
+                            <label>Liked</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox shared">
+                            <input type="checkbox" name="shared">
+                            <label>Shared</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox replied">
+                            <input type="checkbox" name="replied">
+                            <label>Replied</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox subscribed">
+                            <input type="checkbox" name="subscribed">
+                            <label>Subscribed</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox curation">
+                            <input type="checkbox" name="curation">
+                            <label>Curation reward</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox author">
+                            <input type="checkbox" name="author">
+                            <label>Author reward</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
