@@ -6,12 +6,14 @@
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
       </div>
     </a>
+    {{#if activeUser}}
     <a href='/c/{{activeUser}}' class="item" style="padding:0%;">
       <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="grid layout icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
       </div>
     </a>
+    {{/if}}
     <a href='/upload' class="item" style="padding:0%;">
       <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="cloud upload icon dtubesidebaricon"></i>
@@ -70,15 +72,12 @@
         </p>
       </div>
       {{else}}
-
       <div class="menuitem dtubesidebarmenu loadsubs" style="padding:0%;">
         <i class="smile icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NO_SUBSCRIBES'}}</span>
       </div>
-    
       {{/if}}
     </div>
-
     <div class="ui divider"></div>
     <div id="tagslist" class="tagslist">
         <div class="menuitem dspinh pdgnone" style="padding:0%;">

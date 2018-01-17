@@ -1,24 +1,52 @@
 <template name='home'>
   {{#if isOnMobile}} 
-    <div style="margin-left:4px;margin-right:4px;" class="ui content">
+    <div style="margin-left:auto;margin-right:auto;margin-top:0px;max-width: 642px;padding-left:5px;padding-right:5px;" class="ui content">
         {{#if feedVideos}}
         <h2>{{ translate 'HOME_TITLE_FEED_VIDEOS'}}</h2>
           {{> videoslider feedVideos}}
         {{/if}}
         {{#if hotVideos}}
-        <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+        <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+        <div class="left floated left aligned ten wide column" style="padding-left:0px;">
+            <h2>{{ translate 'HOME_TITLE_HOT_VIDEOS'}}</h2>
+          </div>
+          <div class=" floated right aligned four wide column" style="padding-right:0px;margin-top:5px;">
+              <a href='/hotvideos' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
+          </div>
+        </div>
           {{> videoslider hotVideos}} 
         {{/if}}
         {{#if trendingVideos}}
-        <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+        <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+            <div class="left floated left aligned ten wide column" style="padding-left:0px;">
+                <h2>{{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}</h2>
+              </div>
+              <div class=" floated right aligned four wide column" style="padding-right:0px;margin-top:5px;">
+                  <a href='/trendingvideos' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
+              </div>
+            </div>
           {{> videoslider trendingVideos}}
         {{/if}}
         {{#if newVideos}}
-        <h2>{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</h2>
+        <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+            <div class="left floated left aligned ten wide column" style="padding-left:0px;">
+                <h2>{{ translate 'HOME_TITLE_NEW_VIDEOS'}}</h2>
+              </div>
+              <div class=" floated right aligned four wide column" style="padding-right:0px;margin-top:5px;">
+                  <a href='/newvideos' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
+              </div>
+            </div>
           {{> videoslider newVideos}}
         {{/if}}
         {{#if watchAgain}}
-        <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+        <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+            <div class="left floated left aligned ten wide column" style="padding-left:0px;">
+                <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+              </div>
+              <div class=" floated right aligned four wide column" style="padding-right:0px;margin-top:5px;">
+                  <a href='/history' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
+              </div>
+            </div>
           {{> videoslider watchAgain}}
         {{/if}}
         {{#if neighborhood}}
