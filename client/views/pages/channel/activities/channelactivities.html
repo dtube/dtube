@@ -1,6 +1,6 @@
 <template name='channelactivities'>
     <div class="ui stackable grid column">
-        <div class="three wide column mobile only tablet only" style="padding-left:20px;">
+        <div class="three wide column mobile only tablet only" style="padding-left:0px;">
             <div class="ui form">
                 <div class="grouped fields">
                     <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="thirteen wide column" style="padding-left:0px;padding-right: 10px;">
-            <h4 style="padding-left:5px;">{{ translate 'CHANNEL_SOCIAL'}}</h4>
+            <h4 style="padding-left:5px;">{{ translate 'CHANNEL_HISTORY'}}</h4>
             <div class="ui infinite activities">
                 {{#each activities}} 
                 {{> activity}} 

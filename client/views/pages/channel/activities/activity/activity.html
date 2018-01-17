@@ -14,8 +14,7 @@
                         <img class="ui avatar image" src="https://img.busy.org/@{{tx.curator}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.curator}}" class="user">{{tx.curator}}</a>
-                                curation rewards : {{displaySteemPower tx.reward}}
+                             {{tx.curator}} curation rewards : {{displaySteemPower tx.reward}}
                             </div>
                             <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.comment_author tx.comment_permlink}}</a>
                             <div>
@@ -35,8 +34,7 @@
                         <img class="ui avatar image" src="https://img.busy.org/@{{tx.account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.account}}" class="user">{{tx.account}}</a>
-                                claimed rewards : {{displaySteemPower tx.reward_vests}}
+                             {{tx.account}} claimed rewards : {{displaySteemPower tx.reward_vests}}
                             </div>
                             <a style="font-size:13px;color:rgb(27, 27, 27);"></a>
                             <div>
@@ -60,10 +58,19 @@
                 </div>
                 <div style="padding: 10px;">
                     <div style="display:flex;">
+                            {{#if equals user.name tx.voter}}
                         <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+                        {{else}}
+                        <a href="/c/{{tx.voter}}">
+                        <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}"></a>
+                        {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
+                                {{#if equals user.name tx.voter}}
+                                {{tx.voter}}
+                                {{else}}
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" class="user">{{tx.voter}}</a>
+                                {{/if}} 
                                 upvoted
                             </div>
                             <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
@@ -89,10 +96,19 @@
                 </div>
                 <div style="padding: 10px;">
                     <div style="display:flex;">
-                        <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
+                            {{#if equals user.name tx.author}}
+                            <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
+                            {{else}}
+                            <a href="/c/{{tx.author}}">
+                            <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}"></a>
+                            {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" class="user">{{tx.author}}</a>
+                                {{#if equals user.name tx.author}}
+                                    {{tx.author}}
+                                        {{else}}
+                                        <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" class="user">{{tx.author}}</a>
+                                    {{/if}} 
                                 replied
                             </div>
                             <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
@@ -139,7 +155,7 @@
                                 <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
                                 unsubscribed from
                                 <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
-                                    <img class="ui avatar image" src="https://img.busy.org/@{{tx.[1].following}}">
+                                    <img class="ui avatar image" style="margin-left:5px;" src="https://img.busy.org/@{{tx.[1].following}}">
                                 </a>
                             </div>
                             <div>
@@ -163,13 +179,17 @@
                 </div>
                 <div style="padding: 10px;">
                     <div style="display:flex;">
-                        <img class="ui avatar image" src="https://img.busy.org/@{{tx.[1].author}}">
+                        <img class="ui avatar image" src="https://img.busy.org/@{{tx.[1].account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.[1].author}}" class="user">{{tx.[1].account}}</a>
+                               {{tx.[1].account}}
                                 resteemed
+                                <a href="/c/{{tx.[1].author}}" style="color:rgb(255, 0, 0);">{{tx.[1].author}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="https://img.busy.org/@{{tx.[1].author}}">
+                                </a>
                             </div>
                             <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
+                            
                             <div>
                                 <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
                             </div>
