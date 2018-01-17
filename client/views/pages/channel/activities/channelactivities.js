@@ -17,7 +17,7 @@ Template.channelactivities.helpers({
             username: FlowRouter.getParam("author")
         }
         if (Session.get('activityTypeFilter'))
-            query.type = Session.get('activityTypeFilter')
+            query.type = { $in: Session.get('activityTypeFilter') }
         return Activities.find(query, { sort: { date: -1 }}).fetch()
     },
     isOnMobile: function () {
