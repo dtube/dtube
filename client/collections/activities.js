@@ -3,7 +3,7 @@ Activities = new Mongo.Collection(null)
 Activities.getAccountHistory = function (username) {
     if (Activities.find({ username: username }).fetch().length) {
         var lastActivity = Activities.findOne({ username: FlowRouter.getParam("author") }, { sort: { n: 1 } }).n
-        steem.api.getAccountHistory(username, lastActivity, 20, function (e, r) {
+        steem.api.getAccountHistory(username, lastActivity, 50, function (e, r) {
             if (!r || r.length < 1) return
             for (let i = 0; i < r.length; i++) {
                 Activities.filterOperations(username, r[i])
@@ -11,7 +11,7 @@ Activities.getAccountHistory = function (username) {
         })
     }
     else {
-        steem.api.getAccountHistory(username, -1, 20, function (e, r) {
+        steem.api.getAccountHistory(username, -1, 50, function (e, r) {
             if (!r || r.length < 1) return
             for (let i = 0; i < r.length; i++) {
                 Activities.filterOperations(username, r[i])
