@@ -13,7 +13,12 @@ Template.channelactivities.rendered = function () {
 
 Template.channelactivities.helpers({
     activities: function () {
-        return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
+        var query = { 
+            username: FlowRouter.getParam("author")
+        }
+        if (Session.get('activityTypeFilter'))
+            query.type = Session.get('activityTypeFilter')
+        return Activities.find(query, { sort: { date: -1 }}).fetch()
     },
     isOnMobile: function () {
         if (/Mobi/.test(navigator.userAgent)) {
@@ -24,6 +29,6 @@ Template.channelactivities.helpers({
 
 Template.channelactivities.events({
     'click .checkbox.liked': function () {
-        Activities.direct.update({ username: FlowRouter.getParam("author"), type : 'vote' }, { sort: { date: -1 } })
+        //Session.set('activityTypeFilter', )
     }
   })
