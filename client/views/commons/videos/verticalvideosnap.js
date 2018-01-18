@@ -21,13 +21,6 @@ Template.verticalvideosnap.rendered = function () {
   Template.settingsdropdown.nightMode();
  }
 
-// Template.verticalvideosnap.snapLoaded = function () {
-//   $('#snapimg').imagesLoaded(function () {
-//     //$('#snapload').remove();
-//     //let cheat
-//   });
-// }
-
  Template.verticalvideosnap.helpers({
   isOnWatchAgain: function() {
     return Session.get('isOnWatchAgain')

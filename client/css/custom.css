@@ -164,7 +164,7 @@ h1, h2, h3, h4, h5{
 }
 .channelbge{
   background: #FC5C7D;  
-  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D); 
+  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);  
   background: linear-gradient(to right, #6A82FB, #FC5C7D);
   
 }
@@ -173,7 +173,7 @@ h1, h2, h3, h4, h5{
   display: inherit;
 }
 
-.pdgnone{
+.pdgnone{ 
   padding:0px;
 }
 
@@ -187,4 +187,8 @@ height:30px;
 
 .almostblack{
 color:#262626!important;
+}
+
+textarea{
+  white-space: pre-wrap;
 }

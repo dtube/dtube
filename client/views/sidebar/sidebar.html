@@ -14,12 +14,21 @@
       </div>
     </a>
     {{/if}}
+    {{#if activeUser}}
     <a href='/upload' class="item" style="padding:0%;">
       <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="cloud upload icon dtubesidebaricon"></i>
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
       </div>
     </a>
+    {{else}}
+    <a href='/login' class="item" style="padding:0%;">
+      <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
+        <i class="cloud upload icon dtubesidebaricon"></i>
+        <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+      </div>
+    </a>
+    {{/if}} 
     <a href='/hotvideos' class="item" style="padding:0%;">
       <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu dspinh pdgnone">
         <i class="fire icon dtubesidebaricon"></i>
@@ -51,7 +60,7 @@
       </div>
     </a>
     <div class="ui divider"></div>
-    <div class="ui subscribers accordion">
+    <!-- <div class="ui subscribers accordion">
       {{#if subscribelength.length}}
       <a class="item title loadsubs" style="padding:0%;">
         <div class="menuitem " style="padding:0%;cursor: default;">
@@ -78,7 +87,7 @@
       </div>
       {{/if}}
     </div>
-    <div class="ui divider"></div>
+    <div class="ui divider"></div> -->
     <div id="tagslist" class="tagslist">
         <div class="menuitem dspinh pdgnone" style="padding:0%;">
             <h4 class="dtubesidebartitle" style="padding-left: 20px;">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>

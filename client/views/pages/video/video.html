@@ -99,7 +99,7 @@
               </a>
             </div>
             {{/if}} {{else}}
-            <div class="ui blue small dtube button editvideo dtube">
+            <div class="ui lightblue small dtube button editvideo dtube">
               <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
             </div>
             {{/unless}}
@@ -112,12 +112,11 @@
           </div>
         </div>
       </div>
-
       <div id='editvideosegment' class="ui segment" style="display: none">
         {{> uploadform}}
       </div>
       <!-- Syntaxed video description - Show More -->
-      <div id="descriptionsegment" class="ui segment closed descriptionsegment" style="overflow: hidden;width:100%;">
+      <div id="descriptionsegment" class="ui segment closed descriptionsegment" style="display:grid;overflow: hidden;width:100%;">
         <div id="truncateddesc" class="truncate" style="overflow: hidden;">
           <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
           <br/> {{{syntaxed content.description}}}
@@ -181,9 +180,7 @@
       </div>
     </div>
   </div>
-
   <!-- Recommended videos  -->
-  <!-- {{#if userVideosAndResteems}} -->
   <div class="ui grid computer only videorecommendedcomputer">
     <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
     {{#if userVideosAndResteems}} 
@@ -200,6 +197,5 @@
   </div>
   {{> popupvoter}} 
   {{> popupdownvoter}}
-  <!-- {{/if}} -->
   {{/with}}
 </template>

@@ -1,6 +1,6 @@
 Template.videosnap.events({
   'click .addwatchlater': function () {
-    WatchLater.upsert({_id: this._id},this)
+    WatchLater.upsert({ _id: this._id }, this)
     event.preventDefault()
   },
   'click .watchlater': function () {
@@ -18,36 +18,35 @@ Template.videosnap.events({
 })
 
 Template.videosnap.helpers({
-  isInWatchLater: function() {
-    return  WatchLater.find({_id: this._id}).fetch()
+  isInWatchLater: function () {
+    return WatchLater.find({ _id: this._id }).fetch()
   },
-  isOnWatchAgain: function() {
+  isOnWatchAgain: function () {
     return Session.get('isOnWatchAgain')
   }
 })
 
 Template.videosnap.rendered = function () {
   $(this.firstNode.nextSibling).find('img').visibility({
-    type       : 'image',
-    transition : 'fade in',
-    duration   : 1000
+    type: 'image',
+    transition: 'fade in',
+    duration: 1000
   })
   Template.settingsdropdown.nightMode();
   $(this.firstNode.nextSibling).find('#snapload').addClass('loaded');
-  
-    $('.ui.infinite')
-      .visibility({
-        once: false,
-        observeChanges: true,
-        onBottomVisible: function() {
-          $('.ui.infinite .loader').show()
-          Videos.getVideosBy('trending', 50, function(err){
-            if (err) console.log(err)
-            $('.ui.infinite .loader').hide()
-          })
-        }
-      });
-  
+  $('.ui.infinite')
+    .visibility({
+      once: false,
+      observeChanges: true,
+      onBottomVisible: function () {
+        $('.ui.infinite .loader').show()
+        Videos.getVideosBy('trending', 50, function (err) {
+          if (err) console.log(err)
+          $('.ui.infinite .loader').hide()
+        })
+      }
+    });
+
 }
 
 

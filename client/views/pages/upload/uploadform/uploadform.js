@@ -77,6 +77,10 @@ Template.uploadform.generateVideo = function(form, tags, permlink) {
     toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
     return
   }
+  if (!article.info.title.length > 256) {
+    toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
+    return
+  }
   if (!article.info.snaphash) {
     toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
     return

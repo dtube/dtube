@@ -150,6 +150,7 @@
 	"UPLOAD_ERROR_NOT_IMAGE":"The file you are trying to upload is not an image",
 	"UPLOAD_ERROR_REACH_MAX_SIZE":"Maximum snap file size is",
 	"UPLOAD_ERROR_TITLE_REQUIRED":"Title is required",
+	"UPLOAD_ERROR_TITLE_TOO_LONG":"Title is too long",
 	"UPLOAD_ERROR_UPLOAD_SNAP_FILE":"Please upload a snap picture",
 	"UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING":"Please login before uploading",
 	"UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING":"Please upload a video before submitting",

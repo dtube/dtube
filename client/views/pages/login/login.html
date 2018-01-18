@@ -1,7 +1,7 @@
 <template name='login'>
   <div class="ui grid" style="max-width:600px;margin:auto;">
-    <form class="ui large form">
-      <div class="ui stacked segment">
+    <form class="ui large form" style="width:100%;">
+      <div class="ui stacked segment" style="padding: 20px;">
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
@@ -21,8 +21,7 @@
           </div>
         </div>
         <div id="loginbutton" class="ui fluid labeled small button" tabindex="0">
-          <button type="submit" name="button" style="background:#ff1a1a!important;" 
-          class="ui fluid red  small left dtube submit button">
+          <button type="submit" name="button" class="ui fluid red small left dtube submit button">
             <i class="sign in icon"></i>{{ translate 'LOGIN_BUTTON_LOGIN'}}
           </button>
         </div>
@@ -30,8 +29,7 @@
            <label class="text">Or</label>
         </div>
         <div id="loginbuttonsc2" class="ui fluid labeled small button" tabindex="0">
-          <button type="submit" name="button" style="background:blue!important;" 
-          class="ui fluid blue small left dtube submit button">
+          <button type="submit" name="button"  class="ui fluid blue small left dtube submit button">
             <i class="sign in icon"></i>{{ translate 'LOGIN_BUTTON_STEEMCONNECT'}}
           </button>
         </div>
