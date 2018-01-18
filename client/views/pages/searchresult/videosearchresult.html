@@ -33,22 +33,26 @@
           </a>
         </div>
       </div>
-      <div class="boxdisplayer" style="padding-top:3px;padding-bottom:3px;">
-        <div class='videosnapauthor' style="font-size: 1em;">
+      <div class='videosnapauthor' style="font-size: 1em;">
           <a href='/c/{{author}}'>
             <span class="customlink">{{author}}</span>
           </a>
         </div>
+      <div class="boxdisplayer">
         {{#if payout}}
-          <div class='videosnaprest' style="padding-left: 5px;float:none;margin-right: 0px;">
-            ${{displayPayout payout}}
+        <div class='videosnaprest' style="float:none;margin-right: 0px;">
+          ${{displayPayout payout}}
+        </div>
+        {{else}}
+        <div class='videosnaprest' style="float:none;margin-right: 0px;">
+            ${{displayPayout pending_payout_value}}
           </div>
-        {{/if}}
-        {{#if created}}
-          <div class="videosnaptime" style="padding-left: 5px;">
-            - {{timeAgo created}}
-          </div>
-          {{/if}}
+      {{/if}}
+      {{#if created}}
+      <div class="videosnaptime" style="padding-left: 5px;">
+        - {{timeAgo created}}
+      </div>
+      {{/if}}
       </div>
       <div class='videosnapdescription'>
         {{#if meta.video.content.description}}

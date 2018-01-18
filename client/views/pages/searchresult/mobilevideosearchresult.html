@@ -7,17 +7,14 @@
               {{#if meta.video.info.duration}} 
               <span class="videosnapduration">{{durationDisplay meta.video.info.duration}}</span>
             {{/if}}
-            <!-- {{#if duration}}
-              <span class="videosnapduration">{{durationDisplay duration}}</span>
-            {{/if}} -->
             <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:160px;height:90px;position: absolute">
                 <i class="icon photo nosnap" style="font-size:28px;margin-top:20px;"></i>
                 <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
               </div> 
               {{#if meta.video.info.snaphash}}
-            <img id="snapimg" class="sprite" width="160" height="90" alt="" data-src="{{ipfsSrc meta.video.info.snaphash}}">
+            <img id="snapimg" class="sprite" width="160" height="105" style="object-fit: cover" alt="" data-src="{{ipfsSrc meta.video.info.snaphash}}">
             {{else}}
-            <img id="snapimg" class="sprite" width="160" height="90" alt="" data-src="{{ipfsSrc info.snaphash}}">
+            <img id="snapimg" class="sprite" width="160" height="105" style="object-fit: cover" alt="" data-src="{{ipfsSrc info.snaphash}}">
             {{/if}}
             <br />
           </div>
@@ -35,16 +32,20 @@
               </a>
             </div>
           </div>
-          <div class="boxdisplayer" style="padding-top:3px;">
-            <div class='videosnapauthor' style="font-size: 0.8em;">
+          <div class='videosnapauthor' style="font-size: 0.8em;">
               <a href='/c/{{author}}'>
                 <span class="customlink">{{author}}</span>
               </a>
             </div>
-            {{#if payout}}
-              <div class='videosnaprest' style="padding-left: 5px;float:none;margin-right: 0px;    font-size: 0.8em;">
+          <div class="boxdisplayer">
+              {{#if payout}}
+              <div class='videosnaprest' style="float:none;margin-right: 0px;    font-size: 0.8em;">
                 ${{displayPayout payout}}
               </div>
+              {{else}}
+              <div class='videosnaprest' style="float:none;margin-right: 0px;    font-size: 0.8em;">
+                  ${{displayPayout pending_payout_value}}
+                </div>
             {{/if}}
             {{#if created}}
           <div class="videosnaptime" style="padding-left: 5px;float:none;margin-right: 0px;    font-size: 0.8em;">

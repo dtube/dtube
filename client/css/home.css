@@ -91,6 +91,7 @@
   font-size: 0.9em;
 }
 
+
 .videosnapdescription{
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
@@ -127,7 +128,10 @@
   width: 100%;
   display: -webkit-box;
   line-height: 1.30em;
-  max-height: 2.5em;
+  max-height: 2.6em;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
 .verticalvideosnaptitle {
@@ -141,6 +145,9 @@
   display: -webkit-box;
   line-height: 1.3em;
   max-height: 3.8em;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
 .videosnapsnap {
