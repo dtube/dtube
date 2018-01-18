@@ -199,9 +199,12 @@ button {
 
 .customtitlelink
 {
-  color:black;
+  color: #262626;
   font-family: 'Roboto Medium', 'Roboto', 'sans-serif';
   font-weight: 500;
+  font-size: 1rem;
+  max-height: 3.2rem;
+  line-height: 1rem;
 }
 
 .customlink
