@@ -34,19 +34,6 @@ Template.videosnap.rendered = function () {
   })
   Template.settingsdropdown.nightMode();
   $(this.firstNode.nextSibling).find('#snapload').addClass('loaded');
-  $('.ui.infinite')
-    .visibility({
-      once: false,
-      observeChanges: true,
-      onBottomVisible: function () {
-        $('.ui.infinite .loader').show()
-        Videos.getVideosBy('trending', 50, function (err) {
-          if (err) console.log(err)
-          $('.ui.infinite .loader').hide()
-        })
-      }
-    });
-
 }
 
 

@@ -3,7 +3,7 @@
   <div class='videosnap' style="max-width:210px;width:100%;">
     <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
       <div id='snaphover' class='videosnapsnap' style="height:118px;width:100%">
-        <div style="z-index:1;position:absolute;width:100%;height:118px;">
+        <div class="pos-abs" style="z-index:1;width:100%;height:118px;">
         {{#if info.duration}} 
           <span class="videosnapduration">{{durationDisplay info.duration}}</span>
         {{/if}}
@@ -14,7 +14,7 @@
       {{/if}}  -->
         {{#if equals source 'wakaArticles'}}
         {{#if isOnWatchAgain}}
-        <div id="remove" class="remove" title='Stop sharing {{info.title}}' style="cursor: pointer;position: absolute;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+        <div id="remove" class="remove pos-abs" title='Stop sharing {{info.title}}' style="cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
           <i class="remove icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
               <span style="z-index:9000;"></span>
             </i>
@@ -22,20 +22,20 @@
           {{/if}} 
           {{else}}
           {{#if isInWatchLater}} 
-          <div id="watchlater" class="watchlater right floated" title='Remove from Watch later' style="display:none;cursor: pointer;position: absolute;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+          <div id="watchlater" class="watchlater right floated pos-abs" title='Remove from Watch later' style="display:none;cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
               <i class="checkmark icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
                   <span style="z-index:9000;"></span>
                 </i>
               </div>
           {{else}}
-          <div id="watchlater" class="addwatchlater right floated" title='Watch later' style="display:none;cursor: pointer;position: absolute;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+          <div id="watchlater" class="addwatchlater right floated pos-abs" title='Watch later' style="display:none;cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
               <i class="time icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
                   <span style="z-index:9000;"></span>
                 </i>
               </div>
               {{/if}} 
         {{/if}} 
-        <div id="snapload" class="ui snaploader" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;position: absolute;display: block;text-align: center;">
+        <div id="snapload" class="ui snaploader pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:100%;height:118px;display: block;text-align: center;">
             <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div> 

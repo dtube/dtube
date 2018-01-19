@@ -11,7 +11,7 @@
             <h1 class="videotitle">{{info.title}}</h1>
           </div>
           <div style="display:inline-block;">
-          <div id='videosnaptags' class='videosnaptags' style="bottom: 5px;float:left;position:relative;max-width: 48%;">
+          <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
             {{#each content.tags}} 
             {{#if equals this 'dtube'}} 
             {{else}}
@@ -158,11 +158,11 @@
             <div class="ui author" style="margin-top:5px;margin-right:10px;font-weight: 600;">{{activeUser}}</div>
           </div>
           <form class="ui reply form" style="width:100%;">
-            <div class="field" style="width:100%;position:relative;display: inline-block;
+            <div class="field pos-rel" style="width:100%;display: inline-block;
                           vertical-align: top;">
               <textarea id="replytext" rows="3"></textarea>
             </div>
-            <div class="ui right labeled submit icon button white dtube" style="position:relative;float:right;
+            <div class="ui right labeled submit icon button white dtube pos-rel" style="float:right;
                           vertical-align: top;">
               <i class="ui right icon talk"></i>{{ translate 'VIDEO_ADD_COMMENT'}}
               <!-- {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}} -->

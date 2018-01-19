@@ -168,16 +168,27 @@ h1, h2, h3, h4, h5{
   background: linear-gradient(to right, #6A82FB, #FC5C7D);
   
 }
-
-.dspinh{
-  display: inherit;
+.pos-abs{
+  position: absolute!important;
 }
 
-.pdgnone{ 
-  padding:0px;
+.pos-rel{
+  position: relative!important;
 }
 
-.mrgnone{
+.dsp-inh{
+  display: inherit!important;
+}
+
+.pdg-none{ 
+  padding:0px!important;
+}
+
+.wid-ful{
+  width:100%;
+}
+
+.mrg-none{
   margin:0px!important;
 }
 

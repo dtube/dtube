@@ -1,13 +1,13 @@
 <template name='mobilevideosearchresult'>
   {{#unless isVideoHidden this}}
     <div class='verticalvideosnap' style="width:100%;display:flex;">
-      <div style="width:160px;height:90px;float: left;position:relative;">
+      <div class="pos-rel" style="width:160px;height:90px;float: left;">
         <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
           <div class='verticalvideosnapsnap' style="height:90px;width: 160px;">
               {{#if meta.video.info.duration}} 
               <span class="videosnapduration">{{durationDisplay meta.video.info.duration}}</span>
             {{/if}}
-            <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:160px;height:90px;position: absolute">
+            <div id="snapload" class="ui active dimmer pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);width:160px;height:90px;">
                 <i class="icon photo nosnap" style="font-size:28px;margin-top:20px;"></i>
                 <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
               </div> 
@@ -20,7 +20,7 @@
           </div>
         </a>
       </div>
-      <div style="position:relative;text-align:left;max-width:54%;margin-left: 8px;">
+      <div class="pos-rel" style="text-align:left;max-width:54%;margin-left: 8px;">
           <div class="boxdisplayer">
             <div class='verticalvideosnaptitle' style="max-height: 2.6em;">
               <a href='/v/{{author}}/{{permlink}}'>

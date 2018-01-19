@@ -7,8 +7,8 @@
           {{#if meta.video.info.duration}} 
             <span class="videosnapduration">{{durationDisplay meta.video.info.duration}}</span>
           {{/if}}
-          <div id="snapload" class="ui active dimmer" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
-                                                            width:210px;height:118px;position: absolute">
+          <div id="snapload" class="ui active dimmer pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
+                                                            width:210px;height:118px;">
             <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div>
@@ -21,7 +21,7 @@
         </div>
       </a>
     </div>
-    <div style="position:relative;text-align:left;width:60%;margin-left: 8px;min-width:200px;">
+    <div class="pos-rel" style="text-align:left;width:60%;margin-left: 8px;min-width:200px;">
       <div class="boxdisplayer">
         <div class='verticalvideosnaptitle' style="font-size: 1.2em;">
           <a href='/v/{{author}}/{{permlink}}'>
