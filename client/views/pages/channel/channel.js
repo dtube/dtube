@@ -11,7 +11,7 @@ Template.channel.rendered = function () {
   $('.ui.menu .videoshowmore.money').popup({
     inline: true,
     hoverable: true,
-    position: 'bottom right',
+    position: 'bottom right', 
     delay: {
       show: 100,
       hide: 0

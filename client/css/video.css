@@ -162,53 +162,45 @@
   border-radius: 0px !important;
   box-shadow: none !important; 
   -webkit-box-shadow: none !important;
-  background: #ff0000;
-  border-color: rgba(34, 36, 38, 0.15) !important;
   font-weight: 500;
   font-size: 15px;
 }
 
 .dtube.white.button
 {
-  margin-right: 0px!important;  
-  border-style: solid!important;
-  border-width: 1px!important; 
   color: rgba(0, 0, 0, 0.87);
-  border-radius:0px!important; 
-  box-shadow:none!important;
-  -webkit-box-shadow: none!important;
-  background:#ffffff!important;
-  border-color: rgba(34, 36, 38, 0.15)!important;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important; 
+  -webkit-box-shadow: none !important;
   font-weight: 500;
   font-size: 15px;
 }
 
 .dtube.grey.button
 {
-  margin-right: 0px!important;  
-  border-style: solid!important;
-  border-width: 1px!important; 
   color: rgba(0, 0, 0, 0.87);
-  border-radius:0px!important; 
-  box-shadow:none!important;
-  -webkit-box-shadow: none!important;
-  background:#ebebeb!important;
-  border-color: rgba(34, 36, 38, 0.15)!important;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important; 
+  -webkit-box-shadow: none !important;
   font-weight: 500;
   font-size: 15px;
 }
 
 .dtube.grey.button:hover
 {
-  margin-right: 0px!important;  
-  border-style: solid!important;
-  border-width: 1px!important; 
   color: rgba(22, 22, 22, 0.87);
-  border-radius:0px!important; 
-  box-shadow:none!important;
-  -webkit-box-shadow: none!important;
-  background:#dbdbdb!important;
-  border-color: rgba(34, 36, 38, 0.15)!important;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important; 
+  -webkit-box-shadow: none !important;
   font-weight: 500;
   font-size: 15px;
 }
@@ -216,33 +208,15 @@
 
 .dtube.blue.button
 {
-  margin-right: 0px!important;  
-  border-style: solid!important;
-  border-width: 1px!important; 
-  border-radius:0px!important; 
-  box-shadow:none!important;
-  -webkit-box-shadow: none!important;
-  background: #1a5099;
-  border-color: rgba(34, 36, 38, 0.15)!important;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important; 
+  -webkit-box-shadow: none !important;
   font-weight: 500;
   font-size: 15px;
 }
-
-.dtube.lightblue.button
-{
-  margin-right: 0px!important;  
-  border-style: solid!important;
-  border-width: 1px!important; 
-  border-radius:0px!important; 
-  box-shadow:none!important;
-  -webkit-box-shadow: none!important;
-  background: #1E88E5;
-  color:white;
-  border-color: rgba(34, 36, 38, 0.15)!important;
-  font-weight: 500;
-  font-size: 15px;
-}
-
 
 .videorecommendedcomputer{
   width: 40%;
