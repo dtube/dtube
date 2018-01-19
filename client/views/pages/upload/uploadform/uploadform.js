@@ -7,28 +7,29 @@ Template.uploadform.rendered = function () {
     keys: {
       delimiter: 32, // 188 (the comma) by default.
     },
-    onNoResults: function(search) {} // trick to hide no result message
+    onNoResults: function (search) { }, // trick to hide no result message
+    onChange:function(){
+      var tags = $('#tags').val().split(",").length;
+      if (tags <= 3) {
+        $('.tags.alert').addClass('dsp-non')
+        $('.ui.multiple.dropdown').dropdown('setting', 'allowAdditions', true);
+      }
+      else {
+        $('.tags.alert').removeClass('dsp-non')
+        $('.ui.multiple.dropdown').dropdown('setting', 'allowAdditions', false);
+      }
+    }
   });
-  $('.ui.nfsw.slider').checkbox({
+  $('.ui.nsfw.slider').checkbox({
     onChecked: function () {
-      isNsfw = true
+      var tags = $('#tags').val().split(",").length;
+      if (tags <= 3) {
+        $('.ui.multiple.dropdown').dropdown('set selected', ['nsfw']);
+      }
     },
     onUnchecked: function () {
-      isNsfw = false
-    }
-  });
-  $('.ui.multiple.dropdown').dropdown('setting', 'onChange', function(){
-    var tags = []
-    tags =  $('#tags').val().split(",").length;
-    if(tags >= 4)
-    {
-      $('.tags.alert').removeClass('dsp-non')
-      $('.ui.multiple.dropdown').dropdown('setting','allowAdditions', false);
-    }
-    else
-    {
-      $('.tags.alert').addClass('dsp-non')
-      $('.ui.multiple.dropdown').dropdown('setting','allowAdditions', true);
+      $('.ui.multiple.dropdown').dropdown('setting', 'allowAdditions', true);
+      $('.ui.multiple.dropdown').dropdown('remove selected', ['nsfw']);
     }
   });
 }
