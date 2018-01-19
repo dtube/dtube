@@ -1,5 +1,5 @@
 <template name='videosearchresult'>
-  {{#unless isVideoHidden this}}
+  {{#unless isVideoHiddensearch this}}
   <div class='verticalvideosnap wid-ful' style="display:-webkit-box;">
     <div style="height:100%px;">
       <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
@@ -61,6 +61,29 @@
         {{content.description}}
         {{/if}}
       </div>
+      {{#if meta.video.content.tags}}
+        <div id='videosnaptags' class='videosnaptags' style="padding-top:5px;">
+            {{#each meta.video.content.tags}} 
+            {{#if equals this 'dtube'}} 
+            {{else}}
+            {{#if this}} 
+            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+            {{/if}} 
+            {{/if}} 
+            {{/each}}
+          </div>
+        {{else}}
+        <div id='videosnaptags' class='videosnaptags' style="padding-top:5px;">
+            {{#each content.tags}} 
+            {{#if equals this 'dtube'}} 
+            {{else}}
+            {{#if this}} 
+            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+            {{/if}} 
+            {{/if}} 
+            {{/each}}
+          </div>
+        {{/if}}
     </div>
   </div>
   <div class="ui divider"></div>

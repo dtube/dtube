@@ -25,5 +25,9 @@ Template.videosearchresult.helpers({
       if (/Mobi/.test(navigator.userAgent)) { 
           return true;
       }
+  },
+  convertTag:function(tag){
+    var tagWithoutDtube= tag.replace("dtube-", "")
+    return tagWithoutDtube
   }
 })

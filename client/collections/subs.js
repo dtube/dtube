@@ -5,15 +5,16 @@ Subs.loadFollowing = function(username, startFollowing = undefined, recursive = 
   console.log(username, startFollowing, recursive)
   steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
     if (err) console.log(err)
-    for (var i = 0; i < results.length; i++)
-    Subs.upsert(results[i], results[i])
-    if (results.length == limit && recursive) 
-      Subs.loadFollowing(username, results[results.length-1].following, true, cb)
-    else {
-      Session.set('lastFollowingLoaded', results[results.length-1].following)
-      cb(username)
+    if (results.length) {
+      for (var i = 0; i < results.length; i++)
+      Subs.upsert(results[i], results[i])
+      if (results.length == limit && recursive) 
+        Subs.loadFollowing(username, results[results.length-1].following, true, cb)
+      else {
+        Session.set('lastFollowingLoaded', results[results.length-1].following)
+        cb(username)
+      }
     }
-    
   });
 }
 

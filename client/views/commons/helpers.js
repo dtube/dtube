@@ -188,10 +188,15 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
   })
 
   Template.registerHelper('isVideoHiddensearch', function (video) {
+    if (!video) return false
     if (video.net_rshares && video.net_rshares < 0) return true
     if (Session.get('nsfwSetting') == 'Show') return false
-    if (!video || !video.tags) return false
-    if (video.tags.indexOf('nsfw') > -1) return true
+    if (video.content){
+      if (video.content.tags.indexOf('nsfw') > -1) return true
+    }
+    if (video.tags){
+      if (video.tags.indexOf('nsfw') > -1) return true
+    }
     return false
   })
 
