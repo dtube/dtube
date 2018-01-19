@@ -173,3 +173,13 @@ h1, h2, h3, h4, h5 {
 textarea {
   white-space: pre-wrap;
 }
+
+.ui.button > .ui.icon {
+  background:#262626!important;
+  color: white;
+  opacity:1;
+ } 
+
+ .ui.multiple.dropdown > .label{
+  line-height: 1.4em;
+ }

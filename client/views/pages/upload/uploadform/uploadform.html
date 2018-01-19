@@ -12,9 +12,10 @@
       <div class="field">
         <label>{{ translate 'UPLOAD_TAGS'}}</label>
         <div class="ui fluid multiple search selection dropdown">
-          <input name="tags" type="hidden" value="{{inputTags content.tags}}">
+          <input id="tags" name="tags" type="hidden" value="{{inputTags content.tags}}">
           <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
         </div>
+        <span class="ui tags alert dsp-non">You reached the limit of 4 tags</span>
       </div>
       <div class="two fields">
         <div class="field">
@@ -23,6 +24,12 @@
             {{ translate 'UPLOAD_ADVANCED'}}
           </button>
           {{> uploadformsubmit}}
+        </div>
+        <div class="field">
+            <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
+                <input type="checkbox" name="newsletter">
+                <label style="color:black;">This is an adult content</label>
+              </div>
         </div>
       </div>
       <br />

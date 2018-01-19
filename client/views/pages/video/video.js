@@ -88,15 +88,7 @@ Template.video.helpers({
         hoverable: true
       });
     });
-  },
-  // switchMobile: function () {
-  //   $('#videodtube').addClass('videomobile');
-  //   $('#videocontent').addClass('videomobile');
-  // },
-  // switchDesktop: function () {
-  //   $('#videodtube').addClass('ui container').addClass('content');
-  //   $('#videocontent').addClass('ui container').addClass('content');
-  // }
+  }
 })
 
 Template.video.events({
@@ -128,6 +120,8 @@ Template.video.events({
   },
   'click .submit': function (event) {
     if (!Session.get('replyingTo')) return;
+    $('.ui.button > .ui.icon.talk').addClass('dsp-non');
+    $('.ui.button > .ui.icon.load').removeClass('dsp-non');
     var parentAuthor = Session.get('replyingTo').author
     var parentPermlink = Session.get('replyingTo').permlink
     var body = $(event.currentTarget).prev().children()[0].value
@@ -137,9 +131,13 @@ Template.video.events({
     broadcast.comment(parentAuthor, parentPermlink, body, jsonMetadata, function (err, result) {
       console.log(err, result)
       if (err) {
+        $('.ui.button > .ui.icon.load').removeClass('dsp-non');
+        $('.ui.button > .ui.icon.remove').removeClass('dsp-non');
         toastr.error(err.payload.error.data.stack[0].format, 'Error')
         return
       }
+      $('.ui.button > .ui.icon.load').addClass('dsp-non');
+      $('.ui.button > .ui.icon.check').removeClass('dsp-non');
       Template.video.loadState()
       Session.set('replyingTo', null)
       document.getElementById('replytext').value = "";
@@ -202,14 +200,7 @@ Template.video.events({
   },
   'click .editvideo': function() {
     $('#editvideosegment').toggle()
-  },
-  // 'mouseenter .upvote': function() {
-  //   console.log('test')
-  //   $('.upvote').popup({
-  //     boundary: '.videocontainer',
-  //     popup: '.popupupvotes'
-  //   }) 
-  // }
+  }
 })
 
 Template.video.seekTo = function (seconds) {
