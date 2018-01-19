@@ -12,25 +12,25 @@
         <div class="item" style="height:0px!important;width:0px!important;padding:0px!important;"></div>
         {{#each notifications}} 
         {{#if equals type 'subscribe'}}
-        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px; background: #fafafa;">
+        <div class="ui card brd-rad-non" style="margin: 0px 5px;white-space: inherit;width:400px!important; background: #fafafa;">
           <div class="content" style="padding: 0px;">
               <div class="right floated" style="padding:5px;">
                   <i class="remove circle icon notificationremove"></i>
                 </div>
-            <div style="padding: 10px;display:flex;">
+            <div class="dsp-flx" style="padding:10px;">
               <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
               <div style="display: inline;margin-left: 5px;">
                 <div>
               <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
               subscribed to your channel</div>
-                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                <span class="crd-spa-lab">{{timeAgo date}}</span>
               </div>
             </div>
           </div>
         </div>
         {{/if}} 
         {{#if equals type 'comment'}}
-        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+        <div class="ui card brd-rad-non" style="margin: 0px 5px;white-space: inherit;width:400px!important;background: #fafafa;">
           <div class="content" style="padding: 0px;">
               <div class="right floated" style="padding:5px;">
                   <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
@@ -39,7 +39,7 @@
                   <i class="remove circle icon"></i>
               </div>
             <div style="padding: 10px;">
-              <div style="display:flex;">
+              <div class="dsp-flx">
                   <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
                   <div style="display: inline;margin-left: 5px;">
                     <div>
@@ -47,7 +47,7 @@
                   commented
                 </div>
                     <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
-                    <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+                    <div><span class="crd-spa-lab">{{timeAgo date}}</span></div>
                   </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'vote'}}
-        <div class="ui card" style="margin: 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+        <div class="ui card brd-rad-non" style="margin: 0px 5px;white-space: inherit;width:400px!important;background: #fafafa;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
@@ -64,7 +64,7 @@
                     <i class="remove circle icon"></i>
                 </div>
               <div style="padding: 10px;">
-                <div style="display:flex;">
+                <div class="dsp-flx">
                     <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
                     <div style="display: inline;margin-left: 5px;">
                       <div>
@@ -72,7 +72,7 @@
                     uptoved
                   </div>
                   <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(27, 27, 27);">{{getTitle tx.author tx.permlink}}</a>
-                      <div><span style="font-size:13px;color:#555;">{{timeAgo date}}</span></div>
+                      <div><span class="crd-spa-lab">{{timeAgo date}}</span></div>
                     </div>
                   </div>
               </div>
@@ -81,7 +81,7 @@
           {{/if}} 
         {{/each}} 
         {{#if hasRewards mainUser}}
-        <div class="ui card" style="margin: 0px 5px 0px 5px;white-space: inherit;width:400px!important;border-radius:0px;    background: #fafafa;">
+        <div class="ui card brd-rad-non" style="margin: 0px 5px 0px 5px;white-space: inherit;width:400px!important;background: #fafafa;">
           <div class="content" style="padding: 0px;">
               <div class="right floated" style="padding:5px;">
                   <i class="check circle icon"></i>

@@ -1,7 +1,7 @@
 <template name='activity'>
         {{#if equals type 'curation_reward'}} 
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
                         {{#if getSnap tx.comment_author tx.comment_permlink}} 
@@ -10,7 +10,7 @@
                     </a>
                 </div>
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                         <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.curator}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -18,7 +18,7 @@
                             </div>
                             <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.comment_author tx.comment_permlink}}</a>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -27,10 +27,10 @@
         </div>
         {{/if}} 
         {{#if equals type 'claim_reward_balance'}}
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                         <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -38,7 +38,7 @@
                             </div>
                             <a style="font-size:13px;color:rgb(105, 105, 105);"></a>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
         </div>
         {{/if}} 
         {{#if equals type 'vote'}}
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
                         {{#if getSnap tx.author tx.permlink}} 
@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                             {{#if equals user.name tx.voter}}
                         <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}">
                         {{else}}
@@ -75,7 +75,7 @@
                             </div>
                             <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
         </div>
         {{/if}} 
         {{#if equals type 'unvote'}}
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
                         {{#if getSnap tx.author tx.permlink}} 
@@ -94,7 +94,7 @@
                     </a>
                 </div>
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                             {{#if equals user.name tx.voter}}
                         <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}">
                         {{else}}
@@ -112,7 +112,7 @@
                             </div>
                             <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -121,8 +121,8 @@
         </div>
         {{/if}} 
         {{#if equals type 'comment'}} 
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
                         {{#if getSnap tx.parent_author tx.parent_permlink}} 
@@ -132,7 +132,7 @@
                     </a>
                 </div>
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                             {{#if equals user.name tx.author}}
                             <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.author}}">
                             {{else}}
@@ -150,7 +150,7 @@
                             </div>
                             <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -159,10 +159,10 @@
         </div>
         {{/if}} 
         {{#if equals type 'follow'}} 
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                         <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].follower}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -173,7 +173,7 @@
                                 </a>
                             </div>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -182,10 +182,10 @@
         </div>
         {{/if}} 
         {{#if equals type 'unfollow'}} 
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                         <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].follower}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -196,7 +196,7 @@
                                 </a>
                             </div>
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>
@@ -205,8 +205,8 @@
         </div>
         {{/if}} 
         {{#if equals type 'reblog'}} 
-        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
-            <div class="content" style="padding: 0px;">
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}">
                         {{#if getSnap tx.[1].author tx.[1].permlink}} 
@@ -215,7 +215,7 @@
                     </a>
                 </div>
                 <div style="padding: 10px;">
-                    <div style="display:flex;">
+                    <div class="dsp-flx">
                         <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -228,7 +228,7 @@
                             <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
                             
                             <div>
-                                <span style="font-size:13px;color:#555;">{{timeAgo date}}</span>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
                         </div>
                     </div>

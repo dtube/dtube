@@ -1,7 +1,7 @@
 <template name='upload'>
   <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
     <center>
-      <div class="ui segment" style="margin:20px 0px;border-radius:0px;padding:30px;">
+      <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
         {{#if isOnMobile}}
         <div id="statuszone" style="margin-top:20px;">
           <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
@@ -30,7 +30,7 @@
         </div>
         {{else}}
         <div id="statuszone" style="margin:10 0px;">
-          <div class="ui ordered steps computer" style="width: 100%;    border-width: 0px;">
+          <div class="ui ordered steps computer" style="width: 100%;border-width: 0px;">
             <div class="step">
               <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
               <div class="content">
@@ -75,10 +75,10 @@
           <div class="ui grid">
             <div class="two column row">
               <div class="column">
-                <video id="videopreview" class="displaynone wid-ful" controls autoplay style="height: 100%;"></video>
+                <video id="videopreview" class="dsp-non wid-ful" controls autoplay style="height: 100%;"></video>
               </div>
               <div class="column">
-                <canvas id="snappreview" class="displaynone"></canvas>
+                <canvas id="snappreview" class="dsp-non"></canvas>
               </div>
             </div>
           </div>

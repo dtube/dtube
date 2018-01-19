@@ -1,6 +1,6 @@
 <template name='mobilevideosearchresult'>
   {{#unless isVideoHidden this}}
-    <div class='verticalvideosnap wid-ful' style="display:flex;">
+    <div class='verticalvideosnap wid-ful dsp-flx'>
       <div class="pos-rel" style="width:160px;height:90px;float: left;">
         <a href='/v/{{author}}/{{permlink}}' title='{{title}}'>
           <div class='verticalvideosnapsnap' style="height:90px;width: 160px;">
@@ -39,16 +39,16 @@
             </div>
           <div class="boxdisplayer">
               {{#if payout}}
-              <div class='videosnaprest' style="float:none;margin-right: 0px;    font-size: 0.8em;">
+              <div class='videosnaprest' style="float:none;margin-right: 0px;font-size: 0.8em;">
                 ${{displayPayout payout}}
               </div>
               {{else}}
-              <div class='videosnaprest' style="float:none;margin-right: 0px;    font-size: 0.8em;">
+              <div class='videosnaprest' style="float:none;margin-right: 0px;font-size: 0.8em;">
                   ${{displayPayout pending_payout_value}}
                 </div>
             {{/if}}
             {{#if created}}
-          <div class="videosnaptime" style="padding-left: 5px;float:none;margin-right: 0px;    font-size: 0.8em;">
+          <div class="videosnaptime" style="padding-left: 5px;float:none;margin-right: 0px;font-size: 0.8em;">
             {{timeAgo created}}
           </div>
           {{/if}}

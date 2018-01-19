@@ -2,83 +2,83 @@
   <div class="ui stackable grid column">
     <div class="twelve wide column" style="padding-left:5px;">
       {{#if author.json_metadata.profile.name}}
-      <div class="ui card wid-ful" style="white-space: inherit;border-radius:0px;background: #ffffff;">
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.name}}</span>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.name}}</span>
           </div>
         </div>
         {{#if author.json_metadata.profile.about}}
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.about}}</span>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.about}}</span>
           </div>
         </div>
         {{/if}} {{#if author.json_metadata.profile.location}}
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{author.json_metadata.profile.location}}</span>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.location}}</span>
           </div>
         </div>
         {{/if}} {{#if author.json_metadata.profile.website}}
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
           <div>
-            <span style="font-size:13px;color:#555;">
+            <span class="crd-spa-lab">
               <a href='{{author.json_metadata.profile.website}}' style="opacity:1!important;" target='_blank'>{{author.json_metadata.profile.website}}</a>
             </span>
           </div>
         </div>
         {{#if userVideos.length}}
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{userVideos.length}}</span>
+            <span class="crd-spa-lab">{{userVideos.length}}</span>
           </div>
         </div>
         {{/if}} {{/if}}
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{timeAgo author.last_post}}</span>
+            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
           </div>
         </div>
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{timeAgo author.last_post}}</span>
+            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
           </div>
         </div>
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{timeAgo author.last_account_update}}</span>
+            <span class="crd-spa-lab">{{timeAgo author.last_account_update}}</span>
           </div>
         </div>
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{displayDate author.created}}</span>
+            <span class="crd-spa-lab">{{displayDate author.created}}</span>
           </div>
         </div>
       </div>
       {{/if}}
-      <div class="ui card wid-ful" style="white-space: inherit;border-radius:0px;background: #ffffff;">
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
           <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
           <div>
-            <span style="font-size:13px;color:#555;">  
+            <span class="crd-spa-lab">  
               <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
             </span>
           </div>
         </div>
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
           <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
           <div>
-            <span style="font-size:13px;color:#555;"> 
+            <span class="crd-spa-lab"> 
               <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
             </span>
           </div>
@@ -86,17 +86,17 @@
       </div>
     </div>
     <div class="four wide column" style="padding-left:5px;">
-      <div class="ui card wid-ful" style="white-space: inherit;border-radius:0px;background: #ffffff;">
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
             {{ translate 'CHANNEL_SUBSCRIBERS'}}
           <div>
-            <span style="font-size:13px;color:#555;">{{subCount}}</span>
+            <span class="crd-spa-lab">{{subCount}}</span>
           </div>
         </div>
-        <div style="display: inline;margin-left: 5px;padding: 10px 10px 5px 10px;">
+        <div class="crd-lab">
             {{ translate 'CHANNEL_SUBSCRIBES'}}
             <div>
-              <span style="font-size:13px;color:#555;">{{followingCount}}</span>
+              <span class="crd-spa-lab">{{followingCount}}</span>
             </div>
           </div>
       </div>

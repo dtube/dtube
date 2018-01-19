@@ -1,0 +1,46 @@
+  .pos-abs {
+    position: absolute!important;
+  }
+
+  .pos-rel {
+    position: relative!important;
+  }
+
+  .dsp-inh {
+    display: inherit!important;
+  }
+
+  .dsp-flx {
+    display: flex!important;
+  }
+
+  .dsp-non {
+    display: none!important;
+  }
+
+  .pdg-non {
+    padding: 0px!important;
+  }
+
+  .wid-ful {
+    width: 100%!important;
+  }
+
+  .mrg-non {
+    margin: 0px!important;
+  }
+
+  .crd-lab {
+    display: inline;
+    margin-left: 5px;
+    padding: 10px 10px 5px 10px;
+  }
+
+.brd-rad-non{
+  border-radius:0px!important;
+}
+
+.crd-spa-lab{
+  font-size:13px;
+  color:#555;
+}

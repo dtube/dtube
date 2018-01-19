@@ -158,8 +158,8 @@ Template.upload.inputVideo = function(dt) {
     toastr.error(translate('UPLOAD_ERROR_WRONG_FORMAT'), translate('ERROR_TITLE'))
     return
   }
-  $('#videopreview').removeClass('displaynone')
-  $('#snappreview').removeClass('displaynone')
+  $('#videopreview').removeClass('dsp-non')
+  $('#snappreview').removeClass('dsp-non')
   $('#dropzone').hide()
   $('#step1load').show()
   $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))

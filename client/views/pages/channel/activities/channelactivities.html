@@ -1,7 +1,7 @@
 <template name='channelactivities'>
     <div class="ui stackable grid column">
         <div class="sixteen wide column mobile only" style="padding-bottom:0px!important;">
-            <div class="ui card wid-ful" style="padding:20px;white-space: inherit;border-radius:0px;background: #ffffff;">
+            <div class="ui card wid-ful brd-rad-non" style="padding:20px;white-space: inherit;background: #ffffff;">
                 <h4>{{ translate 'CHANNEL_FILTERS'}}</h4>
                 <div class="ui grid">
                     <div class="seven wide column">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="five wide column tablet only" style="padding-left:20px;">
-            <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
                 <div class="ui form" style="padding:20px">
                     <div class="grouped fields">
                         <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
@@ -121,14 +121,14 @@
             </div>
         </div>
         <div class="eleven wide column" style="padding-left:0px;padding-right: 10px;">
-            <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
                 <div class="ui form" style="padding:20px">
                     <h4>{{ translate 'CHANNEL_HISTORY'}}</h4>
 
                 </div>
                 <div class="ui infinite activities">
                     {{#if activities.length}} {{#each activities}} {{> activity}} {{/each}} {{else}}
-                    <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
+                    <div class="ui card wid-ful" style="margin:0px;white-space: inherit;background: #ffffff;">
                         <div class="content" style="padding: 0px;">
                             <div style="padding: 10px;">
                                 Nothing to display
@@ -141,7 +141,7 @@
             </div>
         </div>
         <div class="five wide column computer only" style="padding-left:20px;">
-            <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
                 <div class="ui form" style="padding:20px">
                     <div class="grouped fields">
                         <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>

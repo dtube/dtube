@@ -141,8 +141,8 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ellipsis.horizontal.icon').addClass('nightmode');
 
     //LOGO
-    $('.blacklogo').addClass('displaynone');
-    $('.whitelogo').removeClass('displaynone');
+    $('.blacklogo').addClass('dsp-non');
+    $('.whitelogo').removeClass('dsp-non');
 }
 
 Template.settingsdropdown.switchToNormalMode = function (){
@@ -201,6 +201,6 @@ $('.ui.menu .item:before').removeClass('nightmodeinverted');
 $('.ellipsis.horizontal.icon').removeClass('nightmode');
 
 //LOGO
-$('.blacklogo').removeClass('displaynone');
-$('.whitelogo').addClass('displaynone');
+$('.blacklogo').removeClass('dsp-non');
+$('.whitelogo').addClass('dsp-non');
 }

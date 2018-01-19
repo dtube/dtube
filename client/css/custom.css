@@ -1,18 +1,10 @@
-.displaynone
-{
-display: none!important;
+.widthfiftypercent {
+  width: 50%;
 }
 
-.widthfiftypercent
-{
-width: 50%;
-}
-
-.ui.progress
-{
+.ui.progress {
   text-align: left;
 }
-
 
 .ui.tabular.menu .item {
   background: transparent;
@@ -36,7 +28,7 @@ width: 50%;
   color: rgba(82, 82, 82, 0.8);
   font-size: 1em;
   text-align: center;
-  width:33%;
+  width: 33%;
   display: inline-block;
 }
 
@@ -53,7 +45,7 @@ width: 50%;
   font-weight: 500;
   box-shadow: none;
   border-radius: 0px !important;
-  margin-bottom: 0px; 
+  margin-bottom: 0px;
 }
 
 .spritehash {
@@ -61,7 +53,7 @@ width: 50%;
   height: 118px;
 }
 
-.ui.card > .content {
+.ui.card>.content {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
@@ -76,51 +68,52 @@ width: 50%;
   border-radius: 0em;
 }
 
-.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
   background-color: #ff1a1a !important;
 }
 
-.ui.toggle.checkbox ~ .box:before, .ui.toggle.checkbox ~ label:before {
+.ui.toggle.checkbox~.box:before, .ui.toggle.checkbox~label:before {
   background-color: #ff1a1a !important;
 }
 
 .nightmode {
   background: #111111!important;
-  color: rgb(240,240,240)!important;
+  color: rgb(240, 240, 240)!important;
 }
 
 .nightmodeinverted {
-  background: rgb(240,240,240)!important;
+  background: rgb(240, 240, 240)!important;
   color: #111111!important;
 }
 
 .nightmodetext {
-  color: rgb(240,240,240)!important;
+  color: rgb(240, 240, 240)!important;
 }
 
-.nightsecondarytext{
+.nightsecondarytext {
   color: rgb(180, 180, 180)!important;
 }
 
-.nightsegment{
+.nightsegment {
   border-top: 1px solid rgba(209, 209, 209, 0.15)!important;
 }
 
 .nightmodegray {
   background: #1d1d1d!important;
-  color: rgb(240,240,240)!important;
+  color: rgb(240, 240, 240)!important;
 }
+
 .nightmodegray {
   background: #1d1d1d!important;
-  color: rgb(240,240,240)!important;
+  color: rgb(240, 240, 240)!important;
 }
 
 .nightbutton {
   background: #222222!important;
-  color: rgb(240,240,240)!important;
+  color: rgb(240, 240, 240)!important;
 }
 
-.channelcover{
+.channelcover {
   min-height: 150px;
   max-height: 240px;
   position: relative;
@@ -131,75 +124,52 @@ width: 50%;
   background-size: cover;
 }
 
-h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5 {
   font-weight: 500;
 }
 
-.ui.inline.dropdown > .text {
+.ui.inline.dropdown>.text {
   font-weight: 500;
 }
 
-.channelbga{
-  background: #40E0D0;  
-  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  
+.channelbga {
+  background: #40E0D0;
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
   background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
-  
 }
-.channelbgb{
-  background: #ee0979; 
-  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979); 
-  background: linear-gradient(to right, #ff6a00, #ee0979); 
+
+.channelbgb {
+  background: #ee0979;
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+  background: linear-gradient(to right, #ff6a00, #ee0979);
 }
-.channelbgc{
-  background: #f85032;  
-  background: -webkit-linear-gradient(to right, #e73827, #f85032); 
+
+.channelbgc {
+  background: #f85032;
+  background: -webkit-linear-gradient(to right, #e73827, #f85032);
   background: linear-gradient(to right, #e73827, #f85032);
-  
 }
-.channelbgd{
+
+.channelbgd {
   background: #16A085;
-  background: -webkit-linear-gradient(to right, #F4D03F, #16A085); 
+  background: -webkit-linear-gradient(to right, #F4D03F, #16A085);
   background: linear-gradient(to right, #F4D03F, #16A085);
-  
 }
-.channelbge{
-  background: #FC5C7D;  
-  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);  
+
+.channelbge {
+  background: #FC5C7D;
+  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
   background: linear-gradient(to right, #6A82FB, #FC5C7D);
-  
-}
-.pos-abs{
-  position: absolute!important;
 }
 
-.pos-rel{
-  position: relative!important;
+.dropdown.ddtag {
+  height: 30px;
 }
 
-.dsp-inh{
-  display: inherit!important;
+.almostblack {
+  color: #262626!important;
 }
 
-.pdg-none{ 
-  padding:0px!important;
-}
-
-.wid-ful{
-  width:100%!important;
-}
-
-.mrg-none{
-  margin:0px!important;
-}
-
-.dropdown.ddtag{
-height:30px;
-}
-
-.almostblack{
-color:#262626!important;
-}
-
-textarea{
+textarea {
   white-space: pre-wrap;
 }
