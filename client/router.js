@@ -67,6 +67,8 @@ FlowRouter.route('/upload', {
     Session.set("currentMenu", 3)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Upload')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "upload",
       nav: "nav",
@@ -156,6 +158,8 @@ FlowRouter.route('/t/:tag', {
     Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
       // call finished
     })
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
     Session.set('askSteemCurrentPage', 3)
   }
 });
@@ -179,6 +183,8 @@ FlowRouter.route('/v/:author/:permlink', {
       author: params.author,
       permlink: params.permlink
     })
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
     Template.player.init()
   }
 });
@@ -187,6 +193,8 @@ FlowRouter.route('/login', {
   name: "login",
   action: function(params, queryParams) {
     Session.set("pageTitle", 'Login')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "login",
       nav: "nav",
@@ -222,6 +230,8 @@ FlowRouter.route('/s/:query', {
       main: "search",
       nav: "nav"
     });
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
   }
 });
 
@@ -231,5 +241,6 @@ FlowRouter.notFound = {
       main: "pageNotFound",
       nav: "nav",
     });
+    Session.set("pageTitle", 'Page not found')
   }
 };
