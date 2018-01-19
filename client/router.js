@@ -14,6 +14,7 @@ FlowRouter.route('/', {
   action: function(params, queryParams) {
     Session.set("pageTitle", '')
     Session.set("currentMenu", 1)
+    Template.sidebar.selectMenu();
     firstLoad = setInterval(function() {
       if (!Videos) return
       if (!Waka) return
@@ -47,6 +48,12 @@ FlowRouter.route('/c/:author', {
     if(Session.get('activeUsername') == params.author)
     {
       Session.set("currentMenu", 2)
+      Template.sidebar.selectMenu();
+    }
+    else
+    {
+      Session.set("currentMenu", 0)
+      Template.sidebar.selectMenu();
     }
     ChainUsers.fetchNames([params.author], function (error) {
       if (error) console.log('Error fetch name')
@@ -58,6 +65,7 @@ FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
     Session.set("currentMenu", 3)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Upload')
     BlazeLayout.render('masterLayout', {
       main: "upload",
@@ -70,6 +78,7 @@ FlowRouter.route('/hotvideos', {
   name: "hotvideos",
   action: function(params, queryParams) {
     Session.set("currentMenu", 4)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Hot Videos')
     BlazeLayout.render('masterLayout', {
       main: "hotvideos",
@@ -83,6 +92,7 @@ FlowRouter.route('/trendingvideos', {
   name: "trendingvideos",
   action: function(params, queryParams) {
     Session.set("currentMenu", 5)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Trending Videos')
     BlazeLayout.render('masterLayout', {
       main: "trendingvideos",
@@ -95,6 +105,7 @@ FlowRouter.route('/newvideos', {
   name: "newvideos",
   action: function(params, queryParams) {
     Session.set("currentMenu", 6)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'New Videos')
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
@@ -107,6 +118,7 @@ FlowRouter.route('/watchlater', {
   name: "watchlater",
   action: function(params, queryParams) {
     Session.set("currentMenu", 7)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Watch Later')
     BlazeLayout.render('masterLayout', {
       main: "watchlater",
@@ -119,6 +131,7 @@ FlowRouter.route('/history', {
   name: "history",
   action: function(params, queryParams) {
     Session.set("currentMenu", 8)
+    Template.sidebar.selectMenu();
     Session.set("pageTitle", 'History')
     BlazeLayout.render('masterLayout', {
       main: "history",

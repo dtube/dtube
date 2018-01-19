@@ -1,9 +1,10 @@
 Template.channel.rendered = function () {
   Session.set('relatedChannels', [])
   Session.set('currentTab', 'videos')
+  Template.sidebar.selectMenu();
   Template.settingsdropdown.nightMode();
   Template.channel.randomBackgroundColor();
-  $('.ui.maingrid').removeClass('container');
+  // $('.ui.maingrid').removeClass('container');
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
   $('.ui.rating').rating('disable');

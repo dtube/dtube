@@ -67,7 +67,7 @@ Template.sidebar.resetActiveMenu = function () {
 
 Template.sidebar.selectMenu = function () {
   Template.sidebar.resetActiveMenu()
-  switch (Session.get('currentSidebarMenu')) {
+  switch (Session.get('currentMenu')) {
     case 1:
       $('#homesidebarmenu').addClass('activemenu')
       break;
@@ -91,6 +91,8 @@ Template.sidebar.selectMenu = function () {
       break;
     case 8:
       $('#watchagainsidebarmenu').addClass('activemenu')
+      break;
+    default:
       break;
   }
 }

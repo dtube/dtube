@@ -30,17 +30,21 @@
     margin: 0px!important;
   }
 
+  .brd-rad-non{
+    border-radius:0px!important;
+  }
+
   .crd-lab {
     display: inline;
     margin-left: 5px;
     padding: 10px 10px 5px 10px;
   }
 
-.brd-rad-non{
-  border-radius:0px!important;
-}
-
 .crd-spa-lab{
   font-size:13px;
   color:#555;
+}
+
+.snapbutton{
+
 }

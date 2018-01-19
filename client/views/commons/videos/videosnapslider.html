@@ -9,7 +9,7 @@
         {{/if}}
         {{#if equals source 'wakaArticles'}}
         {{#if isOnWatchAgain}}
-        <div id="remove" class="remove pos-abs" title='Stop sharing {{info.title}}' style="cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+        <div id="remove" class="remove snapbutton pos-abs" title='Stop sharing {{info.title}}'>
           <i class="remove icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
               <span style="z-index:9000;"></span>
             </i>
@@ -17,13 +17,13 @@
           {{/if}} 
           {{else}}
           {{#if isInWatchLater}} 
-          <div id="watchlater" class="watchlater right floated pos-abs" title='Remove from Watch later' style="display:none;cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+          <div id="watchlater" class="watchlater snapbutton right floated pos-abs dsp-non" title='Remove from Watch later'>
               <i class="checkmark icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
                   <span style="z-index:9000;"></span>
                 </i>
               </div>
           {{else}}
-          <div id="watchlater" class="addwatchlater right floated pos-abs" title='Watch later' style="display:none;cursor: pointer;right:0px;z-index: 9999;background: #333333e0;margin: 3px;border-radius: 3px;font-size: 11px;padding: 0px;line-height: 14px;">
+          <div id="watchlater" class="addwatchlater snapbutton right floated pos-abs dsp-non" title='Watch later'>
               <i class="time icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
                   <span style="z-index:9000;"></span>
                 </i>
