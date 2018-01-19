@@ -1,6 +1,6 @@
 <template name='activity'>
         {{#if equals type 'curation_reward'}} 
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
@@ -27,7 +27,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'claim_reward_balance'}}
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div style="padding: 10px;">
                     <div style="display:flex;">
@@ -47,7 +47,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'vote'}}
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
@@ -84,7 +84,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'unvote'}}
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.author}}/{{tx.permlink}}">
@@ -121,7 +121,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'comment'}} 
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
@@ -159,7 +159,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'follow'}} 
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div style="padding: 10px;">
                     <div style="display:flex;">
@@ -182,7 +182,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'unfollow'}} 
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div style="padding: 10px;">
                     <div style="display:flex;">
@@ -205,7 +205,7 @@
         </div>
         {{/if}} 
         {{#if equals type 'reblog'}} 
-        <div class="ui card" style="margin:0px;white-space: inherit;width:100%!important;border-radius:0px;    background: #ffffff;">
+        <div class="ui card wid-ful" style="margin:0px;white-space: inherit;border-radius:0px;    background: #ffffff;">
             <div class="content" style="padding: 0px;">
                 <div class="right floated" style="padding:5px;">
                     <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}">

@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5{
 }
 
 .wid-ful{
-  width:100%;
+  width:100%!important;
 }
 
 .mrg-none{
