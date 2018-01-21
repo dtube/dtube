@@ -69,9 +69,10 @@
 }
 
 .videocontainer{
-  width:100%;
-  float:left;
+  /* width:90%; */
   margin-bottom: 10px;
+  margin-left: auto!important;
+  margin-right: auto!important;
   
 }
 
@@ -148,7 +149,7 @@
   margin-right: 0px!important;  
   border-style: solid!important;
   border-width: 0px 0px 0px 0px!important; 
-  border-radius:0px!important; 
+  border-radius:2px!important; 
   box-shadow:none!important;
   -webkit-box-shadow: none!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
@@ -159,11 +160,11 @@
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 0px !important;
-  box-shadow: none !important; 
-  -webkit-box-shadow: none !important;
+  border-radius: 2px !important;
+    box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 15px;
+  text-transform: uppercase;
 }
 
 .dtube.white.button
@@ -172,11 +173,11 @@
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 0px !important;
-  box-shadow: none !important; 
-  -webkit-box-shadow: none !important;
+  border-radius: 2px !important;
+    box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 15px;
+  text-transform: uppercase;
 }
 
 .dtube.grey.button
@@ -185,11 +186,11 @@
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 0px !important;
-  box-shadow: none !important; 
-  -webkit-box-shadow: none !important;
+  border-radius: 2px !important;
+    box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 15px;
+  text-transform: uppercase;
 }
 
 .dtube.grey.button:hover
@@ -198,11 +199,11 @@
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 0px !important;
-  box-shadow: none !important; 
-  -webkit-box-shadow: none !important;
+  border-radius: 2px !important;
+    box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 15px;
+  text-transform: uppercase;
 }
 
 
@@ -211,15 +212,26 @@
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 0px !important;
-  box-shadow: none !important; 
-  -webkit-box-shadow: none !important;
+  border-radius: 2px !important;
+    box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 15px;
+  text-transform: uppercase;
+}
+
+.dtube.black.button
+{
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 2px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
 }
 
 .videorecommendedcomputer{
-  width: 40%;
   padding-left:20px!important;
   display: inline-block!important;
   margin-top:0px!important;

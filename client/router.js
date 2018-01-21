@@ -67,7 +67,6 @@ FlowRouter.route('/upload', {
     Session.set("currentMenu", 3)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Upload')
-    Session.set("currentMenu", 0)
     Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "upload",

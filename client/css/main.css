@@ -307,8 +307,8 @@ button {
   -ms-flex-direction: row;
   -ms-flex-wrap: wrap;
   flex-wrap: inherit !important;
-    margin-left: 0rem;
-    margin-right: 0rem;
+    margin-left: auto;
+    margin-right: auto;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -322,11 +322,13 @@ button {
     -ms-flex-align: stretch;
     align-items: stretch;
     padding: 0em;
+    width: 80%
 }
 
 
 .ui.tabletgrid {
   margin-top: 15px;
+  overflow-y: hidden;
 }
 
 .ui.noshadow{

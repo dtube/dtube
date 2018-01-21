@@ -31,6 +31,9 @@ ChainUsers.estimateAccountValue = function(user) {
   balanceUsd += Session.get('steemPrice')*Market.vestToSteemPower(balanceVests)
   balanceUsd += Session.get('steemPrice')*balanceSteem
   balanceUsd += Session.get('sbdPrice')*balanceSbd
-  console.log(balanceUsd) //TODO this trick fix first appear 
+  
+  var v1 = Session.get('steemPrice')*Market.vestToSteemPower(balanceVests)
+  var v2 = Session.get('steemPrice')*balanceSteem
+  var v3 = Session.get('sbdPrice')*balanceSbd
   return balanceUsd.toFixed(2);
 }

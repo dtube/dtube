@@ -28,7 +28,6 @@ Activities.filterOperations = function (username, r) {
             Activities.upsert({ _id: r[1].block }, { username: username, type: 'curation_reward', tx: op[1], date: date, n: r[0] })
             break;
         case "vote":
-        console.log(op[1].weight)
             if (op[1].weight > 1) {
                 Activities.upsert({ _id: r[1].trx_id }, { username: username, type: 'vote', tx: op[1], date: date, n: r[0] })
             }

@@ -253,9 +253,18 @@ Template.video.loadState = function () {
 //.addClass('container') .addClass('container')
 Template.video.setScreenMode = function () {
   if ($(window).width() < 1166) {
-      $('.ui.maingrid').removeClass('container').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
+      $('.ui.videocontainer').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
   }
-  else {
-      $('.ui.maingrid').addClass('computergrid').addClass('container');
+  if ($(window).width() < 1619 && $(window).width() > 1166 ) {
+
+    $('.ui.videocontainer').addClass('computergrid').removeClass('tabletgrid').addClass('grid');
+    $('.videocol').removeClass('twelve wide column').addClass('eleven wide column');
+    $('.relatedcol').removeClass('four wide column').addClass('five wide column');
+  }
+  if ($(window).width() > 1619) {
+    $('.ui.videocontainer').addClass('computergrid').removeClass('tabletgrid').addClass('grid');
+    $('.videocol').removeClass('eleven wide column').addClass('twelve wide column');
+    $('.relatedcol').removeClass('five wide column').addClass('four wide column');
+  
   }
 }

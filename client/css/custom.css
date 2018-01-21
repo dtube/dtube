@@ -175,11 +175,25 @@ textarea {
 }
 
 .ui.button > .ui.icon {
-  background:#262626!important;
   color: white;
   opacity:1;
  } 
 
  .ui.multiple.dropdown > .label{
   line-height: 1.4em;
+ }
+
+ .btnlabel{
+  display: grid!important;
+  width: 3.2em!important;
+  background: white!important;
+  opacity: 1!important;
+  font-family: 'Roboto'!important;
+  font-weight: 600!important;
+  color:black!important;
+  font-size: 15px!important;
+ }
+
+ .ui.labeled.icon.buttons > .button > .icon, .ui.labeled.icon.button > .icon{
+   line-height: 0!important;
  }

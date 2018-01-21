@@ -1,7 +1,8 @@
 <template name='video'>
   {{#with video}}
-  <div class="videocontainer">
+  <div class="ui videocontainer stackable two column grid computergrid" style="margin-top:10px;">
     <!-- Player on page -->
+    <div class="pdg-non videocol twelve wide column">
     {{> player}}
     <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
       <!-- Title, Vote - Share - More  -->
@@ -72,35 +73,55 @@
             {{#unless equals activeUser user.name}} 
             {{#if isLoggedOn}} 
             {{#if isSubscribedTo info.author}}
-            <div class="ui labeled small button" tabindex="0">
+            <!-- <div class="ui labeled small button" tabindex="0">
               <div class="ui small  button left  unsubscribe dtube grey" style="padding-left:10px;padding-right:10px;">
                 {{ translate 'VIDEO_UNSUBSCRIBE'}}
               </div>
               <a class="ui basic label buttonlabel" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
+            </div> -->
+            <div class="ui right labeled icon button dtube black unsubscribe pos-rel" tabindex="0" style="padding-left:10px;padding-right:10px;color:white;">
+                <i class="icon btnlabel label black">
+                    {{{subCount info.author}}}</i>
+                {{ translate 'VIDEO_UNSUBSCRIBE'}}
+                <!-- <div class="ui basic label buttonlabel" style="border-width:1px!important;">
+                    {{{subCount}}}
+                </div> -->
             </div>
             {{else}}
-            <div class="ui labeled small button" tabindex="0">
+            <div class="ui right labeled icon button dtube red subscribe pos-rel" tabindex="0" style="padding-left:10px;padding-right:10px;">
+                <i class="icon btnlabel label black">
+                    {{{subCount info.author}}}</i>
+                    {{ translate 'VIDEO_SUBSCRIBE'}}
+                <!-- <div class="ui basic label buttonlabel" style="border-width:1px!important;">
+                    {{{subCount}}}
+                </div> -->
+            </div>
+            <!-- <div class="ui labeled small button" tabindex="0">
               <div class="ui red  small left dtube button subscribe">
                 {{ translate 'VIDEO_SUBSCRIBE'}}
               </div>
               <a class="ui basic label buttonlabel" style="border-width:1px!important;">
                 {{{subCount info.author}}}
               </a>
+            </div> -->
+            {{/if}} 
+            {{else}}
+            <a href="/login">
+            <div class="ui right labeled icon button dtube red subscribe pos-rel" tabindex="0" style="padding-left:10px;padding-right:10px;">
+                <i class="icon btnlabel label black">
+                    {{{subCount info.author}}}</i>
+                    {{ translate 'VIDEO_SUBSCRIBE'}}
             </div>
-            {{/if}} {{else}}
-            <div class="ui labeled small button" tabindex="0">
-              <div class="ui red small button dtube ">
-                {{ translate 'VIDEO_SUBSCRIBE'}}
-              </div>
-              <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-                {{{subCount info.author}}}
-              </a>
-            </div>
-            {{/if}} {{else}}
-            <div class="ui blue small dtube button editvideo dtube">
+            </a>
+            {{/if}} 
+            {{else}}
+            <!-- <div class="ui blue small dtube button editvideo dtube">
               <i class="edit icon"></i> {{ translate 'VIDEO_EDIT'}}
+            </div> -->
+            <div class="ui right labeled icon button blue editvideo dtube pos-rel">
+                <i class="icon edit blue" style="background:white;opacity:1;"></i>{{ translate 'VIDEO_EDIT'}}
             </div>
             {{/unless}}
             <div class="videorightdetails">
@@ -159,16 +180,14 @@
           </div>
           <form class="ui reply form wid-ful">
             <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
-              <textarea id="replytext" rows="3"></textarea>
+              <textarea id="replytext" rows="3"></textarea> 
             </div>
-            <div class="ui right labeled submit icon button blue dtube pos-rel" style="float:right;
-                          vertical-align: top;">
-              <i class="ui icon remove dsp-non"></i>
-              <i class="ui icon check dsp-non"></i>
-              <i class="ui icon load dsp-non"><div class="ui active loader"></div></i>
-              <i class="ui right icon talk"></i>{{ translate 'VIDEO_ADD_COMMENT'}}
-              <!-- {{ translate 'GLOBAL_REPLY_TO'}} @{{info.author}} -->
-            </div>
+            <div class="ui blue right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
+                <i class="ui blue icon remove dsp-non" style="background:white;opacity:1;"></i>
+                <i class="ui blue icon check dsp-non" style="background:white;opacity:1;"></i>
+                <i class="ui blue icon load dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
+                <i class="ui blue right icon talk" style="background:white;opacity:1;"></i>{{ translate 'VIDEO_ADD_COMMENT'}}
+              </div>
           </form>
         </div>
         {{else}}
@@ -183,21 +202,24 @@
     </div>
   </div>
   <!-- Recommended videos  -->
-  <div class="ui grid computer only videorecommendedcomputer">
-    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-    {{#if userVideosAndResteems}} 
-    {{> verticalvideoband userVideosAndResteems}} 
-    {{/if}}
+  <div class="pdg-non relatedcol four wide column">
+    <div class="ui grid computer only videorecommendedcomputer" style="margin-right: -5rem;">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{#if userVideosAndResteems}} 
+      {{> verticalvideoband userVideosAndResteems}} 
+      {{/if}}
+    </div>
   </div>
-  <div class="ui container grid tablet only content videorecommendedtablet">
-    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-    {{> verticalvideoband userVideosAndResteems}}
-  </div>
-  <div class="ui grid mobile only content videorecommendedmobile">
-    <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-    {{> verticalvideoband userVideosAndResteems}}
-  </div>
-  {{> popupvoter}} 
-  {{> popupdownvoter}}
-  {{/with}}
+    <div class="ui container grid tablet only content videorecommendedtablet">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{> verticalvideoband userVideosAndResteems}}
+    </div>
+    <div class="ui grid mobile only content videorecommendedmobile">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{> verticalvideoband userVideosAndResteems}}
+    </div>
+    {{> popupvoter}} {{> popupdownvoter}} 
+
+</div>
+    {{/with}}
 </template>
