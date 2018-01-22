@@ -184,14 +184,16 @@ textarea {
  }
 
  .btnlabel{
-  display: grid!important;
-  width: 3.2em!important;
+  display: inline-block!important;
   background: white!important;
   opacity: 1!important;
   font-family: 'Roboto'!important;
   font-weight: 600!important;
   color:black!important;
-  font-size: 15px!important;
+  font-size: 13px!important;
+  line-height: 1.5!important;
+  border-radius: 0px!important;
+  margin-right: -1px!important;
  }
 
  .ui.labeled.icon.buttons > .button > .icon, .ui.labeled.icon.button > .icon{

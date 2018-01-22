@@ -120,8 +120,8 @@ Template.video.events({
   },
   'click .submit': function (event) {
     if (!Session.get('replyingTo')) return;
-    $('.ui.button > .ui.icon.talk').addClass('dsp-non');
-    $('.ui.button > .ui.icon.load').removeClass('dsp-non');
+    $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
+    $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
     var parentAuthor = Session.get('replyingTo').author
     var parentPermlink = Session.get('replyingTo').permlink
     var body = $(event.currentTarget).prev().children()[0].value
@@ -131,16 +131,16 @@ Template.video.events({
     broadcast.comment(parentAuthor, parentPermlink, body, jsonMetadata, function (err, result) {
       console.log(err, result)
       if (err) {
-        $('.ui.button > .ui.icon.load').removeClass('dsp-non');
-        $('.ui.button > .ui.icon.remove').removeClass('dsp-non');
+        $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+        $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
         toastr.error(err.payload.error.data.stack[0].format, 'Error')
         return
       }
-      $('.ui.button > .ui.icon.load').addClass('dsp-non');
-      $('.ui.button > .ui.icon.check').removeClass('dsp-non');
+      $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
       Template.video.loadState()
       Session.set('replyingTo', null)
       document.getElementById('replytext').value = "";
+      $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
     });
   },
   'click .subscribe': function () {
@@ -250,7 +250,7 @@ Template.video.loadState = function () {
 //     })
 //   })
 // }
-//.addClass('container') .addClass('container')
+
 Template.video.setScreenMode = function () {
   if ($(window).width() < 1166) {
       $('.ui.videocontainer').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');

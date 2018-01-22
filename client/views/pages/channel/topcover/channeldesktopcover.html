@@ -8,38 +8,15 @@
             <div class="ui container">
                 <h3 class="pos-abs" style="margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
                 <img class="ui image circular" style="max-width:100%;float: left;top: 10px;left: 20px; max-height: calc(100% - 20px);" src="https://img.busy.org/@{{user.name}}"> {{#if equals activeUser user.name}}
-                <a href="https://steemit.com/@{{user.name}}/settings" target="_blank">
-                    <div class="ui right labeled submit icon button blue dtube pos-rel" style="float:right;top:100px;margin-right: 10px !important;">
-                        <i class="icon edit blue" style="background:white;opacity:1;"></i>{{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
-                    </div>
-                </a>
+                {{>buttoneditprofile}}
                 {{else}} 
                 {{#if isSubscribedTo user.name}}
-                <!-- <div class="ui labeled small  button pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
-                    <div class="ui small button unsubscribe dtube grey">
-                        <i class="icon red" style="background:white;opacity:1;">{{{subCount}}}</i>{{ translate 'VIDEO_UNSUBSCRIBE'}}
-                    </div>
-                </div> -->
-                    <!-- <a class="ui basic label buttonlabel" style="border-width:1px!important;">
-                        {{{subCount}}}
-                    </a> --> 
-
-                <div class="ui right labeled icon button dtube grey unsubscribe pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
-                    <i class="icon btnlabel label black">
-                        {{{subCount}}}</i>
-                    {{ translate 'VIDEO_UNSUBSCRIBE'}}
-                    <!-- <div class="ui basic label buttonlabel" style="border-width:1px!important;">
-                        {{{subCount}}}
-                    </div> -->
+                <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
+                    {{>buttonunsubscribe}}
                 </div>
                 {{else}}
-                    <div class="ui  right labeled icon button dtube red subscribe pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
-                        <i class="icon btnlabel label black">
-                            {{{subCount}}}</i>
-                        {{ translate 'VIDEO_SUBSCRIBE'}}
-                        <!-- <div class="ui basic label buttonlabel" style="border-width:1px!important;">
-                            {{{subCount}}}
-                        </div> -->
+                    <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
+                        {{>buttonsubscribe}}
                     </div>
                 {{/if}}
                  {{/if}}

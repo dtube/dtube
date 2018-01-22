@@ -25,7 +25,7 @@
                 <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
                 <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
         {{else}}
@@ -83,14 +83,30 @@
             </div>
           </div>
           <div style="text-align:left;margin-top:20px;">
-            <a class='ui icon left labeled dtube black button' style="padding-left: 3.27142857em !important;"
-              id='snap' download='snap.jpg'>
-              <i class="photo icon black" style="background: white;opacity: 1;"></i> {{ translate 'UPLOAD_TAKE_SNAP'}}</a>
-            <label for="snapFile">
-              <a class='ui red dtube icon right labeled button' style="padding-right: 3.27142857em !important;" id='uploadSnap'>
-                <i class="cloud upload icon red" style="background: white;opacity: 1;"></i> {{ translate 'UPLOAD_UPLOAD_SNAP'}}</a>
-            </label>
-            <input type="file" id="snapFile">
+            <div class="ui form">
+            <div class="three fields">
+              <div class="field">
+                <a class='ui icon left labeled dtube grey button' id='snap' download='snap.jpg'>
+                  <div style="display:inline-block;padding: 0.8em 2em;">
+                    {{ translate 'UPLOAD_TAKE_SNAP'}}
+                  </div>
+                  <i class="photo icon black" style="background: white;opacity: 1;"></i>
+                </a>
+              </div>
+              <div class="field">
+                <label for="snapFile">
+                  <a class='ui red dtube icon right labeled button' id='uploadSnap'>
+                    <div style="display:inline-block;padding: 0.8em 2em;">
+                      {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                    </div>
+                    <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
+                  </a>
+                </label>
+                <input type="file" id="snapFile">
+              </div>
+              <div class="field"></div>
+            </div>
+          </div>
           </div>
         </div>
         {{> uploadform}}

@@ -17,14 +17,18 @@
         </div>
         <span class="ui tags alert dsp-non">You reached the limit of 4 tags</span>
       </div>
-      <div class="two fields">
+      <div class="three fields">
         <div class="field">
-          <button class="ui left labeled icon button advanced dtube black" type="button">
+          <button class="ui left labeled icon button advanced dtube grey" type="button">
+              <div style="display:inline-block;padding: 0.8em 2em;">
+                  {{ translate 'UPLOAD_ADVANCED'}} 
+              </div>
             <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-            {{ translate 'UPLOAD_ADVANCED'}}
           </button>
-          {{> uploadformsubmit}}
         </div>
+        <div class="field">
+            {{> uploadformsubmit}}
+          </div>
         <div class="field">
             <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
                 <input type="checkbox" name="newsletter">
@@ -99,14 +103,18 @@
 </template>
 <template name="uploadformsubmit">
   {{#if info.title}}
-  <button class="ui blue right labeled dtube icon button editsubmit" type="button">
-    <i class="checkmark icon"></i>
-    {{ translate 'VIDEO_EDIT'}}
+  <button class="ui red right labeled dtube icon button editsubmit" type="button">
+      <div style="display:inline-block;padding: 0.8em 2em;">
+          {{ translate 'VIDEO_EDIT'}} 
+      </div>
+    <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
   </button>
   {{else}}
   <button class="ui red right labeled dtube icon button uploadsubmit" type="button">
+      <div style="display:inline-block;padding: 0.8em 2em;">
+          {{ translate 'UPLOAD_SUBMIT'}}
+      </div>
     <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-    {{ translate 'UPLOAD_SUBMIT'}}
   </button>
   {{/if}}
 </template>

@@ -20,15 +20,13 @@
   margin-bottom: 4px;
 }
 
-.channelLink > a {
+.channelLink>a {
   color: rgb(0, 0, 0);
   font-weight: 500;
   font-size: 14px;
 }
 
-
-.author.owner
-{
+.author.owner {
   background: red;
   color: white!important;
   border-radius: 4px;
@@ -44,86 +42,87 @@
 
 .ui.threaded.comments .comment .comments {
   margin: -1.5em 0 -1em 4em;
-  padding: 0px; 
-  -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15); 
-   box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15); 
+  padding: 0px;
+  -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15);
 }
 
-.shareli
-{
+.shareli {
   width: 48px !important;
   height: auto;
   min-width: 0px;
 }
 
-.votebutton
-{
+.votebutton {
   border-style: solid;
-  background: transparent none !important;   
+  background: transparent none !important;
   margin-right: 0px;
-  border-width: 0px 0px 0px 0px; 
-  border-radius:0px; 
-  box-shadow:none;
+  border-width: 0px 0px 0px 0px;
+  border-radius: 0px;
+  box-shadow: none;
   -webkit-box-shadow: none;
   border-color: rgba(34, 36, 38, 0.15);
 }
 
-.videocontainer{
+.videocontainer {
   /* width:90%; */
   margin-bottom: 10px;
   margin-left: auto!important;
   margin-right: auto!important;
-  
 }
 
-.videosegment{
+.videosegment {
   padding: 0px !important;
   border-width: 0 !important;
-  overflow: hidden; background: #f9f9f9;
+  overflow: hidden;
+  background: #f9f9f9;
 }
 
-.videotitlecontainer{
-  float:left;
-  vertical-align:top; 
-  margin-top: 0px; 
+.videotitlecontainer {
+  float: left;
+  vertical-align: top;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
-.videotitle{
-  font-size:20px; 
-  font-weight:400;
+.videotitle {
+  font-size: 20px;
+  font-weight: 400;
 }
 
-.videoleftdetails{
-  width:65%;position:relative;
-  display: inline-block;vertical-align: top;
-}
-
-.videorightdetails{
-  position:relative;float:right;
+.videoleftdetails {
+  width: 65%;
+  position: relative;
+  display: inline-block;
   vertical-align: top;
 }
 
-.videovotecontainer{
+.videorightdetails {
+  position: relative;
+  float: right;
+  vertical-align: top;
+}
+
+.videovotecontainer {
   bottom: 0px;
   vertical-align: bottom;
-  font-size:20px;float:right;
+  font-size: 20px;
+  float: right;
   right: 0px;
 }
 
-.videoshowmore
-{
-  margin-right: 0px!important;  
+.videoshowmore {
+  margin-right: 0px!important;
   border-style: solid!important;
   background: transparent!important;
-  border-width: 0px 0px 0px 0px!important; 
-  border-radius:0px!important; 
-  box-shadow:none!important;
+  border-width: 0px 0px 0px 0px!important;
+  border-radius: 0px!important;
+  box-shadow: none!important;
   -webkit-box-shadow: none!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
 }
 
-.videoband .videosnap{
+.videoband .videosnap {
   margin-bottom: 5px;
 }
 
@@ -131,7 +130,7 @@
   padding-bottom: 3em;
 }
 
-.snaploader{
+.snaploader {
   opacity: 0;
   -moz-transition: opacity 2s;
   -webkit-transition: opacity 2s;
@@ -140,124 +139,121 @@
   transition-delay: 2s;
 }
 
-.snaploader.loaded{
+.snaploader.loaded {
   opacity: 1;
 }
 
-.buttonlabel
-{
-  margin-right: 0px!important;  
+.buttonlabel {
+  margin-right: 0px!important;
   border-style: solid!important;
-  border-width: 0px 0px 0px 0px!important; 
-  border-radius:2px!important; 
-  box-shadow:none!important;
+  border-width: 0px 0px 0px 0px!important;
+  border-radius: 2px!important;
+  box-shadow: none!important;
   -webkit-box-shadow: none!important;
   border-color: rgba(34, 36, 38, 0.15)!important;
 }
 
-.dtube.red.button
-{
+.dtube.red.button {
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
-  border-radius: 2px !important;
-    box-shadow: 0px 1px 5px 1px #26262640;
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-.dtube.white.button
-{
-  color: rgba(0, 0, 0, 0.87);
-  margin-right: 0px !important;
-  border-style: solid !important;
-  border-width: 0px !important;
-  border-radius: 2px !important;
-    box-shadow: 0px 1px 5px 1px #26262640;
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-.dtube.grey.button
-{
-  color: rgba(0, 0, 0, 0.87);
-  margin-right: 0px !important;
-  border-style: solid !important;
-  border-width: 0px !important;
-  border-radius: 2px !important;
-    box-shadow: 0px 1px 5px 1px #26262640;
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-.dtube.grey.button:hover
-{
-  color: rgba(22, 22, 22, 0.87);
-  margin-right: 0px !important;
-  border-style: solid !important;
-  border-width: 0px !important;
-  border-radius: 2px !important;
-    box-shadow: 0px 1px 5px 1px #26262640;
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-
-.dtube.blue.button
-{
-  margin-right: 0px !important;
-  border-style: solid !important;
-  border-width: 0px !important;
-  border-radius: 2px !important;
-    box-shadow: 0px 1px 5px 1px #26262640;
-  font-weight: 500;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
-.dtube.black.button
-{
-  margin-right: 0px !important;
-  border-style: solid !important;
-  border-width: 0px !important;
-  border-radius: 2px !important;
+  border-radius: 0px !important;
   box-shadow: 0px 1px 5px 1px #26262640;
   font-weight: 500;
   font-size: 13px;
   text-transform: uppercase;
+      padding: 0px;
 }
 
-.videorecommendedcomputer{
-  padding-left:20px!important;
+.dtube.white.button {
+  color: black;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
+.dtube.grey.button {
+  color: black;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
+.dtube.grey.button:hover {
+  color: black;
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
+.dtube.blue.button {
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
+.dtube.black.button {
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 1px #26262640;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
+.videorecommendedcomputer {
+  padding-left: 20px!important;
   display: inline-block!important;
-  margin-top:0px!important;
+  margin-top: 0px!important;
 }
 
-.videorecommendedtablet{
+.videorecommendedtablet {
   float: left;
   text-align: left;
-  width:100%;
-  margin-top:10px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.videorecommendedmobile{
+.videorecommendedmobile {
   text-align: left;
-  width:100%;
-  margin:0px!important;
+  width: 100%;
+  margin: 0px!important;
 }
 
-.ui.content{
+.ui.content {
   margin-top: 15px;
   padding-bottom: 1em;
 }
 
-.ui.segment.closed
-{
-  max-height:10em;
+.ui.segment.closed {
+  max-height: 10em;
 }
 
 .ui.segments {
@@ -273,10 +269,9 @@
   border-radius: 0;
 }
 
-.ui.comments .comment .actions{
+.ui.comments .comment .actions {
   margin: 0.25em 0em 0.5em 5em;
 }
-
 
 .truncate {
   width: 100%;
@@ -292,14 +287,18 @@
   max-height: 113px;
 }
 
-.hidden{
-    display:none;
+.hidden {
+  display: none;
 }
 
-  .ui.fixed.sticky + p {
-    margin-top: 39px;
-  }
+.ui.fixed.sticky+p {
+  margin-top: 39px;
+}
 
-  .ui.channel.closed{
-    height: 0px!important;
-  }
+.ui.channel.closed {
+  height: 0px!important;
+}
+
+.ui.tiny.label {
+  border-radius: 0px;
+}
