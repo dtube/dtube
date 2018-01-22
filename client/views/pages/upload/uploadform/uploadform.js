@@ -8,7 +8,7 @@ Template.uploadform.rendered = function () {
       delimiter: 32, // 188 (the comma) by default.
     },
     onNoResults: function (search) { }, // trick to hide no result message
-    onChange:function(){
+    onChange: function () {
       var tags = $('#tags').val().split(",").length;
       if (tags <= 3) {
         $('.tags.alert').addClass('dsp-non')
@@ -22,8 +22,13 @@ Template.uploadform.rendered = function () {
   });
   $('.ui.nsfw.slider').checkbox({
     onChecked: function () {
-      var tags = $('#tags').val().split(",").length;
-      if (tags <= 3) {
+      let tags = $('#tags').val().split(",");
+      if (tags.length <= 3) {
+        $('.ui.multiple.dropdown').dropdown('set selected', ['nsfw']);
+      }
+      else {
+        $('.ui.multiple.dropdown').dropdown('setting', 'allowAdditions', true);
+        $('.ui.multiple.dropdown').dropdown('remove selected', tags.pop());
         $('.ui.multiple.dropdown').dropdown('set selected', ['nsfw']);
       }
     },
@@ -47,6 +52,11 @@ Template.uploadform.helpers({
       ok.push(tags[i])
     }
     return ok.join(',')
+  },
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      return true;
+    }
   }
 })
 
@@ -243,5 +253,13 @@ Template.uploadform.events({
         }
       )
     })
+  }
+})
+
+Template.uploadformsubmit.helpers({
+  isOnMobile: function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      return true;
+    }
   }
 })

@@ -15,27 +15,37 @@
           <input id="tags" name="tags" type="hidden" value="{{inputTags content.tags}}">
           <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
         </div>
-        <span class="ui tags alert dsp-non">You reached the limit of 4 tags</span>
+        <span class="ui tags alert dsp-non">The maximum is <strong>4</strong> tags</span>
       </div>
-      <div class="three fields">
-        <div class="field">
-          <button class="ui left labeled icon button advanced dtube grey" type="button">
-              <div style="display:inline-block;padding: 0.8em 2em;">
+      {{#if isOnMobile}}
+          <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
+              <div style="display:inline-block;padding: 0.8em 1em;">
                   {{ translate 'UPLOAD_ADVANCED'}} 
               </div>
             <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
           </button>
-        </div>
-        <div class="field">
             {{> uploadformsubmit}}
-          </div>
-        <div class="field">
+            <div class="ui slider nsfw checkbox">
+                <input type="checkbox" name="newsletter">
+                <label style="color:black;">This is an adult content</label>
+              </div>
+            {{else}}
+            <div style="text-align:left; margin-top:20px;">
+            <button class="ui right labeled icon button advanced dtube grey" type="button" style="margin-right: 10px!important;margin-bottom: 10px;">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'UPLOAD_ADVANCED'}} 
+                </div>
+              <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
+            </button>
+            <div style="display:inline-block;">
+              {{> uploadformsubmit}}
+            </div>
             <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
                 <input type="checkbox" name="newsletter">
                 <label style="color:black;">This is an adult content</label>
               </div>
-        </div>
-      </div>
+          </div>
+            {{/if}}
       <br />
       <br />
       <div class="field advancedupload" style='display: none'>
@@ -103,18 +113,27 @@
 </template>
 <template name="uploadformsubmit">
   {{#if info.title}}
-  <button class="ui red right labeled dtube icon button editsubmit" type="button">
-      <div style="display:inline-block;padding: 0.8em 2em;">
+  <button class="ui right labeled dtube icon button editsubmit" type="button">
+      <div style="display:inline-block;padding: 0.8em 1em;">
           {{ translate 'VIDEO_EDIT'}} 
       </div>
     <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
   </button>
   {{else}}
-  <button class="ui red right labeled dtube icon button uploadsubmit" type="button">
-      <div style="display:inline-block;padding: 0.8em 2em;">
-          {{ translate 'UPLOAD_SUBMIT'}}
-      </div>
-    <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-  </button>
+      {{#if isOnMobile}}
+      <button class="ui fluid red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">
+          <div style="display:inline-block;padding: 0.8em 1em;">
+              {{ translate 'UPLOAD_SUBMIT'}}
+          </div>
+        <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
+      </button>
+      {{else}}
+      <button class="ui red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">
+          <div style="display:inline-block;padding: 0.8em 1em;">
+              {{ translate 'UPLOAD_SUBMIT'}}
+          </div>
+        <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
+      </button>
+      {{/if}}
   {{/if}}
 </template>

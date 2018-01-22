@@ -3,6 +3,7 @@
     <center>
       <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
         {{#if isOnMobile}}
+        <!--  UPLOAD STEPS FOR MOBILE  -->
         <div id="statuszone" style="margin-top:20px;">
           <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
             <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
@@ -29,6 +30,7 @@
           </div>
         </div>
         {{else}}
+        <!--  UPLOAD STEPS FOR DESKTOP  -->
         <div id="statuszone" style="margin:10 0px;">
           <div class="ui ordered steps computer" style="width: 100%;border-width: 0px;">
             <div class="step">
@@ -82,33 +84,44 @@
               </div>
             </div>
           </div>
-          <div style="text-align:left;margin-top:20px;">
-            <div class="ui form">
-            <div class="three fields">
-              <div class="field">
-                <a class='ui icon left labeled dtube grey button' id='snap' download='snap.jpg'>
-                  <div style="display:inline-block;padding: 0.8em 2em;">
+          {{#if isOnMobile}}
+            <div class="ui centered grid" style="text-align:left;margin-top:20px;">
+                <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin:1rem!important;width: 100%;">
+                  <div style="display:inline-block;padding: 0.8em 1em;">
                     {{ translate 'UPLOAD_TAKE_SNAP'}}
                   </div>
                   <i class="photo icon black" style="background: white;opacity: 1;"></i>
                 </a>
-              </div>
-              <div class="field">
-                <label for="snapFile">
-                  <a class='ui red dtube icon right labeled button' id='uploadSnap'>
-                    <div style="display:inline-block;padding: 0.8em 2em;">
+                <label for="snapFile" style="width: 100%;">
+                  <a class='ui red fluid dtube icon right labeled button' id='uploadSnap'> 
+                    <div style="display:inline-block;padding: 0.8em 1em;">
                       {{ translate 'UPLOAD_UPLOAD_SNAP'}}
                     </div>
                     <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
                   </a>
                 </label>
                 <input type="file" id="snapFile">
-              </div>
-              <div class="field"></div>
             </div>
+            {{else}}
+            <div style="text-align:left;margin-top:20px;">
+                <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin-right: 10px!important;margin-bottom: 10px;">
+                  <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'UPLOAD_TAKE_SNAP'}}
+                  </div>
+                  <i class="photo icon black" style="background: white;opacity: 1;"></i>
+                </a>
+                <label for="snapFile">
+                  <a class='ui red dtube icon right labeled button' id='uploadSnap'>
+                    <div style="display:inline-block;padding: 0.8em 1em;">
+                      {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                    </div>
+                    <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
+                  </a>
+                </label>
+                <input type="file" id="snapFile">
+            </div>
+            {{/if}}
           </div>
-          </div>
-        </div>
         {{> uploadform}}
       </div>
     </center>
