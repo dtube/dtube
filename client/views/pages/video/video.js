@@ -22,7 +22,7 @@ Template.video.helpers({
     return Session.get('activeUsername')
   },
   userVideosAndResteems: function () {
-    var suggestions = Videos.find({ relatedTo: FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), source: 'askSteem' }, { limit: 6 }).fetch();
+    var suggestions = Videos.find({ relatedTo: FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), source: 'askSteem' }, { limit: 12 }).fetch();
     return suggestions;
   },
   author: function () {
