@@ -37,6 +37,7 @@ Template.upload.uploadBalancer = function () {
         var waitings = response.currentWaitingInQueue.ipfsToAddInQueue + response.currentWaitingInQueue.spriteToCreateInQueue + response.currentWaitingInQueue.videoToEncodeInQueue
         if (waitings < queuethreshold) {
           Session.set('upldr', uploader)
+          console.log('Current uploader : ' + uploader +' '+ ' ---  Waiting in queue : ' + waitings)
           return true
         }
         else {

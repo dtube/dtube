@@ -9,13 +9,6 @@ const excludedTags = [
 TrendingTags = new Mongo.Collection(null)
 
 TrendingTags.loadTopTags = function(limit, cb) {
-  // caca
-  // steem.api.getTrendingTags('dtube', limit, function(err, results) {
-  //   if (err) console.log(err)
-  //   for (var i = 0; i < results.length; i++)
-  //     if (excludedTags.indexOf(results[i].name) == -1)
-  //       TrendingTags.upsert(results[i], results[i])
-  // });
   dateTo = moment().format('YYYY-MM-DD');
   dateFrom = moment().subtract(30,'d').format('YYYY-MM-DD');
   timeQ = 'created:>='+dateFrom
