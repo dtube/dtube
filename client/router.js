@@ -1,3 +1,5 @@
+import { Template } from "meteor/templating";
+
 FlowRouter.route('/ipns/Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB/', {
   name: "home",
   action: function(params, queryParams) {
@@ -68,6 +70,7 @@ FlowRouter.route('/upload', {
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Upload')
     Template.sidebar.selectMenu();
+    Template.upload.uploadBalancer();
     BlazeLayout.render('masterLayout', {
       main: "upload",
       nav: "nav",
