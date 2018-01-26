@@ -51,9 +51,20 @@
         <span class="customlink">{{info.author}}</span>
       </a>
       {{#if isResteemed reblogged_by}}
-      {{#each reblogged_by}}
-      <i class="retweet icon reblogged" title={{this}}></i>
-      {{/each}}
+      <i class="retweet icon reblogged"></i>
+      <div class="ui right center inverted flowing popup reblogged">
+        <div class="ui mini middle aligned divided list">
+          {{#each reblogged_by}}
+                <div class="ui item"><a href='/c/{{this}}'>
+                    <div class="content">
+                        <div class="header">
+                          {{this}}
+                        </div>
+                    </div>
+                </a></div>
+            {{/each}}
+        </div>
+    </div>
       {{/if}}
     </div>
     <div class='videosnapdetails'>
