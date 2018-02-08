@@ -27,45 +27,56 @@ Template.upload.helpers({
   }
 });
 
-Template.upload.uploadBalancer = function () {
-  //var uploaders = Session.get('remoteSettings').upldr
-    var uploaders = [3,2]
-    var tocompare = []
-    var queuethreshold = 3;
-    uploaders.every(function(uploader) {
-      getUploaderStatus('https://upldr'+ uploader +'.d.tube/getStatus').then(function (response) {
-        var waitings = response.currentWaitingInQueue.ipfsToAddInQueue + response.currentWaitingInQueue.spriteToCreateInQueue + response.currentWaitingInQueue.videoToEncodeInQueue
-        if (waitings < queuethreshold) {
-          Session.set('upldr', uploader)
-          console.log('Current uploader : ' + uploader +' '+ ' ---  Waiting in queue : ' + waitings)
-          return true
-        }
-        else {
-          tocompare.push([{name:uploader},{waiting:waitings}])
-          if (tocompare.length == uploaders.length)
-          {
-            var i = 0;
-            var smallestNumber = tocompare[0][1].waiting;
-            for(i = 0; i < tocompare.length; i++) {
-                if(tocompare[i][1].waiting < smallestNumber) {
-                    smallestNumber = tocompare[i][0].waiting;
-                    Session.set('upldr', tocompare[i][0].name)
-                    console.log('Current uploader : ' + tocompare[i][0].name +' '+ ' ---  Waiting in queue : ' + tocompare[i][1].waiting)
-                    return true
-                }
-            }
-          }
-          else return false
-        }
-    }
-      , function (status) {
-        console.log('Something went wrong.');
-      });
-      return !(uploader === 1);
-  });
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];1
+      array[j] = temp;
+  }
 }
 
-var getUploaderStatus = function (url) {
+Template.upload.setBestUploadEndpoint = function (cb) {
+  // if (!Session.get('remoteSettings')) {
+  //   setTimeout(setBestUploadEndpoint(cb), 1000)
+  //   return
+  // }
+  var uploaders = Session.get('remoteSettings').upldr
+  shuffleArray(uploaders)
+  var results = []
+  var queuethreshold = 3;
+  var finished = false;
+  for (let i = 0; i < uploaders.length; i++) {
+    getUploaderStatus(uploaders[i]).then(function (response) {
+      var upldr = response.upldr
+      var totalQueueSize = response.currentWaitingInQueue.ipfsToAddInQueue + response.currentWaitingInQueue.spriteToCreateInQueue + response.currentWaitingInQueue.videoToEncodeInQueue
+      results.push({
+        upldr:upldr,
+        totalQueueSize:totalQueueSize
+      })
+
+      if (totalQueueSize < queuethreshold && !finished) {
+        Session.set('upldr', upldr)
+        console.log('upldr' + upldr +' '+ ' ---  totalQueueSize: ' + totalQueueSize)
+        finished = true
+        cb()
+      } else if (results.length == uploaders.length && !finished) {
+        var bestEndpoint = results.sort(function(a,b) {
+          return a.totalQueueSize - b.totalQueueSize
+        })[0]
+        Session.set('upldr', bestEndpoint.upldr)
+        console.log('upldr' + bestEndpoint.upldr +' '+ ' ---  totalQueueSize: ' + tocompare[i][1].waiting)
+        finished = true
+        cb()
+      }
+    }, function (upldr) {
+      results.push({upldr: upldr, error: true})
+    });
+  }
+}
+
+var getUploaderStatus = function (upldr) {
+  var url = 'https://upldr'+upldr+'.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
@@ -73,9 +84,11 @@ var getUploaderStatus = function (url) {
     req.onload = function () {
       var status = req.status;
       if (status == 200) {
-        resolve(JSON.parse(req.responseText));
+        var jsonResult = JSON.parse(req.responseText)
+        jsonResult.upldr = upldr
+        resolve(jsonResult);
       } else {
-        reject(status);
+        reject(upldr);
       }
     };
     req.send();
@@ -230,17 +243,21 @@ Template.upload.inputVideo = function (dt) {
   })
   videoNode.src = fileURL
 
-  // uploading to ipfs
-  Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
-    $('#step1load').hide()
-    if (err) {
-      console.log(err)
-      toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
-      return
-    } else {
-      console.log('Uploaded video', result);
-    }
-  })
+  // checking best ipfs-uploader endpoint available
+  Template.upload.setBestUploadEndpoint(function() {
+    // uploading to ipfs
+    Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
+      $('#step1load').hide()
+      if (err) {
+        console.log(err)
+        toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
+        return
+      } else {
+        console.log('Uploaded video', result);
+      }
+    })
+  });
+  
 
   console.log(file)
   $('input[name="filesize"]').val(file.size)

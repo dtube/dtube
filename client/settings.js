@@ -9,11 +9,11 @@ Meteor.settings.public = {
       { 'owner': null,'node': {'host': '127.0.0.1','port': 5001,'protocol': 'http'} }
     ],
     "displayNodes": [
-      "https://ipfs.io",
+      "https://snap1.d.tube",
       "http://127.0.0.1:8080"
     ],
-    "snapMaxFileSizeKB": 500,
-    "upldr": [3,4]
+    "snapMaxFileSizeKB": 1024,
+    "upldr": [1,2,3,4,5,'g1']
   },
   "app": 'dtube/0.6',
   "beneficiary": "dtube",
