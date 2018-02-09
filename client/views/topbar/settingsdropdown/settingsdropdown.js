@@ -30,7 +30,7 @@ Template.settingsdropdown.rendered = function() {
         }
         Session.set('isInNightMode', !Session.get('isInNightMode'))
       } else {
-        console.log(value,text,e)
+        //console.log(value,text,e)
       }
     }
   })

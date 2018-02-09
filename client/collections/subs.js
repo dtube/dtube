@@ -2,7 +2,6 @@ Subs = new Mongo.Collection(null)
 
 Subs.loadFollowing = function(username, startFollowing = undefined, recursive = true, cb) {
   var limit = 100
-  console.log(username, startFollowing, recursive)
   steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
     if (err) console.log(err)
     if (results.length) {

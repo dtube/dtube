@@ -28,7 +28,9 @@ function translate(code){
   }
 
   if(!found){
-    console.log('have not found translation in ' + culture + ' :'+code);
+    if (culture.substr(0,2) != 'en')
+      console.log('have not found translation in ' + culture + ' :'+code);
+
     for(var key in jsonTranslateDef){
       if(key === code){
         value = jsonTranslateDef[key];
@@ -88,7 +90,7 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
     cb()
     return
   }
-  console.log(Meteor.settings.public.lang[culture])
+
   $.get('/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)
