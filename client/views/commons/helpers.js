@@ -385,3 +385,8 @@ Template.registerHelper('displayActiveBalance', function (balance) {
   return (amount.toFixed(2));
 })
 
+Template.registerHelper('arrayify',function(obj){
+  var result = [];
+  for (var key in obj) result.push({key:key,value:obj[key]});
+  return result;
+});

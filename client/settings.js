@@ -15,8 +15,10 @@ Meteor.settings.public = {
   "appName": 'DTube',
   "ipfs": "",
   "lang": {
-    "de": "de/de-DE.json",
-    "fr": "fr/fr-FR.json"
+    "de": {name: "Deutsch", path: "de/de-DE.json"},
+    "en": {name: "English", path: "en/en-US.json"},
+    "fr": {name: "Français", path: "fr/fr-FR.json"},
+    "pl": {name: "Polski", path: "pl/pl-PL.json"}
   },
   "translations": {
     "en-us": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t000249923z'},

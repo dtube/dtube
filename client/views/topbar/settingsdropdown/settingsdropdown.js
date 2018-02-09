@@ -74,6 +74,9 @@ Template.settingsdropdown.helpers({
   },
   isInNightMode:function() {
     return Session.get('isInNightMode')
+  },
+  languages: function() {
+    return Meteor.settings.public.lang
   }
 })
 

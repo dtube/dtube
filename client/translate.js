@@ -1,7 +1,10 @@
 // loading en-us by default
-var jsonTranslateDef = require('./en-us.json')
-Session.set('jsonTranslate', jsonTranslateDef)
-var culture = 'en-us';
+var culture = 'en-us'
+$.get('/lang/en/en-US.json', function(json, result) {
+  if (result == 'success') {
+    jsonTranslateDef = json
+  }
+})
 
 window.loadLangAuto = function(cb) {
   culture = getCultureAuto();
@@ -14,11 +17,13 @@ function translate(code){
   //find translation
   var value = code;
   var found = false;
-  for(var key in Session.get('jsonTranslate')){
-    if(key === code){
-      value = Session.get('jsonTranslate')[key];
-      found = true;
-      break;
+  if (Session.get('jsonTranslate')) {
+    for(var key in Session.get('jsonTranslate')){
+      if(key === code){
+        value = Session.get('jsonTranslate')[key];
+        found = true;
+        break;
+      }
     }
   }
 
@@ -31,7 +36,7 @@ function translate(code){
         break;
       }
     }
-    if(!found){
+    if (!found) {
       console.log('have not found translation:'+code);
       return '[['+code+']]';
     }
@@ -77,13 +82,14 @@ function getCultureAuto(){
   return culture;
 }
 
-function loadJsonTranslate(culture, cb){
+window.loadJsonTranslate = function(culture, cb = function(){}){
   if (culture.substr(0,2) == 'en') {
+    Session.set('jsonTranslate', null)
     cb()
     return
   }
   console.log(Meteor.settings.public.lang[culture])
-  $.get('/lang/'+Meteor.settings.public.lang[culture], function(json, result) {
+  $.get('/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)
       cb()
