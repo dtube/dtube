@@ -13,7 +13,7 @@ Meteor.settings.public = {
       "http://127.0.0.1:8080"
     ],
     "snapMaxFileSizeKB": 1024,
-    "upldr": [1,2,3,4,5,'g1']
+    "upldr": ['g1',1,2,3,4,5]
   },
   "app": 'dtube/0.6',
   "beneficiary": "dtube",

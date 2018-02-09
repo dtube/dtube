@@ -14,20 +14,26 @@ Template.uploadvideoprogress.update = function() {
     Session.set('uploadVideoProgress', data)
 
     // if upload is finished, we stop updating the progress
+    
     var isCompleteUpload = true
-    for (var i = data.encodedVideos.length-1; i >= 0; i--) {
-      if (data.encodedVideos[i].encode.progress !== "100.00%") {
-        isCompleteUpload = false;
-        break;
+    if (data.finished === false) {
+      isCompleteUpload = false
+    } else if (data.finished === null) {
+      for (var i = data.encodedVideos.length-1; i >= 0; i--) {
+        if (data.encodedVideos[i].encode.progress !== "100.00%") {
+          isCompleteUpload = false;
+          break;
+        }
+        if (data.encodedVideos[i].ipfsAddEncodeVideo.progress !== "100.00%") {
+          isCompleteUpload = false;
+          break;
+        }
       }
-      if (data.encodedVideos[i].ipfsAddEncodeVideo.progress !== "100.00%") {
+      if (data.ipfsAddSourceVideo.progress !== "100.00%") {
         isCompleteUpload = false;
-        break;
       }
     }
-    if (data.ipfsAddSourceVideo.progress !== "100.00%") {
-      isCompleteUpload = false;
-    }
+
     if (isCompleteUpload) {
       clearInterval(refreshUploadStatus)
 

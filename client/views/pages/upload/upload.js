@@ -42,6 +42,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
   //   return
   // }
   var uploaders = Session.get('remoteSettings').upldr
+  var uploaders = ['g1']
   shuffleArray(uploaders)
   var results = []
   var queuethreshold = 3;
@@ -49,7 +50,19 @@ Template.upload.setBestUploadEndpoint = function (cb) {
   for (let i = 0; i < uploaders.length; i++) {
     getUploaderStatus(uploaders[i]).then(function (response) {
       var upldr = response.upldr
-      var totalQueueSize = response.currentWaitingInQueue.ipfsToAddInQueue + response.currentWaitingInQueue.spriteToCreateInQueue + response.currentWaitingInQueue.videoToEncodeInQueue
+      var totalQueueSize = 0;
+      if (response.version == '0.6.6') {
+        totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue 
+        totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue 
+        totalQueueSize += response.currentWaitingInQueue.videoToEncodeInQueue
+      } else {
+        totalQueueSize += response.currentWaitingInQueue.audioCpuToEncode
+        totalQueueSize += response.currentWaitingInQueue.videoGpuToEncode
+        totalQueueSize += response.currentWaitingInQueue.audioVideoCpuToEncode
+        totalQueueSize += response.currentWaitingInQueue.spriteToCreate
+        totalQueueSize += response.currentWaitingInQueue.ipfsToAdd
+      }
+
       results.push({
         upldr:upldr,
         totalQueueSize:totalQueueSize
@@ -65,7 +78,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
           return a.totalQueueSize - b.totalQueueSize
         })[0]
         Session.set('upldr', bestEndpoint.upldr)
-        console.log('upldr' + bestEndpoint.upldr +' '+ ' ---  totalQueueSize: ' + tocompare[i][1].waiting)
+        console.log('upldr' + bestEndpoint.upldr +' '+ ' ---  totalQueueSize: ' + bestEndpoint.totalQueueSize)
         finished = true
         cb()
       }
@@ -120,7 +133,7 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = 'https://upldr' + Session.get('upldr') + '.d.tube/uploadVideo?videoEncodingFormats=480p&sprite=true'
+  var postUrl = 'https://upldr' + Session.get('upldr') + '.d.tube/uploadVideo?videoEncodingFormats=480p,720p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
