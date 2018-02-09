@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.39",
     "asksteem": "0.0.12",
     "autolinker": "^1.6.0",
     "babel-runtime": "^6.26.0",

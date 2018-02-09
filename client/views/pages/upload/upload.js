@@ -37,10 +37,6 @@ function shuffleArray(array) {
 }
 
 Template.upload.setBestUploadEndpoint = function (cb) {
-  // if (!Session.get('remoteSettings')) {
-  //   setTimeout(setBestUploadEndpoint(cb), 1000)
-  //   return
-  // }
   var uploaders = Session.get('remoteSettings').upldr
   var uploaders = ['g1']
   shuffleArray(uploaders)

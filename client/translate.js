@@ -65,29 +65,14 @@ function getCultureAuto(){
 
   for(var j = 0;j < listCult.length;j++){
     var cult = listCult[j].toLowerCase();
+
     //essaye de trouver du plus spécifique au moins spécifique
-
-    for(var key in Meteor.settings.public.translations) {
+    for(var key in Meteor.settings.public.lang)
       if (key === cult) return key
-      if (cult.substr(0,2) === key.substr(0,2)) return key;
-    }
 
-    // if(cult === "fr-fr"){
-    //   culture = "fr-fr";
-    //   break;
-    // }
-    // else if(cult === "en-us"){
-    //   culture = "en-us";
-    //   break;
-    // }
-    // else if(cult.startsWith("fr")){
-    //   culture = "fr-fr";
-    //   break;
-    // }
-    // else if(cult.startsWith("en")){
-    //   culture = "en-us";
-    //   break;
-    // }
+    for(var key in Meteor.settings.public.lang)
+      if (cult.substr(0,2) === key.substr(0,2)) return key;
+
   }
   return culture;
 }
@@ -97,17 +82,21 @@ function loadJsonTranslate(culture, cb){
     cb()
     return
   }
-  for(var key in Meteor.settings.public.translations) {
-    if (key == culture) {
-      steem.api.getContent(
-      Meteor.settings.public.translations[key].author,
-      Meteor.settings.public.translations[key].permlink,
-      function(e,r) {
-        Session.set('jsonTranslate', JSON.parse(r.body))
-        cb()
-      })
+  console.log(Meteor.settings.public.lang[culture])
+  $.get('/lang/'+Meteor.settings.public.lang[culture], function(json, result) {
+    if (result == 'success') {
+      Session.set('jsonTranslate', json)
+      cb()
     }
-  }
+  })
+  // old way
+  // steem.api.getContent(
+  // Meteor.settings.public.lang[culture].author,
+  // Meteor.settings.public.lang[culture].permlink,
+  // function(e,r) {
+  //   Session.set('jsonTranslate', JSON.parse(r.body))
+  //   cb()
+  // })
 }
 
 //for js files

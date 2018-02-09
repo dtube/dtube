@@ -2,12 +2,6 @@ Meteor.settings.public = {
   "remote": {
     "dfees": 2500,
     "loadLimit": 12,
-    "uploadNodes": [
-      { 'owner': 'nannal','node': {'host': 'gateway.ipfsstore.it','port': 443,'protocol': 'https'} },
-      { 'owner': 'dtube','node': {'host': 'dtube1.gateway.ipfsstore.it','port': 443,'protocol': 'https'} },
-      { 'owner': 'dtube','node': {'host': 'dtube2.gateway.ipfsstore.it','port': 443,'protocol': 'https'} },
-      { 'owner': null,'node': {'host': '127.0.0.1','port': 5001,'protocol': 'http'} }
-    ],
     "displayNodes": [
       "https://snap1.d.tube",
       "http://127.0.0.1:8080"
@@ -15,11 +9,15 @@ Meteor.settings.public = {
     "snapMaxFileSizeKB": 1024,
     "upldr": ['g1',1,2,3,4,5]
   },
-  "app": 'dtube/0.6',
+  "app": 'dtube/0.7',
   "beneficiary": "dtube",
   "pageTitleSeparator": '-',
   "appName": 'DTube',
-  "ipns": "Qmb8hgdQoyotsnUj3JKWvWzcfA9Jx4Ak2ao1XzCVLfDtuB",
+  "ipfs": "",
+  "lang": {
+    "de": "de/de-DE.json",
+    "fr": "fr/fr-FR.json"
+  },
   "translations": {
     "en-us": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170905t000249923z'},
     "es-es": {author: 'curator', permlink: 're-curator-dtube-translations-root-20170922t201038814z'},
