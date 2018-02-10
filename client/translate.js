@@ -1,6 +1,6 @@
 // loading en-us by default
 var culture = 'en-us'
-$.get('/lang/en/en-US.json', function(json, result) {
+$.get('/DTube_files/lang/en/en-US.json', function(json, result) {
   if (result == 'success') {
     jsonTranslateDef = json
   }
@@ -91,7 +91,7 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
     return
   }
 
-  $.get('/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
+  $.get('/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)
       cb()
