@@ -14,13 +14,9 @@ var autolinkerOptions = {
   phone: false,
   mention: 'dtube',
   hashtag: 'dtube',
-  stripPrefix: true,
-  stripTrailingSlash: true,
-  newWindow: false,
-  truncate: {
-    length: 0,
-    location: 'end'
-  },
+  stripPrefix: false,
+  stripTrailingSlash: false,
+  newWindow: true,
   className: ''
 }
 

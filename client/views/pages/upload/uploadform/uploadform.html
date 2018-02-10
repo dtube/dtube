@@ -18,34 +18,34 @@
         <span class="ui tags alert dsp-non">The maximum is <strong>4</strong> tags</span>
       </div>
       {{#if isOnMobile}}
-          <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
-              <div style="display:inline-block;padding: 0.8em 1em;">
-                  {{ translate 'UPLOAD_ADVANCED'}} 
-              </div>
+        <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
+          <div style="display:inline-block;padding: 0.8em 1em;">
+              {{ translate 'UPLOAD_ADVANCED'}} 
+          </div>
+          <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
+        </button>
+        {{> uploadformsubmit}}
+        <div class="ui slider nsfw checkbox">
+          <input type="checkbox" name="newsletter">
+          <label style="color:black;">This is an adult content</label>
+        </div>
+      {{else}}
+        <div style="text-align:left; margin-top:20px;">
+          <button class="ui right labeled icon button advanced dtube grey" type="button" style="margin-right: 10px!important;margin-bottom: 10px;">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{ translate 'UPLOAD_ADVANCED'}} 
+            </div>
             <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
           </button>
+          <div style="display:inline-block;">
             {{> uploadformsubmit}}
-            <div class="ui slider nsfw checkbox">
-                <input type="checkbox" name="newsletter">
-                <label style="color:black;">This is an adult content</label>
-              </div>
-            {{else}}
-            <div style="text-align:left; margin-top:20px;">
-            <button class="ui right labeled icon button advanced dtube grey" type="button" style="margin-right: 10px!important;margin-bottom: 10px;">
-                <div style="display:inline-block;padding: 0.8em 1em;">
-                    {{ translate 'UPLOAD_ADVANCED'}} 
-                </div>
-              <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-            </button>
-            <div style="display:inline-block;">
-              {{> uploadformsubmit}}
-            </div>
-            <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
-                <input type="checkbox" name="newsletter">
-                <label style="color:black;">This is an adult content</label>
-              </div>
           </div>
-            {{/if}}
+          <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
+            <input type="checkbox" name="newsletter">
+            <label style="color:black;">This is an adult content</label>
+          </div>
+        </div>
+      {{/if}}
       <br />
       <br />
       <div class="field advancedupload" style='display: none'>

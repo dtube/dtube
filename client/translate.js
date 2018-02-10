@@ -1,17 +1,39 @@
 // loading en-us by default
 var culture = 'en-us'
-$.get('/DTube_files/lang/en/en-US.json', function(json, result) {
-  if (result == 'success') {
-    jsonTranslateDef = json
-  }
-})
+var jsonTranslateDef = null
 
+window.loadDefaultLang = function(cb = function(){}){
+  $.get('/DTube_files/lang/en/en-US.json', function(json, result) {
+    if (result == 'success') {
+      jsonTranslateDef = json
+      cb()
+    }
+  })
+}
 window.loadLangAuto = function(cb) {
   culture = getCultureAuto();
   loadJsonTranslate(culture, function() {
     cb()
   });
 }
+window.loadJsonTranslate = function(culture, cb = function(){}){
+  if (culture.substr(0,2) == 'en') {
+    Session.set('jsonTranslate', null)
+    cb()
+    return
+  }
+
+  $.get('/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
+    if (result == 'success') {
+      Session.set('jsonTranslate', json)
+      cb()
+    }
+  })
+}
+
+loadDefaultLang()
+
+
 
 function translate(code){
   //find translation
@@ -30,12 +52,13 @@ function translate(code){
   if(!found){
     if (culture.substr(0,2) != 'en')
       console.log('have not found translation in ' + culture + ' :'+code);
-
-    for(var key in jsonTranslateDef){
-      if(key === code){
-        value = jsonTranslateDef[key];
-        found = true;
-        break;
+    if (jsonTranslateDef) {
+      for(var key in jsonTranslateDef){
+        if(key === code){
+          value = jsonTranslateDef[key];
+          found = true;
+          break;
+        }
       }
     }
     if (!found) {
@@ -59,15 +82,15 @@ function getCultureAuto(){
   //default culture
   var culture = 'en-us';
 
-  var listCult;
+  var listCult = [];
   if(navigator.languages){
     listCult=navigator.languages;
   }
   else if(navigator.language){
-    listCult[0] = navigator.language;
+    listCult.push(navigator.language);
   }
   else if(navigator.userLanguage){
-    listCult[0] = navigator.userLanguage;
+    listCult.push(navigator.userLanguage)
   }
 
   for(var j = 0;j < listCult.length;j++){
@@ -82,29 +105,6 @@ function getCultureAuto(){
 
   }
   return culture;
-}
-
-window.loadJsonTranslate = function(culture, cb = function(){}){
-  if (culture.substr(0,2) == 'en') {
-    Session.set('jsonTranslate', null)
-    cb()
-    return
-  }
-
-  $.get('/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
-    if (result == 'success') {
-      Session.set('jsonTranslate', json)
-      cb()
-    }
-  })
-  // old way
-  // steem.api.getContent(
-  // Meteor.settings.public.lang[culture].author,
-  // Meteor.settings.public.lang[culture].permlink,
-  // function(e,r) {
-  //   Session.set('jsonTranslate', JSON.parse(r.body))
-  //   cb()
-  // })
 }
 
 //for js files

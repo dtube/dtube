@@ -42,10 +42,7 @@ Meteor.startup(function(){
   //
   // }, 10000)
 
-  // start router
-  FlowRouter.initialize({hashbang: true}, function() {
-    console.log('Router initialized')
-  });
+  
 
   // loading remote settings -- disabled
   // steem.api.getAccounts(['dtube'], function(err, result) {
@@ -61,9 +58,16 @@ Meteor.startup(function(){
   // });
 
   // load language
-  loadLangAuto(function() {
-    console.log('Loaded language')
+  loadDefaultLang(function() {
+    loadLangAuto(function() {
+      console.log('Loaded languages')
+      // start router
+      FlowRouter.initialize({hashbang: true}, function() {
+        console.log('Router initialized')
+      });
+    })
   })
+
 
   // init steem connect
   var sc2 = sc2sdk.Initialize({
