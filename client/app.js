@@ -47,19 +47,18 @@ Meteor.startup(function(){
     console.log('Router initialized')
   });
 
-  // loading remote settings
-  steem.api.getAccounts(['dtube'], function(err, result) {
-    if (!result || !result[0]) return
-    var jsonMeta = JSON.parse(result[0].json_metadata)
-    if (jsonMeta.remoteSettings) {
-      //Session.set('remoteSettings', jsonMeta.remoteSettings)
-      if (jsonMeta.remoteSettings.upldr) {
-        var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
-        Session.set('upldr', rand)
-      }
-    }
-      
-  });
+  // loading remote settings -- disabled
+  // steem.api.getAccounts(['dtube'], function(err, result) {
+  //   if (!result || !result[0]) return
+  //   var jsonMeta = JSON.parse(result[0].json_metadata)
+  //   if (jsonMeta.remoteSettings) {
+  //     //Session.set('remoteSettings', jsonMeta.remoteSettings)
+  //     if (jsonMeta.remoteSettings.upldr) {
+  //       var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
+  //       Session.set('upldr', rand)
+  //     }
+  //   }
+  // });
 
   // load language
   loadLangAuto(function() {
