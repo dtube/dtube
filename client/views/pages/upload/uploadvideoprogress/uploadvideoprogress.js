@@ -16,9 +16,9 @@ Template.uploadvideoprogress.update = function() {
     // if upload is finished, we stop updating the progress
     
     var isCompleteUpload = true
-    if (data.finished === false) {
+    if (typeof data.finished === 'boolean' && data.finished === false) {
       isCompleteUpload = false
-    } else if (data.finished === null) {
+    } else if (typeof data.finished === 'undefined') {
       for (var i = data.encodedVideos.length-1; i >= 0; i--) {
         if (data.encodedVideos[i].encode.progress !== "100.00%") {
           isCompleteUpload = false;

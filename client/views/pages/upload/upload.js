@@ -38,7 +38,7 @@ function shuffleArray(array) {
 
 Template.upload.setBestUploadEndpoint = function (cb) {
   var uploaders = Session.get('remoteSettings').upldr
-  var uploaders = ['g1']
+  var uploaders = [2]
   shuffleArray(uploaders)
   var results = []
   var queuethreshold = 3;
@@ -47,7 +47,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
     getUploaderStatus(uploaders[i]).then(function (response) {
       var upldr = response.upldr
       var totalQueueSize = 0;
-      if (response.version == '0.6.6') {
+      if (response.version == '0.6.6' || response.currentWaitingInQueue.version) {
         totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue 
         totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue 
         totalQueueSize += response.currentWaitingInQueue.videoToEncodeInQueue
