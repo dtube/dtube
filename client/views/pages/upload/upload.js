@@ -7,6 +7,7 @@ Template.upload.rendered = function () {
     .sticky({
       context: '#videouploadsteps'
     });
+  $('.menu .item').tab();
 }
 
 Template.upload.createPermlink = function (length) {
@@ -29,10 +30,10 @@ Template.upload.helpers({
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];1
-      array[j] = temp;
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j]; 1
+    array[j] = temp;
   }
 }
 
@@ -48,8 +49,8 @@ Template.upload.setBestUploadEndpoint = function (cb) {
       var upldr = response.upldr
       var totalQueueSize = 0;
       if (response.version == '0.6.6' || response.currentWaitingInQueue.version) {
-        totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue 
-        totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue 
+        totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue
+        totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue
         totalQueueSize += response.currentWaitingInQueue.videoToEncodeInQueue
       } else {
         totalQueueSize += response.currentWaitingInQueue.audioCpuToEncode
@@ -60,32 +61,32 @@ Template.upload.setBestUploadEndpoint = function (cb) {
       }
 
       results.push({
-        upldr:upldr,
-        totalQueueSize:totalQueueSize
+        upldr: upldr,
+        totalQueueSize: totalQueueSize
       })
 
       if (totalQueueSize < queuethreshold && !finished) {
         Session.set('upldr', upldr)
-        console.log('upldr' + upldr +' '+ ' ---  totalQueueSize: ' + totalQueueSize)
+        console.log('upldr' + upldr + ' ' + ' ---  totalQueueSize: ' + totalQueueSize)
         finished = true
         cb()
       } else if (results.length == uploaders.length && !finished) {
-        var bestEndpoint = results.sort(function(a,b) {
+        var bestEndpoint = results.sort(function (a, b) {
           return a.totalQueueSize - b.totalQueueSize
         })[0]
         Session.set('upldr', bestEndpoint.upldr)
-        console.log('upldr' + bestEndpoint.upldr +' '+ ' ---  totalQueueSize: ' + bestEndpoint.totalQueueSize)
+        console.log('upldr' + bestEndpoint.upldr + ' ' + ' ---  totalQueueSize: ' + bestEndpoint.totalQueueSize)
         finished = true
         cb()
       }
     }, function (upldr) {
-      results.push({upldr: upldr, error: true})
+      results.push({ upldr: upldr, error: true })
     });
   }
 }
 
 var getUploaderStatus = function (upldr) {
-  var url = 'https://upldr'+upldr+'.d.tube/getStatus'
+  var url = 'https://upldr' + upldr + '.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
@@ -253,7 +254,7 @@ Template.upload.inputVideo = function (dt) {
   videoNode.src = fileURL
 
   // checking best ipfs-uploader endpoint available
-  Template.upload.setBestUploadEndpoint(function() {
+  Template.upload.setBestUploadEndpoint(function () {
     // uploading to ipfs
     Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
       $('#step1load').hide()
@@ -266,7 +267,7 @@ Template.upload.inputVideo = function (dt) {
       }
     })
   });
-  
+
 
   console.log(file)
   $('input[name="filesize"]').val(file.size)

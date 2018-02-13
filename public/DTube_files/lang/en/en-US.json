@@ -151,6 +151,8 @@
     "UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING": "Please login before uploading",
     "UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING": "Please upload a video before submitting",
     "UPLOAD_ERROR_SUBMIT_BLOCKCHAIN": "Error while submitting to the blockchain",
+    "UPLOAD_BASICS": "Basics",
+    "UPLOAD_SUBTITLES": "Subtitles",
     "UPLOAD_ADVANCED": "Advanced",
     "UPLOAD_BODY_STEEM": "STEEM Article Body",
     "UPLOAD_POWER_UP": "Power-Up 100%",

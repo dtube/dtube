@@ -1,0 +1,66 @@
+<template name='uploadformadvanced'>
+<form class="ui form uploadformadvanced">
+    <div class="field advancedupload">
+      <div class="field">
+        <label>{{ translate 'UPLOAD_BODY_STEEM'}}</label>
+        <textarea rows="10" name='body'>{{body}}</textarea>
+      </div>
+      {{#if info.title}}
+      <input type="hidden" name="permlink" value="{{info.permlink}}"> {{else}}
+      <div class="inline field" style="text-align:right;">
+        <div class="ui slider checkbox">
+          <input type="checkbox" name="powerup">
+          <label>{{ translate 'UPLOAD_POWER_UP'}}</label>
+        </div>
+        <label></label>
+      </div>
+      {{/if}}
+      <div class="two fields">
+        <div class="field">
+          <label>{{ translate 'UPLOAD_VIDEOHASH'}}
+            <i class="external icon"></i>
+          </label>
+          <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" value="{{content.videohash}}">
+        </div>
+        <div class="field">
+          <label>{{ translate 'UPLOAD_VIDEO480HASH'}}
+            <i class="external icon"></i>
+          </label>
+          <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}" value="{{content.video480hash}}">
+        </div>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>{{ translate 'UPLOAD_SNAPHASH'}}
+            <i class="external icon"></i>
+          </label>
+          <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}" value="{{info.snaphash}}">
+        </div>
+        <div class="field">
+          <label>{{ translate 'UPLOAD_SPRITEHASH'}}
+            <i class="external icon"></i>
+          </label>
+          <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}" value="{{info.spritehash}}">
+        </div>
+      </div>
+      <div class="three fields">
+        <div class="field">
+          <label>{{ translate 'UPLOAD_MAGNET'}}</label>
+          <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}" value="{{content.magnet}}">
+        </div>
+        <div class="field">
+          <label>{{ translate 'UPLOAD_FILESIZE'}}</label>
+          <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}" value="{{info.filesize}}">
+        </div>
+        <div class="field">
+          <label>{{ translate 'UPLOAD_DURATION'}}</label>
+          <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}" value="{{info.duration}}">
+        </div>
+      </div>
+      <div style="text-align:left; margin-top:20px;">
+      {{> uploadformsubmit}}
+      </div>
+      <br />
+    </div>
+  </form>
+</template>
