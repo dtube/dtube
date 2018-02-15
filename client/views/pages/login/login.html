@@ -1,0 +1,52 @@
+<template name='login'>
+  <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+    <form class="ui large form wid-ful ">
+      <div class="ui segments">
+        <div class="ui segment" style="padding: 20px;">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="privatekey" placeholder="{{ translate 'LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY'}}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui slider checkbox">
+              <input type="checkbox" name="rememberme">
+              <label class="text">{{ translate 'LOGIN_REMEMBER_ME'}}</label>
+            </div>
+          </div>
+          <div id="loginbutton" class="ui fluid labeled small button" tabindex="0">
+            <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+              <i class="sign in icon red" style="background:white;opacity:1;"></i>
+              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
+            </button>
+          </div>
+          <div class="ui horizontal divider">
+            <label class="text">Or</label>
+          </div>
+          <div id="loginbuttonsc2" class="ui fluid labeled small button" tabindex="0">
+            <button type="submit" name="button" class="ui fluid blue small right labeled dtube icon submit button">
+              <i class="sign in icon blue" style="background:white;opacity:1;"></i>
+              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_STEEMCONNECT'}}</div>
+            </button>
+          </div>
+          <div class="ui message" style="margin-top:20px;">
+              {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
+              <a href="https://steemit.com/pick_account" target="_blank">
+                {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} steemit.com</a>
+              <p></p>
+              {{ translate 'LOGIN_DIFFICULTY_FOR_LOGIN'}}
+              <a href="https://about.d.tube/#faq1" target="_blank">
+                {{ translate 'LOGIN_SEE_FAQ'}}</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

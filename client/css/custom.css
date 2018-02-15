@@ -1,0 +1,201 @@
+.widthfiftypercent {
+  width: 50%;
+}
+
+.ui.progress {
+  text-align: left;
+}
+
+.ui.tabular.menu .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 500;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+}
+
+.ui.tabular.menu.mobile .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 500;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+  width: 33%;
+  display: inline-block;
+}
+
+.ui.tabular.menu .item:hover {
+  background: transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
+.ui.tabular.menu .active.item {
+  border-bottom: 2px solid rgba(236, 12, 12, 1);
+  color: rgba(0, 0, 0, 1);
+  border-top-width: 0px;
+  background: transparent;
+  font-weight: 500;
+  box-shadow: none;
+  border-radius: 0px !important;
+  margin-bottom: 0px;
+}
+
+.spritehash {
+  width: 210px;
+  height: 118px;
+}
+
+.ui.card>.content {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
+  background: none;
+  margin: 0em;
+  padding: 0.5em 0.5em;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-size: 1em;
+  border-radius: 0em;
+}
+
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
+  background-color: #ff1a1a !important;
+}
+
+.ui.toggle.checkbox~.box:before, .ui.toggle.checkbox~label:before {
+  background-color: #ff1a1a !important;
+}
+
+.nightmode {
+  background: #111111!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightmodeinverted {
+  background: rgb(240, 240, 240)!important;
+  color: #111111!important;
+}
+
+.nightmodetext {
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightsecondarytext {
+  color: rgb(180, 180, 180)!important;
+}
+
+.nightsegment {
+  border-top: 1px solid rgba(209, 209, 209, 0.15)!important;
+}
+
+.nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightbutton {
+  background: #222222!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.channelcover {
+  min-height: 150px;
+  max-height: 240px;
+  position: relative;
+  overflow: hidden;
+  background-position: left;
+  /* object-fit: contain; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 500;
+}
+
+.ui.inline.dropdown>.text {
+  font-weight: 500;
+}
+
+.channelbga {
+  background: #40E0D0;
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+}
+
+.channelbgb {
+  background: #ee0979;
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+}
+
+.channelbgc {
+  background: #f85032;
+  background: -webkit-linear-gradient(to right, #e73827, #f85032);
+  background: linear-gradient(to right, #e73827, #f85032);
+}
+
+.channelbgd {
+  background: #16A085;
+  background: -webkit-linear-gradient(to right, #F4D03F, #16A085);
+  background: linear-gradient(to right, #F4D03F, #16A085);
+}
+
+.channelbge {
+  background: #FC5C7D;
+  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+  background: linear-gradient(to right, #6A82FB, #FC5C7D);
+}
+
+.dropdown.ddtag {
+  height: 30px;
+}
+
+.almostblack {
+  color: #262626!important;
+}
+
+textarea {
+  white-space: pre-wrap;
+}
+
+.ui.button > .ui.icon {
+  color: white;
+  opacity:1;
+ } 
+
+ .ui.multiple.dropdown > .label{
+  line-height: 1.4em;
+ }
+
+ .btnlabel{
+  display: inline-block!important;
+  background: white!important;
+  opacity: 1!important;
+  font-family: 'Roboto'!important;
+  font-weight: 600!important;
+  color:black!important;
+  font-size: 13px!important;
+  line-height: 1.5!important;
+  border-radius: 0px!important;
+  margin-right: -1px!important;
+ }
+
+ .ui.labeled.icon.buttons > .button > .icon, .ui.labeled.icon.button > .icon{
+   line-height: 0!important;
+ }

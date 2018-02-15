@@ -1,0 +1,201 @@
+<template name='channelactivities'>
+    <div class="ui stackable grid column">
+        <div class="sixteen wide column mobile only" style="padding-bottom:0px!important;">
+            <div class="ui card wid-ful brd-rad-non" style="padding:20px;white-space: inherit;background: #ffffff;">
+                <h4>{{ translate 'CHANNEL_FILTERS'}}</h4>
+                <div class="ui grid">
+                    <div class="seven wide column">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui filter checkbox vote">
+                                    <input type="checkbox" name="vote">
+                                    <label>Voted</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox reblog">
+                                    <input type="checkbox" name="reblog">
+                                    <label>Resteemed</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox comment">
+                                    <input type="checkbox" name="comment">
+                                    <label>Replied</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox follow">
+                                    <input type="checkbox" name="follow">
+                                    <label>Subscribed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nine wide column">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui filter checkbox unvote">
+                                    <input type="checkbox" name="unvote">
+                                    <label>Unvoted</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox unfollow">
+                                    <input type="checkbox" name="unfollow">
+                                    <label>Unsubscribed</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox curation_reward">
+                                    <input type="checkbox" name="curation_reward">
+                                    <label>Curation reward</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui filter checkbox claim_reward_balance">
+                                    <input type="checkbox" name="claim_reward_balance">
+                                    <label>Claimed reward</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="five wide column tablet only" style="padding-left:20px;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+                <div class="ui form" style="padding:20px">
+                    <div class="grouped fields">
+                        <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
+                        <div class="field">
+                            <div class="ui filter checkbox vote">
+                                <input type="checkbox" name="vote">
+                                <label>Voted</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox reblog">
+                                <input type="checkbox" name="reblog">
+                                <label>Resteemed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox comment">
+                                <input type="checkbox" name="comment">
+                                <label>Replied</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox follow">
+                                <input type="checkbox" name="follow">
+                                <label>Subscribed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox unvote">
+                                <input type="checkbox" name="unvote">
+                                <label>Unvoted</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox unfollow">
+                                <input type="checkbox" name="unfollow">
+                                <label>Unsubscribed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox curation_reward">
+                                <input type="checkbox" name="curation_reward">
+                                <label>Curation reward</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox claim_reward_balance">
+                                <input type="checkbox" name="claim_reward_balance">
+                                <label>Claimed reward</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="eleven wide column" style="padding-left:0px;padding-right: 10px;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+                <div class="ui form" style="padding:20px">
+                    <h4>{{ translate 'CHANNEL_HISTORY'}}</h4>
+
+                </div>
+                <div class="ui infinite activities">
+                    {{#if activities.length}} {{#each activities}} {{> activity}} {{/each}} {{else}}
+                    <div class="ui card wid-ful" style="margin:0px;white-space: inherit;background: #ffffff;">
+                        <div class="content" style="padding: 0px;">
+                            <div style="padding: 10px;">
+                                Nothing to display
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="ui large centered inline text loader"></div>
+                </div>
+            </div>
+        </div>
+        <div class="five wide column computer only" style="padding-left:20px;">
+            <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+                <div class="ui form" style="padding:20px">
+                    <div class="grouped fields">
+                        <h4 style="padding-left:5px;">{{ translate 'CHANNEL_FILTERS'}}</h4>
+                        <div class="field">
+                            <div class="ui filter checkbox vote">
+                                <input type="checkbox" name="vote">
+                                <label>Voted</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox reblog">
+                                <input type="checkbox" name="reblog">
+                                <label>Resteemed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox comment">
+                                <input type="checkbox" name="comment">
+                                <label>Replied</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox follow">
+                                <input type="checkbox" name="follow">
+                                <label>Subscribed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox unvote">
+                                <input type="checkbox" name="unvote">
+                                <label>Unvoted</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox unfollow">
+                                <input type="checkbox" name="unfollow">
+                                <label>Unsubscribed</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox curation_reward">
+                                <input type="checkbox" name="curation_reward">
+                                <label>Curation reward</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui filter checkbox claim_reward_balance">
+                                <input type="checkbox" name="claim_reward_balance">
+                                <label>Claimed reward</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

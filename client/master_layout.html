@@ -1,18 +1,13 @@
-<template name="masterLayout">
-  <div id="content">
-    {{> pusher}}
-  </div>
-</template>
-
 <head>
   <title>DTube</title>
-  <link rel="shortcut icon" type="image/png" href="https://ipfs.io/ipfs/QmRvVAjRHXqZvBGKG67qxDamjd2EiHngdddL4C8GFTKACf"/>
-  <script src="https://ipfs.io/ipfs/QmYpJyvNMkcBtrvYX5nic62tBvF3wvTFA3uJoquGwh3cGj" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="/DTube_files/images/dtubefavicon.png"/>
+  <meta name="description" content="DTube, alternative decentralized video platform."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/DTube_files/images/dtubefavicon.png" />
 </head>
+<template name="masterLayout">
 <body>
-  <div class="ui appLoader" style='height: 100%; display: none;'>
-    <div class="ui active inverted dimmer">
-      <div class="ui large text loader appLoaderText"></div>
-    </div>
-  </div>
+          {{> pusher}}
 </body>
+</template>

@@ -1,0 +1,108 @@
+<template name='settingsdropdown'>
+  <div class="ui item top right floated dropdown dropdownsettings" style="float: right;">
+    <i class="settings icon" style='font-size:1.5em; margin:0;'></i>
+    <div id="menu" class="menu">
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} @ {{voteWeight}}%</span>
+        <div class="left menu" style="min-width: 0px;">
+          <div class="item voteWeight">+10%</div>
+          <div class="item voteWeight">+1%</div>
+          <div class="item voteWeight">-1%</div>
+          <div class="item voteWeight">-10%</div>
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
+        <div class="left menu"  style="min-width: 0px;"   >
+          {{#if equals 'Show' nsfwSetting}}
+            <div class="item nsfwSetting nsfwShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
+          {{else}}
+            <div class="item nsfwSetting nsfwShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
+          {{/if}}
+          {{#if equals 'Fully Hidden' nsfwSetting}}
+            <div class="item nsfwSetting nsfwHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
+          {{else}}
+            <div class="item nsfwSetting nsfwHide">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}</span>
+        <div class="left menu"  style="min-width: 0px;">
+          {{#each arrayify languages}}
+            <div class="item langSetting" onclick="loadJsonTranslate('{{key}}')">{{value.name}}</div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="item nightMode">
+          <i class="adjust icon"></i>
+          <span class="text">{{ translate 'SETTINGS_NIGHTMODE'}}</span>
+      </div>
+      <!-- {{#if isOnMobile}} 
+      {{else}}
+      <div class="ui divider"></div>
+      <div class="header">{{ translate 'SETTINGS_DROPDOWN_IPFS_SETTINGS'}}</div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_LOCAL_IPFS'}}</span>
+        <div class="left menu" style="min-width: 0px;">
+          <div class="header">
+            {{#if localIpfs}}
+              <span style='color: green'>{{ translate 'SETTINGS_DROPDOWN_RUNNING_IPFS'}}</span>
+            {{else}}
+              <span style='color: red'>{{ translate 'SETTINGS_DROPDOWN_NOT_RUNNING_IPFS'}}</span>
+            {{/if}}
+          </div>
+
+          {{#if localIpfs}}
+            {{#with localIpfs}}
+              <div class="ui divider"></div>
+              <div class="header">{{ translate 'SETTINGS_DROPDOWN_PINNED'}}: {{humanFilesize RepoSize 1}}</div>
+              <div class="header">{{ translate 'SETTINGS_DROPDOWN_MAX'}}: {{humanFilesize StorageMax 1}}</div>
+            {{/with}}
+            <div class="item repogc">{{ translate 'SETTINGS_DROPDOWN_EMPTY_GARBAGE'}}</div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_GATEWAY'}}</span>
+        <div class="left menu">
+          {{#if equals 'automatic' ipfsGateway}}
+            <div class="item ipfsGateway automatic"><strong>{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</strong></div>
+          {{else}}
+            <div class="item ipfsGateway automatic">{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</div>
+          {{/if}}
+          {{#each displayNodes}}
+            {{#if equals this ipfsGateway}}
+              <div class="item ipfsGateway"><strong>{{this}}</strong></div>
+            {{else}}
+              <div class="item ipfsGateway">{{this}}</div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_API'}}</span>
+        <div class="left menu">
+          {{#each uploadNodes}}
+            {{#if equals node.host ipfsUpload.host}}
+              <div class="item ipfsUpload">
+                <strong>{{node.protocol}}://{{node.host}}:{{node.port}}</strong>
+              </div>
+            {{else}}
+              <div class="item ipfsUpload">
+                {{node.protocol}}://{{node.host}}:{{node.port}}
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      {{/if}} -->
+    </div>
+  </div>
+</template>

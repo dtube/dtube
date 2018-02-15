@@ -1,0 +1,36 @@
+<template name="mobiletopbar">
+    <div class="ui large borderless main menu fixed mobiletopbar">
+        <div style="width: 100%;text-align: left;">
+            <div class="ui sidebartoggleicon item" style="cursor: pointer;float:left;padding-left:10px;padding-right:8px;">
+                <i class="sidebar icon" style="font-size:1.2em; margin:0;line-height: 1.5em;"></i>
+              </div>
+            <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
+                    <img style="width:90px;" src="/DTube_files/images/DTube_Black.svg">
+            </a>
+            <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
+              <img  alt="" style="width:90px;" src="/DTube_files/images/DTube_White.svg" >
+          </a>
+            <div class="ui right aligned noshadow grid small  menu" style="float:right;">
+                <div id="mobilesearch" class="ui item" style="float:right;padding: 0.828571em">
+                    <i class="search icon" style='font-size:1.4em; margin:0;'></i>
+                </div>
+                 {{#if isLoggedOn}}
+                <a class="ui item" href='/upload' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}' style="float:right;padding: 0.828571em">
+                    <i class="cloud upload icon" style='font-size:1.4em; margin:0;'></i>
+                </a>
+                {{/if}}
+                <!-- {{> notificationdropdown}}  -->
+                {{> settingsdropdown}} 
+                {{#if isLoggedOn}} 
+                {{> mobileusers}} 
+                {{else}}
+                <a class="ui item" style="float:right;">
+                    <a href="/login" class="circular ui icon youtube button">
+                        <i class="user icon" style='margin:0; padding:0px;'></i>
+                    </a>
+                </a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

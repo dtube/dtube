@@ -4,49 +4,78 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
-steem.api.setOptions({ url: 'wss://steemd.privex.io' });
+import AskSteem from 'asksteem';
+import sc2sdk from 'sc2-sdk';
+steem.api.setOptions({ url: 'https://api.steemit.com' });
+
+console.log('Starting DTube APP')
 
 FlowRouter.wait();
 Meteor.startup(function(){
+  console.log('DTube APP Started')
   Session.set('remoteSettings', Meteor.settings.public.remote)
   window.steem = steem
-  window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
 
-  setInterval(function() {
-    try {
-      localIpfs.repo.stat(function(e,r) {
-        if (e) {
-          Session.set('localIpfs', false)
-          return;
-        }
-        Session.set('localIpfs', r)
+  Session.set('lastHot', null)
+  Session.set('lastTrending', null)
+  Session.set('lastCreated', null)
+  Session.set('tagDays', 7)
+  Session.set('tagSortBy', 'net_votes')
+  Session.set('tagDuration', 999999)
 
-        // using local gateway seems to make my internet very unstable and nothing works
-        // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
-      })
-    } catch(e) {
+  //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
+  // setInterval(function() {
+  //   try {
+  //     localIpfs.repo.stat(function(e,r) {
+  //       if (e) {
+  //         Session.set('localIpfs', false)
+  //         return;
+  //       }
+  //       Session.set('localIpfs', r)
+  //
+  //       // using local gateway seems to make my internet very unstable and nothing works
+  //       // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
+  //     })
+  //   } catch(e) {
+  //
+  //   }
+  //
+  // }, 10000)
 
-    }
+  
 
-  }, 10000)
-
-  // start router
-  FlowRouter.initialize({hashbang: true}, function() {
-    console.log('Router initialized')
-  });
-
-  // loading remote settings
-  steem.api.getAccounts(['dtube'], function(err, result) {
-    if (!result || !result[0]) return
-    var jsonMeta = JSON.parse(result[0].json_metadata)
-    if (jsonMeta.remoteSettings)
-      Session.set('remoteSettings', jsonMeta.remoteSettings)
-  });
+  // loading remote settings -- disabled
+  // steem.api.getAccounts(['dtube'], function(err, result) {
+  //   if (!result || !result[0]) return
+  //   var jsonMeta = JSON.parse(result[0].json_metadata)
+  //   if (jsonMeta.remoteSettings) {
+  //     //Session.set('remoteSettings', jsonMeta.remoteSettings)
+  //     if (jsonMeta.remoteSettings.upldr) {
+  //       var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
+  //       Session.set('upldr', rand)
+  //     }
+  //   }
+  // });
 
   // load language
-  loadLangAuto(function() {
-    console.log('Loaded language')
+  loadDefaultLang(function() {
+    loadLangAuto(function() {
+      console.log('Loaded languages')
+      // start router
+      FlowRouter.initialize({hashbang: true}, function() {
+        console.log('Router initialized')
+      });
+    })
   })
+
+
+  // init steem connect
+  var sc2 = sc2sdk.Initialize({
+    app: 'dtube.app',
+    callbackURL: 'https://d.tube/#!/sc2login',
+    accessToken: 'access_token'
+  });
+  window.sc2 = sc2
 
   toastr.options = {
     "closeButton": true,
@@ -65,6 +94,17 @@ Meteor.startup(function(){
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   }
+
+  if (Session.get('remoteSettings').warning)
+    toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
+
+  steem.api.getDynamicGlobalProperties(function(err, result) {
+    if (result)
+    Session.set('steemGlobalProp', result)
+  })
+
+  Market.getSteemPrice()
+  Market.getSteemDollarPrice()
 
   // Waka.connect({
 	// 	"host": "steemwhales.com",

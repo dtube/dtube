@@ -1,0 +1,35 @@
+<template name='mobileusers'>
+  <div class="ui inline right aligned dropdown item dropdownusers">
+    <div class="text">
+      {{#if mainUser}}
+      <img class="ui avatar image" style="margin-right:0px;" src="https://img.busy.org/@{{mainUser.username}}?width=48&height=48">
+      {{/if}}
+    </div>
+    <div class="menu">
+      {{#each user in userlist}}
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ user.username }}</span>
+        <div class="left menu"> 
+          <div class='item logIn' data-username='{{user.username}}'>
+            <i class="sign in icon"></i> {{ translate 'USERS_USE'}} {{user.username}}</div>
+          <a class='item' href='/c/{{user.username}}'>
+            <i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+          {{#if hasRewards user}}
+          <a class='item claimRewards' data-username='{{user.username}}' title='{{displayRewards user}}'>
+            <i class="money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}}
+          </a>
+          {{/if}}
+          <a class='item' href='https://steemit.com/@{{user.username}}' target='_blank'>
+            <img style='width:16px;height:16px' src='https://steemit.com/favicon.ico'>SteemIt Blog</a>
+          <div class="item logOut" data-username='{{ user.username }}'>
+            <i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>
+        </div>
+      </div>
+      {{/each}}
+      <a href='/login' class="item">
+        {{ translate 'USERS_ADD_ANOTHER_ACCOUNT'}}
+      </a>
+    </div>
+  </div>
+</template>

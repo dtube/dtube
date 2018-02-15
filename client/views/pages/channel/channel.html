@@ -1,0 +1,55 @@
+<template name='channel'>
+  {{#if isOnMobile}}
+  <div style="width: 100%;">
+    {{> channelmobilecover}}
+    <div class="ui top attached tabular menu mobile" style="margin-top: 0rem;">
+      <a class="item videos active" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
+      <a class="item activities" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
+      <a class="item about" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="first" style="padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
+      {{#if userVideos}}
+      <div style="padding-left:10px;padding-right:10px;">
+        {{> verticalvideoband userVideos}}
+      </div>
+      {{/if}}
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      {{#if equals currentTab 'activities'}} 
+        {{> channelactivities}} 
+      {{/if}}
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      {{#if equals currentTab 'about'}} 
+      {{> channelabout}} 
+      {{/if}}
+    </div>
+  </div>
+  {{else}}
+  <div style="width: 100%;margin-top: -23px;">
+    {{> channeldesktopcover}}
+    <div class="ui container">
+      <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
+        <a class="item videos active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
+        <a class="item activities" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
+        <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+      </div>
+      <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
+        {{#if userVideos}} 
+        {{> videoband userVideos}} 
+        {{/if}}
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        {{#if equals currentTab 'activities'}} 
+        {{> channelactivities}} 
+        {{/if}}
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        {{#if equals currentTab 'about'}} 
+        {{> channelabout}} 
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>

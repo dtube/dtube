@@ -1,0 +1,186 @@
+<template name='video'>
+  {{#with video}}
+  <div class="ui videocontainer stackable two column grid computergrid" style="margin-top:10px;">
+    <!-- Player on page -->
+    <div class="pdg-non videocol twelve wide column">
+    {{> player}}
+    <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
+      <!-- Title, Vote - Share - More  -->
+      <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
+        <div class="ui info" style="display: inline-grid;width: 100%;">
+          <div class="videotitlecontainer">
+            <h1 class="videotitle">{{info.title}}</h1>
+          </div>
+          <div style="display:inline-block;">
+          <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
+            {{#each content.tags}} 
+            {{#if equals this 'dtube'}} 
+            {{else}}
+            {{#if this}} 
+            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+            {{/if}} 
+            {{/if}} 
+            {{/each}}
+          </div>
+          <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
+            {{> videosettingsdropdown}}
+            <div style="float: right;" class="button icon bottom aligned ">
+              {{#if upvotes active_votes}}
+              <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
+                    {{#if hasUpvoted video}}
+                    <i class="thumbs up icon red"></i>
+                    {{else}}
+                    <i class="thumbs up icon"></i>
+                    {{/if}}
+                    <span onchange="{{activatePopups}}">{{upvotes active_votes}}</span>
+              </button>
+              {{else}}
+              <button class="ui icon button upvote votebutton">
+                  <i class="thumbs up icon"></i>
+                  <span>{{upvotes active_votes}}</span>
+            </button>
+              {{/if}}
+              {{#if downvotes active_votes}}
+              <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
+                {{#if hasDownvoted video}}
+                <i class="thumbs down icon red"></i>
+                {{else}}
+                <i class="thumbs down icon"></i>
+                {{/if}}
+                <span onchange="{{activatePopups}}">{{downvotes active_votes}}</span>
+              </button>
+              {{else}}
+              <button class="ui icon button downvote votebutton">
+                  <i class="thumbs down icon"></i>
+                  <span>{{downvotes active_votes}}</span>
+                </button>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
+      <div class="ui segment" style="padding:0px!important;">
+        <div class="details wid-ful">
+          <div class="videoleftdetails wid-ful" style="padding: 10px;">
+            <img class="ui left tiny circular avatar floated image" src="{{userPic info.author}}" style="margin-top:10px;width:64px;">
+            <div class="channelLink" style="margin-top:10px;">
+              <a href="/c/{{info.author}}">
+                {{info.author}}
+              </a>
+            </div>
+            {{#unless equals activeUser user.name}} 
+            {{#if isLoggedOn}} 
+            {{#if isSubscribedTo info.author}}
+            {{>buttonunsubscribe}}
+            {{else}}
+            {{>buttonsubscribe}}
+            {{/if}} 
+            {{else}}
+            <a href="/login">
+              {{>buttonsubscribe}}
+            </a>
+            {{/if}} 
+            {{else}}
+            {{>buttonedit}}
+            {{/unless}}
+            <div class="videorightdetails">
+              <div class='videopayout'>
+                ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+              </div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='editvideosegment' class="ui segment" style="display: none">
+        {{> uploadform}}
+      </div>
+      <!-- Syntaxed video description - Show More -->
+      <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
+        <div id="truncateddesc" class="truncate" style="overflow: hidden;">
+          <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
+          <br/> {{{syntaxed content.description}}}
+        </div>
+      </div>
+      {{#if hasMoreThan4Lines}}
+      <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
+        <div id="showmore" style="text-align: center;">
+          <button class="ui button videoshowmore">
+            {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
+          </button>
+          <i class="ui icon angle down"></i>
+        </div>
+        <div id="showless" class="hidden" style="text-align: center;">
+          <button class="ui button videoshowmore">
+            {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
+          </button>
+          <i class="ui icon angle up"></i>
+        </div>
+      </div>
+      {{/if}}
+      <!-- Comments - Reply -->
+      <div class="ui secondary segment" style="background: #f5f5f5;">
+        <h3 class="ui header">
+          {{#if equals comments.length 1}}
+            {{comments.length}} {{ translate 'COMMENT_REPLY'}}
+          {{else}}
+            {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
+          {{/if}}
+        </h3>
+        {{#if isLoggedOn}} {{#if equals comments.length 0}}
+        <div style=" text-align: center;padding:10px;">
+          <h4>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h4>
+        </div>
+        {{/if}}
+        <div class="wid-ful dsp-flx">
+          <div style="text-align:left;float:left;">
+            <img class="ui avatar mini image" src="https://img.busy.org/@{{activeUser}}">
+            <div class="ui author" style="margin-top:5px;margin-right:10px;font-weight: 600;">{{activeUser}}</div>
+          </div>
+          <form class="ui reply form wid-ful">
+            <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
+              <textarea id="replytext" rows="3"></textarea> 
+            </div>
+            <div class="ui black right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
+                <i class="ui black icon remove repl dsp-non" style="background:white;opacity:1;"></i>
+                <i class="ui black icon load repl dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
+                <i class="ui black right icon repl talk iconloader on" style="background:white;"></i>
+                <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
+            </div>
+          </form>
+        </div>
+        {{else}}
+        <div style=" text-align: center;padding:10px;">
+          <a href="/login">
+            <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
+          </a>
+        </div>
+        {{/if}} 
+        {{> comments}}
+      </div>
+    </div>
+  </div>
+  <!-- Recommended videos  -->
+  <div class="pdg-non relatedcol four wide column">
+    <div class="ui grid computer only videorecommendedcomputer" style="margin-right: -5rem;">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{#if userVideosAndResteems}} 
+      {{> verticalvideoband userVideosAndResteems}} 
+      {{/if}}
+    </div>
+  </div>
+    <div class="ui container grid tablet only content videorecommendedtablet">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{> verticalvideoband userVideosAndResteems}}
+    </div>
+    <div class="ui grid mobile only content videorecommendedmobile">
+      <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      {{> verticalvideoband userVideosAndResteems}}
+    </div>
+    {{> popupvoter}} {{> popupdownvoter}} 
+
+</div>
+    {{/with}}
+</template>

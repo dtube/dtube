@@ -1,0 +1,47 @@
+<template name='videosettingsdropdown'>
+  <div class="ui item dropdown dropdownvideosettings right floated" style="float: right;margin-bottom: 0px;padding-right: 0px;z-index: 9999;padding-left: 0px;
+  padding-bottom: 0px;">
+    <button class="ui icon button brd-rad-non" style="font-size: 1.4rem;border-style: solid;background: transparent none !important;  margin-right: 0px;
+      border-width: 0px 0px 0px 0px;box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+      <i class="ellipsis horizontal icon" style="margin-top: -5px;"></i>
+    </button>
+    <!-- <i class="ellipsis horizontal icon videohmore"></i> -->
+    <div class="menu">
+      <div class="item copylink">
+        <span class="customlink">
+          <i class="share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}</span>
+        <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
+        <!--<div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>   -->
+      </div>
+      <div  class="item copyembed">
+        <span class="customlink">
+          <i class="external share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_EMBED_LINK'}}</span>
+        <input id="embedlink" style="width:0px;visibility:hidden;" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
+        <!--<div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div> -->
+      </div>
+      <div class="item">
+        <a>
+          <span class="customlink">
+            <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}} </span>
+        </a>
+      </div>
+      {{#if content.magnet}}
+      <div class="item">
+        <a href="{{content.magnet}}">
+          <span class="customlink"> 
+            <i class="magnet icon"></i> {{ translate 'VIDEO_SETTINGS_DOWNLOAD_FROM_MAGNET'}}</span>
+        </a>
+      </div>
+      {{/if}}
+      {{#if isInWatchLater}}
+      {{else}}
+      <div class="item addvideotowatchlater">
+          <a>
+            <span class="customlink">
+              <i class="plus icon"></i>{{ translate 'VIDEO_SETTINGS_ADD_TO_WATCH_LATER'}}</span>
+          </a>
+        </div>
+      {{/if}} 
+    </div>
+  </div>
+</template>

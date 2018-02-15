@@ -1,0 +1,105 @@
+<template name='channelabout'>
+  <div class="ui stackable grid column">
+    <div class="twelve wide column" style="padding-left:5px;">
+      {{#if author.json_metadata.profile.name}}
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
+          <div>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.name}}</span>
+          </div>
+        </div>
+        {{#if author.json_metadata.profile.about}}
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
+          <div>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.about}}</span>
+          </div>
+        </div>
+        {{/if}} {{#if author.json_metadata.profile.location}}
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
+          <div>
+            <span class="crd-spa-lab">{{author.json_metadata.profile.location}}</span>
+          </div>
+        </div>
+        {{/if}} {{#if author.json_metadata.profile.website}}
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
+          <div>
+            <span class="crd-spa-lab">
+              <a href='{{author.json_metadata.profile.website}}' style="opacity:1!important;" target='_blank'>{{author.json_metadata.profile.website}}</a>
+            </span>
+          </div>
+        </div>
+        {{#if userVideos.length}}
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ABOUT_TOTALS_VIDEOS'}}
+          <div>
+            <span class="crd-spa-lab">{{userVideos.length}}</span>
+          </div>
+        </div>
+        {{/if}} {{/if}}
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
+          <div>
+            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
+          </div>
+        </div>
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
+          <div>
+            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
+          </div>
+        </div>
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
+          <div>
+            <span class="crd-spa-lab">{{timeAgo author.last_account_update}}</span>
+          </div>
+        </div>
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
+          <div>
+            <span class="crd-spa-lab">{{displayDate author.created}}</span>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
+          <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
+          <div>
+            <span class="crd-spa-lab">  
+              <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
+            </span>
+          </div>
+        </div>
+        <div class="crd-lab">
+          <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
+          <div>
+            <span class="crd-spa-lab"> 
+              <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="four wide column" style="padding-left:5px;">
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        <div class="crd-lab">
+            {{ translate 'CHANNEL_SUBSCRIBERS'}}
+          <div>
+            <span class="crd-spa-lab">{{subCount}}</span>
+          </div>
+        </div>
+        <div class="crd-lab">
+            {{ translate 'CHANNEL_SUBSCRIBES'}}
+            <div>
+              <span class="crd-spa-lab">{{followingCount}}</span>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,37 +1,67 @@
 // loading en-us by default
-var jsonTranslateDef = require('./en-us.json')
-Session.set('jsonTranslate', jsonTranslateDef)
-var culture = 'en-us';
+var culture = 'en-us'
+var jsonTranslateDef = null
 
+window.loadDefaultLang = function(cb = function(){}){
+  $.get('/DTube_files/lang/en/en-US.json', function(json, result) {
+    if (result == 'success') {
+      jsonTranslateDef = json
+      cb()
+    }
+  })
+}
 window.loadLangAuto = function(cb) {
   culture = getCultureAuto();
   loadJsonTranslate(culture, function() {
     cb()
   });
 }
+window.loadJsonTranslate = function(culture, cb = function(){}){
+  if (culture.substr(0,2) == 'en') {
+    Session.set('jsonTranslate', null)
+    cb()
+    return
+  }
+
+  $.get('/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
+    if (result == 'success') {
+      Session.set('jsonTranslate', json)
+      cb()
+    }
+  })
+}
+
+loadDefaultLang()
+
+
 
 function translate(code){
   //find translation
   var value = code;
   var found = false;
-  for(var key in Session.get('jsonTranslate')){
-    if(key === code){
-      value = Session.get('jsonTranslate')[key];
-      found = true;
-      break;
-    }
-  }
-
-  if(!found){
-    console.log('have not found translation in ' + culture + ' :'+code);
-    for(var key in jsonTranslateDef){
+  if (Session.get('jsonTranslate')) {
+    for(var key in Session.get('jsonTranslate')){
       if(key === code){
-        value = jsonTranslateDef[key];
+        value = Session.get('jsonTranslate')[key];
         found = true;
         break;
       }
     }
-    if(!found){
+  }
+
+  if(!found){
+    if (culture.substr(0,2) != 'en')
+      console.log('have not found translation in ' + culture + ' :'+code);
+    if (jsonTranslateDef) {
+      for(var key in jsonTranslateDef){
+        if(key === code){
+          value = jsonTranslateDef[key];
+          found = true;
+          break;
+        }
+      }
+    }
+    if (!found) {
       console.log('have not found translation:'+code);
       return '[['+code+']]';
     }
@@ -52,62 +82,29 @@ function getCultureAuto(){
   //default culture
   var culture = 'en-us';
 
-  var listCult;
+  var listCult = [];
   if(navigator.languages){
     listCult=navigator.languages;
   }
   else if(navigator.language){
-    listCult[0] = navigator.language;
+    listCult.push(navigator.language);
   }
   else if(navigator.userLanguage){
-    listCult[0] = navigator.userLanguage;
+    listCult.push(navigator.userLanguage)
   }
 
   for(var j = 0;j < listCult.length;j++){
     var cult = listCult[j].toLowerCase();
+
     //essaye de trouver du plus spécifique au moins spécifique
-
-    for(var key in Meteor.settings.public.translations) {
+    for(var key in Meteor.settings.public.lang)
       if (key === cult) return key
-      if (cult.substr(0,2) === key.substr(0,2)) return key;
-    }
 
-    // if(cult === "fr-fr"){
-    //   culture = "fr-fr";
-    //   break;
-    // }
-    // else if(cult === "en-us"){
-    //   culture = "en-us";
-    //   break;
-    // }
-    // else if(cult.startsWith("fr")){
-    //   culture = "fr-fr";
-    //   break;
-    // }
-    // else if(cult.startsWith("en")){
-    //   culture = "en-us";
-    //   break;
-    // }
+    for(var key in Meteor.settings.public.lang)
+      if (cult.substr(0,2) === key.substr(0,2)) return key;
+
   }
   return culture;
-}
-
-function loadJsonTranslate(culture, cb){
-  if (culture.substr(0,2) == 'en') {
-    cb()
-    return
-  }
-  for(var key in Meteor.settings.public.translations) {
-    if (key == culture) {
-      steem.api.getContent(
-      Meteor.settings.public.translations[key].author,
-      Meteor.settings.public.translations[key].permlink,
-      function(e,r) {
-        Session.set('jsonTranslate', JSON.parse(r.body))
-        cb()
-      })
-    }
-  }
 }
 
 //for js files

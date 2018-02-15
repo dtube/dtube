@@ -1,12 +1,12 @@
-/* CSS declarations go here */
 .padding-side {
   padding-left: 20px;
   padding-right: 20px;
 }
 
-#textlogo {
-  font-size: 22px;
-  color: red;
+
+.scaledropdown
+{
+  transform: scale(0.5);
 }
 
 .input.inputLarge {
@@ -18,17 +18,21 @@
 }
 
 .article {
-  margin-left: 3em !important;
-  margin-right: 3em !important;
-  padding: 3em 0em;
-  margin-top: 50px;
+  padding: 65px 0em 4em 0em;
+  width: 100%;
 }
+
+.article.mainsided
+{
+  padding: 65px 0em 4em 210px!important;
+}
+
 
 .icon .menuIcon {
   font-size: 1.5em;
   margin: 0;
 }
-
+ 
 .upvoteComment {
   transition: font 5s ease-in
 }
@@ -46,3 +50,377 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.icon .dtubesidebaricon
+{
+padding: 15px 20px 30px 20px;
+font-size: 18px;
+}
+
+.menuitem .dtubesidebarmenu
+{
+  font-size: 14px;
+  font-weight: 600;
+  padding: none;
+}
+
+.dtubesidebarmenu:hover
+{
+color:red;
+background: rgb(233, 233, 233);
+}
+
+
+.dtubesidebarmenu.nightmodetext:hover
+{
+color:rgb(223, 223, 223);
+background: rgb(61, 61, 61);
+}
+
+.dtubesidebartitle
+{
+  padding-right: 30px;
+  color: black;
+}
+
+main
+{
+  max-width: 100%;
+  margin:auto;
+
+}
+
+
+.mainmobile
+{
+  width: 90%;
+}
+
+.notificationdtube
+{
+  background-color: rgb(48, 48, 48);
+  border-radius: 60px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.notificationdtubeactive
+{
+  background-color: rgb(255, 13, 13);
+  border-radius: 60px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  padding-top: 4px;
+  font-size: 12px;
+}
+
+.circular .icon
+{
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.circular .icon:hover
+{
+  background-color: rgb(248, 248, 248);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#snapimg {
+  max-height: 140px;
+  object-fit: cover;
+}
+
+li {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+li img,
+#status {
+  -webkit-transition: opacity 0.4s;
+     -moz-transition: opacity 0.4s;
+      -ms-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+}
+
+li.is-loading {
+  background-color: black;
+}
+
+li.is-broken {
+  background-color: #be3730;
+  width: 120px;
+}
+
+li.is-loading img,
+li.is-broken img {
+  opacity: 0;
+}
+
+.buttons { margin-bottom: 1.0em; }
+
+button {
+  font-size: 18px;
+  padding: 0.4em 0.8em;
+  font-family: sans-serif;
+}
+
+#status {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: hsla( 0, 0%, 0%, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2; /* over other stuff */
+}
+
+.ui.form textarea:focus {
+  outline: none !important;
+  border:1px solid rgb(175, 175, 175);
+  box-shadow: 0 0 2px rgb(180, 180, 180);
+}
+
+.customtitlelink
+{
+  color: #262626;
+  font-family: 'Roboto Medium', 'Roboto', 'sans-serif';
+  font-weight: 500;
+  font-size: 1rem;
+  max-height: 3.2rem;
+  line-height: 1rem;
+}
+
+.customlink
+{
+  color: rgba(20, 20, 20, 0.6);
+}
+
+.customlink:hover
+{
+  color: rgba(20, 20, 20, 1);
+}
+
+.sidebarlink
+{
+  color:rgba(100, 100, 100, 0.87);
+  font-weight: 300;
+}
+
+.item.sidebarlink
+{
+  color:rgba(100, 100, 100, 0.87);
+  font-weight: 300;
+}
+
+.customlink:active
+{
+  color:rgba(0, 0, 0, 0.87);
+}
+
+.customlink:link
+{
+  color:rgba(0, 0, 0, 0.87);
+}
+
+.customlink:visited
+{
+  color:rgba(32, 32, 32, 0.87);
+}
+
+.ddvright
+{
+  font-size: 15px;
+  float: right;
+  margin-left: 5px;
+}
+
+.lefter55
+{
+  left:-55px;
+}
+
+.boxdisplayer
+{
+  display:-webkit-box;
+  width: 100%;
+}
+
+
+.videohmore
+{
+  font-size: 18px;
+  float: right;
+  margin-left: 5px;
+}
+
+
+.nosnap
+{
+  color:rgb(248, 248, 248);
+}
+
+.videodesktop
+{
+  width:78%;
+  display:inline-block;
+}
+
+.videomobile
+{
+  width:100%;
+  display:inline-block;
+}
+
+.image.channel{
+  width:128px;
+  height:128px;
+  border-radius: 100px!important;
+  margin-bottom: -15px;
+  position: initial;
+  border: white 5px solid;
+}
+
+.padder{
+  padding-left:5px;
+}
+
+.ui.computergrid {
+  -webkit-box-orient: inherit;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: inherit !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 0em;
+    width: 80%
+}
+
+
+.ui.tabletgrid {
+  margin-top: 15px;
+  overflow-y: hidden;
+}
+
+.ui.noshadow{
+  border-width: 0px;
+  -webkit-box-shadow: 0px 0px 0px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 0px 0px 0 rgba(34, 36, 38, 0.15);
+  border-radius: 0;
+}
+
+.ui.onepborder{
+  border-width: 1px!important;
+}
+
+.mobiletopbar{ 
+  height:52px;
+  z-index:9000;
+}
+.mobilelogoheader{
+  float:left;margin-left: -15px;height:52px;
+}
+.mobiletopbaritem{
+  padding: 0em;
+  margin: 0px;
+  font-size:1.5em;
+}
+
+
+#subscriberslist::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+#subscriberslist::-webkit-scrollbar
+{
+	width: 2px;
+	background-color: #F5F5F5;
+}
+
+#subscriberslist::-webkit-scrollbar-thumb
+{
+	background-color: #ff0000;
+}
+
+.pushable::-webkit-scrollbar-track
+{
+	background-color: rgb(8, 8, 8);
+}
+
+.pushable::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #fafafa;
+}
+
+.pushable::-webkit-scrollbar-thumb
+{
+  background-color: #fafafa;;
+  border-top:    0px;
+  border-right:  1px solid rgb(12, 12, 12);
+  border-bottom: 0px;
+  border-left:   1px solid rgb(12, 12, 12);
+}
+
+.desktop.sidebar::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+.desktop.sidebar::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.desktop.sidebar::-webkit-scrollbar-thumb
+{
+	background-color: #777777;
+}
+
+.channelsubscriberslist::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+.channelsubscriberslist::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.channelsubscriberslist::-webkit-scrollbar-thumb
+{
+	background-color: #777777;
+}
+

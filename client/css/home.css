@@ -1,54 +1,247 @@
 .videosnap {
-  margin-right: 4px;
   display: inline-block;
-  width: 210px;
+  /* margin-bottom: 8px; */
+  vertical-align:top;
+  /* max-width: 210px; */
+  color: #212121;
+}
+
+.videosnap:hover {
+  display: inline-block;
+  /* margin-bottom: 8px; */
+  vertical-align:top;
+  /* max-width: 210px; */
+  color: #212121;
+}
+
+
+.videosnap:hover  .watchlater {
+  display: block!important;
+}
+
+.videosnap:hover  .addwatchlater {
+  display: block!important;
+}
+
+.videosnap:hover  .videosnapduration {
+  display: block!important;
+}
+
+.verticalvideosnap {
+  /* margin-right: 4px; */
+  display: inline-block;
+  /* width: 210px; */
   margin-bottom: 8px;
   vertical-align:top;
+  color: #212121;
 }
 
 .videosnapauthor {
   font-size: 0.9rem;
+  color: grey;
+  text-decoration-color: grey;
+  text-align: left;
 }
 
 .videosnaprest {
   font-size: 0.9rem;
+  float: left;
+  clear: none; 
+  color: #0A1627;
+  text-decoration-color: #0066FF;
+  margin-right: 5px;
 }
+
+.videosnapmore {
+    font-size: 0.9rem;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    top: auto;
+    color: #0A1627;
+    text-decoration-color: #0066FF;
+  }
+
+.videosnapduration{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: rgb(226, 226, 226);
+  background-color: rgba(34, 36, 38, 0.75);
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
+  z-index: 99;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 17px;
+}
+
+.videosnaptime {
+  color: rgba(20, 20, 20, 0.6);
+  -webkit-text-decoration-color: grey;
+  text-decoration-color: grey;
+  font-size: 0.9em;
+}
+
+
+.videosnapdescription{
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.40em;
+  -webkit-line-clamp: 2;
+  margin: 0 auto;
+  height: 36px;
+}
+
+.videosnapdescriptionmobile{
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.30em;
+  -webkit-line-clamp: 2;
+  margin: 0 auto;
+  height: 32px;
+}
+
+
 
 .videosnaptitle {
   color: black;
   display: block;
-  margin: 0px 0 0px;
-  max-height: 2.2rem;
   overflow: hidden;
-  font-size: 1.0rem;
+  font-weight: 500;
+  white-space: normal;
+  text-align: left;
+  width: 100%;
+  display: -webkit-box;
+  line-height: 1.30em;
+  max-height: 2.6em;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.verticalvideosnaptitle {
+  color: black;
+  display: block;
+  overflow: hidden;
   font-weight: 600;
-  line-height: 1.1rem;
+  white-space: normal;
+  text-align: left;
+  width: 100%;
+  display: -webkit-box;
+  line-height: 1.3em;
+  max-height: 3.8em;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
 .videosnapsnap {
   position: relative;
+  max-height:118px;
+  margin-bottom: 5px;
 }
 
-.videosnapsnap .remove {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  z-index: 100;
-  background-color: #FFF;
-  padding: 5px 4px 5px;
-  color: #000;
-  cursor: pointer;
-  opacity: .2;
-  text-align: center;
-  font-size: 22px;
-  line-height: 10px;
-  border-radius: 50%;
+
+.verticalvideosnapsnap {
+  position: relative;
+  height:90px;
+  margin-bottom: 5px;
 }
 
-.videosnapsnap .remove:hover {
-  opacity: 1;
+.videosnapdetails{
+  display: block;
+}
+
+#img
+{
+ object-fit: cover;  
 }
 
 .reblogged {
   color: red;
+}
+
+.title
+{
+text-align: center;
+}
+
+.showmore
+{
+    margin-top: 10px;
+    text-align: left; 
+}
+
+.menuitem
+{
+  text-align: left;
+  color: black;
+}
+
+.activemenu
+{
+  text-align: left;
+  color: red;
+  background: rgb(240, 240, 240);
+}
+
+.activemenu.nightmodetext
+{
+  text-align: left;
+  color: rgb(255, 255, 255);
+  background: rgb(160, 33, 33);
+}
+
+.ui.left.visible.sidebar, .ui.right.visible.sidebar {
+  -webkit-box-shadow: 0px 0px 0px rgba(34, 36, 38, 0.15);
+}
+
+.subscriberslist
+{
+  max-height: 300px;
+  overflow-x: auto;
+  padding-left: 20px;
+}
+
+.channelsubscriberslist
+{
+  max-height: 600px;
+  overflow-x: auto;
+}
+
+.channelfollowerslist
+{
+  max-height: 600px;
+  overflow-x: auto;
+}
+
+.ui.fluid.label{
+  word-wrap: break-word;
+}
+
+body.pushable {
+  background: #fafafa;
+}
+
+input[type="text"] {
+  width: 100%;
+}
+
+.subcommentsclosed{
+  height: 0px;
+  overflow: hidden; 
+}
+
+.seekTo{
+  cursor: pointer;
 }

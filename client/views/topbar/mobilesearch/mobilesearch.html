@@ -1,0 +1,19 @@
+<template name="mobilesearch">
+    <div class="ui search wid-ful" style="height:70px;padding:15px;">
+        <div class="ui big icon input wid-ful">
+            <form class='searchForm wid-ful'>
+                <input id='dsearchmobile' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
+            </form>
+            <i class="search icon"></i>
+        </div>
+        <div class="results wid-ful">
+            {{#each searchSuggestions}}
+            <a class="result">   
+                <div class="content">
+                    <div class="title">{{this}}</div>
+                </div>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</template>
