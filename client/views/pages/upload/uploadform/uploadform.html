@@ -1,50 +1,64 @@
 <template name='uploadform'>
-  <div id="infozone" style="text-align:left;">
-    <form class="ui form uploadform">
-      <div class="field">
-        <label>{{ translate 'UPLOAD_TITLE'}}</label>
-        <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}" value="{{info.title}}">
-      </div>
-      <div class="field">
-        <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
-        <textarea rows="4" name='description'>{{content.description}}</textarea>
-      </div>
-      <div class="field">
-        <label>{{ translate 'UPLOAD_TAGS'}}</label>
-        <div class="ui fluid multiple search selection dropdown">
-          <input id="tags" name="tags" type="hidden" value="{{inputTags content.tags}}">
-          <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
+  <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
+    <a class="item basics active" style="display:inline-block;" data-tab="first">{{ translate 'UPLOAD_BASICS'}}</a>
+    <a class="item subtitles" style="display:inline-block;" data-tab="second">{{ translate 'UPLOAD_SUBTITLES'}}</a>
+    <a class="item advanced" style="display:inline-block;" data-tab="third">{{ translate 'UPLOAD_ADVANCED'}}</a>
+  </div>
+  <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
+    <div id="infozone" style="text-align:left;">
+      <form class="ui form uploadform">
+        <div class="field">
+          <label>{{ translate 'UPLOAD_TITLE'}}</label>
+          <input type="text" name="title" placeholder="{{ translate 'UPLOAD_TITLE'}}" value="{{info.title}}">
         </div>
-        <span class="ui tags alert dsp-non">{{ translate 'UPLOAD_MAX_4_TAGS' }}</span>
-      </div>
-      {{#if isOnMobile}}
-        <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
-          <div style="display:inline-block;padding: 0.8em 1em;">
-              {{ translate 'UPLOAD_ADVANCED'}} 
-          </div>
-          <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-        </button>
-        {{> uploadformsubmit}}
-        <div class="ui slider nsfw checkbox">
-          <input type="checkbox" name="newsletter">
-          <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+        <div class="field">
+          <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
+          <textarea rows="4" name='description'>{{content.description}}</textarea>
         </div>
-      {{else}}
-        <div style="text-align:left; margin-top:20px;">
-          <div style="display:inline-block;">
-            {{> uploadformsubmit}}
+        <div class="field">
+          <label>{{ translate 'UPLOAD_TAGS'}}</label>
+          <div class="ui fluid multiple search selection dropdown">
+            <input id="tags" name="tags" type="hidden" value="{{inputTags content.tags}}">
+            <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
           </div>
-          <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
+          <span class="ui tags alert dsp-non">{{ translate 'UPLOAD_MAX_4_TAGS' }}</span>
+        </div>
+        {{#if isOnMobile}}
+          <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{ translate 'UPLOAD_ADVANCED'}} 
+            </div>
+            <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
+          </button>
+          {{> uploadformsubmit}}
+          <div class="ui slider nsfw checkbox">
             <input type="checkbox" name="newsletter">
             <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
           </div>
-        </div>
-      {{/if}}
-      <br />
-      <br />
-    </form>
+        {{else}}
+          <div style="text-align:left; margin-top:20px;">
+            <div style="display:inline-block;">
+              {{> uploadformsubmit}}
+            </div>
+            <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
+              <input type="checkbox" name="newsletter">
+              <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+            </div>
+          </div>
+        {{/if}}
+        <br />
+        <br />
+      </form>
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+    {{> uploadformsubtitles}}
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+    {{> uploadformadvanced}}
   </div>
 </template>
+
 <template name="uploadformsubmit">
   {{#if info.title}}
   <button class="ui right labeled dtube icon button editsubmit" type="button">
