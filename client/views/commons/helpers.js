@@ -386,3 +386,10 @@ Template.registerHelper('arrayify',function(obj){
   for (var key in obj) result.push({key:key,value:obj[key]});
   return result;
 });
+
+Template.registerHelper('isOnMobile', function () {
+  if (/Mobi/.test(navigator.userAgent)) {
+    return true;
+  }
+  return false;
+});

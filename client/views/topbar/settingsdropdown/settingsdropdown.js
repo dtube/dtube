@@ -63,11 +63,6 @@ Template.settingsdropdown.helpers({
   localIpfs: function() {
     return Session.get('localIpfs')
   },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-        return true;
-    }
-  },
   isInNightMode:function() {
     return Session.get('isInNightMode')
   },

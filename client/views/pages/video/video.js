@@ -64,11 +64,6 @@ Template.video.helpers({
   isLoggedOn: function () {
     return Session.get('activeUsername')
   },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
-  },
   convertTag:function(tag){
     var tagWithoutDtube= tag.replace("dtube-", "")
     return tagWithoutDtube

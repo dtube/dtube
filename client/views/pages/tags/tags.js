@@ -17,11 +17,6 @@ Template.tags.helpers({
         }, {
             sort: sort
         }).fetch()
-    },
-    isOnMobile: function () {
-        if (/Mobi/.test(navigator.userAgent)) { 
-            return true;
-        }
     }
 })
 

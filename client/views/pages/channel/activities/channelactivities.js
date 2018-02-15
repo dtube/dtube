@@ -33,11 +33,6 @@ Template.channelactivities.helpers({
             (Session.set('activityTypeFilter'), [])
             return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
         }
-    },
-    isOnMobile: function () {
-        if (/Mobi/.test(navigator.userAgent)) {
-            return true;
-        }
     }
 })
 

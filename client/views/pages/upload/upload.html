@@ -1,127 +1,70 @@
 <template name='upload'>
   <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
-    <center>
-      <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
-        {{#if isOnMobile}}
-        <!--  UPLOAD STEPS FOR MOBILE  -->
-        <!-- <div id="statuszone" style="margin-top:20px;">
-          <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
-            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
-              <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
-                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
-              </div>
-            </div>
-            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
-              <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
-                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
-              </div>
-            </div>
-            <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
-              <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
-                <div class="description" style="height: 20px;">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        {{else}}
-        <!--  UPLOAD STEPS FOR DESKTOP  -->
-        <!-- <div id="statuszone" style="margin:10 0px;">
-          <div class="ui ordered steps computer" style="width: 100%;border-width: 0px;">
-            <div class="step">
-              <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP1_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP1_DESCRITION'}}</div>
-              </div>
-            </div>
-            <div class="step">
-              <div id="step2load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP2_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP2_DESCRITION'}}</div>
-              </div>
-            </div>
-            <div class="step">
-              <div id="step3load" class="ui indeterminate small inline loader" style='display: none'></div>
-              <div class="content">
-                <div class="title">{{ translate 'UPLOAD_STEP3_TITLE'}}</div>
-                <div class="description">{{ translate 'UPLOAD_STEP3_DESCRITION'}}</div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        {{/if}}
-        <div class="ui indicating progress" id='progressvideo' style='display:none'>
-          <div class="bar"></div>
-          <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
-        </div>
-        <div class="ui indicating progress" id='progresssnap' style='display:none'>
-          <div class="bar"></div>
-          <div class="label">{{ translate 'UPLOAD_UPLOADING_SNAP'}}</div>
-        </div>
-        {{> uploadvideoprogress}}
-        <br />
-        <div id="dropzone" class="dropzone">
-          <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
-        </div>
-        <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
-        <div id="previewzone">
-          <div class="ui grid">
-            <div class="two column row">
-              <div class="column">
-                <video id="videopreview" class="dsp-non wid-ful" controls autoplay style="height: 100%;"></video>
-              </div>
-              <div class="column">
-                <canvas id="snappreview" class="dsp-non"></canvas>
-              </div>
-            </div>
-          </div>
-          {{#if isOnMobile}}
-            <div class="ui centered grid" style="text-align:left;margin-top:20px;">
-                <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin:1rem!important;width: 100%;">
-                  <div style="display:inline-block;padding: 0.8em 1em;">
-                    {{ translate 'UPLOAD_TAKE_SNAP'}}
-                  </div>
-                  <i class="photo icon black" style="background: white;opacity: 1;"></i>
-                </a>
-                <label for="snapFile" style="width: 100%;">
-                  <a class='ui red fluid dtube icon right labeled button' id='uploadSnap'> 
-                    <div style="display:inline-block;padding: 0.8em 1em;">
-                      {{ translate 'UPLOAD_UPLOAD_SNAP'}}
-                    </div>
-                    <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
-                  </a>
-                </label>
-                <input type="file" id="snapFile">
-            </div>
-          {{else}}
-            <div style="text-align:left;margin-top:20px;">
-                <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin-right: 10px!important;margin-bottom: 10px;">
-                  <div style="display:inline-block;padding: 0.8em 1em;">
-                    {{ translate 'UPLOAD_TAKE_SNAP'}}
-                  </div>
-                  <i class="photo icon black" style="background: white;opacity: 1;"></i>
-                </a>
-                <label for="snapFile">
-                  <a class='ui red dtube icon right labeled button' id='uploadSnap'>
-                    <div style="display:inline-block;padding: 0.8em 1em;">
-                      {{ translate 'UPLOAD_UPLOAD_SNAP'}}
-                    </div>
-                    <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
-                  </a>
-                </label>
-                <input type="file" id="snapFile">
-            </div>
-          {{/if}}
-        </div>
-        {{> uploadform}}
+    <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
+      <div class="ui indicating progress" id='progressvideo' style='display:none'>
+        <div class="bar"></div>
+        <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
       </div>
-    </center>
+      <div class="ui indicating progress" id='progresssnap' style='display:none'>
+        <div class="bar"></div>
+        <div class="label">{{ translate 'UPLOAD_UPLOADING_SNAP'}}</div>
+      </div>
+      {{> uploadvideoprogress}}
+      <br />
+      <div id="dropzone" class="dropzone">
+        <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
+      </div>
+      <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
+      <div id="previewzone">
+        <div class="ui grid">
+          <div class="two column row">
+            <div class="column">
+              <video id="videopreview" class="dsp-non wid-ful" controls autoplay style="height: 100%;"></video>
+            </div>
+            <div class="column">
+              <canvas id="snappreview" class="dsp-non"></canvas>
+            </div>
+          </div>
+        </div>
+        {{#if isOnMobile}}
+          <div class="ui centered grid" style="text-align:left;margin-top:20px;">
+              <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin:1rem!important;width: 100%;">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                  {{ translate 'UPLOAD_TAKE_SNAP'}}
+                </div>
+                <i class="photo icon black" style="background: white;opacity: 1;"></i>
+              </a>
+              <label for="snapFile" style="width: 100%;">
+                <a class='ui red fluid dtube icon right labeled button' id='uploadSnap'> 
+                  <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                  </div>
+                  <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
+                </a>
+              </label>
+              <input type="file" id="snapFile">
+          </div>
+        {{else}}
+          <div style="text-align:left;margin-top:20px;">
+              <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin-right: 10px!important;margin-bottom: 10px;">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                  {{ translate 'UPLOAD_TAKE_SNAP'}}
+                </div>
+                <i class="photo icon black" style="background: white;opacity: 1;"></i>
+              </a>
+              <label for="snapFile">
+                <a class='ui red dtube icon right labeled button' id='uploadSnap'>
+                  <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                  </div>
+                  <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
+                </a>
+              </label>
+              <input type="file" id="snapFile">
+          </div>
+        {{/if}}
+      </div>
+      {{> uploadform}}
+    </div>
   </div>
 </template>

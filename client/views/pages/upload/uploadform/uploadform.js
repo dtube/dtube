@@ -37,6 +37,7 @@ Template.uploadform.rendered = function () {
       $('.ui.multiple.dropdown').dropdown('remove selected', ['nsfw']);
     }
   });
+  $('.menu .item').tab();
 }
 
 Template.uploadform.helpers({
@@ -52,11 +53,6 @@ Template.uploadform.helpers({
       ok.push(tags[i])
     }
     return ok.join(',')
-  },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
   }
 })
 
@@ -123,9 +119,6 @@ Template.uploadform.events({
     var hash = $(event.currentTarget).parent().next()[0].value
     if (hash && hash.length > 40)
       window.open('https://ipfs.io/ipfs/' + hash)
-  },
-  'click .advanced': function (event) {
-    $('.advancedupload').toggle()
   },
   'submit .form': function (event) {
     event.preventDefault()
@@ -249,13 +242,5 @@ Template.uploadform.events({
     //     }
     //   }
     // )
-  }
-})
-
-Template.uploadformsubmit.helpers({
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
   }
 })

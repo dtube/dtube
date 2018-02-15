@@ -21,11 +21,6 @@ Template.home.helpers({
   },
   feedVideos: function () {
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername') }).fetch()
-  },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
   }
 })
 

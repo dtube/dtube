@@ -21,11 +21,6 @@ Template.videosearchresult.helpers({
           sort: sort
       }).fetch()
   },
-  isOnMobile: function () {
-      if (/Mobi/.test(navigator.userAgent)) { 
-          return true;
-      }
-  },
   convertTag:function(tag){
     var tagWithoutDtube= tag.replace("dtube-", "")
     return tagWithoutDtube

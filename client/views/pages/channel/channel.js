@@ -34,11 +34,6 @@ Template.channel.helpers({
   relatedChannels: function () {
     return Session.get('relatedChannels')
   },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
-  },
   isLoggedOn: function () {
     return Session.get('activeUsername')
   },

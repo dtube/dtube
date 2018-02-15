@@ -19,11 +19,6 @@ Template.sidebar.helpers({
   activeUser: function () {
     return Session.get('activeUsername')
   },
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
-  },
   subscribelength: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
   },

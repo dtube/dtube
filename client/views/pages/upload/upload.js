@@ -7,7 +7,6 @@ Template.upload.rendered = function () {
     .sticky({
       context: '#videouploadsteps'
     });
-  $('.menu .item').tab();
 }
 
 Template.upload.createPermlink = function (length) {
@@ -19,14 +18,6 @@ Template.upload.createPermlink = function (length) {
 
   return text;
 }
-
-Template.upload.helpers({
-  isOnMobile: function () {
-    if (/Mobi/.test(navigator.userAgent)) {
-      return true;
-    }
-  }
-});
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -214,8 +205,6 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             clearInterval(refreshUploadSnapStatus)
             $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
             Session.set('overlayHash', data.ipfsAddOverlay.hash)
-            $('#step2load').hide()
-            $('#step2load').parent().addClass('completed')
           }
         })
       }, 1000)
@@ -240,7 +229,6 @@ Template.upload.inputVideo = function (dt) {
   $('#videopreview').removeClass('dsp-non')
   $('#snappreview').removeClass('dsp-non')
   $('#dropzone').hide()
-  $('#step1load').show()
   $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))
 
   // displaying the preview
@@ -257,7 +245,6 @@ Template.upload.inputVideo = function (dt) {
   Template.upload.setBestUploadEndpoint(function () {
     // uploading to ipfs
     Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
-      $('#step1load').hide()
       if (err) {
         console.log(err)
         toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
@@ -332,7 +319,6 @@ Template.upload.events({
         toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
         return
       } else {
-        $('#step2load').parent().addClass('completed')
         console.log('Uploaded Snap', result)
         $('input[name="snaphash"]').val(result.Hash)
       }
