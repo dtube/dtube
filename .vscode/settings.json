@@ -3,7 +3,7 @@
         "**/.git": true, // this is a default value
         "**/.DS_Store": true, // this is a default value
         "**/node_modules": true, // this excludes all folders 
-        "**/.vscode": true, 
+        "**/.vscode": false, 
         "**/.meteor": true, 
         "**/definitions": true, 
         "**/site": true, 
@@ -15,6 +15,6 @@
         "**/package-lock.json": true, 
         "**/package.json": true, 
         "**/.gitignore": true, 
-        "**/themes": true, 
+        "**/themes": false, 
     }
 }
