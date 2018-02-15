@@ -1,4 +1,3 @@
-var languages = require('languages')
 var isOriginal = false
 var isNsfw = false
 
@@ -57,13 +56,6 @@ Template.uploadform.helpers({
   isOnMobile: function () {
     if (/Mobi/.test(navigator.userAgent)) {
       return true;
-    }
-  },
-  subtitleLanguages: function() { 
-    var langscodes = languages.getAllLanguageCode();
-    for (n=0; n<langscodes.length; n++) {
-      console.log(langscodes[n]);
-      console.log("   "+JSON.stringify(languages.getLanguageInfo(langscodes[n])));
     }
   }
 })

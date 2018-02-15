@@ -322,13 +322,11 @@ Template.upload.events({
       return
     }
 
-    $('#step2load').show()
 
     // uploading to ipfs
     if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
     //Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
     Template.upload.uploadImage(file, '#progresssnap', function (err, result) {
-      $('#step2load').hide()
       if (err) {
         console.log(err)
         toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))

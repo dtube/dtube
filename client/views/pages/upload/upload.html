@@ -4,7 +4,7 @@
       <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
         {{#if isOnMobile}}
         <!--  UPLOAD STEPS FOR MOBILE  -->
-        <div id="statuszone" style="margin-top:20px;">
+        <!-- <div id="statuszone" style="margin-top:20px;">
           <div class="ui tiny ordered steps" style="width: 100%;border-width: 0px;display: inline-block;">
             <div class="step" style="display: inline-block;max-width:32%;padding: 0px;">
               <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
@@ -28,10 +28,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         {{else}}
         <!--  UPLOAD STEPS FOR DESKTOP  -->
-        <div id="statuszone" style="margin:10 0px;">
+        <!-- <div id="statuszone" style="margin:10 0px;">
           <div class="ui ordered steps computer" style="width: 100%;border-width: 0px;">
             <div class="step">
               <div id="step1load" class="ui indeterminate small inline loader" style='display: none'></div>
@@ -55,11 +55,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         {{/if}}
         <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
           <a class="item basics active" style="display:inline-block;" data-tab="first">{{ translate 'UPLOAD_BASICS'}}</a>
-          <a class="item substitles" style="display:inline-block;" data-tab="second">{{ translate 'UPLOAD_SUBTITLES'}}</a>
+          <a class="item subtitles" style="display:inline-block;" data-tab="second">{{ translate 'UPLOAD_SUBTITLES'}}</a>
           <a class="item advanced" style="display:inline-block;" data-tab="third">{{ translate 'UPLOAD_ADVANCED'}}</a>
         </div>
         <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -133,7 +133,7 @@
         </div>
         <!-- SECOND TAB -->
         <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-
+          {{> uploadformsubtitles}}
         </div>
         <!-- THIRD TAB -->
         <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">

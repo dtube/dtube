@@ -15,7 +15,7 @@
           <input id="tags" name="tags" type="hidden" value="{{inputTags content.tags}}">
           <div class="default text">{{ translate 'UPLOAD_TAGS'}}</div>
         </div>
-        <span class="ui tags alert dsp-non">The maximum is <strong>4</strong> tags</span>
+        <span class="ui tags alert dsp-non">{{ translate 'UPLOAD_MAX_4_TAGS' }}</span>
       </div>
       {{#if isOnMobile}}
         <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
@@ -27,87 +27,21 @@
         {{> uploadformsubmit}}
         <div class="ui slider nsfw checkbox">
           <input type="checkbox" name="newsletter">
-          <label style="color:black;">This is an adult content</label>
+          <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
         </div>
       {{else}}
         <div style="text-align:left; margin-top:20px;">
-          <!-- <button class="ui right labeled icon button advanced dtube grey" type="button" style="margin-right: 10px!important;margin-bottom: 10px;">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate 'UPLOAD_ADVANCED'}} 
-            </div>
-            <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-          </button> -->
           <div style="display:inline-block;">
             {{> uploadformsubmit}}
           </div>
           <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
             <input type="checkbox" name="newsletter">
-            <label style="color:black;">This is an adult content</label>
+            <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
           </div>
         </div>
       {{/if}}
       <br />
       <br />
-      <!-- <div class="field advancedupload" style='display: none'>
-        <div class="field">
-          <label>{{ translate 'UPLOAD_BODY_STEEM'}}</label>
-          <textarea rows="10" name='body'>{{body}}</textarea>
-        </div>
-        {{#if info.title}}
-        <input type="hidden" name="permlink" value="{{info.permlink}}"> {{else}}
-        <div class="inline field">
-          <div class="ui slider checkbox">
-            <input type="checkbox" name="powerup">
-            <label>{{ translate 'UPLOAD_POWER_UP'}}</label>
-          </div>
-          <label></label>
-        </div>
-        {{/if}}
-        <div class="two fields">
-          <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEOHASH'}}
-              <i class="external icon"></i>
-            </label>
-            <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" value="{{content.videohash}}">
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEO480HASH'}}
-              <i class="external icon"></i>
-            </label>
-            <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}" value="{{content.video480hash}}">
-          </div>
-        </div>
-        <div class="two fields">
-          <div class="field">
-            <label>{{ translate 'UPLOAD_SNAPHASH'}}
-              <i class="external icon"></i>
-            </label>
-            <input type="text" name="snaphash" placeholder="{{ translate 'UPLOAD_SNAPHASH'}}" value="{{info.snaphash}}">
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_SPRITEHASH'}}
-              <i class="external icon"></i>
-            </label>
-            <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}" value="{{info.spritehash}}">
-          </div>
-        </div>
-        <div class="three fields">
-          <div class="field">
-            <label>{{ translate 'UPLOAD_MAGNET'}}</label>
-            <input type="text" name="magnet" placeholder="{{ translate 'UPLOAD_MAGNET'}}" value="{{content.magnet}}">
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_FILESIZE'}}</label>
-            <input type="text" name="filesize" placeholder="{{ translate 'UPLOAD_FILESIZE'}}" value="{{info.filesize}}">
-          </div>
-          <div class="field">
-            <label>{{ translate 'UPLOAD_DURATION'}}</label>
-            <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}" value="{{info.duration}}">
-          </div>
-        </div>
-        {{> uploadformsubmit}}
-        <br />
-      </div> -->
     </form>
   </div>
 </template>
