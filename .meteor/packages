@@ -29,3 +29,6 @@ session@1.1.7
 chrismbeckett:toastr
 dynamic-import@0.3.0
 frozeman:persistent-minimongo2
+omega:meteor-desktop-watcher@=0.10.1
+omega:meteor-desktop-bundler@=0.10.1
+omega:meteor-desktop-localstorage@=0.0.11

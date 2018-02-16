@@ -57,6 +57,9 @@ mongo-dev-server@1.1.0
 mongo-id@1.0.6
 npm-mongo@2.2.34
 observe-sequence@1.0.16
+omega:meteor-desktop-bundler@0.10.1
+omega:meteor-desktop-localstorage@0.0.11
+omega:meteor-desktop-watcher@0.10.1
 ordered-dict@1.1.0
 promise@0.10.1
 raix:ui-dropped-event@0.0.7

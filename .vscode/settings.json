@@ -1,20 +1,7 @@
 {
     "files.exclude": {
-        "**/.git": true, // this is a default value
-        "**/.DS_Store": true, // this is a default value
-        "**/node_modules": true, // this excludes all folders 
-        "**/.vscode": false, 
-        "**/.meteor": true, 
-        "**/definitions": true, 
-        "**/site": true, 
-        "**/semantic.less": true, 
-        "**/.custom.semantic.json": true, 
-        "**/custom.semantic.json": true, 
-        "**/theme.config.import.less": true, 
-        "**/theme.import.less": true, 
-        "**/package-lock.json": true, 
-        "**/package.json": true, 
-        "**/.gitignore": true, 
-        "**/themes": false, 
+        "**/node_modules": true, 
+        "**/.meteor": false, 
+        "**/package-lock.json": true
     }
 }
