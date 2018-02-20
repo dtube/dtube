@@ -1,6 +1,6 @@
 <template name='video'>
   {{#with video}}
-    <div class="ui videocontainer stackable two column grid computergrid" style="margin-top:10px;">
+    <div class="ui videocontainer stackable two column grid computergrid">
       <!-- Player on page -->
       <div class="videocol eleven wide column" style="padding:0px!important">
         {{> player}}
@@ -167,8 +167,8 @@
           </div>
         </div>
       </div>
-      <!-- Recommended videos  -->
-      <div class="pdg-non relatedcol five wide column computer only">
+      <!-- Related videos  -->
+      <div class="pdg-5 relatedcol four wide column computer only">
         <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
           <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
           {{#if userVideosAndResteems}} 
@@ -176,7 +176,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="five wide column tablet only">
+      <div class="four wide column tablet only">
         <div class="ui grid videorecommendedtablet" style='margin-top:0px'>
           {{> verticalvideoband userVideosAndResteems}}
         </div>
