@@ -1,7 +1,6 @@
 var languages = require('languages')
 
 Template.uploadformsubtitles.rendered = function () {
-    console.log(languages.getAllLanguageCode())
     var langscodes = languages.getAllLanguageCode();
     var langs = []
     for (n=0; n<langscodes.length; n++) {
@@ -22,13 +21,27 @@ Template.uploadformsubtitles.rendered = function () {
 Template.uploadformsubtitles.helpers({
     isAddingSubtitle: function() {
         return Session.get('isAddingSubtitle')
+    },
+    tempSubtitles: function() {
+        return Session.get('tempSubtitles')
     }
 })
 
 
 Template.uploadformsubtitles.events({
     'click #createSubtitle': function() {
-        Session.set('isAddingSubtitle', true)
+        var nativeName = $('#subtitleLanguage').val()
+        var langscodes = languages.getAllLanguageCode();
+        for (n=0; n<langscodes.length; n++) {
+            var lang = languages.getLanguageInfo(langscodes[n])
+            if (lang.nativeName == nativeName) {
+                Session.set('isAddingSubtitle', langscodes[n])
+                break;
+            }
+        }
+    },
+    'click .removeSubtitle': function(event) {
+        removeSubtitle($(event.target).data('lang'))
     },
     'change #importSubtitleFile': function(event) {
         var file = event.currentTarget.files[0]
@@ -44,7 +57,76 @@ Template.uploadformsubtitles.events({
         }
         reader.readAsText(event.currentTarget.files[0])
     },
+    'click #uploadSubtitle': function() {
+        var postUrl = 'http://localhost:5000/uploadSubtitle'
+        var formData = new FormData();
+        formData.append('subtitle', $('#subtitleText').val());
+        $.ajax({
+            url: postUrl,
+            type: "POST",
+            data: formData,
+            xhr: function () {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener("progress", function (evt) {
+                if (evt.lengthComputable) {
+                  //$(progressid).progress({ value: evt.loaded, total: evt.total });
+                  if (evt.loaded == evt.total) {
+                    // $(progressid).progress({ value: evt.loaded, total: evt.total });
+                    // $('#progressvideo > .label').html('File received. Requesting Token...')
+                  }
+                }
+              }, false);
+              return xhr;
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                refreshUploadSubtitleStatus = setInterval(function () {
+                    var url = 'http://localhost:5000/getProgressByToken/' + result.token
+                    $.getJSON(url, function (data) {
+                      var isCompleteUpload = true
+                      if (data.ipfsAddSource.progress !== "100.00%")
+                        isCompleteUpload = false;
+
+                      if (isCompleteUpload) {
+                        clearInterval(refreshUploadSubtitleStatus)
+                        addSubtitle({
+                            lang: Session.get('isAddingSubtitle'),
+                            hash: data.ipfsAddSource.hash
+                        })
+                        Session.set('isAddingSubtitle', false)
+                      }
+                    })
+                }, 1000)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    }
 })
+
+function listSubtitles() {
+    return Session.get('tempSubtitles')
+}
+
+function addSubtitle(sub) {
+    var subtitles = listSubtitles()
+    subtitles.push(sub)
+    Session.set('tempSubtitles', subtitles)
+}
+
+function removeSubtitle(lang) {
+    var subtitles = listSubtitles()
+    var newSubtitles = []
+
+    for (let i = 0; i < subtitles.length; i++)
+        if (subtitles[i].lang != lang)
+            newSubtitles.push(subtitles[i])
+
+    Session.set('tempSubtitles', newSubtitles)
+}
   
 function srt2webvtt(data) {
     // remove dos newlines

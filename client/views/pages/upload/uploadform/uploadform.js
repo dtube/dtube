@@ -71,26 +71,38 @@ Template.uploadform.parseTags = function (raw) {
   return [tags, videoTags]
 }
 
-Template.uploadform.generateVideo = function (form, tags, permlink) {
+Template.uploadform.generateVideo = function (tags, permlink) {
   var article = {
     info: {
-      title: form.title.value,
-      snaphash: form.snaphash.value,
+      title: $('input[name=title]')[0].value,
+      snaphash: $('input[name=snaphash]')[0].value,
       author: Users.findOne({ username: Session.get('activeUsername') }).username,
       permlink: Template.upload.createPermlink(8),
-      duration: parseFloat(form.duration.value),
-      filesize: parseInt(form.filesize.value),
-      spritehash: form.spritehash.value
+      duration: parseFloat($('input[name=duration]')[0].value),
+      filesize: parseInt($('input[name=filesize]')[0].value),
+      spritehash: $('input[name=spritehash]')[0].value
     },
     content: {
-      videohash: form.videohash.value,
-      video480hash: form.video480hash.value,
-      magnet: form.magnet.value,
-      description: form.description.value,
+      videohash: $('input[name=videohash]')[0].value,
+      description: $('textarea[name=description]')[0].value,
       tags: tags
     }
   }
-  if (form.permlink) article.info.permlink = form.permlink.value
+
+  if ($('input[name=videohash]')[0].value.length > 0)
+    article.content.videohash = $('input[name=videohash]')[0].value
+  if ($('input[name=video480hash]')[0].value.length > 0)
+    article.content.video480hash = $('input[name=video480hash]')[0].value
+  if ($('input[name=video720hash]')[0].value.length > 0)
+    article.content.video720hash = $('input[name=video720hash]')[0].value
+  if ($('input[name=video1080hash]')[0].value.length > 0)
+    article.content.video1080hash = $('input[name=video1080hash]')[0].value
+  if ($('input[name=magnet]')[0].value.length > 0)
+    article.content.magnet = $('input[name=magnet]')[0].value
+
+  if (Session.get('tempSubtitles') && Session.get('tempSubtitles').length > 0)
+    article.content.subtitles = Session.get('tempSubtitles')
+
   if (!article.info.title) {
     toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
     return
@@ -114,28 +126,24 @@ Template.uploadform.generateVideo = function (form, tags, permlink) {
   return article
 }
 
-Template.uploadform.events({
-  'click .external': function (event) {
-    var hash = $(event.currentTarget).parent().next()[0].value
-    if (hash && hash.length > 40)
-      window.open('https://ipfs.io/ipfs/' + hash)
-  },
+Template.uploadformsubmit.events({
   'submit .form': function (event) {
     event.preventDefault()
   },
   'click .uploadsubmit': function (event) {
     event.preventDefault()
-    var form = document.getElementsByClassName('uploadform')[0]
-    var tags = Template.uploadform.parseTags(form.tags.value)
-    var article = Template.uploadform.generateVideo(form, tags[1])
-    $('#step3load').show()
+    var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
+    var article = Template.uploadform.generateVideo(tags[1])
+    if (!article) return
 
     // publish on blockchain !!
+    $('#step3load').show()
+    
     var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var author = article.info.author
     var permlink = article.info.permlink
     var title = article.info.title
-    var body = form.body.value
+    var body = $('textarea[name=body]')[0].value
 
     if (!body || body.length < 1)
       body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, article.content.description)
@@ -150,7 +158,7 @@ Template.uploadform.events({
     }
 
     var percent_steem_dollars = 10000
-    if (form.powerup && form.powerup.checked)
+    if ($('input[name=powerup]')[0] && $('input[name=powerup]')[0].checked)
       percent_steem_dollars = 0
 
     var operations = [
@@ -199,37 +207,37 @@ Template.uploadform.events({
     )
   },
   'click .editsubmit': function (event) {
-    event.preventDefault()
-    var form = document.getElementsByClassName('uploadform')[0]
-    var tags = Template.uploadform.parseTags(form.tags.value)
-    var article = Template.uploadform.generateVideo(form, tags[1])
+    // event.preventDefault()
+    // var form = document.getElementsByClassName('uploadform')[0]
+    // var tags = Template.uploadform.parseTags(form.tags.value)
+    // var article = Template.uploadform.generateVideo(form, tags[1])
 
-    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
-    var author = Session.get('activeUsername')
-    var permlink = article.info.permlink
-    var title = article.info.title
-    var body = form.body.value
+    // var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+    // var author = Session.get('activeUsername')
+    // var permlink = article.info.permlink
+    // var title = article.info.title
+    // var body = form.body.value
 
-    var jsonMetadata = {
-      video: article,
-      tags: tags[0],
-      app: Meteor.settings.public.app
-    }
+    // var jsonMetadata = {
+    //   video: article,
+    //   tags: tags[0],
+    //   app: Meteor.settings.public.app
+    // }
 
-    var operations = [
-      ['comment',
-        {
-          parent_author: '',
-          parent_permlink: tags[0][0],
-          author: author,
-          permlink: permlink,
-          title: title,
-          body: body,
-          json_metadata: JSON.stringify(jsonMetadata)
-        }
-      ]
-    ];
-    console.log(operations)
+    // var operations = [
+    //   ['comment',
+    //     {
+    //       parent_author: '',
+    //       parent_permlink: tags[0][0],
+    //       author: author,
+    //       permlink: permlink,
+    //       title: title,
+    //       body: body,
+    //       json_metadata: JSON.stringify(jsonMetadata)
+    //     }
+    //   ]
+    // ];
+    // console.log(operations)
     // broadcast.send(
     //   operations,
     //   function (e, r) {

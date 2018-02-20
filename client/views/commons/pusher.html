@@ -1,28 +1,25 @@
 <template name='pusher'>
-    {{#if isOnMobile }} 
+  {{#if isOnMobile }} 
     {{> mobiletopbar}}
-  <div id="mobilesearchsidebar wid-ful" class="ui sidebar overlay left inverted labeled icon menu" style="height:70px;z-index:10;top:52px;background-color:rgba(32, 32, 32, 0.7);">
-    {{> mobilesearch}}
-  </div>
-  <div id="sidebar" class="ui mobile sidebar fixed overlay left vertical inverted labeled icon menu" style="top:52px;box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;background-color:rgb(250, 250, 250);">
+    <div id="sidebar" class="ui mobile sidebar fixed overlay left vertical inverted labeled icon menu" style="top:52px;box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;background-color:rgb(250, 250, 250);">
       {{> sidebar}}
     </div>
   {{else}} 
     {{> topbar}}
-  <div id="sidebar" class="ui desktop sidebar overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;top:57px;background-color:white;min-width:210px;">
-    {{> sidebar}}
-  </div>
+    <div id="sidebar" class="ui desktop sidebar overlay left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;top:57px;background-color:white;min-width:210px;">
+      {{> sidebar}}
+    </div>
   {{/if}}
   <div class="pusher">
     <div class='article'>
       {{#if isOnMobile }} 
-      <main class='ui main mobile only' style="margin-top: -12px;">
-        {{> Template.dynamic template=main}}
-      </main>
+        <main class='ui main mobile only' style="margin-top: -12px;">
+          {{> Template.dynamic template=main}}
+        </main>
       {{else}}
-      <main class='ui maingrid content'>
-        {{> Template.dynamic template=main}}
-      </main>
+        <main class='ui maingrid content'>
+          {{> Template.dynamic template=main}}
+        </main>
       {{/if}}
     </div>
   </div>

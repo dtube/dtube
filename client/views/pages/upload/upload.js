@@ -3,6 +3,7 @@ refreshUploadStatus = null
 Template.upload.rendered = function () {
   Session.set('uploadToken', null)
   Session.set('uploadVideoProgress', null)
+  Session.set('tempSubtitles', [])
   $('.ui.sticky')
     .sticky({
       context: '#videouploadsteps'
@@ -137,7 +138,6 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
           $(progressid).progress({ value: evt.loaded, total: evt.total });
           if (evt.loaded == evt.total) {
             $(progressid).progress({ value: evt.loaded, total: evt.total });
-            $('#progressvideo > .label').html('File received. Requesting Token...')
           }
         }
       }, false);
@@ -162,6 +162,11 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
 }
 
 Template.upload.uploadImage = function (file, progressid, cb) {
+  if (typeof refreshUploadSnapStatus !== 'undefined') clearInterval(refreshUploadSnapStatus)
+  $('#uploadSnap').addClass('disabled')
+  $('#uploadSnap > i').removeClass('cloud upload red')
+  $('#uploadSnap > i').addClass('asterisk loading')
+  $('#uploadSnap > i').css('background', 'transparent')
   var postUrl = 'https://snap1.d.tube/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
@@ -178,7 +183,6 @@ Template.upload.uploadImage = function (file, progressid, cb) {
           $(progressid).progress({ value: evt.loaded, total: evt.total });
           if (evt.loaded == evt.total) {
             $(progressid).progress({ value: evt.loaded, total: evt.total });
-            $('#progressvideo > .label').html('Snap Received...')
           }
         }
       }, false);
@@ -189,7 +193,6 @@ Template.upload.uploadImage = function (file, progressid, cb) {
     processData: false,
     success: function (result) {
       $(progressid).hide()
-      console.log(result)
 
       refreshUploadSnapStatus = setInterval(function () {
         var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
@@ -205,6 +208,10 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             clearInterval(refreshUploadSnapStatus)
             $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
             Session.set('overlayHash', data.ipfsAddOverlay.hash)
+            $('#uploadSnap').removeClass('disabled')
+            $('#uploadSnap > i').addClass('checkmark green')
+            $('#uploadSnap > i').removeClass('asterisk loading')
+            $('#uploadSnap > i').css('background', 'white')
           }
         })
       }, 1000)
@@ -212,6 +219,10 @@ Template.upload.uploadImage = function (file, progressid, cb) {
     error: function (error) {
       $(progressid).hide()
       cb(error)
+      $('#uploadSnap').removeClass('disabled')
+      $('#uploadSnap > i').addClass('cloud upload red')
+      $('#uploadSnap > i').removeClass('asterisk loading')
+      $('#uploadSnap > i').css('background', 'white')
     }
   });
 }

@@ -23,29 +23,6 @@
           </div>
           <span class="ui tags alert dsp-non">{{ translate 'UPLOAD_MAX_4_TAGS' }}</span>
         </div>
-        {{#if isOnMobile}}
-          <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate 'UPLOAD_ADVANCED'}} 
-            </div>
-            <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-          </button>
-          {{> uploadformsubmit}}
-          <div class="ui slider nsfw checkbox">
-            <input type="checkbox" name="newsletter">
-            <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
-          </div>
-        {{else}}
-          <div style="text-align:left; margin-top:20px;">
-            <div style="display:inline-block;">
-              {{> uploadformsubmit}}
-            </div>
-            <div class="ui slider nsfw checkbox" style="float: right;padding-top:10px;">
-              <input type="checkbox" name="newsletter">
-              <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
-            </div>
-          </div>
-        {{/if}}
         <br />
         <br />
       </form>
@@ -61,12 +38,12 @@
 
 <template name="uploadformsubmit">
   {{#if info.title}}
-  <button class="ui fluid red right labeled dtube icon button editsubmit" type="button">
-      <div style="display:inline-block;padding: 0.8em 1em;">
-          {{ translate 'VIDEO_EDIT'}} 
-      </div>
-    <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-  </button>
+    <button class="ui fluid red right labeled dtube icon button editsubmit" type="button">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'VIDEO_EDIT'}} 
+        </div>
+      <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
+    </button>
   {{else}}
       {{#if isOnMobile}}
       <button class="ui fluid red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">

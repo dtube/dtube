@@ -65,6 +65,31 @@
         </div>
       </center>
       {{> uploadform}}
+      <div class="ui section divider"></div>
+      {{#if isOnMobile}}
+        <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
+          <div style="display:inline-block;padding: 0.8em 1em;">
+              {{ translate 'UPLOAD_ADVANCED'}} 
+          </div>
+          <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
+        </button>
+        {{> uploadformsubmit}}
+        <div class="ui slider nsfw checkbox">
+          <input type="checkbox" name="newsletter">
+          <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+        </div>
+      {{else}}
+        <div style="text-align:left; margin-top:20px;">
+          <div class="ui slider nsfw checkbox" style="padding-top:10px;">
+            <input type="checkbox" name="newsletter">
+            <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+          </div>
+          <div style="display:inline-block; float:right;">
+            {{> uploadformsubmit}}
+          </div>
+        </div>
+      {{/if}}
+      
     </div>
   </div>
 </template>

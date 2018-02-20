@@ -37,9 +37,24 @@ Template.uploadvideoprogress.update = function() {
     if (isCompleteUpload) {
       clearInterval(refreshUploadStatus)
 
-      $('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
-      if (data.encodedVideos[0])
-        $('input[name="video480hash"]').val(data.encodedVideos[0].ipfsAddEncodeVideo.hash)
+      if (data.ipfsAddSourceVideo)
+        $('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
+
+      for (let i = 0; i < data.encodedVideos.length; i++) {
+        switch(data.encodedVideos[i].encode.encodeSize) {
+          case 'F480p':
+            $('input[name="video480hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+            break;
+          case 'F720p':
+            $('input[name="video720hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+            break;
+          case 'F1080p':
+            $('input[name="video1080hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+            break;
+        }
+        
+      }
+
       if (data.sprite)
         $('input[name="spritehash"]').val(data.sprite.ipfsAddSprite.hash)
 
