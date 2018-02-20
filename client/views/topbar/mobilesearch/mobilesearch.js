@@ -28,7 +28,6 @@ Template.mobilesearch.events({
   'submit .searchForm': function(event) {
     event.preventDefault()
     $("#sidebar").sidebar('hide')
-    $("#mobilesearchsidebar").sidebar('toggle')
     var query = event.target.search.value
     Session.set('search', {query: query})
     AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta,payout'}, function(err, response){

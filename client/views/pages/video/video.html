@@ -120,6 +120,11 @@
               </div>
             </div>
           {{/if}}
+          <!-- Related Videos Mobile -->
+          <div class="ui grid mobile only content videorecommendedmobile">
+            <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+            {{> verticalvideoband userVideosAndResteems}}
+          </div>
           <!-- Comments - Reply -->
           <div class="ui secondary segment" style="background: #f5f5f5;">
             <h3 class="ui header">
@@ -163,22 +168,20 @@
         </div>
       </div>
       <!-- Recommended videos  -->
-      <div class="pdg-non relatedcol four wide column">
-        <div class="ui grid computer only videorecommendedcomputer" style="margin-right: -5rem;">
+      <div class="pdg-non relatedcol four wide column computer only">
+        <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
           <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
           {{#if userVideosAndResteems}} 
             {{> verticalvideoband userVideosAndResteems}} 
           {{/if}}
         </div>
       </div>
-      <div class="ui container grid tablet only content videorecommendedtablet">
-        <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+      <div class="ui grid tablet only content videorecommendedtablet" style='margin-top:0px'>
         {{> verticalvideoband userVideosAndResteems}}
       </div>
-      <div class="ui grid mobile only content videorecommendedmobile">
-        <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-        {{> verticalvideoband userVideosAndResteems}}
-      </div>
+      
+
+      <!-- Popups for seeing voters -->
       {{> popupvoter}} {{> popupdownvoter}} 
     </div>
   {{/with}}

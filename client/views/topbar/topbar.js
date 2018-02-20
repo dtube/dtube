@@ -4,31 +4,20 @@ Template.topbar.helpers({
   },
   isLoggedOn: function () {
     return Session.get('activeUsername')
+  },
+  isSearchingMobile: function() {
+    return Session.get('isSearchingMobile')
   }
 });
 
 Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
-    if (!Session.get('isSidebarOpen'))
-    {
-      Session.set('isSidebarOpen', true)
-      if ($('.article').innerWidth() > 943) {
-      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
-      $('.article').addClass('mainsided');
-      }
-      else{
-        $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
-      }
-    }
+    if (Session.get('isSidebarOpen'))
+      $("#sidebar").sidebar('setting', 'dimPage', true).sidebar('setting', 'closable', false).sidebar('hide')
     else
-    {
-      $('.article').removeClass('mainsided');
-      Session.set('isSidebarOpen', false)
-      $("#sidebar").sidebar('setting', 'dimPage', false).sidebar('setting', 'closable', false).sidebar('toggle')
-    }
-  },
-  'click #mobilesearch': function (event, instance) {
-    $("#mobilesearchsidebar").sidebar('toggle')
+      $("#sidebar").sidebar('setting', 'dimPage', true).sidebar('setting', 'closable', false).sidebar('show')
+
+    Session.set('isSidebarOpen', !Session.get('isSidebarOpen'))
   },
   'keyup #dsearch': function (evt) {
     var query = evt.target.value
@@ -64,6 +53,9 @@ Template.topbar.events({
   'click #textlogo': function () {
     window.history.pushState('', '', '/#!/');
     FlowRouter.go('/')
-  }
+  },
+  'click #mobilesearch': function() {
+    Session.set('isSearchingMobile', true)
+  },
 });
 
