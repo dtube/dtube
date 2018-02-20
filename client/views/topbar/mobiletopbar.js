@@ -15,7 +15,7 @@ Template.mobiletopbar.events({
   'click .sidebartoggleicon': function(event, instance) {
     $("#sidebar").sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
   },
-  'click #mobilesearch': function() {
+  'click #mobilesearchbis': function() {
     Session.set('isSearchingMobile', true)
   },
   'click .dtube': function() {

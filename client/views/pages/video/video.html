@@ -121,10 +121,12 @@
             </div>
           {{/if}}
           <!-- Related Videos Mobile -->
-          <div class="ui grid mobile only content videorecommendedmobile">
-            <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-            {{> verticalvideoband userVideosAndResteems}}
-          </div>
+          {{#if userVideosAndResteems}}
+            <div class="ui grid mobile only content videorecommendedmobile">
+              <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+              {{> verticalvideoband userVideosAndResteems}}
+            </div>
+          {{/if}}
           <!-- Comments - Reply -->
           <div class="ui secondary segment" style="background: #f5f5f5;">
             <h3 class="ui header">
