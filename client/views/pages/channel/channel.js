@@ -62,12 +62,6 @@ Template.channel.helpers({
     if (!subCount || !subCount.following_count) return 0
     return subCount.following_count;
   },
-  // subscribe: function () {
-  //   return Subs.find({ follower: FlowRouter.getParam("author") }).fetch()
-  // },
-  // followers: function () {
-  //   return Subs.find({ following: FlowRouter.getParam("author") }).fetch()
-  // },
   activities: function () {
       return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
   },
