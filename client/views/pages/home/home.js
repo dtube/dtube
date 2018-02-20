@@ -9,9 +9,6 @@ Template.home.helpers({
   },
   newVideos: function () {
     return Videos.find({ source: 'chainByCreated' }, {limit: 25}).fetch()
-    // .sort(function (a, b) {
-    //   return moment(b.created) - moment(a.created)
-    // })
   },
   hotVideos: function () {
     return Videos.find({ source: 'chainByHot' }, {limit: 25}).fetch()

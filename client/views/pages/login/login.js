@@ -11,7 +11,6 @@ Template.login.events({
   },
   'submit .form': function(event) {
     event.preventDefault()
-    //TOCHECK
     var currentUser = Session.get('activeUsername')
     var username = event.target.username.value.toLowerCase().replace('@','');
     if (currentUser == username)
