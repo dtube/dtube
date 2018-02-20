@@ -1,8 +1,6 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
-  $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
-  $('body').animate({ scrollTop: 0 }, 'slow');
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
   Template.video.setScreenMode();
