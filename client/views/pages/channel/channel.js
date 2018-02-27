@@ -17,6 +17,18 @@ Template.channel.rendered = function () {
       hide: 0
     }
   })
+  $('.ui.infinite')
+  .visibility({
+    once: false,
+    observeChanges: true,
+    onBottomVisible: function() {
+      $('.ui.infinite .loader').show()
+      Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err) {
+        if (err) console.log(err)
+        $('.ui.infinite .loader').hide()
+      })
+    }
+  });
 }
 
 Template.channel.helpers({

@@ -19,6 +19,7 @@ Meteor.startup(function(){
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
+  Session.set('lastBlogs', {})
   Session.set('tagDays', 7)
   Session.set('tagSortBy', 'net_votes')
   Session.set('tagDuration', 999999)

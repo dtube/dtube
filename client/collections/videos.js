@@ -137,16 +137,29 @@ Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration,
   })
 }
 
+Videos.setLastBlog = function(channel, item) {
+  var lastBlogs = Session.get('lastBlogs')
+  lastBlogs[channel] = item
+  Session.set('lastBlogs', lastBlogs)
+} 
+
 Videos.getVideosByBlog = function(author, limit, cb) {
   var query = {
     tag: author,
-    limit: Session.get('remoteSettings').loadLimit
+    limit: Session.get('remoteSettings').loadLimit,
+    truncate_body: 1
   };
 
   if (limit) query.limit = limit
 
+  if (Session.get('lastBlogs')[author]) {
+    query.start_author = Session.get('lastBlogs')[author].author
+    query.start_permlink = Session.get('lastBlogs')[author].permlink
+  }
+
   steem.api.getDiscussionsByBlog(query, function (err, result) {
     if (err === null || err === '') {
+      Videos.setLastBlog(author, result[result.length-1])
       var i, len = result.length;
       var videos = []
       for (i = 0; i < len; i++) {
@@ -335,6 +348,8 @@ Videos.parseFromChain = function(video, isComment) {
     }
     newVideo.content.tags = xssTags
   }
+
+  if (!newVideo._id) newVideo._id = newVideo.author+'_'+newVideo.permlink
   return newVideo;
 }
 

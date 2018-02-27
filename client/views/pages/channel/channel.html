@@ -35,18 +35,21 @@
         <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
       </div>
       <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
-        {{#if userVideos}} 
-        {{> videoband userVideos}} 
-        {{/if}}
+        <div class="ui infinite">
+          {{#if userVideos}} 
+            {{> videoband userVideos}} 
+          {{/if}}
+          <div class="ui large centered inline text loader" style="float: right;right: 0px;"></div>
+        </div>
       </div>
       <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'activities'}} 
-        {{> channelactivities}} 
+          {{> channelactivities}} 
         {{/if}}
       </div>
       <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'about'}} 
-        {{> channelabout}} 
+          {{> channelabout}} 
         {{/if}}
       </div>
     </div>

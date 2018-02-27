@@ -31,7 +31,6 @@ function shuffleArray(array) {
 
 Template.upload.setBestUploadEndpoint = function (cb) {
   var uploaders = Session.get('remoteSettings').upldr
-  var uploaders = [2]
   shuffleArray(uploaders)
   var results = []
   var queuethreshold = 3;

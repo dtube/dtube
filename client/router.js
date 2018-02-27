@@ -182,8 +182,8 @@ FlowRouter.route('/c/:author', {
       main: "channel",
       nav: "nav"
     });
-    Videos.getVideosByBlog(params.author, 100, function() {
-      // call finished
+    Videos.getVideosByBlog(params.author, 50, function(err) {
+      if (err) console.log(err)
     })
     SubCounts.loadSubscribers(params.author)
     Template.channel.randomBackgroundColor();
