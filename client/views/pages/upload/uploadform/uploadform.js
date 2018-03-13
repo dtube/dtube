@@ -71,7 +71,7 @@ Template.uploadform.parseTags = function (raw) {
   return [tags, videoTags]
 }
 
-Template.uploadform.generateVideo = function (tags, permlink) {
+Template.uploadform.generateVideo = function (tags) {
   var article = {
     info: {
       title: $('input[name=title]')[0].value,
@@ -91,12 +91,14 @@ Template.uploadform.generateVideo = function (tags, permlink) {
 
   if ($('input[name=videohash]')[0].value.length > 0)
     article.content.videohash = $('input[name=videohash]')[0].value
+  if ($('input[name=video240hash]')[0].value.length > 0)
+    article.content.video240hash = $('input[name=video240hash]')[0].value
   if ($('input[name=video480hash]')[0].value.length > 0)
     article.content.video480hash = $('input[name=video480hash]')[0].value
   if ($('input[name=video720hash]')[0].value.length > 0)
     article.content.video720hash = $('input[name=video720hash]')[0].value
-  if ($('input[name=video1080hash]')[0].value.length > 0)
-    article.content.video1080hash = $('input[name=video1080hash]')[0].value
+  // if ($('input[name=video1080hash]')[0].value.length > 0)
+  //   article.content.video1080hash = $('input[name=video1080hash]')[0].value
   if ($('input[name=magnet]')[0].value.length > 0)
     article.content.magnet = $('input[name=magnet]')[0].value
 
@@ -207,48 +209,49 @@ Template.uploadformsubmit.events({
     )
   },
   'click .editsubmit': function (event) {
-    // event.preventDefault()
-    // var form = document.getElementsByClassName('uploadform')[0]
-    // var tags = Template.uploadform.parseTags(form.tags.value)
-    // var article = Template.uploadform.generateVideo(form, tags[1])
+    event.preventDefault()
+    var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
+    var article = Template.uploadform.generateVideo(tags[1])
+    if ($('input[name=permlink]')[0])
+      article.info.permlink = $('input[name=permlink]')[0].value
 
-    // var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
-    // var author = Session.get('activeUsername')
-    // var permlink = article.info.permlink
-    // var title = article.info.title
-    // var body = form.body.value
+    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+    var author = Session.get('activeUsername')
+    var permlink = article.info.permlink
+    var title = article.info.title
+    var body = $('textarea[name=body]')[0].value
 
-    // var jsonMetadata = {
-    //   video: article,
-    //   tags: tags[0],
-    //   app: Meteor.settings.public.app
-    // }
+    var jsonMetadata = {
+      video: article,
+      tags: tags[0],
+      app: Meteor.settings.public.app
+    }
 
-    // var operations = [
-    //   ['comment',
-    //     {
-    //       parent_author: '',
-    //       parent_permlink: tags[0][0],
-    //       author: author,
-    //       permlink: permlink,
-    //       title: title,
-    //       body: body,
-    //       json_metadata: JSON.stringify(jsonMetadata)
-    //     }
-    //   ]
-    // ];
-    // console.log(operations)
-    // broadcast.send(
-    //   operations,
-    //   function (e, r) {
-    //     if (e) {
-    //       console.log(e)
-    //       if (e.payload) toastr.error(e.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
-    //       else toastr.error(translate('UPLOAD_ERROR_SUBMIT_BLOCKCHAIN'), translate('ERROR_TITLE'))
-    //     } else {
-    //       console.log('done')
-    //     }
-    //   }
-    // )
+    var operations = [
+      ['comment',
+        {
+          parent_author: '',
+          parent_permlink: tags[0][0],
+          author: author,
+          permlink: permlink,
+          title: title,
+          body: body,
+          json_metadata: JSON.stringify(jsonMetadata)
+        }
+      ]
+    ];
+    console.log(operations)
+    broadcast.send(
+      operations,
+      function (e, r) {
+        if (e) {
+          toastr.error(Meteor.blockchainError(e), translate('ERROR_TITLE'))
+          console.log(e)
+        } else {
+          $('#editvideosegment').toggle()
+          Template.video.loadState()
+        }
+      }
+    )
   }
 })

@@ -32,6 +32,7 @@ function shuffleArray(array) {
 Template.upload.setBestUploadEndpoint = function (cb) {
   var uploaders = Session.get('remoteSettings').upldr
   shuffleArray(uploaders)
+  console.log(uploaders)
   var results = []
   var queuethreshold = 3;
   var finished = false;
@@ -121,7 +122,7 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = 'https://upldr' + Session.get('upldr') + '.d.tube/uploadVideo?videoEncodingFormats=480p,720p&sprite=true'
+  var postUrl = 'https://upldr' + Session.get('upldr') + '.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })

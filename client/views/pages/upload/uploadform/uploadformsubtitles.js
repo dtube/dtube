@@ -58,7 +58,7 @@ Template.uploadformsubtitles.events({
         reader.readAsText(event.currentTarget.files[0])
     },
     'click #uploadSubtitle': function() {
-        var postUrl = 'http://localhost:5000/uploadSubtitle'
+        var postUrl = 'https://snap1.d.tube/uploadSubtitle'
         var formData = new FormData();
         formData.append('subtitle', $('#subtitleText').val());
         $.ajax({
@@ -83,7 +83,7 @@ Template.uploadformsubtitles.events({
             processData: false,
             success: function (result) {
                 refreshUploadSubtitleStatus = setInterval(function () {
-                    var url = 'http://localhost:5000/getProgressByToken/' + result.token
+                    var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
                     $.getJSON(url, function (data) {
                       var isCompleteUpload = true
                       if (data.ipfsAddSource.progress !== "100.00%")
