@@ -11,7 +11,7 @@
                 </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.curator}}">
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.curator}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                              {{tx.curator}} curation rewards : {{displaySteemPower tx.reward}}
@@ -31,7 +31,7 @@
             <div class="content pdg-non">
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.account}}">
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                              {{tx.account}} claimed rewards : {{displaySteemPower tx.reward_vests}}
@@ -59,10 +59,10 @@
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
                             {{#if equals user.name tx.voter}}
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}">
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}">
                         {{else}}
                         <a href="/c/{{tx.voter}}">
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}"></a>
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}"></a>
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -96,10 +96,10 @@
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
                             {{#if equals user.name tx.voter}}
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}">
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}">
                         {{else}}
                         <a href="/c/{{tx.voter}}">
-                        <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.voter}}"></a>
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}"></a>
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -134,10 +134,10 @@
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
                             {{#if equals user.name tx.author}}
-                            <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.author}}">
+                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.author}}">
                             {{else}}
                             <a href="/c/{{tx.author}}">
-                            <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.author}}"></a>
+                            <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.author}}"></a>
                             {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
@@ -163,13 +163,13 @@
             <div class="content pdg-non">
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].follower}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].follower}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                 <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
                                 subscribed to
                                 <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
-                                    <img class="ui avatar image" style="min-width:28px;" src="https://img.busy.org/@{{tx.[1].following}}">
+                                    <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.[1].following}}">
                                 </a>
                             </div>
                             <div>
@@ -186,13 +186,13 @@
             <div class="content pdg-non">
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].follower}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].follower}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                 <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
                                 unsubscribed from
                                 <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
-                                    <img class="ui avatar image" style="margin-left:5px;" src="https://img.busy.org/@{{tx.[1].following}}">
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.[1].following}}">
                                 </a>
                             </div>
                             <div>
@@ -216,13 +216,13 @@
                 </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="https://img.busy.org/@{{tx.[1].account}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].account}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                {{tx.[1].account}}
                                 resteemed
                                 <a href="/c/{{tx.[1].author}}" style="color:rgb(255, 0, 0);">{{tx.[1].author}}
-                                    <img class="ui avatar image" style="width:28px;margin-left:5px;" src="https://img.busy.org/@{{tx.[1].author}}">
+                                    <img class="ui avatar image" style="width:28px;margin-left:5px;" src="{{userPic tx.[1].author}}">
                                 </a>
                             </div>
                             <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>

@@ -367,6 +367,7 @@ Videos.parseFromAskSteemResult = function(result) {
   newVideo.pending_payout_value = result.payout+' SBD'
   newVideo.total_payout_value = '0.000 SBD'
   newVideo.curator_payout_value = '0.000 SBD'
+  if (!newVideo._id) newVideo._id = newVideo.author+'_'+newVideo.permlink
   return newVideo;
 }
 

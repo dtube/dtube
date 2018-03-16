@@ -8,10 +8,11 @@ Meteor.settings.public = {
       "http://127.0.0.1:8080"
     ],
     "snapMaxFileSizeKB": 1024,
-    "upldr": ['g1']
+    "upldr": [1,2,3,4,5,"g1","g2","g3","g4"]
   },
   "app": "dtube/0.7",
   "beneficiary": "dtube",
+  "dmca": true,
   "pageTitleSeparator": "-",
   "appName": "DTube",
   "ipfs": "",

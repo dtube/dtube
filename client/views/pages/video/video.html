@@ -64,7 +64,8 @@
           <div class="ui segment" style="padding:0px!important;">
             <div class="details wid-ful">
               <div class="videoleftdetails wid-ful" style="padding: 10px;">
-                <img class="ui left tiny circular avatar floated image" src="{{userPic info.author}}" style="margin-top:10px;width:64px;">
+                <img class="ui left tiny circular avatar floated image" 
+                  style="background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic info.author 'small'}})">
                 <div class="channelLink" style="margin-top:10px;">
                   <a href="/c/{{info.author}}">
                     {{info.author}}
@@ -144,7 +145,8 @@
             {{/if}}
             <div class="wid-ful dsp-flx">
               <div style="text-align:left;float:left;">
-                <img class="ui avatar mini image" src="https://img.busy.org/@{{activeUser}}">
+                <img class="ui avatar mini image"
+                  style="background-size:cover; margin-top:10px; min-width:48px; width:48px; height: 48px; background-image:url({{userPic activeUser 'small'}})">
                 <div class="ui author" style="margin-top:5px;margin-right:10px;font-weight: 600;">{{activeUser}}</div>
               </div>
               <form class="ui reply form wid-ful">

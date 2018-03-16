@@ -2,7 +2,7 @@
   <div class="ui inline right aligned dropdown item dropdownusers needsclick">
     <div class="text needsclick">
       {{#if mainUser}}
-      <img class="ui avatar image needsclick" style="margin-right:0px;" src="https://img.busy.org/@{{mainUser.username}}?width=48&height=48">
+      <img class="ui avatar image needsclick" style="margin-right:0px;" src="{{userPic mainUser.username 'small'}}">
       {{/if}}
     </div>
     <div class="menu">

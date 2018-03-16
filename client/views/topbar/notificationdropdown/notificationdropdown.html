@@ -18,7 +18,7 @@
                   <i class="remove circle icon notificationremove"></i>
                 </div>
             <div class="dsp-flx" style="padding:10px;">
-              <img class="ui avatar image" src="https://img.busy.org/@{{tx.json.[1].follower}}">
+              <img class="ui avatar image" src="{{userPic tx.json.[1].follower}}">
               <div style="display: inline;margin-left: 5px;">
                 <div>
               <a style="color:#ff1a1a!important;" href="/c/{{tx.json.[1].follower}}" target="_blank" class="user">{{tx.json.[1].follower}}</a>
@@ -40,7 +40,7 @@
               </div>
             <div style="padding: 10px;">
               <div class="dsp-flx">
-                  <img class="ui avatar image" src="https://img.busy.org/@{{tx.author}}">
+                  <img class="ui avatar image" src="{{userPic tx.author}}">
                   <div style="display: inline;margin-left: 5px;">
                     <div>
                   <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" target="_blank" class="user">{{tx.author}}</a>
@@ -65,7 +65,7 @@
                 </div>
               <div style="padding: 10px;">
                 <div class="dsp-flx">
-                    <img class="ui avatar image" src="https://img.busy.org/@{{tx.voter}}">
+                    <img class="ui avatar image" src="{{userPic tx.voter}}">
                     <div style="display: inline;margin-left: 5px;">
                       <div>
                     <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" target="_blank" class="user">{{tx.voter}}</a>

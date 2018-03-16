@@ -48,9 +48,15 @@ Template.registerHelper('downvotes', function (active_votes) {
   return count;
 });
 
-Template.registerHelper('userPic', function (username) {
-  return 'https://img.busy.org/@' + username + '?width=96&height=96'
+Template.registerHelper('userPic', function (username, type) {
+  if (!type) type=''
+  return 'https://steemitimages.com/u/'+username+'/avatar/'+type
 });
+
+Template.registerHelper('userCover', function(coverurl) {
+  return 'https://steemitimages.com/2048x512/'+coverurl
+})
+
 
 Template.registerHelper('subCount', function (username) {
   var count = SubCounts.findOne({ account: username })
