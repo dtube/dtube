@@ -97,19 +97,6 @@ var getUploaderStatus = function (upldr) {
   });
 };
 
-
-// Template.upload.rendered = function () {
-//   Template.upload.isOnTablet();
-//   $(window).on('resize', Template.upload.isOnTablet)
-// }
-
-// Template.upload.isOnTablet = function () {
-//   if ($(window).width() < 992) 
-//      return true
-//   else 
-//      return false
-// }
-
 Template.upload.genBody = function (author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
   body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
@@ -147,6 +134,9 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
     contentType: false,
     processData: false,
     success: function (result) {
+      if (typeof result === 'string')
+        result = JSON.parse(result)
+
       $(progressid).hide()
       Session.set('uploadToken', result.token)
       refreshUploadStatus = setInterval(function () {
