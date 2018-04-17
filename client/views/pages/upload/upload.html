@@ -12,8 +12,8 @@
       {{> uploadvideoprogress}}
       <br />
       <center>
-        <div id="dropzone" class="dropzone">
-          <div>{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
+        <div id="dropzone" class="dropzone needsclick">
+          <div class="needsclick">{{ translate 'UPLOAD_UPLOAD_FILE'}}</div>
         </div>
         <input type="file" name="fileToUpload" id="fileToUpload" style='display: none'>
         <div id="previewzone">
@@ -27,15 +27,15 @@
           </div>
           {{#if isOnMobile}}
             <div class="ui centered grid" style="text-align:right;margin-top:20px; margin-bottom:20px;">
-                <a class='ui icon right labeled dtube grey button' id='snap' download='snap.jpg' style="margin:1rem!important;width: 100%;">
-                  <div style="display:inline-block;padding: 0.8em 1em;">
+                <!-- <a class='ui icon right labeled dtube grey button needsclick' id='snap' download='snap.jpg' style="margin:1rem!important;width: 100%;">
+                  <div style="display:inline-block;padding: 0.8em 1em;" class="needsclick">
                     {{ translate 'UPLOAD_TAKE_SNAP'}}
                   </div>
                   <i class="photo icon black" style="background: white;opacity: 1;"></i>
-                </a>
+                </a> -->
                 <label for="snapFile" style="width: 100%;">
-                  <a class='ui red fluid dtube icon right labeled button' id='uploadSnap'> 
-                    <div style="display:inline-block;padding: 0.8em 1em;">
+                  <a class='ui red fluid dtube icon right labeled button needsclick' id='uploadSnap'> 
+                    <div style="display:inline-block;padding: 0.8em 1em;" class="needsclick">
                       {{ translate 'UPLOAD_UPLOAD_SNAP'}}
                     </div>
                     <i class="cloud upload icon red" style="background: white;opacity: 1;"></i>
@@ -67,17 +67,11 @@
       {{> uploadform}}
       <div class="ui section divider"></div>
       {{#if isOnMobile}}
-        <button class="ui fluid right labeled icon button advanced dtube grey" type="button" style="width: 100%;margin-bottom: 10px;">
-          <div style="display:inline-block;padding: 0.8em 1em;">
-              {{ translate 'UPLOAD_ADVANCED'}} 
-          </div>
-          <i class="down arrow icon black" style="background: white;opacity: 1;"></i>
-        </button>
-        {{> uploadformsubmit}}
-        <div class="ui slider nsfw checkbox">
+        <div class="ui slider nsfw checkbox" style="margin-bottom:20px;">
           <input type="checkbox" name="newsletter">
           <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
         </div>
+        {{> uploadformsubmit}}
       {{else}}
         <div style="text-align:left; margin-top:20px;">
           <div class="ui slider nsfw checkbox" style="padding-top:10px;">

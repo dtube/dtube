@@ -182,6 +182,8 @@ Template.upload.uploadImage = function (file, progressid, cb) {
     contentType: false,
     processData: false,
     success: function (result) {
+      if (typeof result === 'string')
+        result = JSON.parse(result)
       $(progressid).hide()
 
       refreshUploadSnapStatus = setInterval(function () {
