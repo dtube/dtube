@@ -49,3 +49,16 @@ And open up the app again.
  - - `client/views` views, each has 2 files, html and js, a handlebar template and logic.
 
 That is it! All the rest of the logic is in the `/client/` folder.
+
+## Problems
+
+After each fix, you may need to re-run the install steps.
+
+Adding new NPM packages causes things to break?
+
+Fix: You may need NPM version `5.7.1` or higher.
+
+Meteor is complaining about babel spread and crashing?
+
+Fix: `meteor npm install @babel/runtime@latest`
+

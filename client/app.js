@@ -3,6 +3,8 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
+import Gun from 'gun/gun';
+import SEA from 'gun/sea';
 import steem from 'steem';
 import AskSteem from 'asksteem';
 import sc2sdk from 'sc2-sdk';
@@ -15,6 +17,7 @@ Meteor.startup(function(){
   console.log('DTube APP Started')
   Session.set('remoteSettings', Meteor.settings.public.remote)
   window.steem = steem
+  window.Gun = Gun
 
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
