@@ -41,7 +41,7 @@ Meteor.settings.public = {
 }
 
 // custom settings loaded from json
-$.get('/DTube_files/settings.json', function(json, result) {
+$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
   if (result == 'success') {
     Meteor.settings.public = json
     Session.set('remoteSettings', Meteor.settings.public.remote)

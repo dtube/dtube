@@ -137,9 +137,7 @@ FlowRouter.route('/sc2login', {
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
         Users.refreshLocalUsers()
-        Session.set('activeUsername', queryParams.username)
-        Videos.loadFeed(queryParams.username)
-        FlowRouter.go('#!/')
+        Template.login.success(queryParams.username)
       })
       clearInterval(trick)
     }, 100)

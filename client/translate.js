@@ -3,7 +3,7 @@ var culture = 'en-us'
 var jsonTranslateDef = null
 
 window.loadDefaultLang = function(cb = function(){}){
-  $.get('/DTube_files/lang/en/en-US.json', function(json, result) {
+  $.get('https://d.tube/DTube_files/lang/en/en-US.json', function(json, result) {
     if (result == 'success') {
       jsonTranslateDef = json
       cb()
