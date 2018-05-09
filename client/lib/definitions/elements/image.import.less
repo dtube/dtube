@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*!
  * # Semantic UI - Image
@@ -58,6 +58,10 @@ img.ui.image {
 .ui.hidden.transition.images,
 .ui.hidden.transition.image {
   display: block;
+  visibility: hidden;
+}
+.ui.images > .hidden.transition {
+  display: inline-block;
   visibility: hidden;
 }
 
@@ -319,8 +323,8 @@ img.ui.bordered.image {
 }
 
 .ui.images .image,
-.ui.images img,
-.ui.images svg {
+.ui.images > img,
+.ui.images > svg {
   display: inline-block;
   margin: 0em @imageHorizontalMargin @imageVerticalMargin;
 }

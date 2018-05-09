@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*!
  * # Semantic UI - Modal
@@ -28,17 +28,15 @@
 
 .ui.modal {
   display: none;
-  position: fixed;
   z-index: @zIndex;
-
-  top: 50%;
-  left: 50%;
   text-align: left;
 
   background: @background;
   border: @border;
   box-shadow: @boxShadow;
   transform-origin: @transformOrigin;
+
+  flex: 0 0 auto;
 
   border-radius: @borderRadius;
   user-select: text;
@@ -327,6 +325,12 @@
              States
 *******************************/
 
+.ui.loading.modal {
+  display: block;
+  visibility: hidden;
+  z-index: @loadingZIndex;
+}
+
 .ui.active.modal {
   display: block;
 }
@@ -336,12 +340,24 @@
 *******************************/
 
 /*--------------
+   Top Aligned
+---------------*/
+
+/* Top Aligned Modal */
+.modals.dimmer[class*="top aligned"] .modal {
+  margin: @topAlignedMargin auto;
+}
+
+/*--------------
     Scrolling
 ---------------*/
 
-/* A modal that cannot fit on the page */
+/* Scrolling Dimmer */
 .scrolling.dimmable.dimmed {
   overflow: hidden;
+}
+.scrolling.dimmable > .dimmer {
+  justify-content: flex-start;
 }
 .scrolling.dimmable.dimmed > .dimmer {
   overflow: auto;
@@ -351,11 +367,10 @@
   position: fixed;
 }
 .modals.dimmer .ui.scrolling.modal {
-  position: static !important;
   margin: @scrollingMargin auto !important;
 }
 
-/* undetached scrolling */
+/* Undetached Scrolling */
 .scrolling.undetached.dimmable.dimmed {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -369,18 +384,11 @@
   margin-top: @scrollingMargin !important;
 }
 
-/* Coupling with Sidebar */
-.undetached.dimmable.dimmed > .pusher {
-  z-index: auto;
+/* Scrolling Content */
+.ui.modal .scrolling.content {
+  max-height: @scrollingContentMaxHeight;
+  overflow: auto;
 }
-
-@media only screen and (max-width : @largestTabletScreen) {
-  .modals.dimmer .ui.scrolling.modal {
-    margin-top: @mobileScrollingMargin !important;
-    margin-bottom: @mobileScrollingMargin !important;
-  }
-}
-
 
 /*--------------
    Full Screen
@@ -410,6 +418,80 @@
 
 .ui.modal {
   font-size: @medium;
+}
+
+/* Mini */
+.ui.mini.modal > .header:not(.ui) {
+  font-size: @miniHeaderSize;
+}
+
+/* Mini Modal Width */
+@media only screen and (max-width : @largestMobileScreen) {
+  .ui.mini.modal {
+    width: @miniMobileWidth;
+    margin: @miniMobileMargin;
+  }
+}
+@media only screen and (min-width : @tabletBreakpoint) {
+  .ui.mini.modal {
+    width: @miniTabletWidth;
+    margin: @miniTabletMargin;
+  }
+}
+@media only screen and (min-width : @computerBreakpoint) {
+  .ui.mini.modal {
+    width: @miniComputerWidth;
+    margin: @miniComputerMargin;
+  }
+}
+@media only screen and (min-width : @largeMonitorBreakpoint) {
+  .ui.mini.modal {
+    width: @miniLargeMonitorWidth;
+    margin: @miniLargeMonitorMargin;
+  }
+}
+@media only screen and (min-width : @widescreenMonitorBreakpoint) {
+  .ui.mini.modal {
+    width: @miniWidescreenMonitorWidth;
+    margin: @miniWidescreenMonitorMargin;
+  }
+}
+
+/* mini */
+.ui.small.modal > .header:not(.ui) {
+  font-size: @miniHeaderSize;
+}
+
+/* Tiny Modal Width */
+@media only screen and (max-width : @largestMobileScreen) {
+  .ui.tiny.modal {
+    width: @tinyMobileWidth;
+    margin: @tinyMobileMargin;
+  }
+}
+@media only screen and (min-width : @tabletBreakpoint) {
+  .ui.tiny.modal {
+    width: @tinyTabletWidth;
+    margin: @tinyTabletMargin;
+  }
+}
+@media only screen and (min-width : @computerBreakpoint) {
+  .ui.tiny.modal {
+    width: @tinyComputerWidth;
+    margin: @tinyComputerMargin;
+  }
+}
+@media only screen and (min-width : @largeMonitorBreakpoint) {
+  .ui.tiny.modal {
+    width: @tinyLargeMonitorWidth;
+    margin: @tinyLargeMonitorMargin;
+  }
+}
+@media only screen and (min-width : @widescreenMonitorBreakpoint) {
+  .ui.tiny.modal {
+    width: @tinyWidescreenMonitorWidth;
+    margin: @tinyWidescreenMonitorMargin;
+  }
 }
 
 /* Small */

@@ -7,7 +7,6 @@
     "button": true,
     "card": true,
     "checkbox": true,
-    "colorize": true,
     "comment": true,
     "container": true,
     "dimmer": true,
@@ -41,15 +40,13 @@
     "shape": true,
     "sidebar": true,
     "site": true,
-    "state": true,
     "statistic": true,
     "step": true,
     "sticky": true,
     "tab": true,
     "table": true,
     "transition": true,
-    "visibility": true,
-    "visit": true
+    "visibility": true
   },
   "themes": {
     "amazon": false,

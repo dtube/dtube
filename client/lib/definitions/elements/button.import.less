@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*!
  * # Semantic UI - Button
@@ -697,7 +697,7 @@
 .ui.icon.buttons .button > .icon,
 .ui.icon.button > .icon {
   opacity: @iconButtonOpacity;
-  margin: 0em;
+  margin: 0em !important;
   vertical-align: top;
 }
 
@@ -747,8 +747,7 @@
 .ui.basic.active.button {
   background: @basicActiveBackground !important;
   box-shadow: @basicActiveBoxShadow !important;
-  color: @basicActiveTextColor;
-  box-shadow: @selectedBorderColor;
+  color: @basicActiveTextColor !important;
 }
 .ui.basic.buttons .active.button:hover,
 .ui.basic.active.button:hover {
@@ -763,7 +762,7 @@
   box-shadow: @basicDownBoxShadow inset;
 }
 .ui.basic.buttons .active.button {
-  box-shadow: @selectedBorderColor inset;
+  box-shadow: @basicActiveBoxShadow !important;
 }
 
 /* Standard Basic Inverted */
@@ -1383,7 +1382,7 @@
 /*--- Grey ---*/
 .ui.grey.buttons .button,
 .ui.grey.button {
-  background-color: @greyDown;
+  background-color: @grey;
   color: @greyTextColor;
   text-shadow: @greyTextShadow;
   background-image: @coloredBackgroundImage;
@@ -1394,16 +1393,19 @@
 .ui.grey.buttons .button:hover,
 .ui.grey.button:hover {
   background-color: @greyHover;
+  color: @greyTextColor;
   text-shadow: @greyTextShadow;
 }
 .ui.grey.buttons .button:focus,
 .ui.grey.button:focus {
   background-color: @greyFocus;
+  color: @greyTextColor;
   text-shadow: @greyTextShadow;
 }
 .ui.grey.buttons .button:active,
 .ui.grey.button:active {
   background-color: @greyDown;
+  color: @greyTextColor;
   text-shadow: @greyTextShadow;
 }
 .ui.grey.buttons .active.button,
@@ -1411,6 +1413,7 @@
 .ui.grey.active.button,
 .ui.grey.button .active.button:active {
   background-color: @greyActive;
+  color: @greyTextColor;
   text-shadow: @greyTextShadow;
 }
 

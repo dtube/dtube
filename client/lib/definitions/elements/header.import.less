@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*!
  * # Semantic UI - Header
@@ -52,7 +52,7 @@
 
 .ui.header .sub.header {
   display: block;
-  font-weight: normal;
+  font-weight: @normal;
   padding: 0em;
   margin: @subHeaderMargin;
   font-size: @subHeaderFontSize;
@@ -83,7 +83,7 @@
         Image
 --------------------*/
 
-.ui.header > .image,
+.ui.header > .image:not(.icon),
 .ui.header > img {
   display: inline-block;
   margin-top: @imageOffset;
@@ -91,7 +91,7 @@
   height: @imageHeight;
   vertical-align: @imageAlignment;
 }
-.ui.header > .image:only-child,
+.ui.header > .image:not(.icon):only-child,
 .ui.header > img:only-child {
   margin-right: @imageMargin;
 }

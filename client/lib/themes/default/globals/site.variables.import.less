@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*******************************
          Site Settings
@@ -10,7 +10,7 @@
        Fonts
 --------------------*/
 
-@fontName          : 'Noto Sans';
+@fontName          : 'Lato';
 @fontSmoothing     : antialiased;
 
 @headerFont        : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -23,6 +23,10 @@
 
 @googleProtocol    : 'https://';
 @googleFontRequest : '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
+
+
+@bold              : bold;
+@normal            : normal;
 
 /*-------------------
       Base Sizes
@@ -61,14 +65,14 @@
   Page Heading
 ---------------*/
 
-@headerFontWeight : bold;
-@headerLineHeight : 1.2857em;
+@headerFontWeight : @bold;
+@headerLineHeight : unit((18 / 14), em);
 
-@h1 : 2rem;
-@h2 : 1.714rem;
-@h3 : 1.28rem;
-@h4 : 1.071rem;
-@h5 : 1rem;
+@h1 : unit((28 / 14), rem);
+@h2 : unit((24 / 14), rem);
+@h3 : unit((18 / 14), rem);
+@h4 : unit((15 / 14), rem);
+@h5 : unit((14 / 14), rem);
 
 /*--------------
    Form Input
@@ -85,8 +89,8 @@
 @inputPlaceholderColor: lighten(@inputColor, 75);
 @inputPlaceholderFocusColor: lighten(@inputColor, 45);
 
-/* Line Height Default For Inputs in Browser */
-@inputLineHeight: 1.2142em;
+/* Line Height Default For Inputs in Browser (Descendors are 17px at 14px base em) */
+@inputLineHeight: unit((17 / 14), em);
 
 /*-------------------
     Focused Input
@@ -144,6 +148,31 @@
 @linkHoverUnderline  : @linkUnderline;
 
 /*-------------------
+    Scroll Bars
+--------------------*/
+
+@useCustomScrollbars: true;
+
+@customScrollbarWidth: 10px;
+@customScrollbarHeight: 10px;
+
+@trackBackground: rgba(0, 0, 0, 0.1);
+@trackBorderRadius: 0px;
+
+@thumbBorderRadius: 5px;
+@thumbBackground: rgba(0, 0, 0, 0.25);
+@thumbTransition: color 0.2s ease;
+
+@thumbInactiveBackground: rgba(0, 0, 0, 0.15);
+@thumbHoverBackground: rgba(128, 135, 139, 0.8);
+
+/* Inverted */
+@trackInvertedBackground: rgba(255, 255, 255, 0.1);
+@thumbInvertedBackground: rgba(255, 255, 255, 0.25);
+@thumbInvertedInactiveBackground: rgba(255, 255, 255, 0.15);
+@thumbInvertedHoverBackground: rgba(255, 255, 255, 0.35);
+
+/*-------------------
   Highlighted Text
 --------------------*/
 
@@ -195,7 +224,7 @@
 --------------------*/
 
 /*---  Colors  ---*/
-@red              : #ff1a1a;
+@red              : #DB2828;
 @orange           : #F2711C;
 @yellow           : #FBBD08;
 @olive            : #B5CC18;
@@ -354,8 +383,8 @@
 --------------------*/
 
 /* For source only. Modified in gulp for dist */
-@imagePath : 'images';
-@fontPath  : 'fonts';
+@imagePath : '/lib/semantic-ui/src/themes/default/assets/images';
+@fontPath  : '/lib/semantic-ui/src/themes/default/assets/fonts';
 
 /*-------------------
        Em Sizes
@@ -432,7 +461,7 @@
 @twitterColor    : #55ACEE;
 @googlePlusColor : #DD4B39;
 @linkedInColor   : #1F88BE;
-@youtubeColor    : #CC181E;
+@youtubeColor    : #FF0000;
 @pinterestColor  : #BD081C;
 @vkColor         : #4D7198;
 @instagramColor  : #49769C;

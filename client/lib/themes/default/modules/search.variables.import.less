@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*******************************
             Search
@@ -23,6 +23,9 @@
   border-color @defaultDuration @defaultEasing
 ;
 @promptBoxShadow: 0em 0em 0em 0em transparent inset;
+
+/* Mobile */
+@mobileMaxWidth: ~"calc(100vw - 2rem)";
 
 /* Result Box */
 @resultsWidth: 18em;
@@ -53,7 +56,7 @@
 /* Result Content */
 @resultTitleFont: @headerFont;
 @resultTitleMargin: -@headerLineHeightOffset 0em 0em;
-@resultTitleFontWeight: bold;
+@resultTitleFontWeight: @bold;
 @resultTitleFontSize: @relativeMedium;
 @resultTitleColor: @darkTextColor;
 
@@ -70,7 +73,7 @@
 @messageVerticalPadding: 1em;
 @messageHorizontalPadding: 1em;
 @messageHeaderFontSize: @medium;
-@messageHeaderFontWeight: bold;
+@messageHeaderFontWeight: @bold;
 @messageHeaderColor: @textColor;
 @messageDescriptionDistance: 0.25rem;
 @messageDescriptionFontSize: 1em;
@@ -81,7 +84,7 @@
 @actionBackground: @darkWhite;
 @actionPadding: @relativeSmall @relativeMedium;
 @actionColor: @textColor;
-@actionFontWeight: bold;
+@actionFontWeight: @bold;
 @actionAlign: center;
 
 
@@ -156,7 +159,7 @@
 @categoryNameBackground: transparent;
 @categoryNameFont: @pageFont;
 @categoryNameFontSize: 1em;
-@categoryNameFloat: left;
+@categoryNameWhitespace: nowrap;
 @categoryNamePadding: 0.4em 1em;
-@categoryNameFontWeight: bold;
+@categoryNameFontWeight: @bold;
 @categoryNameColor: @lightTextColor;

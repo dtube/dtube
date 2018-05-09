@@ -1,6 +1,6 @@
 /*
   DO NOT MODIFY - This file has been generated and will be regenerated
-  Semantic UI v2.2.6
+  Semantic UI v2.3.1
 */
 /*!
  * # Semantic UI - Sidebar
@@ -14,7 +14,7 @@
 
 ;(function ($, window, document, undefined) {
 
-"use strict";
+'use strict';
 
 window = (typeof window != 'undefined' && window.Math == Math)
   ? window
@@ -92,10 +92,6 @@ $.fn.sidebar = function(parameters) {
           module.create.id();
 
           transitionEvent = module.get.transitionEvent();
-
-          if(module.is.ios()) {
-            module.set.ios();
-          }
 
           // avoids locking rendering if initialized in onReady
           if(settings.delaySetup) {
@@ -573,6 +569,7 @@ $.fn.sidebar = function(parameters) {
         set: {
 
           // ios only (scroll on html not document). This prevent auto-resize canvas/scroll in ios
+          // (This is no longer necessary in latest iOS)
           ios: function() {
             $html.addClass(className.ios);
           },
