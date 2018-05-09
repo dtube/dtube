@@ -45,5 +45,10 @@ Template.home.events({
 
 Template.home.rendered = function () {
   Template.settingsdropdown.nightMode();
-  Session.set('isOnWatchAgain', false)
+  Session.set('isOnWatchAgain', false);
+  $("#sidebar")
+  .sidebar('setting', 'dimPage', false)
+  .sidebar('setting', 'closable', true)
+  .sidebar('show')
+  $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important')
 }

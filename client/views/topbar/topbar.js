@@ -12,12 +12,26 @@ Template.topbar.helpers({
 
 Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
-    if (Session.get('isSidebarOpen'))
-      $("#sidebar").sidebar('setting', 'dimPage', true).sidebar('setting', 'closable', false).sidebar('hide')
-    else
-      $("#sidebar").sidebar('setting', 'dimPage', true).sidebar('setting', 'closable', false).sidebar('show')
-
-    Session.set('isSidebarOpen', !Session.get('isSidebarOpen'))
+    //Session.set('isSidebarOpen', !$('#sidebar').sidebar('is visible'))
+    if ($('#sidebar').sidebar('is visible')) {
+      $('.pusher').attr('style', '')
+      $("#sidebar").sidebar('hide')
+    } else {
+      if (FlowRouter.current().route.name == 'video') {
+        $("#sidebar")
+        .sidebar('setting', 'dimPage', false)
+        .sidebar('setting', 'closable', true)
+        .sidebar('show')
+        $('.pusher').attr('style', 'transform: translate3d(210px, 0, 0) !important')
+      } else {
+        $("#sidebar")
+          .sidebar('setting', 'dimPage', false)
+          .sidebar('setting', 'closable', true)
+          .sidebar('show')
+        $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important')
+      }
+        
+    }
   },
   'keyup #dsearch': function (evt) {
     var query = evt.target.value

@@ -147,10 +147,12 @@ $.fn.sidebar = function(parameters) {
             ;
             if(clickedInPusher) {
               module.verbose('User clicked on dimmed page');
+              $('.pusher').attr('style', '')
               module.hide();
             }
             if(clickedContext) {
               module.verbose('User clicked on dimmable context (scaled out page)');
+              $('.pusher').attr('style', '')
               module.hide();
             }
           },
@@ -232,6 +234,8 @@ $.fn.sidebar = function(parameters) {
               distance.left = -width;
               distance.right = width;
             }
+
+            return;
 
             style  = '<style>';
 
