@@ -66,6 +66,10 @@ Meteor.startup(function(){
       FlowRouter.initialize({hashbang: true}, function() {
         console.log('Router initialized')
       });
+      // handle manual fragment change
+      $(window).on('hashchange', function() {
+        FlowRouter.go(window.location.hash)
+      });
     })
   })
 
