@@ -13,7 +13,11 @@ Template.mobiletopbar.helpers({
   
 Template.mobiletopbar.events({
   'click .sidebartoggleicon': function(event, instance) {
-    $("#sidebar").sidebar('setting', 'transition', 'overlay').sidebar('toggle') 
+    $("#sidebar")
+    .sidebar('setting', 'dimPage', true)
+    .sidebar('setting', 'closable', true)
+    .sidebar('toggle')
+    $('.pusher').attr('style', 'transform: translate3d(0px, 0, 0) !important')
   },
   'click #mobilesearchbis': function() {
     Session.set('isSearchingMobile', true)

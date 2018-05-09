@@ -45,6 +45,20 @@ Template.sidebar.events({
       Subs.find({ follower: Session.get('activeUsername') }).fetch()
     }
     else Session.set('isSubscribesOpen', false)
+  },
+  'click .dtubesidebarmenu': function () {
+    if (/Mobi/.test(navigator.userAgent)) {
+      $('.pusher').attr('style', '')
+      $("#sidebar").sidebar('hide')
+    }
+    else {
+      $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important')
+      $("#sidebar")
+        .sidebar('setting', 'dimPage', false)
+        .sidebar('setting', 'closable', true)
+        .sidebar('show')
+    }
+      
   }
 })
 
