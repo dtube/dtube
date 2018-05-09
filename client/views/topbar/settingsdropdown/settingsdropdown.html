@@ -5,7 +5,7 @@
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} @ {{voteWeight}}%</span>
-        <div class="left menu" style="min-width: 0px;">
+        <div class="left menu" style="right: 105%; min-width: 0px;">
           <div class="item voteWeight">+10%</div>
           <div class="item voteWeight">+1%</div>
           <div class="item voteWeight">-1%</div>
@@ -15,7 +15,7 @@
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
-        <div class="left menu"  style="min-width: 0px;"   >
+        <div class="left menu"  style="right: 105%; min-width: 0px;"   >
           {{#if equals 'Show' nsfwSetting}}
             <div class="item nsfwSetting nsfwShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
           {{else}}
@@ -31,7 +31,7 @@
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}</span>
-        <div class="left menu"  style="min-width: 0px;">
+        <div class="left menu"  style="right: 105%; min-width: 0px;">
           {{#each arrayify languages}}
             <div class="item langSetting" onclick="loadJsonTranslate('{{key}}')">{{value.name}}</div>
           {{/each}}
