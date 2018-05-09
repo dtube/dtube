@@ -5,9 +5,9 @@
             {{/if}}
             <div class="ui container">
                 <h3 class="pos-abs" style="margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
-                <img class="ui image circular" 
-                    style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})"
-                >
+                <div class="ui image circular" 
+                    style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
+                </div>
                 {{#if equals activeUser user.name}}
                     {{>buttoneditprofile}}
                 {{else}} 
