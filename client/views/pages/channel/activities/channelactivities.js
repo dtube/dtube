@@ -5,8 +5,9 @@ Template.channelactivities.rendered = function () {
         observeChanges: true,
         onBottomVisible: function () {
             $('.ui.infinite.activities .loader').show()
-            Activities.getAccountHistory(FlowRouter.getParam("author"))
-            $('.ui.infinite.activities .loader').hide()
+            Activities.getAccountHistory(FlowRouter.getParam("author"), function() {
+                $('.ui.infinite.activities .loader').hide()
+            })
         }
     })
     $('.ui.filter.checkbox').checkbox({

@@ -1,6 +1,6 @@
 Activities = new Mongo.Collection(null)
 
-Activities.getAccountHistory = function (username) {
+Activities.getAccountHistory = function (username, cb) {
     if (Activities.find({ username: username }).fetch().length) {
         var lastActivity = Activities.findOne({ username: FlowRouter.getParam("author") }, { sort: { n: 1 } }).n
         steem.api.getAccountHistory(username, lastActivity, 50, function (e, r) {
@@ -8,6 +8,7 @@ Activities.getAccountHistory = function (username) {
             for (let i = 0; i < r.length; i++) {
                 Activities.filterOperations(username, r[i])
             }
+            cb()
         })
     }
     else {

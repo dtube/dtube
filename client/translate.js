@@ -23,7 +23,7 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
     return
   }
 
-  $.get('/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
+  $.get('https://d.tube/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)
       cb()
