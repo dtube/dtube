@@ -156,6 +156,7 @@ FlowRouter.route('/v/:author/:permlink', {
         });
         $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
         $('body').animate({ scrollTop: 0 }, 'slow');
+        setTimeout(function(){Template.video.activatePopups()}, 1000)
       } else FlowRouter.go('/')
     })
     

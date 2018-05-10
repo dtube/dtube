@@ -49,7 +49,7 @@ Template.registerHelper('downvotes', function (active_votes) {
 });
 
 Template.registerHelper('userPic', function (username, type) {
-  if (!type) type=''
+  if (!type || typeof type != 'string') type=''
   return 'https://steemitimages.com/u/'+username+'/avatar/'+type
 });
 

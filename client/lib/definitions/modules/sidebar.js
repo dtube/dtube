@@ -213,6 +213,7 @@ $.fn.sidebar = function(parameters) {
 
         add: {
           inlineCSS: function() {
+            return;
             var
               width     = module.cache.width  || $module.outerWidth(),
               height    = module.cache.height || $module.outerHeight(),
@@ -407,6 +408,7 @@ $.fn.sidebar = function(parameters) {
         },
 
         hide: function(callback) {
+          $('.pusher').attr('style', '')
           callback = $.isFunction(callback)
             ? callback
             : function(){}
