@@ -9,7 +9,9 @@
                     style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
                 </div>
                 {{#if equals activeUser user.name}}
-                    {{>buttoneditprofile}}
+                    <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
+                        {{>buttoneditprofile}}
+                    </div>
                 {{else}} 
                     {{#if isSubscribedTo user.name}}
                         <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
