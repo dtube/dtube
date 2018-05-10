@@ -3,7 +3,9 @@
     <div class="ui videocontainer stackable two column grid computergrid">
       <!-- Player on page -->
       <div class="videocol eleven wide column" style="padding:0px!important">
-        {{> player}}
+        {{#if video.content.videohash}}
+          {{> player}}
+        {{/if}}
         <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
           <!-- Title, Vote - Share - More  -->
           <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
@@ -100,29 +102,40 @@
             {{> uploadform}}
             {{> uploadformsubmit}}
           </div>
-          <!-- Syntaxed video description - Show More -->
-          <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
-            <div id="truncateddesc" class="truncate" style="overflow: hidden;">
-              <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
-              <br/> {{{syntaxed content.description}}}
-            </div>
-          </div>
-          {{#if hasMoreThan4Lines}}
-            <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
-              <div id="showmore" style="text-align: center;">
-                <button class="ui button videoshowmore">
-                  {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
-                </button>
-                <i class="ui icon angle down"></i>
-              </div>
-              <div id="showless" class="hidden" style="text-align: center;">
-                <button class="ui button videoshowmore">
-                  {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
-                </button>
-                <i class="ui icon angle up"></i>
+          {{#unless content.videohash}}
+            <!-- No Video, Display all text -->
+            <div id="descriptionsegment" class="ui segment open descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
+              <div id="truncateddesc">
+                <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
+                <br/> {{{syntaxed content.description}}}
               </div>
             </div>
-          {{/if}}
+          {{else}}
+            <!-- Syntaxed video description - Show More -->
+            <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
+              <div id="truncateddesc" class="truncate" style="overflow: hidden;">
+                <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
+                <br/> {{{syntaxed content.description}}}
+              </div>
+            </div>
+            {{#if hasMoreThan4Lines}}
+              <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
+                <div id="showmore" style="text-align: center;">
+                  <button class="ui button videoshowmore">
+                    {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
+                  </button>
+                  <i class="ui icon angle down"></i>
+                </div>
+                <div id="showless" class="hidden" style="text-align: center;">
+                  <button class="ui button videoshowmore">
+                    {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
+                  </button>
+                  <i class="ui icon angle up"></i>
+                </div>
+              </div>
+            {{/if}}
+          {{/unless}}
+          
           <!-- Related Videos Mobile -->
           {{#if userVideosAndResteems}}
             <div class="ui grid mobile only content videorecommendedmobile">

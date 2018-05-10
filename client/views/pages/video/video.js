@@ -219,6 +219,18 @@ Template.video.loadState = function () {
       ChainUsers.upsert({ _id: user.id }, Waka.api.DeleteFieldsWithDots(user));
     }
     var video = Videos.parseFromChain(result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")])
+    // non dtube videos can only load from State
+    if (!video) {
+      video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
+      video.info = {
+        author: FlowRouter.getParam("author"),
+        permlink: FlowRouter.getParam("permlink"),
+        title: video.title
+      }
+      video.content = {
+        description: video.body
+      }
+    }
     Session.set('videoDescription', video.content.description)
     video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     video.source = 'chainDirect'
