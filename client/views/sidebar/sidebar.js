@@ -48,15 +48,10 @@ Template.sidebar.events({
   },
   'click .dtubesidebarmenu': function () {
     if (/Mobi/.test(navigator.userAgent)) {
-      $('.pusher').attr('style', '')
-      $("#sidebar").sidebar('hide')
+      Template.sidebar.empty()
     }
     else {
-      $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important')
-      $("#sidebar")
-        .sidebar('setting', 'dimPage', false)
-        .sidebar('setting', 'closable', true)
-        .sidebar('show')
+      Template.sidebar.half()
     }
       
   }
@@ -104,4 +99,35 @@ Template.sidebar.selectMenu = function () {
     default:
       break;
   }
+}
+
+Template.sidebar.half = function() {
+  $('#sidebar').css("z-index", 10)
+  $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important;')
+  $("#sidebar")
+    .sidebar('setting', 'dimPage', false)
+    .sidebar('setting', 'closable', true)
+    .sidebar('show')
+  
+}
+
+Template.sidebar.full = function() {
+  $('.pusher').attr('style', 'transform: translate3d(210px, 0, 0) !important')
+  $("#sidebar")
+    .sidebar('setting', 'dimPage', false)
+    .sidebar('setting', 'closable', true)
+    .sidebar('show')
+}
+
+Template.sidebar.empty = function() {
+  $('.pusher').attr('style', '')
+  $("#sidebar").sidebar('hide')
+}
+
+Template.sidebar.mobile = function() {
+  $('.pusher').attr('style', 'transform: translate3d(0px, 0, 0) !important')
+  $("#sidebar")
+  .sidebar('setting', 'dimPage', true)
+  .sidebar('setting', 'closable', true)
+  .sidebar('toggle')
 }

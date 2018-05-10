@@ -245,18 +245,3 @@ input[type="text"] {
 .seekTo{
   cursor: pointer;
 }
-
-.pushermove {
-  -webkit-transform: translate3d(105px, 0, 0) !important;
-  transform: translate3d(105px, 0, 0) !important;
-}
-
-.pushermove2 {
-  -webkit-transform: translate3d(210px, 0, 0) !important;
-  transform: translate3d(210px, 0, 0) !important;
-}
-
-.pushernomove {
-  -webkit-transform: translate3d(0px, 0, 0) !important;
-  transform: translate3d(0px, 0, 0) !important;
-}

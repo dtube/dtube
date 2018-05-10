@@ -14,21 +14,12 @@ Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
     //Session.set('isSidebarOpen', !$('#sidebar').sidebar('is visible'))
     if ($('#sidebar').sidebar('is visible')) {
-      $('.pusher').attr('style', '')
-      $("#sidebar").sidebar('hide')
+      Template.sidebar.empty()
     } else {
       if (FlowRouter.current().route.name == 'video') {
-        $("#sidebar")
-        .sidebar('setting', 'dimPage', false)
-        .sidebar('setting', 'closable', true)
-        .sidebar('show')
-        $('.pusher').attr('style', 'transform: translate3d(210px, 0, 0) !important')
+        Template.sidebar.full()
       } else {
-        $("#sidebar")
-          .sidebar('setting', 'dimPage', false)
-          .sidebar('setting', 'closable', true)
-          .sidebar('show')
-        $('.pusher').attr('style', 'transform: translate3d(105px, 0, 0) !important')
+        Template.sidebar.half()
       }
         
     }
