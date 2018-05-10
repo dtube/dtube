@@ -7,7 +7,6 @@ Template.channel.rendered = function () {
   // $('.ui.maingrid').removeClass('container');
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
-  $('.ui.rating').rating('disable');
   $('.ui.menu .videoshowmore.money').popup({
     inline: true,
     hoverable: true,

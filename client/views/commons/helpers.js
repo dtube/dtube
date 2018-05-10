@@ -1,6 +1,6 @@
 import moment from 'moment-with-locales-es6'
 import xss from 'xss'
-import Autolinker from 'autolinker'
+import Autolinker from 'dtube-autolinker'
 
 moment.locale(navigator.language);
 
