@@ -60,6 +60,19 @@ FlowRouter.route('/hotvideos', {
   }
 });
 
+FlowRouter.route('/messages', {
+  name: "messages",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 4)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Messages');
+    Template.messages.open();
+    BlazeLayout.render('masterLayout', {
+      main: "messages",
+      nav: "nav",
+    });
+  }
+});
 
 FlowRouter.route('/trendingvideos', {
   name: "trendingvideos",

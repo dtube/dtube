@@ -1,0 +1,173 @@
+<template name='messages'>
+  <div class="ui m-main m-text" style="width: 100%;max-width:800px;margin: auto;">
+    <style>
+      .m-main {
+        font-size: 2rem;
+      }
+      .m-text {
+        font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      }
+      .m-search input {
+        background: white;
+        border-radius: 0.5rem;
+        width: 100%;
+        padding: 0.5rem 1.5rem;
+        border: aliceblue 1px solid;
+      }
+      .m-main ul {
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+      .m-main li {
+        height: inherit;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        position: relative;
+      }
+      .m-none {
+        display: none;
+      }
+      .m-search .m-list {
+        border: none;
+        border-top: none;
+        border-radius: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        margin-top: -0.25em;
+        margin-bottom: 0.75em;
+        background: white;
+      }
+      .m-contact:hover {
+        background: aliceblue;
+      }
+      .m-hold {
+        background: white;
+        height: inherit;
+        width: 100%;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        line-height: 1.25em;
+      }
+      .m-chat {
+        border: aliceblue 1px solid;
+      }
+      .m-chat button {
+        background: transparent;
+        border: none;
+      }
+      .m-chat .m-list {
+        padding: 2% 4%;
+        overflow: hidden;
+      }
+      .m-but {
+        padding: 0 4%;
+        cursor: pointer;
+      }
+      .m-back {
+        float: left;
+      }
+      .m-add {
+        float: right;
+      }
+      .m-thread {
+        height: 2.5em;
+        line-height: 2.5em;
+        text-align: center;
+        overflow: hidden;
+      }
+      .m-talk {
+        min-height: 1.3em;
+        line-height: 1.3em;
+        margin-bottom: 2%;
+      }
+      .m-say {
+        padding: 0 2%;
+        text-align: justify;
+        cursor: text;
+        display: inline-block;
+      }
+      .m-gully {
+        margin-bottom: 0.5em;
+      }
+      .m-say:empty:not(:focus):before{
+        content:attr(data-text)
+      }
+      .m-chat .m-said {
+        font-size: 90%;
+      }
+      .m-chat .m-said .m-when {
+        position: absolute;
+        top: -0.5em;
+        right: -10%;
+        padding: 0.5em 1em;
+        background: rgba(100%,100%,100%,0.9);
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        pointer-events: none;
+      }
+      .m-chat .m-said:hover .m-when {
+        opacity: 1;
+        right: -5%;
+      }
+      .m-chat .m-me .m-when {
+        left: -10%;
+        right: inherit;
+      }
+      .m-chat .m-me:hover .m-when {
+        left: -5%;
+        right: inherit;
+      }
+      .m-me {
+        text-align: right;
+        color: #777;
+      }
+      .more-inbox {
+        font-size: 60%;
+      }
+    </style>
+    <div class="m-chat m-hold m-none m-gully">
+      <div class="m-thread">
+        <span class="m-back m-but">&larr;</span>
+        <img class="ui avatar image">
+        <span class="m-to"></span>
+        <span class="m-add m-but not-yet">+</span>
+      </div>
+      <div>
+        <ul class="m-list"></ul>
+      </div>
+      <div class="m-talk">
+        <span class="m-but not-yet" style="float: left;">&#x1f4ce;</span>
+        <span class="m-but m-send" style="float: right;">&rarr;</span><span></span><div class="m-say" contenteditable="true" data-text="Write a private message..."></div>
+        <button class="m-pub m-none"></button>
+      </div>
+    </div>
+    <div class="m-who m-gully">
+      <form class="m-search">
+        <input placeholder="search by steem username"/>
+        <ul class="m-list"></ul>
+      </form>
+    </div>
+    <div class="m-inbox m-hold">
+      <ul class="m-list"></ul>
+    </div>
+    <center><span class="more-inbox not-yet m-none">Load More</span></center>
+    <div class="m-model m-none">
+      <li class="m-contact">
+        <img class="ui avatar image" src="https://steemitimages.com/u/thinkexperiment/avatar/">
+        <b class="m-to"></b>
+        <span class="m-peek"></span>
+        <button class="m-pub m-none"></button>
+        <span class="m-time m-none"></span>
+      </li>
+      <li class="m-said">
+        <b class="m-from"></b>
+        <div class="m-what"></div>
+        <div class="m-when"></div>
+      </li>
+    </div>
+  </div>
+</template>
