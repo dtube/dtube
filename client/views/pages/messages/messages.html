@@ -36,20 +36,23 @@
         border-radius: 0.5rem;
         position: relative;
         overflow: hidden;
-        margin-top: -0.5rem;
+        margin-top: -0.25em;
+        margin-bottom: 0.75em;
         background: white;
       }
       .m-contact:hover {
         background: aliceblue;
       }
-      .m-chat {
+      .m-hold {
         background: white;
         height: inherit;
         width: 100%;
-        border: aliceblue 1px solid;
         border-radius: 0.5rem;
         overflow: hidden;
         line-height: 1.25em;
+      }
+      .m-chat {
+        border: aliceblue 1px solid;
       }
       .m-chat button {
         background: transparent;
@@ -120,39 +123,45 @@
       }
       .m-me {
         text-align: right;
+        color: #777;
+      }
+      .more-inbox {
+        font-size: 60%;
       }
     </style>
-    <div class="m-chat m-none m-gully">
+    <div class="m-chat m-hold m-none m-gully">
       <div class="m-thread">
         <span class="m-back m-but">&larr;</span>
         <img class="ui avatar image">
         <span class="m-to"></span>
-        <span class="m-add m-but">+</span>
+        <span class="m-add m-but not-yet">+</span>
       </div>
       <div>
         <ul class="m-list"></ul>
       </div>
       <div class="m-talk">
-        <span class="m-but" style="float: left;">&#x1f4ce;</span>
+        <span class="m-but not-yet" style="float: left;">&#x1f4ce;</span>
         <span class="m-but m-send" style="float: right;">&rarr;</span><span></span><div class="m-say" contenteditable="true" data-text="Write a private message..."></div>
         <button class="m-pub m-none"></button>
       </div>
     </div>
-    <div class="m-who">
-      <form class="m-search m-gully">
+    <div class="m-who m-gully">
+      <form class="m-search">
         <input placeholder="search by steem username"/>
         <ul class="m-list"></ul>
       </form>
-      <br/>
-      <ul class="m-list">
-      </ul>
     </div>
+    <div class="m-inbox m-hold">
+      <ul class="m-list"></ul>
+    </div>
+    <center><span class="more-inbox not-yet m-none">Load More</span></center>
     <div class="m-model m-none">
       <li class="m-contact">
-        <img class="ui avatar image">
+        <img class="ui avatar image" src="https://steemitimages.com/u/thinkexperiment/avatar/">
         <b class="m-to"></b>
         <span class="m-peek"></span>
         <button class="m-pub m-none"></button>
+        <span class="m-time m-none"></span>
       </li>
       <li class="m-said">
         <b class="m-from"></b>

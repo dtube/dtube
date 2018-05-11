@@ -5,6 +5,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import Gun from 'gun/gun';
 import SEA from 'gun/sea';
+import timegraph from 'gun/lib/time';
 import steem from 'steem';
 import AskSteem from 'asksteem';
 import sc2sdk from 'sc2-sdk';

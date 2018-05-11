@@ -65,7 +65,8 @@ FlowRouter.route('/messages', {
   action: function(params, queryParams) {
     Session.set("currentMenu", 4)
     Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Messages')
+    Session.set("pageTitle", 'Messages');
+    Template.messages.open();
     BlazeLayout.render('masterLayout', {
       main: "messages",
       nav: "nav",

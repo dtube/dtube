@@ -1,60 +1,76 @@
+var xss = require("xss");
+
 Template.messages.helpers({
   messages: function () {
     return true;
   }
 })
 
-Template.messages.rendered = function () {
-  init();
-  var name = Session.get('activeUsername');
-  if(!name){
-    FlowRouter.go('/login');
-    return;
-  }
-  steemGUN(name, function(){
-    welcome();
-  });
-  $('.m-search').on('submit', click)
+Template.messages.rendered = function(){
+  //console.log("rendered?");
+  $contact = $('.m-model .m-contact').first();
+  $('.m-search').on('submit', click).on('click', close)
     .find('input').first().on('keyup', search);
   $(document).on('click', '.m-contact', chat)
     .on('click', '.m-back', close)
     .on('keypress', '.m-say', type)
     .on('click', '.m-send', send);
+  $(document).on('click', '.not-yet', function(){
+    toastr.error("Feature not yet implemented!");
+  });
+}
+
+Template.messages.open = function(){
+  //console.log("open.");
+  init();
+  upgrade(inbox);
 }
 
 function init(){
-  $contact = $contact || $('.m-model .m-contact').first();
-  if(window.gun){ return }
-  window.gun = Gun();
+  if(0 === location.host.indexOf('localhost')){
+    //window.gun = window.gun || Gun('http://localhost:8080/gun'); // COMMENT OUT THIS LINE BEFORE COMMITTING OR PUSHING!!!!
+    window.gun = window.gun || Gun('https://gungame.herokuapp.com/gun'); // COMMENT OUT THIS LINE BEFORE COMMITTING OR PUSHING!!!!
+  }
+  window.gun = window.gun || Gun();
 }
 
-async function welcome(){
+function inbox(){
   var user = gun.user();
-  user.get('who').get('say').get('to').on(list);
+  if(!user.is){ return }
+  var pair = user.pair();
+  //console.log("inbox!");
+  if(!pair || !pair.pub){ return }
+  gun.get('@'+pair.pub).time(list, {last: 99});
+  user.get('who').get('tmp').get('outbox').map().on(outbox);
 }
 
 function search(){
   clearTimeout(search.debounce);
+  clearTimeout(search.err);
   search.debounce = setTimeout(function(){
-    var $query = $(".m-search input"), name = $query.val();
+    var $query = $(".m-search input"), name = ($query.val()||'').toLowerCase();
     var alias = 'alias/' + name + '@steem';
     if(name === search.last){ return }
     var $ul = $('.m-search').find('.m-list').empty();
     if(!(search.last = name)){ return }
+    search.err = setTimeout(function(){
+      toastr.error("Cannot find user, they may not have added DTalk yet.");
+    }, 2200);
     gun.get(alias).once().map().once(async function(pub){
+      clearTimeout(search.err);
       if(name != $query.val()){ return }
       var $li = $contact.clone(true);
       $li.find('.m-pub').val(pub.pub);
-      $li.find('.m-to').text((pub.alias||'').replace('@steem',''));
+      $li.find('.m-to').text(xss((pub.alias||'').replace('@steem','')));
       $ul.append($li);
       var tmp = {
         given: this.get('who').get('name').then(),
         face: this.get('who').get('face').then()
       }
-      $li.find('.m-to').text(await tmp.given);
-      $li.find('.avatar').attr('src', await tmp.face);
+      $li.find('.m-to').text(xss(await tmp.given) || $li.find('.m-to').text());
+      $li.find('.avatar').attr('src', await tmp.face || profile.face);
     });
-  },70);
+  }, 350);
 }
 
 function click(e){
@@ -70,20 +86,25 @@ async function chat(){
   $chat.show().find('.m-pub').val(pub);
   $chat.find('.m-list').empty();
   $('.m-search input').first().val('').trigger('keyup');
-  $('.m-say').focus();
+  //$('.m-say').focus();
   var to = gun.user(pub), who = to.get('who');
   var tmp = {
+    alias: to.get('alias').then(),
     name: who.get('name').then(),
     face: who.get('face').then()
   }
   var user = gun.user();
+  if(!user.is){
+    toastr.error("Something went wrong, please login again.");
+    return;
+  }
   var epub = await to.get('epub').then();
   var sec = thread.dec = await Gun.SEA.secret(epub, user.pair()); // Diffie-Hellman
   var mask = Gun.SEA.work(pub, sec), me = Gun.SEA.work(user.pair().pub, sec);
   to.get('who').get('say').get('to').get(await me).map().once(thread, {wait:1});
   user.get('who').get('say').get('to').get(await mask).map().once(thread.me, {wait:1});
-  $chat.find('.m-to').text(await tmp.name);
-  $chat.find('.avatar').attr('src', await tmp.face);
+  $chat.find('.m-to').text(xss(await tmp.name || (await tmp.alias||'').replace('@steem', '')));
+  $chat.find('.avatar').attr('src', await tmp.face || profile.face);
 }
 
 function type(e){
@@ -100,13 +121,22 @@ async function send(e){
   var pub = $('.m-talk .m-pub').val(), user = gun.user();
   if(!pub || !user.is){ return }
   $say.text('');
+  var pair = user.pair();
   var to = gun.user(pub), epub = await to.get('epub').then();
-  var sec = await Gun.SEA.secret(epub, user.pair()); // Diffie-Hellman
+  var sec = await Gun.SEA.secret(epub, pair); // Diffie-Hellman
   var enc = await Gun.SEA.encrypt(what, sec);
   //$say.text(send.b = Gun.obj.ify(enc.replace('SEA{','{')).ct);
   var mask = await Gun.SEA.work(pub, sec), when = await Gun.SEA.encrypt(Gun.state(), sec);
   user.get('who').get('say').get('to').get(mask).get(when).put(enc);
-  //setTimeout(function(){ $say.text('') },99);
+  var once = await Gun.SEA.pair();
+  var tell = await Gun.SEA.encrypt({
+    pub: await Gun.SEA.sign(pair.pub, pair) 
+  }, await Gun.SEA.secret(epub, once));
+  gun.get('@'+pub).time(tell, once.epub);
+
+  // lightweight fix for "outbox" updating
+  user.get('who').get('tmp').get('outbox')
+    .get(outbox.fill(pub)).put(await Gun.SEA.encrypt(pub, pair));
 }
 
 async function thread(msg, id, me){
@@ -126,41 +156,149 @@ async function thread(msg, id, me){
   //$li.find('.who').text(msg.who);
   var what = (msg||{}).what || msg || '';
   var enc = (Gun.obj.ify(what.replace('SEA{','{'))||{}).ct;
-  $li.find('.m-what').text(enc);
+  $li.find('.m-what').text(xss(enc));
   var time = new Date(id);
   $li.find('.m-when').text(time.toDateString() + ', ' + time.toLocaleTimeString());
-  $('html, body').stop(true, true).animate({scrollTop: $('.m-chat').height()});
+  var $chat = $('.m-chat');
+  $('html, body').stop(true, true).animate({scrollTop: $chat.height() + $chat.offset().top - $(window).height() });
   what = Gun.SEA.decrypt(what, dec);
-  setTimeout(async function(){ $li.find('.m-what').text(await what) }, 200);
+  setTimeout(async function(){
+    $li.find('.m-what').text(xss(await what))
+  }, 250);
 }
 thread.me = function(msg, id){
   thread(msg, id, true);
 }
 
-function sort(id, li){
+function sort(id, li, by, top){
   var num = parseFloat(id);
-  var id = (((li = $(li)).attr('id')||'').replace('msg-','')) || -Infinity;
+  li = $(li)
+  if(by){
+    id = li.find(by).text() || -Infinity;
+  } else {
+    id = (li.attr('id')||'').replace('msg-','') || -Infinity;
+  }
   var at = num >= parseFloat(id);
-  return at ? li : sort(id, li.prev());
+  return at ? li : sort(id, top? li.next() : li.prev(), by, top);
+}
+
+async function list(data, key, time){
+  var user = gun.user();
+  if(!user.is){ return }
+  var dh = await Gun.SEA.secret(key, user.pair());
+  if(!dh){ return }
+  var hear = await Gun.SEA.decrypt(data, dh);
+  if(!hear){ return }
+  if(hear.pub){
+    hear.pub = await Gun.SEA.verify(hear.pub, await Gun.SEA.verify(hear.pub, false));
+    if(!hear.pub){ return }
+    group(hear, key, time);
+  }
+  //console.log("list:", hear, time);
+}
+
+async function group(data, key, time){
+  if(!data.pub){ return }
+  var from = gun.user(data.pub);
+  var $ul = $('.m-inbox .m-list');
+  if($ul.children().length > 9){ $('.more-inbox').show() }
+  $top = sort(time, $ul.children('li').first(), '.m-time', true);
+  var id = xss(data.pub.replace('.',''));
+  var $li = $("#who-" + id)[0]; // grab if exists
+  if(!$li){
+    $li = $('.m-model .m-contact').clone(true) // else create it
+      .attr('id', 'who-' + id);
+  }
+  $li = $($li);
+  if(time <= parseFloat($li.find('.m-time').text())){ return }
+  $li.find('.m-pub').val(data.pub);
+  $li.find('.m-time').text(time);
+  $li.insertBefore($top[0] || $li.appendTo($ul));
+
+  var time = new Date(time);
+  time = time.toLocaleTimeString().split(':');
+  time[1] += time[2].slice(-3);
+  time.pop();
+  $li.find('.m-peek').text(time.join(':'));
+
+  var $av = $li.find('.avatar');
+  if(!$av.attr('src')){
+    $av.attr('src', await from.get('who').get('face').then() || profile.face);
+  }
+  var $name = $li.find('.m-to');
+  if(!$name.text()){
+    $name.text(xss(await from.get('who').get('name').then()
+      || (await from.get('alias').then()||'').replace('@steem', '')
+    ));
+  }
+}
+
+async function outbox(pub, key, msg){
+  // temporary lightweight solution until we think of something better.
+  var user = gun.user();
+  if(!user.is){ return }
+  var now = (msg.via && msg.via.put && Gun.state.is(msg.via.put, key));// || Gun.state()
+  var pair = user.pair();
+  pub = await Gun.SEA.decrypt(pub, pair);
+  if(!pub){ return }
+  group({pub: pub}, key, now);
+}
+outbox.fill = function(pub){
+  if(outbox[pub]){ return outbox[pub] }
+  return outbox[pub] = Gun.text.random(1, 'abcdefghijklmnopqrstuvwxyz');
 }
 
 function close(){
   $('.m-chat').hide();
 }
 
-function steemGUN(name, cb){
+function upgrade(cb, r){
+  //console.log('upgrade');
+  init();
+  var name = Session.get('activeUsername');
+  if(!name){
+    if(r > 5){
+      if(cb && cb.call){
+        toastr.error("Something went wrong, please login again.");
+      }
+      return;
+    }
+    // apparently Session is ready but User isn't?
+    setTimeout(function(){
+      upgrade(cb, (r || 0) + 1);
+    }, 400);
+    return;
+  }
+  steemGUN(name, function(){
+    $(document).off('click', upgrade);
+    cb && cb.call && cb();
+  });
+}
+$(document).on('click', upgrade);
+
+function steemGUN(name, cb, r){
   var account = Users.findOne({username: name});
   if(!account || !account.privatekey){
-    FlowRouter.go('/login');
+    if(r > 25){ return }
+    // apparently Session is ready but User isn't?
+    setTimeout(function(){
+      steemGUN(name, cb, (r || 0) + 1);
+    }, 200);
     return;
   }
   name = name+'@steem';
   var user = gun.user(), key = account.privatekey;
+  if(user.is){
+    return cb && cb();
+  }
   user.auth(name, key, function(ack){
-    if(!ack.err){ return profile(account); }
+    if(!ack.err){ 
+      profile(account)
+      return cb && cb(ack);
+    }
     user.create(name, key, function(ack){
       if(ack.err){
-        toastr.error("We could not create a private messaging system for you.");
+        //toastr.error("We could not create a private messaging system for you.");
         return;
       }
       user.auth(name, key, cb);
@@ -186,5 +324,6 @@ function profile(data){
     user.get('who').put(save);
   }
 }
+profile.face = 'https://steemitimages.com/u/thinkexperiment/avatar/';
 
 var $contact;

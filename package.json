@@ -11,7 +11,7 @@
     "autolinker": "^1.6.0",
     "babel-runtime": "^6.26.0",
     "bufferutil": "^3.0.2",
-    "gun": "^0.9.994",
+    "gun": "^0.9.996",
     "imagesloaded": "^4.1.3",
     "jquery": "^3.2.1",
     "languages": "^0.1.3",

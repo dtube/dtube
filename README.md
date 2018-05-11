@@ -20,7 +20,9 @@ Then do `meteor` in the folder.
 
 This might take 15 minutes, but then it'll say you can open localhost:3000
 
-If you have problems with the app, try doing the following: 
+If you have problems with the app, try doing the following:
+
+(This should no longer be necessary in the latest commits)
 
 ```
 cd ..
