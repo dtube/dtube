@@ -1,4 +1,4 @@
-# dtube dev documentation
+# DTube App Documentation
 
 This is the main javascript application you can use on d.tube. This is probably the starting point for anyone wanting to contribute to d.tube.
 
@@ -15,8 +15,8 @@ Clone this repository and `meteor npm install` in it. This will install all depe
 ### Start the app
 Finally, do `meteor` in the folder to start the app in development mode.
 ##### Options:
-* `--production` will minify and merge the javascript and css files.
 * `-p 3456` for running on a different port than the default 3000.
+* `--production` will minify and merge the javascript and css files.
 
 Meteor will automatically push any change on the code to the browser while you keep the meteor dev server running.
 
@@ -24,7 +24,7 @@ Meteor will automatically push any change on the code to the browser while you k
 
  - `.meteor` meteor files, don't touch unless you know what you are doing.
  - `.vscode` if you use visual studio code.
- - `public` static files like pics.
+ - `public` all the static files like pictures, fonts and translations.
  - `client` all the app code
  - - `client/collections` minimongo tables.
  - - `client/css` css files.
@@ -43,7 +43,7 @@ After each meteor or package.json update, you will need to re-run `meteor npm in
 
 ## Working with Uploads
 
-For doing anything on the upload side, it is strongly recommended to run your own [ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
+For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
 
 ## Working on the Player
 
