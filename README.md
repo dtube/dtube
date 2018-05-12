@@ -1,6 +1,6 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/dtube/localized.svg)](https://crowdin.com/project/dtube)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![DTube channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/dtube)
+[![DTube channel on Discord](https://img.shields.io/discord/347020217966395393.svg)](https://discord.gg/dtube)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 # DTube App
