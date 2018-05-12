@@ -31,8 +31,8 @@ Meteor will automatically push any change on the code to the browser while you k
  - - `client/lib` semantic ui related code.
  - - `client/views` templates, each has 2 files, html and js, a handlebar template and associated logic.
  - - - `client/views/commons` all the re-used templates
- - - - `client/views/pages` all the templates matching a route in router.js
- - - - `client/views/topbar` the always-open menu on top of the app
+ - - - `client/views/pages` all the templates matching a route in `router.js`
+ - - - `client/views/topbar` the fixed menu on top of the app
  - - - `client/views/sidebar` the sidebar menu
 
 ## Common Issues
