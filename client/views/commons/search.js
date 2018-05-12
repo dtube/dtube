@@ -10,16 +10,5 @@ Template.search.onRendered(function () {
     $('.searchForm').submit()
     Template.sidebar.resetActiveMenu()
     Template.settingsdropdown.nightMode();
-    // $('.more.video.sgement ')
-    // .visibility({
-    //   once: false,
-    //   // update size when new content loads
-    //   observeChanges: true,
-    //   // load content on bottom edge visible
-    //   onBottomVisible: function() {
-    //     // loads a max of 5 times
-    //     window.loadFakeContent();
-    //   }
-    // });
   }
 });

@@ -48,7 +48,7 @@ Template.uploadform.helpers({
     if (!tags) return ''
     var ok = []
     for (var i = 0; i < tags.length; i++) {
-      if (tags[i].startsWith('dtube'))
+      if (tags[i].startsWith(Meteor.settings.public.beneficiary))
         continue;
       ok.push(tags[i])
     }
@@ -67,7 +67,7 @@ Template.uploadform.parseTags = function (raw) {
       videoTags.push(raw.split(',')[i].toLowerCase())
     //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
   }
-  tags.push('dtube')
+  tags.push(Meteor.settings.public.beneficiary)
   return [tags, videoTags]
 }
 

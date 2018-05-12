@@ -56,31 +56,29 @@
       </div>
       <div class='videosnapdescription'>
         {{#if meta.video.content.description}}
-        {{meta.video.content.description}}
+          {{meta.video.content.description}}
         {{else}}
-        {{content.description}}
+          {{content.description}}
         {{/if}}
       </div>
       {{#if meta.video.content.tags}}
         <div id='videosnaptags' class='videosnaptags' style="padding-top:5px;">
             {{#each meta.video.content.tags}} 
-            {{#if equals this 'dtube'}} 
-            {{else}}
-            {{#if this}} 
-            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
-            {{/if}} 
-            {{/if}} 
+            {{#unless equals this 'dtube'}} 
+              {{#if this}} 
+                <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+              {{/if}} 
+            {{/unless}} 
             {{/each}}
           </div>
         {{else}}
         <div id='videosnaptags' class='videosnaptags' style="padding-top:5px;">
             {{#each content.tags}} 
-            {{#if equals this 'dtube'}} 
-            {{else}}
-            {{#if this}} 
-            <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
-            {{/if}} 
-            {{/if}} 
+            {{#unless equals this 'dtube'}} 
+              {{#if this}} 
+                <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
+              {{/if}} 
+            {{/unless}} 
             {{/each}}
           </div>
         {{/if}}

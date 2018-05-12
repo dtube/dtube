@@ -1,24 +1,12 @@
 import moment from 'moment-with-locales-es6'
+moment.locale(navigator.language);
 import xss from 'xss'
 import Autolinker from 'dtube-autolinker'
 
-moment.locale(navigator.language);
-
-var autolinkerOptions = {
-  urls: {
-    schemeMatches: true,
-    wwwMatches: true,
-    tldMatches: true
-  },
-  email: false,
-  phone: false,
-  mention: 'dtube',
-  hashtag: 'dtube',
-  stripPrefix: false,
-  stripTrailingSlash: false,
-  newWindow: true,
-  className: ''
-}
+// this contains all the global helpers frequently used in templates
+// reuse them as much as possible
+// they should always return cleanly and be fast
+// as they rerun on each template rerender
 
 Template.registerHelper('equals', function (one, two) {
   if (one == two) return true;
@@ -28,6 +16,13 @@ Template.registerHelper('equals', function (one, two) {
 Template.registerHelper('count', function (array) {
   if (!array) return 0;
   return array.length;
+});
+
+Template.registerHelper('isOnMobile', function () {
+  if (/Mobi/.test(navigator.userAgent)) {
+    return true;
+  }
+  return false;
 });
 
 Template.registerHelper('upvotes', function (active_votes) {
@@ -202,20 +197,6 @@ Template.registerHelper('isVideoHiddensearch', function (video) {
   return false
 })
 
-// Template.registerHelper('isNSFWFullyHidden', function (video) {
-//   if (Session.get('nsfwSetting') != 'Fully Hidden') return false
-//   if (!video || !video.content || !video.content.tags) return false
-//   if (video.content.tags.indexOf('nsfw') > -1) return true
-//   return false
-// })
-
-// Template.registerHelper('isNSFWFullyHiddensearch', function (video) {
-//   if (Session.get('nsfwSetting') != 'Fully Hidden') return false
-//   if (!video || !video.tags) return false
-//   if (video.tags.indexOf('nsfw') > -1) return true
-//   return false
-// })
-
 Template.registerHelper('syntaxed', function (text) {
   if (!text) return
   // escape the string for security
@@ -241,7 +222,21 @@ Template.registerHelper('syntaxed', function (text) {
   })
 
   // use autolinker for links and mentions
-  text = Autolinker.link(text, autolinkerOptions)
+  text = Autolinker.link(text, {
+    urls: {
+      schemeMatches: true,
+      wwwMatches: true,
+      tldMatches: true
+    },
+    email: false,
+    phone: false,
+    mention: 'dtube',
+    hashtag: 'dtube',
+    stripPrefix: false,
+    stripTrailingSlash: false,
+    newWindow: true,
+    className: ''
+  })
 
   return text
 })
@@ -263,10 +258,6 @@ Template.registerHelper('humanFilesize', function (bits, si) {
 })
 
 Template.registerHelper('ipfsSrc', function (ipfsHash) {
-  return Meteor.getIpfsSrc(ipfsHash)
-})
-
-Meteor.getIpfsSrc = function (ipfsHash) {
   if (Session.get('ipfsGateway') == 'automatic') {
     var n = Session.get('remoteSettings').displayNodes.length - 1
     var i = ipfsHash.charCodeAt(ipfsHash.length - 1) % n
@@ -274,13 +265,7 @@ Meteor.getIpfsSrc = function (ipfsHash) {
   } else {
     return Session.get('ipfsGateway') + '/ipfs/' + ipfsHash
   }
-}
-
-Meteor.ipfsGatewayFor = function (ipfsHash) {
-  var n = Session.get('remoteSettings').displayNodes.length - 1
-  var i = ipfsHash.charCodeAt(ipfsHash.length - 1) % n
-  return Session.get('remoteSettings').displayNodes[i].split('://')[1]
-}
+})
 
 Template.registerHelper('isSubscribedTo', function (following) {
   var sub = Subs.findOne({ follower: Session.get('activeUsername'), following: following })
@@ -354,48 +339,8 @@ Template.registerHelper('displaySavings', function (savings_balance, savings_sbd
   }
 })
 
-Template.registerHelper('displayTotalAccountValue', function (account) {
-  if (!account) return
-  else {
-    var total_steem = account.balance + account.savings_balance + account.reward_vesting_steem + account.reward_steem_balance + account.vesting_shares;
-    var total_sbd = account.sbd_balance + account.sbd_balance_savings + account.savings_sbd_pending
-    console.log(total_steem)
-    console.log(total_sbd)
-  }
-})
-
-Template.registerHelper('estimateFinalPayout', function (active, total, curator) {
-  if (active && !total || !curator) return active
-  if (!active || !total || !curator) return
-  var payout = active
-  if (total.split(' ')[0] > 0) {
-    var amount = parseInt(total.split(' ')[0].replace('.', '')) + parseInt(curator.split(' ')[0].replace('.', ''))
-    amount /= 1000
-    payout = amount + ' SBD'
-  }
-  if (!payout) return
-  var amount = payout.split(' ')[0]
-  var currency = payout.split(' ')[1]
-  //TODO if rewards = 50/50
-  amount = ((amount / 2) * Session.get('steemprice')) + ((amount / 2) * Session.get('steemdollarsprice'))
-  return (amount.toFixed(2));
-})
-
-Template.registerHelper('displayActiveBalance', function (balance) {
-  if (!balance) return
-  amount = (balance) * Session.get('steemprice')
-  return (amount.toFixed(2));
-})
-
 Template.registerHelper('arrayify',function(obj){
   var result = [];
   for (var key in obj) result.push({key:key,value:obj[key]});
   return result;
-});
-
-Template.registerHelper('isOnMobile', function () {
-  if (/Mobi/.test(navigator.userAgent)) {
-    return true;
-  }
-  return false;
 });

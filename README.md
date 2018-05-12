@@ -1,43 +1,24 @@
 # dtube dev documentation
 
+This is the main javascript application you can use on d.tube. This is probably the starting point for anyone wanting to contribute to d.tube.
+
 ## Install
 
-While dtube is still on BitBucket, clone from the link BitBucket gives you.
+### Install Meteor
+* Linux and Mac: `curl https://install.meteor.com/ | sh`
+* Windows: [link](https://www.meteor.com/install)
 
-Once cloned, `cd` into the new repo.
+### Install the app
 
-You'll also need to make sure Meteor is installed first:
+Clone this repository and `meteor npm install` in it. This will install all dependencies coming from npm including the ones required for development.
 
-`curl https://install.meteor.com/ | sh`
+### Start the app
+Finally, do `meteor` in the folder to start the app in development mode.
+##### Options:
+* `--production` will minify and merge the javascript and css files.
+* `-p 3456` for running on a different port than the default 3000.
 
-Finally,
-
-`meteor npm install`
-
-Then do `meteor` in the folder.
-
-(or `meteor --production`)
-
-This might take 15 minutes, but then it'll say you can open localhost:3000
-
-If you have problems with the app, try doing the following:
-
-(This should no longer be necessary in the latest commits)
-
-```
-cd ..
-git clone http://github.com/skzap/waka2
-git clone http://github.com/skzap/Autolinker.js
-```
-
-Then `cd` back into the dtube repo you cloned and:
-
-```
-meteor npm link ../waka2
-meteor npm link ../Autolinker.js
-```
-
-And open up the app again.
+Meteor will automatically push any change on the code to the browser while you keep the meteor dev server running.
 
 ## Structure
 
@@ -49,18 +30,22 @@ And open up the app again.
  - - `client/css` css files.
  - - `client/lib` semantic ui related code.
  - - `client/views` views, each has 2 files, html and js, a handlebar template and logic.
+ - - - `client/views/commons` all the re-used templates
+ - - - `client/views/pages` all the templates matching a route in router.js
+ - - - `client/views/topbar` the always-open menu on top of the app
+ - - - `client/views/sidebar` the sidebar menu
 
-That is it! All the rest of the logic is in the `/client/` folder.
+## Common Issues
 
-## Problems
+If you are using windows, the `meteor npm` seems to be buggy at times. You can try using the normal `npm` instead if you have that installed.
 
-After each fix, you may need to re-run the install steps.
+After each meteor or package.json update, you will need to re-run `meteor npm install`
 
-Adding new NPM packages causes things to break?
+## Working with Uploads
 
-Fix: You may need NPM version `5.7.1` or higher.
+For doing anything on the upload side, it is strongly recommended to run your own [ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
 
-Meteor is complaining about babel spread and crashing?
+## Working on the Player
 
-Fix: `meteor npm install @babel/runtime@latest`
+As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player.
 

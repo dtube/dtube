@@ -1,5 +1,4 @@
 import './buffer';
-
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
@@ -27,40 +26,6 @@ Meteor.startup(function(){
   Session.set('tagDays', 7)
   Session.set('tagSortBy', 'net_votes')
   Session.set('tagDuration', 999999)
-
-  //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
-  // setInterval(function() {
-  //   try {
-  //     localIpfs.repo.stat(function(e,r) {
-  //       if (e) {
-  //         Session.set('localIpfs', false)
-  //         return;
-  //       }
-  //       Session.set('localIpfs', r)
-  //
-  //       // using local gateway seems to make my internet very unstable and nothing works
-  //       // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
-  //     })
-  //   } catch(e) {
-  //
-  //   }
-  //
-  // }, 10000)
-
-  
-
-  // loading remote settings -- disabled
-  // steem.api.getAccounts(['dtube'], function(err, result) {
-  //   if (!result || !result[0]) return
-  //   var jsonMeta = JSON.parse(result[0].json_metadata)
-  //   if (jsonMeta.remoteSettings) {
-  //     //Session.set('remoteSettings', jsonMeta.remoteSettings)
-  //     if (jsonMeta.remoteSettings.upldr) {
-  //       var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
-  //       Session.set('upldr', rand)
-  //     }
-  //   }
-  // });
 
   // load language
   loadDefaultLang(function() {
@@ -115,14 +80,21 @@ Meteor.startup(function(){
   Market.getSteemPrice()
   Market.getSteemDollarPrice()
 
-  // Waka.connect({
-	// 	"host": "steemwhales.com",
-	// 	"port": 3456,
-	// 	"path": "/peerjs",
-	// 	"debug": false
-	// })
+  // loading remote settings -- disabled
+  // steem.api.getAccounts(['dtube'], function(err, result) {
+  //   if (!result || !result[0]) return
+  //   var jsonMeta = JSON.parse(result[0].json_metadata)
+  //   if (jsonMeta.remoteSettings) {
+  //     //Session.set('remoteSettings', jsonMeta.remoteSettings)
+  //     if (jsonMeta.remoteSettings.upldr) {
+  //       var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
+  //       Session.set('upldr', rand)
+  //     }
+  //   }
+  // });
 
-  // native IPFS node
+
+  // JS IPFS node
   // $.getScript('js/ipfs.js', function(){
   //   console.log('IPFS loaded')
   //   const repoPath = 'dtube-'+String(Math.random())
@@ -154,12 +126,23 @@ Meteor.startup(function(){
   //   })
   // });
 
+  //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
+  // setInterval(function() {
+  //   try {
+  //     localIpfs.repo.stat(function(e,r) {
+  //       if (e) {
+  //         Session.set('localIpfs', false)
+  //         return;
+  //       }
+  //       Session.set('localIpfs', r)
+  //
+  //       // using local gateway seems to make my internet very unstable and nothing works
+  //       // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
+  //     })
+  //   } catch(e) {
+  //
+  //   }
+  //
+  // }, 10000)
 
-
-  // Waka.api.Emitter.on('peerchange', listener = function(){
-  //   Videos.refreshWaka()
-  // })
-  // Waka.api.Emitter.on('newshare', listener = function(article){
-  //   Videos.refreshWaka()
-  // })
 })

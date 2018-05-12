@@ -72,16 +72,5 @@ Template.login.events({
         toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
       }
     });
-
-    // getKeyReferences doesn't work for everyone it seems (eg: steeminator3000)
-    // gotta use something else and ask for username unfortunatly
-    // steem.api.getKeyReferences([publickey], function(err, result) {
-    //   user.username = result[0][0]
-    //   Waka.db.Users.upsert(user, function() {
-    //     Users.refreshLocalUsers()
-    //     Session.set('activeUsername', user.username)
-    //     FlowRouter.go('/#!')
-    //   })
-    // });
   }
 })

@@ -78,7 +78,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 }
 
 var getUploaderStatus = function (upldr) {
-  var url = 'https://upldr'+upldr+'.d.tube/getStatus'
+  var url = 'https://cluster.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
@@ -109,16 +109,23 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = 'https://upldr'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+  var postUrl = 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
   $.ajax({
-    url: postUrl,
-    type: "POST",
+    cache: false,
+    contentType: false,
     data: formData,
+    processData: false,
+    type: "POST",
+    url: postUrl,
+    xhrFields: {
+      withCredentials: true
+    },
     xhr: function () {
+      // listen for progress events on the upload
       var xhr = new window.XMLHttpRequest();
       xhr.upload.addEventListener("progress", function (evt) {
         if (evt.lengthComputable) {
@@ -130,12 +137,6 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
       }, false);
       return xhr;
     },
-    // xhrFields: {
-    //   withCredentials: true
-    // },
-    cache: false,
-    contentType: false,
-    processData: false,
     success: function (result) {
       if (typeof result === 'string')
         result = JSON.parse(result)
@@ -248,7 +249,7 @@ Template.upload.inputVideo = function (dt) {
   videoNode.src = fileURL
 
   // checking best ipfs-uploader endpoint available
-  Template.upload.setBestUploadEndpoint(function () {
+  //Template.upload.setBestUploadEndpoint(function () {
     // uploading to ipfs
     Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
       if (err) {
@@ -259,7 +260,7 @@ Template.upload.inputVideo = function (dt) {
         console.log('Uploaded video', result);
       }
     })
-  });
+  //});
 
 
   console.log(file)

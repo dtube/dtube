@@ -41,68 +41,6 @@
           <i class="adjust icon"></i>
           <span class="text">{{ translate 'SETTINGS_NIGHTMODE'}}</span>
       </div>
-      <!-- {{#if isOnMobile}} 
-      {{else}}
-      <div class="ui divider"></div>
-      <div class="header">{{ translate 'SETTINGS_DROPDOWN_IPFS_SETTINGS'}}</div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_LOCAL_IPFS'}}</span>
-        <div class="left menu" style="min-width: 0px;">
-          <div class="header">
-            {{#if localIpfs}}
-              <span style='color: green'>{{ translate 'SETTINGS_DROPDOWN_RUNNING_IPFS'}}</span>
-            {{else}}
-              <span style='color: red'>{{ translate 'SETTINGS_DROPDOWN_NOT_RUNNING_IPFS'}}</span>
-            {{/if}}
-          </div>
-
-          {{#if localIpfs}}
-            {{#with localIpfs}}
-              <div class="ui divider"></div>
-              <div class="header">{{ translate 'SETTINGS_DROPDOWN_PINNED'}}: {{humanFilesize RepoSize 1}}</div>
-              <div class="header">{{ translate 'SETTINGS_DROPDOWN_MAX'}}: {{humanFilesize StorageMax 1}}</div>
-            {{/with}}
-            <div class="item repogc">{{ translate 'SETTINGS_DROPDOWN_EMPTY_GARBAGE'}}</div>
-          {{/if}}
-        </div>
-      </div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_GATEWAY'}}</span>
-        <div class="left menu">
-          {{#if equals 'automatic' ipfsGateway}}
-            <div class="item ipfsGateway automatic"><strong>{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</strong></div>
-          {{else}}
-            <div class="item ipfsGateway automatic">{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</div>
-          {{/if}}
-          {{#each displayNodes}}
-            {{#if equals this ipfsGateway}}
-              <div class="item ipfsGateway"><strong>{{this}}</strong></div>
-            {{else}}
-              <div class="item ipfsGateway">{{this}}</div>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_API'}}</span>
-        <div class="left menu">
-          {{#each uploadNodes}}
-            {{#if equals node.host ipfsUpload.host}}
-              <div class="item ipfsUpload">
-                <strong>{{node.protocol}}://{{node.host}}:{{node.port}}</strong>
-              </div>
-            {{else}}
-              <div class="item ipfsUpload">
-                {{node.protocol}}://{{node.host}}:{{node.port}}
-              </div>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      {{/if}} -->
     </div>
   </div>
 </template>

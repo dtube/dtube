@@ -34,6 +34,7 @@
     "COMMENT_REPLY": "reply",
     "ERROR_UNKNOWN": "Unknown error",
     "ERROR_TITLE": "Error",
+    "ERROR_PAGE_NOT_FOUND": "Page Not Found",
     "GLOBAL_REPLY": "Reply",
     "GLOBAL_REPLY_TO": "Reply to",
     "GLOBAL_ERROR_COULD_NOT_VOTE": "Could not vote",

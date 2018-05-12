@@ -208,7 +208,7 @@ Template.video.loadState = function () {
   isLoadingState = true
   steem.api.getState('/dtube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function (err, result) {
     if (err) throw err;
-    console.log('Loaded video from chain')
+    console.log('Loaded video from chain', result)
     isLoadingState = false
     for (var key in result.accounts) {
       var user = result.accounts[key]

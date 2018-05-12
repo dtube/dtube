@@ -1,6 +1,6 @@
 const moment = require('moment')
 const excludedTags = [
-  'dtube',
+  Meteor.settings.public.beneficiary,
   '',
   'video',
   // we can add more if needed
