@@ -1,4 +1,4 @@
-# DTube App Documentation
+# DTube App
 
 This is the main javascript application you can use on d.tube. This is probably the starting point for anyone wanting to contribute to d.tube.
 
@@ -19,6 +19,18 @@ Finally, do `meteor` in the folder to start the app in development mode.
 * `--production` will minify and merge the javascript and css files.
 
 Meteor will automatically push any change on the code to the browser while you keep the meteor dev server running.
+
+## Working with Uploads
+
+For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
+
+## Working on the Player
+
+As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player if you want to make changes that include the player.
+
+## Working with pre-rendering for bots
+
+The [dtube/minidtube](https://github.com/dtube/minidtube) repository is responsible for all the pre-rendering and serving a decent version of d.tube to bots which normally wouldn't be able to.
 
 ## Structure
 
@@ -41,14 +53,4 @@ If you are using windows, the `meteor npm` seems to be buggy at times. You can t
 
 After each meteor or package.json update, you will need to re-run `meteor npm install`
 
-## Working with Uploads
-
-For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
-
-## Working on the Player
-
-As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player.
-
-## Working with pre-rendering for bots
-
-The [dtube/minidtube](https://github.com/dtube/minidtube) repository is responsible for all the pre-rendering and serving a decent version of d.tube to bots which normally wouldn't be able to.
+For any help, feel free to us in our [Discord Channel](https://discord.gg/dtube)
