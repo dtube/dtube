@@ -49,3 +49,6 @@ For doing anything on the upload side, it is strongly recommended to run your ow
 
 As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player.
 
+## Working with Prerending for bots
+
+The [dtube/minidtube](https://github.com/dtube/minidtube) repository is responsible for all the pre-rendering and serving a decent version of d.tube to bots which normally wouldn't be able to.
