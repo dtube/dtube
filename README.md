@@ -26,10 +26,10 @@ Meteor will automatically push any change on the code to the browser while you k
  - `.vscode` if you use visual studio code.
  - `public` all the static files like pictures, fonts and translations.
  - `client` all the app code
- - - `client/collections` minimongo tables.
+ - - `client/collections` minimongo collections that templates feed from
  - - `client/css` css files.
  - - `client/lib` semantic ui related code.
- - - `client/views` views, each has 2 files, html and js, a handlebar template and logic.
+ - - `client/views` templates, each has 2 files, html and js, a handlebar template and associated logic.
  - - - `client/views/commons` all the re-used templates
  - - - `client/views/pages` all the templates matching a route in router.js
  - - - `client/views/topbar` the always-open menu on top of the app
