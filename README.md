@@ -63,4 +63,4 @@ If you are using windows, the `meteor npm` seems to be buggy at times. You can t
 
 After each meteor or package.json update, you will need to re-run `meteor npm install`
 
-For any help, feel free to us in our [Discord Channel](https://discord.gg/dtube)
+For any help, feel free to join us in our [Discord Channel](https://discord.gg/dtube)
