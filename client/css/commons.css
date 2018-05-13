@@ -55,5 +55,9 @@
   white-space: inherit;
   width:100%!important;
   min-width:400px!important;
-  background: #fafafa;
+  background: rgba(255,0,0,0.1)
+}
+
+.ui.card.card-notification.opened{
+  background: #fff;
 }

@@ -25,6 +25,10 @@ Template.registerHelper('isOnMobile', function () {
   return false;
 });
 
+Template.registerHelper('session', function (key) {
+  return Session.get(key)
+});
+
 Template.registerHelper('upvotes', function (active_votes) {
   if (!active_votes) return -1;
   var count = 0;
