@@ -23,10 +23,15 @@ Template.notificationdropdown.helpers({
       return Template.users.formatRewards(user)
     },
     notifications: function() {
-      return Notifications.find().fetch()
+      return Notifications.find({}, {sort: { block: -1 }, limit: 50}).fetch()
     },
     getTitle: function(author,permlink) {
       var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
+      if (video)
+      return video.info.title;
+    },
+    getOwnTitle: function(permlink) {
+      var video = Videos.findOne({ 'info.author': Session.get('activeUser'), 'info.permlink': permlink })
       if (video)
       return video.info.title;
     },
@@ -39,7 +44,10 @@ Template.notificationdropdown.helpers({
 
   Template.notificationdropdown.events({
     'click .remove.icon': function () {
+      var notif = Notifications.findOne({_id: this._id})
       Notifications.remove(this._id)
+      if (notif.block > UserSettings.get('notifications_highblock'))
+        UserSettings.set('notifications_highblock', notif.block)
     },
     'click .item.claimRewards': function () {
       var user = Users.findOne({username: Session.get('activeUsername')})

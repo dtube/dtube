@@ -125,6 +125,10 @@ Template.registerHelper('displayVoters', function (votes, isDownvote) {
   return top20
 })
 
+Template.registerHelper('timeAgoTimestamp', function (timestamp) {
+  return moment(timestamp*1000).fromNow()
+})
+
 Template.registerHelper('timeAgo', function (created) {
   if (!created) return
   return moment(created + 'Z').fromNow()

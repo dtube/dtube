@@ -292,6 +292,9 @@ Videos.getVideosBy = function(type, limit, cb) {
 }
 
 Videos.loadFeed = function(username) {
+  console.log('Loading notifications for '+username)
+  Notifications.getCentralized()
+
   console.log('Loading feed for '+username)
   steem.api.getDiscussionsByFeed({"tag": username, "limit": 100, "truncate_body": 1}, function(err, result) {
     if (err === null || err === '') {

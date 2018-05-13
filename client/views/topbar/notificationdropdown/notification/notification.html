@@ -1,0 +1,71 @@
+<template name='notification'>
+    <div class="ui card brd-rad-non card-notification">
+        <div class="content" style="padding: 0px;">
+          <div class="right floated" style="padding:5px;">
+            <i class="remove circle icon notificationremove"></i>
+          </div>
+          {{#if equals type 'follow'}}
+            <div class="dsp-flx" style="padding:10px;">
+              <img class="ui avatar image" src="{{userPic follower}}">
+              <div style="display: inline;margin-left: 5px;">
+                <div>
+                  <a style="color:#ff1a1a!important;" href="/c/{{follower}}" class="user">
+                    {{follower}}
+                  </a>
+                  subscribed to your channel
+                </div>
+                <span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span>
+              </div>
+            </div>
+          {{/if}}
+          {{#if equals type 'reply'}}
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic author}}">
+                <div style="display: inline;margin-left: 5px;">
+                  <div>
+                    <a style="color:#ff1a1a!important;" href="/c/{{author}}" class="user">
+                      {{author}}
+                    </a>
+                    commented on your content
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+          {{#if equals type 'transfer'}}
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic from}}">
+                <div style="display: inline;margin-left: 5px;">
+                  <div>
+                    <a style="color:#ff1a1a!important;" href="/c/{{from}}" class="user">
+                      {{from}}
+                    </a>
+                    sent you {{amount}}
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+          {{#if equals type 'mention'}}
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic author}}">
+                <div style="display: inline;margin-left: 5px;">
+                  <div>
+                    <a style="color:#ff1a1a!important;" href="/c/{{author}}" class="user">
+                      {{author}}
+                    </a>
+                    mentioned you
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+    </div>
+</template>
