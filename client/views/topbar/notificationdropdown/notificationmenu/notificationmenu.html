@@ -1,0 +1,13 @@
+<template name="notificationmenu">
+    {{#if hasRewards mainUser}}
+        <a style="padding: 10px;text-align: center" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
+          {{ translate 'USERS_CLAIM_REWARDS'}} {{displayRewards mainUser}}
+        </a>
+    {{else}}
+        <div class='item' style='padding: 0px !important;'></div>
+    {{/if}}
+    <h4 style="margin-top: 0px;padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
+    {{#each notifications}}
+        {{>notification}}
+    {{/each}}
+</template>

@@ -1,29 +1,10 @@
 Template.notificationdropdown.rendered = function() {
-    $('.ui.item.dropdownnotification').dropdown()
+  $('.dropdownnotification').dropdown()
 }
 
 Template.notificationdropdown.helpers({
-    userlist: function() {
-      return Users.find()
-    },
-    mainUser: function() {
-      return Users.findOne({username: Session.get('activeUsername')})
-    },
-    activeUser: function() {
-      return Session.get('activeUsername')
-    },
-    hasRewards: function(user) {
-      if (!user || !user.reward_sbd_balance || !user.reward_steem_balance || !user.reward_vesting_balance) return false
-      if (user.reward_sbd_balance.split(' ')[0] > 0
-        || user.reward_steem_balance.split(' ')[0] > 0
-        || user.reward_vesting_balance.split(' ')[0] > 0)
-        return true
-    },
-    displayRewards: function(user) {
-      return Template.users.formatRewards(user)
-    },
-    notifications: function() {
-      return Notifications.find({}, {sort: { block: -1 }, limit: 50}).fetch()
+    notificationsUnseen: function() {
+      return Notifications.find({seen: {$exists: false}}).count()
     },
     getTitle: function(author,permlink) {
       var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
@@ -55,7 +36,13 @@ Template.notificationdropdown.helpers({
         Users.refreshUsers([user.username])
         toastr.success(translate('USERS_YOU_HAVE_CLAIMED') + ' ' + Template.users.formatRewards(user), translate('USERS_SUCCESS'))
       })
-
+    },
+    'click .dropdownnotification, touchstart .dropdownnotification': function(e) {
+      if (/Mobi/.test(navigator.userAgent)) {
+        Session.set('selectortype', 'notifications');
+        $('#mobileselector').sidebar('show');
+      }
+      Notifications.update({}, {$set: {seen: true}}, {multi: true})
     }
   })
   

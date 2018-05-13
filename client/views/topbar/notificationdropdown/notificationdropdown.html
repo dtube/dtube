@@ -1,24 +1,21 @@
 <template name='notificationdropdown'>
     <div class="ui item top right floated dropdown dropdownnotification">
-      {{#if notifications.length}}
-        <i id="notification" class="alarm icon" style='font-size:1.3em; margin:0;'></i>
-        <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">{{notifications.length}}</span>
-      {{else}}
-        <i id="notification" class="alarm icon outline" style='font-size:1.3em; margin:0;'></i>
-        <span id="notificationcount" class="notificationdtube">0</span>
-      {{/if}}
-      <div id="notificationmenu" class="menu" style="overflow-y: auto;max-height: 600px;padding-bottom: 5px;margin-top:0px;">
-        {{#if hasRewards mainUser}}
-          <a style="padding: 10px;text-align: center" class='item claimRewards' data-username='{{activeUser}}' title='{{displayRewards mainUser}}'>
-            {{ translate 'USERS_CLAIM_REWARDS'}} {{displayRewards mainUser}}
-          </a>
+      {{#if notificationsUnseen}}
+        {{#if isOnMobile}}
+          <i id="notification" class="alarm icon" style='color:red; font-size:1.3em; margin:0;'></i>
         {{else}}
-          <div class='item' style='padding: 0px !important;'></div>
+          <i id="notification" class="alarm icon" style='font-size:1.3em; margin:0;'></i>
+          <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">
+            {{notificationsUnseen}}
+          </span>
         {{/if}}
-        <h4 style="margin-top: 0px;padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
-        {{#each notifications}}
-          {{>notification}}
-        {{/each}}
-      </div>
+      {{else}}
+        <i id="notification" class="alarm icon" style='font-size:1.3em; margin:0;'></i>
+      {{/if}}
+      {{#unless isOnMobile}}
+        <div id="notificationmenu" class="menu" style="overflow-y: auto;max-height: 600px;margin-top:0px;">
+          {{> notificationmenu}}
+        </div>
+      {{/unless}}
     </div>
   </template>

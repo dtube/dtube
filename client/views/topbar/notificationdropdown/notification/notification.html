@@ -1,13 +1,15 @@
 <template name='notification'>
     <div class="ui card brd-rad-non card-notification">
         <div class="content" style="padding: 0px;">
-          <div class="right floated" style="padding:5px;">
-            <i class="remove circle icon notificationremove"></i>
-          </div>
+          {{#unless isOnMobile}}
+            <div class="right floated" style="padding:5px;">
+              <i class="remove circle icon notificationremove"></i>
+            </div>
+          {{/unless}}
           {{#if equals type 'follow'}}
             <div class="dsp-flx" style="padding:10px;">
               <img class="ui avatar image" src="{{userPic follower}}">
-              <div style="display: inline;margin-left: 5px;">
+              <div style="width: 100%;display: inline;margin-left: 5px;">
                 <div>
                   <a style="color:#ff1a1a!important;" href="/c/{{follower}}" class="user">
                     {{follower}}
@@ -22,7 +24,7 @@
             <div style="padding: 10px;">
               <div class="dsp-flx">
                 <img class="ui avatar image" src="{{userPic author}}">
-                <div style="display: inline;margin-left: 5px;">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
                   <div>
                     <a style="color:#ff1a1a!important;" href="/c/{{author}}" class="user">
                       {{author}}
@@ -38,7 +40,7 @@
             <div style="padding: 10px;">
               <div class="dsp-flx">
                 <img class="ui avatar image" src="{{userPic from}}">
-                <div style="display: inline;margin-left: 5px;">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
                   <div>
                     <a style="color:#ff1a1a!important;" href="/c/{{from}}" class="user">
                       {{from}}
@@ -54,7 +56,7 @@
             <div style="padding: 10px;">
               <div class="dsp-flx">
                 <img class="ui avatar image" src="{{userPic author}}">
-                <div style="display: inline;margin-left: 5px;">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
                   <div>
                     <a style="color:#ff1a1a!important;" href="/c/{{author}}" class="user">
                       {{author}}

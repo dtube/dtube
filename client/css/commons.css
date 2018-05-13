@@ -53,6 +53,7 @@
   min-height:50px;
   margin: 0px 0px;
   white-space: inherit;
-  width:400px!important;
+  width:100%!important;
+  min-width:400px!important;
   background: #fafafa;
 }

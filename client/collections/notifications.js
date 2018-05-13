@@ -9,7 +9,8 @@ Notifications.ws.onmessage = function (event) {
   if (data && data.result && data.result.length > 0) {
     for (let i = 0; i < data.result.length; i++)
       if (data.result[i].block > UserSettings.get('notifications_highblock'))
-        Notifications.insert(data.result[i])
+        if (!Notifications.findOne(data.result[i]))
+          Notifications.insert(data.result[i])
 
     UserSettings.set('notifications_highblock', data.result[0].block)
   }
