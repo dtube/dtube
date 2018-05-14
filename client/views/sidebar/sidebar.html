@@ -28,7 +28,7 @@
         <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
       </div>
     </a>
-    {{/if}} 
+    {{/if}}
     <a href='/hotvideos' class="item pdg-non">
       <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
         <i class="fire icon dtubesidebaricon"></i>
@@ -65,14 +65,14 @@
             <h4 class="dtubesidebartitle" style="padding-left: 20px;">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
           </div>
       {{#each tags}}
-      {{#if equals term 'nsfw'}} 
+      {{#if equals term 'nsfw'}}
       {{else}}
       <div class="menuitem dtubesidebarmenu" style="padding:4px 0% 0% 0%;display: inherit;" title='{{./count}}'>
-        <a style="margin: 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{term}}'>
+        <a style="display:block;padding:0 20px;color:#262626;font-weight:500;font-style: italic;" href='/t/{{term}}'>
           {{term}}
         </a>
       </div>
-      {{/if}} 
+      {{/if}}
       {{/each}}
     </div>
     {{#if isOnMobile }}
