@@ -9,13 +9,17 @@ Notifications.ws.onmessage = function (event) {
   if (data && data.result && data.result.length > 0) {
     for (let i = 0; i < data.result.length; i++)
       if (data.result[i].block > UserSettings.get('notifications_highblock'))
-        if (!Notifications.findOne(data.result[i]))
+        if (!Notifications.findOne(data.result[i])) {
+          var notif = data.result[i]
+          notif.user = Session.get('activeUsername')
           Notifications.insert(data.result[i])
+        }
 
     UserSettings.set('notifications_highblock', data.result[0].block)
   }
   if (data && data.notification) {
     notif = data.notification
+    notif.user = Session.get('activeUsername')
     Notifications.insert(notif)
     message = ''
     switch (notif.type) {
@@ -34,6 +38,10 @@ Notifications.ws.onmessage = function (event) {
       case 'mention':
         message += notif.author+' mentioned you'
         break;
+
+      case 'reblog':
+        message += notif.author+' resteemed your content'
+        break;
   
       default:
         break;
@@ -43,7 +51,12 @@ Notifications.ws.onmessage = function (event) {
 }
 
 Notifications.getCentralized = function () {
-  Notifications.ws.onopen = function() {
+  if (Notifications.ws.readyState != 1)
+    Notifications.ws.onopen = function() {
+      Notifications.ws.send(JSON.stringify({method:'get_notifications', params: [Session.get('activeUsername')]}))
+      Notifications.ws.send(JSON.stringify({method:'subscribe', params: [Session.get('activeUsername')]}))
+    }
+  else {
     Notifications.ws.send(JSON.stringify({method:'get_notifications', params: [Session.get('activeUsername')]}))
     Notifications.ws.send(JSON.stringify({method:'subscribe', params: [Session.get('activeUsername')]}))
   }

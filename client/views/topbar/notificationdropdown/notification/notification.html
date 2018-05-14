@@ -76,6 +76,24 @@
           </div>
         </a>
       {{/if}}
+      {{#if equals type 'reblog'}}
+        <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{permlink}}">
+          <div style="padding: 10px;">
+            <div class="dsp-flx">
+              <img class="ui avatar image" src="{{userPic account}}">
+              <div style="color: black;width: 100%;display: inline;margin-left: 5px;">
+                <div>
+                  <span style="color:#ff1a1a!important;" class="user">
+                    {{account}}
+                  </span>
+                  resteemed your content
+                </div>
+                <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {{/if}}
     </div>
   </div>
 </template>

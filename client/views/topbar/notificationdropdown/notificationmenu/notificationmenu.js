@@ -10,7 +10,10 @@ Template.notificationmenu.helpers({
     return Template.users.formatRewards(user)
   },
   notifications: function() {
-    return Notifications.find({}, {sort: { block: -1 }, limit: 50}).fetch()
+    return Notifications.find(
+      {user: Session.get('activeUsername')},
+      {sort: { block: -1 }, limit: 50})
+      .fetch()
   },
   mainUser: function() {
     return Users.findOne({username: Session.get('activeUsername')})
