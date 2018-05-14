@@ -32,7 +32,7 @@
   font-size: 1.5em;
   margin: 0;
 }
- 
+
 .upvoteComment {
   transition: font 5s ease-in
 }
@@ -63,10 +63,24 @@ padding: 15px 20px 30px 20px;
   padding: none;
 }
 
-.dtubesidebarmenu:hover
+.dtubesidebarmenu a:hover
 {
-color:red;
-background: rgb(233, 233, 233);
+  color:red;
+  background: rgb(233, 233, 233);
+}
+
+.tagslist .dtubesidebarmenu a
+{
+  display: block;
+  padding: 0 20px;
+  color: #262626;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.tagslist .dtubesidebarmenu a:hover
+{
+  background: rgb(233, 233, 233);
 }
 
 
@@ -342,7 +356,7 @@ button {
   border-width: 1px!important;
 }
 
-.mobiletopbar{ 
+.mobiletopbar{
   height:52px;
   z-index:9000;
 }
@@ -423,4 +437,3 @@ button {
 {
 	background-color: #777777;
 }
-
