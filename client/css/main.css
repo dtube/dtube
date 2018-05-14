@@ -76,6 +76,7 @@ padding: 15px 20px 30px 20px;
   color: #262626;
   font-weight: 500;
   font-style: italic;
+  transition: background-color .1s;
 }
 
 .tagslist .dtubesidebarmenu a:hover
