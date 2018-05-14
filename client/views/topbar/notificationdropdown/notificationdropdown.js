@@ -4,7 +4,7 @@ Template.notificationdropdown.rendered = function() {
 
 Template.notificationdropdown.helpers({
     notificationsUnseen: function() {
-      return Notifications.find({seen: {$exists: false}}).count()
+      return Notifications.find({user: Session.get('activeUser'), seen: {$exists: false}}).count()
     },
     getTitle: function(author,permlink) {
       var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
