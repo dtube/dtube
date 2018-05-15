@@ -159,7 +159,7 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.verticalvideosnaptitle').removeClass('nightmodetext');
   $('.ui.item').removeClass('nightmodetext');
   $('.menuitem').removeClass('nightmodetext');
-  $('.dtubesidebarmenu a').removeClass('nightsecondarytext');
+  $('.dtubesidebarmenu').removeClass('nightsecondarytext');
   $('.ui.toggle.checkbox label').removeClass('nightmodetext');
   $('.ui.form .field > label').removeClass('nightmodetext');
   $('.text').removeClass('nightmodetext');
