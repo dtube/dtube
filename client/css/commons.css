@@ -55,9 +55,31 @@
   white-space: inherit;
   width:100%!important;
   min-width:400px!important;
-  background: rgba(255,0,0,0.1)
+  background: rgba(255,0,0,0.1);
 }
+
+.ui.card.card-notification.nightmode{
+  min-height:50px;
+  margin: 0px 0px;
+  white-space: inherit;
+  width:100%!important;
+  min-width:400px!important;
+  background: rgba(160, 33, 33, 0.2) !important
+}
+
 
 .ui.card.card-notification.opened{
   background: #fff;
+}
+
+.ui.card.card-notification.nightmode.opened{
+  background: #000!important;
+}
+
+.ui.card.card-notification a {
+  color: #000;
+}
+
+.ui.card.card-notification.nightmode a {
+  color: #fff;
 }

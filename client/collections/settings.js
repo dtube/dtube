@@ -4,7 +4,10 @@ UserSettings = new Mongo.Collection(null)
 userSettingsObserver = new PersistentMinimongo2(UserSettings, 'usersettings');
 
 UserSettings.set = function(key, value) {
-    UserSettings.remove({k: key})
+    UserSettings.remove({
+        k: key,
+        u: Session.get('activeUsername')
+    })
     var obj = {
         k: key,
         v: value,
