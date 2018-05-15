@@ -63,25 +63,29 @@ padding: 15px 20px 30px 20px;
   padding: none;
 }
 
-.dtubesidebarmenu a:hover
-{
-  color:red;
-  background: rgb(233, 233, 233);
-}
-
-.tagslist .dtubesidebarmenu a
+#sidebar .sectionslist a,
+#sidebar .tagslist a
 {
   display: block;
-  padding: 0 20px;
+}
+
+#sidebar .tagslist a
+{
+  padding: 2px 20px;
   color: #262626;
   font-weight: 500;
   font-style: italic;
-  transition: background-color .1s;
 }
 
-.tagslist .dtubesidebarmenu a:hover
+#sidebar .sectionslist a:hover,
+#sidebar .tagslist a:hover
 {
-  background: rgb(233, 233, 233);
+  background-color: rgb(233, 233, 233);
+}
+
+#sidebar .sectionslist a:hover i
+{
+  color: red;
 }
 
 
