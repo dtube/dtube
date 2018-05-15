@@ -76,7 +76,7 @@ Template.settingsdropdown.nightMode = function()
 {
   if (Session.get('isInNightMode')) {
     Template.settingsdropdown.switchToNightMode();
-  } 
+  }
 }
 
 Template.settingsdropdown.switchToNightMode = function (){
@@ -99,7 +99,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.verticalvideosnaptitle').addClass('nightmodetext');
     $('.ui.item').addClass('nightmodetext');
     $('.menuitem').addClass('nightmodetext');
-    $('.dtubesidebarmenu a').addClass('nightsecondarytext');
+    $('#sidebar a').addClass('nightsecondarytext');
     $('.ui.toggle.checkbox label').addClass('nightmodetext');
     $('.ui.form .field > label').addClass('nightmodetext');
     $('.text').addClass('nightmodetext');
@@ -126,7 +126,7 @@ Template.settingsdropdown.switchToNightMode = function (){
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
-    
+
     $('.main.menu.fixed').addClass('nightmode');
     $('.step').addClass('nightmode');
     $('.sidebar').addClass('nightmodegray');

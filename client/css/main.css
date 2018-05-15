@@ -83,16 +83,17 @@ padding: 15px 20px 30px 20px;
   background-color: rgb(233, 233, 233);
 }
 
+#sidebar .sectionslist a.nightmodetext:hover,
+#sidebar .tagslist a.nightmodetext:hover
+{
+  font-weight: inherit;
+  color: rgb(223, 223, 223);
+  background-color: rgb(61, 61, 61);
+}
+
 #sidebar .sectionslist a:hover i
 {
   color: red;
-}
-
-
-.dtubesidebarmenu.nightmodetext:hover
-{
-color:rgb(223, 223, 223);
-background: rgb(61, 61, 61);
 }
 
 .dtubesidebartitle
@@ -105,7 +106,6 @@ main
 {
   max-width: 100%;
   margin:auto;
-
 }
 
 
