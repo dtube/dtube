@@ -46,7 +46,7 @@ Notifications.ws.onmessage = function (event) {
       default:
         break;
     }
-    toastr.info(message)
+    //toastr.info(message)
   }
 }
 

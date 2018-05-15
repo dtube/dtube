@@ -30,6 +30,7 @@ function shuffleArray(array) {
 }
 
 Template.upload.setBestUploadEndpoint = function (cb) {
+  if (Session.get('upldr')) {cb();return}
   var uploaders = Session.get('remoteSettings').upldr
   shuffleArray(uploaders)
   console.log(uploaders)
@@ -78,7 +79,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 }
 
 var getUploaderStatus = function (upldr) {
-  var url = 'https://cluster.d.tube/getStatus'
+  var url = 'https://'+upldr+'.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
@@ -109,11 +110,12 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+  var postUrl = 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
+  var credentials = Session.get('upldr') == 'cluster' ? true : false
   $.ajax({
     cache: false,
     contentType: false,
@@ -122,7 +124,7 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
     type: "POST",
     url: postUrl,
     xhrFields: {
-      withCredentials: true
+      withCredentials: credentials
     },
     xhr: function () {
       // listen for progress events on the upload
@@ -249,7 +251,7 @@ Template.upload.inputVideo = function (dt) {
   videoNode.src = fileURL
 
   // checking best ipfs-uploader endpoint available
-  //Template.upload.setBestUploadEndpoint(function () {
+  Template.upload.setBestUploadEndpoint(function () {
     // uploading to ipfs
     Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
       if (err) {
@@ -260,7 +262,7 @@ Template.upload.inputVideo = function (dt) {
         console.log('Uploaded video', result);
       }
     })
-  //});
+  });
 
 
   console.log(file)

@@ -8,7 +8,7 @@ Meteor.settings.public = {
       "http://127.0.0.1:8080"
     ],
     "snapMaxFileSizeKB": 1024,
-    "upldr": [1,2,3,4,5,"g1","g2","g3","g4"]
+    "upldr": ["upldr1", "upldr3", "upldr5", "upldrg1", "upldrg5", "cluster"]
   },
   "app": "dtube/0.7",
   "beneficiary": "dtube",
@@ -41,9 +41,9 @@ Meteor.settings.public = {
 }
 
 // custom settings loaded from json
-$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
-  if (result == 'success') {
-    Meteor.settings.public = json
-    Session.set('remoteSettings', Meteor.settings.public.remote)
-  }
-})
+// $.get('https://d.tube/DTube_files/settings.json', function(json, result) {
+//   if (result == 'success') {
+//     Meteor.settings.public = json
+//     Session.set('remoteSettings', Meteor.settings.public.remote)
+//   }
+// })

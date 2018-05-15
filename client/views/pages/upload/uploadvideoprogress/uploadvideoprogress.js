@@ -9,7 +9,8 @@ Template.uploadvideoprogress.rendered = function() {
 }
 Template.uploadvideoprogress.update = function() {
   var token = Session.get('uploadToken')
-  var url = 'https://cluster.d.tube/getProgressByToken/'+token
+  var url = 'https://'+Session.get('upldr')+'.d.tube/getProgressByToken/'+token
+  var credentials = Session.get('upldr') == 'cluster' ? true : false
   $.ajax({
     cache: false,
     contentType: false,
@@ -17,7 +18,7 @@ Template.uploadvideoprogress.update = function() {
     url: url,
     type: 'GET',
     xhrFields: {
-      withCredentials: true
+      withCredentials: credentials
     },
     success: function(data) {
       console.log(data)
