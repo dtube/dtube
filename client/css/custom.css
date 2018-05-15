@@ -90,6 +90,10 @@
   color: rgb(240, 240, 240)!important;
 }
 
+.ui.menu .ui.dropdown .menu.nightmode > .item {
+  color: rgb(240, 240, 240)!important;
+}
+
 .nightsecondarytext {
   color: rgb(180, 180, 180)!important;
 }
