@@ -79,7 +79,9 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 }
 
 var getUploaderStatus = function (upldr) {
-  var url = 'https://'+upldr+'.d.tube/getStatus'
+  var url = (Session.get('remoteSettings').localhost == true)
+    ? 'http://localhost:5000/getStatus'
+    : 'https://'+upldr+'.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
@@ -110,7 +112,9 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+  var postUrl = (Session.get('remoteSettings').localhost == true)
+    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -163,7 +167,9 @@ Template.upload.uploadImage = function (file, progressid, cb) {
   $('#uploadSnap > i').removeClass('cloud upload red')
   $('#uploadSnap > i').addClass('asterisk loading')
   $('#uploadSnap > i').css('background', 'transparent')
-  var postUrl = 'https://snap1.d.tube/uploadImage'
+  var postUrl = (Session.get('remoteSettings').localhost == true)
+    ? 'http://localhost:5000/uploadImage'
+    : 'https://snap1.d.tube/uploadImage'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
