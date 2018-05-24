@@ -114,8 +114,8 @@ Template.upload.genBody = function (author, permlink, title, snaphash, videohash
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
-    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
-    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })

@@ -97,8 +97,8 @@ Template.uploadform.generateVideo = function (tags) {
     article.content.video480hash = $('input[name=video480hash]')[0].value
   if ($('input[name=video720hash]')[0].value.length > 0)
     article.content.video720hash = $('input[name=video720hash]')[0].value
-  // if ($('input[name=video1080hash]')[0].value.length > 0)
-  //   article.content.video1080hash = $('input[name=video1080hash]')[0].value
+  if ($('input[name=video1080hash]')[0].value.length > 0)
+    article.content.video1080hash = $('input[name=video1080hash]')[0].value
   if ($('input[name=magnet]')[0].value.length > 0)
     article.content.magnet = $('input[name=magnet]')[0].value
 
