@@ -7,7 +7,7 @@ Template.settingsdropdown.rendered = function() {
         var nextPercent = currentPercent+parseInt(value)
         if (nextPercent>100) nextPercent = 100
         if (nextPercent<1) nextPercent = 1
-        Session.set('voteWeight', nextPercent)
+        UserSettings.set('voteWeight', nextPercent)
       } else if (e.hasClass('ipfsGateway')) {
         if (e.hasClass('automatic')) Session.set('ipfsGateway', 'automatic')
         else Session.set('ipfsGateway', value)
@@ -35,7 +35,7 @@ Template.settingsdropdown.rendered = function() {
     }
   })
   Session.set('nsfwSetting', 'Fully Hidden')
-  Session.set('voteWeight', 100)
+  if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Session.set('ipfsGateway', 'automatic')
 
   Template.settingsdropdown.nightMode();
