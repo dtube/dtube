@@ -3,7 +3,7 @@ Template.settingsdropdown.rendered = function() {
     action: function(text, value, e) {
       var e = $(e)
       if (e.hasClass('voteWeight')) {
-        var currentPercent = UserSettings.get('voteWeight') || 100
+        var currentPercent = UserSettings.get('voteWeight')
         var nextPercent = currentPercent+parseInt(value)
         if (nextPercent>100) nextPercent = 100
         if (nextPercent<1) nextPercent = 1
@@ -46,7 +46,7 @@ Template.settingsdropdown.helpers({
     return Session.get('nsfwSetting');
   },
   voteWeight: function() {
-    return Session.get('voteWeight');
+    return UserSettings.get('voteWeight');
   },
   ipfsUpload: function() {
     return Session.get('ipfsUpload');
