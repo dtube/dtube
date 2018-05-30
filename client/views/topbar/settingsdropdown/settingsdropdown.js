@@ -3,7 +3,7 @@ Template.settingsdropdown.rendered = function() {
     action: function(text, value, e) {
       var e = $(e)
       if (e.hasClass('voteWeight')) {
-        var currentPercent = Session.get('voteWeight')
+        var currentPercent = UserSettings.get('voteWeight') || 100
         var nextPercent = currentPercent+parseInt(value)
         if (nextPercent>100) nextPercent = 100
         if (nextPercent<1) nextPercent = 1
