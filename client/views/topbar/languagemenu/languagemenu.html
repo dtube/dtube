@@ -1,0 +1,8 @@
+<template name="languagemenu">
+    {{#each arrayify languages}}
+        <div class="item langSetting" onclick="loadJsonTranslate('{{key}}');$('#mobileselector').sidebar('hide');"
+            style="color: black; cursor: pointer;">
+            {{value.name}}
+        </div>
+    {{/each}}
+</template>

@@ -11,7 +11,7 @@ window.loadDefaultLang = function(cb = function(){}){
   })
 }
 window.loadLangAuto = function(cb) {
-  culture = getCultureAuto();
+  culture = UserSettings.get('language') || getCultureAuto();
   loadJsonTranslate(culture, function() {
     cb()
   });
@@ -23,6 +23,7 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
     return
   }
 
+  UserSettings.set('language', culture)
   $.get('https://d.tube/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)

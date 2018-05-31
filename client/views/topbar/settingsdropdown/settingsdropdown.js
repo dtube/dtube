@@ -29,6 +29,9 @@ Template.settingsdropdown.rendered = function() {
           Template.settingsdropdown.switchToNormalMode();
         }
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
+      } else if (e.hasClass('languages')) {
+        Session.set('selectortype', 'languages');
+        $('#mobileselector').sidebar('show');
       } else {
         //console.log(value,text,e)
       }
@@ -65,9 +68,6 @@ Template.settingsdropdown.helpers({
   },
   isInNightMode:function() {
     return UserSettings.get('isInNightMode')
-  },
-  languages: function() {
-    return Meteor.settings.public.lang
   }
 })
 
