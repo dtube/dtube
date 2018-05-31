@@ -7,6 +7,13 @@
     </button>
     <!-- <i class="ellipsis horizontal icon videohmore"></i> -->
     <div class="menu">
+      <div class="item resteem">
+        <a>
+          <span class="customlink">
+            <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}}
+          </span>
+        </a>
+      </div>
       <div class="item copylink">
         <span class="customlink">
           <i class="share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}</span>
@@ -19,12 +26,6 @@
         <input id="embedlink" style="width:0px;visibility:hidden;" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
         <!--<div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div> -->
       </div>
-      <div class="item">
-        <a>
-          <span class="customlink">
-            <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}} </span>
-        </a>
-      </div>
       {{#if content.magnet}}
       <div class="item">
         <a href="{{content.magnet}}">
@@ -33,15 +34,14 @@
         </a>
       </div>
       {{/if}}
-      {{#if isInWatchLater}}
-      {{else}}
+      {{#unless isInWatchLater}}
       <div class="item addvideotowatchlater">
           <a>
             <span class="customlink">
               <i class="plus icon"></i>{{ translate 'VIDEO_SETTINGS_ADD_TO_WATCH_LATER'}}</span>
           </a>
         </div>
-      {{/if}} 
+      {{/unless}} 
     </div>
   </div>
 </template>

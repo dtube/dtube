@@ -40,6 +40,7 @@
     "GLOBAL_ERROR_COULD_NOT_VOTE": "Could not vote",
     "GLOBAL_ERROR_DOWNVOTE_FOR": "%1 downvote for %2",
     "GLOBAL_ERROR_VOTE_FOR": "%1 vote for %2",
+    "GLOBAL_ERROR_RESTEEMED": "You have resteemed %1",
     "HOME_TITLE_FEED_VIDEOS": "Subscribed Feed",
     "HOME_TITLE_HOT_VIDEOS": "Hot Videos",
     "HOME_TITLE_TRENDING_VIDEOS": "Trending Videos",

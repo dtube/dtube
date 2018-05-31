@@ -152,6 +152,39 @@ broadcast = {
             cb(err, result)
         })
     },
+    reblog: function(author, permlink, cb) {
+        var reblogger = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!reblogger) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.customJson(
+                wif,
+                [],
+                [reblogger],
+                'follow',
+                JSON.stringify(
+                    ['reblog', {
+                        account: reblogger,
+                        author: author,
+                        permlink: permlink
+                    }]
+                ),
+                function (err, result) {
+                    cb(err, result)
+                }
+            );
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        sc2.reblog(reblogger, author, permlink, function(err, result) {
+            cb(err, result)
+        })
+    },
     send: function(operations, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;

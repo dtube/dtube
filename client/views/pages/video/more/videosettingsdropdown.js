@@ -50,12 +50,23 @@ Template.videosettingsdropdown.events({
   'click .addvideotowatchlater': function () {
     WatchLater.upsert({ _id: this._id }, this)
     event.stopPropagation()
+  },
+  'click .resteem': function() {
+    var author = FlowRouter.getParam("author")
+    var permlink = FlowRouter.getParam("permlink")
+    broadcast.reblog(author, permlink, function (err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err), translate('ERROR_TITLE'))
+      else toastr.success(translate('GLOBAL_ERROR_RESTEEMED', author + '/' + permlink))
+    });
   }
 })
     
 
 Template.videosettingsdropdown.helpers({
   isInWatchLater: function () {
-    return WatchLater.find({ _id: Videos.findOne()._id })
+    return WatchLater.find({
+      author: FlowRouter.getParam("author"),
+      permlink: FlowRouter.getParam("permlink")
+    }).count()
   }
 })
