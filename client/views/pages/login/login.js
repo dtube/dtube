@@ -6,6 +6,7 @@ Template.login.helpers({
 
 Template.login.success = function(activeUsername) {
   Session.set('activeUsername', activeUsername)
+  if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Videos.loadFeed(activeUsername)
   FlowRouter.go('#!/')
 }
