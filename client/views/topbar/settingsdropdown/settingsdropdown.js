@@ -18,8 +18,8 @@ Template.settingsdropdown.rendered = function() {
           protocol: value.split('://')[0]
         })
       } else if (e.hasClass('nsfwSetting')) {
-        if (e.hasClass('nsfwShow')) Session.set('nsfwSetting', 'Show')
-        if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
+        if (e.hasClass('nsfwShow')) UserSettings.set('nsfwSetting', 'Show')
+        if (e.hasClass('nsfwHide')) UserSettings.set('nsfwSetting', 'Fully Hidden')
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
       } else if (e.hasClass('nightMode')) {
@@ -37,7 +37,7 @@ Template.settingsdropdown.rendered = function() {
       }
     }
   })
-  Session.set('nsfwSetting', 'Fully Hidden')
+  UserSettings.set('nsfwSetting', 'Fully Hidden')
   if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Session.set('ipfsGateway', 'automatic')
 
@@ -46,7 +46,7 @@ Template.settingsdropdown.rendered = function() {
 
 Template.settingsdropdown.helpers({
   nsfwSetting: function() {
-    return Session.get('nsfwSetting');
+    return UserSettings.get('nsfwSetting');
   },
   voteWeight: function() {
     return UserSettings.get('voteWeight');
