@@ -15,10 +15,10 @@
     {{> mobileselector}}
   </div>
 
-  <div class="pusher">
+  <div>
     <div class='article'>
       {{#if isOnMobile }} 
-        <main class='ui main mobile only' style="margin-top: -12px;">
+        <main class='ui main mobile only'>
           {{> Template.dynamic template=main}}
         </main>
       {{else}}
@@ -27,6 +27,7 @@
         </main>
       {{/if}}
     </div>
+    {{> modal}}
   </div>
   
 </template>
