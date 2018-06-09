@@ -186,7 +186,7 @@ Template.registerHelper('isPlural', function (array) {
 
 Template.registerHelper('isVideoHidden', function (video) {
   if (video.net_rshares && video.net_rshares < 0) return true
-  if (Session.get('nsfwSetting') == 'Show') return false
+  if (UserSettings.get('nsfwSetting') == 'Show') return false
   if (!video || !video.content || !video.content.tags) return false
   if (video.content.tags.indexOf('nsfw') > -1) return true
   return false
@@ -195,7 +195,7 @@ Template.registerHelper('isVideoHidden', function (video) {
 Template.registerHelper('isVideoHiddensearch', function (video) {
   if (!video) return false
   if (video.net_rshares && video.net_rshares < 0) return true
-  if (Session.get('nsfwSetting') == 'Show') return false
+  if (UserSettings.get('nsfwSetting') == 'Show') return false
   if (video.content) {
     if (video.content.tags.indexOf('nsfw') > -1) return true
   }

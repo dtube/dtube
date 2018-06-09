@@ -18,13 +18,8 @@
 }
 
 .article {
-  padding: 65px 0em 4em 0em;
+  padding: 52px 0em 4em 0em!important;
   width: 100%;
-}
-
-.article.mainsided
-{
-  padding: 65px 0em 4em 210px!important;
 }
 
 
