@@ -19,7 +19,7 @@ Template.registerHelper('count', function (array) {
 });
 
 Template.registerHelper('isOnMobile', function () {
-  if (/Mobi/.test(navigator.userAgent)) {
+  if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
     return true;
   }
   return false;

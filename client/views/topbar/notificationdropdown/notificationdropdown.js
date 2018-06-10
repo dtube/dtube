@@ -38,14 +38,14 @@ Template.notificationdropdown.helpers({
       })
     },
     'click .dropdownnotification, touchstart .dropdownnotification': function(e) {
-      if (/Mobi/.test(navigator.userAgent)) {
+      if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
         Session.set('selectortype', 'notifications');
         $('#mobileselector').sidebar('show');
       }
       Notifications.update({}, {$set: {seen: true}}, {multi: true})
     }
   })
-  
+
   Template.notificationdropdown.formatRewards = function(user) {
     var rewards = []
     if (user.reward_sbd_balance.split(' ')[0] > 0)
@@ -60,6 +60,3 @@ Template.notificationdropdown.helpers({
   // Template.notificationdropdown.addNotification = function(type,user,permalink){
   //   $('#notificationmenu').append(" <div class="/item/">Button" + '(++count)' + "</div>");
   // }
-
-  
-  

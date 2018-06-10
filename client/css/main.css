@@ -1,8 +1,28 @@
-.padding-side {
+
+h1, h2, h3, h4, h5 {
+  color: rgb(60, 60, 60);
+}
+
+h1 {    }
+h2 {  font-size:1.3em;  }
+h3 {    }
+h4 {    }
+h5 {    }
+
+.block-header
+{
+  margin-bottom: 5px;
+}
+.inline-block-header {
+  margin-bottom: 20px;
+}
+
+
+.padding-side
+{
   padding-left: 20px;
   padding-right: 20px;
 }
-
 
 .scaledropdown
 {
@@ -51,9 +71,28 @@
                                   supported by Chrome and Opera */
 }
 
+#textlogo
+{
+  padding: 0 !important;
+  margin: 0 22px 0 10px !important;
+}
+
+#textlogo:hover {
+  background-color:transparent;
+}
+
+.sidebartoggleicon
+{
+  padding: 0 !important;
+  margin: 0 25px 0 25px !important;
+}
+
 .icon .dtubesidebaricon
 {
-padding: 15px 20px 30px 20px;
+  padding: 0;
+  margin: 0 20px 0 25px;
+  font-size: 1.28em;
+  text-align: center;
 }
 
 .menuitem .dtubesidebarmenu
@@ -62,17 +101,25 @@ padding: 15px 20px 30px 20px;
   font-weight: 600;
   padding: none;
 }
+#sidebar .sectionslist
+{
+  padding-top:15px;
+}
 
-#sidebar .sectionslist a,
-#sidebar .tagslist a
+#sidebar .sectionslist a
 {
   display: block;
+  height: 3em;
+  line-height: 2.8em;
 }
 
 #sidebar .tagslist a
 {
-  padding: 2px 20px;
-  color: #262626;
+  display: block;
+  height: 1.6em;
+  line-height: 1.6em;
+  padding: 0 25px;
+  color: rgb(130, 130, 130);
   font-weight: 500;
   font-style: italic;
 }
@@ -96,10 +143,23 @@ padding: 15px 20px 30px 20px;
   color: red;
 }
 
+#sidebar .ui.divider:not(.vertical):not(.horizontal) {
+  border-top: 1px solid rgb(242,242,242);
+  border-bottom: none;
+}
+
 .dtubesidebartitle
 {
-  padding-right: 30px;
-  color: black;
+  color: rgb(20, 20, 20);
+}
+
+.dtubesidebartitle.trendingtitle
+{
+  font-size: 1rem;
+  padding: 2px 0px 10px 25px;
+  text-transform: uppercase;
+  color: rgb(120, 120, 120);
+  font-weight: 400;
 }
 
 main
@@ -112,6 +172,14 @@ main
 .mainmobile
 {
   width: 90%;
+}
+
+
+.ui.divider:not(.vertical):not(.horizontal)
+{
+  border-top: 1px solid rgba(50, 50, 50, 0.1);
+  border-bottom: none;
+  margin: 1.5rem 0rem;
 }
 
 .notificationdtube
@@ -237,8 +305,13 @@ button {
 
 .sidebarlink
 {
-  color:rgba(100, 100, 100, 0.87);
+  color: rgb(120, 120, 120);
   font-weight: 300;
+}
+
+.sidebarlink:hover
+{
+  color: black;
 }
 
 .item.sidebarlink

@@ -1,23 +1,22 @@
 <template name='pusher'>
-  {{#if isOnMobile }} 
+  {{#if isOnMobile }}
     {{> mobiletopbar}}
-    <div id="sidebar" class="ui mobile sidebar fixed left vertical inverted labeled icon menu" style="top:52px;box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;background-color:rgb(250, 250, 250);">
+    <div id="sidebar" class="ui mobile sidebar fixed left vertical inverted labeled icon menu" style="top:52px;z-index:10;background-color:rgba(250, 250, 250);">
       {{> sidebar}}
     </div>
-  {{else}} 
+  {{else}}
     {{> topbar}}
-    <div id="sidebar" class="ui desktop sidebar left vertical inverted labeled icon menu" style="box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:10;top:57px;background-color:white;min-width:210px;">
+    <div id="sidebar" class="ui desktop sidebar left vertical inverted labeled icon menu" style="z-index:10;top:57px;background-color:rgba(250, 250, 250);min-width:225px;">
       {{> sidebar}}
     </div>
   {{/if}}
-  <div id="mobileselector" class="ui mobile sidebar fixed bottom vertical inverted labeled icon menu"
-    style="max-height: 60%; top:52px;box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;z-index:20;background-color:rgb(250, 250, 250);">
+  <div id="mobileselector" class="ui mobile sidebar fixed bottom vertical inverted labeled icon menu" style="max-height: 60%; top:52px;z-index:20;background-color:rgba(250, 250, 250);">
     {{> mobileselector}}
   </div>
 
   <div class="pusher">
     <div class='article'>
-      {{#if isOnMobile }} 
+      {{#if isOnMobile }}
         <main class='ui main mobile only' style="margin-top: -12px;">
           {{> Template.dynamic template=main}}
         </main>
@@ -28,6 +27,5 @@
       {{/if}}
     </div>
   </div>
-  
-</template>
 
+</template>

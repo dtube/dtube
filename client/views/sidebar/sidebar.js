@@ -47,13 +47,13 @@ Template.sidebar.events({
     else Session.set('isSubscribesOpen', false)
   },
   'click .dtubesidebarmenu': function () {
-    if (/Mobi/.test(navigator.userAgent)) {
+    if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
       Template.sidebar.empty()
     }
     else {
       Template.sidebar.half()
     }
-      
+
   }
 })
 
@@ -108,11 +108,11 @@ Template.sidebar.half = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  
+
 }
 
 Template.sidebar.full = function() {
-  $('.pusher').attr('style', 'transform: translate3d(210px, 0, 0) !important')
+  $('.pusher').attr('style', 'transform: translate3d(225px, 0, 0) !important')
   $("#sidebar")
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)

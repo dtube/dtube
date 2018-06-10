@@ -46,7 +46,7 @@
 .videosnaprest {
   font-size: 0.9rem;
   float: left;
-  clear: none; 
+  clear: none;
   color: #0A1627;
   text-decoration-color: #0066FF;
   margin-right: 5px;
@@ -164,7 +164,7 @@
 
 #img
 {
- object-fit: cover;  
+ object-fit: cover;
 }
 
 .reblogged {
@@ -179,20 +179,42 @@ text-align: center;
 .showmore
 {
     margin-top: 10px;
-    text-align: left; 
+    text-align: left;
+}
+
+.ui.menu
+{
+    border: none;
+}
+.ui.menu .item > i.icon
+{
+    color: rgb(120, 120, 120);
+}
+.ui.menu .item.loginitem
+{
+    cursor: default !important;
+    background-color: transparent;
+}
+.ui.menu .item.loginitem:hover
+{
+    background-color: transparent;
 }
 
 .menuitem
 {
   text-align: left;
-  color: black;
+  color: rgb(120, 120, 120);
 }
 
 .activemenu
 {
   text-align: left;
   color: red;
-  background: rgb(240, 240, 240);
+}
+
+.activemenu .dtubesidebartitle
+{
+    color:black;
 }
 
 .activemenu.nightmodetext
@@ -230,7 +252,7 @@ text-align: center;
 }
 
 body.pushable {
-  background: #fafafa !important;
+  background: #FFFFFF !important;
 }
 
 input[type="text"] {
@@ -239,7 +261,7 @@ input[type="text"] {
 
 .subcommentsclosed{
   height: 0px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .seekTo{
