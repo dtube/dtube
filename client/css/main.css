@@ -1,20 +1,39 @@
 
 h1, h2, h3, h4, h5 {
-  color: rgb(60, 60, 60);
+
 }
 
 h1 {    }
-h2 {  font-size:1.3em;  }
+h2 {  font-size: 1.2em;  }
 h3 {    }
 h4 {    }
 h5 {    }
+
 
 .block-header
 {
   margin-bottom: 5px;
 }
-.inline-block-header {
-  margin-bottom: 20px;
+
+.block-header a {
+  color: rgb(60, 60, 60);
+}
+
+.nightmode .block-header a {
+  color: white;
+}
+
+
+.ui.divider:not(.vertical):not(.horizontal)
+{
+  border-top: 1px solid rgb(240, 240, 240);
+  border-bottom: none;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+body.nightmode .ui.divider:not(.vertical):not(.horizontal)
+{
+  border-top: 1px solid rgb(40, 40, 40);
 }
 
 
@@ -77,9 +96,11 @@ h5 {    }
   margin: 0 22px 0 10px !important;
 }
 
-#textlogo:hover {
-  background-color:transparent;
+#textlogo:hover
+{
+  background-color: transparent;
 }
+
 
 .sidebartoggleicon
 {
@@ -101,9 +122,54 @@ h5 {    }
   font-weight: 600;
   padding: none;
 }
+
+
+#mobileselector {
+  max-height: 60%;
+  top: 52px;
+  z-index: 20;
+  background-color: rgba(250, 250, 250);
+}
+
+#sidebar.desktop.left.sidebar,
+#sidebar.desktop.right.sidebar
+{
+  z-index: 10;
+  top: 57px;
+  background-color: rgba(250, 250, 250);
+  min-width: 225px;
+}
+
+#sidebar.mobile.left.sidebar,
+#sidebar.mobile.right.sidebar
+{
+  top: 52px;
+  z-index: 10;
+  background-color: rgba(250, 250, 250);
+}
+
+#sidebar.nightmode.desktop.left.sidebar,
+#sidebar.nightmode.desktop.right.sidebar,
+#sidebar.nightmode.mobile.left.sidebar,
+#sidebar.nightmode.mobile.right.sidebar
+{
+
+}
+
+#sidebar .ui.divider:not(.vertical):not(.horizontal)
+{
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+}
+
+#sidebar.ui.vertical.inverted.menu .item:before
+{
+  background: none;
+}
+
 #sidebar .sectionslist
 {
-  padding-top:15px;
+  padding-top: 15px;
 }
 
 #sidebar .sectionslist a
@@ -134,26 +200,31 @@ h5 {    }
 #sidebar .tagslist a.nightmodetext:hover
 {
   font-weight: inherit;
-  color: rgb(223, 223, 223);
+  color: rgb(242, 242, 242);
   background-color: rgb(61, 61, 61);
 }
 
 #sidebar .sectionslist a:hover i
 {
-  color: red;
+  color: #ff0009;
 }
 
-#sidebar .ui.divider:not(.vertical):not(.horizontal) {
-  border-top: 1px solid rgb(242,242,242);
-  border-bottom: none;
+#sidebar.nightmode .sectionslist a:hover i
+{
+  color: white;
 }
 
-.dtubesidebartitle
+#sidebar.nightmode .sectionslist a:hover .activemenu i
+{
+  color: #ff0009;
+}
+
+#sidebar .dtubesidebartitle
 {
   color: rgb(20, 20, 20);
 }
 
-.dtubesidebartitle.trendingtitle
+#sidebar .dtubesidebartitle.trendingtitle
 {
   font-size: 1rem;
   padding: 2px 0px 10px 25px;
@@ -161,6 +232,9 @@ h5 {    }
   color: rgb(120, 120, 120);
   font-weight: 400;
 }
+
+
+
 
 main
 {
@@ -175,12 +249,6 @@ main
 }
 
 
-.ui.divider:not(.vertical):not(.horizontal)
-{
-  border-top: 1px solid rgba(50, 50, 50, 0.1);
-  border-bottom: none;
-  margin: 1.5rem 0rem;
-}
 
 .notificationdtube
 {

@@ -1,6 +1,4 @@
-.widthfiftypercent {
-  width: 50%;
-}
+
 
 .ui.progress {
   text-align: left;
@@ -181,7 +179,7 @@ textarea {
 .ui.button > .ui.icon {
   color: white;
   opacity:1;
- } 
+ }
 
  .ui.multiple.dropdown > .label{
   line-height: 1.4em;

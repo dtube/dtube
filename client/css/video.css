@@ -154,6 +154,7 @@
 }
 
 .dtube.red.button {
+  background: #ff0009;
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
@@ -163,6 +164,10 @@
   font-size: 13px;
   text-transform: uppercase;
       padding: 0px;
+}
+
+.dtube.red.button .btnlabel {
+  margin-left: -4px;
 }
 
 .dtube.white.button {

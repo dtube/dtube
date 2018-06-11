@@ -1,4 +1,5 @@
-.videosnap {
+.videosnap
+{
   display: inline-block;
   /* margin-bottom: 8px; */
   vertical-align:top;
@@ -6,7 +7,8 @@
   color: #212121;
 }
 
-.videosnap:hover {
+.videosnap:hover
+{
   display: inline-block;
   /* margin-bottom: 8px; */
   vertical-align:top;
@@ -15,19 +17,23 @@
 }
 
 
-.videosnap:hover  .watchlater {
+.videosnap:hover  .watchlater
+{
   display: block!important;
 }
 
-.videosnap:hover  .addwatchlater {
+.videosnap:hover  .addwatchlater
+{
   display: block!important;
 }
 
-.videosnap:hover  .videosnapduration {
+.videosnap:hover  .videosnapduration
+{
   display: block!important;
 }
 
-.verticalvideosnap {
+.verticalvideosnap
+{
   /* margin-right: 4px; */
   display: inline-block;
   /* width: 210px; */
@@ -36,14 +42,16 @@
   color: #212121;
 }
 
-.videosnapauthor {
+.videosnapauthor
+{
   font-size: 0.9rem;
   color: grey;
   text-decoration-color: grey;
   text-align: left;
 }
 
-.videosnaprest {
+.videosnaprest
+{
   font-size: 0.9rem;
   float: left;
   clear: none;
@@ -52,7 +60,8 @@
   margin-right: 5px;
 }
 
-.videosnapmore {
+.videosnapmore
+{
     font-size: 0.9rem;
     bottom: 0;
     right: 0;
@@ -62,7 +71,8 @@
     text-decoration-color: #0066FF;
   }
 
-.videosnapduration{
+.videosnapduration
+{
   position: absolute;
   bottom: 0px;
   right: 0px;
@@ -79,7 +89,8 @@
   height: 17px;
 }
 
-.videosnaptime {
+.videosnaptime
+{
   color: rgba(20, 20, 20, 0.6);
   -webkit-text-decoration-color: grey;
   text-decoration-color: grey;
@@ -87,7 +98,8 @@
 }
 
 
-.videosnapdescription{
+.videosnapdescription
+{
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -99,7 +111,8 @@
   height: 36px;
 }
 
-.videosnapdescriptionmobile{
+.videosnapdescriptionmobile
+{
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -113,7 +126,8 @@
 
 
 
-.videosnaptitle {
+.videosnaptitle
+{
   color: black;
   display: block;
   overflow: hidden;
@@ -129,7 +143,8 @@
   -webkit-box-orient: vertical;
 }
 
-.verticalvideosnaptitle {
+.verticalvideosnaptitle
+{
   color: black;
   display: block;
   overflow: hidden;
@@ -168,36 +183,35 @@
 }
 
 .reblogged {
-  color: red;
+  color: #ff0009;
 }
 
 .title
 {
-text-align: center;
+  text-align: center;
 }
 
-.showmore
-{
-    margin-top: 10px;
-    text-align: left;
-}
 
 .ui.menu
 {
-    border: none;
+  border: none;
 }
 .ui.menu .item > i.icon
 {
-    color: rgb(120, 120, 120);
+  color: rgb(120, 120, 120);
+}
+.ui.menu.nightmode .item > i.icon
+{
+  color: white;
 }
 .ui.menu .item.loginitem
 {
-    cursor: default !important;
-    background-color: transparent;
+  cursor: default !important;
+  background-color: transparent;
 }
 .ui.menu .item.loginitem:hover
 {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .menuitem
@@ -209,19 +223,17 @@ text-align: center;
 .activemenu
 {
   text-align: left;
-  color: red;
+  color: #ff0009;
 }
 
 .activemenu .dtubesidebartitle
 {
-    color:black;
+  color:black;
 }
 
 .activemenu.nightmodetext
 {
-  text-align: left;
-  color: rgb(255, 255, 255);
-  background: rgb(160, 33, 33);
+  color: #ff0009 !important;
 }
 
 .ui.left.visible.sidebar, .ui.right.visible.sidebar {
@@ -251,19 +263,28 @@ text-align: center;
   word-wrap: break-word;
 }
 
-body.pushable {
+body.pushable
+{
   background: #FFFFFF !important;
 }
 
-input[type="text"] {
+body.pushable.nightmode
+{
+  background: #111111 !important;
+}
+
+input[type="text"]
+{
   width: 100%;
 }
 
-.subcommentsclosed{
+.subcommentsclosed
+{
   height: 0px;
   overflow: hidden;
 }
 
-.seekTo{
+.seekTo
+{
   cursor: pointer;
 }
