@@ -56,7 +56,7 @@
 .votebutton {
   border-style: solid;
   background: transparent none !important;
-  border-width: 1px !important;
+  border-width: 0px !important;
   box-shadow: none;
   -webkit-box-shadow: none;
   padding: 0.78571429em 0 0.78571429em 0 !important;
