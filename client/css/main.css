@@ -24,14 +24,12 @@ h5 {    }
 }
 
 
-.ui.divider:not(.vertical):not(.horizontal)
+.pusher .ui.divider:not(.vertical):not(.horizontal)
 {
   border-top: 1px solid rgb(240, 240, 240);
   border-bottom: none;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
 }
-body.nightmode .ui.divider:not(.vertical):not(.horizontal)
+body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 {
   border-top: 1px solid rgb(40, 40, 40);
 }
@@ -158,8 +156,7 @@ body.nightmode .ui.divider:not(.vertical):not(.horizontal)
 
 #sidebar .ui.divider:not(.vertical):not(.horizontal)
 {
-  margin-top: 1.1em;
-  margin-bottom: 1.1em;
+
 }
 
 #sidebar.ui.vertical.inverted.menu .item:before

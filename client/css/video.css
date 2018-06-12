@@ -56,12 +56,11 @@
 .votebutton {
   border-style: solid;
   background: transparent none !important;
-  margin-right: 0px;
-  border-width: 0px 0px 0px 0px;
-  border-radius: 0px;
+  border-width: 1px !important;
   box-shadow: none;
   -webkit-box-shadow: none;
-  border-color: rgba(34, 36, 38, 0.15);
+  padding: 0.78571429em 0 0.78571429em 0 !important;
+  margin-right: 25px !important;
 }
 
 .videocontainer {
