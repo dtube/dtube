@@ -198,7 +198,7 @@
 }
 .ui.menu .item > i.icon
 {
-  color: rgb(120, 120, 120);
+  color: rgb(80, 80, 80);
 }
 .ui.menu.nightmode .item > i.icon
 {
@@ -217,7 +217,7 @@
 .menuitem
 {
   text-align: left;
-  color: rgb(120, 120, 120);
+  color: rgb(80, 80, 80);
 }
 
 .activemenu

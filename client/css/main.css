@@ -109,7 +109,7 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 .icon .dtubesidebaricon
 {
   padding: 0;
-  margin: 0 20px 0 25px;
+  margin: 0 18px 0 26px;
   font-size: 1.28em;
   text-align: center;
 }
@@ -135,7 +135,7 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   z-index: 10;
   top: 57px;
   background-color: rgba(250, 250, 250);
-  min-width: 225px;
+  min-width: 212px;
 }
 
 #sidebar.mobile.left.sidebar,
@@ -226,7 +226,7 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   font-size: 1rem;
   padding: 2px 0px 10px 25px;
   text-transform: uppercase;
-  color: rgb(120, 120, 120);
+  color: rgb(80, 80, 80);
   font-weight: 400;
 }
 
@@ -370,7 +370,7 @@ button {
 
 .sidebarlink
 {
-  color: rgb(120, 120, 120);
+  color: rgb(80, 80, 80);
   font-weight: 300;
 }
 

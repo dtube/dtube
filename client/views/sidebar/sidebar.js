@@ -112,7 +112,7 @@ Template.sidebar.half = function() {
 }
 
 Template.sidebar.full = function() {
-  $('.pusher').attr('style', 'transform: translate3d(225px, 0, 0) !important')
+  $('.pusher').attr('style', 'transform: translate3d(212px, 0, 0) !important')
   $("#sidebar")
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
