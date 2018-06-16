@@ -20,7 +20,7 @@ Template.videoslider.createSlider = function (elemId) {
       loop: true,
       margin: 2,
       nav: true,
-      navText: ["<img src='myprevimage.png'>","<img src='mynextimage.png'>"],
+      navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
       items: 5,
       slideBy: 2,
       dots: false,
