@@ -1,3 +1,8 @@
+.showchannelinfo .ui.menu {
+  background: none;
+}
+
+
 .videoplayer {
   width: 100%;
   max-height: 516px;
