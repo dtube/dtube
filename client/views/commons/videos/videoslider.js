@@ -1,7 +1,7 @@
 var carousel = require('owl.carousel')
 
 Template.videoslider.isOnMobile = function () {
-  if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
+  if (/Mobi/.test(navigator.userAgent)) {
     return true;
   }
 }

@@ -47,7 +47,7 @@ Template.sidebar.events({
     else Session.set('isSubscribesOpen', false)
   },
   'click .dtubesidebarmenu': function () {
-    if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
+    if (/Mobi/.test(navigator.userAgent)) {
       Template.sidebar.empty()
     }
     else {

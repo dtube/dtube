@@ -38,7 +38,7 @@ Template.notificationdropdown.helpers({
       })
     },
     'click .dropdownnotification, touchstart .dropdownnotification': function(e) {
-      if (/Mobi/.test(navigator.userAgent) || window.innerWidth <= 992) {
+      if (/Mobi/.test(navigator.userAgent)) {
         Session.set('selectortype', 'notifications');
         $('#mobileselector').sidebar('show');
       }
