@@ -1,14 +1,32 @@
-#dropzone {
+#videouploadsteps .ui.segment.nightmode
+{
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+#dropzone
+{
   font-size: 18px;
   text-align: center;
   color: gray;
   width: 100%;
   max-width: 360px;
   height: 280px;
-  border: 5px solid red;
+  border: 8px solid rgb(220, 220, 220);
   border-radius: 10px;
+  cursor: pointer;
+  transition: border 0.2s ease;
 }
-#dropzone > div {
+
+#dropzone:hover
+{
+  border: 8px solid rgb(210, 210, 210);
+}
+
+#dropzone > div
+{
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -16,27 +34,60 @@
   transform: translateY(-50%);
 }
 
-#previewzone canvas {
+#dropzone .icon
+{
+  margin: 25px 0 25px 0;
+  color: rgb(220, 220, 220);
+  font-size: 3em;
+  height: auto;
+  transition: color 0.2s ease;
+}
+
+#dropzone:hover .icon
+{
+  color: rgb(215, 215, 215);
+}
+
+#dropzone h2
+{
+  margin: 10px 0;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+#dropzone h3
+{
+  margin: 10px 0;
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+#previewzone canvas
+{
   max-width:100%;
   max-height: 250px;
 }
 
-#previewzone video {
+#previewzone video
+{
   max-width:100%;
   max-height: 250px;
 }
 
-#infozone {
+#infozone
+{
   margin-top: 20px;
 }
 
-#snapFile {
+#snapFile
+{
   border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
 }
 
-#previewzone input[type="file"]{
+#previewzone input[type="file"]
+{
   display: none;
 }
