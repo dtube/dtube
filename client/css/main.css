@@ -24,12 +24,13 @@ h5 {    }
 }
 
 
-.pusher .ui.divider:not(.vertical):not(.horizontal)
+.pusher .ui.divider
 {
   border-top: 1px solid rgb(240, 240, 240);
   border-bottom: none;
+  margin: 25px 0;
 }
-body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
+body.nightmode .pusher .ui.divider
 {
   border-top: 1px solid rgb(40, 40, 40);
 }
@@ -99,34 +100,43 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   background-color: transparent;
 }
 
-
 .sidebartoggleicon
 {
   padding: 0 !important;
   margin: 0 25px 0 25px !important;
 }
 
-.icon .dtubesidebaricon
+.mobiletopbar .sidebartoggleicon
+{
+  padding: 0 !important;
+  margin: 0 20px 0 20px !important;
+}
+
+#sidebar .icon.dtubesidebaricon
 {
   padding: 0;
   margin: 0 18px 0 26px;
-  font-size: 1.28em;
+  font-size: 1.25em;
   text-align: center;
 }
 
-.menuitem .dtubesidebarmenu
+#sidebar.mobile .icon.dtubesidebaricon
 {
-  font-size: 14px;
-  font-weight: 600;
-  padding: none;
+  margin: 0 6px 0 21px;
+  font-size: 1em;
 }
 
+#sidebar.mobile .menuitem
+{
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 #mobileselector {
   max-height: 60%;
   top: 52px;
   z-index: 20;
-  background-color: rgba(250, 250, 250);
+  background-color: rgb(250, 250, 250);
 }
 
 #sidebar.desktop.left.sidebar,
@@ -134,7 +144,7 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 {
   z-index: 10;
   top: 57px;
-  background-color: rgba(250, 250, 250);
+  background: rgb(250, 250, 250);
   min-width: 212px;
 }
 
@@ -143,7 +153,8 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 {
   top: 52px;
   z-index: 10;
-  background-color: rgba(250, 250, 250);
+  background-color: rgb(250, 250, 250);
+  min-width: 162px;
 }
 
 #sidebar.nightmode.desktop.left.sidebar,
@@ -154,8 +165,9 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 
 }
 
-#sidebar .ui.divider:not(.vertical):not(.horizontal)
+#sidebar .ui.divider
 {
+  margin: 0;
 
 }
 
@@ -166,7 +178,7 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
 
 #sidebar .sectionslist
 {
-  padding-top: 15px;
+  padding: 15px 0;
 }
 
 #sidebar .sectionslist a
@@ -174,6 +186,11 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   display: block;
   height: 3em;
   line-height: 2.8em;
+}
+
+#sidebar .tagslist
+{
+  padding: 15px 0;
 }
 
 #sidebar .tagslist a
@@ -185,6 +202,11 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   color: rgb(130, 130, 130);
   font-weight: 500;
   font-style: italic;
+}
+
+#sidebar.mobile .tagslist a
+{
+  font-size: 0.9em;
 }
 
 #sidebar .sectionslist a:hover,
@@ -221,6 +243,10 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   color: rgb(20, 20, 20);
 }
 
+#sidebar.mobile .dtubesidebartitle {
+    font-size: 0.9em;
+}
+
 #sidebar .dtubesidebartitle.trendingtitle
 {
   font-size: 1rem;
@@ -230,6 +256,11 @@ body.nightmode .pusher .ui.divider:not(.vertical):not(.horizontal)
   font-weight: 400;
 }
 
+#sidebar.mobile .dtubesidebartitle.trendingtitle
+{
+  font-size: 0.9rem;
+  padding: 2px 0px 10px 20px;
+}
 
 
 
@@ -377,6 +408,16 @@ button {
 .sidebarlink:hover
 {
   color: black;
+}
+
+.mobile.sidebar  .sidebarlink
+{
+  font-size: 0.9em
+}
+
+.mobile.sidebar .mobilesidebarlinks {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .item.sidebarlink
