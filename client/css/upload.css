@@ -1,6 +1,6 @@
 #videouploadsteps .ui.segment.nightmode
 {
-  background: transparent;
+  background: transparent !important;
   border: none;
   box-shadow: none;
   -webkit-box-shadow: none;
