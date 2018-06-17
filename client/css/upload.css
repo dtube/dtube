@@ -1,11 +1,3 @@
-#videouploadsteps .ui.segment.nightmode
-{
-  background: transparent !important;
-  border: none;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-}
-
 #dropzone
 {
   font-size: 18px;
@@ -90,4 +82,18 @@
 #previewzone input[type="file"]
 {
   display: none;
+}
+
+.article.nightmode #videouploadsteps .ui.segment
+{
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.article.nightmode #videouploadsteps .ui.segment a.item,
+.article.nightmode #videouploadsteps .ui.segment label
+{
+  color: rgb(240, 240, 240) !important;
 }
