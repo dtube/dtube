@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 360px;
   height: 280px;
-  border: 8px solid rgb(220, 220, 220);
+  border: 7px solid rgb(220, 220, 220);
   border-radius: 10px;
   cursor: pointer;
   transition: border 0.2s ease;
@@ -14,7 +14,7 @@
 
 #dropzone:hover
 {
-  border: 8px solid rgb(210, 210, 210);
+  border: 7px solid rgb(210, 210, 210);
 }
 
 #dropzone > div
@@ -30,7 +30,7 @@
 {
   margin: 25px 0 25px 0;
   color: rgb(220, 220, 220);
-  font-size: 3em;
+  font-size: 2.9em;
   height: auto;
   transition: color 0.2s ease;
 }
