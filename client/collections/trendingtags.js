@@ -1,15 +1,16 @@
 const moment = require('moment')
-const excludedTags = [
-  Meteor.settings.public.beneficiary,
-  '',
-  'video',
-  'nsfw'
-  // we can add more if needed
-]
 
 TrendingTags = new Mongo.Collection(null)
 
 TrendingTags.loadTopTags = function(limit, cb) {
+  const excludedTags = [
+    Meteor.settings.public.beneficiary,
+    '',
+    'video',
+    'nsfw'
+    // we can add more if needed
+  ]
+  
   dateTo = moment().format('YYYY-MM-DD');
   dateFrom = moment().subtract(30,'d').format('YYYY-MM-DD');
   timeQ = 'created:>='+dateFrom
