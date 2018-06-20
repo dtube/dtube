@@ -3,6 +3,7 @@ const excludedTags = [
   Meteor.settings.public.beneficiary,
   '',
   'video',
+  'nsfw'
   // we can add more if needed
 ]
 

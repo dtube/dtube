@@ -68,12 +68,9 @@
             <h4 class="dtubesidebartitle trendingtitle">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
           </div>
       {{#each tags}}
-      {{#if equals term 'nsfw'}}
-      {{else}}
         <a href='/t/{{term}}' class="menuitem dtubesidebarmenu" title='{{./count}}'>
           {{term}}
         </a>
-      {{/if}}
       {{/each}}
     </nav>
 
