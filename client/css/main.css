@@ -416,9 +416,15 @@ button {
 }
 
 .mobile.sidebar .mobilesidebarlinks {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
+.mobile.sidebar .mobilesidebarspacer {
+  height:20px;
+}
+
+
 
 .item.sidebarlink
 {
