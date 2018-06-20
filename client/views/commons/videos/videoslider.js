@@ -19,7 +19,8 @@ Template.videoslider.createSlider = function (elemId) {
     $("#" + elemId).owlCarousel({
       loop: true,
       margin: 2,
-      nav: false,
+      nav: true,
+      navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
       items: 5,
       slideBy: 2,
       dots: false,
@@ -59,9 +60,9 @@ Template.videoslider.createSlider = function (elemId) {
     $("#" + elemId).owlCarousel({
       loop: true,
       margin: 2,
-      nav: true,
       responsiveBaseElement: document.getElementsByClassName('ui container'),
-      navText: [ '', '' ],
+      nav: true,
+      navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
       animateOut: 'slideOutDown',
       animateIn: 'flipInX',
       dots: false,

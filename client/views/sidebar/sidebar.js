@@ -53,7 +53,7 @@ Template.sidebar.events({
     else {
       Template.sidebar.half()
     }
-      
+
   }
 })
 
@@ -108,11 +108,11 @@ Template.sidebar.half = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  
+
 }
 
 Template.sidebar.full = function() {
-  $('.pusher').attr('style', 'transform: translate3d(210px, 0, 0) !important')
+  $('.pusher').attr('style', 'transform: translate3d(212px, 0, 0) !important')
   $("#sidebar")
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)

@@ -5,7 +5,7 @@
     <div class="ui large borderless main menu fixed" style="height:57px;z-index:9000;">
       <div class="left floated menu" style="width:60%">
         <div class="sidebartoggleicon item header" style="cursor: pointer;">
-          <i class="sidebar icon" style="font-size:1.4em; margin:0;"></i>
+          <i class="sidebar icon" style="font-size:1.4em; margin:1px 0 0 0;"></i>
         </div>
         <a href='/' class="blacklogo header item" id='textlogo'>
             <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_Black.svg" >
@@ -22,7 +22,7 @@
               <i class="search icon"></i>
             </div>
             <div class="results">
-              {{#each searchSuggestions}} 
+              {{#each searchSuggestions}}
               <a class="result">
                 <div class="content">
                   <div class="title">{{this}}</div>
@@ -45,13 +45,13 @@
         <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
           <i class="cloud upload icon" style='font-size:1.3em; margin:0;'></i>
         </a>
-        {{/if}} 
+        {{/if}}
         <!-- {{> notificationdropdown}} -->
-        {{> settingsdropdown}} 
-        {{#if isLoggedOn}} 
-        {{> users}} 
+        {{> settingsdropdown}}
+        {{#if isLoggedOn}}
+        {{> users}}
         {{else}}
-        <a class="ui item">
+        <a class="ui item loginitem">
             {{>buttonlogin}}
         </a>
         {{/if}}

@@ -3,14 +3,13 @@ Template.channel.rendered = function () {
   Session.set('currentTab', 'videos')
   Template.sidebar.selectMenu();
   Template.settingsdropdown.nightMode();
-  Template.channel.randomBackgroundColor();
   // $('.ui.maingrid').removeClass('container');
   $('.ui.sticky').sticky();
   $('.menu .item').tab();
   $('.ui.menu .videoshowmore.money').popup({
     inline: true,
     hoverable: true,
-    position: 'bottom right', 
+    position: 'bottom right',
     delay: {
       show: 100,
       hide: 0
@@ -122,24 +121,3 @@ Template.channel.events({
     Session.set('currentTab', 'about')
   }
 })
-
-
-Template.channel.randomBackgroundColor = function () {
-  var rnd = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-  switch (rnd) {
-    case 1:
-      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbga');
-      break;
-    case 2:
-      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgb');
-      break;
-    case 3:
-      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgc');
-      break;
-    case 4:
-      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbgd');
-      break;
-    default:
-      $('#channelcover').removeAttr('class').addClass('channelcover').addClass('channelbge');
-  }
-}

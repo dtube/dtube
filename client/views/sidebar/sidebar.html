@@ -65,7 +65,7 @@
 
     <nav id="tagslist" class="tagslist">
         <div class="menuitem dsp-inh pdg-non">
-            <h4 class="dtubesidebartitle" style="padding-left: 20px;">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
+            <h4 class="dtubesidebartitle trendingtitle">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
           </div>
       {{#each tags}}
       {{#if equals term 'nsfw'}}
@@ -78,8 +78,9 @@
     </nav>
 
     {{#if isOnMobile }}
+    <div class="ui divider"></div>
     <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
-      <div class="menuitem dtubesidebarmenu" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
+      <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
         <a href='https://about.d.tube' target="_blank" id="about">
           <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
         </a>
@@ -96,10 +97,11 @@
           <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
         </a>
       </div>
+      <div class="mobilesidebarspacer"></div>
     </a>
     {{else}}
     <div class="ui divider"></div>
-    <div class="sidebarlink" style="color: red; background: white;padding: 0px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
+    <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
       <a href='https://about.d.tube' target="_blank" id="about">
         <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
       </a>-

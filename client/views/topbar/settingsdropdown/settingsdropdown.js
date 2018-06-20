@@ -90,7 +90,6 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.customlink').addClass('nightmodetext');
   $('.customtitlelink').addClass('nightmodetext');
   $('.dtubesidebartitle').addClass('nightmodetext');
-  $('.dtubesidebaricon').addClass('nightmodetext');
   $('.videosnaprest').addClass('nightsecondarytext');
   $('.videosnapauthor').addClass('nightsecondarytext');
   $('.videosnaptime').addClass('nightsecondarytext');
@@ -150,7 +149,6 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.customlink').removeClass('nightmodetext');
   $('.customtitlelink').removeClass('nightmodetext');
   $('.dtubesidebartitle').removeClass('nightmodetext');
-  $('.dtubesidebaricon').removeClass('nightmodetext');
   $('.videosnaprest').removeClass('nightsecondarytext');
   $('.videosnapauthor').removeClass('nightsecondarytext');
   $('.videosnaptime').removeClass('nightsecondarytext');

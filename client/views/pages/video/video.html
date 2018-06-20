@@ -15,13 +15,13 @@
               </div>
               <div style="display:inline-block;">
                 <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
-                  {{#each content.tags}} 
-                    {{#if equals this 'dtube'}} 
+                  {{#each content.tags}}
+                    {{#if equals this 'dtube'}}
                     {{else}}
-                      {{#if this}} 
+                      {{#if this}}
                         <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
-                      {{/if}} 
-                    {{/if}} 
+                      {{/if}}
+                    {{/if}}
                   {{/each}}
                 </div>
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
@@ -66,7 +66,7 @@
           <div class="ui segment" style="padding:0px!important;">
             <div class="details wid-ful">
               <div class="videoleftdetails wid-ful" style="padding: 10px;">
-                <div class="ui left tiny circular avatar floated image" 
+                <div class="ui left tiny circular avatar floated image"
                   style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic info.author 'small'}})">
                 </div>
                 <div class="channelLink" style="margin-top:10px;">
@@ -74,18 +74,18 @@
                     {{info.author}}
                   </a>
                 </div>
-                {{#unless equals activeUser user.name}} 
-                  {{#if isLoggedOn}} 
+                {{#unless equals activeUser user.name}}
+                  {{#if isLoggedOn}}
                     {{#if isSubscribedTo info.author}}
                       {{>buttonunsubscribe}}
                     {{else}}
                       {{>buttonsubscribe}}
-                    {{/if}} 
+                    {{/if}}
                   {{else}}
                     <a href="/login">
                       {{>buttonsubscribe}}
                     </a>
-                  {{/if}} 
+                  {{/if}}
                 {{else}}
                   {{>buttonedit}}
                 {{/unless}}
@@ -135,7 +135,7 @@
               </div>
             {{/if}}
           {{/unless}}
-          
+
           <!-- Related Videos Mobile -->
           {{#if userVideosAndResteems}}
             <div class="ui grid mobile only content videorecommendedmobile">
@@ -166,7 +166,7 @@
               </div>
               <form class="ui reply form wid-ful">
                 <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
-                  <textarea id="replytext" rows="3"></textarea> 
+                  <textarea id="replytext" rows="3"></textarea>
                 </div>
                 <div class="ui black right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
                     <i class="ui black icon remove repl dsp-non" style="background:white;opacity:1;"></i>
@@ -182,7 +182,7 @@
                 <h5>{{ translate 'VIDEO_YOU_NEED_TO_LOGIN_TO_COMMENT'}}</h5>
               </a>
             </div>
-            {{/if}} 
+            {{/if}}
             {{> comments}}
           </div>
         </div>
@@ -191,8 +191,8 @@
       <div class="pdg-5 relatedcol four wide column computer only">
         <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
           <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-          {{#if userVideosAndResteems}} 
-            {{> verticalvideoband userVideosAndResteems}} 
+          {{#if userVideosAndResteems}}
+            {{> verticalvideoband userVideosAndResteems}}
           {{/if}}
         </div>
       </div>
@@ -201,10 +201,10 @@
           {{> verticalvideoband userVideosAndResteems}}
         </div>
       </div>
-      
+
 
       <!-- Popups for seeing voters -->
-      {{> popupvoter}} {{> popupdownvoter}} 
+      {{> popupvoter}} {{> popupdownvoter}}
     </div>
   {{/with}}
 </template>

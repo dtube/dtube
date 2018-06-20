@@ -133,7 +133,7 @@ FlowRouter.route('/sc2login', {
   action: function(params, queryParams) {
     var trick = setInterval(function() {
       console.log(queryParams, Waka)
-      var expires_at = new Date(); 
+      var expires_at = new Date();
       queryParams.expires_at = new Date(expires_at .getTime() + queryParams.expires_in*1000);
       if (!Waka.db.Users) return
       Waka.db.Users.upsert(queryParams, function() {
@@ -143,7 +143,7 @@ FlowRouter.route('/sc2login', {
       })
       clearInterval(trick)
     }, 100)
-    
+
   }
 });
 
@@ -161,7 +161,7 @@ FlowRouter.route('/v/:author/:permlink', {
         setTimeout(function(){Template.video.activatePopups()}, 1000)
       } else FlowRouter.go('/')
     })
-    
+
     Template.video.loadState()
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
@@ -192,7 +192,6 @@ FlowRouter.route('/c/:author', {
       if (err) console.log(err)
     })
     SubCounts.loadSubscribers(params.author)
-    Template.channel.randomBackgroundColor();
     Session.set('currentTab', 'videos');
     if(Session.get('activeUsername') == params.author)
     {

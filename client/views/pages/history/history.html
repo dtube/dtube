@@ -1,12 +1,12 @@
 <template name='history'>
   {{activeSidebar}} {{#if isOnMobile}}
   <div class="ui grid" style="margin: 10px 0px">
-    <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+    <h2 class="mb-2">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
     {{> verticalvideoband watchAgain}}
   </div>
   {{else}}
   <div class="ui container">
-    <h2>{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
+    <h2 class="mb-2">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</h2>
     {{> videoband watchAgain}}
   </div>
   {{/if}}

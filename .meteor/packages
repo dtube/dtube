@@ -29,5 +29,5 @@ omega:meteor-desktop-watcher@=0.10.1
 omega:meteor-desktop-bundler@=0.10.1
 omega:meteor-desktop-localstorage@=0.0.11
 fastclick
-babel-compiler
+babel-compiler@7.0.6
 juliancwirko:postcss@=1.2.0
