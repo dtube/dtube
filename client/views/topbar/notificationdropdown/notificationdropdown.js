@@ -40,7 +40,9 @@ Template.notificationdropdown.helpers({
     'click .dropdownnotification, touchstart .dropdownnotification': function(e) {
       if (/Mobi/.test(navigator.userAgent)) {
         Session.set('selectortype', 'notifications');
-        $('#mobileselector').sidebar('show');
+
+        Template.mobileselector.revealMenu('bottom');
+
       }
       Notifications.update({}, {$set: {seen: true}}, {multi: true})
     }

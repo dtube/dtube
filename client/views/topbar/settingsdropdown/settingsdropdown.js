@@ -31,7 +31,9 @@ Template.settingsdropdown.rendered = function() {
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
       } else if (e.hasClass('languages')) {
         Session.set('selectortype', 'languages');
-        $('#mobileselector').sidebar('show');
+
+        Template.mobileselector.revealMenu('bottom');
+        
       } else {
         //console.log(value,text,e)
       }
