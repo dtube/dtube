@@ -13,6 +13,11 @@
     content: '';
     background-color: rgba(0, 0, 0, 0.4);
     overflow: hidden;
+    -moz-transition: opacity 150ms;
+    -ms-transition: opacity 150ms;
+    -o-transition: opacity 150ms;;
+    -webkit-transition: opacity 150ms;
+    transition: opacity 150ms;
 }
 .dt.dimoverlay.dtopen {
     opacity: 1;
@@ -31,11 +36,11 @@
     left: 0;
     right: 0;
     overflow-y: scroll;
-    -moz-transition: all 200ms;
-    -ms-transition: all 200ms;
-    -o-transition: all 200ms;;
-    -webkit-transition: all 200ms;
-    transition: all 200ms;
+    -moz-transition: max-height 150ms;
+    -ms-transition: max-height 150ms;
+    -o-transition: max-height 150ms;;
+    -webkit-transition: max-height 150ms;
+    transition: max-height 150ms;
 }
 .dt.drawer.bottom.dtopen {
     max-height: 60%;
