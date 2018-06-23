@@ -40,12 +40,12 @@ Template.videoslider.createSlider = function (elemId) {
         699: {
          items: 3,
          slideBy: 2,
-        nav: false
+        nav: true
        },
        854: {
          items: 4,
          slideBy: 3,
-         nav: false
+         nav: true
        },
        1060: {
          items: 5,
@@ -82,12 +82,12 @@ Template.videoslider.createSlider = function (elemId) {
          642: {
           items: 3,
           slideBy: 2,
-         nav: false
+         nav: true
         },
         854: {
           items: 4,
           slideBy: 3,
-          nav: false
+          nav: true
         },
         1060: {
           items: 5,
