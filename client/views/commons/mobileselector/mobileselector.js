@@ -14,6 +14,10 @@ Template.mobileselector.helpers({
 })
 
 Template.mobileselector.revealMenu = function(menu) {
+
+    $('.ui.dropdown.needsclick').dropdown('hide');
+
+
     $('.dt.dimoverlay').addClass('dtopen');
     switch (menu) {
         case 'bottom':
