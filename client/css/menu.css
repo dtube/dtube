@@ -36,34 +36,43 @@
     left: 0;
     right: 0;
     overflow-y: scroll;
+    box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;
+    background-color: rgb(250, 250, 250);
     -moz-transition: max-height 150ms;
     -ms-transition: max-height 150ms;
     -o-transition: max-height 150ms;;
     -webkit-transition: max-height 150ms;
     transition: max-height 150ms;
 }
+
 .dt.drawer.bottom.dtopen {
     max-height: 60%;
     pointer-events: auto;
 }
+
+body.nightmode .dt.drawer.bottom {
+    background: rgb(17, 17, 17);
+    color: rgb(240, 240, 240);
+}
+
+body.nightmode .dt.drawer.bottom .item {
+    color: rgb(240, 240, 240) !important;
+}
+
+
 
 .dt.drawer.bottom .item
 {
   text-align: center;
   padding: 10px;
 }
+
 .dt.drawer.bottom .item:hover
 {
   text-align: center;
   padding: 10px;
 }
 
-
-
-#mobileselector {
-  box-shadow: rgba(34, 36, 38, 0.15) 1px 0px 0px;
-  background-color: rgb(250, 250, 250);
-}
 
 
 #mobileselector.nightmode .ui.labeled.icon.menu .item
