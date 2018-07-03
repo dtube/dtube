@@ -32,11 +32,11 @@ Meteor will automatically push any change on the code to the browser while you k
 ## Going in-depth
 ### Working with Uploads
 
-For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Once running, simply edit turn the `localhost` setting to true in this app and it will upload locally instead of our production servers.
+For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Once running, simply turn the `localhost` setting to `true` in `client/settings.js` and it will upload locally instead of our production servers.
 
 ### Working on the Player
 
-As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player if you want to make changes that include the player.
+As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `client/views/commons/videos/player.js` to your file:// version of the player if you want to make changes that include the player.
 
 ### Working with pre-rendering for bots
 
