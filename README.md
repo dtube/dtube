@@ -32,7 +32,7 @@ Meteor will automatically push any change on the code to the browser while you k
 ## Going in-depth
 ### Working with Uploads
 
-For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
+For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Once running, simply edit turn the `localhost` setting to true in this app and it will upload locally instead of our production servers.
 
 ### Working on the Player
 
