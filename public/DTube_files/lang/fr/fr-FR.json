@@ -39,6 +39,7 @@
     "GLOBAL_ERROR_COULD_NOT_VOTE": "Le vote n'a pas été possible",
     "GLOBAL_ERROR_DOWNVOTE_FOR": "Downvote à %1 pour %2",
     "GLOBAL_ERROR_VOTE_FOR": "Vote à %1 pour %2",
+    "GOLIVE_GET_STREAM_KEY": "Get new stream key",
     "HOME_TITLE_FEED_VIDEOS": "Fil d'actualités",
     "HOME_TITLE_HOT_VIDEOS": "Videos Hot",
     "HOME_TITLE_TRENDING_VIDEOS": "Videos Tendances",

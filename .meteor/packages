@@ -25,9 +25,7 @@ session@1.1.7
 chrismbeckett:toastr
 dynamic-import@0.4.0
 frozeman:persistent-minimongo2
-omega:meteor-desktop-watcher@=0.10.1
 omega:meteor-desktop-bundler@=0.10.1
-omega:meteor-desktop-localstorage@=0.0.11
 fastclick
 babel-compiler@7.1.1
 juliancwirko:postcss@=1.2.0

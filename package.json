@@ -26,8 +26,7 @@
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3",
-    "meteor-desktop": "^0.10.1"
+    "autoprefixer": "^7.1.3"
   },
   "postcss": {
     "plugins": {

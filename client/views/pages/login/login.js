@@ -14,7 +14,9 @@ Template.login.success = function(activeUsername) {
 Template.login.events({
   'click #loginbuttonsc2': function(event) {
     event.preventDefault()
-    window.location.href = sc2.getLoginURL()
+    var url = sc2.getLoginURL()
+    console.log(url)
+    window.location.href = url
   },
   'submit .form': function(event) {
     event.preventDefault()

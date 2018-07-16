@@ -43,16 +43,6 @@ Template.uploadform.rendered = function () {
 Template.uploadform.helpers({
   mainUser: function () {
     return Users.findOne({ username: Session.get('activeUsername') })
-  },
-  inputTags: function (tags) {
-    if (!tags) return ''
-    var ok = []
-    for (var i = 0; i < tags.length; i++) {
-      if (tags[i].startsWith(Meteor.settings.public.beneficiary))
-        continue;
-      ok.push(tags[i])
-    }
-    return ok.join(',')
   }
 })
 

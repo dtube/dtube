@@ -36,6 +36,20 @@ FlowRouter.route('/upload', {
   }
 });
 
+FlowRouter.route('/golive', {
+  name: "golive",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 3)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Go Live')
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "golive",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/hotvideos', {
   name: "hotvideos",
   action: function(params, queryParams) {
@@ -84,6 +98,19 @@ FlowRouter.route('/newvideos', {
     Session.set("pageTitle", 'New Videos')
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/live', {
+  name: "livestreams",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 9)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Live Streams')
+    BlazeLayout.render('masterLayout', {
+      main: "livestreams",
       nav: "nav",
     });
   }

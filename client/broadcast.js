@@ -185,6 +185,41 @@ broadcast = {
             cb(err, result)
         })
     },
+    streamVerif: function(verifKey, cb) {
+        var streamer = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!streamer) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.customJson(
+                wif,
+                [],
+                [streamer],
+                'dtubeStreamVerif',
+                JSON.stringify(
+                    { key: verifKey }
+                ),
+                function (err, result) {
+                    cb(err, result)
+                }
+            );
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        var params = {
+            required_auths: [],
+            required_posting_auths: [streamer],
+            id: 'dtubeStreamVerif',
+            json: JSON.stringify({ key: verifKey }),
+        };
+        sc2.broadcast([['custom_json', params]], function(err, result) {
+            cb(err, result.result)
+        })
+    },
     send: function(operations, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
