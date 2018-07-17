@@ -126,12 +126,35 @@
       content: none;
   }
 
+
+
   .semanticui-nextprev-icon {
     margin: 3px 0 0 0 !important;
     padding: 0 !important;
     height: auto !important;
     font-size: 16px !important;
   }
+
+  @media only screen and (max-width: 854px){
+      .owl-prev, .owl-next {
+          width: 34px;
+          height: 34px;
+      }
+      .semanticui-nextprev-icon {
+        font-size: 13px !important;
+      }
+  }
+
+  @media only screen and (max-width: 1166px){
+      .owl-prev, .owl-next {
+          width: 36px;
+          height: 36px;
+      }
+      .semanticui-nextprev-icon {
+        font-size: 14px !important;
+      }
+  }
+
 
   .owl-carousel .owl-nav .owl-prev .semanticui-nextprev-icon
   {

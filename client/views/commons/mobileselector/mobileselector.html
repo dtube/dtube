@@ -1,8 +1,12 @@
 <template name="mobileselector">
-    {{#if equals selectortype 'notifications'}}
-        {{> notificationmenu}}
-    {{/if}}
-    {{#if equals selectortype 'languages'}}
-        {{> languagemenu}}
-    {{/if}}
+     <div class="dt dimoverlay"></div>
+
+     <div id="mobileselector" class="dt drawer bottom">
+         {{#if equals selectortype 'notifications'}}
+             {{> notificationmenu}}
+         {{/if}}
+         {{#if equals selectortype 'languages'}}
+             {{> languagemenu}}
+         {{/if}}
+     </div>
 </template>
