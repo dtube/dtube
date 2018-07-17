@@ -7,9 +7,11 @@
         </div>
         <div id="uploadDetails">
           <div id="previewzone">
-            URL: rtmp://stream.dtube.top/live/
-            <br />
-            Stream Key: {{streamKey}}
+            {{ translate 'GOLIVE_STREAM_URL'}}: rtmp://stream.dtube.top/live/
+            {{#if streamKey}}
+              <br />
+              {{ translate 'GOLIVE_STREAM_KEY'}}: {{streamKey}}
+            {{/if}}
             {{#if isOnMobile}}
               <div class="ui centered grid" style="text-align:right; margin-top:20px; margin-bottom:20px;">
                   <label for="snapFile" style="width:100%;">

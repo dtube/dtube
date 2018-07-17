@@ -44,9 +44,19 @@ Template.golive.events({
   },
   'click #getStreamKey': function (event) {
     event.preventDefault()
+    $('#getStreamKey').addClass('disabled')
+    $('#getStreamKey > i').removeClass('checkmark green key red')
+    $('#getStreamKey > i').addClass('asterisk loading')
+    $('#getStreamKey > i').css('background', 'transparent')
     Livestreams.getStreamKey(function(err, res) {
         if (err) console.log(err)
-        else Session.set('streamKey', res)
+        else { 
+          Session.set('streamKey', res)
+          $('#getStreamKey').removeClass('disabled')
+          $('#getStreamKey > i').addClass('checkmark green')
+          $('#getStreamKey > i').removeClass('asterisk loading')
+          $('#getStreamKey > i').css('background', 'white')
+        }
     })
   }
 })

@@ -1,6 +1,31 @@
 Template.livestreams.helpers({
     livestreams: function () {
-      return Livestreams.find().fetch()
+      var list = Livestreams.find({}, {sort: {'created': -1}}).fetch()
+      var uniqueStreams = []
+      var streamers = []
+      for (let i = 0; i < list.length; i++) {
+        if (streamers.indexOf(list[i].author) == -1) {
+          streamers.push(list[i].author)
+          uniqueStreams.push(list[i])
+        }        
+      }
+      var stats = LiveStats.find().fetch()
+      var onlineStreams = []
+      for (let i = 0; i < uniqueStreams.length; i++) {
+        for (let y = 0; y < stats.length; y++) {
+          if (stats[y]._id == uniqueStreams[i].author) {
+            var onlineStream = uniqueStreams[i]
+            onlineStream.viewers = stats[y].viewers
+            onlineStreams.push(onlineStream)
+          }
+        }
+      }
+      var onlineStreamsByPayout = onlineStreams.sort(function(a,b) {
+        var payoutA = parseFloat(a.pending_payout_value.split(' ')[0])
+        var payoutB = parseFloat(b.pending_payout_value.split(' ')[0])
+        return payoutB - payoutA
+      })
+      return onlineStreamsByPayout
     }
   })
   
@@ -19,6 +44,14 @@ Template.livestreams.helpers({
             // })
           }
         });
+    })
+
+    Livestreams.getStreamsByCreated(100, function(err) {
+      if (err) console.log(err)
+    })
+
+    Livestreams.getStreamsByHot(100, function(err) {
+      if (err) console.log(err)
     })
   }
   
