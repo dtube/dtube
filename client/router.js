@@ -39,7 +39,7 @@ FlowRouter.route('/upload', {
 FlowRouter.route('/golive', {
   name: "golive",
   action: function(params, queryParams) {
-    Session.set("currentMenu", 3)
+    Session.set("currentMenu", 9)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Go Live')
     Template.sidebar.selectMenu();
@@ -106,7 +106,7 @@ FlowRouter.route('/newvideos', {
 FlowRouter.route('/live', {
   name: "livestreams",
   action: function(params, queryParams) {
-    Session.set("currentMenu", 9)
+    Session.set("currentMenu", 10)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'Live Streams')
     BlazeLayout.render('masterLayout', {

@@ -38,7 +38,7 @@ Template.golive.events({
         return
       } else {
         console.log('Uploaded Snap', result)
-        // todo save hash somewhere
+        Session.set('streamImageHash', result.hash)
       }
     })
   },

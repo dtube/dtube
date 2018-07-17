@@ -102,13 +102,27 @@ var getUploaderStatus = function (upldr) {
 };
 
 Template.upload.genBody = function (author, permlink, title, snaphash, videohash, description) {
+  if (FlowRouter.current().route.name == 'golive')
+    return Template.upload.genBodyLivestream(author, permlink, title, snaphash, description)
+  else {
+    var body = '<center>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
+    body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
+    body += description
+    body += '\n\n<hr>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+    body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
+    return body
+  }
+}
+
+Template.upload.genBodyLivestream = function (author, permlink, title, snaphash, description) {
   var body = '<center>'
   body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
   body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
   body += description
   body += '\n\n<hr>'
   body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-  body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
   return body
 }
 
@@ -217,6 +231,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             $('#uploadSnap > i').addClass('checkmark green')
             $('#uploadSnap > i').removeClass('asterisk loading')
             $('#uploadSnap > i').css('background', 'white')
+            cb(null, data.ipfsAddSource)
           }
         })
       }, 1000)

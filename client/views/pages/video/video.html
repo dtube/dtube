@@ -6,6 +6,9 @@
         {{#if video.content.videohash}}
           {{> player}}
         {{/if}}
+        {{#if video.info.livestream}}
+          {{> playerlive}}
+        {{/if}}
         <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
           <!-- Title, Vote - Share - More  -->
           <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
