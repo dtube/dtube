@@ -129,6 +129,10 @@ Template.registerHelper('displayVoters', function (votes, isDownvote) {
   return top20
 })
 
+Template.registerHelper('timeAgoReal', function (timestamp) {
+  return moment(timestamp).fromNow()
+})
+
 Template.registerHelper('timeAgoTimestamp', function (timestamp) {
   return moment(timestamp*1000).fromNow()
 })
@@ -363,3 +367,7 @@ Template.registerHelper('inputTags',function (tags) {
   }
   return ok.join(',')
 });
+
+Template.registerHelper('activeUsername', function() {
+  return Session.get('activeUsername')
+})

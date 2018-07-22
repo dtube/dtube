@@ -1,0 +1,17 @@
+<template name='dtalk'>
+    {{#if isOnMobile}}
+        Todo
+    {{else}}
+        <div class="ui container">
+          <h2 class="mb-2">{{ translate 'DTALK_LIST'}}</h2>
+            {{#each conversations}}
+                <div>
+                    <a href='/dtalk/{{pub}}'>
+                        <img class="ui avatar image" src="{{userPic alias.username}}">
+                        {{alias.username}}
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</template>

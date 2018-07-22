@@ -8,16 +8,19 @@ window.gun = window.gun || Gun('https://gun.dtube.top/gun');
 DTalk = new Mongo.Collection(null)
 Messages = new Mongo.Collection(null)
 
-DTalk.login = function(name, key, cb) {
+DTalk.login = function(cb) {
     var account = Users.findOne({username: Session.get('activeUsername')});
-    name += '@steem'
+    if (!account.publickey || !account.privatekey) {
+        cb('requires to be logged in with steem and posting key')
+    }
+    var name = account.username+'@'+account.publickey+'@steem'
     var user = gun.user()
-    //var key = account.privatekey
-    key = 'todoTotallyRandomKeyPhraseInHere'
+    var key = account.privatekey
     if (user.is) {
         cb('a gun user is already logged in')
         return
     }
+    
     user.auth(name, key, function(ack){
         if(!ack.err){ 
             //profile(account)
@@ -39,6 +42,10 @@ DTalk.login = function(name, key, cb) {
             });
         });
     });
+}
+
+DTalk.logout = function() {
+    gun.user().auth()
 }
 
 
@@ -100,6 +107,14 @@ DTalk.getSecret = async function(pub) {
     return sec
 }
 
+DTalk.decrypt = async function(message, sec) {
+    // decrypting the message
+    Gun.SEA.decrypt(message.msg, sec).then(function(msgdec) {
+        message.msgdec = msgdec
+        Messages.update({_id: message._id}, message)
+    })
+}
+
 async function list(data, key, time){
   var user = gun.user();
   if(!user.is){ return }
@@ -109,12 +124,12 @@ async function list(data, key, time){
   if(!hear){ return }
   if(hear.pub){
     senderPublicKey = await Gun.SEA.verify(hear.pub, await Gun.SEA.verify(hear.pub, false));
-    console.log("list:", senderPublicKey);
     var sec = await DTalk.getSecret(senderPublicKey)
     var alias = await gun.user(senderPublicKey).get('alias').then()
+    DTalk.remove({pub: senderPublicKey})
     DTalk.insert({
         pub: senderPublicKey,
-        alias: alias,
+        alias: parseIdentity(alias),
         sec: sec
     })
     DTalk.getThread(senderPublicKey)
@@ -128,20 +143,45 @@ async function thread(msg, id, me){
     //var what = (msg||{}).what || msg || ''; // why ?
     //var enc = (Gun.obj.ify(msg.replace('SEA{','{'))||{}).ct;
     //var time = new Date(id);
-
+    if (Messages.findOne({
+        pub: thread.pub,
+        id: id
+    })) return
     Messages.insert({
         id: id,
         pub: thread.pub,
         msg: msg,
         me: me
     })
-
-    // decrypting the message
-    var what = await Gun.SEA.decrypt(msg, sec);
-    console.log(what, me)
 }
 thread.me = function(msg, id){
     thread(msg, id, true);
+}
+
+function parseIdentity(alias) {
+    if (alias.split('@').length != 3) {
+        return {
+            username: '',
+            pubKey: '',
+            network: ''
+        }
+    }
+    var identity = {
+        username: alias.split('@')[0],
+        pubKey: alias.split('@')[1],
+        network: alias.split('@')[2]
+    }
+
+    switch (identity.network) {
+        case 'steem':
+            identity.avatar = 'https://steemitimages.com/u/'+identity.username+'/avatar/small'
+            break;
+    
+        default:
+            break;
+    }
+
+    return identity
 }
 
 // async function outbox(pub, key, msg){

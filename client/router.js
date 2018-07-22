@@ -63,15 +63,23 @@ FlowRouter.route('/hotvideos', {
   }
 });
 
-FlowRouter.route('/messages', {
-  name: "messages",
+FlowRouter.route('/dtalk', {
+  name: "dtalk",
   action: function(params, queryParams) {
-    Session.set("currentMenu", 4)
-    Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Messages');
-    //Template.messages.open();
+    Session.set("pageTitle", 'DTalk');
     BlazeLayout.render('masterLayout', {
-      main: "messages",
+      main: "dtalk",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/dtalk/:pub', {
+  name: "pm",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Private Message');
+    BlazeLayout.render('masterLayout', {
+      main: "pm",
       nav: "nav",
     });
   }

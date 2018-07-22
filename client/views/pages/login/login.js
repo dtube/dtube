@@ -4,11 +4,15 @@ Template.login.helpers({
   }
 })
 
-Template.login.success = function(activeUsername) {
+Template.login.success = function(activeUsername, noreroute) {
   Session.set('activeUsername', activeUsername)
   if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Videos.loadFeed(activeUsername)
-  FlowRouter.go('#!/')
+  if (!noreroute)
+    FlowRouter.go('#!/')
+  DTalk.login(function() {
+    DTalk.checkInbox()
+  })
 }
 
 Template.login.events({

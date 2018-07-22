@@ -1,0 +1,46 @@
+<template name="pm">
+    {{#if isOnMobile}}
+        Todo
+    {{else}}
+        <div class="ui container">
+            <h2 class="mb-2">{{ translate 'DTALK_CONV_WITH'}} {{convo.alias.username}}</h2>
+            <div class="ui comments">
+                {{#each messages}}
+                    <div class="comment">
+                        <a class="avatar">
+                            {{#if me}}
+                                <img class="ui avatar image" src="{{userPic activeUsername}}">
+                            {{else}}
+                                <img class="ui avatar image" src="{{userPic convo.alias.username}}">
+                            {{/if}}
+                        </a>
+                        <div class='content'>
+                            <a class="author">
+                                {{#if me}}
+                                    {{activeUsername}}
+                                {{else}}
+                                    {{convo.alias.username}}
+                                {{/if}}
+                            </a>
+                            <div class='metadata'>
+                                <span class="date">{{timeAgoReal id}}</span>
+                            </div>
+                            <div class='text'>
+                                {{#if msgdec}}
+                                    {{msgdec}}
+                                {{else}}
+                                    {{msg}}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+                <form id='newMessageForm' class="ui reply form">
+                    <div class="field">
+                        <input id='newMessage' type='text' placeholder='Reply...' />
+                    </div>
+                </form>
+            </div>
+        </div>
+    {{/if}}
+</template>

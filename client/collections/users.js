@@ -11,10 +11,8 @@ var firstLoad = setInterval(function() {
   Users.remove({})
   Users.refreshLocalUsers()
   Waka.db.Users.findOne({}, function(user) {
-    if (user) {
-      Session.set('activeUsername', user.username)
-      Videos.loadFeed(user.username)
-    }
+    if (user)
+      Template.login.success(user.username, true)
   })
   clearInterval(firstLoad)
 }, 50)
