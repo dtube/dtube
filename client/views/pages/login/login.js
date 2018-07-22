@@ -11,6 +11,7 @@ Template.login.success = function(activeUsername, noreroute) {
   if (!noreroute)
     FlowRouter.go('#!/')
   DTalk.login(function() {
+    Session.set('gunUser', gun.user().is)
     DTalk.checkInbox()
   })
 }

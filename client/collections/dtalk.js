@@ -6,6 +6,7 @@ var xss = require("xss");
 window.gun = window.gun || Gun('https://gun.dtube.top/gun');
 
 DTalk = new Mongo.Collection(null)
+DTalkObserver = new PersistentMinimongo2(DTalk, 'dtalk');
 Messages = new Mongo.Collection(null)
 
 DTalk.login = function(cb) {
@@ -48,7 +49,6 @@ DTalk.logout = function() {
     gun.user().auth()
 }
 
-
 DTalk.checkInbox = function() {
     var user = gun.user()
     if (!user.is)
@@ -89,9 +89,20 @@ DTalk.sendMessageToKey = async function(what, receiverPubKey) {
 
 DTalk.getThread = async function(pub) {
     console.log('getting thread for: '+pub)
+    var sec = await DTalk.getSecret(pub)
+    var alias = await gun.user(pub).get('alias').then()
+    if (alias)
+        alias = parseIdentity(alias)
+    if (!DTalk.findOne({pub: pub})) {
+        DTalk.insert({
+            pub: pub,
+            alias: alias,
+            sec: sec
+        })
+    }
     var user = gun.user()
     var to = gun.user(pub)
-    var sec = await DTalk.getSecret(pub)
+    
     var mask = Gun.SEA.work(pub, sec)
     var me = Gun.SEA.work(user.pair().pub, sec);
     thread.pub = pub
@@ -122,17 +133,20 @@ async function list(data, key, time){
   if(!dh){ return }
   var hear = await Gun.SEA.decrypt(data, dh);
   if(!hear){ return }
+  console.log('hear', hear)
   if(hear.pub){
     senderPublicKey = await Gun.SEA.verify(hear.pub, await Gun.SEA.verify(hear.pub, false));
     var sec = await DTalk.getSecret(senderPublicKey)
+    
     var alias = await gun.user(senderPublicKey).get('alias').then()
-    DTalk.remove({pub: senderPublicKey})
-    DTalk.insert({
-        pub: senderPublicKey,
-        alias: parseIdentity(alias),
-        sec: sec
-    })
-    DTalk.getThread(senderPublicKey)
+    if (alias)
+        alias = parseIdentity(alias)
+    if (!DTalk.findOne({pub: senderPublicKey}))
+        DTalk.insert({
+            pub: senderPublicKey,
+            alias: alias,
+            sec: sec
+        })
   }
 }
 

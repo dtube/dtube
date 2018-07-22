@@ -118,6 +118,6 @@ function getCultureAuto(){
 window.translate = translate;
 
 //for html files
-Template.registerHelper( 'translate', (code) => {
-  return translate(code);
+Template.registerHelper( 'translate', (code, var1, var2) => {
+  return translate(code, var1, var2);
 });

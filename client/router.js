@@ -77,6 +77,7 @@ FlowRouter.route('/dtalk', {
 FlowRouter.route('/dtalk/:pub', {
   name: "pm",
   action: function(params, queryParams) {
+    DTalk.getThread(params.pub)
     Session.set("pageTitle", 'Private Message');
     BlazeLayout.render('masterLayout', {
       main: "pm",

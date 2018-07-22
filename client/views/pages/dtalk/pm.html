@@ -3,7 +3,7 @@
         Todo
     {{else}}
         <div class="ui container">
-            <h2 class="mb-2">{{ translate 'DTALK_CONV_WITH'}} {{convo.alias.username}}</h2>
+            <h2 class="mb-2">{{ translate 'DTALK_CONV_WITH' convo.alias.username}}</h2>
             <div class="ui comments">
                 {{#each messages}}
                     <div class="comment">

@@ -4,6 +4,13 @@
     {{else}}
         <div class="ui container">
           <h2 class="mb-2">{{ translate 'DTALK_LIST'}}</h2>
+            {{#unless hasPublishedKey}}
+                <div class="ui red dtube button subscribe" tabindex="0">
+                    <div style="display:inline-block;padding: 0.8em 1em;">
+                        {{ translate 'DTALK_OPT_IN'}}
+                    </div>
+                </div>
+            {{/unless}}
             {{#each conversations}}
                 <div>
                     <a href='/dtalk/{{pub}}'>
