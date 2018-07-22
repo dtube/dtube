@@ -4,7 +4,7 @@ Livestreams = new Mongo.Collection(null)
 Livestreams.getStreamKey = function(cb) {
     var username = Session.get('activeUsername')
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:4000/resetKey/'+username, true);
+    xhr.open('GET', 'https://stream.dtube.top:3000/resetKey/'+username, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -29,7 +29,7 @@ Livestreams.getStreamKey = function(cb) {
 
 Livestreams.verifyKey = function(block, tx_num, cb) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:4000/verify/'+block+'/'+tx_num, true);
+    xhr.open('GET', 'https://stream.dtube.top:3000/verify/'+block+'/'+tx_num, true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
@@ -47,7 +47,7 @@ Livestreams.verifyKey = function(block, tx_num, cb) {
 
 Livestreams.getStreams = function(cb) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:4000/getStreams', true);
+    xhr.open('GET', 'https://stream.dtube.top:3000/getStreams', true);
     xhr.send();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
