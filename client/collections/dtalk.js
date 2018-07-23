@@ -1,8 +1,6 @@
 import Gun from 'gun/gun';
 import SEA from 'gun/sea';
 import timegraph from 'gun/lib/time';
-var xss = require("xss");
-// TODO IMPORTANT
 window.gun = window.gun || Gun('https://gun.dtube.top/gun');
 
 DTalk = new Mongo.Collection(null)
@@ -16,31 +14,33 @@ DTalk.login = function(cb) {
     }
     var name = account.username+'@'+account.publickey+'@steem'
     var user = gun.user()
-    var key = account.privatekey
     if (user.is) {
         cb('a gun user is already logged in')
         return
     }
-    
-    user.auth(name, key, function(ack){
-        if(!ack.err){ 
-            //profile(account)
-            cb(null, ack)
-            return
-        }
-        user.create(name, key, function(ack){
-            if(ack.err){
-                cb("Couldn't create gun account");
-                return;
+    hash('SHA-256', account.privatekey).then(hashed => {
+        key = encode64(hashed)
+        // try to login
+        user.auth(name, key, function(ack){
+            if(!ack.err){ 
+                cb(null, ack)
+                return
             }
-            user.auth(name, key, function(ack){
-                if(!ack.err){
-                    //profile(account)
-                    cb(null, ack)
-                    return
+            // it failed? try to create the acc
+            user.create(name, key, function(ack){
+                if(ack.err){
+                    cb("Couldn't create gun account");
+                    return;
                 }
-                cb('Created gun account but couldnt auth')
-            });
+                // then try to login again
+                user.auth(name, key, function(ack){
+                    if(!ack.err){
+                        cb(null, ack)
+                        return
+                    }
+                    cb('Created gun account but couldnt auth')
+                });
+            }, {already: true});
         });
     });
 }
@@ -154,9 +154,8 @@ async function thread(msg, id, me){
     var sec = DTalk.findOne({pub: thread.pub}).sec
     var id = await Gun.SEA.decrypt(id, sec);
     if(!id){ return }
-    //var what = (msg||{}).what || msg || ''; // why ?
+    // we could use this in future to display the encrypted data and animate
     //var enc = (Gun.obj.ify(msg.replace('SEA{','{'))||{}).ct;
-    //var time = new Date(id);
     if (Messages.findOne({
         pub: thread.pub,
         id: id
@@ -197,6 +196,16 @@ function parseIdentity(alias) {
 
     return identity
 }
+
+function encode64 (buff) {
+    return btoa(new Uint8Array(buff).reduce((s, b) => s + String.fromCharCode(b), ''));
+}
+
+function hash (algo, str) {
+    return crypto.subtle.digest(algo, new TextEncoder().encode(str));
+}
+
+// old dtalk code with jquery
 
 // async function outbox(pub, key, msg){
 //     // temporary lightweight solution until we think of something better.
