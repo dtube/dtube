@@ -3,8 +3,13 @@
         Todo
     {{else}}
         <div class="ui container">
-            <h2 class="mb-2">{{ translate 'DTALK_CONV_WITH' convo.alias.username}}</h2>
-            <div class="ui comments">
+            <h2 class="mb-2">
+                {{ translate 'DTALK_CONV_WITH' convo.alias.username}}
+                {{#unless isVerified}}
+                    <i class="exclamation triangle icon"></i>
+                {{/unless}}
+            </h2>
+            <div class="ui comments" style="max-height: 400px; overflow-y: overlay;">
                 {{#each messages}}
                     <div class="comment">
                         <a class="avatar">
@@ -15,7 +20,8 @@
                             {{/if}}
                         </a>
                         <div class='content'>
-                            <a class="author">
+                            <a class="author"
+                                href='/c/{{#if me}}{{activeUsername}}{{else}}{{convo.alias.username}}{{/if}}'>
                                 {{#if me}}
                                     {{activeUsername}}
                                 {{else}}
@@ -33,12 +39,12 @@
                         </div>
                     </div>
                 {{/each}}
-                <form id='newMessageForm' class="ui reply form">
-                    <div class="field">
-                        <input id='newMessage' type='text' placeholder='Reply...' />
-                    </div>
-                </form>
             </div>
+            <form id='newMessageForm' class="ui reply form">
+                <div class="field">
+                    <input id='newMessage' type='text' placeholder='Reply...' />
+                </div>
+            </form>
         </div>
     {{/if}}
 </template>
