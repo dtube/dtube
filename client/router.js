@@ -67,6 +67,8 @@ FlowRouter.route('/dtalk', {
   name: "dtalk",
   action: function(params, queryParams) {
     Session.set("pageTitle", 'DTalk');
+    Session.set("currentMenu", 11)
+    Template.sidebar.selectMenu();
     ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
     BlazeLayout.render('masterLayout', {
       main: "dtalk",
@@ -82,6 +84,8 @@ FlowRouter.route('/dtalk/:pub', {
     if (DTalk.findOne({pub: params.pub}))
       ChainUsers.fetchNames([DTalk.findOne({pub: params.pub}).alias.username], function(){})
     Session.set("pageTitle", 'Private Message');
+    Session.set("currentMenu", 11)
+    Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "pm",
       nav: "nav",
