@@ -53,6 +53,10 @@ Livestreams.getStreams = function(cb) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
+                if (!xhr.responseText || xhr.responseText.length == 0) {
+                    cb(null)
+                    return
+                }
                 var streams = JSON.parse(xhr.responseText)
                 for (var key in streams) {
                     var stream = {
