@@ -38,7 +38,7 @@ Template.dtalk.helpers({
 Template.dtalk.events({
     'keyup #dtalkSearch': function(event) {
         Session.set('dtalkUserSearch', event.target.value)
-        if (!Chainusers.findOne({name: event.target.value}))
+        if (!ChainUsers.findOne({name: event.target.value}))
             ChainUsers.fetchNames([event.target.value], function(){})
     },
     'submit .searchUserForm': function(event) {
