@@ -9,8 +9,6 @@ Messages = new Mongo.Collection(null)
 
 DTalk.login = function(cb) {
     var account = Users.findOne({username: Session.get('activeUsername')});
-    console.log(Session.get('activeUsername'))
-    console.log(Users.findOne({username: Session.get('activeUsername')}))
     if (!account || !account.publickey || !account.privatekey) {
         cb('requires to be logged in with steem and posting key')
         return
