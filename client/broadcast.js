@@ -21,7 +21,7 @@ broadcast = {
                 if (user) {
                   Waka.db.Users.remove(user._id, function(result) {
                     Users.remove({})
-                    Users.refreshLocalUsers()
+                    Users.refreshLocalUsers(function(){})
                     Waka.db.Users.findOne({}, function(user) {
                       if (user) {
                         Session.set('activeUsername', user.username)

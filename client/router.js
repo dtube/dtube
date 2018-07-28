@@ -181,7 +181,7 @@ FlowRouter.route('/sc2login', {
       if (!Waka.db.Users) return
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
-        Users.refreshLocalUsers()
+        Users.refreshLocalUsers(function(){})
         Template.login.success(queryParams.username)
       })
       clearInterval(trick)

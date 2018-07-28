@@ -9,8 +9,11 @@ Messages = new Mongo.Collection(null)
 
 DTalk.login = function(cb) {
     var account = Users.findOne({username: Session.get('activeUsername')});
-    if (!account.publickey || !account.privatekey) {
+    console.log(Session.get('activeUsername'))
+    console.log(Users.findOne({username: Session.get('activeUsername')}))
+    if (!account || !account.publickey || !account.privatekey) {
         cb('requires to be logged in with steem and posting key')
+        return
     }
     var name = account.username+'@'+account.publickey+'@steem'
     var user = gun.user()
@@ -45,8 +48,10 @@ DTalk.login = function(cb) {
     });
 }
 
-DTalk.logout = function() {
-    gun.user().auth()
+DTalk.logout = function(cb) {
+    gun.user().auth(null, null, function() {
+        cb(null)
+    })
 }
 
 DTalk.checkInbox = function() {
@@ -97,7 +102,8 @@ DTalk.getThread = async function(pub) {
         DTalk.insert({
             pub: pub,
             alias: alias,
-            sec: sec
+            sec: sec,
+            self: Session.get('activeUsername')
         })
     }
     var user = gun.user()
@@ -145,7 +151,8 @@ async function list(data, key, time){
         DTalk.insert({
             pub: senderPublicKey,
             alias: alias,
-            sec: sec
+            sec: sec,
+            self: Session.get('activeUsername')
         })
   }
 }

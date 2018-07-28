@@ -60,8 +60,9 @@ Template.login.events({
         if (event.target.rememberme.checked) {
           Waka.db.Users.upsert(user, function() {
             Users.remove({})
-            Users.refreshLocalUsers()
-            Template.login.success(user.username)
+            Users.refreshLocalUsers(function(err) {
+              Template.login.success(user.username)
+            })
           })
         } else {
           Users.insert(user)

@@ -1,6 +1,8 @@
 Template.dtalk.helpers({
     conversations: function() {
-        return DTalk.find()
+        return DTalk.find({
+            self: Session.get('activeUsername')
+        })
     },
     gunUser: function() {
         return Session.get('gunUser')

@@ -9,7 +9,7 @@ var firstLoad = setInterval(function() {
   }
 
   Users.remove({})
-  Users.refreshLocalUsers()
+  Users.refreshLocalUsers(function(){})
   Waka.db.Users.findOne({}, function(user) {
     if (user)
       Template.login.success(user.username, true)
@@ -34,13 +34,12 @@ Users.refreshUsers = function(usernames) {
   })
 }
 
-Users.refreshLocalUsers = function() {
+Users.refreshLocalUsers = function(cb) {
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
       Users.insert(results[i])
       usernames.push(results[i].username)
-
 
       // fill the subscribes for each local user
       Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
@@ -51,6 +50,7 @@ Users.refreshLocalUsers = function() {
         else console.log('Subs loaded')
       })
     }
+    cb(null)
     Users.refreshUsers(usernames)
   })
 }
