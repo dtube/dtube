@@ -89,6 +89,24 @@
   height: 17px;
 }
 
+.livestreamviewcount
+{
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  color: rgb(226, 226, 226);
+  background-color: rgba(34, 36, 38, 0.75);
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
+  z-index: 99;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 17px;
+}
+
 .videosnaptime
 {
   color: rgba(20, 20, 20, 0.6);
