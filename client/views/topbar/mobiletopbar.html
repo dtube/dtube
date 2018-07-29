@@ -7,12 +7,14 @@
                 <div class="ui sidebartoggleicon item" style="cursor: pointer;float:left;padding-left:10px;padding-right:8px;">
                     <i class="sidebar icon" style="font-size:1.2em; margin:18px 0 0 0;"></i>
                 </div>
-                <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
-                    <img style="width:90px;" src="https://d.tube/DTube_files/images/DTube_Black.svg">
-                </a>
-                <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
-                  <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_White.svg" >
-                </a>
+                {{#if isLargeEnoughForLogo}}
+                    <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
+                        <img style="width:90px;" src="https://d.tube/DTube_files/images/DTube_Black.svg">
+                    </a>
+                    <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo' style="padding: 6px !important;margin-right: 0px;">
+                        <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_White.svg" >
+                    </a>
+                {{/if}}
                 <div class="ui right aligned noshadow grid small menu" style="float:right;margin-top: 5px;">
                     <div id="mobilesearchbis" class="ui item" style="float:right;padding: 0.828571em">
                         <i class="search icon" style='font-size:1.4em; margin:1px 0 0 0;'></i>
