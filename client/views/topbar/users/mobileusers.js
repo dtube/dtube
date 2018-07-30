@@ -5,12 +5,15 @@ Template.mobileusers.rendered = function() {
         if (e.hasClass('logIn')) {
           Session.set('activeUsername', e.data('username'))
           Videos.loadFeed(e.data('username'))
+          DTalk.logout(function() {
+            DTalk.login(function(){})
+          })
         } else if (e.hasClass('logOut')) {
           Waka.db.Users.findOne({username: e.data('username')}, function(user) {
             if (user) {
               Waka.db.Users.remove(user._id, function(result) {
                 Users.remove({})
-                Users.refreshLocalUsers()
+                Users.refreshLocalUsers(function(){})
                 Waka.db.Users.findOne({}, function(user) {
                   if (user) {
                     Session.set('activeUsername', user.username)

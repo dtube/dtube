@@ -3,7 +3,10 @@ var culture = 'en-us'
 var jsonTranslateDef = null
 
 window.loadDefaultLang = function(cb = function(){}){
-  $.get('https://d.tube/DTube_files/lang/en/en-US.json', function(json, result) {
+  var url = 'https://d.tube/DTube_files/lang/en/en-US.json'
+  if (window.location.hostname == 'localhost' && window.location.port == '3000')
+  url = url.replace('https://d.tube', 'http://localhost:3000')
+  $.get(url, function(json, result) {
     if (result == 'success') {
       jsonTranslateDef = json
       cb()
@@ -24,7 +27,10 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
   }
 
   UserSettings.set('language', culture)
-  $.get('https://d.tube/DTube_files/lang/'+Meteor.settings.public.lang[culture].path, function(json, result) {
+  var url = 'https://d.tube/DTube_files/lang/'+Meteor.settings.public.lang[culture].path
+  if (window.location.hostname == 'localhost' && window.location.port == '3000')
+  url = url.replace('https://d.tube', 'http://localhost:3000')
+  $.get(url, function(json, result) {
     if (result == 'success') {
       Session.set('jsonTranslate', json)
       cb()
@@ -112,6 +118,6 @@ function getCultureAuto(){
 window.translate = translate;
 
 //for html files
-Template.registerHelper( 'translate', (code) => {
-  return translate(code);
+Template.registerHelper( 'translate', (code, var1, var2) => {
+  return translate(code, var1, var2);
 });

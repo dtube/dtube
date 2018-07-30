@@ -21,7 +21,7 @@ broadcast = {
                 if (user) {
                   Waka.db.Users.remove(user._id, function(result) {
                     Users.remove({})
-                    Users.refreshLocalUsers()
+                    Users.refreshLocalUsers(function(){})
                     Waka.db.Users.findOne({}, function(user) {
                       if (user) {
                         Session.set('activeUsername', user.username)
@@ -183,6 +183,41 @@ broadcast = {
         sc2.setAccessToken(accessToken);
         sc2.reblog(reblogger, author, permlink, function(err, result) {
             cb(err, result)
+        })
+    },
+    streamVerif: function(verifKey, cb) {
+        var streamer = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!streamer) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            steem.broadcast.customJson(
+                wif,
+                [],
+                [streamer],
+                'dtubeStreamVerif',
+                JSON.stringify(
+                    { key: verifKey }
+                ),
+                function (err, result) {
+                    cb(err, result)
+                }
+            );
+            return;
+        }
+        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
+        if (!accessToken) {
+            cb('ERROR_BROADCAST')
+            return;
+        }
+        sc2.setAccessToken(accessToken);
+        var params = {
+            required_auths: [],
+            required_posting_auths: [streamer],
+            id: 'dtubeStreamVerif',
+            json: JSON.stringify({ key: verifKey }),
+        };
+        sc2.broadcast([['custom_json', params]], function(err, result) {
+            cb(err, result.result)
         })
     },
     send: function(operations, cb) {

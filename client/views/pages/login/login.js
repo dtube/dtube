@@ -4,17 +4,24 @@ Template.login.helpers({
   }
 })
 
-Template.login.success = function(activeUsername) {
+Template.login.success = function(activeUsername, noreroute) {
   Session.set('activeUsername', activeUsername)
   if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Videos.loadFeed(activeUsername)
-  FlowRouter.go('#!/')
+  if (!noreroute)
+    FlowRouter.go('#!/')
+  DTalk.login(function() {
+    Session.set('gunUser', gun.user().is)
+    DTalk.checkInbox()
+  })
 }
 
 Template.login.events({
   'click #loginbuttonsc2': function(event) {
     event.preventDefault()
-    window.location.href = sc2.getLoginURL()
+    var url = sc2.getLoginURL()
+    console.log(url)
+    window.location.href = url
   },
   'submit .form': function(event) {
     event.preventDefault()
@@ -53,8 +60,9 @@ Template.login.events({
         if (event.target.rememberme.checked) {
           Waka.db.Users.upsert(user, function() {
             Users.remove({})
-            Users.refreshLocalUsers()
-            Template.login.success(user.username)
+            Users.refreshLocalUsers(function(err) {
+              Template.login.success(user.username)
+            })
           })
         } else {
           Users.insert(user)

@@ -8,28 +8,44 @@
         </div>
       </a>
       {{#if activeUser}}
-      <a href='/c/{{activeUser}}' class="item pdg-non">
-        <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="grid layout icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
-        </div>
-      </a>
-      {{/if}}
-      {{#if activeUser}}
-      <a href='/upload' class="item pdg-non">
-        <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="cloud upload icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
-        </div>
-      </a>
+        <a href='/c/{{activeUser}}' class="item pdg-non">
+          <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="grid layout icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
+          </div>
+        </a>
+        <a href='/dtalk' class="item pdg-non">
+          <div id="dtalksidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="comment icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_DTALK'}}</span>
+          </div>
+        </a>
+        <a href='/upload' class="item pdg-non">
+          <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="cloud upload icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+          </div>
+        </a>
+        <a href='/golive' class="item pdg-non">
+          <div id="golivesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="podcast icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_GO_LIVE'}}</span>
+          </div>
+        </a>
       {{else}}
-      <a href='/login' class="item pdg-non">
-        <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="cloud upload icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+        <a href='/login' class="item pdg-non">
+          <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="cloud upload icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+          </div>
+        </a>
+      {{/if}}
+      <a href='/live' class="item pdg-non">
+        <div id="livesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="tv icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_LIVESTREAMS'}}</span>
         </div>
       </a>
-      {{/if}}
       <a href='/hotvideos' class="item pdg-non">
         <div id="hotsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="fire icon dtubesidebaricon"></i>
@@ -68,12 +84,9 @@
             <h4 class="dtubesidebartitle trendingtitle">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
           </div>
       {{#each tags}}
-      {{#if equals term 'nsfw'}}
-      {{else}}
         <a href='/t/{{term}}' class="menuitem dtubesidebarmenu" title='{{./count}}'>
           {{term}}
         </a>
-      {{/if}}
       {{/each}}
     </nav>
 

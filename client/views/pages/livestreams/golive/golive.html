@@ -1,0 +1,75 @@
+<template name="golive">
+    <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
+      <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
+        <div class="ui indicating progress" id="progresssnap" style="display:none">
+          <div class="bar"></div>
+          <div class="label">{{ translate 'UPLOAD_UPLOADING_SNAP'}}</div>
+        </div>
+        <div id="uploadDetails">
+          <div id="previewzone">
+            {{ translate 'GOLIVE_STREAM_URL'}}: rtmp://stream.dtube.top/live/
+            {{#if streamKey}}
+              <br />
+              {{ translate 'GOLIVE_STREAM_KEY'}}: {{streamKey}}
+            {{/if}}
+            {{#if isOnMobile}}
+              <div class="ui centered grid" style="text-align:right; margin-top:20px; margin-bottom:20px;">
+                  <label for="snapFile" style="width:100%;">
+                    <a class="ui red fluid dtube icon right labeled button needsclick" id="uploadSnap">
+                      <div style="display:inline-block; padding:0.8em 1em;" class="needsclick">
+                        {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                      </div>
+                      <i class="cloud upload icon red" style="background:white; opacity:1;"></i>
+                    </a>
+                  </label>
+                  <input type="file" id="snapFile">
+              </div>
+            {{else}}
+              <div style="text-align:right; margin-top:30px; margin-bottom:40px;">
+                <label for="getStreamKey">
+                  <a class="ui red dtube icon right labeled button" style=" margin-top:10px;" id="getStreamKey">
+                    <div style="display:inline-block; padding:0.8em 1em;">
+                      {{ translate 'GOLIVE_GET_STREAM_KEY'}}
+                    </div>
+                    <i class="key icon red" style="background:white; opacity:1;"></i>
+                  </a>
+                </label>
+                <input type="file" id="getStreamKey">
+              </div>
+              <div style="text-align:right; margin-top:30px; margin-bottom:40px;">
+                  <label for="snapFile">
+                    <a class="ui red dtube icon right labeled button" style=" margin-top:10px;" id="uploadSnap">
+                      <div style="display:inline-block; padding:0.8em 1em;">
+                        {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                      </div>
+                      <i class="cloud upload icon red" style="background:white; opacity:1;"></i>
+                    </a>
+                  </label>
+                  <input type="file" id="snapFile">
+              </div>
+            {{/if}}
+          </div>
+          {{> goliveform}}
+          <div class="ui section divider"></div>
+          {{#if isOnMobile}}
+            <div class="ui slider nsfw checkbox" style="margin-bottom:20px;">
+              <input type="checkbox" name="newsletter">
+              <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+            </div>
+            {{> uploadformsubmit}}
+          {{else}}
+            <div style="text-align:left; margin-top:20px;">
+              <div class="ui slider nsfw checkbox" style="padding-top:10px;">
+                <input type="checkbox" name="newsletter">
+                <label style="color:black;">{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+              </div>
+              <div style="display:inline-block; float:right;">
+                {{> uploadformsubmit}}
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </template>
+  

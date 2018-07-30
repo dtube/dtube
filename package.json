@@ -11,23 +11,23 @@
     "asksteem": "0.0.12",
     "bufferutil": "^3.0.5",
     "dtube-autolinker": "1.4.3",
-    "gun": "^0.9.996",
+    "gun": "^0.9.9997",
     "imagesloaded": "^4.1.4",
     "languages": "^0.1.3",
     "meteor-node-stubs": "^0.2.11",
     "moment": "^2.18.1",
     "moment-with-locales-es6": "^2.18.1",
+    "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
     "sc2-sdk": "^1.0.2",
     "steem": "^0.6.7",
     "text-encoding": "^0.6.4",
-    "utf-8-validate": "^3.0.3",
+    "utf-8-validate": "^5.0.1",
     "wakajs": "0.0.16",
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3",
-    "meteor-desktop": "^0.10.1"
+    "autoprefixer": "^7.1.3"
   },
   "postcss": {
     "plugins": {

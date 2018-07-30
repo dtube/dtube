@@ -102,20 +102,34 @@ var getUploaderStatus = function (upldr) {
 };
 
 Template.upload.genBody = function (author, permlink, title, snaphash, videohash, description) {
+  if (FlowRouter.current().route.name == 'golive')
+    return Template.upload.genBodyLivestream(author, permlink, title, snaphash, description)
+  else {
+    var body = '<center>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
+    body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
+    body += description
+    body += '\n\n<hr>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+    body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
+    return body
+  }
+}
+
+Template.upload.genBodyLivestream = function (author, permlink, title, snaphash, description) {
   var body = '<center>'
   body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
   body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
   body += description
   body += '\n\n<hr>'
   body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-  body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
   return body
 }
 
 Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
-    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
-    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p&sprite=true'
+    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -217,6 +231,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             $('#uploadSnap > i').addClass('checkmark green')
             $('#uploadSnap > i').removeClass('asterisk loading')
             $('#uploadSnap > i').css('background', 'white')
+            cb(null, data.ipfsAddSource)
           }
         })
       }, 1000)

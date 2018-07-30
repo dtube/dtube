@@ -66,6 +66,9 @@ Template.sidebar.resetActiveMenu = function () {
   $('#hotsidebarmenu').removeClass('activemenu')
   $('#newsidebarmenu').removeClass('activemenu')
   $('#watchlatersidebarmenu').removeClass('activemenu')
+  $('#golivesidebarmenu').removeClass('activemenu')
+  $('#livesidebarmenu').removeClass('activemenu')
+  $('#dtalksidebarmenu').removeClass('activemenu')
   Template.settingsdropdown.nightMode();
 }
 
@@ -95,6 +98,15 @@ Template.sidebar.selectMenu = function () {
       break;
     case 8:
       $('#watchagainsidebarmenu').addClass('activemenu')
+      break;
+    case 9:
+      $('#golivesidebarmenu').addClass('activemenu')
+      break;
+    case 10:
+      $('#livesidebarmenu').addClass('activemenu')
+      break;
+    case 11:
+      $('#dtalksidebarmenu').addClass('activemenu')
       break;
     default:
       break;

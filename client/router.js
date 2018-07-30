@@ -36,6 +36,20 @@ FlowRouter.route('/upload', {
   }
 });
 
+FlowRouter.route('/golive', {
+  name: "golive",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 9)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Go Live')
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "golive",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/hotvideos', {
   name: "hotvideos",
   action: function(params, queryParams) {
@@ -49,15 +63,31 @@ FlowRouter.route('/hotvideos', {
   }
 });
 
-FlowRouter.route('/messages', {
-  name: "messages",
+FlowRouter.route('/dtalk', {
+  name: "dtalk",
   action: function(params, queryParams) {
-    Session.set("currentMenu", 4)
+    Session.set("pageTitle", 'DTalk');
+    Session.set("currentMenu", 11)
     Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Messages');
-    Template.messages.open();
+    ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
     BlazeLayout.render('masterLayout', {
-      main: "messages",
+      main: "dtalk",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/dtalk/:pub', {
+  name: "pm",
+  action: function(params, queryParams) {
+    DTalk.getThread(params.pub)
+    if (DTalk.findOne({pub: params.pub}))
+      ChainUsers.fetchNames([DTalk.findOne({pub: params.pub}).alias.username], function(){})
+    Session.set("pageTitle", 'Private Message');
+    Session.set("currentMenu", 11)
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "pm",
       nav: "nav",
     });
   }
@@ -84,6 +114,19 @@ FlowRouter.route('/newvideos', {
     Session.set("pageTitle", 'New Videos')
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/live', {
+  name: "livestreams",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 10)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Live Streams')
+    BlazeLayout.render('masterLayout', {
+      main: "livestreams",
       nav: "nav",
     });
   }
@@ -138,7 +181,7 @@ FlowRouter.route('/sc2login', {
       if (!Waka.db.Users) return
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
-        Users.refreshLocalUsers()
+        Users.refreshLocalUsers(function(){})
         Template.login.success(queryParams.username)
       })
       clearInterval(trick)

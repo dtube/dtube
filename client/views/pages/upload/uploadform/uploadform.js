@@ -43,16 +43,6 @@ Template.uploadform.rendered = function () {
 Template.uploadform.helpers({
   mainUser: function () {
     return Users.findOne({ username: Session.get('activeUsername') })
-  },
-  inputTags: function (tags) {
-    if (!tags) return ''
-    var ok = []
-    for (var i = 0; i < tags.length; i++) {
-      if (tags[i].startsWith(Meteor.settings.public.beneficiary))
-        continue;
-      ok.push(tags[i])
-    }
-    return ok.join(',')
   }
 })
 
@@ -67,7 +57,10 @@ Template.uploadform.parseTags = function (raw) {
       videoTags.push(raw.split(',')[i].toLowerCase())
     //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
   }
-  tags.push(Meteor.settings.public.beneficiary)
+  if (FlowRouter.current().route.name == 'golive')
+    tags.push('dtv')
+  else
+    tags.push(Meteor.settings.public.beneficiary)
   return [tags, videoTags]
 }
 
@@ -97,8 +90,8 @@ Template.uploadform.generateVideo = function (tags) {
     article.content.video480hash = $('input[name=video480hash]')[0].value
   if ($('input[name=video720hash]')[0].value.length > 0)
     article.content.video720hash = $('input[name=video720hash]')[0].value
-  // if ($('input[name=video1080hash]')[0].value.length > 0)
-  //   article.content.video1080hash = $('input[name=video1080hash]')[0].value
+  if ($('input[name=video1080hash]')[0].value.length > 0)
+    article.content.video1080hash = $('input[name=video1080hash]')[0].value
   if ($('input[name=magnet]')[0].value.length > 0)
     article.content.magnet = $('input[name=magnet]')[0].value
 
@@ -128,6 +121,40 @@ Template.uploadform.generateVideo = function (tags) {
   return article
 }
 
+Template.uploadform.generateLivestream = function (tags) {
+  var article = {
+    info: {
+      title: $('input[name=title]')[0].value,
+      snaphash: Session.get('streamImageHash'),
+      author: Users.findOne({ username: Session.get('activeUsername') }).username,
+      permlink: Template.upload.createPermlink(8),
+      livestream: true
+    },
+    content: {
+      description: $('textarea[name=description]')[0].value,
+      tags: tags
+    }
+  }
+
+  if (!article.info.title) {
+    toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.info.title.length > 256) {
+    toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.info.snaphash) {
+    toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.info.author) {
+    toastr.error(translate('UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING'), translate('ERROR_TITLE'))
+    return
+  }
+  return article
+}
+
 Template.uploadformsubmit.events({
   'submit .form': function (event) {
     event.preventDefault()
@@ -135,23 +162,26 @@ Template.uploadformsubmit.events({
   'click .uploadsubmit': function (event) {
     event.preventDefault()
     var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
-    var article = Template.uploadform.generateVideo(tags[1])
+    if (FlowRouter.current().route.name == 'golive')
+      var article = Template.uploadform.generateLivestream(tags[1])
+    else
+      var article = Template.uploadform.generateVideo(tags[1])
     if (!article) return
 
     // publish on blockchain !!
     $('#step3load').show()
     
-    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var author = article.info.author
     var permlink = article.info.permlink
     var title = article.info.title
-    var body = $('textarea[name=body]')[0].value
+    if ($('textarea[name=body]')[0])
+      var body = $('textarea[name=body]')[0].value
+    else body = ''
 
     if (!body || body.length < 1)
       body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, article.content.description)
     else
       body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, body)
-
 
     var jsonMetadata = {
       video: article,
@@ -215,7 +245,6 @@ Template.uploadformsubmit.events({
     if ($('input[name=permlink]')[0])
       article.info.permlink = $('input[name=permlink]')[0].value
 
-    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
     var author = Session.get('activeUsername')
     var permlink = article.info.permlink
     var title = article.info.title

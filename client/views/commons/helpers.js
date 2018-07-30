@@ -129,6 +129,10 @@ Template.registerHelper('displayVoters', function (votes, isDownvote) {
   return top20
 })
 
+Template.registerHelper('timeAgoReal', function (timestamp) {
+  return moment(timestamp).fromNow()
+})
+
 Template.registerHelper('timeAgoTimestamp', function (timestamp) {
   return moment(timestamp*1000).fromNow()
 })
@@ -266,6 +270,7 @@ Template.registerHelper('humanFilesize', function (bits, si) {
 })
 
 Template.registerHelper('ipfsSrc', function (ipfsHash) {
+  if (!ipfsHash) return ''
   if (Session.get('ipfsGateway') == 'automatic') {
     var n = Session.get('remoteSettings').displayNodes.length - 1
     var i = ipfsHash.charCodeAt(ipfsHash.length - 1) % n
@@ -352,3 +357,18 @@ Template.registerHelper('arrayify',function(obj){
   for (var key in obj) result.push({key:key,value:obj[key]});
   return result;
 });
+
+Template.registerHelper('inputTags',function (tags) {
+  if (!tags) return ''
+  var ok = []
+  for (var i = 0; i < tags.length; i++) {
+    if (tags[i].startsWith(Meteor.settings.public.beneficiary))
+      continue;
+    ok.push(tags[i])
+  }
+  return ok.join(',')
+});
+
+Template.registerHelper('activeUsername', function() {
+  return Session.get('activeUsername')
+})

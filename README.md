@@ -32,11 +32,11 @@ Meteor will automatically push any change on the code to the browser while you k
 ## Going in-depth
 ### Working with Uploads
 
-For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Then simply point `upload.js` to `localhost:5000` instead of our production encoding servers.
+For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Once running, simply turn the `localhost` setting to `true` in `client/settings.js` and it will upload locally instead of our production servers.
 
 ### Working on the Player
 
-As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `player.js` to your file:// version of the player if you want to make changes that include the player.
+As you can see, we use the embed directly available on emb.d.tube. This is the [dtube/embed](https://github.com/dtube/embed) repository. Feel free to clone it and directly point the `client/views/commons/videos/player.js` to your file:// version of the player if you want to make changes that include the player.
 
 ### Working with pre-rendering for bots
 
@@ -56,6 +56,10 @@ The [dtube/minidtube](https://github.com/dtube/minidtube) repository is responsi
  - - - `client/views/pages` all the templates matching a route in `router.js`
  - - - `client/views/topbar` the fixed menu on top of the app
  - - - `client/views/sidebar` the sidebar menu
+ 
+## Roadmap
+The plan is to keep on pushing key features of traditional video platforms to d.tube, and decentralizing it all over time. Our roadmap shows what is centralized / decentralized at the moment in the project and where work needs to be put.
+https://docs.google.com/presentation/d/10JjkCmQjKCo0p4wObrffcmApA9JwNpdMkpIfmEnir-U/edit?usp=sharing
 
 ## Common Issues
 
