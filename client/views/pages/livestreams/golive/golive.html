@@ -1,17 +1,53 @@
 <template name="golive">
     <div id="videouploadsteps" class="ui uploadpage" style="width: 100%;max-width:800px;margin: auto;">
       <div class="ui segment brd-rad-non" style="margin:20px 0px;padding:30px;">
+
+
         <div class="ui indicating progress" id="progresssnap" style="display:none">
           <div class="bar"></div>
           <div class="label">{{ translate 'UPLOAD_UPLOADING_SNAP'}}</div>
         </div>
+
+
         <div id="uploadDetails">
+
+          <div id="streamkeyzone">
+            <div class="ui icon message">
+              <i class="podcast icon" style=" position: absolute; top: 22px; left: 345px; "></i>
+
+              <div class="content">
+
+                <div class="header" style=" text-align: center; margin-bottom: 23px; margin-top: 80px; font-size: 22px; ">
+                  Stream Live on DTube
+                </div>
+
+                <p style=" text-align: center; ">
+                  <a href="https://obsproject.com/" target="_BLANK">Open Broadcaster Software</a>
+                  can be used to stream live (or any software that supports rtmp)
+                  <br/><br/>
+
+                  <span style="pointer-events: none;">{{ translate 'GOLIVE_STREAM_URL'}}:&nbsp;</span> rtmp://stream.dtube.top/live/
+
+                  <br/>
+                  <span style="pointer-events: none;">{{ translate 'GOLIVE_STREAM_KEY'}}:&nbsp;</span> {{#if streamKey}}{{streamKey}}{{else}}generate a key{{/if}}
+
+                  <br/>
+                  <label for="getStreamKey">
+                    <a class="ui red dtube icon right labeled button" style="margin-top:10px;padding-right: 10px !important;margin-top: 18px;background: #1c1c1c;margin-bottom: 10px;" id="getStreamKey">
+                      <div style="display:inline-block;padding:0.8em 1em;padding-right: 1.5em !important;">
+                      {{ translate 'GOLIVE_GET_STREAM_KEY'}}
+                      </div>
+                    </a>
+                  </label>
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
           <div id="previewzone">
-            {{ translate 'GOLIVE_STREAM_URL'}}: rtmp://stream.dtube.top/live/
-            {{#if streamKey}}
-              <br />
-              {{ translate 'GOLIVE_STREAM_KEY'}}: {{streamKey}}
-            {{/if}}
+
             {{#if isOnMobile}}
               <div class="ui centered grid" style="text-align:right; margin-top:20px; margin-bottom:20px;">
                   <label for="snapFile" style="width:100%;">
@@ -25,17 +61,6 @@
                   <input type="file" id="snapFile">
               </div>
             {{else}}
-              <div style="text-align:right; margin-top:30px; margin-bottom:40px;">
-                <label for="getStreamKey">
-                  <a class="ui red dtube icon right labeled button" style=" margin-top:10px;" id="getStreamKey">
-                    <div style="display:inline-block; padding:0.8em 1em;">
-                      {{ translate 'GOLIVE_GET_STREAM_KEY'}}
-                    </div>
-                    <i class="key icon red" style="background:white; opacity:1;"></i>
-                  </a>
-                </label>
-                <input type="file" id="getStreamKey">
-              </div>
               <div style="text-align:right; margin-top:30px; margin-bottom:40px;">
                   <label for="snapFile">
                     <a class="ui red dtube icon right labeled button" style=" margin-top:10px;" id="uploadSnap">
@@ -68,8 +93,11 @@
               </div>
             </div>
           {{/if}}
+
+
         </div>
+
+
       </div>
     </div>
   </template>
-  

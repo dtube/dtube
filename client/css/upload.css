@@ -97,3 +97,13 @@
 {
   color: rgb(240, 240, 240) !important;
 }
+
+
+
+.ui.message.streamlive-message {
+  width:50%;
+  float:left;
+  background-color:#FFF;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+}
