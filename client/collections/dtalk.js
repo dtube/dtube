@@ -91,7 +91,7 @@ DTalk.sendMessageToKey = async function(what, receiverPubKey) {
 }
 
 DTalk.getThread = async function(pub) {
-    console.log('getting thread for: '+pub)
+    //console.log('getting thread for: '+pub)
     var sec = await DTalk.getSecret(pub)
     var alias = await gun.user(pub).get('alias').then()
     if (alias)
@@ -137,7 +137,7 @@ async function list(data, key, time){
   if(!dh){ return }
   var hear = await Gun.SEA.decrypt(data, dh);
   if(!hear){ return }
-  console.log('hear', hear)
+  //console.log('hear', hear)
   if(hear.pub){
     senderPublicKey = await Gun.SEA.verify(hear.pub, await Gun.SEA.verify(hear.pub, false));
     var sec = await DTalk.getSecret(senderPublicKey)

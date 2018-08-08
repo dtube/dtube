@@ -4,7 +4,7 @@ Subs.loadFollowing = function(username, startFollowing = undefined, recursive = 
   var limit = 100
   steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
     if (err) console.log(err)
-    if (results.length) {
+    if (results && results.length) {
       for (var i = 0; i < results.length; i++)
       Subs.upsert(results[i], results[i])
       if (results.length == limit && recursive) 

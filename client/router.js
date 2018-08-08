@@ -112,6 +112,9 @@ FlowRouter.route('/newvideos', {
     Session.set("currentMenu", 6)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'New Videos')
+    Videos.getVideosBy('createdLive', 50, function (err) {
+      if (err) console.log(err)
+    })
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
       nav: "nav",

@@ -286,6 +286,32 @@ Videos.getVideosBy = function(type, limit, cb) {
           }
         });
         break;
+    case 'createdLive':
+        steem.api.getDiscussionsByCreated(query, function(err, result) {
+          if (err === null || err === '') {
+              var i, len = result.length;
+              var videos = []
+              for (i = 0; i < len; i++) {
+                  var video = Videos.parseFromChain(result[i])
+                  if (video) videos.push(video) 
+              }
+              for (var i = 0; i < videos.length; i++) {
+                videos[i].source = 'chainByCreated'
+                videos[i]._id += 'c'
+                try {
+                  Videos.upsert({_id: videos[i]._id}, videos[i])
+                } catch(err) {
+                  console.log(err)
+                  cb(err)
+                }
+              }
+              cb(null)
+          } else {
+              console.log(err);
+              cb(err)
+          }
+        });
+        break;
     default:
         console.log('Error getVideosBy type unknown')
   }
