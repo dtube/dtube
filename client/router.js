@@ -205,6 +205,8 @@ FlowRouter.route('/v/:author/:permlink', {
       } else FlowRouter.go('/')
     })
 
+    Template.sidebar.empty()
+
     Template.video.loadState()
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
