@@ -3,12 +3,7 @@
     <div class="ui videocontainer stackable two column grid computergrid">
       <!-- Player on page -->
       <div class="videocol eleven wide column" style="padding:0px!important">
-        {{#if video.content.videohash}}
-          {{> player}}
-        {{/if}}
-        {{#if video.info.livestream}}
-          {{> playerlive}}
-        {{/if}}
+        {{> player}}
         <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
           <!-- Title, Vote - Share - More  -->
           <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
