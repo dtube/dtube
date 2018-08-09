@@ -231,7 +231,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             $('#uploadSnap > i').addClass('checkmark green')
             $('#uploadSnap > i').removeClass('asterisk loading')
             $('#uploadSnap > i').css('background', 'white')
-            cb(null, data.ipfsAddSource)
+            cb(null, data.ipfsAddSource.hash)
           }
         })
       }, 1000)
@@ -351,7 +351,7 @@ Template.upload.events({
         return
       } else {
         console.log('Uploaded Snap', result)
-        $('input[name="snaphash"]').val(result.Hash)
+        $('input[name="snaphash"]').val(result)
       }
     })
   }
