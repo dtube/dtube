@@ -7,11 +7,11 @@ Meteor.settings.public = {
       "https://snap1.d.tube",
       "http://127.0.0.1:8080"
     ],
-    "snapMaxFileSizeKB": 1024,
-    "upldr": ["upldr1", "upldr3", "upldr5", "upldrg1", "upldrg5", "cluster"],
+    "snapMaxFileSizeKB": 2048,
+    "upldr": ["cluster"],
     "localhost": false
   },
-  "app": "dtube/0.7",
+  "app": "dtube/0.8",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",
@@ -42,9 +42,9 @@ Meteor.settings.public = {
 }
 
 // custom settings loaded from json
-// $.get('https://d.tube/DTube_files/settings.json', function(json, result) {
-//   if (result == 'success') {
-//     Meteor.settings.public = json
-//     Session.set('remoteSettings', Meteor.settings.public.remote)
-//   }
-// })
+$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
+  if (result == 'success') {
+    Meteor.settings.public = json
+    Session.set('remoteSettings', Meteor.settings.public.remote)
+  }
+})
