@@ -38,7 +38,7 @@ Template.golive.events({
         return
       } else {
         console.log('Uploaded Snap', result)
-        Session.set('streamImageHash', result.hash)
+        Session.set('streamImageHash', result)
       }
     })
   },
