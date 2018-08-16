@@ -2,7 +2,11 @@
   {{#if isOnMobile}}
   <div style="margin-left:5px;margin-right:10px;" class="ui content">
     <h2 style="max-width: calc(100% - 90px);margin-bottom:20px;">
+      {{#if isPlural search.response.results}}
+      {{ translate 'SEARCH_RESULTS_THERE_ARE' }}
+      {{else}}
       {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+      {{/if}}
       {{lengthOf search.response.results}} 
       {{#if isPlural search.response.results}} 
       {{translate 'SEARCH_RESULTS'}} 

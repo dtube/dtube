@@ -2,3 +2,7 @@ node_modules/
 package-lock.json
 
 version.desktop
+
+# VIM
+*.swo
+*.swp
