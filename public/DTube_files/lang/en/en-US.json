@@ -146,6 +146,7 @@
     "UPLOAD_TITLE": "Title",
     "UPLOAD_DESCRIPTION": "Description",
     "UPLOAD_TAGS": "Tags",
+    "UPLOAD_MAX_4_TAGS": "Maximum 4 tags allowed",
     "UPLOAD_MORE_INFO": "More Info",
     "UPLOAD_AUTHOR": "author",
     "UPLOAD_VIDEOHASH": "Source Video Hash",
