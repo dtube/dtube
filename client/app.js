@@ -44,9 +44,14 @@ Meteor.startup(function(){
 
 
   // init steem connect
+  var cbUrl
+  if (window.location.hostname == 'localhost' && window.location.port == '3000')
+    cbUrl = 'http://localhost:3000/#!/sc2login'
+  else
+    cbUrl = 'https://d.tube/#!/sc2login'
   var sc2 = sc2sdk.Initialize({
     app: 'dtube.app',
-    callbackURL: 'https://d.tube/#!/sc2login',
+    callbackURL: cbUrl,
     accessToken: 'access_token'
   });
   window.sc2 = sc2

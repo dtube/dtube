@@ -19,7 +19,7 @@
     "moment-with-locales-es6": "^2.18.1",
     "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
-    "sc2-sdk": "^1.0.2",
+    "sc2-sdk": "^2.0.1",
     "steem": "^0.6.7",
     "text-encoding": "^0.6.4",
     "utf-8-validate": "^5.0.1",
