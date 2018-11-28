@@ -10,11 +10,11 @@
           <a href='/c/{{author}}' class="ui author">{{author}}</a>
         {{/if}}
         <div class="metadata">
-          <span class="date">{{timeAgo created}}</span>
-          <span class="money">${{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
+          <span class="date">{{timeAgo _id}}</span>
+          <span class="money">VT${{displayPayout ups downs}}</span>
         </div>
         <div class="text" style="word-wrap: normal;flex-wrap: wrap;overflow: hidden; margin-top: 10px;">
-          {{{syntaxed body}}}
+          {{{syntaxed json.description}}}
         </div>
         <div class="actions noselect">
           {{#if hasUpvoted this}}

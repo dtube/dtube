@@ -196,8 +196,8 @@ FlowRouter.route('/sc2login', {
 FlowRouter.route('/v/:author/:permlink', {
   name: "video",
   action: function(params, queryParams) {
-    Meteor.isDMCA(params.author, params.permlink, function(block) {
-      if (block==0) {
+    // Meteor.isDMCA(params.author, params.permlink, function(block) {
+    //   if (block==0) {
         BlazeLayout.render('masterLayout', {
           main: "video",
           nav: "nav"
@@ -205,8 +205,8 @@ FlowRouter.route('/v/:author/:permlink', {
         $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
         $('body').animate({ scrollTop: 0 }, 'slow');
         setTimeout(function(){Template.video.activatePopups()}, 1000)
-      } else FlowRouter.go('/')
-    })
+    //   } else FlowRouter.go('/')
+    // })
 
     Template.sidebar.empty()
 
@@ -214,10 +214,10 @@ FlowRouter.route('/v/:author/:permlink', {
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
     // })
-    Videos.getVideosRelatedTo(params.author, params.permlink, 7, function() {
-      // call finished
-    })
-    SubCounts.loadSubscribers(params.author)
+    // Videos.getVideosRelatedTo(params.author, params.permlink, 7, function() {
+    //   // call finished
+    // })
+    // SubCounts.loadSubscribers(params.author)
     Session.set('replyingTo', {
       author: params.author,
       permlink: params.permlink

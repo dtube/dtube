@@ -85,20 +85,30 @@ Template.registerHelper('displayCurrency', function (string) {
   return amount;
 })
 
-Template.registerHelper('displayPayout', function (active, total, curator) {
-  if (active && !total || !curator) return active
-  if (!active || !total || !curator) return
-  var payout = active
-  if (total.split(' ')[0] > 0) {
-    var amount = parseInt(total.split(' ')[0].replace('.', '')) + parseInt(curator.split(' ')[0].replace('.', ''))
-    amount /= 1000
-    payout = amount + ' SBD'
+function cuteNumber(num, digits) {
+  if (typeof digits === 'undefined') digits = 2
+  var units = ['K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
+  var decimal
+  var newNum = num
+
+  for(var i=units.length-1; i>=0; i--) {
+      decimal = Math.pow(1000, i+1)
+
+      if(num <= -decimal || num >= decimal) {
+          newNum = +(num / decimal).toFixed(digits) + units[i]
+          break
+      }
   }
-  if (!payout) return
-  var amount = payout.split(' ')[0]
-  var currency = payout.split(' ')[1]
-  amount = parseFloat(amount).toFixed(3)
-  return amount;
+  var limit = (newNum<0 ? 5 : 4)
+  if (newNum.toString().length > limit && digits>0)
+      return cuteNumber(num, digits-1)
+
+  return newNum;
+}
+
+Template.registerHelper('displayPayout', function (ups, downs) {
+  if (!ups && !downs) return 0
+  return cuteNumber(ups - downs)
 })
 
 Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
@@ -137,14 +147,14 @@ Template.registerHelper('timeAgoTimestamp', function (timestamp) {
   return moment(timestamp*1000).fromNow()
 })
 
-Template.registerHelper('timeAgo', function (created) {
-  if (!created) return
-  return moment(created + 'Z').fromNow()
+Template.registerHelper('timeAgo', function (id) {
+  var date = new Date(parseInt( id.toString().substring(0,8), 16 ) * 1000)
+  return moment(date).fromNow()
 })
 
-Template.registerHelper('timeDisplay', function (created) {
-  if (!created) return
-  return moment(created).format("ll")
+Template.registerHelper('timeDisplay', function (id) {
+  var date = new Date(parseInt( id.toString().substring(0,8), 16 ) * 1000)
+  return moment(date).format("ll")
 })
 
 Template.registerHelper('durationDisplay', function (seconds) {

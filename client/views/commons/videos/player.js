@@ -5,6 +5,7 @@ Template.player.rendered = function () {
 // change this url if you want to work with your own branch of the player
 Template.player.init = function() {
   $('.ui.embed.player').embed({
-    url: "https://emb.d.tube/#!/" + FlowRouter.getParam("author") + "/" + FlowRouter.getParam("permlink") + "/true/true"
+    url: "https://www.youtube.com/embed/" + FlowRouter.getParam("permlink")
+    + "?autoplay=1&showinfo=1&modestbranding=1"
   });
 }

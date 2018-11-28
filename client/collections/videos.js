@@ -194,42 +194,40 @@ Videos.getVideosBy = function(type, limit, cb) {
 
   switch(type) {
     case 'trending':
-        if (Session.get('lastTrending')) {
-          query.start_author = Session.get('lastTrending').author
-          query.start_permlink = Session.get('lastTrending').permlink
-        }
-        steem.api.getDiscussionsByTrending(query, function(err, result) {
-          if (err === null || err === '') {
-              Session.set('lastTrending', result[result.length-1])
-              var i, len = result.length;
-              var videos = []
-              for (i = 0; i < len; i++) {
-                  var video = Videos.parseFromChain(result[i])
-                  if (video) videos.push(video)
-              }
-              for (var i = 0; i < videos.length; i++) {
-                videos[i].source = 'chainByTrending'
-                videos[i]._id += 't'
-                try {
-                  Videos.upsert({_id: videos[i]._id}, videos[i])
-                } catch(err) {
-                  console.log(err)
-                  cb(err)
-                }
-              }
-              cb(null)
-          } else {
-              console.log(err);
-              cb(err)
-          }
-        });
+        // if (Session.get('lastTrending')) {
+        //   query.start_author = Session.get('lastTrending').author
+        //   query.start_permlink = Session.get('lastTrending').permlink
+        // }
+        // steem.api.getDiscussionsByTrending(query, function(err, result) {
+        //   if (err === null || err === '') {
+        //       Session.set('lastTrending', result[result.length-1])
+        //       var i, len = result.length;
+        //       var videos = []
+        //       for (i = 0; i < len; i++) {
+        //           var video = Videos.parseFromChain(result[i])
+        //           if (video) videos.push(video)
+        //       }
+        //       for (var i = 0; i < videos.length; i++) {
+        //         videos[i].source = 'chainByTrending'
+        //         videos[i]._id += 't'
+        //         try {
+        //           Videos.upsert({_id: videos[i]._id}, videos[i])
+        //         } catch(err) {
+        //           console.log(err)
+        //           cb(err)
+        //         }
+        //       }
+        //       cb(null)
+        //   } else {
+        //       console.log(err);
+        //       cb(err)
+        //   }
+        // });
         break;
     case 'hot':
-        if (Session.get('lastHot')) {
-          query.start_author = Session.get('lastHot').author
-          query.start_permlink = Session.get('lastHot').permlink
-        }
-        steem.api.getDiscussionsByHot(query, function(err, result) {
+        var lastAuthor = Session.get('lastHot') ? Session.get('lastHot').author : null
+        var lastLink = Session.get('lastHot') ? Session.get('lastHot').link : null
+        avalon.getHotDiscussions(lastAuthor, lastLink, function(err, result) {
           if (err === null || err === '') {
               Session.set('lastHot', result[result.length-1])
               var i, len = result.length;
@@ -256,11 +254,9 @@ Videos.getVideosBy = function(type, limit, cb) {
         });
         break;
     case 'created':
-        if (Session.get('lastCreated')) {
-          query.start_author = Session.get('lastCreated').author
-          query.start_permlink = Session.get('lastCreated').permlink
-        }
-        steem.api.getDiscussionsByCreated(query, function(err, result) {
+        var lastAuthor = Session.get('lastCreated') ? Session.get('lastCreated').author : null
+        var lastLink = Session.get('lastCreated') ? Session.get('lastCreated').link : null
+        avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
           Session.set('lastCreated', result[result.length-1])
           if (err === null || err === '') {
               var i, len = result.length;
@@ -287,31 +283,31 @@ Videos.getVideosBy = function(type, limit, cb) {
         });
         break;
     case 'createdLive':
-        steem.api.getDiscussionsByCreated(query, function(err, result) {
-          if (err === null || err === '') {
-              var i, len = result.length;
-              var videos = []
-              for (i = 0; i < len; i++) {
-                  var video = Videos.parseFromChain(result[i])
-                  if (video) videos.push(video) 
-              }
-              for (var i = 0; i < videos.length; i++) {
-                videos[i].source = 'chainByCreated'
-                videos[i]._id += 'c'
-                try {
-                  Videos.upsert({_id: videos[i]._id}, videos[i])
-                } catch(err) {
-                  console.log(err)
-                  cb(err)
-                }
-              }
-              cb(null)
-          } else {
-              console.log(err);
-              cb(err)
-          }
-        });
-        break;
+        // steem.api.getDiscussionsByCreated(query, function(err, result) {
+        //   if (err === null || err === '') {
+        //       var i, len = result.length;
+        //       var videos = []
+        //       for (i = 0; i < len; i++) {
+        //           var video = Videos.parseFromChain(result[i])
+        //           if (video) videos.push(video) 
+        //       }
+        //       for (var i = 0; i < videos.length; i++) {
+        //         videos[i].source = 'chainByCreated'
+        //         videos[i]._id += 'c'
+        //         try {
+        //           Videos.upsert({_id: videos[i]._id}, videos[i])
+        //         } catch(err) {
+        //           console.log(err)
+        //           cb(err)
+        //         }
+        //       }
+        //       cb(null)
+        //   } else {
+        //       console.log(err);
+        //       cb(err)
+        //   }
+        // });
+        // break;
     default:
         console.log('Error getVideosBy type unknown')
   }
@@ -348,38 +344,20 @@ Videos.loadFeed = function(username) {
 }
 
 Videos.parseFromChain = function(video, isComment) {
-  try {
-    var newVideo = JSON.parse(video.json_metadata).video
-  } catch(e) {}
-  if (!isComment && !newVideo) return
-  if (!isComment && !newVideo.info) return
-  if (!newVideo) newVideo = {}
-  newVideo.active_votes = video.active_votes
-  newVideo.author = video.author
-  newVideo.body = video.body
-  newVideo.total_payout_value = video.total_payout_value
-  newVideo.curator_payout_value = video.curator_payout_value
-  newVideo.pending_payout_value = video.pending_payout_value
-  newVideo.permlink = video.permlink
-  newVideo.created = video.created
-  newVideo.net_rshares = video.net_rshares
-  newVideo.reblogged_by = video.reblogged_by
-  
-  // xss attack fix
-  if (newVideo.content && newVideo.content.tags) {
-    var xssTags = []
-    for (let i = 0; i < newVideo.content.tags.length; i++) {
-      xssTags.push(xss(newVideo.content.tags[i], {
-        whiteList: [],
-        stripIgnoreTag: true,
-        stripIgnoreTagBody: ['script']
-      }))
+  if (!video || !video.json || !video.json.app || video.json.app != 'deadtube') return
+  video.replies = avalon.generateCommentTree(video, video.author, video.link)
+  if (video.votes) {
+    video.ups = 0
+    video.downs = 0
+    for (let i = 0; i < video.votes.length; i++) {
+        if (video.votes[i].vt > 0)
+            video.ups += video.votes[i].vt
+        if (video.votes[i].vt < 0)
+            video.downs += video.votes[i].vt
     }
-    newVideo.content.tags = xssTags
   }
-
-  if (!newVideo._id) newVideo._id = newVideo.author+'_'+newVideo.permlink
-  return newVideo;
+  video.totals = video.ups + video.downs
+  return video;
 }
 
 Videos.parseFromAskSteemResult = function(result) {

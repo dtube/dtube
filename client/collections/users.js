@@ -19,16 +19,16 @@ var firstLoad = setInterval(function() {
 
 Users.refreshUsers = function(usernames) {
   if (usernames.length < 1) return;
-  steem.api.getAccounts(usernames, function(e, chainusers) {
+  avalon.getAccounts(usernames, function(e, chainusers) {
     if (!chainusers) return;
     for (var i = 0; i < chainusers.length; i++) {
       var user = Users.findOne({username: chainusers[i].name})
-      if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
-        user.json_metadata = JSON.parse(chainusers[i].json_metadata)
-      user.reward_sbd_balance = chainusers[i].reward_sbd_balance
-      user.reward_steem_balance = chainusers[i].reward_steem_balance
-      user.reward_vesting_balance = chainusers[i].reward_vesting_balance
-      user.reward_vesting_steem = chainusers[i].reward_vesting_steem
+      if (chainusers[i].json && JSON.parse(chainusers[i].json))
+        user.json_metadata = JSON.parse(chainusers[i].json)
+      // user.reward_sbd_balance = chainusers[i].reward_sbd_balance
+      // user.reward_steem_balance = chainusers[i].reward_steem_balance
+      // user.reward_vesting_balance = chainusers[i].reward_vesting_balance
+      // user.reward_vesting_steem = chainusers[i].reward_vesting_steem
       Users.update({username: user.username}, user)
     }
   })

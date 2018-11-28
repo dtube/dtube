@@ -2,7 +2,7 @@ var moment = require('moment')
 
 Template.newvideos.helpers({
   newVideos: function () {
-    return Videos.find({ source: 'chainByCreated' }, {sort: {created: -1}}).fetch()
+    return Videos.find({ source: 'chainByCreated' }).fetch()
   }
 })
 

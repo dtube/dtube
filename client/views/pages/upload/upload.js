@@ -1,9 +1,11 @@
+var cheerio = require('cheerio')
 refreshUploadStatus = null
 
 Template.upload.rendered = function () {
   Session.set('uploadToken', null)
   Session.set('uploadVideoProgress', null)
   Session.set('tempSubtitles', [])
+  Session.set('searchedLink', null)
   $('.ui.sticky')
     .sticky({
       context: '#videouploadsteps'
@@ -29,330 +31,199 @@ function shuffleArray(array) {
   }
 }
 
-Template.upload.setBestUploadEndpoint = function (cb) {
-  if (Session.get('remoteSettings').localhost == true) {cb(); return}
-  if (Session.get('upldr')) {cb();return}
-  var uploaders = Session.get('remoteSettings').upldr
-  shuffleArray(uploaders)
-  console.log(uploaders)
-  var results = []
-  var queuethreshold = 3;
-  var finished = false;
-  for (let i = 0; i < uploaders.length; i++) {
-    getUploaderStatus(uploaders[i]).then(function (response) {
-      var upldr = response.upldr
-      var totalQueueSize = 0;
-      if (response.version == '0.6.6' || response.currentWaitingInQueue.version) {
-        totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue
-        totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue
-        totalQueueSize += response.currentWaitingInQueue.videoToEncodeInQueue
-      } else {
-        totalQueueSize += response.currentWaitingInQueue.audioCpuToEncode
-        totalQueueSize += response.currentWaitingInQueue.videoGpuToEncode
-        totalQueueSize += response.currentWaitingInQueue.audioVideoCpuToEncode
-        totalQueueSize += response.currentWaitingInQueue.spriteToCreate
-        totalQueueSize += response.currentWaitingInQueue.ipfsToAdd
-      }
-
-      results.push({
-        upldr: upldr,
-        totalQueueSize: totalQueueSize
-      })
-
-      if (totalQueueSize < queuethreshold && !finished) {
-        Session.set('upldr', upldr)
-        console.log('upldr' + upldr + ' ' + ' ---  totalQueueSize: ' + totalQueueSize)
-        finished = true
-        cb()
-      } else if (results.length == uploaders.length && !finished) {
-        var bestEndpoint = results.sort(function (a, b) {
-          return a.totalQueueSize - b.totalQueueSize
-        })[0]
-        Session.set('upldr', bestEndpoint.upldr)
-        console.log('upldr' + bestEndpoint.upldr + ' ' + ' ---  totalQueueSize: ' + bestEndpoint.totalQueueSize)
-        finished = true
-        cb()
-      }
-    }, function (upldr) {
-      results.push({ upldr: upldr, error: true })
-    });
-  }
-}
-
-var getUploaderStatus = function (upldr) {
-  var url = (Session.get('remoteSettings').localhost == true)
-    ? 'http://localhost:5000/getStatus'
-    : 'https://'+upldr+'.d.tube/getStatus'
-  return new Promise(function (resolve, reject) {
-    var req = new XMLHttpRequest();
-    req.open('get', url, true);
-    req.overrideMimeType("application/json");
-    req.onload = function () {
-      var status = req.status;
-      if (status == 200) {
-        var jsonResult = JSON.parse(req.responseText)
-        jsonResult.upldr = upldr
-        resolve(jsonResult);
-      } else {
-        reject(upldr);
-      }
-    };
-    req.send();
-  });
-};
-
-Template.upload.genBody = function (author, permlink, title, snaphash, videohash, description) {
-  if (FlowRouter.current().route.name == 'golive')
-    return Template.upload.genBodyLivestream(author, permlink, title, snaphash, description)
-  else {
-    var body = '<center>'
-    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
-    body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
-    body += description
-    body += '\n\n<hr>'
-    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-    body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
-    return body
-  }
-}
-
-Template.upload.genBodyLivestream = function (author, permlink, title, snaphash, description) {
-  var body = '<center>'
-  body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
-  body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
-  body += description
-  body += '\n\n<hr>'
-  body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-  return body
-}
-
-Template.upload.uploadVideo = function (file, progressid, cb) {
-  var postUrl = (Session.get('remoteSettings').localhost == true)
-    ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-  var formData = new FormData();
-  formData.append('files', file);
-  $(progressid).progress({ value: 0, total: 1 })
-  $(progressid).show();
-  var credentials = Session.get('upldr') == 'cluster' ? true : false
-  $.ajax({
-    cache: false,
-    contentType: false,
-    data: formData,
-    processData: false,
-    type: "POST",
-    url: postUrl,
-    xhrFields: {
-      withCredentials: credentials
-    },
-    xhr: function () {
-      // listen for progress events on the upload
-      var xhr = new window.XMLHttpRequest();
-      xhr.upload.addEventListener("progress", function (evt) {
-        if (evt.lengthComputable) {
-          $(progressid).progress({ value: evt.loaded, total: evt.total });
-          if (evt.loaded == evt.total) {
-            $(progressid).progress({ value: evt.loaded, total: evt.total });
-          }
-        }
-      }, false);
-      return xhr;
-    },
-    success: function (result) {
-      if (typeof result === 'string')
-        result = JSON.parse(result)
-
-      $(progressid).hide()
-      Session.set('uploadToken', result.token)
-      refreshUploadStatus = setInterval(function () {
-        Template.uploadvideoprogress.update()
-      }, 1000)
-      cb(null, result)
-    },
-    error: function (error) {
-      $(progressid).hide()
-      cb(error)
-    }
-  });
-}
-
-Template.upload.uploadImage = function (file, progressid, cb) {
-  if (typeof refreshUploadSnapStatus !== 'undefined') clearInterval(refreshUploadSnapStatus)
-  $('#uploadSnap').addClass('disabled')
-  $('#uploadSnap > i').removeClass('cloud upload red')
-  $('#uploadSnap > i').addClass('asterisk loading')
-  $('#uploadSnap > i').css('background', 'transparent')
-  var postUrl = (Session.get('remoteSettings').localhost == true)
-    ? 'http://localhost:5000/uploadImage'
-    : 'https://snap1.d.tube/uploadImage'
-  var formData = new FormData();
-  formData.append('files', file);
-  $(progressid).progress({ value: 0, total: 1 })
-  $(progressid).show();
-  $.ajax({
-    url: postUrl,
-    type: "POST",
-    data: formData,
-    xhr: function () {
-      var xhr = new window.XMLHttpRequest();
-      xhr.upload.addEventListener("progress", function (evt) {
-        if (evt.lengthComputable) {
-          $(progressid).progress({ value: evt.loaded, total: evt.total });
-          if (evt.loaded == evt.total) {
-            $(progressid).progress({ value: evt.loaded, total: evt.total });
-          }
-        }
-      }, false);
-      return xhr;
-    },
-    cache: false,
-    contentType: false,
-    processData: false,
-    success: function (result) {
-      if (typeof result === 'string')
-        result = JSON.parse(result)
-      $(progressid).hide()
-
-      refreshUploadSnapStatus = setInterval(function () {
-        var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
-        $.getJSON(url, function (data) {
-          var isCompleteUpload = true
-          if (data.ipfsAddSource.progress !== "100.00%") {
-            isCompleteUpload = false;
-          }
-          if (data.ipfsAddOverlay.progress !== "100.00%") {
-            isCompleteUpload = false;
-          }
-          if (isCompleteUpload) {
-            clearInterval(refreshUploadSnapStatus)
-            $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
-            Session.set('overlayHash', data.ipfsAddOverlay.hash)
-            $('#uploadSnap').removeClass('disabled')
-            $('#uploadSnap > i').addClass('checkmark green')
-            $('#uploadSnap > i').removeClass('asterisk loading')
-            $('#uploadSnap > i').css('background', 'white')
-            cb(null, data.ipfsAddSource.hash)
-          }
-        })
-      }, 1000)
-    },
-    error: function (error) {
-      $(progressid).hide()
-      cb(error)
-      $('#uploadSnap').removeClass('disabled')
-      $('#uploadSnap > i').addClass('cloud upload red')
-      $('#uploadSnap > i').removeClass('asterisk loading')
-      $('#uploadSnap > i').css('background', 'white')
-    }
-  });
-}
-
-Template.upload.inputVideo = function (dt) {
-  if (!dt.files || dt.files.length == 0) {
-    toastr.error(translate('UPLOAD_ERROR_UPLOAD_FILE'), translate('ERROR_TITLE'))
-    return
-  }
-  var file = dt.files[0]
-  if (file.type.split('/')[0] != 'video') {
-    toastr.error(translate('UPLOAD_ERROR_WRONG_FORMAT'), translate('ERROR_TITLE'))
-    return
-  }
-  $('#videopreview').removeClass('dsp-non')
-  $('#snappreview').removeClass('dsp-non')
-  $('#dropzone').hide()
-  $('input[name="title"]').val(file.name.substring(0, file.name.lastIndexOf(".")))
-
-  // displaying the preview
-  var videoNode = document.querySelector('video')
-  var fileURL = URL.createObjectURL(file)
-  videoNode.addEventListener('durationchange', function () {
-    if (videoNode.readyState) {
-      $('input[name="duration"]').val(videoNode.duration)
-    }
-  })
-  videoNode.src = fileURL
-
-  // checking best ipfs-uploader endpoint available
-  Template.upload.setBestUploadEndpoint(function () {
-    // uploading to ipfs
-    Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
-      if (err) {
-        console.log(err)
-        toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
-        return
-      } else {
-        console.log('Uploaded video', result);
-      }
-    })
-  });
-
-
-  console.log(file)
-  $('input[name="filesize"]').val(file.size)
-  // Torrent.seed(file, function(torrent) {
-  //   $('input[name="magnet"]').val(torrent.magnetURI)
-  // })
-}
-
-Template.upload.events({
-  'click #dropzone': function (event) {
-    $('#fileToUpload').click()
+Template.upload.helpers({
+  tempContent: function () {
+    return Session.get('tempContent')
   },
-  'change #fileToUpload': function (event) {
-    Template.upload.inputVideo(event.target)
-  },
-  'dropped #dropzone': function (event) {
-    Template.upload.inputVideo(event.originalEvent.dataTransfer)
-  },
-  'click #snap': function (event) {
-    var video = document.querySelector('video')
-    var canvas = document.querySelector('canvas')
-    var context = canvas.getContext('2d')
-    var w, h, ratio
-
-    // Calculate the ratio of the video's width to height
-    ratio = video.videoWidth / video.videoHeight
-    // Define the required width as 100 pixels smaller than the actual video's width
-    w = video.videoWidth - 100
-    // Calculate the height based on the video's width and the ratio
-    h = parseInt(w / ratio, 10)
-    // Set the canvas width and height to the values just calculated
-    canvas.width = w
-    canvas.height = h
-
-    // Define the size of the rectangle that will be filled (basically the entire element)
-    context.fillRect(0, 0, w, h)
-    // Grab the image from the video
-    context.drawImage(video, 0, 0, w, h)
-    // Save snap to disk
-    var dt = canvas.toDataURL('image/jpeg')
-    $('#snap').attr('href', dt)
-  },
-  'change #snapFile': function (event) {
-    var file = event.currentTarget.files[0];
-    var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
-    if (file.type.split('/')[0] != 'image') {
-      toastr.error(translate('UPLOAD_ERROR_NOT_IMAGE'), translate('ERROR_TITLE'))
-      return
-    }
-    if (file.size > Session.get('remoteSettings').snapMaxFileSizeKB * 1000) {
-      toastr.error(translate('UPLOAD_ERROR_REACH_MAX_SIZE') + ' ' + Session.get('remoteSettings').snapMaxFileSizeKB + ' KB', translate('ERROR_TITLE'))
-      return
-    }
-
-
-    // uploading to ipfs
-    if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-    //Template.upload.HTTP(node, file, '#progresssnap', function(err, result) {
-    Template.upload.uploadImage(file, '#progresssnap', function (err, result) {
-      if (err) {
-        console.log(err)
-        toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
-        return
-      } else {
-        console.log('Uploaded Snap', result)
-        $('input[name="snaphash"]').val(result)
-      }
-    })
+  searchedLink: function () {
+    return Session.get('searchedLink')
   }
 })
+
+Template.upload.events({
+  'submit .form': function (event) {
+    event.preventDefault()
+  },
+  'keyup #youtubelink': function(event) {
+    var url = $('#youtubelink').val()
+    if (url == Session.get('searchedLink')) return
+    Session.set('tempContent', null)
+    Session.set('searchedLink', url)
+    getYoutubeVideoData(url, function(content) {
+      content.app = 'deadtube'
+      console.log(content)
+      Session.set('tempContent', content)
+    })
+
+  },
+  'click .uploadsubmit': function(event) {
+    broadcast.comment(null, null, Session.get('tempContent'), function(err, result) {
+      console.log(result)
+    })
+  },
+})
+
+function getYoutubeVideoData(url, callback) {
+  var videoId = url.split('v=')[1]
+  var ampersandPosition = videoId.indexOf('&')
+  if(ampersandPosition != -1)
+    videoId = videoId.substring(0, ampersandPosition);
+
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      let video = JSON.parse(this.responseText);
+      callback(sanitizeVideo(video));
+    }
+  }
+  xhr.open("GET", 'https://bran.nannal.com/youtube/'+videoId);
+  //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
+  xhr.send();
+}
+
+function parseVideoInfo (body, videoId) {
+  function extractValue ($, attribute) {
+    if ($ && $.length) {
+      return $.attr(attribute) || undefined
+    }
+    return undefined
+  }
+  
+  function parseDuration (raw) {
+    var m = /^[a-z]*(?:(\d+)M)?(\d+)S$/i.exec(raw)
+    if (!m) return
+  
+    var minutes = m[1] ? parseInt(m[1], 10) : 0
+    var seconds = m[2] ? parseInt(m[2], 10) : 0
+    return minutes * 60 + seconds
+  }
+  
+  function parseVotes (raw) {
+    var rawCleaned = raw.split(',').join('')
+    return parseInt(rawCleaned, 10)
+  }
+
+  var $ = cheerio.load(body)
+
+  var url = extractValue($('.watch-main-col link[itemprop="url"]'), 'href')
+  var title = extractValue(
+    $('.watch-main-col meta[itemprop="name"]'),
+    'content'
+  )
+  var descriptionHtml = $('.watch-main-col #eow-description').html()
+  descriptionHtml = descriptionHtml.replace(/\<br\\?>/g, "\n")
+  var description = jQuery("<div>"+descriptionHtml+"</div>").text();
+  var owner = $('.yt-user-info > a').text()
+  var channelId = extractValue(
+    $('.watch-main-col meta[itemprop="channelId"]'),
+    'content'
+  )
+  var thumbnailUrl = extractValue(
+    $('.watch-main-col link[itemprop="thumbnailUrl"]'),
+    'href'
+  )
+  var embedURL = extractValue(
+    $('.watch-main-col link[itemprop="embedURL"]'),
+    'href'
+  )
+  var datePublished = extractValue(
+    $('.watch-main-col meta[itemprop="datePublished"]'),
+    'content'
+  )
+  var genre = extractValue(
+    $('.watch-main-col meta[itemprop="genre"]'),
+    'content'
+  )
+
+  var paid = extractValue(
+    $('.watch-main-col meta[itemprop="paid"]'),
+    'content'
+  )
+  paid = paid ? paid === 'True' : undefined
+
+  var unlisted = extractValue(
+    $('.watch-main-col meta[itemprop="unlisted"]'),
+    'content'
+  )
+  unlisted = unlisted ? unlisted === 'True' : undefined
+
+  var isFamilyFriendly = extractValue(
+    $('.watch-main-col meta[itemprop="isFamilyFriendly"]'),
+    'content'
+  )
+  isFamilyFriendly = isFamilyFriendly && isFamilyFriendly === 'True'
+
+  var duration = extractValue(
+    $('.watch-main-col meta[itemprop="duration"]'),
+    'content'
+  )
+  duration = duration ? parseDuration(duration) : undefined
+
+  var regionsAllowed = extractValue(
+    $('.watch-main-col meta[itemprop="regionsAllowed"]'),
+    'content'
+  )
+  regionsAllowed = regionsAllowed ? regionsAllowed.split(',') : undefined
+
+  var views = extractValue(
+    $('.watch-main-col meta[itemprop="interactionCount"]'),
+    'content'
+  )
+  views = views ? parseInt(views, 10) : undefined
+
+  var dislikeCount = $(
+    '.like-button-renderer-dislike-button-unclicked span'
+  ).text()
+  dislikeCount = dislikeCount ? parseVotes(dislikeCount) : undefined
+
+  var likeCount = $('.like-button-renderer-like-button-unclicked span').text()
+  likeCount = likeCount ? parseVotes(likeCount) : undefined
+
+  var channelThumbnailUrl =  $('.yt-user-photo .yt-thumb-clip img').data('thumb')
+
+  return {
+    videoId: videoId,
+    url: url,
+    title: title,
+    description: description,
+    owner: owner,
+    channelId: channelId,
+    thumbnailUrl: thumbnailUrl,
+    // embedURL: embedURL,
+    datePublished: datePublished,
+    genre: genre,
+    // paid: paid,
+    // unlisted: unlisted,
+    isFamilyFriendly: isFamilyFriendly,
+    duration: duration,
+    // views: views,
+    regionsAllowed: regionsAllowed,
+    // dislikeCount: dislikeCount,
+    // likeCount: likeCount,
+    channelThumbnailUrl: channelThumbnailUrl
+  }
+}
+
+function sanitizeVideo(video) {
+  return {
+    videoId: video.videoId,
+    url: video.url,
+    title: video.title,
+    description: video.description,
+    owner: video.owner,
+    channelId: video.channelId,
+    thumbnailUrl: video.thumbnailUrl,
+    // embedURL: embedURL,
+    datePublished: video.datePublished,
+    genre: video.genre,
+    // paid: paid,
+    // unlisted: unlisted,
+    isFamilyFriendly: video.isFamilyFriendly,
+    duration: video.duration,
+    // views: views,
+    // regionsAllowed: video.regionsAllowed,
+    // dislikeCount: dislikeCount,
+    // likeCount: likeCount,
+    channelThumbnailUrl: video.channelThumbnailUrl
+  }
+}

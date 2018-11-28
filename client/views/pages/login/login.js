@@ -38,23 +38,22 @@ Template.login.events({
       toastr.error(translate('LOGIN_ERROR_EMPTY_USERNAME_POSTING_KEY'), translate('ERROR_TITLE'))
       return
     }
-    steem.api.getAccounts([username], function(err, result) {
-      if (!result || result.length < 1) {
+    avalon.getAccount(username, function(err, chainuser) {
+      if (!chainuser) {
         toastr.error(translate('LOGIN_ERROR_UNKNOWN_USERNAME'), translate('ERROR_TITLE'))
         return
       }
-      var chainuser = result[0]
       var user = {
         privatekey: event.target.privatekey.value
       }
       try {
-        user.publickey = steem.auth.wifToPublic(user.privatekey)
+        user.publickey = avalon.pubToPriv(user.privatekey)
       } catch (e) {
         toastr.error(translate('LOGIN_ERROR_WRONG_POSTING_KEY'), translate('ERROR_TITLE'))
         return
       }
 
-      if (chainuser.posting.key_auths[0][0] == user.publickey) {
+      if (chainuser.pub == user.publickey) {
         // correct key for the user, loggin in
         user.username = username
         if (event.target.rememberme.checked) {
@@ -67,15 +66,15 @@ Template.login.events({
         } else {
           Users.insert(user)
           Template.login.success(user.username)
-          Users.refreshUsers([user.username])
-          steem.api.getAccounts([user.username], function(e, chainusers) {
-            for (var i = 0; i < chainusers.length; i++) {
-              var user = Users.findOne({username: chainusers[i].name})
-              if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
-                user.json_metadata = JSON.parse(chainusers[i].json_metadata)
-              Users.update({username: user.username}, user)
-            }
-          })
+          // Users.refreshUsers([user.username])
+          // steem.api.getAccounts([user.username], function(e, chainusers) {
+          //   for (var i = 0; i < chainusers.length; i++) {
+          //     var user = Users.findOne({username: chainusers[i].name})
+          //     if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
+          //       user.json_metadata = JSON.parse(chainusers[i].json_metadata)
+          //     Users.update({username: user.username}, user)
+          //   }
+          // })
         }
       } else {
         toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))

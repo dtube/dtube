@@ -23,10 +23,10 @@ kadira:blaze-layout
 raix:ui-dropped-event
 session@1.1.7
 chrismbeckett:toastr
-dynamic-import@0.4.0
+dynamic-import@0.4.2
 frozeman:persistent-minimongo2
 omega:meteor-desktop-bundler@=0.10.1
 fastclick
 babel-compiler@7.1.1
 juliancwirko:postcss@=1.2.0
-underscore
+underscore@1.0.10

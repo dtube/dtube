@@ -2,7 +2,7 @@ Notifications = new Mongo.Collection(null)
 notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications');
 var moment = require('moment')
 
-Notifications.ws = new WebSocket('wss://api.busy.org/')
+Notifications.ws = new WebSocket('wss://api.todo.org/')
 
 Notifications.ws.onmessage = function (event) {
   var data = JSON.parse(event.data)

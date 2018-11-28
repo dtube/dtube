@@ -131,26 +131,27 @@ broadcast = {
             cb(err, result)
         })
     },
-    comment: function(parentAuthor, parentPermlink, body, jsonMetadata, cb) {
+    comment: function(parentAuthor, parentPermlink, jsonMetadata, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
-        var permlink = Template.upload.createPermlink(9)
+        var permlink = jsonMetadata.videoId || Template.upload.createPermlink(9)
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
-        if (wif) {
-            steem.broadcast.comment(wif, parentAuthor, parentPermlink, voter, permlink, permlink, body, jsonMetadata, function (err, result) {
-                cb(err, result)
-            })
-            return;
+        var tx = {
+            type: 4,
+            data: {
+                link: permlink,
+                json: jsonMetadata
+            }
         }
-        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
-        if (!accessToken) {
-            cb('ERROR_BROADCAST')
-            return;
+        if (parentAuthor && parentPermlink) {
+            tx.data.pa = parentAuthor
+            tx.data.pp = parentPermlink
         }
-        sc2.setAccessToken(accessToken);
-        sc2.comment(parentAuthor, parentPermlink, voter, permlink, permlink, body, jsonMetadata, function(err, result) {
-            cb(err, result)
+        tx = avalon.sign(wif, voter, tx)
+        avalon.sendTransaction(tx, function(res) {
+            cb(null, res)
         })
+        return;
     },
     reblog: function(author, permlink, cb) {
         var reblogger = Users.findOne({ username: Session.get('activeUsername') }).username

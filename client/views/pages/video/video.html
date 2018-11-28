@@ -9,7 +9,7 @@
           <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
             <div class="ui info" style="display: inline-grid;width: 100%;">
               <div class="videotitlecontainer">
-                <h1 class="videotitle">{{info.title}}</h1>
+                <h1 class="videotitle">{{json.title}}</h1>
               </div>
               <div style="display:inline-block;">
                 <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
@@ -25,56 +25,42 @@
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
                   {{> videosettingsdropdown}}
                   <div style="float: right;" class="button icon bottom aligned ">
-                    {{#if upvotes active_votes}}
-                      <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
-                        {{#if hasUpvoted video}}
-                          <i class="thumbs up icon red"></i>
-                        {{else}}
-                          <i class="thumbs up icon"></i>
-                        {{/if}}
-                        <span>{{upvotes active_votes}}</span>
-                      </button>
-                    {{else}}
-                      <button class="ui icon button upvote votebutton">
+                    <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
+                      {{#if hasUpvoted video}}
+                        <i class="thumbs up icon red"></i>
+                      {{else}}
                         <i class="thumbs up icon"></i>
-                        <span>{{upvotes active_votes}}</span>
-                      </button>
-                    {{/if}}
-                    {{#if downvotes active_votes}}
-                      <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
-                        {{#if hasDownvoted video}}
-                          <i class="thumbs down icon red"></i>
-                        {{else}}
-                          <i class="thumbs down icon"></i>
-                        {{/if}}
-                        <span>{{downvotes active_votes}}</span>
-                      </button>
-                    {{else}}
-                      <button class="ui icon button downvote votebutton">
+                      {{/if}}
+                      <span>{{#if ups}}{{ups}}{{else}}0{{/if}}</span>
+                    </button>
+                    <button class="ui icon button downvote votebutton" data-tcs="#popupupdownvote">
+                      {{#if hasDownvoted video}}
+                        <i class="thumbs down icon red"></i>
+                      {{else}}
                         <i class="thumbs down icon"></i>
-                        <span>{{downvotes active_votes}}</span>
-                      </button>
-                    {{/if}}
+                      {{/if}}
+                      <span>{{#if downs}}{{downs}}{{else}}0{{/if}}</span>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
-          <div class="ui segment" style="padding:0px!important;">
+          <!-- <div class="ui segment" style="padding:0px!important;">
             <div class="details wid-ful">
               <div class="videoleftdetails wid-ful" style="padding: 10px;">
                 <div class="ui left tiny circular avatar floated image"
-                  style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic info.author 'small'}})">
+                  style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic video.author 'small'}})">
                 </div>
                 <div class="channelLink" style="margin-top:10px;">
-                  <a href="/c/{{info.author}}">
-                    {{info.author}}
+                  <a href="/c/{{video.author}}">
+                    {{video.author}}
                   </a>
                 </div>
                 {{#unless equals activeUser user.name}}
                   {{#if isLoggedOn}}
-                    {{#if isSubscribedTo info.author}}
+                    {{#if isSubscribedTo author}}
                       {{>buttonunsubscribe}}
                     {{else}}
                       {{>buttonsubscribe}}
@@ -89,31 +75,31 @@
                 {{/unless}}
                 <div class="videorightdetails">
                   <div class='videopayout'>
-                    ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+                    VT${{displayPayout ups downs}}
                   </div>
                   <br />
                 </div>
               </div>
             </div>
-          </div>
-          <div id='editvideosegment' class="ui segment" style="display: none">
+          </div> -->
+          <!-- <div id='editvideosegment' class="ui segment" style="display: none">
             {{> uploadform}}
             {{> uploadformsubmit}}
-          </div>
-          {{#unless content.videohash}}
+          </div> -->
+          {{#unless json.videoId}}
             <!-- No Video, Display all text -->
             <div id="descriptionsegment" class="ui segment open descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
               <div id="truncateddesc">
-                <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
-                <br/> {{{syntaxed content.description}}}
+                <strong title='{{timeAgo _id}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay _id}} by <a href="/c/{{video.author}}">{{video.author}}</a></strong>
+                <br/> {{{syntaxed json.description}}}
               </div>
             </div>
           {{else}}
             <!-- Syntaxed video description - Show More -->
             <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
               <div id="truncateddesc" class="truncate" style="overflow: hidden;">
-                <strong title='{{timeAgo created}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay created}}</strong>
-                <br/> {{{syntaxed content.description}}}
+                <strong title='{{timeAgo _id}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay _id}} by <a href="/c/{{video.author}}">{{video.author}}</a></strong>
+                <br/> {{{syntaxed json.description}}}
               </div>
             </div>
             {{#if hasMoreThan4Lines}}
@@ -144,13 +130,13 @@
           <!-- Comments - Reply -->
           <div class="ui secondary segment" style="background: #f5f5f5;">
             <h3 class="ui header">
-              {{#if equals comments.length 1}}
-                {{comments.length}} {{ translate 'COMMENT_REPLY'}}
+              {{#if equals replies.length 1}}
+                {{replies.length}} {{ translate 'COMMENT_REPLY'}}
               {{else}}
-                {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
+                {{replies.length}} {{ translate 'COMMENT_REPLIES'}}
               {{/if}}
             </h3>
-            {{#if isLoggedOn}} {{#if equals comments.length 0}}
+            {{#if isLoggedOn}} {{#if equals replies.length 0}}
             <div style=" text-align: center;padding:10px;">
               <h4>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h4>
             </div>

@@ -27,12 +27,12 @@ Template.video.helpers({
   },
   video: function () {
     var videos = Videos.find({
-      'info.author': FlowRouter.getParam("author"),
-      'info.permlink': FlowRouter.getParam("permlink")
+      'author': FlowRouter.getParam("author"),
+      'link': FlowRouter.getParam("permlink")
     }).fetch()
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].source == 'chainDirect') {
-        Session.set("pageTitle", videos[i].info.title)
+        Session.set("pageTitle", videos[i].json.title)
         return videos[i]
       }
     }
@@ -54,7 +54,7 @@ Template.video.helpers({
     return Session.get('localIpfs')
   },
   hasMoreThan4Lines: function () {
-    var numberOfLineBreaks = (this.content.description.match(/\n/g) || []).length;
+    var numberOfLineBreaks = (this.json.description.match(/\n/g) || []).length;
     if (numberOfLineBreaks >= 4) {
       return true;
     }
@@ -112,6 +112,7 @@ Template.video.events({
     })
   },
   'click .submit': function (event) {
+    console.log('test')
     if (!Session.get('replyingTo')) return;
     $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -119,9 +120,10 @@ Template.video.events({
     var parentPermlink = Session.get('replyingTo').permlink
     var body = $(event.currentTarget).prev().children()[0].value
     var jsonMetadata = {
-      app: Meteor.settings.public.app
+      app: 'deadtube',
+      description: body
     }
-    broadcast.comment(parentAuthor, parentPermlink, body, jsonMetadata, function (err, result) {
+    broadcast.comment(parentAuthor, parentPermlink, jsonMetadata, function (err, result) {
       console.log(err, result)
       if (err) {
         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -130,7 +132,7 @@ Template.video.events({
         return
       }
       $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
-      Template.video.loadState()
+      //Template.video.loadState()
       Session.set('replyingTo', null)
       document.getElementById('replytext').value = "";
       $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
@@ -206,7 +208,7 @@ Template.video.seekTo = function (seconds) {
 Template.video.loadState = function () {
   if (isLoadingState) return
   isLoadingState = true
-  steem.api.getState('/dtube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function (err, result) {
+  avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
     if (err) throw err;
     console.log('Loaded video from chain', result)
     isLoadingState = false
@@ -218,7 +220,7 @@ Template.video.loadState = function () {
       }
       ChainUsers.upsert({ _id: user.id }, Waka.api.DeleteFieldsWithDots(user));
     }
-    var video = Videos.parseFromChain(result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")])
+    var video = Videos.parseFromChain(result)
     // non dtube videos can only load from State
     if (!video) {
       video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
@@ -231,14 +233,12 @@ Template.video.loadState = function () {
         description: video.body
       }
     }
-    Session.set('videoDescription', video.content.description)
-    video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
+    Session.set('videoDescription', video.json.description)
+    //video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     video.source = 'chainDirect'
     video._id += 'd'
+    console.log(video)
     Videos.upsert({ _id: video._id }, video)
-    Waka.api.Set({ info: video.info, content: video.content }, {}, function (e, r) {
-      Videos.refreshWaka()
-    })
   });
 }
 

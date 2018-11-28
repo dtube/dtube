@@ -2,13 +2,6 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
-// import Gun from 'gun/gun';
-// import SEA from 'gun/sea';
-// import timegraph from 'gun/lib/time';
-import steem from 'steem';
-import AskSteem from 'asksteem';
-import sc2sdk from 'sc2-sdk';
-steem.api.setOptions({ url: 'https://api.steemit.com' });
 
 console.log('Starting DTube APP')
 
@@ -16,8 +9,6 @@ FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
   Session.set('remoteSettings', Meteor.settings.public.remote)
-  window.steem = steem
-  // window.Gun = Gun
 
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
@@ -42,15 +33,6 @@ Meteor.startup(function(){
     })
   })
 
-
-  // init steem connect
-  var sc2 = sc2sdk.Initialize({
-    app: 'dtube.app',
-    callbackURL: 'https://d.tube/#!/sc2login',
-    accessToken: 'access_token'
-  });
-  window.sc2 = sc2
-
   toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -72,10 +54,10 @@ Meteor.startup(function(){
   if (Session.get('remoteSettings').warning)
     toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
 
-  steem.api.getDynamicGlobalProperties(function(err, result) {
-    if (result)
-    Session.set('steemGlobalProp', result)
-  })
+  // steem.api.getDynamicGlobalProperties(function(err, result) {
+  //   if (result)
+  //   Session.set('steemGlobalProp', result)
+  // })
 
   Market.getSteemPrice()
   Market.getSteemDollarPrice()
