@@ -1,5 +1,3 @@
-import { setTimeout } from "timers";
-
 var CryptoJS = require("crypto-js")
 const { randomBytes } = require('crypto')
 const secp256k1 = require('secp256k1')
