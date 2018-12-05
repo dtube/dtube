@@ -1,3 +1,5 @@
+import { setTimeout } from "timers";
+
 var CryptoJS = require("crypto-js")
 const { randomBytes } = require('crypto')
 const secp256k1 = require('secp256k1')
@@ -189,6 +191,16 @@ window.avalon = {
         return tx
     },
     sendTransaction: (tx, cb) => {
+        avalon.sendRawTransaction(tx, function(headBlock) {
+            setTimeout(function() {
+                avalon.verifyTransaction(tx, headBlock, 3, function(error, block) {
+                    if (error) console.log(error)
+                    else cb(block)
+                })
+            }, 1500)
+        })
+    },
+    sendRawTransaction: (tx, cb) => {
         fetch(avalon.randomNode()+'/transact', {
             method: 'post',
             headers: {
@@ -197,7 +209,44 @@ window.avalon = {
             },
             body: JSON.stringify(tx)
         }).then(function(res) {
-            cb(res.statusText)
+            res.text().then(function(headBlock) {
+                cb(parseInt(headBlock))
+            })
+        });
+    },
+    verifyTransaction: (tx, headBlock, retries, cb) => {
+        var nextBlock = headBlock+1
+        fetch(avalon.randomNode()+'/block/'+nextBlock, {
+            method: 'get',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.text()).then(function(text) {
+            try {
+                var block = JSON.parse(text)
+            } catch (error) {
+                // block is not yet available, retrying in 1.5 secs
+                setTimeout(function(){avalon.verifyTransaction(tx, headBlock, retries, cb)}, 1500)
+                return
+            }
+
+            var isConfirmed = false
+            for (let i = 0; i < block.txs.length; i++) {
+                if (block.txs[i].hash == tx.hash) {
+                    isConfirmed = true
+                    break
+                }
+            }
+
+            if (isConfirmed) {
+                cb(null, block)
+            } else if (retries > 0) {
+                retries--
+                setTimeout(function(){avalon.verifyTransaction(tx, nextBlock, retries, cb)},3000)
+            } else {
+                cb('Failed to find transaction up to block #'+nextBlock)
+            }
         });
     },
     randomNode: () => {
