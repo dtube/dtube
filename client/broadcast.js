@@ -1,49 +1,29 @@
 broadcast = {
-    vote: function(author, permlink, weight, cb) {
+    vote: function(author, permlink, weight, tag, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        var vt = Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
         if (wif) {
-            steem.broadcast.vote(wif, voter, author, permlink, weight, function (err, result) {
-                cb(err, result)
-            })
-            return;
-        }
-        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
-        var expires_at = Users.findOne({ username: Session.get('activeUsername') }).expires_at
-        if (!accessToken) {
-            cb('ERROR_BROADCAST')
-            return;
-        }
-        if (expires_at < new Date()) {
-            cb('ERROR_TOKEN_EXPIRED')
-            Waka.db.Users.findOne({username: Session.get('activeUsername')}, function(user) {
-                if (user) {
-                  Waka.db.Users.remove(user._id, function(result) {
-                    Users.remove({})
-                    Users.refreshLocalUsers(function(){})
-                    Waka.db.Users.findOne({}, function(user) {
-                      if (user) {
-                        Session.set('activeUsername', user.username)
-                        Videos.loadFeed(user.username)
-                      }
-                      else Session.set('activeUsername', null)
-                    })
-                  })
-                } else {
-                  Users.remove({username: Session.get('activeUsername')})
-                  var newUser = Users.findOne()
-                  if (newUser) Session.set('activeUsername', newUser.username)
-                  else Session.set('activeUsername', null)
+            var tx = {
+                type: 5,
+                data: {
+                    author: author,
+                    link: permlink,
+                    vt: vt,
+                    tag: tag
                 }
+            }
+            tx = avalon.sign(wif, voter, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+                Users.refreshUsers([Session.get('activeUsername')])
             })
-            FlowRouter.go('/login')
-            return
+            // steem.broadcast.vote(wif, voter, author, permlink, weight, function (err, result) {
+            //     cb(err, result)
+            // })
+            return;
         }
-        sc2.setAccessToken(accessToken);
-        sc2.vote(voter, author, permlink, weight, function(err, result) {
-            cb(err, result)
-        })
     },
     claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
         var voter = Users.findOne({ username: username }).username
@@ -148,8 +128,9 @@ broadcast = {
             tx.data.pp = parentPermlink
         }
         tx = avalon.sign(wif, voter, tx)
-        avalon.sendTransaction(tx, function(res) {
-            cb(null, res)
+        avalon.sendTransaction(tx, function(err, res) {
+            cb(err, res)
+            Users.refreshUsers([Session.get('activeUsername')])
         })
         return;
     },

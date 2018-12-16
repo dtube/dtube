@@ -85,11 +85,22 @@ Template.video.activatePopups = function() {
 }
 
 Template.video.events({
+  'click .newtag': function (event) {
+    var author = FlowRouter.getParam("author")
+    var permlink = FlowRouter.getParam("permlink")
+    var weight = UserSettings.get('voteWeight') * 100
+    var newTag = prompt('Enter a new tag')
+    broadcast.vote(author, permlink, weight, newTag, function (err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      Template.video.loadState()
+    });
+  },
   'click .upvote': function (event) {
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * 100
-    broadcast.vote(author, permlink, weight, function (err, result) {
+    broadcast.vote(author, permlink, weight, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
       Template.video.loadState()
@@ -99,8 +110,8 @@ Template.video.events({
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * -100
-    broadcast.vote(author, permlink, weight, function (err, result) {
-      if (err) toastr.error(err.cause.payload.error.data.stack[0].format, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+    broadcast.vote(author, permlink, weight, '', function (err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
       Template.video.loadState()
     });
@@ -132,7 +143,7 @@ Template.video.events({
         return
       }
       $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
-      //Template.video.loadState()
+      Template.video.loadState()
       Session.set('replyingTo', null)
       document.getElementById('replytext').value = "";
       $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');

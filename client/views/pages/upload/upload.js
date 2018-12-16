@@ -58,7 +58,8 @@ Template.upload.events({
   },
   'click .uploadsubmit': function(event) {
     broadcast.comment(null, null, Session.get('tempContent'), function(err, result) {
-      console.log(result)
+      if (err) toastr.error(Meteor.blockchainError(err))
+      else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
     })
   },
 })

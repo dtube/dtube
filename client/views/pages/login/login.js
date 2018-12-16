@@ -7,13 +7,13 @@ Template.login.helpers({
 Template.login.success = function(activeUsername, noreroute) {
   Session.set('activeUsername', activeUsername)
   if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
-  Videos.loadFeed(activeUsername)
+  //Videos.loadFeed(activeUsername)
   if (!noreroute)
     FlowRouter.go('#!/')
-  DTalk.login(function() {
-    Session.set('gunUser', gun.user().is)
-    DTalk.checkInbox()
-  })
+  // DTalk.login(function() {
+  //   Session.set('gunUser', gun.user().is)
+  //   DTalk.checkInbox()
+  // })
 }
 
 Template.login.events({

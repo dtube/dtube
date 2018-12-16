@@ -13,14 +13,15 @@
               </div>
               <div style="display:inline-block;">
                 <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
-                  {{#each content.tags}}
-                    {{#if equals this 'dtube'}}
-                    {{else}}
-                      {{#if this}}
-                        <a href="/t/{{this}}" class="ui tiny label">{{convertTag this}}</a>
-                      {{/if}}
-                    {{/if}}
+                  {{#each tags}}
+                    {{#unless equals t 'dtube'}}
+                      <a href="/t/{{t}}" class="ui small label">
+                        {{convertTag t}}
+                        <div class="detail">{{displayPayout total 0}}</div>
+                      </a>
+                    {{/unless}}
                   {{/each}}
+                  <a class="ui small label newtag"><i class="tag icon"></i> {{translate 'VIDEO_VOTE_TAG'}}</a>
                 </div>
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
                   {{> videosettingsdropdown}}

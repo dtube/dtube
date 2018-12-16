@@ -57,6 +57,28 @@ window.avalon = {
             cb(null, res)
         });
     },
+    getFollowing: (name, cb) => {
+        fetch(avalon.randomNode()+'/follows/'+name, {
+            method: 'get',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(function(res) {
+            cb(null, res)
+        });
+    },
+    getFollowers: (name, cb) => {
+        fetch(avalon.randomNode()+'/followers/'+name, {
+            method: 'get',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(function(res) {
+            cb(null, res)
+        });
+    },
     generateCommentTree: (root, author, link) => {
         var replies = []
         if (author == root.author && link == root.link) {
@@ -189,13 +211,17 @@ window.avalon = {
         return tx
     },
     sendTransaction: (tx, cb) => {
-        avalon.sendRawTransaction(tx, function(headBlock) {
-            setTimeout(function() {
-                avalon.verifyTransaction(tx, headBlock, 3, function(error, block) {
-                    if (error) console.log(error)
-                    else cb(block)
-                })
-            }, 1500)
+        avalon.sendRawTransaction(tx, function(error, headBlock) {
+            if (error) {
+                cb(error)
+            } else {
+                setTimeout(function() {
+                    avalon.verifyTransaction(tx, headBlock, 5, function(error, block) {
+                        if (error) console.log(error)
+                        else cb(null, block)
+                    })
+                }, 1500)
+            }
         })
     },
     sendRawTransaction: (tx, cb) => {
@@ -207,10 +233,17 @@ window.avalon = {
             },
             body: JSON.stringify(tx)
         }).then(function(res) {
-            res.text().then(function(headBlock) {
-                cb(parseInt(headBlock))
-            })
-        });
+            if (res.status === 500) {
+                res.json().then(function(err) {
+                    cb(err)
+                })
+            } else {
+                res.text().then(function(headBlock) {
+                    cb(null, parseInt(headBlock))
+                })
+            }
+            
+        })
     },
     verifyTransaction: (tx, headBlock, retries, cb) => {
         var nextBlock = headBlock+1
@@ -225,6 +258,8 @@ window.avalon = {
                 var block = JSON.parse(text)
             } catch (error) {
                 // block is not yet available, retrying in 1.5 secs
+                if (retries <= 0) return
+                retries--
                 setTimeout(function(){avalon.verifyTransaction(tx, headBlock, retries, cb)}, 1500)
                 return
             }
@@ -250,5 +285,55 @@ window.avalon = {
     randomNode: () => {
         var nodes = avalon.config.api
         return nodes[Math.floor(Math.random()*nodes.length)]
+    },
+    votingPower: (account) => {
+        return new GrowInt(account.vt, {growth:account.balance/(3600000)})
+                .grow(new Date().getTime()).v
+    },
+    bandwidth: (account) => {
+        return new GrowInt(account.bw, {growth:account.balance/(60000), max:1048576})
+                .grow(new Date().getTime()).v
+    }
+}
+
+class GrowInt {
+    constructor(raw, config) {
+        if (!config.min)
+            config.min = Number.MIN_SAFE_INTEGER
+        if (!config.max)
+            config.max = Number.MAX_SAFE_INTEGER
+        this.v = raw.v
+        this.t = raw.t
+        this.config = config
+    }
+
+    grow(time) {
+        if (time < this.t) return
+        if (this.config.growth == 0) return {
+            v: this.v,
+            t: time
+        }
+
+        var tmpValue = this.v
+        tmpValue += (time-this.t)*this.config.growth
+        
+        if (this.config.growth > 0) {
+            var newValue = Math.floor(tmpValue)
+            var newTime = Math.ceil(this.t + ((newValue-this.v)/this.config.growth))
+        } else {
+            var newValue = Math.ceil(tmpValue)
+            var newTime = Math.floor(this.t + ((newValue-this.v)/this.config.growth))
+        }
+
+        if (newValue > this.config.max)
+            newValue = this.config.max
+
+        if (newValue < this.config.min)
+            newValue = this.config.min
+
+        return {
+            v: newValue,
+            t: newTime
+        }
     }
 }

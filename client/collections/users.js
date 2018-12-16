@@ -29,6 +29,9 @@ Users.refreshUsers = function(usernames) {
       // user.reward_steem_balance = chainusers[i].reward_steem_balance
       // user.reward_vesting_balance = chainusers[i].reward_vesting_balance
       // user.reward_vesting_steem = chainusers[i].reward_vesting_steem
+      user.balance = chainusers[i].balance
+      user.bw = chainusers[i].bw
+      user.vt = chainusers[i].vt
       Users.update({username: user.username}, user)
     }
   })

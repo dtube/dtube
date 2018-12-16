@@ -346,17 +346,33 @@ Videos.loadFeed = function(username) {
 Videos.parseFromChain = function(video, isComment) {
   if (!video || !video.json || !video.json.app || video.json.app != 'deadtube') return
   video.replies = avalon.generateCommentTree(video, video.author, video.link)
+  video.ups = 0
+  video.downs = 0
+  video.tags = []
   if (video.votes) {
-    video.ups = 0
-    video.downs = 0
     for (let i = 0; i < video.votes.length; i++) {
         if (video.votes[i].vt > 0)
             video.ups += video.votes[i].vt
         if (video.votes[i].vt < 0)
-            video.downs += video.votes[i].vt
+            video.downs -= video.votes[i].vt
+        if (video.votes[i].tag.length > 0) {
+          var isAdded = false
+          for (let y = 0; y < video.tags.length; y++) {
+            if (video.tags[y].t == video.votes[i].tag) {
+              video.tags[y].total += video.votes[i].vt
+              isAdded = true
+              break
+            }
+          }
+          if (!isAdded)
+            video.tags.push({t: video.votes[i].tag, total: video.votes[i].vt})
+        }
     }
   }
-  video.totals = video.ups + video.downs
+  video.tags = video.tags.sort(function(a,b) {
+    return b.total - a.total
+  }).slice(0, 4)
+  video.totals = video.ups - video.downs
   return video;
 }
 
