@@ -92,7 +92,7 @@ Template.video.events({
     broadcast.vote(author, permlink, weight, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-      Template.video.loadState()
+      Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     });
   },
   'click .downvote': function (event) {
@@ -102,7 +102,7 @@ Template.video.events({
     broadcast.vote(author, permlink, weight, function (err, result) {
       if (err) toastr.error(err.cause.payload.error.data.stack[0].format, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-      Template.video.loadState()
+      Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     });
   },
   'click .replyTo': function (event) {

@@ -434,6 +434,17 @@ Videos.getContent = function (author, permlink, loadComments, loadUsers) {
   });
 }
 
+Videos.updateContent = function (author, permlink, loadComments, loadUsers) {
+  steem.api.getContent(author, permlink, function (err, result) {
+    var video = Videos.parseFromChain(result)
+    if (!video) return;
+    Videos.update({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' }, {$set: {
+      pending_payout_value: video.pending_payout_value,
+      active_votes: video.active_votes
+    }})
+  });
+}
+
 Videos.loadComments = function (author, permlink, loadUsers) {
   Session.set('loadingComments', true)
   steem.api.getContentReplies(author, permlink, function (err, result) {
