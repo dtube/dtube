@@ -50,17 +50,17 @@ Template.uploadform.parseTags = function (raw) {
   var tags = []
   var videoTags = []
   var form = document.getElementsByClassName('uploadform')[0]
-  for (var i = 0; i < raw.split(',').length; i++) {
-    if (tags.length < 4)
-      tags.push(raw.split(',')[i].toLowerCase())
-    if (videoTags.length < 4)
-      videoTags.push(raw.split(',')[i].toLowerCase())
-    //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
-  }
   if (FlowRouter.current().route.name == 'golive')
     tags.push('dtv')
   else
     tags.push(Meteor.settings.public.beneficiary)
+  for (var i = 0; i < raw.split(',').length; i++) {
+    if (tags.length < 5)
+      tags.push(raw.split(',')[i].toLowerCase())
+    if (videoTags.length < 5)
+      videoTags.push(raw.split(',')[i].toLowerCase())
+    //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
+  }
   return [tags, videoTags]
 }
 

@@ -220,7 +220,11 @@ Template.video.loadState = function () {
     }
     var video = Videos.parseFromChain(result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")])
     // non dtube videos can only load from State
-    if (!video) {
+    if (!video && !result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]) {
+      setTimeout(function(){
+        Videos.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
+      }, 1500);
+    } else if (!video) {
       video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
       video.info = {
         author: FlowRouter.getParam("author"),
