@@ -10,27 +10,29 @@
           <a href='/c/{{author}}' class="ui author">{{author}}</a>
         {{/if}}
         <div class="metadata">
-          <span class="date">{{timeAgo _id}}</span>
-          <span class="money">VT${{displayPayout ups downs}}</span>
+          <a class="date" href='/v/{{author}}/{{link}}'>{{timeAgo ts}}</a>
+          {{#if dist}}
+            <span class="money">+{{dist}} DTC</span>
+          {{/if}}
         </div>
         <div class="text" style="word-wrap: normal;flex-wrap: wrap;overflow: hidden; margin-top: 10px;">
           {{{syntaxed json.description}}}
         </div>
         <div class="actions noselect">
           {{#if hasUpvoted this}}
-            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs up icon red"></i> {{upvotes active_votes}}</a>
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{link}}'>
+            <i class="thumbs up icon red"></i> {{#if ups}}{{ups}}{{else}}0{{/if}}</a>
           {{else}}
-            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
+            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{link}}'>
+            <i class="thumbs up icon"></i> {{#if ups}}{{ups}}{{else}}0{{/if}}</a>
           {{/if}} {{#if hasDownvoted this}}
-            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{link}}'>
+            <i class="thumbs down icon red"></i> {{#if downs}}{{downs}}{{else}}0{{/if}}</a>
           {{else}}
-            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
+            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{link}}'>
+            <i class="thumbs down icon"></i> {{#if downs}}{{downs}}{{else}}0{{/if}}</a>
           {{/if}}
-          <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
+          <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{link}}'>{{ translate 'GLOBAL_REPLY'}}</a>
         </div>
     </div>
     {{#if isReplying this}}
@@ -46,21 +48,21 @@
         </div>
       </form>
     {{/if}} 
-    {{#if comments.length}}
+    {{#if replies.length}}
       <i class="ui angle down icon center"></i>
       <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
-          {{#if equals comments.length 1}}
-            {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLY'}}
+          {{#if equals replies.length 1}}
+            {{ translate 'COMMENT_SHOW'}} {{replies.length}} {{ translate 'COMMENT_REPLY'}}
           {{else}}
-            {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
+            {{ translate 'COMMENT_SHOW'}} {{replies.length}} {{ translate 'COMMENT_REPLIES'}}
           {{/if}}
       </button>
     {{/if}}
   </div>
   
-  {{#if comments.length}} 
+  {{#if replies.length}} 
     <div class="content comment" style="margin-top:20px"> 
-      {{#with comments}} 
+      {{#with replies}} 
         {{> subcomments}} 
       {{/with}} 
     </div>

@@ -97,10 +97,10 @@ window.avalon = {
                     if (comment.votes[i].vt > 0)
                         comment.ups += comment.votes[i].vt
                     if (comment.votes[i].vt < 0)
-                        comment.downs += comment.votes[i].vt
+                        comment.downs -= comment.votes[i].vt
                 }
             }
-            comment.totals = comment.ups + comment.downs
+            comment.totals = comment.ups - comment.downs
             replies.push(comment)
         }
         replies = replies.sort(function(a,b) {
@@ -164,7 +164,17 @@ window.avalon = {
                 cb(null, res)
             });
         }
-        
+    },
+    getNotifications: (username, cb) => {
+        fetch(avalon.randomNode()+'/notifications/'+username, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(function(res) {
+            cb(null, res)
+        });
     },
     randomBytes: (n) => {
         var a = new Uint8Array(n);

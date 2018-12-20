@@ -3,14 +3,18 @@
     <div class="ui videocontainer stackable two column grid computergrid">
       <!-- Player on page -->
       <div class="videocol eleven wide column" style="padding:0px!important">
-        {{> player}}
+        {{#if json.title}}
+          {{> player}}
+        {{/if}}
         <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
           <!-- Title, Vote - Share - More  -->
           <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
             <div class="ui info" style="display: inline-grid;width: 100%;">
-              <div class="videotitlecontainer">
-                <h1 class="videotitle">{{json.title}}</h1>
-              </div>
+              {{#if json.title}}
+                <div class="videotitlecontainer">
+                  <h1 class="videotitle">{{json.title}}</h1>
+                </div>
+              {{/if}}
               <div style="display:inline-block;">
                 <div id='videosnaptags' class='videosnaptags pos-rel' style="bottom: 5px;float:left;max-width: 48%;">
                   {{#each tags}}
@@ -48,7 +52,7 @@
             </div>
           </div>
           <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
-          <!-- <div class="ui segment" style="padding:0px!important;">
+          <div class="ui segment" style="padding:0px!important;">
             <div class="details wid-ful">
               <div class="videoleftdetails wid-ful" style="padding: 10px;">
                 <div class="ui left tiny circular avatar floated image"
@@ -76,13 +80,13 @@
                 {{/unless}}
                 <div class="videorightdetails">
                   <div class='videopayout'>
-                    VT${{displayPayout ups downs}}
+                    +{{dist}} DTC
                   </div>
                   <br />
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
           <!-- <div id='editvideosegment' class="ui segment" style="display: none">
             {{> uploadform}}
             {{> uploadformsubmit}}
@@ -91,7 +95,7 @@
             <!-- No Video, Display all text -->
             <div id="descriptionsegment" class="ui segment open descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
               <div id="truncateddesc">
-                <strong title='{{timeAgo _id}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay _id}} by <a href="/c/{{video.author}}">{{video.author}}</a></strong>
+                <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
                 <br/> {{{syntaxed json.description}}}
               </div>
             </div>
@@ -99,7 +103,7 @@
             <!-- Syntaxed video description - Show More -->
             <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
               <div id="truncateddesc" class="truncate" style="overflow: hidden;">
-                <strong title='{{timeAgo _id}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay _id}} by <a href="/c/{{video.author}}">{{video.author}}</a></strong>
+                <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
                 <br/> {{{syntaxed json.description}}}
               </div>
             </div>

@@ -373,6 +373,7 @@ Videos.parseFromChain = function(video, isComment) {
     return b.total - a.total
   }).slice(0, 4)
   video.totals = video.ups - video.downs
+  if (!video.dist) video.dist = 0
   return video;
 }
 

@@ -147,13 +147,13 @@ Template.registerHelper('timeAgoTimestamp', function (timestamp) {
   return moment(timestamp*1000).fromNow()
 })
 
-Template.registerHelper('timeAgo', function (id) {
-  var date = new Date(parseInt( id.toString().substring(0,8), 16 ) * 1000)
+Template.registerHelper('timeAgo', function (ts) {
+  var date = new Date(ts)
   return moment(date).fromNow()
 })
 
-Template.registerHelper('timeDisplay', function (id) {
-  var date = new Date(parseInt( id.toString().substring(0,8), 16 ) * 1000)
+Template.registerHelper('timeDisplay', function (ts) {
+  var date = new Date(parseInt(ts))
   return moment(date).format("ll")
 })
 
@@ -168,20 +168,20 @@ Template.registerHelper('durationDisplay', function (seconds) {
 })
 
 Template.registerHelper('hasUpvoted', function (video) {
-  if (!video || !video.active_votes) return
-  for (var i = 0; i < video.active_votes.length; i++) {
-    if (video.active_votes[i].voter == Session.get('activeUsername')
-      && parseInt(video.active_votes[i].percent) > 0)
+  if (!video || !video.votes) return
+  for (var i = 0; i < video.votes.length; i++) {
+    if (video.votes[i].u == Session.get('activeUsername')
+      && video.votes[i].vt > 0)
       return true
   }
   return false
 })
 
 Template.registerHelper('hasDownvoted', function (video) {
-  if (!video || !video.active_votes) return
-  for (var i = 0; i < video.active_votes.length; i++) {
-    if (video.active_votes[i].voter == Session.get('activeUsername')
-      && parseInt(video.active_votes[i].percent) < 0)
+  if (!video || !video.votes) return
+  for (var i = 0; i < video.votes.length; i++) {
+    if (video.votes[i].u == Session.get('activeUsername')
+      && video.votes[i].vt < 0)
       return true
   }
   return false

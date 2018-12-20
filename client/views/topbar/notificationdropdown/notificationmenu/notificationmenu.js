@@ -11,8 +11,8 @@ Template.notificationmenu.helpers({
   },
   notifications: function() {
     return Notifications.find(
-      {user: Session.get('activeUsername')},
-      {sort: { block: -1 }, limit: 50})
+      {u: Session.get('activeUsername')},
+      {sort: { ts: -1 }, limit: 200})
       .fetch()
   },
   mainUser: function() {
