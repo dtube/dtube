@@ -49,11 +49,11 @@ Template.registerHelper('downvotes', function (active_votes) {
 
 Template.registerHelper('userPic', function (username, type) {
   if (!type || typeof type != 'string') type=''
-  return 'https://steemitimages.com/u/'+username+'/avatar/'+type
+  return 'https://bran.nannal.com/u/'+username+'/avatar/'+type
 });
 
 Template.registerHelper('userCover', function(coverurl) {
-  return 'https://steemitimages.com/2048x512/'+coverurl
+  return 'https://bran.nannal.com/2048x512/'+coverurl
 })
 
 
@@ -309,11 +309,11 @@ Template.registerHelper('getEmbedCode', function (author, permlink) {
 })
 
 Template.registerHelper('getSteemGProp', function () {
-  if (!Session.get('steemGlobalProp'))
-    steem.api.getDynamicGlobalProperties(function (err, result) {
-      if (result)
-        Session.set('steemGlobalProp', result)
-    })
+  // if (!Session.get('steemGlobalProp'))
+  //   steem.api.getDynamicGlobalProperties(function (err, result) {
+  //     if (result)
+  //       Session.set('steemGlobalProp', result)
+  //   })
 })
 
 Template.registerHelper('getPercent', function (string) {
@@ -325,7 +325,7 @@ Template.registerHelper('displayShortDescription', function (string) {
 })
 
 Template.registerHelper('displayReputation', function (string) {
-  return steem.formatter.reputation(string);
+  return 0
 })
 
 Template.registerHelper('displayDate', function (date) {
@@ -336,22 +336,24 @@ Template.registerHelper('displayDateFull', function (date) {
   return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 })
 
-Template.registerHelper('displayVotingPower', function (votingPower, lastVoteTime, precision) {
-  if (isNaN(votingPower)) return
-  var secondsPassedSinceLastVote = (new Date - new Date(lastVoteTime + "Z")) / 1000;
-  votingPower += (10000 * secondsPassedSinceLastVote / 432000);
-  return Math.min(votingPower / 100, 100).toFixed(precision)
+Template.registerHelper('displayVotingPower', function (user) {
+  return cuteNumber(avalon.votingPower(user))
+})
+
+Template.registerHelper('displayBandwidth', function (user) {
+  return cuteNumber(avalon.bandwidth(user))
 })
 
 Template.registerHelper('displaySteemPower', function (vesting_shares) {
-  if (vesting_shares) {
-    var SP = Market.vestToSteemPower(vesting_shares.split(' ')[0])
-    return `${SP.toFixed(3)} SP`
-  }
-
+  // if (vesting_shares) {
+  //   var SP = Market.vestToSteemPower(vesting_shares.split(' ')[0])
+  //   return `${SP.toFixed(3)} SP`
+  // }
+  return 0
 })
 
 Template.registerHelper('displaySavings', function (savings_balance, savings_sbd_balance) {
+  return 0;
   if (!savings_balance || !savings_sbd_balance) return
   else {
     var savings_balance = parseFloat(savings_balance.split(' ')[0]);
@@ -381,4 +383,8 @@ Template.registerHelper('inputTags',function (tags) {
 
 Template.registerHelper('activeUsername', function() {
   return Session.get('activeUsername')
+})
+
+Template.registerHelper('subCount', function() {
+  return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
 })

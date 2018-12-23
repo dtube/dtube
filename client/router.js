@@ -112,9 +112,9 @@ FlowRouter.route('/newvideos', {
     Session.set("currentMenu", 6)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'New Videos')
-    Videos.getVideosBy('createdLive', 50, function (err) {
-      if (err) console.log(err)
-    })
+    // Videos.getVideosBy('createdLive', 50, function (err) {
+    //   if (err) console.log(err)
+    // })
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
       nav: "nav",
@@ -239,7 +239,7 @@ FlowRouter.route('/c/:author', {
     Videos.getVideosByBlog(params.author, 50, function(err) {
       if (err) console.log(err)
     })
-    SubCounts.loadSubscribers(params.author)
+    //SubCounts.loadSubscribers(params.author)
     Session.set('currentTab', 'videos');
     if(Session.get('activeUsername') == params.author)
     {

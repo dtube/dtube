@@ -27,8 +27,8 @@ Template.notificationdropdown.helpers({
     'click .remove.icon': function () {
       var notif = Notifications.findOne({_id: this._id})
       Notifications.remove(this._id)
-      if (notif.block > UserSettings.get('notifications_highblock'))
-        UserSettings.set('notifications_highblock', notif.block)
+      // if (notif.block > UserSettings.get('notifications_highblock'))
+      //   UserSettings.set('notifications_highblock', notif.block)
     },
     'click .item.claimRewards': function () {
       var user = Users.findOne({username: Session.get('activeUsername')})

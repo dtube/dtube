@@ -50,66 +50,36 @@ broadcast = {
         if (!voter) return;
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
-            steem.broadcast.customJson(
-                wif,
-                [],
-                [voter],
-                'follow',
-                JSON.stringify(
-                    ['follow', {
-                        follower: voter,
-                        following: following,
-                        what: ['blog']
-                    }]
-                ),
-                function (err, result) {
-                    cb(err, result)
+            var tx = {
+                type: 7,
+                data: {
+                    target: following
                 }
-            );
+            }
+            tx = avalon.sign(wif, voter, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
             return;
         }
-        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
-        if (!accessToken) {
-            cb('ERROR_BROADCAST')
-            return;
-        }
-        sc2.setAccessToken(accessToken);
-        sc2.follow(voter, following, function(err, result) {
-            cb(err, result)
-        })
     },
     unfollow: function(following, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
-            steem.broadcast.customJson(
-                wif,
-                [],
-                [voter],
-                'follow',
-                JSON.stringify(
-                    ['follow', {
-                        follower: voter,
-                        following: following,
-                        what: []
-                    }]
-                ),
-                function (err, result) {
-                    cb(err, result)
+            var tx = {
+                type: 8,
+                data: {
+                    target: following
                 }
-            );
+            }
+            tx = avalon.sign(wif, voter, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
             return;
         }
-        var accessToken = Users.findOne({ username: Session.get('activeUsername') }).access_token
-        if (!accessToken) {
-            cb('ERROR_BROADCAST')
-            return;
-        }
-        sc2.setAccessToken(accessToken);
-        sc2.unfollow(voter, following, function(err, result) {
-            cb(err, result)
-        })
     },
     comment: function(parentAuthor, parentPermlink, jsonMetadata, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username

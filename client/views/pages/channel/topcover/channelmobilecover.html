@@ -1,8 +1,8 @@
 <template name='channelmobilecover'>
     {{#if author}}
-    <div id="channelcover" class="channelcover pos-rel {{#unless author.json_metadata.profile.cover_image}}{{randomBackgroundColor}}{{/unless}}" style="max-height: 145px;overflow: hidden;">
-        {{#if author.json_metadata.profile.cover_image}}
-            <img src="{{userCover author.json_metadata.profile.cover_image}}" class="pos-abs" style="object-fit: cover;width: 100%;height: 100%;">
+    <div id="channelcover" class="channelcover pos-rel {{#unless author.json.profile.cover_image}}{{randomBackgroundColor}}{{/unless}}" style="max-height: 145px;overflow: hidden;">
+        {{#if author.json.profile.cover_image}}
+            <img src="{{userCover author.json.profile.cover_image}}" class="pos-abs" style="object-fit: cover;width: 100%;height: 100%;">
         {{/if}}
         <div class="ui image circular"
             style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
@@ -26,11 +26,11 @@
     <div class="wid-ful">
         <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important; max-width: 100%;">
             <div class="ui fluid compact menu brd-rad-non" style="min-height:0px!important;display: block;border-width:0px;">
-                <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
+                <!-- <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
                     <i class="icon red star"></i>{{displayReputation author.reputation}}
-                </div>
+                </div> -->
                 <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
-                    <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}}%
+                    <i class="icon blue lightning"></i>{{displayVotingPower author}} VT
                 </div>
                 <div class="ui videoshowmore   label" style="margin-left: 0em;float:right;">
                     <i class="icon green money"></i>{{author.estimateAccountValue}}

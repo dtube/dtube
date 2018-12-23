@@ -7,8 +7,8 @@ var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
 window.avalon = {
     config: {
         //api: ['https://api.avalon.wtf'],
-        //api: ['https://bran.nannal.com'],
-        api: ['http://127.0.0.1:3001']
+        api: ['https://bran.nannal.com'],
+        //api: ['http://127.0.0.1:3001']
     },
     init: (config) => {
         avalon.config = config
@@ -25,7 +25,7 @@ window.avalon = {
         });
     },
     getAccountHistory: (name, lastBlock, cb) => {
-        fetch(avalon.randomNode()+'/blog/'+name+'/history/'+lastBlock, {
+        fetch(avalon.randomNode()+'/history/'+name+'/'+lastBlock, {
             method: 'get',
             headers: {
               'Accept': 'application/json, text/plain, */*',
@@ -108,16 +108,28 @@ window.avalon = {
         })
         return replies
     },
-    getDiscussionsByAuthor: (username, cb) => {
-        fetch(avalon.randomNode()+'/blog/'+username, {
-            method: 'get',
-            headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
-            }
-        }).then(res => res.json()).then(function(res) {
-            cb(null, res)
-        });
+    getDiscussionsByAuthor: (username, author, link, cb) => {
+        if (!author && !link) {
+            fetch(avalon.randomNode()+'/blog/'+username, {
+                method: 'get',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(function(res) {
+                cb(null, res)
+            });
+        } else {
+            fetch(avalon.randomNode()+'/blog/'+username+'/'+author+'/'+link, {
+                method: 'get',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(function(res) {
+                cb(null, res)
+            });
+        }
     },
     getNewDiscussions: (author, link, cb) => {
         if (!author && !link) {

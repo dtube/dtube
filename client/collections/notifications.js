@@ -81,9 +81,11 @@ Notifications.getCentralized = function () {
           break;
       }
       notif.message = message
-      Notifications.insert(notif)
+      if (!Notifications.findOne({_id: notif._id}))
+        Notifications.insert(notif)
     }
-    UserSettings.set('notifications_highblock', notifications[0].ts)
+    if (notifications[0])
+      UserSettings.set('notifications_highblock', notifications[0].ts)
   })
 }
 

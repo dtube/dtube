@@ -152,12 +152,15 @@ Videos.getVideosByBlog = function(author, limit, cb) {
 
   if (limit) query.limit = limit
 
+  var start_author = null
+  var start_permlink = null
+
   if (Session.get('lastBlogs')[author]) {
-    query.start_author = Session.get('lastBlogs')[author].author
-    query.start_permlink = Session.get('lastBlogs')[author].permlink
+    start_author = Session.get('lastBlogs')[author].author
+    start_permlink = Session.get('lastBlogs')[author].link
   }
 
-  steem.api.getDiscussionsByBlog(query, function (err, result) {
+  avalon.getDiscussionsByAuthor(author, start_author, start_permlink, function (err, result) {
     if (err === null || err === '') {
       Videos.setLastBlog(author, result[result.length-1])
       var i, len = result.length;

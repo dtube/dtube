@@ -23,12 +23,13 @@ Users.refreshUsers = function(usernames) {
     if (!chainusers) return;
     for (var i = 0; i < chainusers.length; i++) {
       var user = Users.findOne({username: chainusers[i].name})
-      if (chainusers[i].json && JSON.parse(chainusers[i].json))
-        user.json_metadata = JSON.parse(chainusers[i].json)
+      // if (chainusers[i].json && JSON.parse(chainusers[i].json))
+      //   user.json_metadata = JSON.parse(chainusers[i].json)
       // user.reward_sbd_balance = chainusers[i].reward_sbd_balance
       // user.reward_steem_balance = chainusers[i].reward_steem_balance
       // user.reward_vesting_balance = chainusers[i].reward_vesting_balance
       // user.reward_vesting_steem = chainusers[i].reward_vesting_steem
+      user.json = chainusers[i].json
       user.balance = chainusers[i].balance
       user.bw = chainusers[i].bw
       user.vt = chainusers[i].vt

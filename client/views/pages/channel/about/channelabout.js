@@ -15,13 +15,9 @@ Template.channelabout.helpers({
         }
     },
     subCount: function () {
-        var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-        if (!subCount || !subCount.follower_count) return 0
-        return subCount.follower_count;
-      },
-      followingCount: function () {
-        var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-        if (!subCount || !subCount.following_count) return 0
-        return subCount.following_count;
-      }
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
+    },
+    followingCount: function () {
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount
+    },
 })

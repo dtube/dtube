@@ -1,5 +1,5 @@
 Template.channelactivities.rendered = function () {
-    Activities.getAccountHistory(FlowRouter.getParam("author"), -1, 20)
+    //Activities.getAccountHistory(FlowRouter.getParam("author"), -1, 20)
     $('.ui.infinite.activities').visibility({
         once: false,
         observeChanges: true,
