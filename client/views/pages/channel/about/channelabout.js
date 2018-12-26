@@ -15,9 +15,9 @@ Template.channelabout.helpers({
         }
     },
     subCount: function () {
-        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
     },
     followingCount: function () {
-        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
     },
 })

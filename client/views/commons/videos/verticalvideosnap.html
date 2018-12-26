@@ -5,20 +5,21 @@
       {{#if equals source 'wakaArticles'}}
       {{#if isOnWatchAgain}}
       <i id="remove" class="ui remove icon circular pos-abs" style="background-color: rgba(241, 241, 241, 0.85);">
-        <span title='Stop sharing {{info.title}}' style="z-index:9000;"></span>
+        <span title='Stop sharing {{json.title}}' style="z-index:9000;"></span>
       </i>
       {{/if}}
       {{/if}}
-      <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
+      <a href='/v/{{author}}/{{link}}' title='{{json.title}}'>
         <div class='verticalvideosnapsnap' style="height:90px;">
           <div id="snapload" class="ui active dimmer snaploader pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);float: left;height:90px;width: 160px;">
             <i class="icon photo nosnap" style="font-size:28px;margin-top:15%;"></i>
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div>
-          {{#if info.duration}}
-            <span class="videosnapduration">{{durationDisplay info.duration}}</span>
+          <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
+          {{#if json.duration}}
+            <span class="videosnapduration">{{durationDisplay json.duration}}</span>
           {{/if}}
-          <img id="snapimg" height="90" width="160" alt="" data-src="{{ipfsSrc info.snaphash}}">
+          <img id="snapimg" height="90" width="160" alt="" data-src="{{json.thumbnailUrl}}">
           <br /> 
         </div>
       </a>
@@ -26,25 +27,20 @@
     <div class="pos-rel" style="text-align:left;margin-left:8px;">
       <div class="boxdisplayer">
         <div class='verticalvideosnaptitle'>
-          <a href='/v/{{info.author}}/{{info.permlink}}'>
-            <span class="customtitlelink">{{info.title}}</span>
+          <a href='/v/{{author}}/{{link}}'>
+            <span class="customtitlelink">{{json.title}}</span>
           </a>
         </div>
       </div>
       <div class='videosnapauthor'>
-        <a href='/c/{{info.author}}'>
-          <span class="customlink">{{info.author}}</span>
+        <a href='/c/{{author}}'>
+          <span class="customlink">{{author}}</span>
         </a>
         {{#if isResteemed reblogged_by}}
         <i class="retweet icon reblogged" title={{reblogged_by}}></i> 
         {{/if}}
       </div>
       <div class='videosnapdetails'>
-          {{#if displayPayout pending_payout_value total_payout_value curator_payout_value}}
-        <div class='videosnaprest'>
-            ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
-        </div>
-        {{/if}}
          <div class='videosnaptime'>
           {{timeAgo ts}}
         </div>

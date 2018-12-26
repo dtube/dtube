@@ -123,7 +123,6 @@ Template.video.events({
     })
   },
   'click .submit': function (event) {
-    console.log('test')
     if (!Session.get('replyingTo')) return;
     $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -150,9 +149,12 @@ Template.video.events({
     });
   },
   'click .subscribe': function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    subCount.follower_count++
-    SubCounts.upsert({ _id: subCount._id }, subCount)
+    var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+    if (user.followersCount)
+      user.followersCount++
+    else
+      user.followersCount = 1
+    ChainUsers.upsert({_id: user._id}, user)
     Subs.insert({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author"),
@@ -169,9 +171,12 @@ Template.video.events({
     })
   },
   'click .unsubscribe': function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    subCount.follower_count--
-    SubCounts.upsert({ _id: subCount._id }, subCount)
+    var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+    if (user.followersCount)
+      user.followersCount--
+    else
+      user.followersCount = -1 // ?!
+    ChainUsers.upsert({_id: user._id}, user)
     Subs.remove({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author")
@@ -222,6 +227,10 @@ Template.video.loadState = function () {
   avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
     if (err) throw err;
     console.log('Loaded video from chain', result)
+    Waka.db.Articles.upsert(result)
+    Videos.getVideosRelatedTo(result._id, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), 7, function() {
+      // call finished
+    })
     isLoadingState = false
     for (var key in result.accounts) {
       var user = result.accounts[key]
@@ -248,7 +257,6 @@ Template.video.loadState = function () {
     //video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
     video.source = 'chainDirect'
     video._id += 'd'
-    console.log(video)
     Videos.upsert({ _id: video._id }, video)
   });
 }

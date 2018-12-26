@@ -7,33 +7,19 @@
     </button>
     <!-- <i class="ellipsis horizontal icon videohmore"></i> -->
     <div class="menu">
-      <div class="item resteem">
+      <!-- <div class="item resteem">
         <a>
           <span class="customlink">
             <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}}
           </span>
         </a>
-      </div>
+      </div> -->
       <div class="item copylink">
         <span class="customlink">
           <i class="share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}</span>
-        <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://d.tube/v/{{info.author}}/{{info.permlink}}" readonly>
+        <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://new.d.tube/v/{{author}}/{{link}}" readonly>
         <!--<div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>   -->
       </div>
-      <div  class="item copyembed">
-        <span class="customlink">
-          <i class="external share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_EMBED_LINK'}}</span>
-        <input id="embedlink" style="width:0px;visibility:hidden;" type="text" placeholder="Embed" value="{{ getEmbedCode info.author info.permlink }}" readonly>
-        <!--<div class="ui button copyembed" style="width:130px;">{{ translate 'VIDEO_COPY_EMBED_LINK'}}</div> -->
-      </div>
-      {{#if content.magnet}}
-      <div class="item">
-        <a href="{{content.magnet}}">
-          <span class="customlink"> 
-            <i class="magnet icon"></i> {{ translate 'VIDEO_SETTINGS_DOWNLOAD_FROM_MAGNET'}}</span>
-        </a>
-      </div>
-      {{/if}}
       {{#unless isInWatchLater}}
       <div class="item addvideotowatchlater">
           <a>

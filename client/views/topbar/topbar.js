@@ -30,17 +30,20 @@ Template.topbar.events({
       $('.results').hide()
       return
     }
-    AskSteem.suggestions({term: query}, function (err, suggestions) {
-      if (suggestions.length > 0) $('.results').show()
-      else $('.results').hide()
-      Session.set('searchSuggestions', suggestions)
-    })
+    // AskSteem.suggestions({term: query}, function (err, suggestions) {
+    //   if (suggestions.length > 0) $('.results').show()
+    //   else $('.results').hide()
+    //   Session.set('searchSuggestions', suggestions)
+    // })
   },
   'submit .searchForm': function (event) {
     event.preventDefault()
     var query = event.target.search.value
     Session.set('search', {query: query})
-    AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta,payout'}, function(err, response){
+    // AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta,payout'}, function(err, response){
+    //   Session.set('search', {query: query, response: response})
+    // })
+    Search.text(query, function(err, response){
       Session.set('search', {query: query, response: response})
     })
     FlowRouter.go('/s/'+query)

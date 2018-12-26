@@ -214,10 +214,10 @@ FlowRouter.route('/v/:author/:permlink', {
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
     // })
-    // Videos.getVideosRelatedTo(params.author, params.permlink, 7, function() {
-    //   // call finished
-    // })
     // SubCounts.loadSubscribers(params.author)
+    ChainUsers.fetchNames([params.author], function (error) {
+      if (error) console.log('Error fetch name')
+    })
     Session.set('replyingTo', {
       author: params.author,
       permlink: params.permlink
@@ -267,12 +267,12 @@ FlowRouter.route('/t/:tag', {
     Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
       // call finished
     })
-    Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-      // call finished
-    })
-    Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-      // call finished
-    })
+    // Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+    //   // call finished
+    // })
+    // Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+    //   // call finished
+    // })
     Session.set("currentMenu", 0)
     Template.sidebar.selectMenu();
     Session.set('askSteemCurrentPage', 3)

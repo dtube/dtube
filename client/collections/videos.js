@@ -16,36 +16,36 @@ Videos.refreshWaka = function() {
       }
     }
   })
-  Waka.mem.Peers.find({},{}).fetch(function(res){
-    // articles in our network
-    var videos = []
-    for (var i = 0; i < res.length; i++) {
-      if (!res[i].index) continue
-      for (var y = 0; y < res[i].index.length; y++) {
-        var exists = false
-        for (var v = 0; v < videos.length; v++) {
-          if (videos[i].title == res[i].index[y].title) {
-            videos[i].sharedBy++
-            exists = true
-          }
-        }
-        if (!exists) {
-          res[i].index[y].sharedBy = 1
-          videos.push(res[i].index[y])
-        }
-      }
-    }
+  // Waka.mem.Peers.find({},{}).fetch(function(res){
+  //   // articles in our network
+  //   var videos = []
+  //   for (var i = 0; i < res.length; i++) {
+  //     if (!res[i].index) continue
+  //     for (var y = 0; y < res[i].index.length; y++) {
+  //       var exists = false
+  //       for (var v = 0; v < videos.length; v++) {
+  //         if (videos[i].title == res[i].index[y].title) {
+  //           videos[i].sharedBy++
+  //           exists = true
+  //         }
+  //       }
+  //       if (!exists) {
+  //         res[i].index[y].sharedBy = 1
+  //         videos.push(res[i].index[y])
+  //       }
+  //     }
+  //   }
 
-    for (var i = 0; i < videos.length; i++) {
-      videos[i].source = 'wakaPeers'
-      videos[i]._id += 'p'
-      try {
-        Videos.upsert({_id: videos[i]._id}, videos[i])
-      } catch(err) {
-        console.log(err)
-      }
-    }
-  })
+  //   for (var i = 0; i < videos.length; i++) {
+  //     videos[i].source = 'wakaPeers'
+  //     videos[i]._id += 'p'
+  //     try {
+  //       Videos.upsert({_id: videos[i]._id}, videos[i])
+  //     } catch(err) {
+  //       console.log(err)
+  //     }
+  //   }
+  // })
 }
 
 Videos.refreshBlockchain = function(cb) {
@@ -68,19 +68,15 @@ Videos.refreshBlockchain = function(cb) {
   }
 }
 
-Videos.getVideosRelatedTo = function(author, permlink, days, cb) {
+Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
   var dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
   var dateQuery = 'created:>='+dateFrom
-  AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q:dateQuery+" AND meta.video.info.title:*"}, function(err, response) {
-    var videos = []
-    for (let i = 0; i < response.results.length; i++) {
-      var video = Videos.parseFromAskSteemResult(response.results[i])
-      if (video) videos.push(video)
-    }
+  Search.moreLikeThis(id, function(err, response) {
+    var videos = response.results
     for (let i = 0; i < videos.length; i++) {
       videos[i].source = 'askSteem'
       videos[i]._id += 'a'
-      videos[i].relatedTo = author+'/'+permlink
+      videos[i].relatedTo = author+'/'+link
       try {
         Videos.upsert({ _id: videos[i]._id }, videos[i])
       } catch (err) {
@@ -89,35 +85,42 @@ Videos.getVideosRelatedTo = function(author, permlink, days, cb) {
     }
     cb(null)
   })
+  // AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q:dateQuery+" AND meta.video.info.title:*"}, function(err, response) {
+  //   var videos = []
+  //   for (let i = 0; i < response.results.length; i++) {
+  //     var video = Videos.parseFromAskSteemResult(response.results[i])
+  //     if (video) videos.push(video)
+  //   }
+  //   for (let i = 0; i < videos.length; i++) {
+  //     videos[i].source = 'askSteem'
+  //     videos[i]._id += 'a'
+  //     videos[i].relatedTo = author+'/'+permlink
+  //     try {
+  //       Videos.upsert({ _id: videos[i]._id }, videos[i])
+  //     } catch (err) {
+  //       cb(err)
+  //     }
+  //   }
+  //   cb(null)
+  // })
 }
 
 Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration, cb) {
   var queries = []
   if (days) {
-    dateTo = moment().format('YYYY-MM-DD');
-    dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
-    queries.push('created:>='+dateFrom)
+    dateFrom = new Date().getTime() - (days*24*60*60*1000)
+    queries.push('ts:>='+dateFrom)
   }
   if (maxDuration && maxDuration < 99999)
-    queries.push('meta.video.info.duration:<='+maxDuration)
+    queries.push('json.duration:<='+maxDuration)
   for (let i = 0; i < tags.length; i++)
-    queries.push('meta.video.content.tags:'+tags[i])
+    queries.push('votes.tag:'+tags[i])
 
   var query = queries.join(' AND ')
 
-  AskSteem.search({
-    q: query,
-    include: 'meta,payout',
-    sort_by: sort_by,
-    pg: page,
-    order: order,
-    types: 'post'
-  }, function(err, response) {
-    var videos = []
-    for (let i = 0; i < response.results.length; i++) {
-      var video = Videos.parseFromAskSteemResult(response.results[i])
-      if (video) videos.push(video)
-    }
+  Search.text(query, function(err, response) {
+    console.log(response)
+    var videos = response.results
     for (let i = 0; i < videos.length; i++) {
       videos[i].source = 'askSteem'
       videos[i]._id += 'a'
@@ -321,7 +324,7 @@ Videos.loadFeed = function(username) {
   Notifications.getCentralized()
 
   console.log('Loading feed for '+username)
-  steem.api.getDiscussionsByFeed({"tag": username, "limit": 100, "truncate_body": 1}, function(err, result) {
+  avalon.getFeedDiscussions(username, null, null, function(err, result) {
     if (err === null || err === '') {
         var i, len = result.length;
         var videos = []

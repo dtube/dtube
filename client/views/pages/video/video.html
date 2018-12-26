@@ -28,7 +28,7 @@
                   <a class="ui small label newtag"><i class="tag icon"></i> {{translate 'VIDEO_VOTE_TAG'}}</a>
                 </div>
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
-                  {{> videosettingsdropdown}}
+                  {{> videosettingsdropdown video}}
                   <div style="float: right;" class="button icon bottom aligned ">
                     <button class="ui icon button upvote votebutton" data-tcs="#popupupvote">
                       {{#if hasUpvoted video}}
@@ -65,7 +65,7 @@
                 </div>
                 {{#unless equals activeUser user.name}}
                   {{#if isLoggedOn}}
-                    {{#if isSubscribedTo author}}
+                    {{#if isSubscribedTo video.author}}
                       {{>buttonunsubscribe}}
                     {{else}}
                       {{>buttonsubscribe}}
@@ -87,10 +87,10 @@
               </div>
             </div>
           </div>
-          <!-- <div id='editvideosegment' class="ui segment" style="display: none">
+          <div id='editvideosegment' class="ui segment" style="display: none">
             {{> uploadform}}
             {{> uploadformsubmit}}
-          </div> -->
+          </div>
           {{#unless json.videoId}}
             <!-- No Video, Display all text -->
             <div id="descriptionsegment" class="ui segment open descriptionsegment wid-ful" style="display:grid;overflow: hidden;">

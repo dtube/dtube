@@ -49,18 +49,11 @@ Template.registerHelper('downvotes', function (active_votes) {
 
 Template.registerHelper('userPic', function (username, type) {
   if (!type || typeof type != 'string') type=''
-  return 'https://bran.nannal.com/u/'+username+'/avatar/'+type
+  return 'https://avaimage.nannal.com/u/'+username+'/avatar/'+type
 });
 
 Template.registerHelper('userCover', function(coverurl) {
-  return 'https://bran.nannal.com/2048x512/'+coverurl
-})
-
-
-Template.registerHelper('subCount', function (username) {
-  var count = SubCounts.findOne({ account: username })
-  if (!count) return '<i class="loading spinner icon"></i>';
-  return count.follower_count
+  return 'https://avaimage.nannal.com/2048x512/'+coverurl
 })
 
 Template.registerHelper('isReplying', function (content) {
@@ -117,24 +110,40 @@ Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
 
 Template.registerHelper('displayVoters', function (votes, isDownvote) {
   if (!votes) return
-  votes.sort(function (a, b) {
-    var rsa = parseInt(a.rshares)
-    var rsb = parseInt(b.rshares)
-    return rsb - rsa
+  var newVotes = []
+  for (let i = 0; i < votes.length; i++) {
+    var updated = false
+    for (let y = 0; y < newVotes.length; y++) {
+      if (newVotes[y].u == votes[i].u) {
+        updated = true
+        if (votes[i].vt > 0 && !isDownvote)
+          newVotes[y].vt = newVotes[y].vt + votes[i].vt
+        if (votes[i].vt < 0 && isDownvote)
+          newVotes[y].vt = newVotes[y].vt + votes[i].vt
+        
+        break
+      }
+    }
+    if (!updated) {
+      if ((votes[i].vt > 0 && !isDownvote) || (votes[i].vt < 0 && isDownvote))
+        newVotes.push({u: votes[i].u, vt: votes[i].vt, ts: votes[i].ts})
+    }
+  }
+  newVotes.sort(function (a, b) {
+    return b.vt - a.vt
   })
-  if (isDownvote) votes.reverse()
+  if (isDownvote) newVotes.reverse()
 
-  var rsharesTotal = 0;
-  for (let i = 0; i < votes.length; i++)
-    rsharesTotal += parseInt(votes[i].rshares)
+  var vtTotal = 0;
+  for (let i = 0; i < newVotes.length; i++)
+    vtTotal += newVotes[i].vt
 
   var top20 = []
   for (let i = 0; i < 20; i++) {
-    if (i == votes.length) break
-    votes[i].rsharespercent = parseInt(votes[i].rshares) / rsharesTotal
-    if (parseInt(votes[i].rshares) <= 0 && !isDownvote) break;
-    if (parseInt(votes[i].rshares) >= 0 && isDownvote) break;
-    top20.push(votes[i])
+    if (i == newVotes.length) break
+    if (newVotes[i].vt <= 0 && !isDownvote) break;
+    if (newVotes[i].vt >= 0 && isDownvote) break;
+    top20.push(newVotes[i])
   }
   return top20
 })
@@ -386,5 +395,5 @@ Template.registerHelper('activeUsername', function() {
 })
 
 Template.registerHelper('subCount', function() {
-  return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
+  return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
 })

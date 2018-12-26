@@ -240,47 +240,46 @@ Template.uploadformsubmit.events({
   },
   'click .editsubmit': function (event) {
     event.preventDefault()
-    var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
-    var article = Template.uploadform.generateVideo(tags[1])
-    if ($('input[name=permlink]')[0])
-      article.info.permlink = $('input[name=permlink]')[0].value
+    var video = Videos.findOne({
+      author: FlowRouter.getParam("author"),
+      link: FlowRouter.getParam("permlink")
+    })
+    video.json.title = $('input[name=title]')[0].value
+    video.json.description = $('textarea[name=description]')[0].value
 
-    var author = Session.get('activeUsername')
-    var permlink = article.info.permlink
-    var title = article.info.title
-    var body = $('textarea[name=body]')[0].value
-
-    var jsonMetadata = {
-      video: article,
-      tags: tags[0],
-      app: Meteor.settings.public.app
-    }
-
-    var operations = [
-      ['comment',
-        {
-          parent_author: '',
-          parent_permlink: tags[0][0],
-          author: author,
-          permlink: permlink,
-          title: title,
-          body: body,
-          json_metadata: JSON.stringify(jsonMetadata)
-        }
-      ]
-    ];
-    console.log(operations)
-    broadcast.send(
-      operations,
-      function (e, r) {
-        if (e) {
-          toastr.error(Meteor.blockchainError(e), translate('ERROR_TITLE'))
-          console.log(e)
-        } else {
-          $('#editvideosegment').toggle()
-          Template.video.loadState()
-        }
+    broadcast.comment(null, null, video.json, function(err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err))
+      else {
+        $('#editvideosegment').toggle()
+        Template.video.loadState()
       }
-    )
+    })
+
+    // var operations = [
+    //   ['comment',
+    //     {
+    //       parent_author: '',
+    //       parent_permlink: tags[0][0],
+    //       author: author,
+    //       permlink: permlink,
+    //       title: title,
+    //       body: body,
+    //       json_metadata: JSON.stringify(jsonMetadata)
+    //     }
+    //   ]
+    // ];
+    // console.log(operations)
+    // broadcast.send(
+    //   operations,
+    //   function (e, r) {
+    //     if (e) {
+    //       toastr.error(Meteor.blockchainError(e), translate('ERROR_TITLE'))
+    //       console.log(e)
+    //     } else {
+    //       $('#editvideosegment').toggle()
+    //       Template.video.loadState()
+    //     }
+    //   }
+    // )
   }
 })

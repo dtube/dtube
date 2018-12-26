@@ -7,8 +7,8 @@ var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
 window.avalon = {
     config: {
         //api: ['https://api.avalon.wtf'],
-        api: ['https://bran.nannal.com'],
-        //api: ['http://127.0.0.1:3001']
+        //api: ['https://bran.nannal.com'],
+        api: ['http://127.0.0.1:3001']
     },
     init: (config) => {
         avalon.config = config
@@ -22,6 +22,8 @@ window.avalon = {
             }
         }).then(res => res.json()).then(function(res) {
             cb(null, res)
+        }).catch(function(error) {
+            cb(error)
         });
     },
     getAccountHistory: (name, lastBlock, cb) => {
@@ -167,6 +169,29 @@ window.avalon = {
             });
         } else {
             fetch(avalon.randomNode()+'/hot/'+author+'/'+link, {
+                method: 'get',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(function(res) {
+                cb(null, res)
+            });
+        }
+    },
+    getFeedDiscussions: (username, author, link, cb) => {
+        if (!author && !link) {
+            fetch(avalon.randomNode()+'/feed/'+username, {
+                method: 'get',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(function(res) {
+                cb(null, res)
+            });
+        } else {
+            fetch(avalon.randomNode()+'/feed/'+username+'/'+author+'/'+link, {
                 method: 'get',
                 headers: {
                   'Accept': 'application/json, text/plain, */*',

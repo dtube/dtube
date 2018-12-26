@@ -5,9 +5,9 @@ Template.users.rendered = function() {
       if (e.hasClass('logIn')) {
         Session.set('activeUsername', e.data('username'))
         Videos.loadFeed(e.data('username'))
-        DTalk.logout(function() {
-          DTalk.login(function(){})
-        })
+        // DTalk.logout(function() {
+        //   DTalk.login(function(){})
+        // })
       } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: e.data('username')}, function(user) {
           if (user) {

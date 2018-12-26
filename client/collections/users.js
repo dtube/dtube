@@ -42,17 +42,18 @@ Users.refreshLocalUsers = function(cb) {
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
-      Users.insert(results[i])
-      usernames.push(results[i].username)
-
-      // fill the subscribes for each local user
-      Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
-        var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
-        if (!sub) Subs.followUs(follower, function(follower){
-          console.log('Subs loaded & Subscribed to dtube')
+      if (!Users.findOne({username: results[i].username})) {
+        Users.insert(results[i])
+        usernames.push(results[i].username)
+        // fill the subscribes for each local user
+        Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
+          //var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
+          // if (!sub) Subs.followUs(follower, function(follower){
+          //   console.log('Subscribed to dtube')
+          // })
+          console.log('Subs loaded')
         })
-        else console.log('Subs loaded')
-      })
+      }
     }
     cb(null)
     Users.refreshUsers(usernames)

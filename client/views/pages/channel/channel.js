@@ -63,10 +63,10 @@ Template.channel.helpers({
     return resteems
   },
   subCount: function () {
-    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
+    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
   },
   followingCount: function () {
-    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount
+    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
   },
   activities: function () {
       return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()

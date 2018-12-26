@@ -6,8 +6,10 @@ Template.login.helpers({
 
 Template.login.success = function(activeUsername, noreroute) {
   Session.set('activeUsername', activeUsername)
-  if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
-  //Videos.loadFeed(activeUsername)
+  if (!UserSettings.get('voteWeight')) {
+    UserSettings.set('voteWeight', 5)
+  }
+  Videos.loadFeed(activeUsername)
   if (!noreroute)
     FlowRouter.go('#!/')
   // DTalk.login(function() {
@@ -39,6 +41,7 @@ Template.login.events({
       return
     }
     avalon.getAccount(username, function(err, chainuser) {
+      if (err) console.log(err)
       if (!chainuser) {
         toastr.error(translate('LOGIN_ERROR_UNKNOWN_USERNAME'), translate('ERROR_TITLE'))
         return
@@ -58,7 +61,7 @@ Template.login.events({
         user.username = username
         if (event.target.rememberme.checked) {
           Waka.db.Users.upsert(user, function() {
-            Users.remove({})
+            // Users.remove({})
             Users.refreshLocalUsers(function(err) {
               Template.login.success(user.username)
             })
@@ -66,7 +69,7 @@ Template.login.events({
         } else {
           Users.insert(user)
           Template.login.success(user.username)
-          // Users.refreshUsers([user.username])
+          Users.refreshUsers([user.username])
           // steem.api.getAccounts([user.username], function(e, chainusers) {
           //   for (var i = 0; i < chainusers.length; i++) {
           //     var user = Users.findOne({username: chainusers[i].name})

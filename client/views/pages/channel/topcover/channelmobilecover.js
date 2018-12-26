@@ -14,7 +14,7 @@ Template.channelmobilecover.helpers({
       return Session.get('activeUsername')
     },
     subCount: function () {
-      return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount
+      return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
     },
     randomBackgroundColor: function () {
       var rnd = Math.floor(Math.random() * (5 - 1 + 1)) + 1;

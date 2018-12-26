@@ -40,7 +40,6 @@ Template.settingsdropdown.rendered = function() {
     }
   })
   Session.set('nsfwSetting', 'Fully Hidden')
-  if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
   Session.set('ipfsGateway', 'automatic')
 
   Template.settingsdropdown.nightMode();

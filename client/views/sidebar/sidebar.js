@@ -1,5 +1,5 @@
 Template.sidebar.rendered = function () {
-  TrendingTags.loadTopTags(50);
+  //TrendingTags.loadTopTags(50);
   var query = {
     tag: FlowRouter.getParam("author"),
     limit: 100

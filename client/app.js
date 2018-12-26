@@ -25,7 +25,6 @@ Meteor.startup(function(){
       // start router
       FlowRouter.initialize({hashbang: true}, function() {
         console.log('Router initialized')
-        Notifications.getCentralized()
       });
       // handle manual fragment change
       $(window).on('hashchange', function() {
