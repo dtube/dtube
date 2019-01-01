@@ -1,6 +1,9 @@
 Template.login.helpers({
   users: function() {
     return Users.find().fetch()
+  },
+  tmpKey: function() {
+    return Session.get('tmpKey')
   }
 })
 

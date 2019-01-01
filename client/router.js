@@ -166,6 +166,7 @@ FlowRouter.route('/login', {
   action: function(params, queryParams) {
     Session.set("pageTitle", 'Login')
     Session.set("currentMenu", 0)
+    Session.set("tmpKey", avalon.keypair())
     Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "login",

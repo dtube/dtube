@@ -1,6 +1,6 @@
 Search = {
-    // api: 'https://avasearch.nannal.com',
-    api: 'http://localhost:9200',
+    api: 'https://avasearch.nannal.com',
+    //api: 'http://localhost:9200',
     text: (query, cb) => {
         fetch(Search.api+'/avalon.contents/_search?q='+query, {
             method: 'GET',
