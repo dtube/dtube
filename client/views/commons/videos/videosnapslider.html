@@ -51,26 +51,14 @@
       <a href='/c/{{author}}'>
         <span class="customlink">{{author}}</span>
       </a>
-      -
-      <span class="ui right floated">
-        {{timeAgo ts}}
-      </span>
-      {{#if isResteemed reblogged_by}}
-      <i class="retweet icon reblogged"></i>
-      <div class="ui right center inverted flowing popup reblogged">
-        <div class="ui mini middle aligned divided list">
-          {{#each reblogged_by}}
-                <div class="ui item"><a href='/c/{{this}}'>
-                    <div class="content">
-                        <div class="header">
-                          {{this}}
-                        </div>
-                    </div>
-                </a></div>
-            {{/each}}
-        </div>
     </div>
-      {{/if}}
+    <div class='videosnapdetails'>
+        <div class='videosnaprest'>
+          {{dist}} DTC
+        </div>
+        <div class='videosnaptime'>
+        {{timeAgo ts}}
+      </div>
     </div>
     {{ticker}}
   </div>

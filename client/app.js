@@ -18,6 +18,10 @@ Meteor.startup(function(){
   Session.set('tagSortBy', 'net_votes')
   Session.set('tagDuration', 999999)
 
+  // dark mode (buggy)
+  // if (!UserSettings.get('isInNightMode'))
+  //   UserSettings.set('isInNightMode', true)
+
   // load language
   loadDefaultLang(function() {
     loadLangAuto(function() {

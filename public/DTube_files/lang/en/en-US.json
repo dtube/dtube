@@ -105,6 +105,7 @@
     "SIDEBAR_GO_LIVE": "Go Live",
     "SIDEBAR_LIVESTREAMS": "Livestreams",
     "SIDEBAR_DTALK": "DTalk",
+    "SIDEBAR_NEWACCOUNT": "Create Account",
     "SNAP_MISSING_IMAGE": "Missing Image",
     "TOPBAR_TOOLTIP_UPLOAD_VIDEO": "Upload a Video",
     "TOPBAR_TOOLTIP_GO_LIVE": "Go Live",
@@ -219,5 +220,7 @@
     "VIDEO_PERMA_LINK_COPIED": "Link successfully copied to your clipboard",
     "VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
     "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
-    "WARNING_TITLE": "Warning"
+    "WARNING_TITLE": "Warning",
+    "NEWACCOUNT_PUBLICKEY": "Public Key",
+    "NEWACCOUNT_NEWACCOUNT": "Create new account"
 }

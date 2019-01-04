@@ -175,6 +175,19 @@ FlowRouter.route('/login', {
   }
 });
 
+FlowRouter.route('/newaccount', {
+  name: "newaccount",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'New Account')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "newaccount",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/sc2login', {
   name: "sc2login",
   action: function(params, queryParams) {
