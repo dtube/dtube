@@ -1,4 +1,22 @@
 broadcast = {
+    editProfile: function(json, cb) {
+        var creator = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!creator) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            var tx = {
+                type: 6,
+                data: {
+                    json: json
+                }
+            }
+            tx = avalon.sign(wif, creator, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
+            return;
+        }
+    },
     newAccount: function(username, pub, cb) {
         var creator = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!creator) return;

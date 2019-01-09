@@ -20,4 +20,29 @@ Template.channelabout.helpers({
     followingCount: function () {
         return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
     },
+    isEditingProfile: function() {
+        return Session.get('isEditingProfile')
+    }
+})
+
+
+Template.channelabout.events({
+    'click .button.editvideo': function () {
+        Session.set('isEditingProfile', !Session.get('isEditingProfile'))
+    },
+    'submit .form': function() {
+        event.preventDefault()
+        var json = ChainUsers.findOne({ name: Session.get('activeUsername') }).json
+        if (!json) json = {}
+        if (!json.profile) json.profile = {}
+        json.profile.avatar = event.target.profile_avatar.value.trim()
+        json.profile.cover_image = event.target.profile_cover.value.trim()
+        json.profile.about = event.target.profile_about.value.trim()
+        json.profile.location = event.target.profile_location.value.trim()
+        json.profile.website = event.target.profile_website.value.trim()
+        broadcast.editProfile(json, function(err, res) {
+            if (err) toastr.error(Meteor.blockchainError(err))
+            else Session.set('isEditingProfile', !Session.get('isEditingProfile'))
+        })
+    }
 })

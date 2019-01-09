@@ -395,5 +395,9 @@ Template.registerHelper('activeUsername', function() {
 })
 
 Template.registerHelper('subCount', function() {
-  return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
+  var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+  if (user)
+    return user.followersCount
+  else
+    return 0
 })
