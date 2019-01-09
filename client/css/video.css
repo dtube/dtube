@@ -237,6 +237,18 @@
       padding: 0px;
 }
 
+.dtube.green.button {
+  margin-right: 0px !important;
+  border-style: solid !important;
+  border-width: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 1px 5px 0px #007a00;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+      padding: 0px;
+}
+
 .videorecommendedcomputer {
   padding-left: 20px!important;
   display: inline-block!important;

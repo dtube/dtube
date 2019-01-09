@@ -33,6 +33,7 @@
     "CHANNEL_SUBSCRIBERS": "Subscribers",
     "CHANNEL_HISTORY": "History",
     "CHANNEL_FILTERS": "Filters",
+    "CHANNEL_TRANSFER": "Send DTC",
     "COMMENT_SHOW": "Show",
     "COMMENT_HIDE": "Hide",
     "COMMENT_REPLIES": "replies",
@@ -227,5 +228,8 @@
     "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
     "WARNING_TITLE": "Warning",
     "NEWACCOUNT_PUBLICKEY": "Public Key",
-    "NEWACCOUNT_NEWACCOUNT": "Create new account"
+    "NEWACCOUNT_NEWACCOUNT": "Create new account",
+    "TRANSFER_TO": "Sending DTC to %1",
+    "TRANSFER_AMOUNT": "Amount",
+    "TRANSFER_MEMO": "Memo"
 }

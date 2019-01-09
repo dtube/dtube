@@ -1,4 +1,24 @@
 broadcast = {
+    transfer: function(receiver, amount, memo, cb) {
+        var sender = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!sender) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            var tx = {
+                type: 3,
+                data: {
+                    receiver: receiver,
+                    amount: amount,
+                    memo: memo
+                }
+            }
+            tx = avalon.sign(wif, sender, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
+            return;
+        }
+    },
     editProfile: function(json, cb) {
         var creator = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!creator) return;

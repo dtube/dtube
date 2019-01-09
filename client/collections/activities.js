@@ -26,6 +26,24 @@ Activities.getAccountHistory = function (username, cb) {
 
 Activities.filterOperations = function (username, tx, blockId) {
     switch (tx.type) {
+        case 0:
+            Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'newAccount', tx: tx, date: tx.ts, n: blockId })
+            break;
+        case 1:
+            Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'approveNodeOwner', tx: tx, date: tx.ts, n: blockId })
+            break;
+        case 2:
+            Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'disapproveNodeOwner', tx: tx, date: tx.ts, n: blockId })
+            break;
+        case 3:
+            Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'transfer', tx: tx, date: tx.ts, n: blockId })
+            break;
+        case 4:
+            if (tx.data.pa && tx.data.pp)
+                Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'comment', tx: tx, date: tx.ts, n: blockId })
+            else
+                Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'publish', tx: tx, date: tx.ts, n: blockId })
+            break;
         case 5:
             if (tx.data.vt > 0) {
                 Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'vote', tx: tx, date: tx.ts, n: blockId })
@@ -34,12 +52,11 @@ Activities.filterOperations = function (username, tx, blockId) {
                 Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'downvote', tx: tx, date: tx.ts, n: blockId })
             }
             break;
-        case 4:
-            if (tx.data.pa && tx.data.pp)
-                Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'comment', tx: tx, date: tx.ts, n: blockId })
-            else
-                Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'publish', tx: tx, date: tx.ts, n: blockId })
+
+        case 3:
+            Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'editProfile', tx: tx, date: tx.ts, n: blockId })
             break;
+        
         case 7:
             Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'follow', tx: tx, date: tx.ts, n: blockId })
             break;

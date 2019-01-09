@@ -19,12 +19,10 @@
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.sender}}
-                                {{tx.sender}}
-                                {{else}}
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
-                                {{/if}} 
-                                <i class="thumbs up icon"></i> <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
+                                <i class="thumbs up icon"></i> 
+                                {{#if tx.data.tag}} #{{tx.data.tag}} {{/if}}
+                                <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
                             </div>
                             <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.author tx.data.link}}</a>
                             <div>
@@ -56,11 +54,7 @@
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.sender}}
-                                {{tx.sender}}
-                                {{else}}
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
-                                {{/if}} 
                                 <i class="thumbs down icon"></i> <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
                             </div>
                             <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.author tx.data.link}}</a>
@@ -94,11 +88,7 @@
                             {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.sender}}
-                                    {{tx.sender}}
-                                        {{else}}
-                                        <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
-                                    {{/if}} 
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 replied to <a href="/v/{{tx.data.pa}}/{{tx.data.pp}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.pa}}/{{tx.data.pp}}</a>
                             </div>
                             <a href="/v/{{tx.data.pa}}/{{tx.data.pp}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.pa tx.data.pp}}</a>
@@ -132,11 +122,7 @@
                             {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.sender}}
-                                    {{tx.sender}}
-                                        {{else}}
-                                        <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
-                                    {{/if}} 
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 published <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.sender}}/{{tx.data.link}}</a>
                             </div>
                             <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.sender tx.data.link}}</a>
@@ -157,7 +143,7 @@
                         <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#262626!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 subscribed to
                                 <a href="/c/{{tx.data.target}}" style="color:rgb(255, 0, 0);">{{tx.data.target}}
                                     <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.data.target}}">
@@ -180,12 +166,60 @@
                         <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#262626!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 unsubscribed from
                                 <a href="/c/{{tx.data.target}}" style="color:rgb(255, 0, 0);">{{tx.data.target}}
                                     <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.target}}">
                                 </a>
                             </div>
+                            <div>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        {{#if equals type 'transfer'}} 
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
+                <div style="padding: 10px;">
+                    <div class="dsp-flx">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
+                        <div style="display: inline;margin-left: 5px;">
+                            <div>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                sent {{tx.data.amount}} DTC to 
+                                <a href="/c/{{tx.data.receiver}}" style="color:rgb(255, 0, 0);">{{tx.data.receiver}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.receiver}}">
+                                </a>
+                            </div>
+                            <code>{{tx.data.memo}}</code>
+                            <div>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        {{#if equals type 'newAccount'}} 
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
+                <div style="padding: 10px;">
+                    <div class="dsp-flx">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
+                        <div style="display: inline;margin-left: 5px;">
+                            <div>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                created the new account  
+                                <a href="/c/{{tx.data.name}}" style="color:rgb(255, 0, 0);">{{tx.data.name}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.name}}">
+                                </a>
+                            </div>
+                            <code>{{tx.data.memo}}</code>
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
