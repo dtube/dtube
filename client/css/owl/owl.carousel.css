@@ -170,16 +170,16 @@
   .owl-carousel .owl-nav .owl-next
   {
     padding:0 !important;
-    color: rgb(220, 220, 220) !important;
+    color: #999 !important;
     text-align:center !important;
-    -webkit-box-shadow: 2px 4px 3px 0 rgba(34, 36, 38, 0.2) !important;
-    box-shadow: 2px 4px 3px 0 rgba(34, 36, 38, 0.2) !important;
+    -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3) !important;
   }
 
   .owl-carousel .owl-nav .owl-prev:hover,
   .owl-carousel .owl-nav .owl-next:hover
   {
-    color: rgb(220, 220, 220) !important;
+    color: #000 !important;
   }
 
 
