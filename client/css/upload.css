@@ -87,9 +87,13 @@
 .article.nightmode #videouploadsteps .ui.segment
 {
   background: transparent !important;
-  border: none;
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  -webkit-box-shadow: 0 0 6px 0 #eee;
+  box-shadow: 0 0 6px 0 #eee;
+  border: 1px solid #eee;
+}
+
+.ui.bottom.attached.tab.segment.active.nightmode{
+  box-shadow:none!important;
 }
 
 .article.nightmode #videouploadsteps .ui.segment a.item,
