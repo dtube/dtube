@@ -2,6 +2,21 @@ broadcast = {
     vote: function(author, permlink, weight, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
+        console.log(Users.findOne({ username: Session.get('activeUsername') }));
+        //Steem keychain.
+        //Tested working!
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            steem_keychain.requestVote(Session.get('activeUsername'), permlink, author, weight, function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
+
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
             steem.broadcast.vote(wif, voter, author, permlink, weight, function (err, result) {
@@ -46,11 +61,33 @@ broadcast = {
         })
     },
     claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
-        var voter = Users.findOne({ username: username }).username
-        if (!voter) return;
+        var account = Users.findOne({ username: username }).username
+        if (!account) return;
+        //Unknown for steem keychain support, will wait on that. Most likely a custom JSON operation.
+        //Steem keychain.
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            var operations = [
+                    ['claim_reward_balance', {
+                        account: account,
+                        reward_steem: reward_steem_balance,
+                        reward_sbd: reward_sbd_balance,
+                        reward_vests: reward_vesting_balance
+                    }]
+            ];
+
+            steem_keychain.requestBroadcast(account, operations, "Posting", function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
         var wif = Users.findOne({ username: username }).privatekey
         if (wif) {
-            steem.broadcast.claimRewardBalance(wif, voter, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function (err, result) {
+            steem.broadcast.claimRewardBalance(wif, account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function (err, result) {
                 cb(err, result)
             })
             return;
@@ -61,13 +98,34 @@ broadcast = {
             return;
         }
         sc2.setAccessToken(accessToken);
-        sc2.claimRewardBalance(voter, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function(err, result) {
+        sc2.claimRewardBalance(account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function(err, result) {
             cb(err, result)
         })
     },
     follow: function(following, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
+        //Steem keychain support.
+        //Tested working
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            console.log("");
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            var operations = JSON.stringify(
+                    ['follow', {
+                        follower: voter,
+                        following: following,
+                        what: ['blog']
+                    }]
+                );
+            steem_keychain.requestCustomJson(voter, "follow", "Posting", operations , "follow" ,function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
             steem.broadcast.customJson(
@@ -101,6 +159,27 @@ broadcast = {
     unfollow: function(following, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
+        //Steem keychain
+        //Tested working.
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            var operations = JSON.stringify(
+                    ['follow', {
+                        follower: voter,
+                        following: following,
+                        what: []
+                    }]
+                );
+            steem_keychain.requestCustomJson(voter, "follow", "Posting", operations , "unfollow" ,function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
+
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
             steem.broadcast.customJson(
@@ -135,6 +214,34 @@ broadcast = {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
         var permlink = Template.upload.createPermlink(9)
+        //Steem keychain
+        //Tested working.
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            var operations = [ 
+                ['comment',
+                        {
+                            parent_author: parentAuthor,
+                            parent_permlink: parentPermlink,
+                            author: voter,
+                            permlink: permlink,
+                            title: "",
+                            body: body,
+                            json_metadata: JSON.stringify(jsonMetadata)
+                        }
+                    ]
+                ];
+            console.log(JSON.stringify(operations));
+            steem_keychain.requestBroadcast(voter, operations, "Posting" ,function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
+        
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
             steem.broadcast.comment(wif, parentAuthor, parentPermlink, voter, permlink, permlink, body, jsonMetadata, function (err, result) {
@@ -155,13 +262,33 @@ broadcast = {
     reblog: function(author, permlink, cb) {
         var reblogger = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!reblogger) return;
+        //Steem keychain support
+        //Tested working.
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            var operations = JSON.stringify(
+                    ['reblog', {
+                        account: reblogger,
+                        author: author,
+                        permlink: permlink
+                    }]
+                );
+            steem_keychain.requestCustomJson(reblogger, "follow", "Posting", operations , "resteem" ,function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
             steem.broadcast.customJson(
                 wif,
                 [],
                 [reblogger],
-                'follow',
+                'reblog',
                 JSON.stringify(
                     ['reblog', {
                         account: reblogger,
@@ -186,6 +313,7 @@ broadcast = {
         })
     },
     streamVerif: function(verifKey, cb) {
+        //Deprecated!
         var streamer = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!streamer) return;
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
@@ -223,6 +351,19 @@ broadcast = {
     send: function(operations, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
+        //Steem keychain
+        //Tested with extension.
+        if(Users.findOne({ username: Session.get('activeUsername') }).type == "keychain") {
+            if(!steem_keychain) {
+                cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                return;
+            }
+            steem_keychain.requestBroadcast(voter, operations, "Posting" ,function(response) {
+                console.log(response);
+                cb(response.error, response)
+            });
+            return;
+        }
         var permlink = Template.upload.createPermlink(9)
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         if (wif) {
