@@ -6,7 +6,7 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
+              <input id="username" type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
             </div>
           </div>
           <div class="field">
@@ -27,6 +27,13 @@
               <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
             </button>
           </div>
+          <hr>
+          <div id="loginkeychain" class="ui fluid labeled small button" tabindex="0">
+            <button type="submit" name="button" class="ui fluid blue right labeled dtube icon submit button">
+              <i class="sign in icon red" style="background:white;opacity:1;"></i>
+              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_KEYCHAIN_LOGIN'}}</div>
+            </button>
+          </div>
           <div class="ui horizontal divider">
             <label class="text">Or</label>
           </div>
@@ -35,15 +42,18 @@
               <i class="sign in icon blue" style="background:white;opacity:1;"></i>
               <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_STEEMCONNECT'}}</div>
             </button>
-          </div>
+          </div> 
           <div class="ui message" style="margin-top:20px;">
               {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
-              <a href="https://steemit.com/pick_account" target="_blank">
+              <a href="https://steemit.com/pick_account" target="_blank"> 
                 {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} steemit.com</a>
               <p></p>
               {{ translate 'LOGIN_DIFFICULTY_FOR_LOGIN'}}
               <a href="https://about.d.tube/#faq1" target="_blank">
                 {{ translate 'LOGIN_SEE_FAQ'}}</a>
+          </div> 
+          <div class="ui message">
+            <img height="100%" width="100%" src="https://cloudflare-ipfs.com/ipfs/QmZArG3aDvRBCSskaJoWyaQqQZq8Xt3MgDec1pz9iWdX2a">
           </div>
         </div>
       </div>
