@@ -1,6 +1,13 @@
 Template.login.helpers({
   users: function() {
     return Users.find().fetch()
+  },
+  usingKeyChain: function() {
+    if (!Session.get('steem_keychain'))
+      return false
+    if (Session.get('forcePostingKey'))
+      return false
+    return true
   }
 })
 
@@ -17,22 +24,21 @@ Template.login.success = function(activeUsername, noreroute) {
 }
 
 Template.login.events({
+  'click #loginforceprivatekey': function(event) {
+    Session.set('forcePostingKey', true)
+  },
   'click #loginkeychain': function(event) {
     event.preventDefault()
-    if(window.steem_keychain) {
-        // Steem Keychain extension installed...
-    } else {
+    if(!window.steem_keychain) {
         // Steem Keychain extension not installed...
         toastr.error(translate('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED'), translate('ERROR_TITLE'))
         return;
     }
     steem_keychain.requestHandshake(function() {
         console.log('Handshake received!'); 
-    }); 
-    console.log(document.getElementById("username").value);
-    var username = document.getElementById("username").value.toLowerCase().replace('@','');
-    steem_keychain.requestSignBuffer(username, "dtube_login-" + String(Math.random()), "Posting", function(response) {
-        console.log(response);
+    });
+    var username = document.getElementById("keychain_username").value.toLowerCase().replace('@','');
+    steem_keychain.requestSignBuffer(username, "dtube_login-" + Math.round(99999999999*Math.random()), "Posting", function(response) {
         if(response.success === true) {
             var currentUser = Session.get('activeUsername')
             var username = response.data.username;

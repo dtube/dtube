@@ -14,3 +14,8 @@ Deps.autorun(function(){
     + " "
     + Meteor.settings.public.appName;
 });
+
+setTimeout(function() {
+  if (window.steem_keychain && !Session.get('steem_keychain'))
+    Session.set('steem_keychain', true)
+}, 500)

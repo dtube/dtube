@@ -3,6 +3,29 @@
     <form class="ui large form wid-ful ">
       <div class="ui segments">
         <div class="ui segment" style="padding: 20px;">
+          {{#if usingKeyChain}}
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input id="keychain_username" type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
+            </div>
+          </div>
+          <div id="loginkeychain" class="ui fluid labeled small button" tabindex="0">
+            <button type="submit" name="button" class="ui fluid blue right labeled dtube icon submit button">
+              <i class="sign in icon blue" style="background:white;opacity:1;"></i>
+              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_KEYCHAIN_LOGIN'}}</div>
+            </button>
+          </div>
+          <div class="ui horizontal divider noborder">
+            <label class="text">Or</label>
+          </div>
+          <div id="loginforceprivatekey" class="ui fluid labeled small button" tabindex="0">
+            <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+              <i class="sign in icon red" style="background:white;opacity:1;"></i>
+              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_FORCE_PRIVATEKEY'}}</div>
+            </button>
+          </div>
+          {{else}}
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
@@ -27,14 +50,9 @@
               <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
             </button>
           </div>
-          <hr>
-          <div id="loginkeychain" class="ui fluid labeled small button" tabindex="0">
-            <button type="submit" name="button" class="ui fluid blue right labeled dtube icon submit button">
-              <i class="sign in icon red" style="background:white;opacity:1;"></i>
-              <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_KEYCHAIN_LOGIN'}}</div>
-            </button>
-          </div>
-          <div class="ui horizontal divider">
+          {{/if}}
+
+          <div class="ui horizontal divider noborder">
             <label class="text">Or</label>
           </div>
           <div id="loginbuttonsc2" class="ui fluid labeled small button" tabindex="0">

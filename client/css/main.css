@@ -30,9 +30,17 @@ h5 {    }
   border-bottom: none;
   margin: 25px 0;
 }
+.pusher .ui.divider.noborder
+{
+  border-top: none;
+}
 body.nightmode .pusher .ui.divider
 {
   border-top: 1px solid rgb(40, 40, 40);
+}
+body.nightmode .pusher .ui.divider.noborder
+{
+  border-top: none;
 }
 
 
