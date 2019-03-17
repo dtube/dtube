@@ -8,7 +8,7 @@ import wakajs from 'wakajs';
 import steem from 'steem';
 import AskSteem from 'asksteem';
 import sc2sdk from 'sc2-sdk';
-steem.api.setOptions({ url: 'https://api.steemit.com' });
+steem.api.setOptions({ url: 'https://anyx.io' });
 
 console.log('Starting DTube APP')
 
