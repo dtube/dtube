@@ -8,7 +8,8 @@ window.avalon = {
     config: {
         //api: ['https://api.avalon.wtf'],
         //api: ['https://bran.nannal.com'],
-        api: ['http://127.0.0.1:3001']
+        api: ['http://127.0.0.1:3001'],
+        //api: ['http://127.0.0.1:3002']
     },
     init: (config) => {
         avalon.config = config

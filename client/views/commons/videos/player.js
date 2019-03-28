@@ -1,11 +1,78 @@
 Template.player.rendered = function () {
-  Template.player.init()
+  switch (this.data.json.providerName) {
+    case "Twitch":
+      Template.player.initTwitchClips(this.data.json.videoId)
+      break;
+    case "Dailymotion":
+      Template.player.initDailymotion(this.data.json.videoId)
+      break;
+    case "Instagram":
+      Template.player.initInstagram(this.data.json.videoId)
+      break;
+    case "LiveLeak":
+      Template.player.initLiveLeak(this.data.json.videoId)
+      break;
+    case "Vimeo":
+      Template.player.initVimeo(this.data.json.videoId)
+      break;
+    case "Facebook":
+      Template.player.initFacebook(this.data.json.videoId, this.data.json.url)
+      break;
+    default:
+      Template.player.init(this.data.json.videoId)
+      break;
+  }
 }
 
-// change this url if you want to work with your own branch of the player
-Template.player.init = function() {
+Template.player.init = function(id) {
   $('.ui.embed.player').embed({
-    url: "https://www.youtube.com/embed/" + FlowRouter.getParam("permlink")
+    url: "https://www.youtube.com/embed/" + id
     + "?autoplay=1&showinfo=1&modestbranding=1"
+  });
+}
+
+Template.player.initTwitchClips = function(id) {
+  $('.ui.embed.player').embed({
+    url: "https://clips.twitch.tv/embed?clip=" + id
+    + "&autoplay=true&muted=false"
+  });
+}
+
+Template.player.initDailymotion = function(id) {
+  $('.ui.embed.player').embed({
+    url: "https://www.dailymotion.com/embed/video/" + id
+    + "?autoplay=true&mute=false"
+  });
+}
+
+Template.player.initInstagram = function(id) {
+  $('.ui.embed.player').embed({
+    url: "https://www.instagram.com/p/" + id + '/embed/'
+  });
+}
+
+Template.player.initFacebook = function(id, url) {
+  // autoplay way
+  // $('.ui.embed.player').embed({
+  //   url: "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href="
+  //   + encodeURI(url)
+  // });
+
+  // original way
+  $('.ui.embed.player').embed({
+    url: "https://www.facebook.com/video/embed?video_id=" + id
+  });
+}
+
+Template.player.initLiveLeak = function(id) {
+  $('.ui.embed.player').embed({
+    url: "https://www.liveleak.com/e/" + id
+  });
+}
+
+Template.player.initVimeo = function(id) {
+  $('.ui.embed.player').embed({
+    url: "https://player.vimeo.com/video/" + id
+    + "?autoplay=1&muted=0"
   });
 }

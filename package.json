@@ -22,6 +22,7 @@
     "owl.carousel": "^2.3.4",
     "secp256k1": "^3.5.2",
     "text-encoding": "^0.6.4",
+    "url-parse": "^1.4.4",
     "utf-8-validate": "^5.0.1",
     "wakajs": "0.0.16",
     "xss": "^0.3.8"

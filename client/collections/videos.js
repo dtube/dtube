@@ -350,7 +350,7 @@ Videos.loadFeed = function(username) {
 }
 
 Videos.parseFromChain = function(video, isComment) {
-  if (!video || !video.json || !video.json.app || video.json.app != 'deadtube') return
+  if (!video || !video.json) return
   video.replies = avalon.generateCommentTree(video, video.author, video.link)
   video.ups = 0
   video.downs = 0

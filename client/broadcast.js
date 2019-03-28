@@ -141,7 +141,7 @@ broadcast = {
     comment: function(parentAuthor, parentPermlink, jsonMetadata, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
-        var permlink = jsonMetadata.videoId || Template.upload.createPermlink(9)
+        var permlink = String(jsonMetadata.videoId || Template.upload.createPermlink(9))
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
         var tx = {
             type: 4,

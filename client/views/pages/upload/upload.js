@@ -1,4 +1,5 @@
 var cheerio = require('cheerio')
+var parse = require('url-parse')
 refreshUploadStatus = null
 
 Template.upload.rendered = function () {
@@ -44,25 +45,79 @@ Template.upload.events({
   'submit .form': function (event) {
     event.preventDefault()
   },
-  'keyup #youtubelink': function(event) {
-    var url = $('#youtubelink').val()
+  'keyup #remotelink': function(event) {
+    var url = $('#remotelink').val()
     if (url == Session.get('searchedLink')) return
     Session.set('tempContent', null)
     Session.set('searchedLink', url)
-    getYoutubeVideoData(url, function(content) {
-      content.app = 'deadtube'
+    grabData(url, function(content) {
       console.log(content)
       Session.set('tempContent', content)
     })
-
   },
   'click .uploadsubmit': function(event) {
-    broadcast.comment(null, null, Session.get('tempContent'), function(err, result) {
+    var content = Session.get('tempContent')
+    content.title = $('#contentTitle').val()
+    content.description = $('#contentDescription').val()
+    broadcast.comment(null, null, content, function(err, result) {
       if (err) toastr.error(Meteor.blockchainError(err))
       else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
     })
   },
 })
+
+function grabData(url, cb) {
+  var urlInfo = parse(url, true)
+  switch (urlInfo.host) {
+    case 'www.youtube.com':
+      getYoutubeVideoData(url, function(content) {
+        cb(content)
+      })
+      break;
+
+    case 'www.instagram.com':
+    case 'www.dailymotion.com':
+    case 'clips.twitch.tv':
+    case 'www.twitch.tv':
+    case 'vimeo.com':
+      getOEmbedData(url, function(content) {
+        cb(content)
+      })
+      break;
+  
+    default:
+      getOpenGraphData(url, function(content) {
+        cb(content)
+      })
+      break;
+  }
+}
+
+function getOpenGraphData(url, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      let video = JSON.parse(this.responseText).data;
+      callback(sanitizeVideo(video, url));
+    }
+  }
+  xhr.open("GET", 'https://bran.nannal.com/opengraph/'+encodeURIComponent(url));
+  //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
+  xhr.send();
+}
+
+function getOEmbedData(url, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      let video = JSON.parse(this.responseText);
+      callback(sanitizeVideo(video, url));
+    }
+  }
+  xhr.open("GET", 'https://bran.nannal.com/oembed/'+encodeURIComponent(url));
+  //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
+  xhr.send();
+}
 
 function getYoutubeVideoData(url, callback) {
   var videoId = url.split('v=')[1]
@@ -74,7 +129,7 @@ function getYoutubeVideoData(url, callback) {
   xhr.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       let video = JSON.parse(this.responseText);
-      callback(sanitizeVideo(video));
+      callback(sanitizeVideo(video, url));
     }
   }
   xhr.open("GET", 'https://bran.nannal.com/youtube/'+videoId);
@@ -205,26 +260,96 @@ function parseVideoInfo (body, videoId) {
   }
 }
 
-function sanitizeVideo(video) {
-  return {
-    videoId: video.videoId,
-    url: video.url,
-    title: video.title,
-    description: video.description,
-    owner: video.owner,
+function sanitizeVideo(video, url) {
+  console.log(video)
+  var newVid = {
+    videoId: video.videoId || video.video_id,
+    url: video.url || video.ogUrl,
+    title: video.title || video.ogTitle,
+    description: video.description || video.ogDescription,
+    owner: video.owner || video.curator_name || video.author_name,
+    ownerUrl: video.owner_url || video.author_url,
     channelId: video.channelId,
-    thumbnailUrl: video.thumbnailUrl,
-    // embedURL: embedURL,
-    datePublished: video.datePublished,
+    thumbnailUrl: video.thumbnailUrl || video.thumbnail_url,
+    thumbnailWidth: video.thumbnail_width || video.width,
+    thumbnailHeight: video.thumbnail_height || video.height,
+    datePublished: video.datePublished || video.upload_date,
     genre: video.genre,
-    // paid: paid,
-    // unlisted: unlisted,
+    game: video.game,
     isFamilyFriendly: video.isFamilyFriendly,
-    duration: video.duration,
-    // views: views,
-    // regionsAllowed: video.regionsAllowed,
-    // dislikeCount: dislikeCount,
-    // likeCount: likeCount,
-    channelThumbnailUrl: video.channelThumbnailUrl
+    duration: video.duration || video.video_length,
+    channelThumbnailUrl: video.channelThumbnailUrl,
+    providerName: video.provider_name,
+    providerUrl: video.provider_url,
+    twitch_type: video.twitch_type
+  }
+  if (video.ogImage) {
+    newVid.thumbnailUrl = video.ogImage.url
+    newVid.thumbnailWidth = video.ogImage.width
+    newVid.thumbnailHeight = video.ogImage.height
+  }
+  for (var f in newVid) { 
+    if (newVid[f] === null || newVid[f] === undefined) {
+      delete newVid[f];
+    }
+  }
+  if (!newVid.url) newVid.url = url
+  if (!newVid.videoId) newVid.videoId = videoIdFromUrl(newVid, url)
+  if (!newVid.providerName) newVid.providerName = providerNameFromUrl(url)
+  newVid.app = Meteor.settings.public.app || 'dtube'
+  return newVid
+}
+
+function videoIdFromUrl(video, url) {
+  var urlInfo = parse(url, true)
+  switch (urlInfo.host) {
+    case "www.twitch.tv":
+      if (video.twitch_type == 'clip')
+        return urlInfo.pathname.replace('/twitch/clip/', '')
+      break;
+
+    case "www.dailymotion.com":
+      return urlInfo.pathname.replace('/video/', '')
+      break;
+
+    case "www.instagram.com":
+      return urlInfo.pathname.replace('/p/', '').replace('/', '')
+      break;
+
+    case "www.facebook.com":
+      // https://www.facebook.com/zap.magazine/videos/278373702868688/
+      // https://www.facebook.com/watch/?v=1371488622995266
+      console.log(urlInfo)
+      return urlInfo.query.v || urlInfo.pathname.split('/')[3]
+      break;
+
+    case "www.liveleak.com":
+      return urlInfo.query.t
+      break;
+  
+    default:
+      break;
+  }
+  console.log(urlInfo)
+}
+
+function providerNameFromUrl(url) {
+  var urlInfo = parse(url, true)
+  switch (urlInfo.host) {
+    case "www.liveleak.com":
+      return 'LiveLeak'
+      break;
+
+    case "www.facebook.com":
+      return 'Facebook'
+      break;
+
+    case "www.youtube.com":
+      return 'YouTube'
+      break;
+  
+    default:
+      return 'Unknown Provider'
+      break;
   }
 }
