@@ -361,7 +361,7 @@ Videos.parseFromChain = function(video, isComment) {
             video.ups += video.votes[i].vt
         if (video.votes[i].vt < 0)
             video.downs -= video.votes[i].vt
-        if (video.votes[i].tag.length > 0) {
+        if (video.votes[i].tag) {
           var isAdded = false
           for (let y = 0; y < video.tags.length; y++) {
             if (video.tags[y].t == video.votes[i].tag) {

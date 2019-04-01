@@ -134,7 +134,7 @@ Template.video.events({
       app: 'deadtube',
       description: body
     }
-    broadcast.comment(parentAuthor, parentPermlink, jsonMetadata, function (err, result) {
+    broadcast.comment(parentAuthor, parentPermlink, jsonMetadata, null, function (err, result) {
       console.log(err, result)
       if (err) {
         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');

@@ -247,7 +247,7 @@ Template.uploadformsubmit.events({
     video.json.title = $('input[name=title]')[0].value
     video.json.description = $('textarea[name=description]')[0].value
 
-    broadcast.comment(null, null, video.json, function(err, result) {
+    broadcast.comment(null, null, video.json, null, function(err, result) {
       if (err) toastr.error(Meteor.blockchainError(err))
       else {
         $('#editvideosegment').toggle()

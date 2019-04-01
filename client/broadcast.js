@@ -138,18 +138,21 @@ broadcast = {
             return;
         }
     },
-    comment: function(parentAuthor, parentPermlink, jsonMetadata, cb) {
+    comment: function(parentAuthor, parentPermlink, jsonMetadata, tag, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;
         var permlink = String(jsonMetadata.videoId || Template.upload.createPermlink(9))
         var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        var weight = UserSettings.get('voteWeight') * 100
         var tx = {
             type: 4,
             data: {
                 link: permlink,
-                json: jsonMetadata
+                json: jsonMetadata,
+                vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
             }
         }
+        if (tag) tx.data.tag = tag
         if (parentAuthor && parentPermlink) {
             tx.data.pa = parentAuthor
             tx.data.pp = parentPermlink

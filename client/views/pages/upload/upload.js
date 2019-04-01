@@ -59,7 +59,7 @@ Template.upload.events({
     var content = Session.get('tempContent')
     content.title = $('#contentTitle').val()
     content.description = $('#contentDescription').val()
-    broadcast.comment(null, null, content, function(err, result) {
+    broadcast.comment(null, null, content, null, function(err, result) {
       if (err) toastr.error(Meteor.blockchainError(err))
       else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
     })
