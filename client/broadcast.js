@@ -164,6 +164,33 @@ broadcast = {
         })
         return;
     },
+    promotedComment: function(parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var permlink = String(jsonMetadata.videoId || Template.upload.createPermlink(9))
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        var weight = UserSettings.get('voteWeight') * 100
+        var tx = {
+            type: 13,
+            data: {
+                link: permlink,
+                json: jsonMetadata,
+                burn: burn,
+                vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
+            }
+        }
+        if (tag) tx.data.tag = tag
+        if (parentAuthor && parentPermlink) {
+            tx.data.pa = parentAuthor
+            tx.data.pp = parentPermlink
+        }
+        tx = avalon.sign(wif, voter, tx)
+        avalon.sendTransaction(tx, function(err, res) {
+            cb(err, res)
+            Users.refreshUsers([Session.get('activeUsername')])
+        })
+        return;
+    },
     reblog: function(author, permlink, cb) {
         var reblogger = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!reblogger) return;

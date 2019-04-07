@@ -7,6 +7,7 @@ Template.upload.rendered = function () {
   Session.set('uploadVideoProgress', null)
   Session.set('tempSubtitles', [])
   Session.set('searchedLink', null)
+  Session.set('publishBurn', 0)
   $('.ui.sticky')
     .sticky({
       context: '#videouploadsteps'
@@ -38,6 +39,9 @@ Template.upload.helpers({
   },
   searchedLink: function () {
     return Session.get('searchedLink')
+  },
+  publishBurn: function () {
+    return Session.get('publishBurn')
   }
 })
 
@@ -53,16 +57,35 @@ Template.upload.events({
     grabData(url, function(content) {
       console.log(content)
       Session.set('tempContent', content)
+      var balance = Users.findOne({username: Session.get('activeUsername')}).balance
+      var step = Math.pow(10, balance.toString().length - 1)/100
+      if (step<1) step = 1
+      $('#burn-range').range({
+        min: 0,
+        max: 100,
+        start: Session.get('publishBurn'),
+        onChange: function(val) { 
+          Session.set('publishBurn', logSlider(parseInt(val), balance))
+        }
+      });
     })
   },
   'click .uploadsubmit': function(event) {
     var content = Session.get('tempContent')
     content.title = $('#contentTitle').val()
     content.description = $('#contentDescription').val()
-    broadcast.comment(null, null, content, null, function(err, result) {
-      if (err) toastr.error(Meteor.blockchainError(err))
-      else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
-    })
+    var burn = parseInt(Session.get('publishBurn'))
+    if (burn > 0) {
+      broadcast.promotedComment(null, null, content, null, burn, function(err, result) {
+        if (err) toastr.error(Meteor.blockchainError(err))
+        else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
+      })
+    } else {
+      broadcast.comment(null, null, content, null, function(err, result) {
+        if (err) toastr.error(Meteor.blockchainError(err))
+        else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
+      })
+    }
   },
 })
 
@@ -352,4 +375,20 @@ function providerNameFromUrl(url) {
       return 'Unknown Provider'
       break;
   }
+}
+
+function logSlider(position, maxburn) {
+  if (position == 0) return 0
+  // position will be between 1 and 100
+  var minp = 0;
+  var maxp = 100;
+
+  // The result should be between 1 and maxburn
+  var minv = Math.log(1);
+  var maxv = Math.log(maxburn);
+
+  // calculate adjustment factor
+  var scale = (maxv-minv) / (maxp-minp);
+
+  return Math.round(Math.exp(minv + scale*(position-minp)))
 }

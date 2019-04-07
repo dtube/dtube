@@ -35,10 +35,19 @@
           </div>
           <button class="ui fluid red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">
             <div style="display:inline-block;padding: 0.8em 1em;">
-                PUBLISH VIDEO
+                {{#if publishBurn}}
+                  PUBLISH VIDEO AND PROMOTE FOR {{publishBurn}} DTC
+                {{else}}
+                  PUBLISH VIDEO
+                {{/if}}
             </div>
-            <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
+            {{#if publishBurn}}
+              <i class="fire icon red" style="background: white;opacity: 1;"></i>
+            {{else}}
+              <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
+            {{/if}}
           </button>
+          <div class="ui red range" id="burn-range"></div>
         {{/if}}
       </form>
     </div>
