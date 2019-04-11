@@ -7,6 +7,8 @@ Template.topbar.helpers({
   },
   isSearchingMobile: function() {
     return Session.get('isSearchingMobile')
+  }, mainUser: function() {
+    return Users.findOne({username: Session.get('activeUsername')})
   }
 });
 

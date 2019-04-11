@@ -104,6 +104,10 @@ Template.registerHelper('displayPayout', function (ups, downs) {
   return cuteNumber(ups - downs)
 })
 
+Template.registerHelper('displayMoney', function(amount) {
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+})
+
 Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
   return (share * rewards).toFixed(3);
 })
@@ -146,6 +150,29 @@ Template.registerHelper('displayVoters', function (votes, isDownvote) {
     top20.push(newVotes[i])
   }
   return top20
+})
+
+Template.registerHelper('topVoters', function (votes, x) {
+  if (!votes || votes.length == 0) return []
+  var votes = JSON.parse(JSON.stringify(votes))
+  votes.sort(function (a, b) {
+    return Math.abs(b.vt) - Math.abs(a.vt)
+  })
+
+  var top = []
+  for (let i = 0; i < votes.length; i++) {
+    if (top.length > x) {
+      top[x].vt += votes[i].vt
+      top[x].u = 'Everyone else'
+      top[x].isGroup = true
+      top[x].zindex = 0
+    } else {
+      votes[i].zindex = x-top.length
+      top.push(votes[i])
+    }
+  }
+  console.log(top)
+  return top
 })
 
 Template.registerHelper('timeAgoReal', function (timestamp) {
@@ -194,6 +221,17 @@ Template.registerHelper('hasDownvoted', function (video) {
       return true
   }
   return false
+})
+
+Template.registerHelper('uniques', function (votes, type) {
+  var counter = 0
+  for (let i = 0; i < votes.length; i++) {
+    if (votes[i].vt>0 && type == 'up')
+      counter++
+    if (votes[i].vt<0 && type == 'down')
+      counter++
+  }
+  return counter
 })
 
 Template.registerHelper('lengthOf', function (array) {

@@ -76,12 +76,12 @@ Template.upload.events({
     content.description = $('#contentDescription').val()
     var burn = parseInt(Session.get('publishBurn'))
     if (burn > 0) {
-      broadcast.promotedComment(null, null, content, null, burn, function(err, result) {
+      broadcast.promotedComment(null, null, content, $('#contentTag').val(), burn, function(err, result) {
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
       })
     } else {
-      broadcast.comment(null, null, content, null, function(err, result) {
+      broadcast.comment(null, null, content, $('#contentTag').val(), function(err, result) {
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
       })
@@ -93,6 +93,8 @@ function grabData(url, cb) {
   var urlInfo = parse(url, true)
   switch (urlInfo.host) {
     case 'www.youtube.com':
+    case 'm.youtube.com':
+    case 'music.youtube.com':
       getYoutubeVideoData(url, function(content) {
         cb(content)
       })
@@ -368,6 +370,8 @@ function providerNameFromUrl(url) {
       break;
 
     case "www.youtube.com":
+    case 'm.youtube.com':
+    case 'music.youtube.com':
       return 'YouTube'
       break;
   

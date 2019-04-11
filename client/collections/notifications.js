@@ -49,7 +49,8 @@ notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications')
 //   }
 // }
 
-Notifications.getCentralized = function () {
+Notifications.getDecentralized = function () {
+  if (!Session.get('activeUsername')) return
   avalon.getNotifications(Session.get('activeUsername'), function(err, notifications) {
     for (let i = 0; i < notifications.length; i++) {
       var notif = notifications[i]
@@ -70,6 +71,13 @@ Notifications.getCentralized = function () {
           break;
   
         case 3:
+          var user = Users.findOne({username: Session.get('activeUsername')})
+          user.vt.v = avalon.votingPower(user)
+          user.bw.v = avalon.bandwidth(user)
+          user.vt.t = new Date().getTime()
+          user.bw.t = new Date().getTime()
+          user.balance += notif.tx.data.amount
+          Users.update({username: user.username}, user)
           message += notif.tx.sender+' sent you '+notif.tx.data.amount+' DTC'
           break;
 
@@ -100,5 +108,5 @@ Notifications.getCentralized = function () {
 // }, 60000)
 
 setInterval(function() {
-  Notifications.getCentralized()
-}, 60000)
+  Notifications.getDecentralized()
+}, 10000)

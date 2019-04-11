@@ -639,3 +639,24 @@ button {
 	padding: 20px 12px;
 	transition: all .2s ease-in-out;
 }
+
+.topvoters {
+  margin-left:-20px;
+  text-align: right;
+}
+
+.topvotersdiv {
+  line-height: 32px;
+  max-height: 32px;
+  font-size: 22px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  text-align: right;
+}
+
+#top-curator>span {
+  background-size:cover;
+  height:30px;
+  width: 30px;
+}

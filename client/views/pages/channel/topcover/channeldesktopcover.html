@@ -7,8 +7,8 @@
             <div class="ui container">
                     <div class="pos-abs" style="margin-left:160px;;top:20%;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">
                         <h1>{{user.name}}</h1>
-                        <i class="icon blue lightning"></i>{{displayVotingPower author}} VT
-                        <br /><i class="icon green money"></i>{{author.estimateAccountValue}} DTC
+                        <i class="icon red play"></i><strong>{{displayMoney author.balance}} DTC</strong>
+                        <br /><i class="icon yellow lightning"></i><strong>{{displayVotingPower author}} VT</strong>
                     </div>
                 <div class="ui image circular"
                     style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">

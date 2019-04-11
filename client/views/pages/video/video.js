@@ -103,7 +103,11 @@ Template.video.events({
     var weight = UserSettings.get('voteWeight') * 100
     broadcast.vote(author, permlink, weight, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      else {
+        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
+        // audio.play();
+      }
       Template.video.loadState()
     });
   },
@@ -113,7 +117,11 @@ Template.video.events({
     var weight = UserSettings.get('voteWeight') * -100
     broadcast.vote(author, permlink, weight, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      else {
+        toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
+        // audio.play();
+      }
       Template.video.loadState()
     });
   },

@@ -7,8 +7,8 @@ var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
 window.avalon = {
     config: {
         //api: ['https://api.avalon.wtf'],
-        //api: ['https://bran.nannal.com'],
-        api: ['http://127.0.0.1:3001'],
+        api: ['https://bran.nannal.com'],
+        //api: ['http://192.168.0.24:3001'],
         //api: ['http://127.0.0.1:3002']
     },
     init: (config) => {

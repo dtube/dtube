@@ -12,7 +12,7 @@
       "upldr": ["upldr1", "upldr3", "upldr5", "upldrg1", "upldrg5", "cluster"],
       "localhost": false
     },
-    "app": "dtube/0.7",
+    "app": "dtube/0.9",
     "beneficiary": "dtube",
     "pageTitleSeparator": "-",
     "appName": "DTube",

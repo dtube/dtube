@@ -34,6 +34,23 @@ Users.refreshUsers = function(usernames) {
       user.bw = chainusers[i].bw
       user.vt = chainusers[i].vt
       Users.update({username: user.username}, user)
+
+      if (chainusers[i].name == Session.get('activeUsername')) {
+        // refresh vt and bw now and regularly for active user
+        updateVtBw()
+        intervalVtBw = setInterval(function(){
+          updateVtBw()
+        },2500)
+
+        function updateVtBw() {
+          if (!Session.get('activeUsername'))
+            clearInterval(intervalVtBw)
+          var user = Users.findOne({username: Session.get('activeUsername')})
+          user.vtDisplay = avalon.votingPower(user)
+          user.bwDisplay = avalon.bandwidth(user)
+          Users.update({username: user.username}, user)
+        }
+      }
     }
   })
 }

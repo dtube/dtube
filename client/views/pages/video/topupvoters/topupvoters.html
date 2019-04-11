@@ -1,0 +1,19 @@
+<template name="topupvoters">
+    {{#each topVoters votes 4}}
+        <span class="topvoters" data-tooltip="{{u}} ({{vt}} VT)" data-inverted="" data-position="top right">
+            {{#if equals u 'Everyone else'}}
+            <a id="top-curator">
+            <span class="ui image avatar circular"
+                style="z-index: {{zindex}}; background-image:url('https://avaimage.nannal.com/u/master/avatar/')">
+            </span>
+            </a>
+            {{else}}
+            <a id="top-curator" href="/c/{{u}}">
+            <span class="ui image avatar circular "
+                style="z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+            </span>
+            </a>
+            {{/if}}
+        </span>
+    {{/each}}
+</template>

@@ -321,7 +321,7 @@ Videos.getVideosBy = function(type, limit, cb) {
 
 Videos.loadFeed = function(username) {
   console.log('Loading notifications for '+username)
-  Notifications.getCentralized()
+  Notifications.getDecentralized()
 
   console.log('Loading feed for '+username)
   avalon.getFeedDiscussions(username, null, null, function(err, result) {

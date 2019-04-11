@@ -8,10 +8,10 @@
           <i class="sidebar icon" style="font-size:1.4em; margin:1px 0 0 0;"></i>
         </div>
         <a href='/' class="blacklogo header item" id='textlogo'>
-            <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_Black.svg" >
+            <img  alt="" style="width:90px;" src="https://new.d.tube/DTube_files/images/DTube_Black.svg" >
         </a>
         <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
-          <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_White.svg" >
+          <img  alt="" style="width:90px;" src="https://new.d.tube/DTube_files/images/DTube_White.svg" >
       </a>
         <div class="ui item grid tablet only computer only" style="width:inherit;">
           <div class="ui search wid-ful">
@@ -38,6 +38,20 @@
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
         {{#if isLoggedOn}}
+          {{#if mainUser}}
+            <div class="ui item">
+                <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.balance 0}}</strong>DTC
+            </div>
+            <div class="ui item">
+                <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VT
+            </div>
+            <!-- <div class="ui item">
+                <i class="icon database" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.bwDisplay 0}}</strong>B
+            </div> -->
+          {{/if}}
           <a href='/upload' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
             <i class="cloud upload icon" style='font-size:1.3em; margin:0;'></i>
           </a>
