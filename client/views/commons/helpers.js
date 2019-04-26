@@ -443,3 +443,10 @@ Template.registerHelper('subCount', function() {
   else
     return 0
 })
+
+Template.registerHelper('lowerThan', function(n, p) {
+  n = parseInt(n)
+  p = parseInt(p)
+  if (p < n) return true
+  return false
+})

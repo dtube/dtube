@@ -158,7 +158,7 @@
 }
 
 .dtube.red.button {
-  background: #ff0009;
+  background: #F01A30;
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;
@@ -214,6 +214,7 @@
 }
 
 .dtube.blue.button {
+  background-color: #223154;
   margin-right: 0px !important;
   border-style: solid !important;
   border-width: 0px !important;

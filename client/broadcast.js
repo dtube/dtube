@@ -102,6 +102,42 @@ broadcast = {
             cb(err, result)
         })
     },
+    voteLeader: function(target, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            var tx = {
+                type: 1,
+                data: {
+                    target: target
+                }
+            }
+            tx = avalon.sign(wif, voter, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
+            return;
+        }
+    },
+    unvoteLeader: function(target, cb) {
+        var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+        if (!voter) return;
+        var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+        if (wif) {
+            var tx = {
+                type: 2,
+                data: {
+                    target: target
+                }
+            }
+            tx = avalon.sign(wif, voter, tx)
+            avalon.sendTransaction(tx, function(err, res) {
+                cb(err, res)
+            })
+            return;
+        }
+    },
     follow: function(following, cb) {
         var voter = Users.findOne({ username: Session.get('activeUsername') }).username
         if (!voter) return;

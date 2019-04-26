@@ -33,6 +33,7 @@ Users.refreshUsers = function(usernames) {
       user.balance = chainusers[i].balance
       user.bw = chainusers[i].bw
       user.vt = chainusers[i].vt
+      user.approves = chainusers[i].approves
       Users.update({username: user.username}, user)
 
       if (chainusers[i].name == Session.get('activeUsername')) {

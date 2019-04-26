@@ -185,6 +185,20 @@ FlowRouter.route('/onboarding', {
   }
 });
 
+FlowRouter.route('/election', {
+  name: "election",
+  action: function(params, queryParams) {
+    avalon.getLeaders(function(err, res){
+      Session.set('leaders', res)
+    })
+    Session.set("pageTitle", 'Vote for DTube Leaders')
+    BlazeLayout.render('masterLayout', {
+      main: "election",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/newaccount', {
   name: "newaccount",
   action: function(params, queryParams) {

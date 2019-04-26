@@ -12,17 +12,7 @@ Template.loginavalon.helpers({
   })
   
   Template.loginavalon.success = function(activeUsername, noreroute) {
-    Session.set('activeUsername', activeUsername)
-    if (!UserSettings.get('voteWeight')) {
-      UserSettings.set('voteWeight', 5)
-    }
-    Videos.loadFeed(activeUsername)
-    if (!noreroute)
-      FlowRouter.go('#!/')
-    // DTalk.login(function() {
-    //   Session.set('gunUser', gun.user().is)
-    //   DTalk.checkInbox()
-    // })
+    Template.login.success(activeUsername, noreroute)
   }
   
   Template.loginavalon.events({
@@ -76,7 +66,6 @@ Template.loginavalon.helpers({
           } else {
             Users.insert(user)
             Template.loginavalon.success(user.username)
-            Users.refreshUsers([user.username])
             // steem.api.getAccounts([user.username], function(e, chainusers) {
             //   for (var i = 0; i < chainusers.length; i++) {
             //     var user = Users.findOne({username: chainusers[i].name})
