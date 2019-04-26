@@ -25,6 +25,10 @@ Template.registerHelper('isOnMobile', function () {
   return false;
 });
 
+Template.registerHelper('avalonOnboarding', function () {
+  return Session.get('avalonOnboarding')
+});
+
 Template.registerHelper('session', function (key) {
   return Session.get(key)
 });
@@ -47,9 +51,9 @@ Template.registerHelper('downvotes', function (active_votes) {
   return count;
 });
 
-Template.registerHelper('userPic', function (username, type) {
-  if (!type || typeof type != 'string') type=''
-  return 'https://avaimage.nannal.com/u/'+username+'/avatar/'+type
+Template.registerHelper('userPic', function (username, size) {
+  if (!size || typeof size != 'string') size=''
+  return 'https://avaimage.nannal.com/u/'+username+'/avatar/'+size
 });
 
 Template.registerHelper('userCover', function(coverurl) {

@@ -330,7 +330,7 @@ function videoIdFromUrl(video, url) {
   switch (urlInfo.host) {
     case "www.twitch.tv":
       if (video.twitch_type == 'clip')
-        return urlInfo.pathname.replace('/twitch/clip/', '')
+        return urlInfo.pathname.split('/')[3]
       break;
 
     case "www.dailymotion.com":
@@ -344,7 +344,6 @@ function videoIdFromUrl(video, url) {
     case "www.facebook.com":
       // https://www.facebook.com/zap.magazine/videos/278373702868688/
       // https://www.facebook.com/watch/?v=1371488622995266
-      console.log(urlInfo)
       return urlInfo.query.v || urlInfo.pathname.split('/')[3]
       break;
 

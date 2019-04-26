@@ -2,12 +2,14 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
+import steem from 'steem';
 
 console.log('Starting DTube APP')
 
 FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
+  window.steem = steem
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
   Session.set('lastHot', null)
