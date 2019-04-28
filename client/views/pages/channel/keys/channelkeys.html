@@ -1,0 +1,16 @@
+<template name='channelkeys'>
+    <div class="ui stackable grid column">
+        <div class="sixteen wide column" style="padding-left:5px;">
+            <p>Your cryptographic keys is what makes your account yours. If you lose any private key, it cannot be recovered.</p>
+            {{#if keys}}
+                {{#each keys}}
+                    <h4>{{_id}}</h4>
+                    <input type="text" value="{{pub}}">
+                {{/each}}
+            {{else}}
+            {{/if}}
+            <h4>Main Key</h4>
+            {{mainKey}}
+        </div>
+    </div>
+</template>

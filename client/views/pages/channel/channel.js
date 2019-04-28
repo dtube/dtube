@@ -27,6 +27,7 @@ Template.channel.rendered = function () {
       })
     }
   });
+  reclick = false
 }
 
 Template.channel.helpers({
@@ -115,5 +116,14 @@ Template.channel.events({
   },
   'click .item.about': function () {
     Session.set('currentTab', 'about')
+  },
+  'click .item.keys': function (e) {
+    Session.set('currentTab', 'keys')
+    if (!reclick) {
+      reclick = true
+      $('.menu .item').tab();
+      $('.menu .item.keys').click()
+      $('.menu .item.keys').addClass('active')
+    }
   }
 })

@@ -5,7 +5,7 @@ Template.login.rendered = function() {
 
 Template.login.success = function(activeUsername, noreroute) {
   Session.set('activeUsername', activeUsername)
-  Users.refreshUsers([user.username])
+  Users.refreshUsers([activeUsername])
   if (!UserSettings.get('voteWeight')) {
     UserSettings.set('voteWeight', 5)
   }
