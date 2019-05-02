@@ -2,15 +2,75 @@
     <div class="ui stackable grid column">
         <div class="sixteen wide column" style="padding-left:5px;">
             <p>Your cryptographic keys is what makes your account yours. If you lose any private key, it cannot be recovered.</p>
+            <div class="ui inverted segment">
+                <h4>Security Key</h4>
+                {{#if equals mainKey loggedInPub}}
+                    <h3>
+                        <i class="icon exclamation triangle red"></i>
+                        Warning! You are currently logged in with your security key (not recommended)
+                    </h3>
+                {{/if}}
+                <div class="ui left icon input">
+                    <input type="text" value="{{mainKey}}" readonly>
+                    <i class="lock icon"></i>
+                </div>
+                {{#if equals mainKey loggedInPub}}
+                    <div class="ui left icon action input">
+                        <input id="privateKey" type="password" value="{{loggedInPriv}}" readonly>
+                        <i class="key icon"></i>
+                        <button class="ui tiny icon button revealButton">
+                            <i class="eye icon"></i>
+                        </button>
+                    </div>
+                {{/if}}
+            </div>
             {{#if keys}}
                 {{#each keys}}
-                    <h4>{{_id}}</h4>
-                    <input type="text" value="{{pub}}">
+                    <div class="ui segment">
+                        <h4>
+                            Custom Key: {{id}}
+                        </h4>
+                        <div class="ui left icon input">
+                            <input type="text" value="{{pub}}" readonly>
+                            <i class="lock icon"></i>
+                        </div>
+                        {{#if equals pub loggedInPub}}
+                            <i class="icon check green"></i>
+                            <div class="ui left icon action input">
+                                <input id="privateKey" type="password" value="{{loggedInPriv}}" readonly>
+                                <i class="key icon"></i>
+                                <button class="ui tiny icon button revealButton">
+                                    <i class="eye icon"></i>
+                                </button>
+                            </div>
+                        {{/if}}
+                    </div>
                 {{/each}}
             {{else}}
             {{/if}}
-            <h4>Main Key</h4>
-            {{mainKey}}
+            <div class="ui segment">
+                <h4>New Key</h4>
+                <form class="ui form">
+                    <div class="field">
+                        <label>Key identifier</label>
+                        <input type="text" id="newkey-id">
+                    </div>
+                    <div class="field">
+                        <label>Public Key</label>
+                        <input type="text" id="newkey-pub">
+                    </div>
+                    <h5>Permissions:</h5>
+                    {{#each transactionTypes}}
+                        <div class="field">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox" tabindex="0" class="hidden" data-txid="{{id}}">
+                                <label>{{name}}</label>
+                            </div>
+                        </div>
+                    {{/each}}
+                    <button id="newKeyButton" class="ui red button" type="submit">Create</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>

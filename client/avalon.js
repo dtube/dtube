@@ -1,3 +1,3 @@
 const javalon = require('javalon')
-javalon.init({api: 'http://localhost:3001'})
+javalon.init({api: 'https://bran.nannal.com'})
 window.avalon = javalon
