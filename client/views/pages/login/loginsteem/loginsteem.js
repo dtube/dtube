@@ -12,15 +12,20 @@ Template.loginsteem.helpers({
   })
   
   Template.loginsteem.success = function(activeUsername, noreroute) {
-    Session.set('activeUsername', activeUsername)
+    Session.set('activeUsernameSteem', activeUsername)
     if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')
-    DTalk.login(function() {
-      Session.set('gunUser', gun.user().is)
-      DTalk.checkInbox()
+
+    // check if equivalent avalon exists and propose onboarding
+    avalon.getAccounts([activeUsername], function(err, results){
+      if (err) console.log(err)
+      else if (results.length == 0)
+        Session.set('avalonOnboarding', true)
     })
+
+    setTimeout(function(){Template.sidebar.dropdownSteem()}, 200)
   }
   
   Template.loginsteem.events({
@@ -94,7 +99,8 @@ Template.loginsteem.helpers({
         var chainuser = result[0]
         var user = {
           privatekey: event.target.privatekey.value,
-          type: "posting"
+          type: "posting",
+          network: "steem"
         }
         try {
           user.publickey = steem.auth.wifToPublic(user.privatekey)

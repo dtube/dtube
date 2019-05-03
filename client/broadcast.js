@@ -227,6 +227,7 @@ broadcast = {
             }
         }
         if (tag) tx.data.tag = tag
+        else tx.data.tag = ""
         if (parentAuthor && parentPermlink) {
             tx.data.pa = parentAuthor
             tx.data.pp = parentPermlink

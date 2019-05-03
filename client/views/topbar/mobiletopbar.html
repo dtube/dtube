@@ -18,18 +18,16 @@
                         <i class="search icon" style='font-size:1.4em; margin:1px 0 0 0;'></i>
                     </div>
                     {{#if isLoggedOn}}
-                        <!-- {{> notificationdropdown}} -->
+                        {{> notificationdropdown}}
                     {{/if}}
                     {{> settingsdropdown}}
-                    {{#if isLoggedOn}}
-                        {{> mobileusers}}
-                    {{else}}
+                    {{#unless isLoggedOn}}
                     <a class="ui item" style="float:right;">
                         <a href="/login" class="circular ui icon youtube button">
                             <i class="user icon" style='margin:0; padding:0px;'></i>
                         </a>
                     </a>
-                    {{/if}}
+                    {{/unless}}
                 </div>
             </div>
         </div>

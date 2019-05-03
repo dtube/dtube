@@ -30,13 +30,6 @@ Template.notificationdropdown.helpers({
       // if (notif.block > UserSettings.get('notifications_highblock'))
       //   UserSettings.set('notifications_highblock', notif.block)
     },
-    'click .item.claimRewards': function () {
-      var user = Users.findOne({username: Session.get('activeUsername')})
-      broadcast.claimRewardBalance(user.username, user.reward_steem_balance, user.reward_sbd_balance, user.reward_vesting_balance, function(err, result) {
-        Users.refreshUsers([user.username])
-        toastr.success(translate('USERS_YOU_HAVE_CLAIMED') + ' ' + Template.users.formatRewards(user), translate('USERS_SUCCESS'))
-      })
-    },
     'click .dropdownnotification, touchstart .dropdownnotification': function(e) {
       if (/Mobi/.test(navigator.userAgent)) {
         Session.set('selectortype', 'notifications');

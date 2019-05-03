@@ -174,12 +174,40 @@ FlowRouter.route('/login', {
   }
 });
 
+FlowRouter.route('/login/:network', {
+  name: "login",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Login')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
+    if (FlowRouter.getParam('network') == 'dtube')
+      $("#dtube-tab").click()
+    if (FlowRouter.getParam('network') == 'steem')
+      $("#steem-tab").click()
+    BlazeLayout.render('masterLayout', {
+      main: "login",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/onboarding', {
   name: "onboarding",
   action: function(params, queryParams) {
     Session.set("pageTitle", 'Join DTube Chain')
     BlazeLayout.render('masterLayout', {
       main: "onboarding",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/newaccount', {
+  name: "newaccount",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Refer a friend')
+    BlazeLayout.render('masterLayout', {
+      main: "newaccount",
       nav: "nav",
     });
   }
@@ -223,7 +251,7 @@ FlowRouter.route('/sc2login', {
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
         Users.refreshLocalUsers(function(){})
-        Template.login.success(queryParams.username)
+        Template.loginsteem.success(queryParams.username)
       })
       clearInterval(trick)
     }, 100)

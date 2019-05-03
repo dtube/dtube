@@ -15,9 +15,72 @@ Template.sidebar.rendered = function () {
   Template.sidebar.selectMenu();
 }
 
+Template.sidebar.dropdownSteem = function() {
+  $('.dropdownsteem').dropdown({
+    action: function(text, value, e) {
+      var e = $(e)
+      if (e.hasClass('logOut')) {
+        Waka.db.Users.findOne({username: Session.get('activeUsernameSteem'), network: 'steem'}, function(user) {
+          if (user) {
+            Waka.db.Users.remove(user._id, function(result) {
+              Users.remove({})
+              Users.refreshLocalUsers(function(){})
+              Waka.db.Users.findOne({network: 'steem'}, function(user) {
+                if (user) {
+                  Session.set('activeUsernameSteem', user.username)
+                  Videos.loadFeed(user.username)
+                }
+                else Session.set('activeUsernameSteem', null)
+              })
+            })
+          } else {
+            Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'})
+            var newUser = Users.findOne({network: 'steem'})
+            if (newUser) Session.set('activeUsernameSteem', newUser.username)
+            else Session.set('activeUsernameSteem', null)
+          }
+        })
+      }
+    }
+  })
+}
+
+Template.sidebar.dropdownDTC = function() {
+  $('.dropdowndtc').dropdown({
+    action: function(text, value, e) {
+      var e = $(e)
+      if (e.hasClass('logOut')) {
+        Waka.db.Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}, function(user) {
+          if (user) {
+            Waka.db.Users.remove(user._id, function(result) {
+              Users.remove({})
+              Users.refreshLocalUsers(function(){})
+              Waka.db.Users.findOne({network: 'avalon'}, function(user) {
+                if (user) {
+                  Session.set('activeUsername', user.username)
+                  Videos.loadFeed(user.username)
+                }
+                else Session.set('activeUsername', null)
+              })
+            })
+          } else {
+            Users.remove({username: Session.get('activeUsername'), network: 'avalon'})
+            var newUser = Users.findOne({network: avalon})
+            if (newUser) Session.set('activeUsername', newUser.username)
+            else Session.set('activeUsername', null)
+          }
+        })
+      }
+    }
+  })
+}
+
 Template.sidebar.helpers({
-  activeUser: function () {
-    return Session.get('activeUsername')
+  mainUser: function() {
+    return Users.findOne({username: Session.get('activeUsername')})
+  },
+  mainUserSteem: function() {
+    return Users.findOne({username: Session.get('activeUsernameSteem')})
   },
   subscribelength: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
@@ -34,7 +97,14 @@ Template.sidebar.helpers({
   },
   subsOpen: function () {
     return Session.get('isSubscribesOpen')
-  }
+  },
+  hasRewards: function(user) {
+    if (!user || !user.reward_sbd_balance || !user.reward_steem_balance || !user.reward_vesting_balance) return false
+    if (user.reward_sbd_balance.split(' ')[0] > 0
+      || user.reward_steem_balance.split(' ')[0] > 0
+      || user.reward_vesting_balance.split(' ')[0] > 0)
+      return true
+  },
 });
 
 
@@ -120,7 +190,8 @@ Template.sidebar.half = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-
+  Template.sidebar.dropdownSteem()
+  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.full = function() {
@@ -129,6 +200,8 @@ Template.sidebar.full = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
+  Template.sidebar.dropdownSteem()
+  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.empty = function() {
@@ -142,4 +215,6 @@ Template.sidebar.mobile = function() {
   .sidebar('setting', 'dimPage', true)
   .sidebar('setting', 'closable', true)
   .sidebar('toggle')
+  Template.sidebar.dropdownSteem()
+  Template.sidebar.dropdownDTC()
 }

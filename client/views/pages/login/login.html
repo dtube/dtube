@@ -1,8 +1,8 @@
 <template name='login'>
   <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
     <div class="ui top attached tabular menu">
-        <a class="active item" data-tab="first">Steem</a>
-        <a class="item" data-tab="second">DTube</a>
+        <a class="active item" id="steem-tab" data-tab="first">Steem</a>
+        <a class="item" id="dtube-tab" data-tab="second">DTube</a>
       </div>
       <div class="ui bottom attached active tab segment" data-tab="first">
         {{>loginsteem}}

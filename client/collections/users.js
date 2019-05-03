@@ -9,10 +9,14 @@ var firstLoad = setInterval(function() {
   }
 
   Users.remove({})
-  Users.refreshLocalUsers(function(){})
-  Waka.db.Users.findOne({}, function(user) {
-    if (user)
-      Template.login.success(user.username, true)
+  Users.refreshLocalUsers(function(){
+    var dtubeDefUser = Users.findOne({network: 'avalon'})
+    var steemDefUser = Users.findOne({network: 'steem'})
+
+    if (dtubeDefUser)
+      Template.loginavalon.success(dtubeDefUser.username, true)
+    if (steemDefUser)
+      Template.loginsteem.success(steemDefUser.username, true)
   })
   clearInterval(firstLoad)
 }, 50)

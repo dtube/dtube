@@ -56,6 +56,11 @@ Template.registerHelper('userPic', function (username, size) {
   return 'https://avaimage.nannal.com/u/'+username+'/avatar/'+size
 });
 
+Template.registerHelper('userPicSteem', function (username, size) {
+  if (!size || typeof size != 'string') size=''
+  return 'https://steemitimages.com/u/'+username+'/avatar/'+size
+});
+
 Template.registerHelper('userCover', function(coverurl) {
   return 'https://avaimage.nannal.com/2048x512/'+coverurl
 })
@@ -434,6 +439,10 @@ Template.registerHelper('inputTags',function (tags) {
 
 Template.registerHelper('activeUsername', function() {
   return Session.get('activeUsername')
+})
+
+Template.registerHelper('activeUsernameSteem', function() {
+  return Session.get('activeUsernameSteem')
 })
 
 Template.registerHelper('subCount', function() {

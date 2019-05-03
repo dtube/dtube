@@ -1,29 +1,24 @@
-import {saveAs} from 'file-saver'
-
-Template.onboarding.rendered = function() {
-    Session.set("tmpKey", avalon.keypair())
-}
-
 Template.onboarding.helpers({
-    tmpKey: function() {
-      return Session.get('tmpKey')
+    newPubKey: function() {
+        return Session.get('savedPubKey')
+    },
+    isSteem: function() {
+        if (!Users.findOne({username: Session.get('activeUsernameSteem')}))
+            return false
+        if (!Users.findOne({username: Session.get('activeUsernameSteem')}).network)
+            return true
+        if (Users.findOne({username: Session.get('activeUsernameSteem')}).network == 'steem')
+            return true
+
+        return false
     }
 })
 
 Template.onboarding.events({
-    'click #regenavalonkey': function (e) {
-        e.preventDefault()
-        Session.set("tmpKey", avalon.keypair())
-    },
-    'click #saveavalonkey': function (e) {
-        e.preventDefault()
-        var pub = $("#avalonpub").val();
-        var priv = $("#avalonpriv").val();
-        var key = JSON.stringify({
-            pub: pub,
-            priv: priv
-        })
-        var blob = new Blob([key], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "dtube_key.txt");
+    'click #onboarding': function() {
+        var pub = Session.get('savedPubKey')
+        var name = Session.get('activeUsername')
+        var url = "https://steemconnect.com/sign/profile-update?dtube_pub="+pub+"&account="+name
+        window.open(url, '_blank');
     }
 })

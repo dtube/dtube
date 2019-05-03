@@ -1,47 +1,21 @@
 <template name="onboarding">
-    <div class="ui container">
-        <center>
-            <h1 class="ui header">Welcome to DTube Chain</h1>
-            <form class="ui form keygenform">
-                <div class="ui two column centered grid">
-                    <div class="three wide column middle aligned">
-                        <button id="regenavalonkey" class="ui huge icon button"><i class="sync icon"></i></button>
-                        <button id="saveavalonkey" class="ui huge blue icon button"><i class="save icon"></i></button>
-                    </div>
-                    <div class="nine wide column">
-                        <div class="field">
-                            <label style="text-align: left;">Public Key</label>
-                            <div class="ui left icon input">
-                                <input id="avalonpub" style="max-width: 425px;" type="text" value="{{tmpKey.pub}}">
-                                <i class="lock open icon"></i>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label style="text-align: left;">Private Key</label>
-                            <div class="ui left icon input">
-                                <input id="avalonpriv" style="max-width: 425px;" type="text" value="{{tmpKey.priv}}">
-                                <i class="lock icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <hr>
-            <h2 class="ui header">Claim free account from STEEM!</h2>
-            <p>You will need to publish your public key in your steem profile, and your account will be created in a matter of seconds.</p>
-            <button class="massive red ui button">
-                Claim @{{activeUsername}}
+    <div class="ui container" style="max-width: 600px">
+        <div class="ui message">
+            <div class="header">
+                <i class="clock icon"></i>
+                Limited in time
+            </div>
+            <p>Your @{{activeUsernameSteem}} username is reserved on DTube chain only until approximately DD/MM/YYYY. Claim it before that date or else we cannot guarantee the availability of your username anymore.</p>
+        </div>
+        <h2 class="ui header">Claim DTube chain account from your STEEM account!</h2>
+        <p>First save your private key in a safe place. This will be the highest security key for your account! Never lose it or you will lose your account forever!</p>            
+        {{>keypair}}
+        <p>Finally, you will need to publish your public key in your steem profile, and your new account will be created by @dtube under a few minutes. You will also receive a bit of voting power to start playing.</p>
+        <div id="onboarding" class="ui fluid labeled small button" tabindex="0">
+            <button name="button" class="ui fluid red right labeled dtube icon {{#unless newPubKey}}disabled{{/unless}} button">
+                <i class="user plus icon red" style="background:white;opacity:1;"></i>
+                <div style="display:inline-block;padding: 0.8em 1em;">Claim @{{activeUsernameSteem}}</div>
             </button>
-            <hr>
-            <!-- <h2 class="ui header">Free account - no username!</h2>
-            <p>Costs 0 DTC, new account needs DTC to start playing</p>
-            <hr>
-            <h2 class="ui header">Trial account</h2>
-            <p>Give us your email and phone and we will give you some free power</p>
-            <hr> -->
-            <h2 class="ui header">Refer a friend directly!</h2>
-            <p>The new account will start with nothing and will need a bit of DTC to be able to start playing</p>
-            {{>newaccount}}
-        </center>
+        </div>
     </div>
 </template>

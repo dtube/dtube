@@ -12,7 +12,16 @@ Template.loginavalon.helpers({
   })
   
   Template.loginavalon.success = function(activeUsername, noreroute) {
-    Template.login.success(activeUsername, noreroute)
+    Session.set('activeUsername', activeUsername)
+    Users.refreshUsers([activeUsername])
+    if (!UserSettings.get('voteWeight')) {
+      UserSettings.set('voteWeight', 5)
+    }
+    Videos.loadFeed(activeUsername)
+    if (!noreroute)
+      FlowRouter.go('#!/')
+
+    setTimeout(function(){Template.sidebar.dropdownDTC()}, 200)
   }
   
   Template.loginavalon.events({
@@ -44,7 +53,8 @@ Template.loginavalon.helpers({
           return
         }
         var user = {
-          privatekey: event.target.privatekey.value
+          privatekey: event.target.privatekey.value,
+          network: 'avalon'
         }
         try {
           user.publickey = avalon.privToPub(user.privatekey)
