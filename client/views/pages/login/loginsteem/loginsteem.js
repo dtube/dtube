@@ -45,7 +45,7 @@ Template.loginsteem.helpers({
       var username = document.getElementById("keychain_username").value.toLowerCase().replace('@','');
       steem_keychain.requestSignBuffer(username, "dtube_login-" + Math.round(99999999999*Math.random()), "Posting", function(response) {
           if(response.success === true) {
-              var currentUser = Session.get('activeUsername')
+              var currentUser = Session.get('activeUsernameSteem')
               var username = response.data.username;
               if (currentUser == username)
               {
@@ -66,7 +66,7 @@ Template.loginsteem.helpers({
             toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'));
           }
       });
-      /*steem_keychain.requestVerifyKey(Session.get('activeUsername'), "dtube_login-" + String(Math.random()), "Posting", function(response) {
+      /*steem_keychain.requestVerifyKey(Session.get(Steem), "dtube_login-" + String(Math.random()), "Posting", function(response) {
           console.log(response);
       });*/
     },
@@ -78,7 +78,7 @@ Template.loginsteem.helpers({
     },
     'submit .form': function(event) {
       event.preventDefault()
-      var currentUser = Session.get('activeUsername')
+      var currentUser = Session.get('activeUsernameSteem')
       var username = event.target.username.value.toLowerCase().replace('@','');
       if (currentUser == username)
       {
