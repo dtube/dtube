@@ -224,7 +224,7 @@ Template.uploadformsubmit.events({
     ];
     $('#step3load').show()
     console.log(operations)
-    broadcast.send(
+    broadcast.avalon.send(
       operations,
       function (e, r) {
         $('#step3load').hide()
@@ -247,7 +247,7 @@ Template.uploadformsubmit.events({
     video.json.title = $('input[name=title]')[0].value
     video.json.description = $('textarea[name=description]')[0].value
 
-    broadcast.comment(null, null, video.json, null, function(err, result) {
+    broadcast.avalon.comment(null, null, video.json, null, function(err, result) {
       if (err) toastr.error(Meteor.blockchainError(err))
       else {
         $('#editvideosegment').toggle()
@@ -269,7 +269,7 @@ Template.uploadformsubmit.events({
     //   ]
     // ];
     // console.log(operations)
-    // broadcast.send(
+    // broadcast.avalon.send(
     //   operations,
     //   function (e, r) {
     //     if (e) {

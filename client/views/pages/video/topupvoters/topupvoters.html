@@ -1,19 +1,31 @@
 <template name="topupvoters">
-    {{#each topVoters votes 4}}
-        <span class="topvoters" data-tooltip="{{u}} ({{vt}} VT)" data-inverted="" data-position="top right">
-            {{#if equals u 'Everyone else'}}
-            <a id="top-curator">
-            <span class="ui image avatar circular"
-                style="z-index: {{zindex}}; background-image:url('https://avaimage.nannal.com/u/master/avatar/')">
-            </span>
-            </a>
-            {{else}}
+    {{#each topVoters votes votesSteem 3}}
+        <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VT){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top right">
             <a id="top-curator" href="/c/{{u}}">
-            <span class="ui image avatar circular "
-                style="z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
-            </span>
-            </a>
+            {{#if equals network 'dtc'}}
+                {{#if downvote}}
+                <span class="ui image avatar circular "
+                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+                </span>
+                {{else}}
+                <span class="ui image avatar circular "
+                    style="z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+                </span>
+                {{/if}}
             {{/if}}
+            {{#if equals network 'steem'}}
+                {{#if downvote}}
+                <span class="ui image avatar circular "
+                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
+                </span>
+                {{else}}
+                <span class="ui image avatar circular "
+                    style="z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
+                </span>
+                {{/if}}
+                
+            {{/if}}
+            </a>
         </span>
     {{/each}}
 </template>

@@ -3,7 +3,6 @@ Subs = new Mongo.Collection(null)
 Subs.loadFollowing = function(username, startFollowing = undefined, recursive = true, cb) {
   avalon.getFollowing(username, function(err, results) {
     if (err) console.log(err)
-    console.log(results)
     if (results && results.length) {
       for (var i = 0; i < results.length; i++) {
         var sub = {
@@ -34,7 +33,7 @@ Subs.loadFollowers = function(username, startFollowers = undefined, recursive = 
 }
 
 Subs.followUs = function(follower, cb) {
-  broadcast.follow(Meteor.settings.public.beneficiary, function(err, result) {
+  broadcast.avalon.follow(Meteor.settings.public.beneficiary, function(err, result) {
     cb()
   })
 }

@@ -14,7 +14,7 @@ Template.newaccount.events({
           username = pub.toLowerCase()
           event.target.newacc_username.value = username
       }
-      broadcast.newAccount(username, pub, function (err, result) {
+      broadcast.avalon.newAccount(username, pub, function (err, result) {
         if (err)
           toastr.error(Meteor.blockchainError(err))
         else {

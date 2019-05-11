@@ -76,12 +76,12 @@ Template.upload.events({
     content.description = $('#contentDescription').val()
     var burn = parseInt(Session.get('publishBurn'))
     if (burn > 0) {
-      broadcast.promotedComment(null, null, content, $('#contentTag').val(), burn, function(err, result) {
+      broadcast.multi.comment(null, null, null, null, 'this is a test', content, $('#contentTag').val(), null, burn, function(err, result) {
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
       })
     } else {
-      broadcast.comment(null, null, content, $('#contentTag').val(), function(err, result) {
+      broadcast.multi.comment(null, null, null, null, 'this is a test', content, $('#contentTag').val(), null, function(err, result) {
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
       })
@@ -95,6 +95,7 @@ function grabData(url, cb) {
     case 'www.youtube.com':
     case 'm.youtube.com':
     case 'music.youtube.com':
+    case 'youtu.be':
       getYoutubeVideoData(url, function(content) {
         cb(content)
       })
@@ -145,10 +146,15 @@ function getOEmbedData(url, callback) {
 }
 
 function getYoutubeVideoData(url, callback) {
-  var videoId = url.split('v=')[1]
-  var ampersandPosition = videoId.indexOf('&')
-  if(ampersandPosition != -1)
-    videoId = videoId.substring(0, ampersandPosition);
+  var videoId = ''
+  if (url.indexOf('v=') == -1)
+    videoId = url.split('/')[url.split('/').length-1]
+  else {
+    videoId = url.split('v=')[1]
+    var ampersandPosition = videoId.indexOf('&')
+    if(ampersandPosition != -1)
+      videoId = videoId.substring(0, ampersandPosition);
+  }
 
   let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -371,6 +377,7 @@ function providerNameFromUrl(url) {
     case "www.youtube.com":
     case 'm.youtube.com':
     case 'music.youtube.com':
+    case 'youtu.be':
       return 'YouTube'
       break;
   

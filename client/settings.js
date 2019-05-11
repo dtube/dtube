@@ -11,7 +11,7 @@ Meteor.settings.public = {
     "upldr": ["cluster"],
     "localhost": false
   },
-  "app": "dtube/0.8",
+  "app": "dtube/0.9",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",
@@ -42,9 +42,9 @@ Meteor.settings.public = {
 }
 
 // custom settings loaded from json
-$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
-  if (result == 'success') {
-    Meteor.settings.public = json
-    Session.set('remoteSettings', Meteor.settings.public.remote)
-  }
-})
+// $.get('https://d.tube/DTube_files/settings.json', function(json, result) {
+//   if (result == 'success') {
+//     Meteor.settings.public = json
+//     Session.set('remoteSettings', Meteor.settings.public.remote)
+//   }
+// })

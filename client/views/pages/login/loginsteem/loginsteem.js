@@ -13,7 +13,7 @@ Template.loginsteem.helpers({
   
   Template.loginsteem.success = function(activeUsername, noreroute) {
     Session.set('activeUsernameSteem', activeUsername)
-    if (!UserSettings.get('voteWeight')) UserSettings.set('voteWeight', 100)
+    if (!UserSettings.get('voteWeightSteem')) UserSettings.set('voteWeightSteem', 100)
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')

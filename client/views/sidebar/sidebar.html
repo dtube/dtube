@@ -1,38 +1,63 @@
 <template name="sidebar">
   <div style="height:100%;">
     <div class="ui" style="margin-top: 15px; margin-bottom: 15px;">
-      <img class="ui avatar image" src="https://assets.coingecko.com/coins/images/398/large/steem.png?1547034126">
+      <span id="disableSteem" data-position="bottom left">
+          <img class="ui avatar image" src="https://assets.coingecko.com/coins/images/398/large/steem.png?1547034126">          
+          {{#if isSteemDisabled}}
+            <i class="x red icon" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></i>
+          {{/if}}
+        </span>
       {{#if activeUsernameSteem}}
-        <div class="ui inline dropdown dropdownsteem">
+        <div class="ui compact floating inline dropdown dropdownsteem">
           <div class="ui blue large image label">
             <img src="{{userPicSteem mainUserSteem.username ''}}">
             {{activeUsernameSteem}}
           </div><i class="dropdown icon"></i>
           <div class="left menu" style='right: 105%;'>
+            <div class="item">
+              <i class="bottom dropdown icon"></i>
+              <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} {{voteWeightSteem}}%</span>
+              <div class="left menu">
+                <div class="item voteWeightSteem">+10%</div>
+                <div class="item voteWeightSteem">+1%</div>
+                <div class="item voteWeightSteem">-1%</div>
+                <div class="item voteWeightSteem">-10%</div>
+              </div>
+            </div>
             <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>
-            <a class='item' href='/c/{{user.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
-            {{#if hasRewards user}}
-              <a class='item claimRewards' data-username='{{user.username}}' title='{{displayRewards user}}'>
-                <i class="money icon"></i> {{ translate 'USERS_CLAIM_REWARDS'}}
-              </a>
-            {{/if}}
+            <a class='item' href='/c/{{mainUserSteem.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
           </div>
         </div>
       {{else}}
         {{>buttonlogin}}
       {{/if}}
       <br /><br />
-      <img class="ui avatar image" src="https://about.d.tube/img/kit/Logo_Black_D.svg">      
+      <span id="disableDTC" data-position="bottom left">
+          <img class="ui avatar image" src="https://about.d.tube/img/kit/Logo_Black_D.svg">
+          {{#if isDTCDisabled}}
+            <i class="x red icon" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></i>
+          {{/if}}
+      </span>
       {{#if activeUsername}}
-        <div class="ui inline dropdown dropdowndtc">
+        <div class="ui compact floating inline dropdown dropdowndtc">
           <div class="ui red large image label">
             <img src="{{userPic mainUser.username ''}}">
             {{activeUsername}}
             
           </div><i class="dropdown icon"></i>
           <div class="left menu" style='right: 105%;'>
+            <div class="item">
+              <i class="bottom dropdown icon"></i>
+              <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} {{voteWeight}}%</span>
+              <div class="left menu">
+                <div class="item voteWeight">+10%</div>
+                <div class="item voteWeight">+1%</div>
+                <div class="item voteWeight">-1%</div>
+                <div class="item voteWeight">-10%</div>
+              </div>
+            </div>
             <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>
-            <a class='item' href='/c/{{user.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+            <a class='item' href='/c/{{mainUser.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
           </div>
         </div>
       {{else}}
@@ -55,7 +80,7 @@
       </a> -->
       <a href='/upload' class="item pdg-non">
         <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="cloud upload icon dtubesidebaricon"></i>
+          <i class="upload icon dtubesidebaricon"></i>
           <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
         </div>
       </a>
@@ -65,12 +90,16 @@
           <span class="dtubesidebartitle">{{ translate 'SIDEBAR_GO_LIVE'}}</span>
         </div>
       </a> -->
+      {{#if mainUserSteem}}
+      {{#unless mainUser}}
       <a href='/onboarding' class="item pdg-non">
         <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="user plus icon dtubesidebaricon"></i>
           <span class="dtubesidebartitle">{{ translate 'SIDEBAR_NEWACCOUNT'}}</span>
         </div>
       </a>
+      {{/unless}}
+      {{/if}}
       <!-- <a href='/live' class="item pdg-non">
         <div id="livesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="tv icon dtubesidebaricon"></i>

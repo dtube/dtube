@@ -65,8 +65,8 @@ Meteor.startup(function(){
   //   Session.set('steemGlobalProp', result)
   // })
 
-  Market.getSteemPrice()
-  Market.getSteemDollarPrice()
+  // Market.getSteemPrice()
+  // Market.getSteemDollarPrice()
 
   // loading remote settings -- disabled
   // steem.api.getAccounts(['dtube'], function(err, result) {

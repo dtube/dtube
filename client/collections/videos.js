@@ -349,12 +349,23 @@ Videos.loadFeed = function(username) {
   });
 }
 
-Videos.parseFromChain = function(video, isComment) {
+Videos.parseFromChain = function(video, isComment, network) {
+  if (network == 'steem') return Videos.parseFromSteem(video, isComment)
   if (!video || !video.json) return
-  video.replies = avalon.generateCommentTree(video, video.author, video.link)
+  video.comments = avalon.generateCommentTree(video, video.author, video.link)
+  video.comments = cleanTree(video.comments)
+  function cleanTree(root) {
+    for (let i = 0; i < root.length; i++) {
+      root[i].comments = cleanTree(root[i].replies)
+      root[i]._id = 'dtc/'+root[i]._id
+      if (!root[i].dist) root[i].dist = 0
+    }
+    return root
+  }
   video.ups = 0
   video.downs = 0
   video.tags = []
+  video._id = 'dtc/'+video._id
   if (video.votes) {
     for (let i = 0; i < video.votes.length; i++) {
         if (video.votes[i].vt > 0)
@@ -383,21 +394,82 @@ Videos.parseFromChain = function(video, isComment) {
   return video;
 }
 
-Videos.parseFromAskSteemResult = function(result) {
-  try {
-    var newVideo = result.meta.video
-  } catch(e) {
-    console.log(e)
+Videos.parseFromSteem = function(video, isComment) {
+  if (isComment) {
+    var newVideo = {
+      json: {
+        refs: [],
+        description: video.body,
+        title: video.title
+      }
+    }
   }
-  if (!newVideo) return
-  newVideo.active_votes = result.net_votes
-  newVideo.author = result.author
-  newVideo.permlink = result.permlink
-  newVideo.created = result.created
-  newVideo.pending_payout_value = result.payout+' SBD'
-  newVideo.total_payout_value = '0.000 SBD'
-  newVideo.curator_payout_value = '0.000 SBD'
-  if (!newVideo._id) newVideo._id = newVideo.author+'_'+newVideo.permlink
+  else try {
+    var newVideo = {json: JSON.parse(video.json_metadata).video}
+  } catch(e) {
+  }
+  if (!isComment && !newVideo) return
+  //if (!isComment && !newVideo.info) return
+  if (!newVideo) newVideo = {}
+  newVideo.author = video.author
+  newVideo.body = video.body
+  newVideo.total_payout_value = video.total_payout_value
+  newVideo.curator_payout_value = video.curator_payout_value
+  newVideo.pending_payout_value = video.pending_payout_value
+  newVideo.permlink = video.permlink
+  newVideo.created = video.created
+  newVideo.net_rshares = video.net_rshares
+  newVideo.reblogged_by = video.reblogged_by
+  newVideo.link = video.permlink
+  newVideo.votesSteem = video.active_votes
+  newVideo.comments = []
+  if (!isComment) {
+    if (!newVideo.json) {
+      newVideo.json = {
+        refs: [],
+        description: video.body,
+        title: video.title
+      }
+    }
+    newVideo.commentsSteem = Videos.commentsTree(video.content, video.author, video.permlink)    
+  }
+  
+  
+  newVideo.votes = []
+  newVideo.ts = new Date(video.created+'Z').getTime()
+  newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', ''))/1000
+  if (video.total_payout_value.split(' ')[0] > 0) {
+    newVideo.distSteem = parseInt(video.total_payout_value.split(' ')[0].replace('.', '')) + parseInt(video.curator_payout_value.split(' ')[0].replace('.', ''))
+    newVideo.distSteem /= 1000
+  }
+
+  newVideo.ups = 0
+  newVideo.downs = 0
+
+  if (newVideo.votesSteem) {
+    for (let i = 0; i < newVideo.votesSteem.length; i++) {
+        if (parseInt(newVideo.votesSteem[i].weight) > 0)
+            newVideo.ups += parseInt(newVideo.votesSteem[i].weight)
+        if (parseInt(newVideo.votesSteem[i].weight) < 0)
+            newVideo.downs -= parseInt(newVideo.votesSteem[i].weight)
+    }
+  }
+  video.totals = video.ups - video.downs
+  
+  // xss attack fix
+  if (newVideo.content && newVideo.content.tags) {
+    var xssTags = []
+    for (let i = 0; i < newVideo.content.tags.length; i++) {
+      xssTags.push(xss(newVideo.content.tags[i], {
+        whiteList: [],
+        stripIgnoreTag: true,
+        stripIgnoreTagBody: ['script']
+      }))
+    }
+    newVideo.content.tags = xssTags
+  }
+
+  if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink
   return newVideo;
 }
 
@@ -405,17 +477,12 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
   var rootVideo = content[rootAuthor+'/'+rootPermlink]
   var comments = []
   for (var i = 0; i < rootVideo.replies.length; i++) {
-    var comment = Videos.parseFromChain(content[rootVideo.replies[i]], true)
+    var comment = Videos.parseFromSteem(content[rootVideo.replies[i]], true)
     comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink)
     comments.push(comment)
   }
   comments = comments.sort(function(a,b) {
-    var diff = parseInt(b.total_payout_value.split(' ')[0].replace('.',''))
-      +parseInt(b.curator_payout_value.split(' ')[0].replace('.',''))
-      +parseInt(b.pending_payout_value.split(' ')[0].replace('.',''))
-      -parseInt(a.total_payout_value.split(' ')[0].replace('.',''))
-      -parseInt(a.curator_payout_value.split(' ')[0].replace('.',''))
-      -parseInt(a.pending_payout_value.split(' ')[0].replace('.',''))
+    var diff = parseInt(b.distSteem)-parseInt(a.distSteem)
     if (diff == 0) {
       return new Date(b.created) - new Date(a.created)
     } return diff

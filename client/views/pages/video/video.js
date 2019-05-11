@@ -10,6 +10,21 @@ Template.video.rendered = function () {
 }
 
 Template.video.helpers({
+  mergedCommentsLength: function(dtc, steem) {
+    var merged = UI._globalHelpers['mergeComments'](dtc, steem)
+    return merged.length
+  },
+  isNoComment: function() {
+    var vid = Template.video.__helpers[" video"]()
+    if (!vid.comments && !vid.commentsSteem) return true
+    return false
+  },
+  isSingleComment: function() {
+    var vid = Template.video.__helpers[" video"]()
+    var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem)
+    if (merged.length != 1) return false
+    return true
+  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
@@ -32,7 +47,10 @@ Template.video.helpers({
     }).fetch()
     for (var i = 0; i < videos.length; i++) {
       if (videos[i].source == 'chainDirect') {
-        Session.set("pageTitle", videos[i].json.title)
+        var title = ''
+        if (videos[i].title) title = videos[i].title
+        if (videos[i].json) title = videos[i].json.title
+        Session.set("pageTitle", title)
         return videos[i]
       }
     }
@@ -91,7 +109,7 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * 100
     var newTag = prompt('Enter a new tag')
-    broadcast.vote(author, permlink, weight, newTag, function (err, result) {
+    broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
       Template.video.loadState()
@@ -101,7 +119,9 @@ Template.video.events({
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * 100
-    broadcast.vote(author, permlink, weight, '', function (err, result) {
+    var weightSteem = UserSettings.get('voteWeightSteem') * 100
+    var refs = Session.get('currentRefs')
+    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -115,7 +135,9 @@ Template.video.events({
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * -100
-    broadcast.vote(author, permlink, weight, '', function (err, result) {
+    var weightSteem = UserSettings.get('voteWeightSteem') * -100
+    var refs = Session.get('currentRefs')
+    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -127,35 +149,88 @@ Template.video.events({
   },
   'click .replyTo': function (event) {
     Session.set('replyingTo', {
-      author: $(event.target).data('author'),
-      permlink: $(event.target).data('permlink')
+      id: $(event.target).data('id'),
+      refs: $(event.target).data('refs').split(',')
     })
   },
   'click .submit': function (event) {
-    if (!Session.get('replyingTo')) return;
-    $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
-    $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
-    var parentAuthor = Session.get('replyingTo').author
-    var parentPermlink = Session.get('replyingTo').permlink
     var body = $(event.currentTarget).prev().children()[0].value
     var jsonMetadata = {
       app: 'deadtube',
-      description: body
+      description: body,
+      title: ''
     }
-    broadcast.comment(parentAuthor, parentPermlink, jsonMetadata, null, function (err, result) {
-      console.log(err, result)
-      if (err) {
-        $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
-        $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-        toastr.error(err.payload.error.data.stack[0].format, 'Error')
-        return
+    refs = []
+    if (!Session.get('replyingTo')) {
+      refs = Session.get('currentRefs')
+    } else {
+      refs = Session.get('replyingTo').refs
+      refs.push(Session.get('replyingTo').id)
+    }
+    if (refs.length == 0) {
+      return
+    } else {
+      $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
+      $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+    }
+    if (refs.length > 1) {
+      for (let i = 0; i < refs.length; i++) {
+        const ref = refs[i];
+        if (ref.split('/')[0] == 'dtc') {
+          parentAuthor = ref.split('/')[1]
+          parentPermlink = ref.split('/')[2]
+        }
+        if (ref.split('/')[0] == 'steem') {
+          paSteem = ref.split('/')[1]
+          ppSteem = ref.split('/')[2]
+        }
       }
-      $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
-      Template.video.loadState()
-      Session.set('replyingTo', null)
-      document.getElementById('replytext').value = "";
-      $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
-    });
+      broadcast.multi.comment(paSteem, ppSteem, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', null, function (err, result) {
+        console.log(err, result)
+        if (err) {
+          $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+          $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
+          toastr.error(err.payload.error.data.stack[0].format, 'Error')
+          return
+        }
+        $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
+        Template.video.loadState()
+        Session.set('replyingTo', null)
+        document.getElementById('replytext').value = "";
+        $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
+      });
+    } else if (refs.length == 1) {
+      if (refs[0].split('/')[0] == 'steem')
+        broadcast.steem.comment(refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
+          console.log(err, result)
+          if (err) {
+            $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+            $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
+            toastr.error(err.payload.error.data.stack[0].format, 'Error')
+            return
+          }
+          $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
+          Template.video.loadState()
+          Session.set('replyingTo', null)
+          document.getElementById('replytext').value = "";
+          $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
+        });
+      if (refs[0].split('/')[0] == 'dtc')
+        broadcast.avalon.comment(refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', function (err, result) {
+          console.log(err, result)
+          if (err) {
+            $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+            $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
+            toastr.error(err.payload.error.data.stack[0].format, 'Error')
+            return
+          }
+          $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
+          Template.video.loadState()
+          Session.set('replyingTo', null)
+          document.getElementById('replytext').value = "";
+          $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
+        });
+    }
   },
   'click .subscribe': function () {
     var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
@@ -170,11 +245,7 @@ Template.video.events({
       what: ['blog']
     })
     
-    broadcast.follow(FlowRouter.getParam("author"), function(err, result) {
-      // alternative, inutile jusqua preuve du contraire
-      // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
-      //   SubCounts.upsert({_id: r.account}, r)
-      // })
+    broadcast.avalon.follow(FlowRouter.getParam("author"), function(err, result) {
       if (err)
         toastr.error(Meteor.blockchainError(err))
     })
@@ -190,7 +261,7 @@ Template.video.events({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author")
     })
-    broadcast.unfollow(FlowRouter.getParam("author"), function(err, result) {
+    broadcast.avalon.unfollow(FlowRouter.getParam("author"), function(err, result) {
       // finished unfollowing
       if (err)
         toastr.error(Meteor.blockchainError(err))
@@ -234,40 +305,116 @@ Template.video.loadState = function () {
   if (isLoadingState) return
   isLoadingState = true
   avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
-    if (err) throw err;
-    console.log('Loaded video from chain', result)
-    Waka.db.Articles.upsert(result)
+    if (err) {
+      steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function (err, result) {
+        if (err) throw err;
+        isLoadingState = false
+        Template.video.handleVideo(result, 'steem/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
+      })
+    } else {
+      isLoadingState = false
+      Template.video.handleVideo(result, 'dtc/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
+    }
+  });
+}
+
+Template.video.handleVideo = function(result, id, isRef) {
+  if (!result) return
+  id = id.split('/')
+  var network = id[0]
+  if (network == 'steem') {
+    if (Object.keys(result.content).length == 0) return
+    result.content[id[1]+'/'+id[2]].content = result.content
+    result = result.content[id[1]+'/'+id[2]]
+  }
+  var video = Videos.parseFromChain(result, false, network)
+  console.log('Loaded '+id, video)
+
+  // non dtube videos can only load from State
+  if (!video) {
+    return;
+    video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
+    video.info = {
+      author: FlowRouter.getParam("author"),
+      permlink: FlowRouter.getParam("permlink"),
+      title: video.title
+    }
+    video.content = {
+      description: video.body
+    }
+  }
+  var description = ''
+  if (video.json) description = video.json.description
+  else description = video.description
+
+  if (!isRef) {
     Videos.getVideosRelatedTo(result._id, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), 7, function() {
       // call finished
     })
-    isLoadingState = false
-    for (var key in result.accounts) {
-      var user = result.accounts[key]
-      try {
-        user.json_metadata = JSON.parse(user.json_metadata)
-      } catch (e) {
+    Session.set('videoDescription', description)
+    var refs = [network+'/'+video.author+'/'+video.link]
+    if (video.json && video.json.refs)
+      for (let i = 0; i < video.json.refs.length; i++)
+        refs.push(video.json.refs[i])
+    Session.set('currentRefs', refs)
+  }
+    
+
+  video.source = 'chainDirect'
+  video._id += 'd'
+  Videos.upsert({ _id: video._id }, video)
+  Waka.db.Articles.upsert(video)
+
+  // load refs
+  if (isRef) {
+    if (video.json.refs) {
+      for (let i = 0; i < video.json.refs.length; i++) {
+        var netw = video.json.refs[i].split('/')[0]
+        if (netw == 'dtc') {
+          Videos.update({_id: video.json.refs[i]+'d'}, {
+            $set: {
+              distSteem: video.distSteem,
+              votesSteem: video.votesSteem,
+              commentsSteem: video.commentsSteem
+            },
+            $inc: {
+              ups: video.ups,
+              downs: video.downs
+            }
+          })
+        }
+        if (netw == 'steem') {
+          Videos.update({_id: video.json.refs[i]+'d'}, {
+            $set: {
+              dist: video.dist,
+              votes: video.votes,
+              comments: video.comments
+            },
+            $inc: {
+              ups: video.ups,
+              downs: video.downs
+            }
+          })
+        }
       }
-      ChainUsers.upsert({ _id: user.id }, Waka.api.DeleteFieldsWithDots(user));
     }
-    var video = Videos.parseFromChain(result)
-    // non dtube videos can only load from State
-    if (!video) {
-      video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
-      video.info = {
-        author: FlowRouter.getParam("author"),
-        permlink: FlowRouter.getParam("permlink"),
-        title: video.title
+  } else if (video.json && video.json.refs) {
+    for (let i = 0; i < video.json.refs.length; i++) {
+      var ref = video.json.refs[i].split('/')
+      if (ref[0] == 'steem') {
+        steem.api.getState('/dtube/@'+ref[1]+'/'+ref[2], function (err, result) {
+          if (err) throw err;
+          Template.video.handleVideo(result, 'steem/'+ref[1]+'/'+ref[2], true)
+        })
       }
-      video.content = {
-        description: video.body
+      if (ref[0] == 'dtc') {
+        avalon.getContent(ref[1], ref[2], function (err, result) {
+          if (err) throw err;
+          Template.video.handleVideo(result, 'dtc/'+ref[1]+'/'+ref[2], true)
+        });
       }
     }
-    Session.set('videoDescription', video.json.description)
-    //video.comments = Videos.commentsTree(result.content, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
-    video.source = 'chainDirect'
-    video._id += 'd'
-    Videos.upsert({ _id: video._id }, video)
-  });
+  }
 }
 
 // Template.video.pinFile = function (author, permlink, cb) {

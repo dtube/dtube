@@ -1,8 +1,9 @@
 Template.election.helpers({
     leaders: function(){
         var leaders = Session.get('leaders')
-        for (let i = 0; i < leaders.length; i++)
-            leaders[i].position = i+1
+        if (leaders)
+            for (let i = 0; i < leaders.length; i++)
+                leaders[i].position = i+1
         return leaders
     },
     isVotingFor: function(name){
@@ -17,9 +18,10 @@ Template.election.helpers({
         var user = Users.findOne({username: Session.get('activeUsername')})
         var approves = []
         if (user && user.approves) approves = user.approves
-        for (let i = 0; i < leaders.length; i++)
-            if (approves.indexOf(leaders[i].name) > -1)
-                approves.splice(approves.indexOf(leaders[i].name), 1)
+        if (leaders)
+            for (let i = 0; i < leaders.length; i++)
+                if (approves.indexOf(leaders[i].name) > -1)
+                    approves.splice(approves.indexOf(leaders[i].name), 1)
         
         return approves
     }
@@ -29,7 +31,7 @@ Template.election.events({
     'click #votenew': function() {
         var username = $('#newleader').val()
         $('#newleader').val('')
-        broadcast.voteLeader(username, function (err, result) {
+        broadcast.avalon.voteLeader(username, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err))
             else {
                 avalon.getLeaders(function(err, res){
@@ -43,7 +45,7 @@ Template.election.events({
     'click .votetop': function(clickEvent) {
         var button = clickEvent.target
         var username = button.parentElement.getAttribute('data-username')
-        broadcast.voteLeader(username, function (err, result) {
+        broadcast.avalon.voteLeader(username, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err))
             else {
                 avalon.getLeaders(function(err, res){
@@ -57,7 +59,7 @@ Template.election.events({
     'click .unvotetop': function(clickEvent) {
         var button = clickEvent.target
         var username = button.parentElement.getAttribute('data-username')
-        broadcast.unvoteLeader(username, function (err, result) {
+        broadcast.avalon.unvoteLeader(username, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err))
             else {
                 avalon.getLeaders(function(err, res){

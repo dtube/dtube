@@ -49,9 +49,6 @@ Template.settingsdropdown.helpers({
   nsfwSetting: function() {
     return Session.get('nsfwSetting');
   },
-  voteWeight: function() {
-    return UserSettings.get('voteWeight');
-  },
   ipfsUpload: function() {
     return Session.get('ipfsUpload');
   },

@@ -88,7 +88,7 @@ Template.channel.events({
       following: FlowRouter.getParam("author"),
       what: ['blog']
     })
-    broadcast.follow(FlowRouter.getParam("author"), function (err, result) {
+    broadcast.avalon.follow(FlowRouter.getParam("author"), function (err, result) {
       // alternative, inutile jusqua preuve du contraire
       // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
       //   SubCounts.upsert({_id: r.account}, r)
@@ -105,7 +105,7 @@ Template.channel.events({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author")
     })
-    broadcast.unfollow(FlowRouter.getParam("author"), function (err, result) {
+    broadcast.avalon.unfollow(FlowRouter.getParam("author"), function (err, result) {
       // finished unfollowing
       if (err)
         toastr.error(Meteor.blockchainError(err))

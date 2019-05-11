@@ -284,11 +284,8 @@ FlowRouter.route('/v/:author/:permlink', {
     ChainUsers.fetchNames([params.author], function (error) {
       if (error) console.log('Error fetch name')
     })
-    Session.set('replyingTo', {
-      author: params.author,
-      permlink: params.permlink
-    })
     Session.set("currentMenu", 0)
+    Session.set('isReplying', null)
     Template.sidebar.selectMenu();
     Template.player.init()
   }

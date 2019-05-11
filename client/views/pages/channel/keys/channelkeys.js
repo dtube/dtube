@@ -44,7 +44,7 @@ Template.channelkeys.events({
             if (!Number.isInteger(parseInt(key))) break
             txTypes.push(parseInt($('input[type=checkbox]')[key].dataset.txid))
         }
-        broadcast.newKey(newKeyId, newKeyPub, txTypes, function(err, res) {
+        broadcast.avalon.newKey(newKeyId, newKeyPub, txTypes, function(err, res) {
             if (err)
                 toastr.error(Meteor.blockchainError(err))
             else {

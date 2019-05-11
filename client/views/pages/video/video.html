@@ -21,7 +21,6 @@
                     {{#unless equals t 'dtube'}}
                       <a href="/t/{{t}}" class="ui small label">
                         {{convertTag t}}
-                        <div class="detail">{{displayPayout total 0}}</div>
                       </a>
                     {{/unless}}
                   {{/each}}
@@ -36,7 +35,7 @@
                       {{else}}
                         <i class="thumbs up icon"></i>
                       {{/if}}
-                      <span>{{uniques votes 'up'}}</span>
+                      <span>{{uniques votes votesSteem 'up'}}</span>
                     </button>
                     <button class="ui icon button downvote votebutton">
                       {{#if hasDownvoted video}}
@@ -44,7 +43,7 @@
                       {{else}}
                         <i class="thumbs down icon"></i>
                       {{/if}}
-                      <span>{{uniques votes 'down'}}</span>
+                      <span>{{uniques votes votesSteem 'down'}}</span>
                     </button>
                   </div>
                 </div>
@@ -60,7 +59,7 @@
                     {{> topupvoters}}
                   </div>
                   <div class='videopayout'>
-                    +{{dist}} DTC
+                    {{displayRewards dist distSteem}}
                   </div>
                 </div>
                 <div class="ui left tiny circular avatar floated image"
@@ -79,7 +78,7 @@
                       {{>buttonsubscribe}}
                     {{/if}}
                   {{else}}
-                    <a href="/login">
+                    <a href="/login/dtube">
                       {{>buttonsubscribe}}
                     </a>
                   {{/if}}
@@ -137,36 +136,38 @@
           <!-- Comments - Reply -->
           <div class="ui secondary segment" style="background: #f5f5f5;">
             <h3 class="ui header">
-              {{#if equals replies.length 1}}
-                {{replies.length}} {{ translate 'COMMENT_REPLY'}}
+              {{#if isSingleComment}}
+                {{mergedCommentsLength comments commentsSteem}} {{ translate 'COMMENT_REPLY'}}
               {{else}}
-                {{replies.length}} {{ translate 'COMMENT_REPLIES'}}
+                {{mergedCommentsLength comments commentsSteem}} {{ translate 'COMMENT_REPLIES'}}
               {{/if}}
             </h3>
-            {{#if isLoggedOn}} {{#if equals replies.length 0}}
+            {{#if isLoggedOn}} {{#if isNoComment}}
             <div style=" text-align: center;padding:10px;">
               <h4>{{ translate 'VIDEO_BE_THE_FIRST_TO_COMMENT'}}</h4>
             </div>
             {{/if}}
+            {{#if isReplyingRoot}}
             <div class="wid-ful dsp-flx">
-              <div style="text-align:left;float:left;">
+              <!-- <div style="text-align:left;float:left;">
                 <div class="ui avatar mini image"
                   style="background-size:cover; margin-top:10px; min-width:48px; width:48px; height: 48px; background-image:url({{userPic activeUser 'small'}})">
                 </div>
                 <div class="ui author" style="margin-top:5px;margin-right:10px;font-weight: 600;">{{activeUser}}</div>
-              </div>
+              </div> CANT HAVE THAT WITH 2 LOGGED IN USERS ? -->
               <form class="ui reply form wid-ful">
                 <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
                   <textarea id="replytext" rows="3"></textarea>
                 </div>
-                <div class="ui black right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
-                    <i class="ui black icon remove repl dsp-non" style="background:white;opacity:1;"></i>
-                    <i class="ui black icon load repl dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
-                    <i class="ui black right icon repl talk iconloader on" style="background:white;"></i>
+                <div class="ui blue right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
+                    <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
+                    <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
+                    <i class="ui blue right icon repl talk iconloader on" style="background:white;"></i>
                     <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
                 </div>
               </form>
             </div>
+            {{/if}}
             {{else}}
             <div style=" text-align: center;padding:10px;">
               <a href="/login">

@@ -1,25 +1,39 @@
 Template.comment.events({
   'click .downvoteComment': function (event) {
-    var author = $(event.target).data('author')
-    if (!author) author = $(event.target).parent().data('author')
-    var permlink = $(event.target).data('permlink')
-    if (!permlink) permlink = $(event.target).parent().data('permlink')
+    var refs = $(event.target).data('refs').split(',')
+    if (!refs) refs = $(event.target).parent().data('refs').split(',')
+    var id = $(event.target).data('id')
+    if (!id) id = $(event.target).parent().data('id')
+    refs.push(id)
     var weight = UserSettings.get('voteWeight') * -100
-    broadcast.vote(author, permlink, weight, '', function (err, result) {
+    var weightSteem = UserSettings.get('voteWeightSteem') * -100
+
+    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      else {
+        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
+        // audio.play();
+      }
       Template.video.loadState()
     });
   },
   'click .upvoteComment': function (event) {
-    var author = $(event.target).data('author')
-    if (!author) author = $(event.target).parent().data('author')
-    var permlink = $(event.target).data('permlink')
-    if (!permlink) permlink = $(event.target).parent().data('permlink')
+    var refs = $(event.target).data('refs').split(',')
+    if (!refs) refs = $(event.target).parent().data('refs').split(',')
+    var id = $(event.target).data('id')
+    if (!id) id = $(event.target).parent().data('id')
+    refs.push(id)
     var weight = UserSettings.get('voteWeight') * 100
-    broadcast.vote(author, permlink, weight, '', function (err, result) {
+    var weightSteem = UserSettings.get('voteWeightSteem') * 100
+    
+    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      else {
+        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
+        // audio.play();
+      }
       Template.video.loadState()
     });
   }
@@ -28,6 +42,15 @@ Template.comment.events({
 Template.comment.helpers({
   currentAuthor: function () {
     return FlowRouter.getParam("author")
+  },
+  picture: function(id) {
+    var username = id.split('/')[1]
+    if (id.split('/')[0] == 'steem') {
+      return 'https://steemitimages.com/u/'+username+'/avatar/'
+    }
+    else if (id.split('/')[0] == 'dtc') {
+      return 'https://avaimage.nannal.com/u/'+username+'/avatar/'
+    }
   }
 })
 Template.comment.rendered = function () {

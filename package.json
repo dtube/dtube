@@ -22,6 +22,7 @@
     "moment-with-locales-es6": "^2.18.1",
     "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
+    "run-parallel": "^1.1.9",
     "secp256k1": "^3.5.2",
     "steem": "^0.7.4",
     "text-encoding": "^0.6.4",

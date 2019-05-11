@@ -102,7 +102,7 @@ Template.goliveform.events({
       ];
       $('#step3load').show()
       console.log(operations)
-      broadcast.send(
+      broadcast.avalon.send(
         operations,
         function (e, r) {
           $('#step3load').hide()

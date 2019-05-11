@@ -19,7 +19,13 @@ Template.sidebar.dropdownSteem = function() {
   $('.dropdownsteem').dropdown({
     action: function(text, value, e) {
       var e = $(e)
-      if (e.hasClass('logOut')) {
+      if (e.hasClass('voteWeightSteem')) {
+        var currentPercent = UserSettings.get('voteWeightSteem')
+        var nextPercent = currentPercent+parseInt(value)
+        if (nextPercent>100) nextPercent = 100
+        if (nextPercent<1) nextPercent = 1
+        UserSettings.set('voteWeightSteem', nextPercent)
+      } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: Session.get('activeUsernameSteem'), network: 'steem'}, function(user) {
           if (user) {
             Waka.db.Users.remove(user._id, function(result) {
@@ -49,7 +55,13 @@ Template.sidebar.dropdownDTC = function() {
   $('.dropdowndtc').dropdown({
     action: function(text, value, e) {
       var e = $(e)
-      if (e.hasClass('logOut')) {
+      if (e.hasClass('voteWeight')) {
+        var currentPercent = UserSettings.get('voteWeight')
+        var nextPercent = currentPercent+parseInt(value)
+        if (nextPercent>100) nextPercent = 100
+        if (nextPercent<1) nextPercent = 1
+        UserSettings.set('voteWeight', nextPercent)
+      } else if (e.hasClass('logOut')) {
         Waka.db.Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}, function(user) {
           if (user) {
             Waka.db.Users.remove(user._id, function(result) {
@@ -105,6 +117,18 @@ Template.sidebar.helpers({
       || user.reward_vesting_balance.split(' ')[0] > 0)
       return true
   },
+  isSteemDisabled: function() {
+    return Session.get('isSteemDisabled')
+  },
+  isDTCDisabled: function() {
+    return Session.get('isDTCDisabled')
+  },
+  voteWeight: function() {
+    return UserSettings.get('voteWeight');
+  },
+  voteWeightSteem: function() {
+    return UserSettings.get('voteWeightSteem');
+  }
 });
 
 
@@ -124,6 +148,12 @@ Template.sidebar.events({
       Template.sidebar.half()
     }
 
+  },
+  'click #disableSteem': function() {
+    Session.set('isSteemDisabled', !Session.get('isSteemDisabled'))
+  },
+  'click #disableDTC': function() {
+    Session.set('isDTCDisabled', !Session.get('isDTCDisabled'))
   }
 })
 

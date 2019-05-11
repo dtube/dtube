@@ -54,7 +54,7 @@ Template.videosettingsdropdown.events({
   'click .resteem': function() {
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
-    broadcast.reblog(author, permlink, function (err, result) {
+    broadcast.avalon.reblog(author, permlink, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('ERROR_TITLE'))
       else toastr.success(translate('GLOBAL_ERROR_RESTEEMED', author + '/' + permlink))
     });
