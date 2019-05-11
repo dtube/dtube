@@ -64,7 +64,8 @@ Users.refreshLocalUsers = function(cb) {
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
-      if (!Users.findOne({username: results[i].username})) {
+      if (!results[i].network) continue;
+      if (!Users.findOne({username: results[i].username, network: results[i].network})) {
         Users.insert(results[i])
         usernames.push(results[i].username)
         // fill the subscribes for each local user
