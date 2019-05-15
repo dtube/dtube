@@ -71,6 +71,11 @@ Videos.refreshBlockchain = function(cb) {
 Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
   var dateFrom = moment().subtract(days,'d').format('YYYY-MM-DD');
   var dateQuery = 'created:>='+dateFrom
+  if (!id) return
+  idsplit = id.split('/')
+  if (idsplit.length == 3)
+    id = idsplit[1]+'/'+idsplit[2]
+  console.log('Loading related videos for '+id)
   Search.moreLikeThis(id, function(err, response) {
     var videos = response.results
     for (let i = 0; i < videos.length; i++) {
