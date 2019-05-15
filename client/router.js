@@ -299,6 +299,8 @@ FlowRouter.route('/c/:author', {
       main: "channel",
       nav: "nav"
     });
+    if (Session.get('avalonOnboarding'))
+      Session.set('avalonOnboarding', false)
     Videos.getVideosByBlog(params.author, 50, function(err) {
       if (err) console.log(err)
     })

@@ -21,7 +21,7 @@ Template.loginsteem.helpers({
     // check if equivalent avalon exists and propose onboarding
     avalon.getAccounts([activeUsername], function(err, results){
       if (err) console.log(err)
-      else if (results.length == 0)
+      else if (results.length == 0 && !Session.get('activeUsername'))
         Session.set('avalonOnboarding', true)
     })
 

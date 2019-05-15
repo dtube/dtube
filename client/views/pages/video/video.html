@@ -62,16 +62,22 @@
                     {{displayRewards dist distSteem}}
                   </div>
                 </div>
+                {{#if body}}
                 <div class="ui left tiny circular avatar floated image"
-                  style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic video.author 'small'}})">
+                  style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPicSteem video.author ''}})">
                 </div>
+                {{else}}
+                <div class="ui left tiny circular avatar floated image"
+                  style="margin-top: 4px; background-size: cover;min-width:64px; width:64px; height: 64px; background-image:url({{userPic video.author ''}})">
+                </div>
+                {{/if}}
                 <div class="channelLink" style="margin-top:10px;">
                   <a href="/c/{{video.author}}">
                     {{video.author}}
                   </a>
                 </div>
                 {{#unless equals activeUser user.name}}
-                  {{#if isLoggedOn}}
+                  {{#if activeUsername}}
                     {{#if isSubscribedTo video.author}}
                       {{>buttonunsubscribe}}
                     {{else}}

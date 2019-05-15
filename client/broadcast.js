@@ -3,6 +3,8 @@ var parallel = require('run-parallel')
 broadcast = {
     multi: {
         comment: function(paSteem, ppSteem, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
+            if (!tag) tag = ''
+            tag = tag.toLowerCase().trim()
             var authorAvalon = Session.get('activeUsername')
             var permlinkAvalon = Template.upload.createPermlink(11)
             if (jsonMetadata.videoId)
@@ -21,12 +23,8 @@ broadcast = {
                 jsonAvalon.refs = ['steem/'+authorSteem+'/'+permlinkSteem]
 
             var transactions = []
-            if (!Session.get('isSteemDisabled'))
-                transactions.push(function(callback) {
-                    broadcast.steem.comment(permlinkSteem, paSteem, ppSteem, body, jsonSteem, [tag], callback)
-                })
-            
-            if (!Session.get('isDTCDisabled'))
+
+            if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                 if (burn)
                     transactions.push(function(callback) {
                         broadcast.avalon.promotedComment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, burn, callback)
@@ -36,30 +34,34 @@ broadcast = {
                         broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, callback)
                     })
 
+            if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
+                transactions.push(function(callback) {
+                    broadcast.steem.comment(permlinkSteem, paSteem, ppSteem, body, jsonSteem, [tag], callback)
+                })
+
             parallel(transactions, function(err, results) {
                 cb(err, results)
             })
         },
-        vote: function(refs, wSteem, wAvalon, tagAvalon, cb) {
+        vote: function(refs, wAvalon, wSteem, tagAvalon, cb) {
             var transactions = []
 
             for (let i = 0; i < refs.length; i++) {
                 const ref = refs[i].split('/')
-                if (ref[0] == 'steem')
-                    if (!Session.get('isSteemDisabled'))
-                        transactions.push(function(callback) {
-                            broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
-                        })
-                    
                 if (ref[0] == 'dtc')
-                    if (!Session.get('isDTCDisabled'))
+                    if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                         transactions.push(function(callback) {
                             broadcast.avalon.vote(ref[1], ref[2], wAvalon, '', callback)
+                        })
+
+                if (ref[0] == 'steem')
+                    if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
+                        transactions.push(function(callback) {
+                            broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
                         })
             }
 
             parallel(transactions, function(err, results) {
-                console.log(err, results)
                 cb(err, results)
             })
         },
@@ -138,9 +140,10 @@ broadcast = {
                 operations[0][1].parent_author = parentAuthor
                 operations[0][1].parent_permlink = parentPermlink
             }
-            $('#step3load').show()
-            broadcast.steem.send(operations, function (e, r) {
-                cb(e,r)
+            broadcast.steem.send(operations, function (err, res) {
+                if (!err && res && res.operations)
+                    res = res.operations[0][1].author+'/'+res.operations[0][1].permlink
+                cb(err, res)
             })
         },
         vote: function(author, permlink, weight, cb) {
@@ -162,7 +165,7 @@ broadcast = {
                 return;
             }
     
-            var wif = Users.findOne({ username: Session.get('activeUsernameSteem') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.vote(wif, voter, author, permlink, weight, function (err, result) {
                     cb(err, result)
@@ -272,7 +275,7 @@ broadcast = {
                 });
                 return;
             }
-            var wif = Users.findOne({ username: Session.get('activeUsernameSteem') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.customJson(
                     wif,
@@ -327,7 +330,7 @@ broadcast = {
                 return;
             }
     
-            var wif = Users.findOne({ username: Session.get('activeUsernameSteem') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.customJson(
                     wif,
@@ -381,7 +384,7 @@ broadcast = {
                 });
                 return;
             }
-            var wif = Users.findOne({ username: Session.get('activeUsernameSteem') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.customJson(
                     wif,
@@ -429,7 +432,7 @@ broadcast = {
                 return;
             }
             var permlink = Template.upload.createPermlink(9)
-            var wif = Users.findOne({ username: Session.get('activeUsernameSteem') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.send(
                     { operations: operations, extensions: [] },
@@ -457,7 +460,7 @@ broadcast = {
             // cross posting possible
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             var weight = UserSettings.get('voteWeight') * 100
             var tx = {
                 type: 4,
@@ -475,6 +478,7 @@ broadcast = {
             }
             tx = avalon.sign(wif, voter, tx)
             avalon.sendTransaction(tx, function(err, res) {
+                if (!err) res = tx.sender+'/'+tx.data.link
                 cb(err, res)
                 Users.refreshUsers([Session.get('activeUsername')])
             })
@@ -485,7 +489,7 @@ broadcast = {
             // can be cross posted but wont be promoted on steem
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             var weight = UserSettings.get('voteWeight') * 100
             var tx = {
                 type: 13,
@@ -503,6 +507,7 @@ broadcast = {
             }
             tx = avalon.sign(wif, voter, tx)
             avalon.sendTransaction(tx, function(err, res) {
+                if (!err) res = tx.sender+'/'+tx.data.link
                 cb(err, res)
                 Users.refreshUsers([Session.get('activeUsername')])
             })
@@ -513,7 +518,7 @@ broadcast = {
             // cross vote possible
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             var vt = Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
             if (wif) {
                 var tx = {
@@ -538,7 +543,7 @@ broadcast = {
             // cross follow possible
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 7,
@@ -558,7 +563,7 @@ broadcast = {
             // cross unfollow possible
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 8,
@@ -578,7 +583,7 @@ broadcast = {
             // avalon only
             var sender = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!sender) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 3,
@@ -600,7 +605,7 @@ broadcast = {
             // avalon only - steemitwallet.com for steem
             var creator = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!creator) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 6,
@@ -620,7 +625,7 @@ broadcast = {
             // avalon only
             var creator = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!creator) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 0,
@@ -641,7 +646,7 @@ broadcast = {
             // avalon only
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 10,
@@ -663,7 +668,7 @@ broadcast = {
             // avalon only
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 11,
@@ -683,7 +688,7 @@ broadcast = {
             // avalon only
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 1,
@@ -703,7 +708,7 @@ broadcast = {
             // avalon only
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
                 var tx = {
                     type: 2,
@@ -732,6 +737,8 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
       if (videoprovider == 'YouTube')
         body += '<img src=\'' + snaphash + '\'></a></center><hr>\n\n'
       
+      if (videoprovider == 'YouTube')
+        body += 'https://www.youtube.com/watch?v=' + videohash + '\n\n'
       body += description
       body += '\n\n<hr>'
       body += '<a href=\'https://new.d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'

@@ -55,8 +55,9 @@ Template.upload.events({
     Session.set('tempContent', null)
     Session.set('searchedLink', url)
     grabData(url, function(content) {
-      console.log(content)
       Session.set('tempContent', content)
+      if (!Session.get('activeUsername'))
+        return
       var balance = Users.findOne({username: Session.get('activeUsername')}).balance
       var step = Math.pow(10, balance.toString().length - 1)/100
       if (step<1) step = 1
@@ -76,14 +77,19 @@ Template.upload.events({
     content.description = $('#contentDescription').val()
     var burn = parseInt(Session.get('publishBurn'))
     if (burn > 0) {
-      broadcast.multi.comment(null, null, null, null, 'this is a test', content, $('#contentTag').val(), null, burn, function(err, result) {
+      broadcast.multi.comment(null, null, null, null, null, content, $('#contentTag').val(), null, burn, function(err, res) {
+        console.log(err, res)
         if (err) toastr.error(Meteor.blockchainError(err))
-        else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
+        else FlowRouter.go('/v/' + res[0])
       })
     } else {
-      broadcast.multi.comment(null, null, null, null, 'this is a test', content, $('#contentTag').val(), null, function(err, result) {
+      broadcast.multi.comment(null, null, null, null, null, content, $('#contentTag').val(), null, function(err, res) {
+        console.log(err, res)
         if (err) toastr.error(Meteor.blockchainError(err))
-        else FlowRouter.go('/v/' + Session.get('activeUsername') + "/" + Session.get('tempContent').videoId)
+        else {
+          FlowRouter.go('/v/' + res[0])
+          
+        }
       })
     }
   },

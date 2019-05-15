@@ -3,7 +3,9 @@ Template.topbar.helpers({
     return Session.get('searchSuggestions')
   },
   isLoggedOn: function () {
-    return Session.get('activeUsername')
+    if (Session.get('activeUsername') || Session.get('activeUsernameSteem'))
+      return true
+    return false
   },
   isSearchingMobile: function() {
     return Session.get('isSearchingMobile')

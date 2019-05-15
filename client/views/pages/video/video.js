@@ -31,7 +31,9 @@ Template.video.helpers({
     }
   },
   activeUser: function () {
-    return Session.get('activeUsername')
+    var user = Session.get('activeUsername')
+    if (!user) user = Session.get('activeUsernameSteem')
+    return user
   },
   userVideosAndResteems: function () {
     var suggestions = Videos.find({ relatedTo: FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), source: 'askSteem' }, { limit: 12 }).fetch();
@@ -79,7 +81,9 @@ Template.video.helpers({
     }
   },
   isLoggedOn: function () {
-    return Session.get('activeUsername')
+    if (Session.get('activeUsername') || Session.get('activeUsernameSteem'))
+      return true
+    return false
   },
   convertTag:function(tag){
     var tagWithoutDtube= tag.replace("dtube-", "")

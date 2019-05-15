@@ -17,7 +17,7 @@ Template.onboarding.helpers({
 Template.onboarding.events({
     'click #onboarding': function() {
         var pub = Session.get('savedPubKey')
-        var name = Session.get('activeUsername')
+        var name = Session.get('activeUsernameSteem')
         var url = "https://steemconnect.com/sign/profile-update?dtube_pub="+pub+"&account="+name
         window.open(url, '_blank');
     }
