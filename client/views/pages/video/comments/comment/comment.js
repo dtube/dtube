@@ -1,7 +1,9 @@
 Template.comment.events({
   'click .downvoteComment': function (event) {
-    var refs = $(event.target).data('refs').split(',')
-    if (!refs) refs = $(event.target).parent().data('refs').split(',')
+    var refs = $(event.target).data('refs')
+    if (!refs) refs = $(event.target).parent().data('refs')
+    if (!refs) refs = []
+    else refs = refs.split(',')
     var id = $(event.target).data('id')
     if (!id) id = $(event.target).parent().data('id')
     refs.push(id)
@@ -11,7 +13,7 @@ Template.comment.events({
     broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
-        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', id))
         // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
         // audio.play();
       }
@@ -19,8 +21,10 @@ Template.comment.events({
     });
   },
   'click .upvoteComment': function (event) {
-    var refs = $(event.target).data('refs').split(',')
-    if (!refs) refs = $(event.target).parent().data('refs').split(',')
+    var refs = $(event.target).data('refs')
+    if (!refs) refs = $(event.target).parent().data('refs')
+    if (!refs) refs = []
+    else refs = refs.split(',')
     var id = $(event.target).data('id')
     if (!id) id = $(event.target).parent().data('id')
     refs.push(id)
@@ -30,7 +34,7 @@ Template.comment.events({
     broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
-        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+        toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', id))
         // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
         // audio.play();
       }
