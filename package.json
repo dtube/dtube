@@ -20,14 +20,16 @@
     "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
     "sc2-sdk": "^2.0.1",
-    "steem": "^0.6.7",
+    "steem": "^0.7.4",
     "text-encoding": "^0.6.4",
     "utf-8-validate": "^5.0.1",
     "wakajs": "0.0.16",
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3"
+    "autoprefixer": "^7.1.3",
+    "electron": "2.0.10",
+    "meteor-desktop": "^2.0.0"
   },
   "postcss": {
     "plugins": {

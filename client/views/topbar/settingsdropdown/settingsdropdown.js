@@ -11,6 +11,10 @@ Template.settingsdropdown.rendered = function() {
       } else if (e.hasClass('ipfsGateway')) {
         if (e.hasClass('automatic')) Session.set('ipfsGateway', 'automatic')
         else Session.set('ipfsGateway', value)
+      } else if (e.hasClass('steemApi')) {
+        steem.api.setOptions({ url: value, useAppbaseApi: true });
+        Session.set('steemAPI', value)
+        localStorage.setItem('steemAPI', value);
       } else if (e.hasClass('ipfsUpload')) {
         Session.set('ipfsUpload', {
           host: value.split('://')[1].split(':')[0],
@@ -61,6 +65,12 @@ Template.settingsdropdown.helpers({
   },
   uploadNodes: function() {
     return Session.get('remoteSettings').uploadNodes;
+  },
+  SteemAPIs: function() {
+    return Session.get('remoteSettings').APINodes;
+  },
+  CurrentAPI: function() {
+    return Session.get('steemAPI');
   },
   displayNodes: function() {
     return Session.get('remoteSettings').displayNodes;
