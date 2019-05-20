@@ -205,7 +205,7 @@ Template.video.events({
       });
     } else if (refs.length == 1) {
       if (refs[0].split('/')[0] == 'steem')
-        broadcast.steem.comment(refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
+        broadcast.steem.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
           console.log(err, result)
           if (err) {
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -220,7 +220,7 @@ Template.video.events({
           $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
         });
       if (refs[0].split('/')[0] == 'dtc')
-        broadcast.avalon.comment(refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', function (err, result) {
+        broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', function (err, result) {
           console.log(err, result)
           if (err) {
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');

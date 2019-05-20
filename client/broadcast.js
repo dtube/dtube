@@ -76,6 +76,7 @@ broadcast = {
     },
     steem: {
         comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
+            if (!permlink) permlink = Template.upload.createPermlink(11)
             if (!parentAuthor) parentAuthor = ''
             if (!parentPermlink) parentPermlink = ''
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
@@ -456,6 +457,11 @@ broadcast = {
     },
     avalon: {
         comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, cb) {
+            if (!permlink) {
+                permlink = Template.upload.createPermlink(11)
+                if (jsonMetadata.videoId)
+                permlink = String(jsonMetadata.videoId)
+            }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // cross posting possible
             var voter = Users.findOne({ username: Session.get('activeUsername') }).username
