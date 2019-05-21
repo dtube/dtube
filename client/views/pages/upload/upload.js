@@ -166,10 +166,26 @@ function getYoutubeVideoData(url, callback) {
   xhr.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       let video = JSON.parse(this.responseText);
+      // like gmail
+      function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+      video.description = decodeHtml(video.description)
+      video.description = video.description.replace(/<style([\s\S]*?)<\/style>/gi, '');
+      video.description = video.description.replace(/<script([\s\S]*?)<\/script>/gi, '');
+      video.description = video.description.replace(/<\/div>/ig, '\n');
+      video.description = video.description.replace(/<\/li>/ig, '\n');
+      video.description = video.description.replace(/<li>/ig, '  *  ');
+      video.description = video.description.replace(/<\/ul>/ig, '\n');
+      video.description = video.description.replace(/<\/p>/ig, '\n');
+      video.description = video.description.replace(/<br\s*[\/]?>/gi, "\n");
+      video.description = video.description.replace(/<[^>]+>/ig, '');
       callback(sanitizeVideo(video, url));
     }
   }
-  xhr.open("GET", 'https://bran.nannal.com/youtube/'+videoId);
+  xhr.open("GET", 'http://localhost:3001/youtube/'+videoId);
   //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
   xhr.send();
 }

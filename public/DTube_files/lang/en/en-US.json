@@ -35,6 +35,8 @@
     "CHANNEL_FILTERS": "Filters",
     "CHANNEL_TRANSFER": "Send DTC",
     "CHANNEL_KEYS": "KEYS",
+    "CHANNEL_KEYS_WARNING_SECURITY": "Warning! You are currently logged in with your security key. It is safer to create a custom key with lesser permissions to use on a daily basis.",
+    "CHANNEL_KEYS_PARAGRAPH_INTRO": "Your cryptographic keys is what makes your account yours. If you lose any private key, it cannot be recovered.",
     "COMMENT_SHOW": "Show",
     "COMMENT_HIDE": "Hide",
     "COMMENT_REPLIES": "replies",
