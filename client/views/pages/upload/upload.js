@@ -77,7 +77,7 @@ Template.upload.events({
     content.description = $('#contentDescription').val()
     var burn = parseInt(Session.get('publishBurn'))
     if (burn > 0) {
-      broadcast.multi.comment(null, null, null, null, null, content, $('#contentTag').val(), null, burn, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, null, content, $('#contentTag').val(), burn, function(err, res) {
         console.log(err, res)
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + res[0])

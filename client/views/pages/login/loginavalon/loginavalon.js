@@ -62,8 +62,15 @@ Template.loginavalon.helpers({
           toastr.error(translate('LOGIN_ERROR_WRONG_POSTING_KEY'), translate('ERROR_TITLE'))
           return
         }
+
+        var allowedTxTypes = []
+        if (chainuser.pub == user.publickey)
+          allowedTxTypes = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15]
+        for (let i = 0; i < chainuser.keys.length; i++)
+          if (chainuser.keys[i].pub == user.publickey)
+            allowedTxTypes = chainuser.keys[i].types
   
-        if (chainuser.pub == user.publickey) {
+        if (allowedTxTypes.length > 0) {
           // correct key for the user, loggin in
           user.username = username
           if (event.target.rememberme.checked) {
