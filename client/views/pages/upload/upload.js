@@ -185,7 +185,7 @@ function getYoutubeVideoData(url, callback) {
       callback(sanitizeVideo(video, url));
     }
   }
-  xhr.open("GET", 'http://localhost:3001/youtube/'+videoId);
+  xhr.open("GET", 'https://bran.nannal.com/youtube/'+videoId);
   //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
   xhr.send();
 }
