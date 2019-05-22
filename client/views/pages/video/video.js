@@ -152,10 +152,12 @@ Template.video.events({
     });
   },
   'click .replyTo': function (event) {
-    Session.set('replyingTo', {
-      id: $(event.target).data('id'),
-      refs: $(event.target).data('refs').split(',')
-    })
+    var replyingTo = {
+      id: $(event.target).data('id')
+    }
+    if ($(event.target).data('refs'))
+      replyingTo.refs = $(event.target).data('refs').split(',')
+    Session.set('replyingTo', replyingTo)
   },
   'click .submit': function (event) {
     var body = $(event.currentTarget).prev().children()[0].value
@@ -168,7 +170,8 @@ Template.video.events({
     if (!Session.get('replyingTo')) {
       refs = Session.get('currentRefs')
     } else {
-      refs = Session.get('replyingTo').refs
+      if (Session.get('replyingTo').refs)
+        refs = Session.get('replyingTo').refs
       refs.push(Session.get('replyingTo').id)
     }
     if (refs.length == 0) {
