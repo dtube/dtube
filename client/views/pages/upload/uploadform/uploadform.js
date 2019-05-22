@@ -240,6 +240,10 @@ Template.uploadformsubmit.events({
   },
   'click .editsubmit': function (event) {
     event.preventDefault()
+    var video = Videos.findOne({	
+      author: FlowRouter.getParam("author"),	
+      link: FlowRouter.getParam("permlink")	
+    })
     video.json.title = $('input[name=title]')[0].value
     video.json.description = $('textarea[name=description]')[0].value
 
