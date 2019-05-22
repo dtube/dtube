@@ -110,13 +110,28 @@ function grabData(url, cb) {
     case 'www.instagram.com':
     case 'www.dailymotion.com':
     case 'clips.twitch.tv':
-    case 'www.twitch.tv':
     case 'vimeo.com':
       getOEmbedData(url, function(content) {
         cb(content)
       })
       break;
-  
+
+    case 'www.twitch.tv':
+    case 'twitch.tv':
+      if (urlInfo.pathname.split('/')[2] == 'clip')
+        getOEmbedData(url, function(content) {
+          cb(content)
+        })
+      else if (urlInfo.pathname.split('/')[1] == 'videos')
+        getOEmbedData(url, function(content) {
+          cb(content)
+        })
+      else
+        getOpenGraphData(url, function(content) {
+          cb(content)
+        })
+      break;  
+
     default:
       getOpenGraphData(url, function(content) {
         cb(content)
@@ -357,8 +372,16 @@ function videoIdFromUrl(video, url) {
   var urlInfo = parse(url, true)
   switch (urlInfo.host) {
     case "www.twitch.tv":
+    case "clips.twitch.tv":
+    case "twitch.tv":
       if (video.twitch_type == 'clip')
         return urlInfo.pathname.split('/')[3]
+      else if (urlInfo.pathname.split('/')[2] == 'clip')
+        return urlInfo.pathname.split('/')[3]
+      else if (urlInfo.pathname.split('/')[1] == 'videos')
+        return urlInfo.pathname.split('/')[2]
+      else
+        return urlInfo.pathname.split('/')[1]
       break;
 
     case "www.dailymotion.com":
@@ -401,6 +424,12 @@ function providerNameFromUrl(url) {
     case 'music.youtube.com':
     case 'youtu.be':
       return 'YouTube'
+      break;
+
+    case "www.twitch.tv":
+    case "clips.twitch.tv":
+    case "twitch.tv":
+      return 'Twitch'
       break;
   
     default:

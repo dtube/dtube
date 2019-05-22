@@ -1,7 +1,10 @@
 Template.player.rendered = function () {
   switch (this.data.json.providerName) {
     case "Twitch":
-      Template.player.initTwitchClips(this.data.json.videoId)
+      if (this.data.json.twitch_type && this.data.json.twitch_type == 'clip')
+        Template.player.initTwitchClips(this.data.json.videoId)
+      else
+        Template.player.initTwitch(this.data.json.videoId)
       break;
     case "Dailymotion":
       Template.player.initDailymotion(this.data.json.videoId)
@@ -29,6 +32,19 @@ Template.player.init = function(id) {
     url: "https://www.youtube.com/embed/" + id
     + "?autoplay=1&showinfo=1&modestbranding=1"
   });
+}
+
+Template.player.initTwitch = function(id) {
+  if (parseInt(id) == id)
+    $('.ui.embed.player').embed({
+      url: "https://player.twitch.tv/?video=v" + id
+      + "&autoplay=true&muted=false"
+    });
+  else
+    $('.ui.embed.player').embed({
+      url: "https://player.twitch.tv/?channel=" + id
+      + "&autoplay=true&muted=false"
+    });
 }
 
 Template.player.initTwitchClips = function(id) {
