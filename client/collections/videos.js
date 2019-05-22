@@ -205,36 +205,35 @@ Videos.getVideosBy = function(type, limit, cb) {
 
   switch(type) {
     case 'trending':
-        // if (Session.get('lastTrending')) {
-        //   query.start_author = Session.get('lastTrending').author
-        //   query.start_permlink = Session.get('lastTrending').permlink
-        // }
-        // steem.api.getDiscussionsByTrending(query, function(err, result) {
-        //   if (err === null || err === '') {
-        //       Session.set('lastTrending', result[result.length-1])
-        //       var i, len = result.length;
-        //       var videos = []
-        //       for (i = 0; i < len; i++) {
-        //           var video = Videos.parseFromChain(result[i])
-        //           if (video) videos.push(video)
-        //       }
-        //       for (var i = 0; i < videos.length; i++) {
-        //         videos[i].source = 'chainByTrending'
-        //         videos[i]._id += 't'
-        //         try {
-        //           Videos.upsert({_id: videos[i]._id}, videos[i])
-        //         } catch(err) {
-        //           console.log(err)
-        //           cb(err)
-        //         }
-        //       }
-        //       cb(null)
-        //   } else {
-        //       console.log(err);
-        //       cb(err)
-        //   }
-        // });
+        var lastAuthor = Session.get('lastTrending') ? Session.get('lastTrending').author : null
+        var lastLink = Session.get('lastTrending') ? Session.get('lastTrending').link : null
+        avalon.getTrendingDiscussions(lastAuthor, lastLink, function(err, result) {
+          if (err === null || err === '') {
+              Session.set('lastTrending', result[result.length-1])
+              var i, len = result.length;
+              var videos = []
+              for (i = 0; i < len; i++) {
+                  var video = Videos.parseFromChain(result[i])
+                  if (video) videos.push(video)
+              }
+              for (var i = 0; i < videos.length; i++) {
+                videos[i].source = 'chainByTrending'
+                videos[i]._id += 't'
+                try {
+                  Videos.upsert({_id: videos[i]._id}, videos[i])
+                } catch(err) {
+                  console.log(err)
+                  cb(err)
+                }
+              }
+              cb(null)
+          } else {
+              console.log(err);
+              cb(err)
+          }
+        });
         break;
+
     case 'hot':
         var lastAuthor = Session.get('lastHot') ? Session.get('lastHot').author : null
         var lastLink = Session.get('lastHot') ? Session.get('lastHot').link : null
