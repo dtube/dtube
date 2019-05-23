@@ -622,24 +622,6 @@ button {
 	background-color: #777777;
 }
 
-#feedback {
-	float: left;
-	position: fixed;
-	bottom: 50px;
-	right: 0;
-}
-
-#feedback a {
-	background: #FF0000;
-	border-radius: 5px 0 0 5px;
-	box-shadow: 0 0 3px rgba(0, 0, 0, .3);
-	border: 3px solid #fff;
-	border-right: 0;
-	display: block;
-	padding: 20px 12px;
-	transition: all .2s ease-in-out;
-}
-
 .topvoters {
   margin-left:-20px;
   text-align: right;
