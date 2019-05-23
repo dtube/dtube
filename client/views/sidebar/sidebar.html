@@ -8,24 +8,24 @@
           {{/if}}
         </span>
       {{#if activeUsernameSteem}}
-        <div class="ui compact floating inline dropdown dropdownsteem">
+        <div class="ui compact floating inline dropdown dropdownsteem needsclick">
           <div class="ui blue large image label">
             <img src="{{userPicSteem mainUserSteem.username ''}}">
             {{activeUsernameSteem}}
           </div><i class="dropdown icon"></i>
           <div class="left menu" style='right: 105%;'>
-            <div class="item">
-              <i class="bottom dropdown icon"></i>
-              <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} {{voteWeightSteem}}%</span>
-              <div class="left menu">
-                <div class="item voteWeightSteem">+10%</div>
-                <div class="item voteWeightSteem">+1%</div>
-                <div class="item voteWeightSteem">-1%</div>
-                <div class="item voteWeightSteem">-10%</div>
+          <div class="header" style='font-size: 1rem'>
+              <i class="bolt icon"></i>Voting @ {{voteWeightSteem}}%
+            </div>
+            <div style='text-align: center'>
+              <div class='ui buttons'>
+                  <button id='minus1vpsteem' class="ui compact red basic button needsclick" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                  <button id='plus1vpsteem' class="ui compact blue basic button needsclick" style='width: 50%; border-radius: 0rem;'>+1%</button>
               </div>
             </div>
-            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>
+            <div class="divider"></div>
             <a class='item' href='/c/{{mainUserSteem.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
           </div>
         </div>
       {{else}}
@@ -39,25 +39,25 @@
           {{/if}}
       </span>
       {{#if activeUsername}}
-        <div class="ui compact floating inline dropdown dropdowndtc">
+        <div class="ui compact floating inline dropdown dropdowndtc needsclick">
           <div class="ui red large image label">
             <img src="{{userPic mainUser.username ''}}">
             {{activeUsername}}
             
           </div><i class="dropdown icon"></i>
           <div class="left menu" style='right: 105%;'>
-            <div class="item">
-              <i class="bottom dropdown icon"></i>
-              <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} {{voteWeight}}%</span>
-              <div class="left menu">
-                <div class="item voteWeight">+10%</div>
-                <div class="item voteWeight">+1%</div>
-                <div class="item voteWeight">-1%</div>
-                <div class="item voteWeight">-10%</div>
+            <div class="header" style='font-size: 1rem'>
+              <i class="bolt icon"></i>Voting @ {{voteWeight}}%
+            </div>
+            <div style='text-align: center'>
+              <div class='ui buttons'>
+                  <button id='minus1vp' class="ui compact red basic button" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                  <button id='plus1vp' class="ui compact blue basic button" style='width: 50%; border-radius: 0rem;'>+1%</button>
               </div>
             </div>
-            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>
+            <div class="divider"></div>
             <a class='item' href='/c/{{mainUser.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
           </div>
         </div>
       {{else}}

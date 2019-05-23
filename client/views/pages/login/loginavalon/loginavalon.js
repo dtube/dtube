@@ -21,7 +21,18 @@ Template.loginavalon.helpers({
     if (!noreroute)
       FlowRouter.go('#!/')
 
-    setTimeout(function(){Template.sidebar.dropdownDTC()}, 200)
+    setTimeout(function(){
+      // ui shenanigans
+      Template.sidebar.dropdownDTC()
+
+      $('#dispDTC').popup({
+        position : 'bottom center',
+      })
+    
+      $('#dispVT').popup({
+        position : 'bottom center',
+      })
+    }, 200)
   }
   
   Template.loginavalon.events({

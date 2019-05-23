@@ -1,3 +1,7 @@
+Template.topbar.rendered = function(){
+  
+}
+
 Template.topbar.helpers({
   searchSuggestions: function () {
     return Session.get('searchSuggestions')
@@ -16,6 +20,19 @@ Template.topbar.helpers({
 
 Template.topbar.events({
   'click .sidebartoggleicon': function (event, instance) {
+    //Session.set('isSidebarOpen', !$('#sidebar').sidebar('is visible'))
+    if ($('#sidebar').sidebar('is visible')) {
+      Template.sidebar.empty()
+    } else {
+      if (FlowRouter.current().route.name == 'video') {
+        Template.sidebar.full()
+      } else {
+        Template.sidebar.half()
+      }
+        
+    }
+  },
+  'touchend .sidebartoggleicon': function (event, instance) {
     //Session.set('isSidebarOpen', !$('#sidebar').sidebar('is visible'))
     if ($('#sidebar').sidebar('is visible')) {
       Template.sidebar.empty()
@@ -63,7 +80,9 @@ Template.topbar.events({
     })
   },
   'click #textlogo': function () {
-    window.history.pushState('', '', '/#!/');
+    FlowRouter.go('/')
+  },
+  'touchend #textlogo': function (event, instance) {
     FlowRouter.go('/')
   },
   'click #mobilesearch': function() {

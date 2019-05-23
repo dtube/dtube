@@ -1,3 +1,30 @@
+var intervalVPChange = null
+var vpChangeSpeed = 200
+
+function updateVP(type, change) {
+  if (type == 'steem') {
+    var currentPercent = UserSettings.get('voteWeightSteem')
+    var nextPercent = currentPercent+change
+    if (nextPercent>100) nextPercent = 100
+    if (nextPercent<1) nextPercent = 1
+    UserSettings.set('voteWeightSteem', nextPercent)
+  } else {
+    var currentPercent = UserSettings.get('voteWeight')
+    var nextPercent = currentPercent+change
+    if (nextPercent>100) nextPercent = 100
+    if (nextPercent<1) nextPercent = 1
+    UserSettings.set('voteWeight', nextPercent)
+  }
+  if (nextPercent != 1 && nextPercent != 100) {
+    clearTimeout(intervalVPChange)
+    intervalVPChange = setTimeout(function() {
+      if (vpChangeSpeed > 50)
+        vpChangeSpeed = 0.90*vpChangeSpeed
+      updateVP(type, change)
+    }, vpChangeSpeed)
+  }
+}
+
 Template.sidebar.rendered = function () {
   //TrendingTags.loadTopTags(50);
   var query = {
@@ -154,6 +181,38 @@ Template.sidebar.events({
   },
   'click #disableDTC': function() {
     Session.set('isDTCDisabled', !Session.get('isDTCDisabled'))
+  },
+  'mousedown #minus1vp': function() {
+    updateVP('dtc', -1)
+  },
+  'mousedown #plus1vp': function() {
+    updateVP('dtc', 1)
+  },
+  'mousedown #minus1vpsteem': function() {
+    updateVP('steem', -1)
+  },
+  'mousedown #plus1vpsteem': function() {
+    updateVP('steem', 1)
+  },
+  'touchstart #minus1vp': function() {
+    updateVP('dtc', -1)
+  },
+  'touchstart #plus1vp': function() {
+    updateVP('dtc', 1)
+  },
+  'touchstart #minus1vpsteem': function() {
+    updateVP('steem', -1)
+  },
+  'touchstart #plus1vpsteem': function() {
+    updateVP('steem', 1)
+  },
+  'mouseup #minus1vp, mouseup #plus1vp, mouseup #minus1vpsteem, mouseup #plus1vpsteem': function() {
+    clearTimeout(intervalVPChange)
+    vpChangeSpeed = 200
+  },
+  'touchend #minus1vp, touchend #plus1vp, touchend #minus1vpsteem, touchend #plus1vpsteem': function() {
+    clearTimeout(intervalVPChange)
+    vpChangeSpeed = 200
   }
 })
 
