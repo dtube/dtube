@@ -6,15 +6,6 @@ FlowRouter.route('/', {
     Session.set("pageTitle", '')
     Session.set("currentMenu", 1)
     Template.sidebar.selectMenu();
-    firstLoad = setInterval(function() {
-      if (!Videos) return
-      if (!Waka) return
-      // loading home data
-      Videos.refreshBlockchain(function() {
-        Videos.refreshWaka()
-      })
-      clearInterval(firstLoad)
-    }, 50)
     BlazeLayout.render('masterLayout', {
       main: "home",
       nav: "nav",

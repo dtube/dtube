@@ -60,6 +60,16 @@ Meteor.startup(function(){
   if (Session.get('remoteSettings').warning)
     toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
 
+  firstLoad = setInterval(function() {
+    if (!Videos) return
+    if (!Waka) return
+    // loading home data
+    Videos.refreshBlockchain(function() {
+      Videos.refreshWaka()
+    })
+    clearInterval(firstLoad)
+  }, 50)
+
   // steem.api.getDynamicGlobalProperties(function(err, result) {
   //   if (result)
   //   Session.set('steemGlobalProp', result)
