@@ -12,7 +12,7 @@
       {{> uploadvideoprogress}}
       <form class="ui form">
         <div class="field">
-          <input id="remotelink" type="text" name="title" placeholder="Video Link (YouTube, Vimeo, Dailymotion, LiveLeak, Facebook, Instagram, Twitch)" value="">
+          <input id="remotelink" type="text" name="url" placeholder="Video Link (YouTube, Vimeo, Dailymotion, LiveLeak, Facebook, Instagram, Twitch)" value="">
         </div>
         {{#if searchedLink}}
           <div class="preview">
@@ -22,9 +22,9 @@
                     <img width="100%" src='{{tempContent.thumbnailUrl}}' />
                 </div>
                 <div class="eight wide column">
-                    <input id="contentTitle" type="text" value="{{tempContent.title}}" placeholder="Video's Title"/>
-                    <textarea rows="6" id="contentDescription" placeholder="Video's Description">{{tempContent.description}}</textarea>
-                    <input id="contentTag" type="text" value="" placeholder="Video's Tag"/>
+                    <input id="contentTitle" name='title' type="text" value="{{tempContent.title}}" placeholder="Video's Title"/>
+                    <textarea rows="6" name='description' id="contentDescription" placeholder="Video's Description">{{tempContent.description}}</textarea>
+                    <input id="contentTag" name='tag' type="text" value="" placeholder="One Tag Only"/>
                     <h5>Source: {{tempContent.providerName}}</h5>
                 </div>
               </div>

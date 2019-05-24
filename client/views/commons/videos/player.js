@@ -69,15 +69,15 @@ Template.player.initInstagram = function(id) {
 
 Template.player.initFacebook = function(id, url) {
   // autoplay way
-  // $('.ui.embed.player').embed({
-  //   url: "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href="
-  //   + encodeURI(url)
-  // });
+  $('.ui.embed.player').embed({
+    url: "https://www.facebook.com/v2.3/plugins/video.php?allowfullscreen=true&autoplay=true&container_width=800&href="
+    + encodeURI(url)
+  });
 
   // original way
-  $('.ui.embed.player').embed({
-    url: "https://www.facebook.com/video/embed?video_id=" + id
-  });
+  // $('.ui.embed.player').embed({
+  //   url: "https://www.facebook.com/video/embed?video_id=" + id
+  // });
 }
 
 Template.player.initLiveLeak = function(id) {

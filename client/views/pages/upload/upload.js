@@ -71,6 +71,13 @@ Template.upload.events({
       });
     })
   },
+  'keyup #contentTag': function(event) {
+    var tag = $('#contentTag').val()
+    tag = tag.trim()
+    tag = tag.toLowerCase()
+    tag = tag.replace(/ /g,"")
+    $('#contentTag').val(tag)
+  },
   'click .uploadsubmit': function(event) {
     var content = Session.get('tempContent')
     content.title = $('#contentTitle').val()
@@ -132,6 +139,7 @@ function grabData(url, cb) {
         })
       break;  
 
+    case 'www.facebook.com':
     default:
       getOpenGraphData(url, function(content) {
         cb(content)
@@ -356,6 +364,8 @@ function sanitizeVideo(video, url) {
     newVid.thumbnailWidth = video.ogImage.width
     newVid.thumbnailHeight = video.ogImage.height
   }
+  if (video.twitterImage && video.twitterImage.url && !newVid.thumbnailUrl)
+    newVid.thumbnailUrl = video.twitterImage.url
   for (var f in newVid) { 
     if (newVid[f] === null || newVid[f] === undefined) {
       delete newVid[f];
