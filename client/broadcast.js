@@ -738,9 +738,9 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
     else {
       var body = '<center>'
       body += '<a href=\'https://new.d.tube/#!/v/' + author + '/' + permlink + '\'>'
-      if (videoprovider == 'ipfs')
+      if (Session.get('overlayHash'))
         body += '<img src=\'https://snap1.d.tube/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
-      if (videoprovider == 'YouTube')
+      else
         body += '<img src=\'' + snaphash + '\'></a></center><hr>\n\n'
       
       if (videoprovider == 'YouTube')

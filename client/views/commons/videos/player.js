@@ -21,13 +21,23 @@ Template.player.rendered = function () {
     case "Facebook":
       Template.player.initFacebook(this.data.json.videoId, this.data.json.url)
       break;
+    case "YouTube":
+      Template.player.initYouTube(this.data.json.videoId)
+      break;
     default:
-      Template.player.init(this.data.json.videoId)
+      Template.player.init(this.data.author, this.data.link)
       break;
   }
 }
 
-Template.player.init = function(id) {
+Template.player.init = function(author, link) {
+  $('.ui.embed.player').embed({
+    url: "https://emb.d.tube/#!/" + author + '/' + link
+    + "/true/true"
+  });
+}
+
+Template.player.initYoutube = function(id) {
   $('.ui.embed.player').embed({
     url: "https://www.youtube.com/embed/" + id
     + "?autoplay=1&showinfo=1&modestbranding=1"

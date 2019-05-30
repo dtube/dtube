@@ -562,3 +562,28 @@ Template.registerHelper('lowerThan', function(n, p) {
   if (p < n) return true
   return false
 })
+
+Template.registerHelper('topTags', function() {
+  // CLIENT SIDE TRENDING TAGS !?
+  var videos = Videos.find({source: 'chainByHot'}, {limit: 50, sort: {score: -1}}).fetch()
+  var tags = {}
+  for (let i = 0; i < videos.length; i++) {
+    if (videos[i].votes) {
+      for (let y = 0; y < videos[i].votes.length; y++) {
+        if (videos[i].votes[y].tag) {
+          if (!tags[videos[i].votes[y].tag])
+            tags[videos[i].votes[y].tag] = videos[i].votes[y].vt
+          else
+            tags[videos[i].votes[y].tag] += videos[i].votes[y].vt
+        }
+      }
+    }
+  }
+  var array = []
+  for (const key in tags)
+    array.push({tag: key, vt: tags[key]})
+  
+  array = array.sort(function(a,b) {return b.vt - a.vt})
+  array = array.slice(0, 10)
+  return array
+})
