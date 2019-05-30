@@ -190,7 +190,7 @@
                         <div style="display: inline;margin-left: 5px;">
                             <div>
                                 <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
-                                sent {{tx.data.amount}} DTC to 
+                                sent {{displayMoney tx.data.amount 0 'DTC'}} to 
                                 <a href="/c/{{tx.data.receiver}}" style="color:rgb(255, 0, 0);">{{tx.data.receiver}}
                                     <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.receiver}}">
                                 </a>

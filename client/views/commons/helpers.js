@@ -141,6 +141,7 @@ Template.registerHelper('displayCurrency', function (string) {
 })
 
 function cuteNumber(num, digits) {
+  if (num > 1) num = Math.round(num)
   if (typeof digits === 'undefined') digits = 2
   var units = ['K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']
   var decimal
@@ -157,7 +158,6 @@ function cuteNumber(num, digits) {
   var limit = (newNum<0 ? 5 : 4)
   if (newNum.toString().length > limit && digits>0)
       return cuteNumber(num, digits-1)
-
   return newNum;
 }
 
@@ -169,13 +169,37 @@ Template.registerHelper('displayPayout', function (ups, downs) {
 Template.registerHelper('displayRewards', function (dtc, steem) {
   var rewards = []
   if (steem || steem === 0) rewards.push('$'+steem)
-  if (dtc || dtc === 0) rewards.push(dtc+'DTC')
-  if (!rewards || rewards.length == 0) return '0DTC'
+  if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
+  if (!rewards || rewards.length == 0) return '0 DTC'
   return rewards.join(' + ')
 })
 
-Template.registerHelper('displayMoney', function(amount) {
-  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+Template.registerHelper('displayMoney', function(amount, shorten, symbol) {
+  amount = amount/100
+  var string = ''
+  if (shorten) {
+    amount = cuteNumber(amount)
+    string = amount
+  } else {
+    string = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+    if (symbol)
+      string += ' '
+  }
+  string += symbol
+  return string
+})
+
+Template.registerHelper('displayVotingPower', function (user, shorten) {
+  if (shorten)
+    return cuteNumber(avalon.votingPower(user))+'VP'
+  else {
+    var string = avalon.votingPower(user).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+    return string + ' VP'
+  }
+})
+
+Template.registerHelper('displayBandwidth', function (user) {
+  return cuteNumber(avalon.bandwidth(user))
 })
 
 Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
@@ -493,14 +517,6 @@ Template.registerHelper('displayDate', function (date) {
 
 Template.registerHelper('displayDateFull', function (date) {
   return moment(date).format('MMMM Do YYYY, h:mm:ss a');
-})
-
-Template.registerHelper('displayVotingPower', function (user) {
-  return cuteNumber(avalon.votingPower(user))
-})
-
-Template.registerHelper('displayBandwidth', function (user) {
-  return cuteNumber(avalon.bandwidth(user))
 })
 
 Template.registerHelper('displaySteemPower', function (vesting_shares) {

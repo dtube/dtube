@@ -69,7 +69,7 @@
                   <span style="color:#ff1a1a!important;" class="user">
                     {{tx.sender}}
                   </span>
-                  sent you {{tx.data.amount}} DTC
+                  sent you {{displayMoney tx.data.amount 0 'DTC'}}
                 </div>
                 <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
               </div>

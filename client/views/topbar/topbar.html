@@ -39,13 +39,13 @@
         </a>
         {{#if isLoggedOn}}
           {{#if mainUser}}
-            <div class="ui item" id="dispDTC" data-content="DTube Coins - Fully tradable and usable to promote your own videos and create new accounts for your friends">
+            <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
                 <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
-                <strong>{{displayPayout mainUser.balance 0}}</strong>DTC
+                <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
             </div>
-            <div class="ui item" id="dispVT" data-content="Vote Tokens - Bound to your account, you need to use them when you vote or add new content. You generate +1 VT / hour / DTC.">
+            <div class="ui item" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
                 <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
-                <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VT
+                <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VP
             </div>
             <!-- <div class="ui item">
                 <i class="icon database" style="font-size: 12px;margin-right:0"></i>

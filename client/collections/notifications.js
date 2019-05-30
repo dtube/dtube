@@ -78,7 +78,7 @@ Notifications.getDecentralized = function () {
           user.bw.t = new Date().getTime()
           user.balance += notif.tx.data.amount
           Users.update({username: user.username}, user)
-          message += notif.tx.sender+' sent you '+notif.tx.data.amount+' DTC'
+          message += notif.tx.sender+' sent you '+Blaze._globalHelpers['displayMoney'](notif.tx.data.amount, 0, 'DTC')
           break;
 
         case 5:

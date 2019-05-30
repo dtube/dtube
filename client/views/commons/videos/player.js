@@ -37,7 +37,7 @@ Template.player.init = function(author, link) {
   });
 }
 
-Template.player.initYoutube = function(id) {
+Template.player.initYouTube = function(id) {
   $('.ui.embed.player').embed({
     url: "https://www.youtube.com/embed/" + id
     + "?autoplay=1&showinfo=1&modestbranding=1"

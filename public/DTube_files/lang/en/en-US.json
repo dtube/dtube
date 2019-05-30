@@ -145,6 +145,8 @@
     "TAGS_VERY_SHORT_SELECTED": "Very Short",
     "TOPBAR_LOGIN": "Login",
     "TOPBAR_PLACEHOLDER_SEARCH_VIDEOS": "Search Videos…",
+    "TOPBAR_DTC_EXPLAIN": "DTube Test Coins - Currently in testnet and not worth anything. DTCs will bear value on the next version of DTube. You can already use them to promote your videos during the upload or donate to your favorite video creator.",
+    "TOPBAR_VT_EXPLAIN": "Voting Power - Bound to your account, you need to use it when you vote or add new content. Hold on to your DTCs to become more powerful and influent in the network!",
     "TORRENT_STATS_TITLE": "Torrent Statistics",
     "TORRENT_STATS_PEERS": "Connected Peers",
     "TORRENT_STATS_UPLOAD": "Upload Speed",

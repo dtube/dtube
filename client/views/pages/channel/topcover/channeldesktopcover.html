@@ -7,8 +7,8 @@
             <div class="ui container">
                     <div class="pos-abs" style="margin-left:160px;;top:20%;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">
                         <h1>{{user.name}}</h1>
-                        <i class="icon red play"></i><strong>{{displayMoney author.balance}} DTC</strong>
-                        <br /><i class="icon yellow lightning"></i><strong>{{displayVotingPower author}} VT</strong>
+                        <i class="icon red play"></i><strong>{{displayMoney author.balance 0 'DTC'}}</strong>
+                        <br /><i class="icon yellow lightning"></i><strong>{{displayVotingPower author 0}}</strong>
                     </div>
                 <div class="ui image circular"
                     style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
@@ -37,7 +37,7 @@
             <div class="ui fluid compact menu brd-rad-non" style="min-height:0px!important;display: block;border-width:0px;">
                 <div class="ui container" style="display: block;">
                     <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
-                        <i class="icon blue lightning"></i>{{displayVotingPower author}} VT
+                        <i class="icon blue lightning"></i>{{displayVotingPower author 0}}
                     </div>
                     <div class="ui videoshowmore money label" style="margin-left: 0em;float:right;">
                         <i class="icon green money"></i>{{author.estimateAccountValue}} DTC
