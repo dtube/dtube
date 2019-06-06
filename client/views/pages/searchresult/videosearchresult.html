@@ -1,22 +1,20 @@
 <template name='videosearchresult'>
   {{#unless isVideoHiddensearch this}}
-  <div class='verticalvideosnap wid-ful' style="display:-webkit-box;">
+  <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful' style="display:-webkit-box;">
     <div style="height:100%px;">
-      <a href='/v/{{author}}/{{link}}' title='{{json.title}}'>
-        <div class='verticalvideosnapsnap' style="height:118px;width:210px;">
-            <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
-          {{#if json.duration}} 
-            <span class="videosnapduration">{{durationDisplay json.duration}}</span>
-          {{/if}}
-          <div id="snapload" class="ui active dimmer pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
-                                                            width:210px;height:118px;">
-            <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
-            <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
-          </div>
-          <img id="snapimg" class="sprite" width="210" height="118" alt="" data-src="{{json.thumbnailUrl}}">
-          <br />
+      <div class='verticalvideosnapsnap' style="height:118px;width:210px;">
+          <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
+        {{#if json.duration}} 
+          <span class="videosnapduration">{{durationDisplay json.duration}}</span>
+        {{/if}}
+        <div id="snapload" class="ui active dimmer pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
+                                                          width:210px;height:118px;">
+          <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
+          <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
         </div>
-      </a>
+        <img id="snapimg" class="sprite" width="210" height="118" alt="" data-src="{{json.thumbnailUrl}}">
+        <br />
+      </div>
     </div>
     <div class="pos-rel" style="text-align:left;width:60%;margin-left: 8px;min-width:200px;">
       <div class="boxdisplayer">
@@ -26,38 +24,38 @@
           </a>
         </div>
       </div>
+      <div class='videosnapdescription'>
+        {{json.description}}
+      </div>
       <div class='videosnapauthor' style="font-size: 1em;">
-          <a href='/c/{{author}}'>
-            <span class="customlink">{{author}}</span>
-          </a>
-        </div>
+        <a href='/c/{{author}}'>
+          <span class="customlink">{{author}}</span>
+        </a>
+      </div>
       <div class="boxdisplayer">
-        <!-- <div class='videosnaprest' style="float:none;margin-right: 0px;">
+        <div class='videosnaprest' style="float:none;margin-right: 0px;">
           {{#if dist}}
             {{displayMoney dist 1 'DTC'}}
           {{else}}
-            +0 DTC
+            0 DTC
           {{/if}}
-        </div> -->
+        </div>
       {{#if ts}}
       <div class="videosnaptime" style="padding-left: 5px;">
         - {{timeAgo ts}}
       </div>
       {{/if}}
       </div>
-      <!-- <div class='videosnapdescription'>
-        {{json.description}}
-      </div> -->
       {{#each tags}}
         {{#unless equals t 'dtube'}}
-          <a href="/t/{{t}}" class="ui small label">
+          <div class="ui small label">
             {{convertTag t}}
             <div class="detail">{{displayPayout total 0}}</div>
-          </a>
+          </div>
         {{/unless}}
       {{/each}}
     </div>
-  </div>
+  </div></a>
   <div class="ui divider"></div>
   {{/unless}}
 </template>

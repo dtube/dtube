@@ -42,6 +42,10 @@
   color: #212121;
 }
 
+.verticalvideosnap:hover .videosnapdescription {
+  color: black;
+}
+
 .videosnapauthor
 {
   font-size: 0.9rem;
@@ -146,6 +150,7 @@
   -webkit-line-clamp: 2;
   margin: 0 auto;
   height: 36px;
+  color: darkgrey;
 }
 
 .videosnapdescriptionmobile
