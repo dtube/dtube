@@ -17,7 +17,7 @@ Meteor.startup(function(){
   Session.set('lastCreated', null)
   Session.set('lastBlogs', {})
   Session.set('tagDays', 7)
-  Session.set('tagSortBy', 'net_votes')
+  Session.set('tagSortBy', null)
   Session.set('tagDuration', 999999)
 
   // dark mode (buggy)

@@ -1,12 +1,17 @@
 var isLoadingState = false
 
 Template.video.rendered = function () {
+  Session.set('isSearchingMobile', false)
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
   Template.video.setScreenMode();
   $(window).on('resize', Template.video.setScreenMode)
   Template.sidebar.resetActiveMenu()
   Template.settingsdropdown.nightMode();
+  
+  setTimeout(function(){
+    $('.ui.newtag').dropdown({})
+  }, 1000)
 }
 
 Template.video.helpers({
@@ -108,10 +113,33 @@ Template.video.activatePopups = function() {
 }
 
 Template.video.events({
-  'click .newtag': function (event) {
+  'click .voteATag': function (event) {
+    var newTag = event.target.dataset.value
+    if (!newTag) return
     var author = FlowRouter.getParam("author")
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * 100
+    broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      Template.video.loadState()
+    });
+  },
+  'click .voteCustomTag': function (event) {
+    var author = FlowRouter.getParam("author")
+    var permlink = FlowRouter.getParam("permlink")
+    var weight = UserSettings.get('voteWeight') * 100
+    var newTag = prompt('Enter a new tag')
+    broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
+      if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+      else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
+      Template.video.loadState()
+    });
+  },
+  'click .downvoteCustomTag': function (event) {
+    var author = FlowRouter.getParam("author")
+    var permlink = FlowRouter.getParam("permlink")
+    var weight = UserSettings.get('voteWeight') * -100
     var newTag = prompt('Enter a new tag')
     broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))

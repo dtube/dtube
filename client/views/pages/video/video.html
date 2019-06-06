@@ -24,7 +24,19 @@
                       </a>
                     {{/unless}}
                   {{/each}}
-                  <a class="ui small label newtag"><i class="tag icon"></i> {{translate 'VIDEO_VOTE_TAG'}}</a>
+                  <a class="ui small label newtag scrolling dropdown dropdownTags">
+                    <i class="thumbs up icon"></i> {{translate 'VIDEO_VOTE_TAG'}}
+                    <div class="menu">
+                      {{#each allTags}}
+                        {{#unless equals t 'dtube'}}
+                          <div class="item voteATag" data-value="{{convertTag t}}">{{convertTag t}}</div>
+                        {{/unless}}
+                      {{/each}}
+                      <div class="divider"></div>
+                      <div class="item voteCustomTag"><i class="thumbs up icon"></i> Upvote new tag</div>
+                      <div class="item downvoteCustomTag"><i class="thumbs down icon"></i> Downvote a tag</div>
+                    </div>
+                  </a>
                 </div>
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
                   {{> videosettingsdropdown video}}
@@ -91,6 +103,9 @@
                 {{else}}
                   {{>buttonedit}}
                 {{/unless}}
+                <span class='donateButton' style='margin-left: 10px'>
+                  {{>buttontransfersmall author}}
+                </span>
               </div>
             </div>
           </div>

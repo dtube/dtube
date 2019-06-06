@@ -129,7 +129,7 @@
     "SNAP_MISSING_IMAGE": "Missing Image",
     "TOPBAR_TOOLTIP_UPLOAD_VIDEO": "Upload a Video",
     "TOPBAR_TOOLTIP_GO_LIVE": "Go Live",
-    "TAGS_RESULTS_FOR": "Results for",
+    "TAGS_RESULTS_FOR": "#",
     "TAGS_DATE": "Date",
     "TAGS_THIS_WEEK": "This week",
     "TAGS_THIS_MONTH": "This month",
@@ -227,7 +227,8 @@
     "VIDEO_UNSUBSCRIBE": "Unsubscribe",
     "VIDEO_SUBSCRIBE": "Subscribe",
     "VIDEO_SUBSCRIBERS": "Subscribers",
-    "VIDEO_VOTE_TAG": "New Tag",
+    "VIDEO_VOTE_TAG": "Vote & Tag",
+    "VIDEO_ALL_TAGS": "Top Tags",
     "VIDEO_ADDED_ON": "Published on",
     "VIDEO_EDIT": "Edit",
     "VIDEO_ADD_COMMENT": "Add a comment",
@@ -249,5 +250,7 @@
     "NEWACCOUNT_NEWACCOUNT": "Create new account",
     "TRANSFER_TO": "Sending DTC to %1",
     "TRANSFER_AMOUNT": "Amount",
-    "TRANSFER_MEMO": "Memo"
+    "TRANSFER_MEMO": "Memo",
+    "TRANSFER_SUCCESS_TITLE": "Transfer Complete",
+    "TRANSFER_SUCCESS_DESC": "Sent %1 DTC to %2"
 }

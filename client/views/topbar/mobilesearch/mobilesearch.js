@@ -34,7 +34,7 @@ Template.mobilesearch.events({
     //   Session.set('search', {query: query, response: response})
     //   $('.results').hide()
     // })
-    Search.text(query, function(err, response){
+    Search.text(query, null, function(err, response){
       Session.set('search', {query: query, response: response})
     })
     FlowRouter.go('/s/'+query)

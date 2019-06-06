@@ -1,7 +1,3 @@
-Template.video.rendered = function() {
-  Session.set('isSearchingMobile', false)
-}
-
 Template.mobiletopbar.helpers({
   isLoggedOn: function() {
     return Session.get('activeUsername')

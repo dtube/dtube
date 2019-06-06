@@ -114,16 +114,18 @@ Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration,
   var queries = []
   if (days) {
     dateFrom = new Date().getTime() - (days*24*60*60*1000)
-    queries.push('ts:>='+dateFrom)
+    queries.push('ts:%3E='+dateFrom)
   }
   if (maxDuration && maxDuration < 99999)
-    queries.push('json.duration:<='+maxDuration)
+    queries.push('json.duration:%3C='+maxDuration)
   for (let i = 0; i < tags.length; i++)
-    queries.push('votes.tag:'+tags[i])
+    queries.push('tags.'+tags[i]+':%3E=0')
 
   var query = queries.join(' AND ')
+  var sort = 'tags.'+tags[0]+':desc'
+  if (sort_by) sort = sort_by+':desc'
 
-  Search.text(query, function(err, response) {
+  Search.text(query, sort, function(err, response) {
     console.log(response)
     var videos = response.results
     for (let i = 0; i < videos.length; i++) {
@@ -368,7 +370,7 @@ Videos.parseFromChain = function(video, isComment, network) {
   }
   video.ups = 0
   video.downs = 0
-  video.tags = []
+  video.allTags = []
   video._id = 'dtc/'+video._id
   if (video.votes) {
     for (let i = 0; i < video.votes.length; i++) {
@@ -378,21 +380,25 @@ Videos.parseFromChain = function(video, isComment, network) {
             video.downs -= video.votes[i].vt
         if (video.votes[i].tag) {
           var isAdded = false
-          for (let y = 0; y < video.tags.length; y++) {
-            if (video.tags[y].t == video.votes[i].tag) {
-              video.tags[y].total += video.votes[i].vt
+          for (let y = 0; y < video.allTags.length; y++) {
+            if (video.allTags[y].t == video.votes[i].tag) {
+              video.allTags[y].total += video.votes[i].vt
               isAdded = true
               break
             }
           }
           if (!isAdded)
-            video.tags.push({t: video.votes[i].tag, total: video.votes[i].vt})
+            video.allTags.push({t: video.votes[i].tag, total: video.votes[i].vt})
         }
     }
   }
-  video.tags = video.tags.sort(function(a,b) {
+  video.allTags = video.allTags.sort(function(a,b) {
     return b.total - a.total
-  }).slice(0, 4)
+  })
+  var tags = []
+  for (const key in video.tags)
+    tags.push({t: key, total: video.tags[key]})
+  video.tags = tags
   video.totals = video.ups - video.downs
   if (!video.dist) video.dist = 0
   return video;

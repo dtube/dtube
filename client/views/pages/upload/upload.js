@@ -130,7 +130,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    : 'https://test-cluster.dtube.top/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -364,6 +364,10 @@ Template.upload.events({
     })
   },
   'click .uploadsubmit': function(event) {
+    $(".uploadsubmit").addClass('disabled')
+    $(".uploadsubmit > i.checkmark").addClass('dsp-non')
+    $(".uploadsubmit > i.fire").addClass('dsp-non')
+    $(".uploadsubmit > i.loading").removeClass('dsp-non')
     var tag = ''
     if ($('#tagDropdown').val()) tag = $('#tagDropdown').val().trim().toLowerCase()
     if (tag.indexOf(' ') > -1) {
@@ -387,12 +391,20 @@ Template.upload.events({
     if (burn > 0) {
       broadcast.multi.comment(null, null, null, null, null, content, tag, burn, function(err, res) {
         console.log(err, res)
+        $(".uploadsubmit").removeClass('disabled')
+        $(".uploadsubmit > i.loading").addClass('dsp-non')
+        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
+        $(".uploadsubmit > i.fire").removeClass('dsp-non')
         if (err) toastr.error(Meteor.blockchainError(err))
         else FlowRouter.go('/v/' + res[0])
       })
     } else {
       broadcast.multi.comment(null, null, null, null, null, content, tag, null, function(err, res) {
         console.log(err, res)
+        $(".uploadsubmit").removeClass('disabled')
+        $(".uploadsubmit > i.loading").addClass('dsp-non')
+        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
+        $(".uploadsubmit > i.fire").removeClass('dsp-non')
         if (err) toastr.error(Meteor.blockchainError(err))
         else {
           FlowRouter.go('/v/' + res[0])
@@ -406,7 +418,7 @@ Template.upload.events({
 var getUploaderStatus = function (upldr) {
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getStatus'
-    : 'https://'+upldr+'.d.tube/getStatus'
+    : 'https://test-cluster.dtube.top/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);

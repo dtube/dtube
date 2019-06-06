@@ -1,8 +1,11 @@
 Search = {
     api: 'https://avasearch.nannal.com',
     //api: 'http://localhost:9200',
-    text: (query, cb) => {
-        fetch(Search.api+'/avalon.contents/_search?q='+query, {
+    text: (query, sort, cb) => {
+        var url = Search.api+'/avalon.contents/_search?q='+query
+        if (sort)
+            url += '&sort='+sort
+        fetch(url, {
             method: 'GET',
             headers: {
               'Accept': 'application/json, text/plain, */*',
@@ -26,8 +29,8 @@ Search = {
                         _index: "avalon.contents",
                         _id: id
                     }],
-                    "min_doc_freq" : 1,
-                    "max_doc_freq" : 100
+                    "min_term_freq" : 1,
+                    "min_doc_freq": 1
                 }
             }
         }

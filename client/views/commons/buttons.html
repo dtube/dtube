@@ -69,6 +69,17 @@
         </div>
         <i class="icon gift green" style="background:white;opacity:1;"></i>
     </div>
+    {{>senddtcmodal}}
+</template>
+
+<template name='buttontransfersmall'>
+    <button class="ui icon grey button transferdtcbtn pos-rel">
+        <i class="icon gift" style="color: black;"></i>
+    </button>
+    {{>senddtcmodal}}
+</template>
+
+<template name="senddtcmodal">
     <!-- Send DTC Modal -->
     <div class="ui small modal transferdtc" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
         <div class="header">{{ translate 'TRANSFER_TO' name}}</div>
@@ -80,7 +91,7 @@
                             <label>{{ translate 'TRANSFER_AMOUNT'}}</label>
                             <div class="ui left icon input">
                             <i class="calculator icon"></i>
-                            <input type="number" min="1" id="transfer_amount" value="1">
+                            <input type="number" min="0.01" step="0.01" id="transfer_amount" value="1">
                             </div>
                         </div>
                         <div class="field">
@@ -95,8 +106,19 @@
             </form>
         </div>
         <div class="actions">
-            <div id="confirmTransfer" class="ui confirm green button">Approve</div>
-            <div id="cancelTransfer" class="ui cancel button">Cancel</div>
+            <div id="confirmTransfer" class="ui right labeled icon button red dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Confirm
+                </div>
+                <i class="icon check red" style="background:white;opacity:1;"></i>
+                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+            </div>
+            <div id="cancelTransfer" class="ui right labeled icon button grey dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Cancel
+                </div>
+                <i class="icon x" style="background:white;opacity:1;"></i>
+            </div>
         </div>
     </div>
 </template>

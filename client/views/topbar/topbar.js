@@ -64,7 +64,7 @@ Template.topbar.events({
     // AskSteem.search({q: 'meta.video.info.title:* AND '+query, include: 'meta,payout'}, function(err, response){
     //   Session.set('search', {query: query, response: response})
     // })
-    Search.text(query, function(err, response){
+    Search.text(query, null, function(err, response){
       Session.set('search', {query: query, response: response})
     })
     FlowRouter.go('/s/'+query)
