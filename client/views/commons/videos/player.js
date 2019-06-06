@@ -1,31 +1,38 @@
 Template.player.rendered = function () {
-  switch (this.data.json.providerName) {
+  Template.player.reset(this.data)
+}
+
+Template.player.reset = function(data) {
+  if (!data)
+  data = Template.video.__helpers[" video"]()
+  if (!data) return
+  switch (data.json.providerName) {
     case "Twitch":
-      if (this.data.json.twitch_type && this.data.json.twitch_type == 'clip')
-        Template.player.initTwitchClips(this.data.json.videoId)
+      if (data.json.twitch_type && data.json.twitch_type == 'clip')
+        Template.player.initTwitchClips(data.json.videoId)
       else
-        Template.player.initTwitch(this.data.json.videoId)
+        Template.player.initTwitch(data.json.videoId)
       break;
     case "Dailymotion":
-      Template.player.initDailymotion(this.data.json.videoId)
+      Template.player.initDailymotion(data.json.videoId)
       break;
     case "Instagram":
-      Template.player.initInstagram(this.data.json.videoId)
+      Template.player.initInstagram(data.json.videoId)
       break;
     case "LiveLeak":
-      Template.player.initLiveLeak(this.data.json.videoId)
+      Template.player.initLiveLeak(data.json.videoId)
       break;
     case "Vimeo":
-      Template.player.initVimeo(this.data.json.videoId)
+      Template.player.initVimeo(data.json.videoId)
       break;
     case "Facebook":
-      Template.player.initFacebook(this.data.json.videoId, this.data.json.url)
+      Template.player.initFacebook(data.json.videoId, data.json.url)
       break;
     case "YouTube":
-      Template.player.initYouTube(this.data.json.videoId)
+      Template.player.initYouTube(data.json.videoId)
       break;
     default:
-      Template.player.init(this.data.author, this.data.link)
+      Template.player.init(data.author, data.link)
       break;
   }
 }
