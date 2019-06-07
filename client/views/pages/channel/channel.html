@@ -35,6 +35,7 @@
         <a class="item activities" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
         {{#if equals author.name activeUsername}}
         <a class="item keys" style="display:inline-block;" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
+        <a class="item rewards" style="display:inline-block;" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
         {{/if}}
         <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
       </div>
@@ -55,6 +56,11 @@
         <div class="ui bottom attached tab segment" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
           {{#if equals currentTab 'keys'}} 
             {{> channelkeys}} 
+          {{/if}}
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+          {{#if equals currentTab 'rewards'}} 
+            {{> channelrewards}} 
           {{/if}}
         </div>
       {{/if}}

@@ -125,5 +125,14 @@ Template.channel.events({
       $('.menu .item.keys').click()
       $('.menu .item.keys').addClass('active')
     }
+  },
+  'click .item.rewards': function (e) {
+    Session.set('currentTab', 'rewards')
+    if (!reclick) {
+      reclick = true
+      $('.menu .item').tab();
+      $('.menu .item.rewards').click()
+      $('.menu .item.rewards').addClass('active')
+    }
   }
 })
