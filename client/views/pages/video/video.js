@@ -130,6 +130,11 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * 100
     var newTag = prompt('Enter a new tag')
+    newTag = newTag.trim().toLowerCase()
+    if (newTag.indexOf(' ') > -1) {
+      toastr.warning('Only a single tag is allowed')
+      return
+    }
     broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -141,6 +146,11 @@ Template.video.events({
     var permlink = FlowRouter.getParam("permlink")
     var weight = UserSettings.get('voteWeight') * -100
     var newTag = prompt('Enter a new tag')
+    newTag = newTag.trim().toLowerCase()
+    if (newTag.indexOf(' ') > -1) {
+      toastr.warning('Only a single tag is allowed')
+      return
+    }
     broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
