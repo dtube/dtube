@@ -156,55 +156,80 @@
       {{/each}}
     </nav>
 
-    {{#if isOnMobile }}
     <div class="ui divider"></div>
-    <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
-      <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
+    {{#if scot}}
+      <div class="ui basic segment">
+        <p>
+          <h4 class="ui center aligned icon header">
+              <i class="circular bolt icon"></i>
+              {{ translate 'SIDEBAR_SCOT_LICENCE' scot.token}}
+          </h4>
+          <div class="ui horizontal list">
+            <a href='https://d.tube' class="item">
+              <img class="ui avatar image" src="https://about.d.tube/img/kit/Logo_Black_D.svg">
+              <div class="content">
+                <div class="header">D.Tube</div>
+              </div>
+            </a>
+            <a href='https://steem-engine.com' class="item">
+              <img class="ui avatar image" src="https://i.imgur.com/JldZkxt.png">
+              <div class="content">
+                <div class="header">Steem Engine</div>
+              </div>
+            </a>
+          </div>
+          <br /><br /><br /><br />       
+        </p>
+      </div>
+    {{else}}
+      {{#if isOnMobile }}
+      <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
+        <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
+          <a href='https://about.d.tube' target="_blank" id="about">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+          </a>
+          <a href='https://about.d.tube/#faq1' target="_blank" id="help">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
+          </a>
+          <a href='https://github.com/dtube' target="_blank" id="github">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
+          </a>
+          <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
+          </a>
+          <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
+          </a>
+          <a href='https://dtube.nolt.io/' target="_blank" id="nolt">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_FEEDBACK'}}</span>
+          </a>
+        </div>
+        <div class="mobilesidebarspacer"></div>
+      </a>
+      {{else}}
+      <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
         <a href='https://about.d.tube' target="_blank" id="about">
           <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
-        </a>
+        </a>-
         <a href='https://about.d.tube/#faq1' target="_blank" id="help">
           <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-        </a>
+        </a>-
         <a href='https://github.com/dtube' target="_blank" id="github">
           <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
         </a>
+        <br>
         <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
           <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
-        </a>
-        <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
+        </a>-
+        <a href='https://discord.gg/dtube' target="_blank" id="discord">
           <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
         </a>
+        <br>
         <a href='https://dtube.nolt.io/' target="_blank" id="nolt">
           <span class="sidebarlink">{{ translate 'SIDEBAR_FEEDBACK'}}</span>
         </a>
       </div>
-      <div class="mobilesidebarspacer"></div>
-    </a>
-    {{else}}
-    <div class="ui divider"></div>
-    <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
-      <a href='https://about.d.tube' target="_blank" id="about">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
-      </a>-
-      <a href='https://about.d.tube/#faq1' target="_blank" id="help">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-      </a>-
-      <a href='https://github.com/dtube' target="_blank" id="github">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
-      </a>
-      <br>
-      <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
-      </a>-
-      <a href='https://discord.gg/dtube' target="_blank" id="discord">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
-      </a>
-      <br>
-      <a href='https://dtube.nolt.io/' target="_blank" id="nolt">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_FEEDBACK'}}</span>
-      </a>
-    </div>
+      {{/if}}
     {{/if}}
   </div>
 </template>

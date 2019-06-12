@@ -12,6 +12,14 @@ Meteor.settings.public = {
     "localhost": false
   },
   "app": "dtube/0.9",
+  "scot": {
+    "token": "WEED",
+    "precision": 8,
+    "displayedPrecision": 2,
+    "tag": "weed"
+  },
+  "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+  "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",

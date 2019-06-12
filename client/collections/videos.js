@@ -209,13 +209,40 @@ Videos.getVideosBy = function(type, limit, cb) {
     case 'trending':
         var lastAuthor = Session.get('lastTrending') ? Session.get('lastTrending').author : null
         var lastLink = Session.get('lastTrending') ? Session.get('lastTrending').link : null
-        avalon.getTrendingDiscussions(lastAuthor, lastLink, function(err, result) {
-          if (err === null || err === '') {
+        if (!Session.get('scot'))
+          avalon.getTrendingDiscussions(lastAuthor, lastLink, function(err, result) {
+            if (err === null || err === '') {
+                Session.set('lastTrending', result[result.length-1])
+                var i, len = result.length;
+                var videos = []
+                for (i = 0; i < len; i++) {
+                    var video = Videos.parseFromChain(result[i])
+                    if (video) videos.push(video)
+                }
+                for (var i = 0; i < videos.length; i++) {
+                  videos[i].source = 'chainByTrending'
+                  videos[i]._id += 't'
+                  try {
+                    Videos.upsert({_id: videos[i]._id}, videos[i])
+                  } catch(err) {
+                    console.log(err)
+                    cb(err)
+                  }
+                }
+                cb(null)
+            } else {
+                console.log(err);
+                cb(err)
+            }
+          });
+        else
+          Scot.getDiscussionsBy('trending', lastAuthor, lastLink, function(err, result) {
+            if (err === null || err === '') {
               Session.set('lastTrending', result[result.length-1])
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
-                  var video = Videos.parseFromChain(result[i])
+                  var video = Videos.parseFromChain(result[i], false, 'steem')
                   if (video) videos.push(video)
               }
               for (var i = 0; i < videos.length; i++) {
@@ -229,23 +256,50 @@ Videos.getVideosBy = function(type, limit, cb) {
                 }
               }
               cb(null)
-          } else {
-              console.log(err);
-              cb(err)
-          }
-        });
+            } else {
+                console.log(err);
+                cb(err)
+            }
+          })
         break;
 
     case 'hot':
         var lastAuthor = Session.get('lastHot') ? Session.get('lastHot').author : null
         var lastLink = Session.get('lastHot') ? Session.get('lastHot').link : null
-        avalon.getHotDiscussions(lastAuthor, lastLink, function(err, result) {
-          if (err === null || err === '') {
+        if (!Session.get('scot'))
+          avalon.getHotDiscussions(lastAuthor, lastLink, function(err, result) {
+            if (err === null || err === '') {
+                Session.set('lastHot', result[result.length-1])
+                var i, len = result.length;
+                var videos = []
+                for (i = 0; i < len; i++) {
+                    var video = Videos.parseFromChain(result[i])
+                    if (video) videos.push(video)
+                }
+                for (var i = 0; i < videos.length; i++) {
+                  videos[i].source = 'chainByHot'
+                  videos[i]._id += 'h'
+                  try {
+                    Videos.upsert({_id: videos[i]._id}, videos[i])
+                  } catch(err) {
+                    console.log(err)
+                    cb(err)
+                  }
+                }
+                cb(null)
+            } else {
+                console.log(err);
+                cb(err)
+            }
+        });
+        else
+          Scot.getDiscussionsBy('hot', lastAuthor, lastLink, function(err, result) {
+            if (err === null || err === '') {
               Session.set('lastHot', result[result.length-1])
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
-                  var video = Videos.parseFromChain(result[i])
+                  var video = Videos.parseFromChain(result[i], false, 'steem')
                   if (video) videos.push(video)
               }
               for (var i = 0; i < videos.length; i++) {
@@ -259,23 +313,50 @@ Videos.getVideosBy = function(type, limit, cb) {
                 }
               }
               cb(null)
-          } else {
-              console.log(err);
-              cb(err)
-          }
-        });
+            } else {
+                console.log(err);
+                cb(err)
+            }
+          })
         break;
     case 'created':
         var lastAuthor = Session.get('lastCreated') ? Session.get('lastCreated').author : null
         var lastLink = Session.get('lastCreated') ? Session.get('lastCreated').link : null
-        avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
-          Session.set('lastCreated', result[result.length-1])
-          if (err === null || err === '') {
+        if (!Session.get('scot'))
+          avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
+            Session.set('lastCreated', result[result.length-1])
+            if (err === null || err === '') {
+                var i, len = result.length;
+                var videos = []
+                for (i = 0; i < len; i++) {
+                    var video = Videos.parseFromChain(result[i])
+                    if (video) videos.push(video) 
+                }
+                for (var i = 0; i < videos.length; i++) {
+                  videos[i].source = 'chainByCreated'
+                  videos[i]._id += 'c'
+                  try {
+                    Videos.upsert({_id: videos[i]._id}, videos[i])
+                  } catch(err) {
+                    console.log(err)
+                    cb(err)
+                  }
+                }
+                cb(null)
+            } else {
+                console.log(err);
+                cb(err)
+            }
+          });
+        else
+          Scot.getDiscussionsBy('hot', lastAuthor, lastLink, function(err, result) {
+            if (err === null || err === '') {
+              Session.set('lastCreated', result[result.length-1])
               var i, len = result.length;
               var videos = []
               for (i = 0; i < len; i++) {
-                  var video = Videos.parseFromChain(result[i])
-                  if (video) videos.push(video) 
+                  var video = Videos.parseFromChain(result[i], false, 'steem')
+                  if (video) videos.push(video)
               }
               for (var i = 0; i < videos.length; i++) {
                 videos[i].source = 'chainByCreated'
@@ -288,11 +369,11 @@ Videos.getVideosBy = function(type, limit, cb) {
                 }
               }
               cb(null)
-          } else {
-              console.log(err);
-              cb(err)
-          }
-        });
+            } else {
+                console.log(err);
+                cb(err)
+            }
+          })
         break;
     case 'createdLive':
         // steem.api.getDiscussionsByCreated(query, function(err, result) {
@@ -415,8 +496,14 @@ Videos.parseFromSteem = function(video, isComment) {
     }
   }
   else try {
-    var newVideo = {json: JSON.parse(video.json_metadata).video}
+    var tmpJson = JSON.parse(video.json_metadata)
+    var newVideo = {json: tmpJson.video}
+    if (tmpJson.app)
+      newVideo.json.app = tmpJson.app
+    if (newVideo.json.info && newVideo.json.content)
+      newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
   } catch(e) {
+    //console.log(e)
   }
   if (!isComment && !newVideo) return
   //if (!isComment && !newVideo.info) return
@@ -427,10 +514,11 @@ Videos.parseFromSteem = function(video, isComment) {
   newVideo.curator_payout_value = video.curator_payout_value
   newVideo.pending_payout_value = video.pending_payout_value
   newVideo.permlink = video.permlink
+  if (video.authorperm) newVideo.permlink = video.authorperm.split('/')[1]
   newVideo.created = video.created
   newVideo.net_rshares = video.net_rshares
   newVideo.reblogged_by = video.reblogged_by
-  newVideo.link = video.permlink
+  newVideo.link = newVideo.permlink
   newVideo.votesSteem = video.active_votes
   newVideo.comments = []
   if (!isComment) {
@@ -447,12 +535,26 @@ Videos.parseFromSteem = function(video, isComment) {
   
   newVideo.votes = []
   newVideo.ts = new Date(video.created+'Z').getTime()
-  newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', ''))/1000
-  if (video.total_payout_value.split(' ')[0] > 0) {
-    newVideo.distSteem = parseInt(video.total_payout_value.split(' ')[0].replace('.', '')) + parseInt(video.curator_payout_value.split(' ')[0].replace('.', ''))
-    newVideo.distSteem /= 1000
-  }
+  if (video.token) {
+    // scot rewards
+    newVideo.distScot = []
+    var distScot = 0
+    if (video.pending_token)
+      distScot += video.pending_token
+    else
+      distScot += video.total_payout_value
 
+    newVideo.distScot.push({token: video.token, value: distScot})
+  } else {
+    // steem rewards
+    if (video.pending_payout_value)
+      newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', ''))/1000
+    if (video.total_payout_value.split(' ')[0] > 0) {
+      newVideo.distSteem = parseInt(video.total_payout_value.split(' ')[0].replace('.', '')) + parseInt(video.curator_payout_value.split(' ')[0].replace('.', ''))
+      newVideo.distSteem /= 1000
+    }
+  }
+    
   newVideo.ups = 0
   newVideo.downs = 0
 
@@ -467,16 +569,35 @@ Videos.parseFromSteem = function(video, isComment) {
   video.totals = video.ups - video.downs
   
   // xss attack fix
-  if (newVideo.content && newVideo.content.tags) {
+  if (video.tags && !newVideo.tags) {
     var xssTags = []
-    for (let i = 0; i < newVideo.content.tags.length; i++) {
-      xssTags.push(xss(newVideo.content.tags[i], {
-        whiteList: [],
-        stripIgnoreTag: true,
-        stripIgnoreTagBody: ['script']
-      }))
+    video.tags = video.tags.split(',')
+    for (let i = 0; i < video.tags.length; i++) {
+      xssTags.push({
+        t:xss(video.tags[i], {
+          whiteList: [],
+          stripIgnoreTag: true,
+          stripIgnoreTagBody: ['script']
+        }),
+        vt: 1
+      })
     }
-    newVideo.content.tags = xssTags
+    newVideo.tags = xssTags
+  }
+
+  if (newVideo.json.tags && !newVideo.tags) {
+    var xssTags = []
+    for (let i = 0; i < newVideo.json.tags.length; i++) {
+      xssTags.push({
+        t: xss(newVideo.json.tags[i], {
+          whiteList: [],
+          stripIgnoreTag: true,
+          stripIgnoreTagBody: ['script']
+        }),
+        vt: 1
+      })
+    }
+    newVideo.tags = xssTags
   }
 
   if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink
@@ -484,6 +605,7 @@ Videos.parseFromSteem = function(video, isComment) {
 }
 
 Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
+  if (!content) return []
   var rootVideo = content[rootAuthor+'/'+rootPermlink]
   var comments = []
   for (var i = 0; i < rootVideo.replies.length; i++) {
@@ -527,4 +649,27 @@ Videos.loadComments = function (author, permlink, loadUsers) {
     }
     ChainUsers.fetchNames(usernames)
   })
+}
+
+Videos.convertToNewFormat = function(oldJson, video) {
+  var newJson = {
+    app: oldJson.app,
+    videoId: video.link,
+    providerName: 'IPFS',
+    title: oldJson.info.title,
+    description: oldJson.content.description,
+    duration: oldJson.info.duration,
+    thumbnailUrl: 'https://snap1.d.tube/ipfs/'+oldJson.info.snaphash,
+    ipfs: {
+      snaphash: oldJson.info.snaphash,
+      spritehash: oldJson.info.spritehash,
+      videohash: oldJson.content.videohash,
+      video240hash: oldJson.content.video240hash,
+      video480hash: oldJson.content.video480hash,
+      video720hash: oldJson.content.video720hash,
+      video1080hash: oldJson.content.video1080hash
+    }
+  }
+
+  return newJson
 }

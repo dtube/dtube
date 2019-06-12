@@ -166,8 +166,11 @@ Template.registerHelper('displayPayout', function (ups, downs) {
   return cuteNumber(ups - downs)
 })
 
-Template.registerHelper('displayRewards', function (dtc, steem) {
+Template.registerHelper('displayRewards', function (dtc, steem, scot) {
   var rewards = []
+  if (Session.get('scot') && scot) {
+    return Scot.formatCurrency(scot, Session.get('scot'))
+  }
   if (steem || steem === 0) rewards.push('$'+steem)
   if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
   if (!rewards || rewards.length == 0) return '0 DTC'
@@ -187,6 +190,10 @@ Template.registerHelper('displayMoney', function(amount, shorten, symbol) {
   }
   string += symbol
   return string
+})
+
+Template.registerHelper('displayScot', function(distScot, scot) {
+  return Scot.formatCurrency(distScot, scot)
 })
 
 Template.registerHelper('displayVotingPower', function (user, shorten) {
@@ -462,6 +469,10 @@ Template.registerHelper('humanFilesize', function (bits, si) {
   return bits.toFixed(1) + ' ' + units[u];
 })
 
+Template.registerHelper('settings', function() {
+  return Meteor.settings.public
+})
+
 Template.registerHelper('ipfsSrc', function (ipfsHash) {
   if (!ipfsHash) return ''
   if (Session.get('ipfsGateway') == 'automatic') {
@@ -584,22 +595,40 @@ Template.registerHelper('topTags', function() {
   var videos = Videos.find({source: 'chainByHot'}, {limit: 50, sort: {score: -1}}).fetch()
   var tags = {}
   for (let i = 0; i < videos.length; i++) {
-    if (videos[i].votes) {
-      for (let y = 0; y < videos[i].votes.length; y++) {
-        if (videos[i].votes[y].tag) {
-          if (!tags[videos[i].votes[y].tag])
-            tags[videos[i].votes[y].tag] = videos[i].votes[y].vt
-          else
-            tags[videos[i].votes[y].tag] += videos[i].votes[y].vt
+    if (Session.get('scot')) {
+      if (videos[i].tags) {
+        for (let y = 0; y < videos[i].tags.length; y++) {
+          if (videos[i].tags[y].t) {
+            if (!tags[videos[i].tags[y].t])
+              tags[videos[i].tags[y].t] = videos[i].tags[y].vt
+            else
+              tags[videos[i].tags[y].t] += videos[i].tags[y].vt
+          }
+        }
+      }
+    } else {
+      if (videos[i].votes) {
+        for (let y = 0; y < videos[i].votes.length; y++) {
+          if (videos[i].votes[y].tag) {
+            if (!tags[videos[i].votes[y].tag])
+              tags[videos[i].votes[y].tag] = videos[i].votes[y].vt
+            else
+              tags[videos[i].votes[y].tag] += videos[i].votes[y].vt
+          }
         }
       }
     }
   }
   var array = []
   for (const key in tags)
-    array.push({tag: key, vt: tags[key]})
+    if (['dtube', Session.get('scot').tag].indexOf(key) == -1)
+      array.push({tag: key, vt: tags[key]})
   
   array = array.sort(function(a,b) {return b.vt - a.vt})
   array = array.slice(0, 10)
   return array
+})
+
+Template.registerHelper('scot', function() {
+  return Session.get('scot')
 })

@@ -54,7 +54,11 @@
     </div>
     <div class='videosnapdetails'>
         <div class='videosnaprest'>
-          {{displayMoney dist 1 'DTC'}}
+          {{#if scot}}
+            {{displayScot distScot scot}}
+          {{else}}
+            {{displayMoney dist 1 'DTC'}}
+          {{/if}}
         </div>
         <div class='videosnaptime'>
         {{timeAgo ts}}

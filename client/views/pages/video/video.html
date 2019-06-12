@@ -71,7 +71,11 @@
                     {{> topupvoters}}
                   </div>
                   <div class='videopayout'>
-                    {{displayRewards dist distSteem}}
+                    {{#if scot}}
+                      {{displayScot distScot scot}}
+                    {{else}}
+                      {{displayRewards dist distSteem distScot}}
+                    {{/if}}
                   </div>
                 </div>
                 {{#if body}}
@@ -104,7 +108,7 @@
                   {{>buttonedit}}
                 {{/unless}}
                 <span class='donateButton' style='margin-left: 10px'>
-                  {{>buttontransfersmall author}}
+                  {{>buttontransfersmall}}
                 </span>
               </div>
             </div>

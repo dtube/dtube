@@ -19,6 +19,7 @@ Meteor.startup(function(){
   Session.set('tagDays', 7)
   Session.set('tagSortBy', null)
   Session.set('tagDuration', 999999)
+  Session.set('scot', Meteor.settings.public.scot)
 
   // dark mode (buggy)
   // if (!UserSettings.get('isInNightMode'))

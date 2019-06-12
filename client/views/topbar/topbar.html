@@ -4,14 +4,20 @@
   {{else}}
     <div class="ui large borderless main menu fixed" style="height:57px;z-index:9000;">
       <div class="left floated menu" style="width:60%">
-        <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
-          <i class="sidebar icon needsclick" style="font-size:1.4em; margin:1px 0 0 0;"></i>
-        </div>
+        {{#if scot}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <img class="sidebar icon needsclick" alt="" style="width:45px;" src="https://about.d.tube/img/kit/Logo_Black_D.svg" >
+          </div>
+        {{else}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <i class="sidebar icon needsclick" style="font-size:1.4em; margin:1px 0 0 0;"></i>
+          </div>
+        {{/if}}
         <a href='/' class="blacklogo header item" id='textlogo'>
-            <img  alt="" style="width:90px;" src="https://new.d.tube/DTube_files/images/DTube_Black.svg" >
+            <img  alt="" style="width:90px;" src="{{settings.logo}}" >
         </a>
         <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
-          <img  alt="" style="width:90px;" src="https://new.d.tube/DTube_files/images/DTube_White.svg" >
+          <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
       </a>
         <div class="ui item grid tablet only computer only" style="width:inherit;">
           <div class="ui search wid-ful">

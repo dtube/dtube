@@ -82,7 +82,9 @@
 <template name="senddtcmodal">
     <!-- Send DTC Modal -->
     <div class="ui small modal transferdtc" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
-        <div class="header">{{ translate 'TRANSFER_TO' name}}</div>
+        <div class="header">
+            {{ translate 'TRANSFER_TO' author}}
+        </div>
         <div class="content">
             <form class="ui large form wid-ful ">
                 <div class="ui segments">
@@ -98,7 +100,7 @@
                             <label>{{ translate 'TRANSFER_MEMO'}}</label>
                             <div class="ui left icon input">
                             <i class="pencil icon"></i>
-                            <input type="text" id="transfer_memo" value="{{author.json.profile.cover_image}}">
+                            <input type="text" id="transfer_memo" value="">
                             </div>
                         </div>
                     </div>

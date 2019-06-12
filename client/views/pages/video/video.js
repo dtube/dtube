@@ -354,13 +354,34 @@ Template.video.loadState = function () {
       steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function (err, result) {
         if (err) throw err;
         isLoadingState = false
+        Template.video.loadScot()
         Template.video.handleVideo(result, 'steem/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
       })
     } else {
       isLoadingState = false
+      Template.video.loadScot()
       Template.video.handleVideo(result, 'dtc/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
     }
   });
+}
+
+Template.video.loadScot = function() {
+  if (Session.get('scot')) {
+    console.log('Loading scot rewards')
+    Scot.getRewards(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function(err, distScot) {
+      console.log('Loaded scot rewards')
+      Videos.update({
+        author: FlowRouter.getParam("author"), 
+        link: FlowRouter.getParam("permlink")
+      }, {
+        $set: {
+          distScot: distScot
+        }
+      }, {
+        multi: true
+      })
+    })
+  }
 }
 
 Template.video.handleVideo = function(result, id, isRef) {
