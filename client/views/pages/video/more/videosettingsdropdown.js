@@ -58,6 +58,9 @@ Template.videosettingsdropdown.events({
       if (err) toastr.error(Meteor.blockchainError(err), translate('ERROR_TITLE'))
       else toastr.success(translate('GLOBAL_ERROR_RESTEEMED', author + '/' + permlink))
     });
+  },
+  'click .showStats': function() {
+    Template.video.popularityChart()
   }
 })
     

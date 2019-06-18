@@ -154,25 +154,111 @@ Videos.setLastBlog = function(channel, item) {
 } 
 
 Videos.getVideosByBlog = function(author, limit, cb) {
+  if (Session.get('scot')) {
+    // if scot => fetch scot
+    Videos.getVideosByBlogSteem(FlowRouter.getParam("author"), function(err, finished) {
+      cb(err, finished)
+    })
+    return
+  }
+
+  var user = ChainUsers.findOne({name: FlowRouter.getParam("author")})
+  console.log(user)
+  if (user) {
+    Videos.getVideosByBlogAvalon(user.name, function(err, finished) {
+      cb(err, finished)
+    })
+    if (user.json && user.json.profile && user.json.profile.steem) {
+      Videos.getVideosByBlogSteem(user.json.profile.steem, function(err, finished) {
+        cb(err, finished)
+      })
+    }
+  } else {
+    Videos.getVideosByBlogSteem(FlowRouter.getParam("author"), function(err, finished) {
+      cb(err, finished)
+    })
+  }
+}
+
+Videos.getVideosByBlogSteem = function(author, cb) {
   var query = {
     tag: author,
     limit: Session.get('remoteSettings').loadLimit,
     truncate_body: 1
   };
-
-  if (limit) query.limit = limit
-
+  if (Session.get('lastBlogs')['steem/'+author]) {
+    query.start_author = Session.get('lastBlogs')['steem/'+author].author
+    query.start_permlink = Session.get('lastBlogs')['steem/'+author].permlink
+  }
+  steem.api.getDiscussionsByBlog(query, function(err, result) {
+    if (err) {
+      cb(err);
+      return
+    }
+    if (!result || result.length == 0) {
+      cb(null)
+      return
+    }
+    Videos.setLastBlog('steem/'+author, result[result.length-1])
+    var i, len = result.length;
+    var videos = []
+    for (i = 0; i < len; i++) {
+      var video = Videos.parseFromChain(result[i], false, 'steem')
+      if (video) videos.push(video)
+    }
+    for (var i = 0; i < videos.length; i++) {
+      videos[i].source = 'chainByBlog'
+      videos[i]._id += 'b'
+      videos[i].fromBlog = FlowRouter.getParam("author")
+      var existingVideo = null
+      if (videos[i].json && videos[i].json.refs) {
+        for (let y = 0; y < videos[i].json.refs.length; y++) {
+          var existingVideo = Videos.findOne({_id: videos[i].json.refs[y]+'b'})
+          if (existingVideo) break
+        }
+      }
+      if (existingVideo) {
+        try {
+          Videos.update({_id: existingVideo._id}, {
+            $set: {
+              distSteem: videos[i].distSteem,
+              votesSteem: videos[i].votesSteem,
+              commentsSteem: videos[i].commentsSteem
+            },
+            $inc: {
+              ups: videos[i].ups,
+              downs: videos[i].downs
+            }
+          })
+        } catch (err) {
+          cb(err)
+        }
+      } else {
+        try {
+          Videos.upsert({ _id: videos[i]._id }, videos[i])
+        } catch (err) {
+          cb(err)
+        }
+      }
+    }
+    if (result.length == Session.get('remoteSettings').loadLimit)
+      cb(null, false)
+    else
+      cb(null, true)
+  })
+}
+Videos.getVideosByBlogAvalon = function(author, cb) {
   var start_author = null
   var start_permlink = null
 
-  if (Session.get('lastBlogs')[author]) {
-    start_author = Session.get('lastBlogs')[author].author
-    start_permlink = Session.get('lastBlogs')[author].link
+  if (Session.get('lastBlogs')['dtc/'+author]) {
+    start_author = Session.get('lastBlogs')['dtc/'+author].author
+    start_permlink = Session.get('lastBlogs')['dtc/'+author].link
   }
 
   avalon.getDiscussionsByAuthor(author, start_author, start_permlink, function (err, result) {
-    if (err === null || err === '') {
-      Videos.setLastBlog(author, result[result.length-1])
+    if (!err && result && result.length > 0) {
+      Videos.setLastBlog('dtc/'+author, result[result.length-1])
       var i, len = result.length;
       var videos = []
       for (i = 0; i < len; i++) {
@@ -183,17 +269,45 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         videos[i].source = 'chainByBlog'
         videos[i]._id += 'b'
         videos[i].fromBlog = FlowRouter.getParam("author")
-        try {
-          Videos.upsert({ _id: videos[i]._id }, videos[i])
-        } catch (err) {
-          cb(err)
+        var existingVideo = null
+        if (videos[i].json && videos[i].json.refs) {
+          for (let y = 0; y < videos[i].json.refs.length; y++) {
+            var existingVideo = Videos.findOne({_id: videos[i].json.refs[y]+'b'})
+            if (existingVideo) break
+          }
+        }
+        if (existingVideo) {
+          try {
+            Videos.update({_id: existingVideo._id}, {
+              $set: {
+                dist: videos[i].dist,
+                votes: videos[i].votes,
+                comments: videos[i].comments
+              },
+              $inc: {
+                ups: videos[i].ups,
+                downs: videos[i].downs
+              }
+            })
+          } catch (err) {
+            cb(err)
+          }
+        } else {
+          try {
+            Videos.upsert({ _id: videos[i]._id }, videos[i])
+          } catch (err) {
+            cb(err)
+          }
         }
       }
-      cb(null)
-    } else {
-      cb(err);
+      if (result.length == 50)
+        cb(null, false)
+      else
+        cb(null, true)
     }
-  });
+  })
+}
+Videos.getVideosByBlogScot = function(author, cb) {
 }
 
 Videos.getVideosBy = function(type, limit, cb) {
@@ -209,6 +323,10 @@ Videos.getVideosBy = function(type, limit, cb) {
     case 'trending':
         var lastAuthor = Session.get('lastTrending') ? Session.get('lastTrending').author : null
         var lastLink = Session.get('lastTrending') ? Session.get('lastTrending').link : null
+        if (!lastLink && Session.get('lastTrending') && Session.get('lastTrending').permlink)
+          lastLink = Session.get('lastTrending').permlink
+        if (!lastLink && Session.get('lastTrending') && Session.get('lastTrending').authorperm)
+          lastLink = Session.get('lastTrending').authorperm.split('/')[1]
         if (!Session.get('scot'))
           avalon.getTrendingDiscussions(lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
@@ -266,6 +384,10 @@ Videos.getVideosBy = function(type, limit, cb) {
     case 'hot':
         var lastAuthor = Session.get('lastHot') ? Session.get('lastHot').author : null
         var lastLink = Session.get('lastHot') ? Session.get('lastHot').link : null
+        if (!lastLink && Session.get('lastHot') && Session.get('lastHot').permlink)
+          lastLink = Session.get('lastHot').permlink
+        if (!lastLink && Session.get('lastHot') && Session.get('lastHot').authorperm)
+          lastLink = Session.get('lastHot').authorperm.split('/')[1]
         if (!Session.get('scot'))
           avalon.getHotDiscussions(lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
@@ -322,6 +444,10 @@ Videos.getVideosBy = function(type, limit, cb) {
     case 'created':
         var lastAuthor = Session.get('lastCreated') ? Session.get('lastCreated').author : null
         var lastLink = Session.get('lastCreated') ? Session.get('lastCreated').link : null
+        if (!lastLink && Session.get('lastCreated') && Session.get('lastCreated').permlink)
+          lastLink = Session.get('lastCreated').permlink
+        if (!lastLink && Session.get('lastCreated') && Session.get('lastCreated').authorperm)
+          lastLink = Session.get('lastCreated').authorperm.split('/')[1]
         if (!Session.get('scot'))
           avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
             Session.set('lastCreated', result[result.length-1])
@@ -349,7 +475,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             }
           });
         else
-          Scot.getDiscussionsBy('hot', lastAuthor, lastLink, function(err, result) {
+          Scot.getDiscussionsBy('created', lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
               Session.set('lastCreated', result[result.length-1])
               var i, len = result.length;
@@ -496,14 +622,14 @@ Videos.parseFromSteem = function(video, isComment) {
     }
   }
   else try {
-    var tmpJson = JSON.parse(video.json_metadata)
-    var newVideo = {json: tmpJson.video}
-    if (tmpJson.app)
-      newVideo.json.app = tmpJson.app
+    var newVideo = {
+      json: JSON.parse(video.json_metadata).video
+    }
+    newVideo.json.app = JSON.parse(video.json_metadata).app
     if (newVideo.json.info && newVideo.json.content)
       newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
   } catch(e) {
-    //console.log(e)
+    return
   }
   if (!isComment && !newVideo) return
   //if (!isComment && !newVideo.info) return
@@ -600,6 +726,10 @@ Videos.parseFromSteem = function(video, isComment) {
     newVideo.tags = xssTags
   }
 
+  if (Session.get('scot') && newVideo.tags.indexOf(Session.get('scot').tag) == -1) {
+    return
+  }
+
   if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink
   return newVideo;
 }
@@ -624,7 +754,7 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
 
 Videos.getContent = function (author, permlink, loadComments, loadUsers) {
   steem.api.getContent(author, permlink, function (err, result) {
-    var video = Videos.parseFromChain(result)
+    var video = Videos.parseFromChain(result, false, 'steem')
     if (!video) return;
     video.source = 'chainDirect'
     video._id += 'd'

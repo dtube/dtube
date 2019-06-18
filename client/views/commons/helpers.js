@@ -106,7 +106,7 @@ Template.registerHelper('mergeComments', function(dtc, steem) {
 
 Template.registerHelper('userPic', function (username, size) {
   if (!size || typeof size != 'string') size=''
-  return 'https://avaimage.nannal.com/u/'+username+'/avatar/'+size
+  return 'https://image.d.tube/u/'+username+'/avatar/'+size
 });
 
 Template.registerHelper('userPicSteem', function (username, size) {
@@ -115,7 +115,7 @@ Template.registerHelper('userPicSteem', function (username, size) {
 });
 
 Template.registerHelper('userCover', function(coverurl) {
-  return 'https://avaimage.nannal.com/2048x512/'+coverurl
+  return 'https://image.d.tube/2048x512/'+coverurl
 })
 
 Template.registerHelper('isReplying', function (content) {
@@ -291,7 +291,24 @@ Template.registerHelper('topVoters', function (votes, votesSteem, x) {
       realTop.push(topSteem[i])
     }
   }
+  var zi = 800
+  for (let i = 0; i < realTop.length; i++) {
+    realTop[i].zindex = zi
+    zi--
+  }
   return realTop
+})
+
+Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, x) {
+  var total = 0
+  if (votes)
+    if (votes.length >= x)
+      total += votes.length-x
+  if (votesSteem) 
+    if (votesSteem.length >= x)
+      total += votesSteem.length-x
+  if (total == 0) return
+  return total
 })
 
 Template.registerHelper('timeAgoReal', function (timestamp) {
@@ -620,8 +637,11 @@ Template.registerHelper('topTags', function() {
     }
   }
   var array = []
+  var ignoredTags = ['dtube']
+  if (Session.get('scot'))
+    ignoredTags.push(Session.get('scot').tag)
   for (const key in tags)
-    if (['dtube', Session.get('scot').tag].indexOf(key) == -1)
+    if (ignoredTags.indexOf(key) == -1)
       array.push({tag: key, vt: tags[key]})
   
   array = array.sort(function(a,b) {return b.vt - a.vt})

@@ -53,7 +53,7 @@ Template.comment.helpers({
       return 'https://steemitimages.com/u/'+username+'/avatar/'
     }
     else if (id.split('/')[0] == 'dtc') {
-      return 'https://avaimage.nannal.com/u/'+username+'/avatar/'
+      return 'https://image.d.tube/u/'+username+'/avatar/'
     }
   }
 })

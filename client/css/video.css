@@ -324,3 +324,40 @@
 .ui.tiny.label {
   border-radius: 0px;
 }
+
+/* just the line */
+.sparkline {
+  stroke: #223154;
+  fill: none;
+}
+
+/* line with highlight area */
+.sparkline {
+  stroke: #223154;
+  /* fill: rgba(255, 0, 0, .3); */
+}
+
+/* change the spot color */
+.sparkline--spot {
+  stroke: #F01A30;
+  fill: #E6E6E6;
+}
+
+/* change the cursor color */
+.sparkline--cursor {
+  stroke: #F01A30;
+}
+
+/* change the cursor color */
+.sparkline--zero {
+  stroke: #F01A30;
+}
+
+/* style fill area and line colors using specific class name */
+.sparkline--fill {
+  /* fill: rgba(255, 0, 0, .3); */
+}
+
+.sparkline--line {
+  stroke: #223154;
+}

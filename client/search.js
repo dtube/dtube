@@ -1,5 +1,5 @@
 Search = {
-    api: 'https://avasearch.nannal.com',
+    api: 'https://search.d.tube',
     //api: 'http://localhost:9200',
     text: (query, sort, cb) => {
         var url = Search.api+'/avalon.contents/_search?q='+query

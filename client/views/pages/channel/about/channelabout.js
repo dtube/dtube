@@ -40,9 +40,13 @@ Template.channelabout.events({
         json.profile.about = event.target.profile_about.value.trim()
         json.profile.location = event.target.profile_location.value.trim()
         json.profile.website = event.target.profile_website.value.trim()
+        json.profile.steem = event.target.profile_steem.value.trim()
         broadcast.avalon.editProfile(json, function(err, res) {
             if (err) toastr.error(Meteor.blockchainError(err))
-            else Session.set('isEditingProfile', !Session.get('isEditingProfile'))
+            else {
+                toastr.success(translate('GLOBAL_EDIT_PROFILE'))
+                Session.set('isEditingProfile', false)
+            }
         })
     }
 })

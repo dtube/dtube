@@ -1,6 +1,6 @@
 <template name="topupvoters">
     {{#each topVoters votes votesSteem 3}}
-        <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VT){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top right">
+        <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VT){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
             <a id="top-curator" href="/c/{{u}}">
             {{#if equals network 'dtc'}}
                 {{#if downvote}}
@@ -23,9 +23,15 @@
                     style="z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
                 </span>
                 {{/if}}
-                
             {{/if}}
             </a>
         </span>
     {{/each}}
+    {{#if nonTopVotesCount votes votesSteem 3}}
+    <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VT){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
+        <a id="top-curator" href="/c/{{u}}">
+            <a class="ui red large circular label" style="z-index:0">+{{nonTopVotesCount votes votesSteem 3}}</a>
+        </a>
+    </span>
+    {{/if}}
 </template>

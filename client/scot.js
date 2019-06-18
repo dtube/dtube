@@ -23,6 +23,9 @@ Scot = {
             cb(null, res)
         })
     },
+    getFeed: function() {
+        // https://scot-api.steem-engine.com/get_feed?token=SCT&account=holger80&limit=10&start_entry_id=1
+    },
     getRewards: function(author, link, cb) {
         fetch(Scot.randomNode()+'/@'+author+'/'+link, {
             method: 'get',
@@ -55,7 +58,7 @@ Scot = {
             return number+' '+scotConfig.token
           }
           
-        return '? '+scotConfig.token
+        return '0 '+scotConfig.token
     },
     randomNode: () => {
         var nodes = Scot.config.api

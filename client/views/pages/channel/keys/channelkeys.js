@@ -21,11 +21,12 @@ Template.channelkeys.helpers({
         return Session.get('keyQRCode')
     },
     'loggedInPub': function(){
-        var priv = Users.findOne({username: FlowRouter.getParam("author")}).privatekey
+        var priv = Users.findOne({network: 'avalon', username: FlowRouter.getParam("author")}).privatekey
+        if (!priv) return
         return avalon.privToPub(priv)
     },
     'loggedInPriv': function(){
-        return Users.findOne({username: FlowRouter.getParam("author")}).privatekey
+        return Users.findOne({network: 'avalon', username: FlowRouter.getParam("author")}).privatekey
     },
     'transactionTypes': function(){
         types = []

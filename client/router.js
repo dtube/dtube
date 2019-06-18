@@ -286,15 +286,12 @@ FlowRouter.route('/c/:author', {
   name: "channel",
   action: function(params, queryParams) {
     Session.set("pageTitle", params.author + '\'s channel')
-    BlazeLayout.render('masterLayout', {
-      main: "channel",
-      nav: "nav"
-    });
+    
     if (Session.get('avalonOnboarding'))
       Session.set('avalonOnboarding', false)
-    Videos.getVideosByBlog(params.author, 50, function(err) {
-      if (err) console.log(err)
-    })
+    // Videos.getVideosByBlog(params.author, 50, function(err) {
+    //   if (err) console.log(err)
+    // })
     //SubCounts.loadSubscribers(params.author)
     Session.set('currentTab', 'videos');
     if(Session.get('activeUsername') == params.author)
@@ -309,6 +306,10 @@ FlowRouter.route('/c/:author', {
     }
     ChainUsers.fetchNames([params.author], function (error) {
       if (error) console.log('Error fetch name')
+      BlazeLayout.render('masterLayout', {
+        main: "channel",
+        nav: "nav"
+      });
     })
   }
 });

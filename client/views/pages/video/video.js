@@ -514,3 +514,40 @@ Template.video.setScreenMode = function () {
   
   }
 }
+
+Template.video.popularityChart = function () {
+  if ($('.sparkline').is(':visible')) {
+    $('.sparkline').hide()
+    return
+  }
+  $('.sparkline').show()
+  var content = Videos.findOne({	
+    author: FlowRouter.getParam("author"),	
+    link: FlowRouter.getParam("permlink"),
+    source: 'chainDirect'
+  })
+  var sumVt = 0
+  for (let i = 0; i < content.votes.length; i++) {
+      // first voter advantage is real !
+      if (i === 0)
+          content.votes[i].vpPerDayBefore = 0
+      // two similar votes at the same block/timestamp should be have equal earnings / vp per day
+      else if (content.votes[i].ts === content.votes[i-1].ts)
+          content.votes[i].vpPerDayBefore = content.votes[i-1].vpPerDayBefore
+      else
+          content.votes[i].vpPerDayBefore = 86400000*sumVt/(content.votes[i].ts - content.votes[0].ts)
+  
+      sumVt += content.votes[i].vt
+  }
+  var points = []
+  for (let i = 0; i < content.votes.length; i++) {
+    points.push(content.votes[i].vpPerDayBefore)
+  }
+  points.push(86400000*sumVt/(new Date().getTime() - content.votes[0].ts))
+  sparkline(document.querySelector(".sparkline"), points, {
+    onmousemove: function(event, datapoint) {
+    },
+    onmouseout: function() {
+    }
+  })
+}

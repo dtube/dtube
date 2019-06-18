@@ -1,5 +1,5 @@
 <template name="keypair">
-    <form class="ui form keygenform segment">
+    <form class="ui form keygenform segment" style="padding-bottom: 45px">
         <div class="field">
             <label style="text-align: left;">Public Key</label>
             <div class="ui left icon input">
@@ -12,16 +12,26 @@
             <div class="ui left icon action input">
                 <input id="avalonpriv" type="text" value="{{tmpKey.priv}}" readonly>
                 <i class="key icon"></i>
-                <button id="regenavalonkey" class="ui tiny icon button">
+                <button data-tooltip="Regenerate Keypair" id="regenavalonkey" class="ui tiny icon button">
                     <i class="sync icon"></i>
                 </button>
+                <button data-tooltip="QR Code" class="ui tiny icon button qrButton">
+                    <i class="barcode icon"></i>
+                </button>
+                <button data-tooltip="Copy to clipboard" class="ui tiny icon button copyButton">
+                    <i class="copy icon"></i>
+                </button>
+                    
             </div>
         </div>
-        <div id="saveavalonkey" class="ui fluid labeled small button" tabindex="0">
-            <button name="button" class="ui fluid blue right labeled dtube icon button">
+        <div id="saveavalonkey" class="ui right floated labeled small button" tabindex="0">
+            <button name="button" class="ui blue right labeled dtube icon button">
                 <i class="save icon blue" style="background:white;opacity:1;"></i>
                 <div style="display:inline-block;padding: 0.8em 1em;">Save key to disk</div>
             </button>
         </div>
     </form>
+    <div class="ui custom popup popupQRCode bottom left transition hidden">
+        <img src="{{qrCode}}">
+    </div>
 </template>

@@ -20,14 +20,23 @@ Template.channel.rendered = function () {
     once: false,
     observeChanges: true,
     onBottomVisible: function() {
-      $('.ui.infinite .loader').show()
-      Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err) {
-        if (err) console.log(err)
-        $('.ui.infinite .loader').hide()
-      })
+      Template.channel.loadMore()
     }
   });
   reclick = false
+}
+
+Template.channel.loadMore = function() {
+  $('.ui.infinite .loader').show()
+  console.log('doing')
+  Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err, finished) {
+    console.log('done')
+    if (err) console.log(err)
+    $('.ui.infinite .loader').hide()
+
+    if ($('.ui.infinite').height() < window.outerHeight && !finished)
+      Template.channel.loadMore()
+  })
 }
 
 Template.channel.helpers({
@@ -52,7 +61,7 @@ Template.channel.helpers({
     return Session.get('activeUsername')
   },
   userVideos: function () {
-    return Videos.find({ 'author': FlowRouter.getParam("author"), source: 'chainByBlog' }).fetch()
+    return Videos.find({ 'author': FlowRouter.getParam("author"), source: 'chainByBlog' }, {sort: {ts: -1}}).fetch()
   },
   userResteems: function () {
     var videos = Videos.find({ source: 'chainByBlog', fromBlog: FlowRouter.getParam("author") }).fetch()

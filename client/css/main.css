@@ -627,6 +627,10 @@ button {
   text-align: right;
 }
 
+.topvoters:hover {
+  z-index: 801;
+}
+
 .topvotersdiv {
   line-height: 32px;
   max-height: 32px;

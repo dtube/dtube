@@ -1,8 +1,8 @@
 // default settings
 Meteor.settings.public = {
   "remote": {
-    "dfees": 2500,
-    "loadLimit": 12,
+    "dfees": 1000,
+    "loadLimit": 50,
     "displayNodes": [
       "https://snap1.d.tube",
       "http://127.0.0.1:8080"
@@ -12,14 +12,17 @@ Meteor.settings.public = {
     "localhost": false
   },
   "app": "dtube/0.9",
-  "scot": {
-    "token": "WEED",
-    "precision": 8,
-    "displayedPrecision": 2,
-    "tag": "weed"
-  },
-  "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
-  "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+  "scot": null,
+  "logo": "https://new.d.tube/DTube_files/images/DTube_Black.svg",
+  "logonight": "https://new.d.tube/DTube_files/images/DTube_White.svg",
+  // "scot": {
+  //   "token": "PAL",
+  //   "precision": 0,
+  //   "displayedPrecision": 0,
+  //   "tag": "palnet"
+  // },
+  // "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+  // "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",

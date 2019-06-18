@@ -86,7 +86,7 @@ Template.loginavalon.helpers({
           user.username = username
           if (event.target.rememberme.checked) {
             Waka.db.Users.upsert(user, function() {
-              // Users.remove({})
+              Users.remove({network: 'avalon'})
               Users.refreshLocalUsers(function(err) {
                 Template.loginavalon.success(user.username)
               })

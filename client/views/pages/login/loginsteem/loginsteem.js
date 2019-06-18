@@ -19,11 +19,13 @@ Template.loginsteem.helpers({
       FlowRouter.go('#!/')
 
     // check if equivalent avalon exists and propose onboarding
-    avalon.getAccounts([activeUsername], function(err, results){
-      if (err) console.log(err)
-      else if (results.length == 0 && !Session.get('activeUsername'))
-        Session.set('avalonOnboarding', true)
-    })
+    // disabled for scottubes
+    if (!Session.get('scot'))
+      avalon.getAccounts([activeUsername], function(err, results){
+        if (err) console.log(err)
+        else if (results.length == 0 && !Session.get('activeUsername'))
+          Session.set('avalonOnboarding', true)
+      })
 
     setTimeout(function(){Template.sidebar.dropdownSteem()}, 200)
   }
@@ -114,7 +116,7 @@ Template.loginsteem.helpers({
           user.username = username
           if (event.target.rememberme.checked) {
             Waka.db.Users.upsert(user, function() {
-              Users.remove({})
+              Users.remove({network: 'steem'})
               Users.refreshLocalUsers(function(err) {
                 Template.loginsteem.success(user.username)
               })

@@ -84,8 +84,12 @@ broadcast = {
             if (!voter) return;
             var author = Session.get('activeUsernameSteem')
             var title = jsonMetadata.title
-            if (tags[0] == '')
-                tags[0] = 'dtube'
+            finalTags = ['dtube']
+            if (Session.get('scot'))
+                finalTags.push(Session.get('scot').tag)
+            for (let i = 0; i < tags.length; i++)
+                if (finalTags.indexOf(tags[i]) == -1)
+                    finalTags.push(tags[i])
 
             if (!body) {
                 if ($('textarea[name=body]')[0])
