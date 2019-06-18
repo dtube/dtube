@@ -34,6 +34,24 @@ Template.settingsdropdown.rendered = function() {
 
         Template.mobileselector.revealMenu('bottom');
         
+      } else if (e.hasClass('palNet')) {
+        Videos.remove({})
+        Session.set('scot', {
+            "token": "PAL",
+            "precision": 0,
+            "displayedPrecision": 0,
+            "tag": "palnet",
+            "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+            "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
+          })
+        Session.set('lastHot', null)
+          Session.set('lastTrending', null)
+          Session.set('lastCreated', null)
+          Session.set('lastBlogs', {})
+        
+        Videos.refreshBlockchain(function() {
+          Videos.refreshWaka()
+        })
       } else {
         //console.log(value,text,e)
       }

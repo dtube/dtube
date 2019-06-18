@@ -5,15 +5,34 @@ Scot = {
             // 'http://localhost:8080'
         ]
     },
-    getDiscussionsBy: function(type, lastAuthor, lastLink, cb) {
+    getDiscussionsBy: function(type, limit, lastAuthor, lastLink, cb) {
         var query = '?token='+Session.get('scot').token
-        query += '&limit=20'
+        query += '&limit='+limit
         query += '&tag=dtube'
         if (lastAuthor && lastLink) {
             query += '&start_author='+lastAuthor
             query += '&start_permlink='+lastLink
         }
         fetch(Scot.randomNode()+'/get_discussions_by_'+type+query, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(function(res) {
+            cb(null, res)
+        })
+    },
+    getDiscussionsByBlog: function(author, lastAuthor, lastLink, cb) {
+        var query = '?token='+Session.get('scot').token
+        query += '&limit=50'
+        query += '&tag='+author
+        if (lastAuthor && lastLink) {
+            query += '&start_author='+lastAuthor
+            query += '&start_permlink='+lastLink
+        }
+        console.log(query)
+        fetch(Scot.randomNode()+'/get_discussions_by_blog'+query, {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

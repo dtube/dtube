@@ -3,6 +3,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
+import Gun from 'gun';
 
 console.log('Starting DTube APP')
 
@@ -10,6 +11,8 @@ FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
   window.steem = steem
+  window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
+  window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
   Session.set('lastHot', null)

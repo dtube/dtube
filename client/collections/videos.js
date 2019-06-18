@@ -156,16 +156,16 @@ Videos.setLastBlog = function(channel, item) {
 Videos.getVideosByBlog = function(author, limit, cb) {
   if (Session.get('scot')) {
     // if scot => fetch scot
-    Videos.getVideosByBlogSteem(FlowRouter.getParam("author"), function(err, finished) {
+    Videos.getVideosByBlogScot(author, function(err, finished) {
       cb(err, finished)
     })
     return
   }
 
-  var user = ChainUsers.findOne({name: FlowRouter.getParam("author")})
+  var user = ChainUsers.findOne({name: author})
   console.log(user)
   if (user) {
-    Videos.getVideosByBlogAvalon(user.name, function(err, finished) {
+    Videos.getVideosByBlogAvalon(author, function(err, finished) {
       cb(err, finished)
     })
     if (user.json && user.json.profile && user.json.profile.steem) {
@@ -174,10 +174,50 @@ Videos.getVideosByBlog = function(author, limit, cb) {
       })
     }
   } else {
-    Videos.getVideosByBlogSteem(FlowRouter.getParam("author"), function(err, finished) {
+    Videos.getVideosByBlogSteem(author, function(err, finished) {
       cb(err, finished)
     })
   }
+}
+
+Videos.getVideosByBlogScot = function(author, cb) {
+  var lastAuthor = null
+  var lastLink = null
+  if (Session.get('lastBlogs')['scot/'+author]) {
+    lastAuthor = Session.get('lastBlogs')['scot/'+author].author
+    lastLink = Session.get('lastBlogs')['scot/'+author].permlink
+  }
+  Scot.getDiscussionsByBlog(author, lastAuthor, lastLink, function(err, result) {
+    if (err) {
+      cb(err);
+      return
+    }
+    if (!result || result.length == 0) {
+      cb(null)
+      return
+    }
+    Videos.setLastBlog('scot/'+author, result[result.length-1])
+    var i, len = result.length;
+    var videos = []
+    for (i = 0; i < len; i++) {
+      var video = Videos.parseFromChain(result[i], false, 'steem')
+      if (video) videos.push(video)
+    }
+    for (var i = 0; i < videos.length; i++) {
+      videos[i].source = 'chainByBlog'
+      videos[i]._id += 'b'
+      videos[i].fromBlog = FlowRouter.getParam("author")
+      try {
+        Videos.upsert({ _id: videos[i]._id }, videos[i])
+      } catch (err) {
+        cb(err)
+      }
+    }
+    if (result.length == 50)
+      cb(null, false)
+    else
+      cb(null, true)
+  })
 }
 
 Videos.getVideosByBlogSteem = function(author, cb) {
@@ -307,17 +347,9 @@ Videos.getVideosByBlogAvalon = function(author, cb) {
     }
   })
 }
-Videos.getVideosByBlogScot = function(author, cb) {
-}
 
 Videos.getVideosBy = function(type, limit, cb) {
-  var query = {
-    "tag": "dtube",
-    "limit": Session.get('remoteSettings').loadLimit,
-    "truncate_body": 1
-  }
-
-  if (limit) query.limit = limit
+  if (!limit) limit = Meteor.settings.public.remote.loadLimit
 
   switch(type) {
     case 'trending':
@@ -354,7 +386,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             }
           });
         else
-          Scot.getDiscussionsBy('trending', lastAuthor, lastLink, function(err, result) {
+          Scot.getDiscussionsBy('trending', limit, lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
               Session.set('lastTrending', result[result.length-1])
               var i, len = result.length;
@@ -415,7 +447,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             }
         });
         else
-          Scot.getDiscussionsBy('hot', lastAuthor, lastLink, function(err, result) {
+          Scot.getDiscussionsBy('hot', limit, lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
               Session.set('lastHot', result[result.length-1])
               var i, len = result.length;
@@ -475,7 +507,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             }
           });
         else
-          Scot.getDiscussionsBy('created', lastAuthor, lastLink, function(err, result) {
+          Scot.getDiscussionsBy('created', limit, lastAuthor, lastLink, function(err, result) {
             if (err === null || err === '') {
               Session.set('lastCreated', result[result.length-1])
               var i, len = result.length;
@@ -625,11 +657,11 @@ Videos.parseFromSteem = function(video, isComment) {
     var newVideo = {
       json: JSON.parse(video.json_metadata).video
     }
-    newVideo.json.app = JSON.parse(video.json_metadata).app
     if (newVideo.json.info && newVideo.json.content)
       newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
+    newVideo.json.app = JSON.parse(video.json_metadata).app
+    newVideo.json.tags = JSON.parse(video.json_metadata).tags
   } catch(e) {
-    return
   }
   if (!isComment && !newVideo) return
   //if (!isComment && !newVideo.info) return
@@ -639,8 +671,8 @@ Videos.parseFromSteem = function(video, isComment) {
   newVideo.total_payout_value = video.total_payout_value
   newVideo.curator_payout_value = video.curator_payout_value
   newVideo.pending_payout_value = video.pending_payout_value
+  if (video.authorperm) video.permlink = video.authorperm.split('/')[1]
   newVideo.permlink = video.permlink
-  if (video.authorperm) newVideo.permlink = video.authorperm.split('/')[1]
   newVideo.created = video.created
   newVideo.net_rshares = video.net_rshares
   newVideo.reblogged_by = video.reblogged_by
@@ -726,8 +758,16 @@ Videos.parseFromSteem = function(video, isComment) {
     newVideo.tags = xssTags
   }
 
-  if (Session.get('scot') && newVideo.tags.indexOf(Session.get('scot').tag) == -1) {
-    return
+  if (Session.get('scot') && !isComment) {
+    var hasTheTag = false
+    if (newVideo.tags)
+      for (let i = 0; i < newVideo.tags.length; i++) {
+        if (newVideo.tags[i].t === Session.get('scot').tag) {
+          hasTheTag = true
+          break
+        }
+      }
+    if (!hasTheTag) return
   }
 
   if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink

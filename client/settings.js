@@ -2,7 +2,7 @@
 Meteor.settings.public = {
   "remote": {
     "dfees": 1000,
-    "loadLimit": 50,
+    "loadLimit": 12,
     "displayNodes": [
       "https://snap1.d.tube",
       "http://127.0.0.1:8080"
@@ -19,10 +19,10 @@ Meteor.settings.public = {
   //   "token": "PAL",
   //   "precision": 0,
   //   "displayedPrecision": 0,
-  //   "tag": "palnet"
+  //   "tag": "palnet",
+  //   "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+  //   "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
   // },
-  // "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
-  // "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",
