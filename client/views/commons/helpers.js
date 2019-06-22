@@ -25,6 +25,13 @@ Template.registerHelper('isOnMobile', function () {
   return false;
 });
 
+Template.registerHelper('isTabletOrLower', function () {
+  if (window.innerWidth < 1180) {
+    return true;
+  }
+  return false;
+});
+
 Template.registerHelper('avalonOnboarding', function () {
   return Session.get('avalonOnboarding')
 });

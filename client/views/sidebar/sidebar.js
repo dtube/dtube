@@ -225,6 +225,7 @@ Template.sidebar.resetActiveMenu = function () {
   $('#golivesidebarmenu').removeClass('activemenu')
   $('#livesidebarmenu').removeClass('activemenu')
   $('#dtalksidebarmenu').removeClass('activemenu')
+  $('#electionsidebarmenu').removeClass('activemenu')
   Template.settingsdropdown.nightMode();
 }
 
@@ -263,6 +264,9 @@ Template.sidebar.selectMenu = function () {
       break;
     case 11:
       $('#dtalksidebarmenu').addClass('activemenu')
+      break;
+    case 12:
+      $('#electionsidebarmenu').addClass('activemenu')
       break;
     default:
       break;

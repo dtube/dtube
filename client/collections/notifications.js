@@ -71,13 +71,13 @@ Notifications.getDecentralized = function () {
           break;
   
         case 3:
-          var user = Users.findOne({username: Session.get('activeUsername')})
-          user.vt.v = avalon.votingPower(user)
-          user.bw.v = avalon.bandwidth(user)
-          user.vt.t = new Date().getTime()
-          user.bw.t = new Date().getTime()
-          user.balance += notif.tx.data.amount
-          Users.update({username: user.username}, user)
+          // var user = Users.findOne({username: Session.get('activeUsername')})
+          // user.vt.v = avalon.votingPower(user)
+          // user.bw.v = avalon.bandwidth(user)
+          // user.vt.t = new Date().getTime()
+          // user.bw.t = new Date().getTime()
+          // user.balance += notif.tx.data.amount
+          // Users.update({username: user.username}, user)
           message += notif.tx.sender+' sent you '+Blaze._globalHelpers['displayMoney'](notif.tx.data.amount, 0, 'DTC')
           break;
 

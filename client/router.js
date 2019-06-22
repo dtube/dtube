@@ -211,6 +211,8 @@ FlowRouter.route('/election', {
       Session.set('leaders', res)
     })
     Session.set("pageTitle", 'Vote for DTube Leaders')
+    Session.set("currentMenu", 12)
+    Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
       main: "election",
       nav: "nav",

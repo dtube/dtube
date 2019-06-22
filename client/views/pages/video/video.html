@@ -153,11 +153,13 @@
           {{/unless}}
 
           <!-- Related Videos Mobile -->
-          {{#if userVideosAndResteems}}
-            <div class="ui grid mobile only content videorecommendedmobile">
-              <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-              {{> verticalvideoband userVideosAndResteems}}
-            </div>
+          {{#if isOnMobile}}
+            {{#if userVideosAndResteems}}
+              <div class="ui grid mobile only content videorecommendedmobile">
+                <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+                {{> verticalvideoband userVideosAndResteems}}
+              </div>
+            {{/if}}
           {{/if}}
           <!-- Comments - Reply -->
           <div class="ui secondary segment" style="background: #f5f5f5;">
@@ -206,19 +208,24 @@
         </div>
       </div>
       <!-- Related videos  -->
-      <div class="pdg-5 relatedcol four wide column computer only">
-        <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
-          <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
-          {{#if userVideosAndResteems}}
+      {{#unless isOnMobile}}
+        {{#if isTabletOrLower}}
+        <div class="four wide column tablet only">
+          <div class="ui grid videorecommendedtablet" style='margin-top:0px'>
             {{> verticalvideoband userVideosAndResteems}}
-          {{/if}}
+          </div>
         </div>
-      </div>
-      <div class="four wide column tablet only">
-        <div class="ui grid videorecommendedtablet" style='margin-top:0px'>
-          {{> verticalvideoband userVideosAndResteems}}
+        {{else}}
+        <div class="pdg-5 relatedcol four wide column computer only">
+          <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
+            <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+            {{#if userVideosAndResteems}}
+              {{> verticalvideoband userVideosAndResteems}}
+            {{/if}}
+          </div>
         </div>
-      </div>
+        {{/if}}
+      {{/unless}}
     </div>
   {{/with}}
 </template>
