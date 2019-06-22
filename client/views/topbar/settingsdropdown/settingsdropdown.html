@@ -4,6 +4,19 @@
     <div id="menu" class="menu">
       <div class="item">
         <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</span>
+        <div class="left menu">
+          {{#each SteemAPIs}}
+            {{#if equals this CurrentAPI}}
+              <div class="item steemApi"><strong>{{this}}</strong></div>
+            {{else}}
+              <div class="item steemApi">{{this}}</div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
         <div class="left menu">
           {{#if equals 'Show' nsfwSetting}}

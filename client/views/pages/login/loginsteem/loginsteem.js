@@ -56,7 +56,8 @@ Template.loginsteem.helpers({
               }
               var user = {
                  username: response.data.username,
-                 type: "keychain"
+                 type: "keychain",
+                 network: "steem"
               }
               Waka.db.Users.upsert(user, function() {
                 Users.remove({})

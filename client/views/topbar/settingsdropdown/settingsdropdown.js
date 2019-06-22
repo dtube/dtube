@@ -33,7 +33,10 @@ Template.settingsdropdown.rendered = function() {
         Session.set('selectortype', 'languages');
 
         Template.mobileselector.revealMenu('bottom');
-        
+      } else if (e.hasClass('steemApi')) {
+        steem.api.setOptions({ url: value, useAppbaseApi: true });
+        Session.set('steemAPI', value)
+        localStorage.setItem('steemAPI', value); 
       } else if (e.hasClass('palNet')) {
         Videos.remove({})
         Session.set('scot', {
@@ -84,7 +87,13 @@ Template.settingsdropdown.helpers({
   },
   isInNightMode:function() {
     return UserSettings.get('isInNightMode')
-  }
+  },
+  SteemAPIs: function() {
+    return Session.get('remoteSettings').APINodes;
+  },
+  CurrentAPI: function() {
+    return Session.get('steemAPI');
+  },
 })
 
 

@@ -7,6 +7,15 @@ Meteor.settings.public = {
       "https://snap1.d.tube",
       "http://127.0.0.1:8080"
     ],
+    "APINodes": [
+      "https://api.steemit.com/",
+      "https://steemd.minnowsupportproject.org/",
+      "https://anyx.io/",
+      "https://rpc.steemviz.com/",
+      "https://rpc.usesteem.com/",
+      "https://steemd.privex.io/",
+      "https://api.steem.house/"
+    ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["cluster"],
     "localhost": false

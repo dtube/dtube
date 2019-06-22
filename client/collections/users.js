@@ -67,7 +67,8 @@ Users.refreshLocalUsers = function(cb) {
       if (!results[i].network) continue;
       if (!Users.findOne({username: results[i].username, network: results[i].network})) {
         Users.insert(results[i])
-        usernames.push(results[i].username)
+        if (results[i].network == 'avalon')
+          usernames.push(results[i].username)
         // fill the subscribes for each local user
         Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
           //var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
