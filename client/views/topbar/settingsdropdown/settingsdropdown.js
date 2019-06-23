@@ -41,8 +41,8 @@ Template.settingsdropdown.rendered = function() {
         Videos.remove({})
         Session.set('scot', {
             "token": "PAL",
-            "precision": 0,
-            "displayedPrecision": 0,
+            "precision": 3,
+            "displayedPrecision": 3,
             "tag": "palnet",
             "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
             "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"

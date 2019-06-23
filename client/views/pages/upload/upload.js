@@ -249,8 +249,11 @@ Template.upload.uploadImage = function (file, progressid, cb) {
 }
 
 Template.upload.burnRange = function(cb) {
-  if (!Session.get('activeUsername'))
+  if (!Session.get('activeUsername')) {
+    cb()
     return
+  }
+    
   var balance = Users.findOne({username: Session.get('activeUsername')}).balance
   var step = Math.pow(10, balance.toString().length - 1)/100
   if (step<1) step = 1
@@ -357,10 +360,20 @@ Template.upload.events({
     Session.set('searchedLink', url)
     grabData(url, function(content) {
       Session.set('tempContent', content)
-      Template.upload.burnRange(function() {
+      if (!content || !content.providerName || content.providerName == 'Unknown Provider') {
+        setTimeout(function() {
+          $(".uploadsubmit").addClass('disabled')
+        }, 250)
+        toastr.warning('This url is not a valid video')
+        return
+      }
+      $(".uploadsubmit").removeClass('disabled')
+      setTimeout(function() {
         if (content.title) $('#uploadTitle').val(content.title)
         if (content.description) $('#uploadDescription').val(content.description)
-      })
+      }, 250)
+      
+      Template.upload.burnRange(function() {})
     })
   },
   'click .uploadsubmit': function(event) {

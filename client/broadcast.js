@@ -104,7 +104,7 @@ broadcast = {
         
             var jsonMetadata = {
               video: jsonMetadata,
-              tags: tags,
+              tags: finalTags,
               app: Meteor.settings.public.app
             }
         

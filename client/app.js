@@ -4,12 +4,34 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
 import steem from 'steem';
 import Gun from 'gun';
+import KonamiCode from 'konami-code';
 
 console.log('Starting DTube APP')
 
 FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
+  var konami = new KonamiCode();
+  konami.listen(function() {
+    Videos.remove({})
+    Session.set('scot', {
+      "token": "SPT",
+      "precision": 6,
+      "displayedPrecision": 2,
+      "tag": "spt",
+      "logo": "https://i.imgsafe.org/fe/fe86f49afb.png",
+      "logonight": "https://i.imgsafe.org/fe/fe86f49afb.png"
+    })
+    Session.set('lastHot', null)
+      Session.set('lastTrending', null)
+      Session.set('lastCreated', null)
+      Session.set('lastBlogs', {})
+    
+    Videos.refreshBlockchain(function() {
+      Videos.refreshWaka()
+    })
+  })
+
   window.steem = steem
   window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
   window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});

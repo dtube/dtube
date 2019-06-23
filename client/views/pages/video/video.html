@@ -24,6 +24,7 @@
                       </a>
                     {{/unless}}
                   {{/each}}
+                  {{#if activeUsername}}
                   <a class="ui small label newtag scrolling dropdown dropdownTags">
                     <i class="thumbs up icon"></i> {{translate 'VIDEO_VOTE_TAG'}}
                     <div class="menu">
@@ -37,6 +38,7 @@
                       <div class="item downvoteCustomTag"><i class="thumbs down icon"></i> Downvote a tag</div>
                     </div>
                   </a>
+                  {{/if}}
                 </div>
                 <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
                   {{> videosettingsdropdown video}}
