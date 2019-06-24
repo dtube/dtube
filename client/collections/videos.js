@@ -662,9 +662,9 @@ Videos.parseFromSteem = function(video, isComment) {
     newVideo.json.app = JSON.parse(video.json_metadata).app
     newVideo.json.tags = JSON.parse(video.json_metadata).tags
   } catch(e) {
+    return
   }
   if (!isComment && !newVideo) return
-  //if (!isComment && !newVideo.info) return
   if (!newVideo) newVideo = {}
   newVideo.author = video.author
   newVideo.body = video.body

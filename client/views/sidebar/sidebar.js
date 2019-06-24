@@ -53,7 +53,7 @@ Template.sidebar.dropdownSteem = function() {
         if (nextPercent<1) nextPercent = 1
         UserSettings.set('voteWeightSteem', nextPercent)
       } else if (e.hasClass('logOut')) {
-        Waka.db.Users.findOne({username: Session.get('activeUsernameSteem'), network: 'steem'}, function(user) {
+        Waka.db.Users.findOne({username: Session.get('activeUsernameSteem'), network: {'$not': 'avalon'}}, function(user) {
           if (user) {
             Waka.db.Users.remove(user._id, function(result) {
               Users.remove({})

@@ -66,6 +66,7 @@ Template.onboarding.events({
             Session.set('step2status', 'Please wait...')
             // check avalon account every X secs
             function finishedStep2(account) {
+                if (account.bw.v < 1000) return
                 if (account.pub == Session.get('savedPubKey')) {
                     $('#step2').hide()
                     $('#step2d').addClass('completed')
