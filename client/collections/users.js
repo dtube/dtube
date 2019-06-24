@@ -64,7 +64,9 @@ Users.refreshLocalUsers = function(cb) {
   Waka.db.Users.find({}).fetch(function(results) {
     var usernames = []
     for (var i = 0; i < results.length; i++) {
-      if (!results[i].network) continue;
+      if (!results[i].network)
+        results[i].network = 'steem'
+
       if (!Users.findOne({username: results[i].username, network: results[i].network})) {
         Users.insert(results[i])
         if (results[i].network == 'avalon')
