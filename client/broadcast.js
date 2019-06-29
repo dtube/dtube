@@ -80,7 +80,7 @@ broadcast = {
             if (!parentAuthor) parentAuthor = ''
             if (!parentPermlink) parentPermlink = ''
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
             var author = Session.get('activeUsernameSteem')
             var title = jsonMetadata.title
@@ -153,12 +153,11 @@ broadcast = {
         },
         vote: function(author, permlink, weight, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
-            console.log(Users.findOne({ username: Session.get('activeUsernameSteem') }));
             //Steem keychain.
             //Tested working!
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
                 if(!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -177,91 +176,52 @@ broadcast = {
                 })
                 return;
             }
-            var accessToken = Users.findOne({ username: Session.get('activeUsernameSteem') }).access_token
-            var expires_at = Users.findOne({ username: Session.get('activeUsernameSteem') }).expires_at
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            if (expires_at < new Date()) {
-                cb('ERROR_TOKEN_EXPIRED')
-                Waka.db.Users.findOne({username: Session.get('activeUsernameSteem')}, function(user) {
-                    if (user) {
-                      Waka.db.Users.remove(user._id, function(result) {
-                        Users.remove({})
-                        Users.refreshLocalUsers(function(){})
-                        Waka.db.Users.findOne({}, function(user) {
-                          if (user) {
-                            Session.set('activeUsernameSteem', user.username)
-                            Videos.loadFeed(user.username)
-                          }
-                          else Session.set('activeUsernameSteem', null)
-                        })
-                      })
-                    } else {
-                      Users.remove({username: Session.get('activeUsernameSteem')})
-                      var newUser = Users.findOne()
-                      if (newUser) Session.set('activeUsernameSteem', newUser.username)
-                      else Session.set('activeUsernameSteem', null)
-                    }
-                })
-                FlowRouter.go('/login')
-                return
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.vote(voter, author, permlink, weight, function(err, result) {
-                cb(err, result)
-            })
         },
-        claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
-            var account = Users.findOne({ username: username }).username
-            if (!account) return;
-            //Unknown for steem keychain support, will wait on that. Most likely a custom JSON operation.
-            //Steem keychain.
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
-                if(!steem_keychain) {
-                    cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
-                    return;
-                }
-                var operations = [
-                        ['claim_reward_balance', {
-                            account: account,
-                            reward_steem: reward_steem_balance,
-                            reward_sbd: reward_sbd_balance,
-                            reward_vests: reward_vesting_balance
-                        }]
-                ];
+        // claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
+        //     var account = Users.findOne({ username: username }).username
+        //     if (!account) return;
+        //     //Unknown for steem keychain support, will wait on that. Most likely a custom JSON operation.
+        //     //Steem keychain.
+        //     if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+        //         if(!steem_keychain) {
+        //             cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+        //             return;
+        //         }
+        //         var operations = [
+        //                 ['claim_reward_balance', {
+        //                     account: account,
+        //                     reward_steem: reward_steem_balance,
+        //                     reward_sbd: reward_sbd_balance,
+        //                     reward_vests: reward_vesting_balance
+        //                 }]
+        //         ];
     
-                steem_keychain.requestBroadcast(account, operations, "Posting", function(response) {
-                    console.log(response);
-                    cb(response.error, response)
-                });
-                return;
-            }
-            var wif = Users.findOne({ username: username }).privatekey
-            if (wif) {
-                steem.broadcast.claimRewardBalance(wif, account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function (err, result) {
-                    cb(err, result)
-                })
-                return;
-            }
-            var accessToken = Users.findOne({ username: username }).access_token
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.claimRewardBalance(account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function(err, result) {
-                cb(err, result)
-            })
-        },
+        //         steem_keychain.requestBroadcast(account, operations, "Posting", function(response) {
+        //             console.log(response);
+        //             cb(response.error, response)
+        //         });
+        //         return;
+        //     }
+        //     var wif = Users.findOne({ username: username }).privatekey
+        //     if (wif) {
+        //         steem.broadcast.claimRewardBalance(wif, account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function (err, result) {
+        //             cb(err, result)
+        //         })
+        //         return;
+        //     }
+        //     var accessToken = Users.findOne({ username: username }).access_token
+        //     if (!accessToken) {
+        //         cb('ERROR_BROADCAST')
+        //         return;
+        //     }
+        // },
         follow: function(following, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
             //Steem keychain support.
             //Tested working
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
                 console.log("");
                 if(!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
@@ -300,23 +260,14 @@ broadcast = {
                 );
                 return;
             }
-            var accessToken = Users.findOne({ username: Session.get('activeUsernameSteem') }).access_token
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.follow(voter, following, function(err, result) {
-                cb(err, result)
-            })
         },
         unfollow: function(following, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
             //Steem keychain
             //Tested working.
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
                 if(!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -355,23 +306,14 @@ broadcast = {
                 );
                 return;
             }
-            var accessToken = Users.findOne({ username: Session.get('activeUsernameSteem') }).access_token
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.unfollow(voter, following, function(err, result) {
-                cb(err, result)
-            })
         },
         reblog: function(author, permlink, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var reblogger = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var reblogger = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!reblogger) return;
             //Steem keychain support
             //Tested working.
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
                 if(!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -409,23 +351,14 @@ broadcast = {
                 );
                 return;
             }
-            var accessToken = Users.findOne({ username: Session.get('activeUsernameSteem') }).access_token
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.reblog(reblogger, author, permlink, function(err, result) {
-                cb(err, result)
-            })
         },
         send: function(operations, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsernameSteem') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
             //Steem keychain
             //Tested with extension.
-            if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
                 if(!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -448,15 +381,6 @@ broadcast = {
                 )
                 return;
             }
-            var accessToken = Users.findOne({ username: Session.get('activeUsernameSteem') }).access_token
-            if (!accessToken) {
-                cb('ERROR_BROADCAST')
-                return;
-            }
-            sc2.setAccessToken(accessToken);
-            sc2.broadcast(operations, function(err, result) {
-                cb(err, result)
-            })
         }
     },
     avalon: {
@@ -468,7 +392,7 @@ broadcast = {
             }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // cross posting possible
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             var weight = UserSettings.get('voteWeight') * 100
@@ -477,7 +401,7 @@ broadcast = {
                 data: {
                     link: permlink,
                     json: jsonMetadata,
-                    vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
+                    vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}))*weight/10000)
                 }
             }
             if (tag) tx.data.tag = tag
@@ -497,7 +421,7 @@ broadcast = {
         promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // can be cross posted but wont be promoted on steem
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             var weight = UserSettings.get('voteWeight') * 100
@@ -507,7 +431,7 @@ broadcast = {
                     link: permlink,
                     json: jsonMetadata,
                     burn: burn,
-                    vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
+                    vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}))*weight/10000)
                 }
             }
             if (tag) tx.data.tag = tag
@@ -526,10 +450,10 @@ broadcast = {
         vote: function(author, permlink, weight, tag, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // cross vote possible
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
-            var vt = Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername')}))*weight/10000)
+            var vt = Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}))*weight/10000)
             if (wif) {
                 var tx = {
                     type: 5,
@@ -551,7 +475,7 @@ broadcast = {
         follow: function(following, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // cross follow possible
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -571,7 +495,7 @@ broadcast = {
         unfollow: function(following, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // cross unfollow possible
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -591,7 +515,7 @@ broadcast = {
         transfer: function(receiver, amount, memo, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var sender = Users.findOne({ username: Session.get('activeUsername') }).username
+            var sender = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!sender) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -613,7 +537,7 @@ broadcast = {
         editProfile: function(json, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only - steemitwallet.com for steem
-            var creator = Users.findOne({ username: Session.get('activeUsername') }).username
+            var creator = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!creator) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -633,7 +557,7 @@ broadcast = {
         newAccount: function(username, pub, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var creator = Users.findOne({ username: Session.get('activeUsername') }).username
+            var creator = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!creator) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -654,7 +578,7 @@ broadcast = {
         newKey: function(id, pub, types, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -676,7 +600,7 @@ broadcast = {
         removeKey: function(id, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -696,7 +620,7 @@ broadcast = {
         voteLeader: function(target, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -716,7 +640,7 @@ broadcast = {
         unvoteLeader: function(target, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername') }).username
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
             if (!voter) return;
             var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
             if (wif) {
@@ -741,7 +665,7 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
       return Template.upload.genBodyLivestream(author, permlink, title, snaphash, description)
     else {
       var body = '<center>'
-      body += '<a href=\'https://new.d.tube/#!/v/' + author + '/' + permlink + '\'>'
+      body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
       if (Session.get('overlayHash'))
         body += '<img src=\'https://snap1.d.tube/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
       else
@@ -751,7 +675,7 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
         body += 'https://www.youtube.com/watch?v=' + videohash + '\n\n'
       body += description
       body += '\n\n<hr>'
-      body += '<a href=\'https://new.d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+      body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
       if (videoprovider == 'ipfs')
         body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
       if (videoprovider == 'YouTube')
