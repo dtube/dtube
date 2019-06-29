@@ -255,8 +255,8 @@ FlowRouter.route('/sc2login', {
 FlowRouter.route('/v/:author/:permlink', {
   name: "video",
   action: function(params, queryParams) {
-    // Meteor.isDMCA(params.author, params.permlink, function(block) {
-    //   if (block==0) {
+    Meteor.isDMCA(params.author, params.permlink, function(block) {
+      if (block==0) {
         BlazeLayout.render('masterLayout', {
           main: "video",
           nav: "nav"
@@ -265,8 +265,8 @@ FlowRouter.route('/v/:author/:permlink', {
         $('body').animate({ scrollTop: 0 }, 'slow');
         setTimeout(function(){Template.video.activatePopups()}, 1000)
         Template.player.rendered()
-    //   } else FlowRouter.go('/')
-    // })
+      } else FlowRouter.go('/')
+    })
 
     Template.sidebar.empty()
 

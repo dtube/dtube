@@ -22,8 +22,8 @@ Meteor.settings.public = {
   },
   "app": "dtube/0.9",
   "scot": null,
-  "logo": "https://new.d.tube/DTube_files/images/DTube_Black.svg",
-  "logonight": "https://new.d.tube/DTube_files/images/DTube_White.svg",
+  "logo": "https://d.tube/DTube_files/images/DTube_Black.svg",
+  "logonight": "https://d.tube/DTube_files/images/DTube_White.svg",
   // "scot": {
   //   "token": "PAL",
   //   "precision": 0,

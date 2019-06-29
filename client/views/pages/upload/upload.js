@@ -130,7 +130,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-    : 'https://test-cluster.dtube.top/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    : 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -431,7 +431,7 @@ Template.upload.events({
 var getUploaderStatus = function (upldr) {
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getStatus'
-    : 'https://test-cluster.dtube.top/getStatus'
+    : 'https://cluster.d.tube/getStatus'
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
