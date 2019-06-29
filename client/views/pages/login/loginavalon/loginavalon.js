@@ -13,7 +13,20 @@ Template.loginavalon.helpers({
   
   Template.loginavalon.success = function(activeUsername, noreroute) {
     Session.set('activeUsername', activeUsername)
-    Users.refreshUsers([activeUsername])
+    Users.refreshUsers([activeUsername], function() {
+      setTimeout(function(){
+        // ui shenanigans
+        Template.sidebar.dropdownDTC()
+  
+        $('#dispDTC').popup({
+          position : 'bottom center',
+        })
+      
+        $('#dispVT').popup({
+          position : 'bottom center',
+        })
+      }, 200)
+    })
     if (!UserSettings.get('voteWeight')) {
       UserSettings.set('voteWeight', 5)
     }
@@ -21,18 +34,7 @@ Template.loginavalon.helpers({
     if (!noreroute)
       FlowRouter.go('#!/')
 
-    setTimeout(function(){
-      // ui shenanigans
-      Template.sidebar.dropdownDTC()
-
-      $('#dispDTC').popup({
-        position : 'bottom center',
-      })
     
-      $('#dispVT').popup({
-        position : 'bottom center',
-      })
-    }, 200)
   }
   
   Template.loginavalon.events({

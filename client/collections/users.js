@@ -21,12 +21,12 @@ var firstLoad = setInterval(function() {
   clearInterval(firstLoad)
 }, 50)
 
-Users.refreshUsers = function(usernames) {
+Users.refreshUsers = function(usernames, cb) {
   if (usernames.length < 1) return;
   avalon.getAccounts(usernames, function(e, chainusers) {
     if (!chainusers) return;
     for (var i = 0; i < chainusers.length; i++) {
-      var user = Users.findOne({username: chainusers[i].name})
+      var user = Users.findOne({username: chainusers[i].name, network: 'avalon'})
       // if (chainusers[i].json && JSON.parse(chainusers[i].json))
       //   user.json_metadata = JSON.parse(chainusers[i].json)
       // user.reward_sbd_balance = chainusers[i].reward_sbd_balance
@@ -38,7 +38,9 @@ Users.refreshUsers = function(usernames) {
       user.bw = chainusers[i].bw
       user.vt = chainusers[i].vt
       user.approves = chainusers[i].approves
-      Users.update({username: user.username}, user)
+      Users.update({username: user.username, network: 'avalon'}, user)
+
+      if (cb) cb()
 
       if (chainusers[i].name == Session.get('activeUsername')) {
         // refresh vt and bw now and regularly for active user
@@ -50,10 +52,10 @@ Users.refreshUsers = function(usernames) {
         function updateVtBw() {
           if (!Session.get('activeUsername'))
             clearInterval(intervalVtBw)
-          var user = Users.findOne({username: Session.get('activeUsername')})
+          var user = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
           user.vtDisplay = avalon.votingPower(user)
           user.bwDisplay = avalon.bandwidth(user)
-          Users.update({username: user.username}, user)
+          Users.update({username: user.username, network: 'avalon'}, user)
         }
       }
     }

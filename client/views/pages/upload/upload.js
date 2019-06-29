@@ -254,7 +254,7 @@ Template.upload.burnRange = function(cb) {
     return
   }
     
-  var balance = Users.findOne({username: Session.get('activeUsername')}).balance
+  var balance = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}).balance
   var step = Math.pow(10, balance.toString().length - 1)/100
   if (step<1) step = 1
   setTimeout(function() {

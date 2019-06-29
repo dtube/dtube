@@ -50,7 +50,7 @@
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
         {{#if isLoggedOn}}
-          {{#if mainUser}}
+          {{#if mainUser.balance}}
             <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
                 <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
                 <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
