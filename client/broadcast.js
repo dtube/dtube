@@ -116,7 +116,7 @@ broadcast = {
               ['comment',
                 {
                   parent_author: '',
-                  parent_permlink: tags[0],
+                  parent_permlink: 'dtube',
                   author: author,
                   permlink: permlink,
                   title: title,
