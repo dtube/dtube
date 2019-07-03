@@ -148,6 +148,8 @@ broadcast = {
             broadcast.steem.send(operations, function (err, res) {
                 if (!err && res && res.operations)
                     res = res.operations[0][1].author+'/'+res.operations[0][1].permlink
+                if (!err && res && res.data && res.data.operations)
+                    res = res.data.operations[0][1].author+'/'+res.data.operations[0][1].permlink
                 cb(err, res)
             })
         },
