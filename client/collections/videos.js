@@ -373,7 +373,8 @@ Videos.getVideosBy = function(type, limit, cb) {
                   videos[i].source = 'chainByTrending'
                   videos[i]._id += 't'
                   try {
-                    Videos.upsert({_id: videos[i]._id}, videos[i])
+                    if (videos[i].json.videoId != "E_5BFKXVIXU")
+                      Videos.upsert({_id: videos[i]._id}, videos[i])
                   } catch(err) {
                     console.log(err)
                     cb(err)

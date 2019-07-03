@@ -54,14 +54,14 @@ Meteor.settings.public = {
 }
 
 // example scot config
-config_scot = {
-  "token": "PAL",
-  "precision": 0,
-  "displayedPrecision": 0,
-  "tag": "palnet",
-  "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
-  "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
-}
+// config_scot = {
+//   "token": "PAL",
+//   "precision": 0,
+//   "displayedPrecision": 0,
+//   "tag": "palnet",
+//   "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+//   "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
+// }
 
 if (typeof config_scot != "undefined")
   Meteor.settings.public.scot = config_scot
