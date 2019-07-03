@@ -131,6 +131,11 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     : 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+  if (Session.get('scot')) {
+    var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
+    postUrl = postUrl.replace('cluster.d.tube', scotUpldr)
+  }
+  console.log(postUrl)
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -186,6 +191,10 @@ Template.upload.uploadImage = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadImage'
     : 'https://snap1.d.tube/uploadImage'
+  // if (Session.get('scot')) {
+  //   var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
+  //   postUrl = postUrl.replace('snap1.d.tube', scotUpldr)
+  // }
   var formData = new FormData();
   formData.append('files', file);
   $(progressid).progress({ value: 0, total: 1 })
@@ -432,6 +441,10 @@ var getUploaderStatus = function (upldr) {
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getStatus'
     : 'https://cluster.d.tube/getStatus'
+  if (Session.get('scot')) {
+    var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
+    url = url.replace('cluster.d.tube', scotUpldr)
+  }
   return new Promise(function (resolve, reject) {
     var req = new XMLHttpRequest();
     req.open('get', url, true);
