@@ -394,6 +394,10 @@ Template.upload.events({
     if ($('#tagDropdown').val()) tag = $('#tagDropdown').val().trim().toLowerCase()
     if (tag.indexOf(' ') > -1) {
       toastr.warning('Only a single tag is allowed')
+      $(".uploadsubmit").removeClass('disabled')
+      $(".uploadsubmit > i.loading").addClass('dsp-non')
+      $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
+      $(".uploadsubmit > i.fire").removeClass('dsp-non')
       return
     }
     var content = Session.get('tempContent')
