@@ -25,6 +25,25 @@ Template.registerHelper('isOnMobile', function () {
   return false;
 });
 
+Template.registerHelper('isOnIDevice', function () {
+  var iDevices = [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ];
+
+  if (!!navigator.platform) {
+    while (iDevices.length) {
+      if (navigator.platform === iDevices.pop()){ return true; }
+    }
+  }
+
+  return false;
+});
+
 Template.registerHelper('isTabletOrLower', function () {
   if (window.innerWidth < 1180) {
     return true;

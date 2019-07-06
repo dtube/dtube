@@ -1,12 +1,13 @@
 <template name="onboarding">
-    <div class="ui container">
+    <div class="ui {{#if isOnMobile}}container-fluid{{else}}container{{/if}}"
+    style="{{#if isOnMobile}}margin: 15px{{/if}}">
         <div class="ui message">
             <i class="close icon"></i>
             <div class="header">
                 <i class="clock icon"></i>
                 Limited in time
             </div>
-            <p>Your @{{activeUsernameSteem}} username is reserved on DTube chain only until approximately DD/MM/YYYY. Claim it before that date or else we cannot guarantee the availability of your username anymore.</p>
+            <p>Your @{{activeUsernameSteem}} username is reserved on DTube chain only until approximately 31/07/2019. Claim it before that date or else we cannot guarantee the availability of your username anymore.</p>
         </div>
         <h2 class="ui header">Claim DTube chain account from your STEEM account!</h2>
         <div class="ui fluid small ordered steps">

@@ -18,18 +18,21 @@
                 <button data-tooltip="QR Code" class="ui tiny icon button qrButton">
                     <i class="barcode icon"></i>
                 </button>
+                {{#unless isOnIDevice}}
                 <button data-tooltip="Copy to clipboard" class="ui tiny icon button copyButton">
                     <i class="copy icon"></i>
                 </button>
-                    
+                {{/unless}}
             </div>
         </div>
+        {{#unless isOnIDevice}}
         <div id="saveavalonkey" class="ui right floated labeled small button" tabindex="0">
             <button name="button" class="ui blue right labeled dtube icon button">
                 <i class="save icon blue" style="background:white;opacity:1;"></i>
                 <div style="display:inline-block;padding: 0.8em 1em;">Save key to disk</div>
             </button>
         </div>
+        {{/unless}}
     </form>
     <div class="ui custom popup popupQRCode bottom left transition hidden">
         <img src="{{qrCode}}">

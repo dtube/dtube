@@ -15,6 +15,19 @@
   <div class="pusher">
     <div class='article'>
       {{#if isOnMobile }}
+        {{#if avalonOnboarding}}
+          <div class="ui container-fluid" style="margin-bottom:2em;">
+            <div class="ui red message">
+              <a href="/onboarding" class="ui red right floated button" tabindex="0">
+                Claim now
+              </a>
+              <div class="header">
+                Start earning DTCs and register on DTube Chain
+              </div>
+              Your @{{activeUsernameSteem}} Steem account grants you the equivalent username on DTube chain!
+            </div>
+          </div>
+        {{/if}}
         <main class='ui main mobile only' style="margin-top: -12px;">
           {{> Template.dynamic template=main}}
         </main>
@@ -30,7 +43,6 @@
                   Start earning DTCs and register on DTube Chain
                 </div>
                 Your @{{activeUsernameSteem}} Steem account grants you the equivalent username on DTube chain!
-                Read our game changing <a target="_blank" href="https://steemit.com/@curator">v0.9 update article</a>
               </div>
             </div>
           {{/if}}
