@@ -13,23 +13,7 @@ Meteor.startup(function(){
   console.log('DTube APP Started')
   var konami = new KonamiCode();
   konami.listen(function() {
-    Videos.remove({})
-    Session.set('scot', {
-      "token": "SPT",
-      "precision": 6,
-      "displayedPrecision": 2,
-      "tag": "spt",
-      "logo": "https://i.imgsafe.org/fe/fe86f49afb.png",
-      "logonight": "https://i.imgsafe.org/fe/fe86f49afb.png"
-    })
-    Session.set('lastHot', null)
-      Session.set('lastTrending', null)
-      Session.set('lastCreated', null)
-      Session.set('lastBlogs', {})
-    
-    Videos.refreshBlockchain(function() {
-      Videos.refreshWaka()
-    })
+    // ??
   })
 
   window.steem = steem

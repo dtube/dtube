@@ -37,24 +37,6 @@ Template.settingsdropdown.rendered = function() {
         steem.api.setOptions({ url: value, useAppbaseApi: true });
         Session.set('steemAPI', value)
         localStorage.setItem('steemAPI', value); 
-      } else if (e.hasClass('palNet')) {
-        Videos.remove({})
-        Session.set('scot', {
-            "token": "PAL",
-            "precision": 3,
-            "displayedPrecision": 3,
-            "tag": "palnet",
-            "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
-            "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
-          })
-        Session.set('lastHot', null)
-          Session.set('lastTrending', null)
-          Session.set('lastCreated', null)
-          Session.set('lastBlogs', {})
-        
-        Videos.refreshBlockchain(function() {
-          Videos.refreshWaka()
-        })
       } else {
         //console.log(value,text,e)
       }
