@@ -12,11 +12,11 @@
       {{ translate 'SEARCH_RESULTS_FOR'}} 
       {{search.query}}
     </h2>
-    <div class="ui top right floated pos-abs" style="top: 70px;right: 10px;">
+    <!-- <div class="ui top right floated pos-abs" style="top: 70px;right: 10px;">
       <a href='https://www.asksteem.com/' target='_blank'>
         <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
       </a>
-    </div>
+    </div> -->
     {{#each search.response.results}} 
     {{> mobilevideosearchresult}} 
     {{/each}}
@@ -33,11 +33,11 @@
       {{/if}} 
       {{ translate 'SEARCH_RESULTS_FOR'}}
       {{search.query}}
-      <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
+      <!-- <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
         <a href='https://www.asksteem.com/' target='_blank'>
           <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
         </a>
-      </div>
+      </div> -->
     </h2>
     {{#each search.response.results}} 
     {{> videosearchresult}} 

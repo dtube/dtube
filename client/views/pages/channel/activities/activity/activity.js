@@ -1,12 +1,12 @@
 Template.activity.helpers({
     getTitle: function (author, permlink) {
-        var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
-        if (video) return video.info.title;
+        var video = Videos.findOne({ 'author': author, 'link': permlink })
+        if (video) return video.json.title;
     },
     getSnap: function (author, permlink) {
-        var video = Videos.findOne({ 'info.author': author, 'info.permlink': permlink })
+        var video = Videos.findOne({ 'author': author, 'link': permlink })
         if (video)
-            return "https://ipfs.io/ipfs/" + video.info.snaphash;
+            return video.json.thumbnailUrl;
     },
     user: function () {
         return {

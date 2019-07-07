@@ -20,13 +20,23 @@ Template.channel.rendered = function () {
     once: false,
     observeChanges: true,
     onBottomVisible: function() {
-      $('.ui.infinite .loader').show()
-      Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err) {
-        if (err) console.log(err)
-        $('.ui.infinite .loader').hide()
-      })
+      Template.channel.loadMore()
     }
   });
+  reclick = false
+}
+
+Template.channel.loadMore = function() {
+  $('.ui.infinite .loader').show()
+  console.log('doing')
+  Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err, finished) {
+    console.log('done')
+    if (err) console.log(err)
+    $('.ui.infinite .loader').hide()
+
+    if ($('.ui.infinite').height() < window.outerHeight && !finished)
+      Template.channel.loadMore()
+  })
 }
 
 Template.channel.helpers({
@@ -51,7 +61,7 @@ Template.channel.helpers({
     return Session.get('activeUsername')
   },
   userVideos: function () {
-    return Videos.find({ 'info.author': FlowRouter.getParam("author"), source: 'chainByBlog' }).fetch()
+    return Videos.find({ 'author': FlowRouter.getParam("author"), source: 'chainByBlog' }, {sort: {ts: -1}}).fetch()
   },
   userResteems: function () {
     var videos = Videos.find({ source: 'chainByBlog', fromBlog: FlowRouter.getParam("author") }).fetch()
@@ -63,14 +73,10 @@ Template.channel.helpers({
     return resteems
   },
   subCount: function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    if (!subCount || !subCount.follower_count) return 0
-    return subCount.follower_count;
+    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
   },
   followingCount: function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    if (!subCount || !subCount.following_count) return 0
-    return subCount.following_count;
+    return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
   },
   activities: function () {
       return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
@@ -83,15 +89,15 @@ Template.channel.helpers({
 
 Template.channel.events({
   'click .subscribe': function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    subCount.follower_count++
-    SubCounts.upsert({ _id: subCount._id }, subCount)
+    var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+    user.followersCount++
+    ChainUsers.upsert({ _id: user._id }, user)
     Subs.insert({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author"),
       what: ['blog']
     })
-    broadcast.follow(FlowRouter.getParam("author"), function (err, result) {
+    broadcast.avalon.follow(FlowRouter.getParam("author"), function (err, result) {
       // alternative, inutile jusqua preuve du contraire
       // steem.api.getFollowCount(FlowRouter.getParam("author"), function(e,r) {
       //   SubCounts.upsert({_id: r.account}, r)
@@ -101,14 +107,14 @@ Template.channel.events({
     })
   },
   'click .unsubscribe': function () {
-    var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-    subCount.follower_count--
-    SubCounts.upsert({ _id: subCount._id }, subCount)
+    var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+    user.followersCount--
+    ChainUsers.upsert({ _id: user._id }, user)
     Subs.remove({
       follower: Session.get('activeUsername'),
       following: FlowRouter.getParam("author")
     })
-    broadcast.unfollow(FlowRouter.getParam("author"), function (err, result) {
+    broadcast.avalon.unfollow(FlowRouter.getParam("author"), function (err, result) {
       // finished unfollowing
       if (err)
         toastr.error(Meteor.blockchainError(err))
@@ -119,5 +125,23 @@ Template.channel.events({
   },
   'click .item.about': function () {
     Session.set('currentTab', 'about')
+  },
+  'click .item.keys': function (e) {
+    Session.set('currentTab', 'keys')
+    if (!reclick) {
+      reclick = true
+      $('.menu .item').tab();
+      $('.menu .item.keys').click()
+      $('.menu .item.keys').addClass('active')
+    }
+  },
+  'click .item.rewards': function (e) {
+    Session.set('currentTab', 'rewards')
+    if (!reclick) {
+      reclick = true
+      $('.menu .item').tab();
+      $('.menu .item.rewards').click()
+      $('.menu .item.rewards').addClass('active')
+    }
   }
 })

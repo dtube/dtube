@@ -1,0 +1,104 @@
+<template name="election">
+    <div class="ui container">
+        <h2 class="ui center aligned icon header">
+            <i class="circular users icon"></i>
+            {{translate 'ELECTION_TITLE'}}
+        </h2>
+        <p>{{translate 'ELECTION_PARAGRAPH'}}</p>
+        <table class="ui basic compact table">
+            <thead>
+                <tr>
+                    <th class='collapsing'>#</th>
+                    <th>{{translate 'ELECTION_USERNAME'}}</th>
+                    <th class='right aligned'>{{translate 'ELECTION_TOTAL_VOTES'}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each leaders}}
+                    <tr class="{{#if lowerThan 8 position}}positive{{/if}}">
+                        <td>
+                            {{#if lowerThan 8 position}}
+                                <strong>{{position}}</strong>
+                            {{else}}
+                                {{position}}
+                            {{/if}}
+                        </td>
+                        <td>
+                            <h4 class="ui image header">
+                            <img src="{{userPic name 'small'}}" class="ui mini rounded image">
+                            <div class="content">
+                                <a href="/c/{{name}}" style="color: black;">{{name}}</a>
+                                <div class="sub header">
+                                    {{#if json.profile.website}}
+                                        {{json.profile.website}}
+                                    {{else}}
+                                        {{json.node.ws}}
+                                    {{/if}}
+                                </div>
+                            </div></h4>
+                        </td>
+                        <td class='right aligned'>
+                            {{#if isVotingFor name}}
+                                <div class="ui red dtube button vote unvotetop" data-username="{{name}}" tabindex="0">
+                                    <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{ translate 'ELECTION_UNVOTE'}}
+                                    </div>
+                                    <div class="ui label btnlabel">
+                                        {{displayPayout node_appr 0}}
+                                    </div>
+                                </div>
+                            {{else}}
+                                <div class="ui blue dtube button vote votetop" data-username="{{name}}" tabindex="0">
+                                    <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{ translate 'ELECTION_VOTE'}}
+                                    </div>
+                                    <div class="ui label btnlabel">
+                                        {{displayPayout node_appr 0}}
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                {{/each}}
+                {{#each myOtherVotes}}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h4 class="ui image header">
+                            <img src="{{userPic this 'small'}}" class="ui mini rounded image">
+                            <div class="content">
+                                <a href="/c/{{name}}" style="color: black;">{{this}}</a>
+                                <div class="sub header">
+                                    {{#if json.profile.website}}
+                                        {{json.profile.website}}
+                                    {{else}}
+                                        {{json.node.ws}}
+                                    {{/if}}
+                                </div>
+                            </div></h4>
+                        </td>
+                        <td class='right aligned'>
+                            <div class="ui red dtube button vote unvotetop" data-username="{{this}}" tabindex="0">
+                                <div style="display:inline-block;padding: 0.8em 1em;">
+                                    {{ translate 'ELECTION_UNVOTE'}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <h4>
+            Vote for someone else
+        </h4>
+        <div class="ui action input">
+            <input id="newleader" type="text" placeholder="Username">
+            <div id="votenew" class="ui blue dtube button vote" tabindex="0">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'ELECTION_VOTE'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+  

@@ -1,0 +1,24 @@
+<template name='channelrewards'>
+    <div class="ui stackable grid column">
+        <div class="sixteen wide column" style="padding-left:5px;">
+            <h1>{{translate 'CHANNEL_REWARDS_TITLE'}}</h1>
+            <p>{{translate 'CHANNEL_REWARDS_PARAGRAPH'}}</p>
+            <table class="ui celled table">
+                <thead>
+                    <tr><th>Time</th>
+                    <th>Video</th>
+                    <th>Reward</th>
+                </tr></thead>
+                <tbody>
+                    {{#each rewards}}
+                    <tr>
+                        <td title="{{timeDisplay ts}}">{{timeAgo ts}}</td>
+                        <td><a href='/v/{{source}}'>{{source}}</a></td>
+                        <td><strong>+{{displayMoney dist 0 'DTC'}}</strong></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

@@ -1,34 +1,87 @@
 <template name='channelabout'>
   <div class="ui stackable grid column">
     <div class="twelve wide column" style="padding-left:5px;">
-      {{#if author.json_metadata.profile.name}}
-      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
-        <div class="crd-lab">
-          {{ translate 'CHANNEL_ABOUT_TAB_NAME'}}
-          <div>
-            <span class="crd-spa-lab">{{author.json_metadata.profile.name}}</span>
+      {{#if isEditingProfile}}
+        <form class="ui large form wid-ful ">
+          <div class="ui segments">
+            <div class="ui segment" style="padding: 20px;">
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_AVATAR'}}</label>
+                <div class="ui left icon input">
+                  <i class="user circle icon"></i>
+                  <input type="text" name="profile_avatar" value="{{author.json.profile.avatar}}">
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_COVER'}}</label>
+                <div class="ui left icon input">
+                  <i class="image icon"></i>
+                  <input type="text" name="profile_cover" value="{{author.json.profile.cover_image}}">
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}</label>
+                <div class="ui left icon input">
+                  <i class="info icon"></i>
+                  <input type="text" name="profile_about" value="{{author.json.profile.about}}">
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}</label>
+                <div class="ui left icon input">
+                  <i class="map marker icon"></i>
+                  <input type="text" name="profile_location" value="{{author.json.profile.location}}">
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}</label>
+                <div class="ui left icon input">
+                  <i class="desktop icon"></i>
+                  <input type="text" name="profile_website" value="{{author.json.profile.website}}">
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_STEEM_USERNAME'}}</label>
+                <div class="ui left icon input">
+                  <i class="desktop icon"></i>
+                  <input type="text" name="profile_steem" value="{{author.json.profile.steem}}">
+                </div>
+              </div>
+              <div id="saveprofilebutton" class="ui fluid labeled small button" tabindex="0">
+                <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+                  <i class="edit icon red" style="background:white;opacity:1;"></i>
+                  <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'CHANNEL_ABOUT_SAVE_PROFILE'}}</div>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-        {{#if author.json_metadata.profile.about}}
+        </form>
+      {{/if}}
+      {{#if isOnMobile}}
+        <button class="ui right floated red button openkeys">{{ translate 'CHANNEL_KEYS'}}</button>
+        <button class="ui left floated red button openrewards">{{ translate 'CHANNEL_REWARDS'}}</button>
+      {{/if}}
+      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
+        {{#if author.json.profile.about}}
         <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}
           <div>
-            <span class="crd-spa-lab">{{author.json_metadata.profile.about}}</span>
+            <span class="crd-spa-lab">{{author.json.profile.about}}</span>
           </div>
         </div>
-        {{/if}} {{#if author.json_metadata.profile.location}}
+        {{/if}} {{#if author.json.profile.location}}
         <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}
           <div>
-            <span class="crd-spa-lab">{{author.json_metadata.profile.location}}</span>
+            <span class="crd-spa-lab">{{author.json.profile.location}}</span>
           </div>
         </div>
-        {{/if}} {{#if author.json_metadata.profile.website}}
+        {{/if}} {{#if author.json.profile.website}}
         <div class="crd-lab">
           {{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}
           <div>
             <span class="crd-spa-lab">
-              <a href='{{author.json_metadata.profile.website}}' style="opacity:1!important;" target='_blank'>{{author.json_metadata.profile.website}}</a>
+              <a href='{{author.json.profile.website}}' style="opacity:1!important;" target='_blank'>{{author.json.profile.website}}</a>
             </span>
           </div>
         </div>
@@ -41,21 +94,15 @@
         </div>
         {{/if}} {{/if}}
         <div class="crd-lab">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_POST'}}
+          {{ translate 'CHANNEL_ACTIVITIES_VT_UPDATE'}}
           <div>
-            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
+            <span class="crd-spa-lab">{{author.vt.v}} VP {{timeAgo author.vt.t}}</span>
           </div>
         </div>
         <div class="crd-lab">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_LAST_VOTE'}}
+          {{ translate 'CHANNEL_ACTIVITIES_BW_UPDATE'}}
           <div>
-            <span class="crd-spa-lab">{{timeAgo author.last_post}}</span>
-          </div>
-        </div>
-        <div class="crd-lab">
-          {{ translate 'CHANNEL_ACTIVITIES_TAB_ACCOUNT_UPDATE'}}
-          <div>
-            <span class="crd-spa-lab">{{timeAgo author.last_account_update}}</span>
+            <span class="crd-spa-lab">{{author.bw.v}} bytes {{timeAgo author.bw.t}}</span>
           </div>
         </div>
         <div class="crd-lab">
@@ -65,27 +112,11 @@
           </div>
         </div>
       </div>
-      {{/if}}
-      <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
-        <div class="crd-lab">
-          <img style='width:16px;height:16px;margin-right:5px;' src='https://steemit.com/favicon.ico'>SteemIt Blog :
-          <div>
-            <span class="crd-spa-lab">  
-              <a href='https://steemit.com/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://steemit.com/@{{user.name}}</a>
-            </span>
-          </div>
-        </div>
-        <div class="crd-lab">
-          <img style='width:16px;height:16px;margin-right:5px;' src='https://busy.org/favicon.ico'>Busy Blog :
-          <div>
-            <span class="crd-spa-lab"> 
-              <a href='https://busy.org/@{{user.name}}' style="opacity:1!important;" target='_blank'>https://busy.org/@{{user.name}}</a>
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="four wide column" style="padding-left:5px;">
+      {{#if equals author.name activeUsername}}
+        {{> buttonedit}}
+      {{/if}}
       <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
         <div class="crd-lab">
             {{ translate 'CHANNEL_SUBSCRIBERS'}}

@@ -4,12 +4,15 @@
     <div id="menu" class="menu">
       <div class="item">
         <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_VOTING'}} @ {{voteWeight}}%</span>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</span>
         <div class="left menu">
-          <div class="item voteWeight">+10%</div>
-          <div class="item voteWeight">+1%</div>
-          <div class="item voteWeight">-1%</div>
-          <div class="item voteWeight">-10%</div>
+          {{#each SteemAPIs}}
+            {{#if equals this CurrentAPI}}
+              <div class="item steemApi"><strong>{{this}}</strong></div>
+            {{else}}
+              <div class="item steemApi">{{this}}</div>
+            {{/if}}
+          {{/each}}
         </div>
       </div>
       <!-- THIS OPTION SHOULD BE IN THE PLAYER

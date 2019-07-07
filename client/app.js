@@ -2,22 +2,32 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import wakajs from 'wakajs';
-// import Gun from 'gun/gun';
-// import SEA from 'gun/sea';
-// import timegraph from 'gun/lib/time';
 import steem from 'steem';
-import AskSteem from 'asksteem';
-import sc2sdk from 'sc2-sdk';
-steem.api.setOptions({ url: 'https://api.steemit.com' });
+import Gun from 'gun';
+import KonamiCode from 'konami-code';
 
 console.log('Starting DTube APP')
 
 FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
-  Session.set('remoteSettings', Meteor.settings.public.remote)
+  var konami = new KonamiCode();
+  konami.listen(function() {
+    // ??
+  })
+
   window.steem = steem
-  // window.Gun = Gun
+  window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
+  window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});
+  Session.set('remoteSettings', Meteor.settings.public.remote)
+
+  // choose steem api on startup
+  if(!localStorage.getItem('steemAPI'))
+    steem.api.setOptions({ url: Meteor.settings.public.remote.APINodes[0], useAppbaseApi: true}); //Default
+  else
+    steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
+
+  Session.set('steemAPI', steem.api.options.url)
 
   // choose steem api on startup
   if(!localStorage.getItem('steemAPI'))
@@ -32,8 +42,13 @@ Meteor.startup(function(){
   Session.set('lastCreated', null)
   Session.set('lastBlogs', {})
   Session.set('tagDays', 7)
-  Session.set('tagSortBy', 'net_votes')
+  Session.set('tagSortBy', null)
   Session.set('tagDuration', 999999)
+  Session.set('scot', Meteor.settings.public.scot)
+
+  // dark mode (buggy)
+  // if (!UserSettings.get('isInNightMode'))
+  //   UserSettings.set('isInNightMode', true)
 
   // load language
   loadDefaultLang(function() {
@@ -49,20 +64,6 @@ Meteor.startup(function(){
       });
     })
   })
-
-
-  // init steem connect
-  var cbUrl
-  if (window.location.hostname == 'localhost' && window.location.port == '3000')
-    cbUrl = 'http://localhost:3000/#!/sc2login'
-  else
-    cbUrl = 'https://d.tube/#!/sc2login'
-  var sc2 = sc2sdk.Initialize({
-    app: 'dtube.app',
-    callbackURL: cbUrl,
-    accessToken: 'access_token'
-  });
-  window.sc2 = sc2
 
   toastr.options = {
     "closeButton": true,
@@ -85,13 +86,23 @@ Meteor.startup(function(){
   if (Session.get('remoteSettings').warning)
     toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
 
-  steem.api.getDynamicGlobalProperties(function(err, result) {
-    if (result)
-    Session.set('steemGlobalProp', result)
-  })
+  firstLoad = setInterval(function() {
+    if (!Videos) return
+    if (!Waka) return
+    // loading home data
+    Videos.refreshBlockchain(function() {
+      Videos.refreshWaka()
+    })
+    clearInterval(firstLoad)
+  }, 50)
 
-  Market.getSteemPrice()
-  Market.getSteemDollarPrice()
+  // steem.api.getDynamicGlobalProperties(function(err, result) {
+  //   if (result)
+  //   Session.set('steemGlobalProp', result)
+  // })
+
+  // Market.getSteemPrice()
+  // Market.getSteemDollarPrice()
 
   // loading remote settings -- disabled
   // steem.api.getAccounts(['dtube'], function(err, result) {

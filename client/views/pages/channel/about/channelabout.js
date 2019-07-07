@@ -15,13 +15,50 @@ Template.channelabout.helpers({
         }
     },
     subCount: function () {
-        var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-        if (!subCount || !subCount.follower_count) return 0
-        return subCount.follower_count;
-      },
-      followingCount: function () {
-        var subCount = SubCounts.findOne({ account: FlowRouter.getParam("author") })
-        if (!subCount || !subCount.following_count) return 0
-        return subCount.following_count;
-      }
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
+    },
+    followingCount: function () {
+        return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
+    },
+    isEditingProfile: function() {
+        return Session.get('isEditingProfile')
+    }
+})
+
+
+Template.channelabout.events({
+    'click .button.editvideo': function () {
+        Session.set('isEditingProfile', !Session.get('isEditingProfile'))
+    },
+    'submit .form': function() {
+        event.preventDefault()
+        var json = ChainUsers.findOne({ name: Session.get('activeUsername') }).json
+        if (!json) json = {}
+        if (!json.profile) json.profile = {}
+        json.profile.avatar = event.target.profile_avatar.value.trim()
+        json.profile.cover_image = event.target.profile_cover.value.trim()
+        json.profile.about = event.target.profile_about.value.trim()
+        json.profile.location = event.target.profile_location.value.trim()
+        json.profile.website = event.target.profile_website.value.trim()
+        json.profile.steem = event.target.profile_steem.value.trim()
+        broadcast.avalon.editProfile(json, function(err, res) {
+            if (err) toastr.error(Meteor.blockchainError(err))
+            else {
+                toastr.success(translate('GLOBAL_EDIT_PROFILE'))
+                Session.set('isEditingProfile', false)
+            }
+        })
+    },
+    'click .openkeys': function() {
+        Session.set('currentTab', 'keys')
+        $('.menu .item').tab();
+        $('.menu .item.keys').click()
+        $('.menu .item.keys').addClass('active')
+    },
+    'click .openrewards': function() {
+        Session.set('currentTab', 'rewards')
+        $('.menu .item').tab();
+        $('.menu .item.rewards').click()
+        $('.menu .item.rewards').addClass('active')
+    }
 })

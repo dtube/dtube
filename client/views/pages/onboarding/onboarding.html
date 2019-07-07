@@ -1,0 +1,151 @@
+<template name="onboarding">
+    <div class="ui {{#if isOnMobile}}container-fluid{{else}}container{{/if}}"
+    style="{{#if isOnMobile}}margin: 15px{{/if}}">
+        <div class="ui message">
+            <i class="close icon"></i>
+            <div class="header">
+                <i class="clock icon"></i>
+                Limited in time
+            </div>
+            <p>Your @{{activeUsernameSteem}} username is reserved on DTube chain only until approximately 31/07/2019. Claim it before that date or else we cannot guarantee the availability of your username anymore.</p>
+        </div>
+        <h2 class="ui header">Claim DTube chain account from your STEEM account!</h2>
+        <div class="ui fluid small ordered steps">
+            <div class="active step" id="step1d">
+              <div class="content">
+                <div class="title">Key Generator</div>
+                <div class="description">Generate and backup keys</div>
+              </div>
+            </div>
+            <div class="step" id="step2d">
+              <div class="content">
+                <div class="title">Verification</div>
+                <div class="description">Confirm your STEEM identity</div>
+              </div>
+            </div>
+            <div class="step" id="step3d">
+              <div class="content">
+                <div class="title">Profile</div>
+                <div class="description">Set your avatar, cover, etc</div>
+              </div>
+            </div>
+        </div>
+
+        <section id="step1">
+            <p>First save your private key in a safe place. This will be the highest security key for your account! Never lose it or you will lose your account forever!</p>            
+            {{>keypair}}
+            <br /><br />
+            <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label>I understand that my private key will be unrecoverable if I lose it</label>
+            </div>
+            <br />
+            <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label>I have backed up my private key safely</label>
+            </div>
+            <br /><br />
+            <div id="endStep1" class="ui right labeled icon button red dtube pos-rel right floated disabled">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Next
+                </div>
+                <i class="icon angle right red" style="background:white;opacity:1;"></i>
+                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+            </div>
+            
+        </section>
+        
+        <section id="step2" style="display: none">
+            <p>Now, you will need to publish your public key in your steem profile. You will need to enter your <strong>private active key</strong> to confirm your identity.</p>
+            <p>Once that's done and the transaction has been sent to STEEM, click on 'Confirm' and your new account will be created by @dtube. It might take up to 2 minutes for this step to complete.</p>
+            <div class="ui grid">
+                <div class="one column row" style="text-align: right">
+                    <div class="right floated column">
+                        <div id="endStep2" class="ui right labeled icon button red dtube pos-rel right floated">
+                            <div style="display:inline-block;padding: 0.8em 1em;">
+                                {{step2status}}
+                            </div>
+                            <i class="icon angle right red" style="background:white;opacity:1;"></i>
+                            <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </section>
+        <section id="step3" style="display: none">
+            <p>Congratulations, your DTube account is now created!</p>
+            <p>In this last step, you will do your first DTube chain transaction and setup your profile and login.</p>
+            {{#if tmpSteemProfile}}
+                <form class="ui large form wid-ful ">
+                    <div class="ui segments">
+                        <div class="ui segment" style="padding: 20px;">
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_AVATAR'}}</label>
+                                <div class="ui left icon input">
+                                <i class="user circle icon"></i>
+                                <input type="text" id="profile_avatar" value="{{tmpSteemProfile.profile_image}}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_COVER'}}</label>
+                                <div class="ui left icon input">
+                                <i class="image icon"></i>
+                                <input type="text" id="profile_cover" value="{{tmpSteemProfile.cover_image}}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_ABOUT'}}</label>
+                                <div class="ui left icon input">
+                                <i class="info icon"></i>
+                                <input type="text" id="profile_about" value="{{tmpSteemProfile.about}}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_LOCATION'}}</label>
+                                <div class="ui left icon input">
+                                <i class="map marker icon"></i>
+                                <input type="text" id="profile_location" value="{{tmpSteemProfile.location}}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_WEBSITE'}}</label>
+                                <div class="ui left icon input">
+                                <i class="desktop icon"></i>
+                                <input type="text" id="profile_website" value="{{tmpSteemProfile.website}}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>{{ translate 'CHANNEL_ABOUT_TAB_STEEM_USERNAME'}}</label>
+                                <div class="ui left icon input">
+                                <i class="user circle icon"></i>
+                                <input type="text" id="profile_steem" value="{{activeUsernameSteem}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui grid">
+                            <div class="one column row" style="text-align: right">
+                                <div class="right floated column">
+                                    <div id="endStep3" class="ui right labeled icon button red dtube pos-rel right floated">
+                                        <div style="display:inline-block;padding: 0.8em 1em;">
+                                            Save and Login
+                                        </div>
+                                        <i class="icon double angle right red" style="background:white;opacity:1;"></i>
+                                        <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {{else}}
+                <div class="ui segment">
+                    <div class="ui active inverted dimmer">
+                      <div class="ui text loader">Loading</div>
+                    </div>
+                    <p></p>
+                </div>
+            {{/if}}            
+        </section>
+    </div>
+</template>

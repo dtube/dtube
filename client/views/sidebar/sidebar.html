@@ -1,45 +1,96 @@
 <template name="sidebar">
   <div style="height:100%;">
+    <div class="ui" style="margin-top: 15px; margin-bottom: 15px;">
+      <span id="disableSteem" data-position="bottom left">
+          <img class="ui avatar image" src="https://assets.coingecko.com/coins/images/398/large/steem.png?1547034126">          
+          {{#if isSteemDisabled}}
+            <i class="x red icon" style=""></i>
+          {{/if}}
+        </span>
+      {{#if activeUsernameSteem}}
+        <div class="ui compact floating inline dropdown dropdownsteem needsclick">
+          <div class="ui blue large image label">
+            <img src="{{userPicSteem mainUserSteem.username ''}}">
+            {{activeUsernameSteem}}
+          </div><i class="dropdown icon"></i>
+          <div class="left menu" style='right: 105%;'>
+          <div class="header" style='font-size: 1rem'>
+              <i class="bolt icon"></i>Voting @ {{voteWeightSteem}}%
+            </div>
+            <div style='text-align: center'>
+              <div class='ui buttons'>
+                  <button id='minus1vpsteem' class="ui compact red basic button needsclick" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                  <button id='plus1vpsteem' class="ui compact blue basic button needsclick" style='width: 50%; border-radius: 0rem;'>+1%</button>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <a class='item' href='/c/{{mainUserSteem.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+          </div>
+        </div>
+      {{else}}
+        {{>buttonlogin}}
+      {{/if}}
+      <br /><br />
+      <span id="disableDTC" data-position="bottom left">
+          <img class="ui avatar image" src="https://about.d.tube/img/kit/Logo_Black_D.svg">
+          {{#if isDTCDisabled}}
+            <i class="x red icon" style=""></i>
+          {{/if}}
+      </span>
+      {{#if activeUsername}}
+        <div class="ui compact floating inline dropdown dropdowndtc needsclick">
+          <div class="ui red large image label">
+            <img src="{{userPic mainUser.username ''}}">
+            {{activeUsername}}
+            
+          </div><i class="dropdown icon"></i>
+          <div class="left menu" style='right: 105%;'>
+            <div class="header" style='font-size: 1rem'>
+              <i class="bolt icon"></i>Voting @ {{voteWeight}}%
+            </div>
+            <div style='text-align: center'>
+              <div class='ui buttons'>
+                  <button id='minus1vp' class="ui compact red basic button" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                  <button id='plus1vp' class="ui compact blue basic button" style='width: 50%; border-radius: 0rem;'>+1%</button>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <a class='item' href='/c/{{mainUser.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+            <div class="item logOut" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+          </div>
+        </div>
+      {{else}}
+        {{>buttonloginavalon}}
+      {{/if}}
+    </div>
+    <div class="ui divider"></div>
     <nav class="sectionslist">
-      <a href='/' class="item pdg-non" id="home">
-        <div id="homesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="home icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
+      <!-- <a href='/c/{{activeUsername}}' class="item pdg-non">
+        <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="grid layout icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
+        </div>
+      </a> -->
+      <!-- <a href='/dtalk' class="item pdg-non">
+        <div id="dtalksidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="comment icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_DTALK'}}</span>
+        </div>
+      </a> -->
+      <a href='/upload' class="item pdg-non">
+        <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="upload icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+          <div class="ui tiny red label" style="vertical-align: middle;">New!</div>
         </div>
       </a>
-      {{#if activeUser}}
-        <a href='/c/{{activeUser}}' class="item pdg-non">
-          <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-            <i class="grid layout icon dtubesidebaricon"></i>
-            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
-          </div>
-        </a>
-        <a href='/dtalk' class="item pdg-non">
-          <div id="dtalksidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-            <i class="comment icon dtubesidebaricon"></i>
-            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_DTALK'}}</span>
-          </div>
-        </a>
-        <a href='/upload' class="item pdg-non">
-          <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-            <i class="cloud upload icon dtubesidebaricon"></i>
-            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
-          </div>
-        </a>
-        <!-- <a href='/golive' class="item pdg-non">
-          <div id="golivesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-            <i class="podcast icon dtubesidebaricon"></i>
-            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_GO_LIVE'}}</span>
-          </div>
-        </a> -->
-      {{else}}
-        <a href='/login' class="item pdg-non">
-          <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-            <i class="cloud upload icon dtubesidebaricon"></i>
-            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
-          </div>
-        </a>
-      {{/if}}
+      <!-- <a href='/golive' class="item pdg-non">
+        <div id="golivesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="podcast icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_GO_LIVE'}}</span>
+        </div>
+      </a> -->
       <!-- <a href='/live' class="item pdg-non">
         <div id="livesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="tv icon dtubesidebaricon"></i>
@@ -76,62 +127,108 @@
           <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_WATCH_AGAIN'}}</span>
         </div>
       </a>
+      <a href='/election' class="item pdg-non">
+        <div id="electionsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="users icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_ELECTIONS'}}</span>
+          <div class="ui tiny red label" style="vertical-align: middle;">New!</div>
+        </div>
+      </a>
+      <a href='https://steemit.com/@dtube' target="_blank" class="item pdg-non">
+        <div id="electionsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="exclamation icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">Patch Notes</span>
+          <div class="ui tiny red label" style="vertical-align: middle;">New!</div>
+        </div>
+      </a>
     </nav>
     <div class="ui divider"></div>
 
     <nav id="tagslist" class="tagslist">
         <div class="menuitem dsp-inh pdg-non">
-            <h4 class="dtubesidebartitle trendingtitle">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
-          </div>
-      {{#each tags}}
-        <a href='/t/{{term}}' class="menuitem dtubesidebarmenu" title='{{./count}}'>
-          {{term}}
+          <h4 class="dtubesidebartitle trendingtitle">{{ translate 'SIDEBAR_TRENDING_TAGS'}}</h4>
+        </div>
+      {{#each topTags}}
+        <a href='/t/{{tag}}' class="menuitem dtubesidebarmenu" title='{{displayPayout vt 0}}VP'>
+          {{tag}}
         </a>
       {{/each}}
     </nav>
 
-    {{#if isOnMobile }}
     <div class="ui divider"></div>
-    <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
-      <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
+    {{#if scot}}
+      <div class="ui basic segment">
+        <p>
+          <h4 class="ui center aligned icon header">
+              <i class="circular bolt icon"></i>
+              {{ translate 'SIDEBAR_SCOT_LICENCE' scot.token}}
+          </h4>
+          <div class="ui horizontal list">
+            <a href='https://d.tube' class="item">
+              <img class="ui avatar image" src="https://about.d.tube/img/kit/Logo_Black_D.svg">
+              <div class="content">
+                <div class="header">D.Tube</div>
+              </div>
+            </a>
+            <a href='https://steem-engine.com' class="item">
+              <img class="ui avatar image" src="https://i.imgur.com/JldZkxt.png">
+              <div class="content">
+                <div class="header">Steem Engine</div>
+              </div>
+            </a>
+          </div>
+          <br /><br /><br /><br />       
+        </p>
+      </div>
+    {{else}}
+      {{#if isOnMobile }}
+      <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
+        <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
+          <a href='https://about.d.tube' target="_blank" id="about">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
+          </a>
+          <a href='https://about.d.tube/#faq1' target="_blank" id="help">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
+          </a>
+          <a href='https://github.com/dtube' target="_blank" id="github">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
+          </a>
+          <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
+          </a>
+          <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
+          </a>
+          <a href='https://dtube.nolt.io/' target="_blank" id="nolt">
+            <span class="sidebarlink">{{ translate 'SIDEBAR_FEEDBACK'}}</span>
+          </a>
+        </div>
+        <div class="mobilesidebarspacer"></div>
+      </a>
+      {{else}}
+      <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
         <a href='https://about.d.tube' target="_blank" id="about">
           <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
-        </a>
+        </a>-
         <a href='https://about.d.tube/#faq1' target="_blank" id="help">
           <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-        </a>
+        </a>-
         <a href='https://github.com/dtube' target="_blank" id="github">
           <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
         </a>
+        <br>
         <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
           <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
-        </a>
-        <a href='https://discord.gg/RqeQQjf' target="_blank" id="discord">
+        </a>-
+        <a href='https://discord.gg/dtube' target="_blank" id="discord">
           <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
         </a>
+        <br>
+        <a href='https://dtube.nolt.io/' target="_blank" id="nolt">
+          <span class="sidebarlink">{{ translate 'SIDEBAR_FEEDBACK'}}</span>
+        </a>
       </div>
-      <div class="mobilesidebarspacer"></div>
-    </a>
-    {{else}}
-    <div class="ui divider"></div>
-    <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
-      <a href='https://about.d.tube' target="_blank" id="about">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_ABOUT'}}</span>
-      </a>-
-      <a href='https://about.d.tube/#faq1' target="_blank" id="help">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-      </a>-
-      <a href='https://github.com/dtube' target="_blank" id="github">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_GITHUB'}}</span>
-      </a>
-      <br>
-      <a href='https://steemit.com/@dtube' target="_blank" id="steemit">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_STEEM'}}</span>
-      </a>-
-      <a href='https://discord.gg/dtube' target="_blank" id="discord">
-        <span class="sidebarlink">{{ translate 'SIDEBAR_DISCORD'}}</span>
-      </a>
-    </div>
+      {{/if}}
     {{/if}}
   </div>
 </template>

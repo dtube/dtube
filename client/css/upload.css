@@ -68,7 +68,7 @@
 
 #infozone
 {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 #snapFile
@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-#previewzone input[type="file"]
+.preview input[type="file"]
 {
   display: none;
 }

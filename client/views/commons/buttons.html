@@ -32,7 +32,18 @@
 </template>
 
 <template name='buttonlogin'>
-    <a href="/login">
+    <a href="/login/steem">
+        <div class="ui right labeled icon button red dtube pos-rel">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{ translate "TOPBAR_LOGIN"}}
+            </div>
+            <i class="icon sign in red" style="background:white;opacity:1;"></i>
+        </div>
+    </a>
+</template>
+
+<template name='buttonloginavalon'>
+    <a href="/login/dtube">
         <div class="ui right labeled icon button red dtube pos-rel">
             <div style="display:inline-block;padding: 0.8em 1em;">
                 {{ translate "TOPBAR_LOGIN"}}
@@ -48,5 +59,68 @@
             {{ translate 'VIDEO_EDIT'}}
         </div>
         <i class="icon edit red" style="background:white;opacity:1;"></i>
+    </div>
+</template>
+
+<template name='buttontransfer'>
+    <div class="ui right labeled icon button green transferdtcbtn dtube pos-rel">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'CHANNEL_TRANSFER'}}
+        </div>
+        <i class="icon gift green" style="background:white;opacity:1;"></i>
+    </div>
+    {{>senddtcmodal}}
+</template>
+
+<template name='buttontransfersmall'>
+    <button class="ui icon grey button transferdtcbtn pos-rel">
+        <i class="icon gift" style="color: black;"></i>
+    </button>
+    {{>senddtcmodal}}
+</template>
+
+<template name="senddtcmodal">
+    <!-- Send DTC Modal -->
+    <div class="ui small modal transferdtc" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
+        <div class="header">
+            {{ translate 'TRANSFER_TO' author}}
+        </div>
+        <div class="content">
+            <form class="ui large form wid-ful ">
+                <div class="ui segments">
+                    <div class="ui segment" style="padding: 20px;">
+                        <div class="field">
+                            <label>{{ translate 'TRANSFER_AMOUNT'}}</label>
+                            <div class="ui left icon input">
+                            <i class="calculator icon"></i>
+                            <input type="number" min="0.01" step="0.01" id="transfer_amount" value="1">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>{{ translate 'TRANSFER_MEMO'}}</label>
+                            <div class="ui left icon input">
+                            <i class="pencil icon"></i>
+                            <input type="text" id="transfer_memo" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div id="confirmTransfer" class="ui right labeled icon button red dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Confirm
+                </div>
+                <i class="icon check red" style="background:white;opacity:1;"></i>
+                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+            </div>
+            <div id="cancelTransfer" class="ui right labeled icon button grey dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Cancel
+                </div>
+                <i class="icon x" style="background:white;opacity:1;"></i>
+            </div>
+        </div>
     </div>
 </template>

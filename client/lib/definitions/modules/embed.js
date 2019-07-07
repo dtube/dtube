@@ -670,7 +670,7 @@ $.fn.embed.settings = {
       return ''
         + '<iframe src="' + src + '"'
         + ' width="100%" height="100%"'
-        + ' frameborder="0" scrolling="no" allow="autoplay; fullscreen" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
+        + ' frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
       ;
     },
     placeholder : function(image, icon) {

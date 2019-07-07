@@ -11,7 +11,7 @@ Livestreams.getStreamKey = function(cb) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 var keyRequest = JSON.parse(xhr.responseText)
-                broadcast.streamVerif(keyRequest.verifKey, function(err, res) {
+                broadcast.avalon.streamVerif(keyRequest.verifKey, function(err, res) {
                     if (err) {
                         cb(err)
                         return

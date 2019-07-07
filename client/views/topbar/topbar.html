@@ -4,15 +4,27 @@
   {{else}}
     <div class="ui large borderless main menu fixed" style="height:57px;z-index:9000;">
       <div class="left floated menu" style="width:60%">
-        <div class="sidebartoggleicon item header" style="cursor: pointer;">
-          <i class="sidebar icon" style="font-size:1.4em; margin:1px 0 0 0;"></i>
-        </div>
-        <a href='/' class="blacklogo header item" id='textlogo'>
-            <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_Black.svg" >
-        </a>
-        <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
-          <img  alt="" style="width:90px;" src="https://d.tube/DTube_files/images/DTube_White.svg" >
-      </a>
+        {{#if scot}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <img class="sidebar icon needsclick" alt="" style="width:45px;" src="https://about.d.tube/img/kit/Logo_Black_D.svg" >
+          </div>
+          <a href='/' class="blacklogo header item" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{scot.logo}}" >
+          </a>
+          <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{scot.logonight}}" >
+          </a>
+        {{else}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <i class="sidebar icon needsclick" style="font-size:1.4em; margin:1px 0 0 0;"></i>
+          </div>
+          <a href='/' class="blacklogo header item" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{settings.logo}}" >
+          </a>
+          <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
+          </a>
+        {{/if}}
         <div class="ui item grid tablet only computer only" style="width:inherit;">
           <div class="ui search wid-ful">
             <div class="ui icon input wid-ful">
@@ -38,26 +50,33 @@
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
         {{#if isLoggedOn}}
+          {{#if mainUser.balance}}
+            <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
+                <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
+            </div>
+            <div class="ui item" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
+                <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VP
+            </div>
+            <!-- <div class="ui item">
+                <i class="icon database" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.bwDisplay 0}}</strong>B
+            </div> -->
+          {{/if}}
           <a href='/upload' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
-            <i class="cloud upload icon" style='font-size:1.3em; margin:0;'></i>
+            <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
           </a>
           <!--<a href='/golive' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_GO_LIVE"}}'>-->
             <!--<i class="podcast icon" style='font-size:1.3em; margin:0;'></i>-->
           <!--</a>-->
         {{else}}
         <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
-          <i class="cloud upload icon" style='font-size:1.3em; margin:0;'></i>
+          <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
         </a>
         {{/if}}
         {{> notificationdropdown}}
         {{> settingsdropdown}}
-        {{#if isLoggedOn}}
-        {{> users}}
-        {{else}}
-        <a class="ui item loginitem">
-            {{>buttonlogin}}
-        </a>
-        {{/if}}
       </div>
     </div>
   {{/if}}

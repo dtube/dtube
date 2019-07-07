@@ -6,15 +6,6 @@ FlowRouter.route('/', {
     Session.set("pageTitle", '')
     Session.set("currentMenu", 1)
     Template.sidebar.selectMenu();
-    firstLoad = setInterval(function() {
-      if (!Videos) return
-      if (!Waka) return
-      // loading home data
-      Videos.refreshBlockchain(function() {
-        Videos.refreshWaka()
-      })
-      clearInterval(firstLoad)
-    }, 50)
     BlazeLayout.render('masterLayout', {
       main: "home",
       nav: "nav",
@@ -112,9 +103,9 @@ FlowRouter.route('/newvideos', {
     Session.set("currentMenu", 6)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'New Videos')
-    Videos.getVideosBy('createdLive', 50, function (err) {
-      if (err) console.log(err)
-    })
+    // Videos.getVideosBy('createdLive', 50, function (err) {
+    //   if (err) console.log(err)
+    // })
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
       nav: "nav",
@@ -174,6 +165,74 @@ FlowRouter.route('/login', {
   }
 });
 
+FlowRouter.route('/login/:network', {
+  name: "login",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Login')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
+    if (FlowRouter.getParam('network') == 'dtube')
+      $("#dtube-tab").click()
+    if (FlowRouter.getParam('network') == 'steem')
+      $("#steem-tab").click()
+    BlazeLayout.render('masterLayout', {
+      main: "login",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/onboarding', {
+  name: "onboarding",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Join DTube Chain')
+    BlazeLayout.render('masterLayout', {
+      main: "onboarding",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/newaccount', {
+  name: "newaccount",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'Refer a friend')
+    BlazeLayout.render('masterLayout', {
+      main: "newaccount",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/election', {
+  name: "election",
+  action: function(params, queryParams) {
+    avalon.getLeaders(function(err, res){
+      Session.set('leaders', res)
+    })
+    Session.set("pageTitle", 'Vote for DTube Leaders')
+    Session.set("currentMenu", 12)
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "election",
+      nav: "nav",
+    });
+  }
+});
+
+FlowRouter.route('/newaccount', {
+  name: "newaccount",
+  action: function(params, queryParams) {
+    Session.set("pageTitle", 'New Account')
+    Session.set("currentMenu", 0)
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "newaccount",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/sc2login', {
   name: "sc2login",
   action: function(params, queryParams) {
@@ -185,7 +244,7 @@ FlowRouter.route('/sc2login', {
       Waka.db.Users.upsert(queryParams, function() {
         Users.remove({})
         Users.refreshLocalUsers(function(){})
-        Template.login.success(queryParams.username)
+        Template.loginsteem.success(queryParams.username)
       })
       clearInterval(trick)
     }, 100)
@@ -205,6 +264,7 @@ FlowRouter.route('/v/:author/:permlink', {
         $('html').animate({ scrollTop: 0 }, 'slow');//IE, FF
         $('body').animate({ scrollTop: 0 }, 'slow');
         setTimeout(function(){Template.video.activatePopups()}, 1000)
+        Template.player.rendered()
       } else FlowRouter.go('/')
     })
 
@@ -214,17 +274,13 @@ FlowRouter.route('/v/:author/:permlink', {
     // Videos.getVideosByBlog(params.author, 100, function() {
     //   // call finished
     // })
-    Videos.getVideosRelatedTo(params.author, params.permlink, 7, function() {
-      // call finished
-    })
-    SubCounts.loadSubscribers(params.author)
-    Session.set('replyingTo', {
-      author: params.author,
-      permlink: params.permlink
+    // SubCounts.loadSubscribers(params.author)
+    ChainUsers.fetchNames([params.author], function (error) {
+      if (error) console.log('Error fetch name')
     })
     Session.set("currentMenu", 0)
+    Session.set('isReplying', null)
     Template.sidebar.selectMenu();
-    Template.player.init()
   }
 });
 
@@ -232,14 +288,13 @@ FlowRouter.route('/c/:author', {
   name: "channel",
   action: function(params, queryParams) {
     Session.set("pageTitle", params.author + '\'s channel')
-    BlazeLayout.render('masterLayout', {
-      main: "channel",
-      nav: "nav"
-    });
-    Videos.getVideosByBlog(params.author, 50, function(err) {
-      if (err) console.log(err)
-    })
-    SubCounts.loadSubscribers(params.author)
+    
+    if (Session.get('avalonOnboarding'))
+      Session.set('avalonOnboarding', false)
+    // Videos.getVideosByBlog(params.author, 50, function(err) {
+    //   if (err) console.log(err)
+    // })
+    //SubCounts.loadSubscribers(params.author)
     Session.set('currentTab', 'videos');
     if(Session.get('activeUsername') == params.author)
     {
@@ -253,6 +308,10 @@ FlowRouter.route('/c/:author', {
     }
     ChainUsers.fetchNames([params.author], function (error) {
       if (error) console.log('Error fetch name')
+      BlazeLayout.render('masterLayout', {
+        main: "channel",
+        nav: "nav"
+      });
     })
   }
 });
@@ -267,12 +326,12 @@ FlowRouter.route('/t/:tag', {
     Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
       // call finished
     })
-    Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-      // call finished
-    })
-    Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-      // call finished
-    })
+    // Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+    //   // call finished
+    // })
+    // Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+    //   // call finished
+    // })
     Session.set("currentMenu", 0)
     Template.sidebar.selectMenu();
     Session.set('askSteemCurrentPage', 3)

@@ -1,8 +1,8 @@
 <template name='comment'>
-  <div class="title comment" style="text-align:left;">
+  <div class="title comment" style="text-align:left; padding-bottom: 1em;">
     <div class="ui comment" style='max-width: 9999px;'>
         <a class="ui mini circular avatar image" style="margin-right:10px;width:48px;height:48px;">
-          <div style="background-size: cover; min-width:48px; width:48px; height: 48px; background-image:url({{userPic author 'small'}})"></div>
+          <div style="background-size: cover; min-width:48px; width:48px; height: 48px; background-image:url({{picture _id}})"></div>
         </a>
         {{#if equals author currentAuthor}} 
           <a href='/c/{{author}}' class="ui author owner">{{author}}</a>
@@ -10,27 +10,27 @@
           <a href='/c/{{author}}' class="ui author">{{author}}</a>
         {{/if}}
         <div class="metadata">
-          <span class="date">{{timeAgo created}}</span>
-          <span class="money">${{displayPayout pending_payout_value total_payout_value curator_payout_value}}</span>
+          <a class="date" href='/v/{{author}}/{{link}}'>{{timeAgo ts}}</a>
+          <span class="money">{{displayRewards dist distSteem distScot}}</span>
         </div>
         <div class="text" style="word-wrap: normal;flex-wrap: wrap;overflow: hidden; margin-top: 10px;">
-          {{{syntaxed body}}}
+          {{{syntaxed json.description}}}
         </div>
         <div class="actions noselect">
           {{#if hasUpvoted this}}
-            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs up icon red"></i> {{upvotes active_votes}}</a>
+            <a class="upvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
+            <i class="thumbs up icon red"></i> {{uniques votes votesSteem 'up'}}</a>
           {{else}}
-            <a class="upvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs up icon"></i> {{upvotes active_votes}}</a>
+            <a class="upvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
+            <i class="thumbs up icon"></i> {{uniques votes votesSteem 'up'}}</a>
           {{/if}} {{#if hasDownvoted this}}
-            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs down icon red"></i> {{downvotes active_votes}}</a>
+            <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
+            <i class="thumbs down icon red"></i> {{uniques votes votesSteem 'down'}}</a>
           {{else}}
-            <a class="downvoteComment" data-author='{{author}}' data-permlink='{{permlink}}'>
-            <i class="thumbs down icon"></i> {{downvotes active_votes}}</a>
+            <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
+            <i class="thumbs down icon"></i> {{uniques votes votesSteem 'down'}}</a>
           {{/if}}
-          <a class="replyTo ui blue" data-author='{{author}}' data-permlink='{{permlink}}'>{{ translate 'GLOBAL_REPLY'}}</a>
+          <a class="replyTo ui blue" data-refs='{{json.refs}}' data-id='{{_id}}'>{{ translate 'GLOBAL_REPLY'}}</a>
         </div>
     </div>
     {{#if isReplying this}}
@@ -38,23 +38,23 @@
         <div class="field">
           <textarea style='height: 5em;min-height:5em;'></textarea>
         </div>
-        <div class="ui black right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
-            <i class="ui black icon remove dsp-non" style="background:white;opacity:1;"></i>
-            <i class="ui black icon load dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
-            <i class="ui black right icon talk iconloader on" style="background:white;"></i>
+        <div class="ui blue right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
+            <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
+            <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;"><div class="ui active loader"></div></i>
+            <i class="ui blue right icon talk repl iconloader on" style="background:white;"></i>
             <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
         </div>
       </form>
     {{/if}} 
     {{#if comments.length}}
-      <i class="ui angle down icon center"></i>
+      <!-- <i class="ui angle down icon center"></i>
       <button id="showreplies" class="ui labeled button commentbutton" style="margin-top:10px;">
           {{#if equals comments.length 1}}
             {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLY'}}
           {{else}}
             {{ translate 'COMMENT_SHOW'}} {{comments.length}} {{ translate 'COMMENT_REPLIES'}}
           {{/if}}
-      </button>
+      </button> -->
     {{/if}}
   </div>
   

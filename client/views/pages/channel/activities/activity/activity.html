@@ -1,79 +1,30 @@
 <template name='activity'>
-        {{#if equals type 'curation_reward'}} 
-        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
-            <div class="content pdg-non">
-                <div class="right floated" style="padding:5px;">
-                    <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}">
-                        {{#if getSnap tx.comment_author tx.comment_permlink}} 
-                        <img href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.comment_author tx.comment_permlink}}">
-                        {{/if}}
-                    </a>
-                </div>
-                <div style="padding: 10px;">
-                    <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.curator}}">
-                        <div style="display: inline;margin-left: 5px;">
-                            <div>
-                             {{tx.curator}} curation rewards : {{displaySteemPower tx.reward}}
-                            </div>
-                            <a href="/v/{{tx.comment_author}}/{{tx.comment_permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.comment_author tx.comment_permlink}}</a>
-                            <div>
-                                <span class="crd-spa-lab">{{timeAgo date}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/if}} 
-        {{#if equals type 'claim_reward_balance'}}
-        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
-            <div class="content pdg-non">
-                <div style="padding: 10px;">
-                    <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.account}}">
-                        <div style="display: inline;margin-left: 5px;">
-                            <div>
-                             {{tx.account}} claimed rewards : {{displaySteemPower tx.reward_vests}}
-                            </div>
-                            <a style="font-size:13px;color:rgb(105, 105, 105);"></a>
-                            <div>
-                                <span class="crd-spa-lab">{{timeAgo date}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/if}} 
         {{#if equals type 'vote'}}
         <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
             <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
-                    <a href="/v/{{tx.author}}/{{tx.permlink}}">
-                        {{#if getSnap tx.author tx.permlink}} 
-                        <img href="/v/{{tx.author}}/{{tx.permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.author tx.permlink}}">
+                    <a href="/v/{{tx.data.author}}/{{tx.data.link}}">
+                        {{#if getSnap tx.data.author tx.data.link}} 
+                        <img href="/v/{{tx.data.author}}/{{tx.data.link}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.data.author tx.data.link}}">
                         {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                            {{#if equals user.name tx.voter}}
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}">
+                        {{#if equals user.name tx.sender}}
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}">
                         {{else}}
-                        <a href="/c/{{tx.voter}}">
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}"></a>
+                        <a href="/c/{{tx.sender}}">
+                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}"></a>
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.voter}}
-                                {{tx.voter}}
-                                {{else}}
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" class="user">{{tx.voter}}</a>
-                                {{/if}} 
-                                upvoted <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.author}}/{{tx.permlink}}</a>
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                <i class="thumbs up icon"></i> 
+                                {{#if tx.data.tag}} #{{tx.data.tag}} {{/if}}
+                                <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
                             </div>
-                            <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
+                            <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.author tx.data.link}}</a>
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
@@ -83,34 +34,30 @@
             </div>
         </div>
         {{/if}} 
-        {{#if equals type 'unvote'}}
+        {{#if equals type 'downvote'}}
         <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
             <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
-                    <a href="/v/{{tx.author}}/{{tx.permlink}}">
-                        {{#if getSnap tx.author tx.permlink}} 
-                        <img href="/v/{{tx.author}}/{{tx.permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.author tx.permlink}}">
+                    <a href="/v/{{tx.data.author}}/{{tx.data.link}}">
+                        {{#if getSnap tx.data.author tx.data.link}} 
+                        <img href="/v/{{tx.data.author}}/{{tx.data.link}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.data.author tx.data.link}}">
                         {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                            {{#if equals user.name tx.voter}}
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}">
+                        {{#if equals user.name tx.sender}}
+                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}">
                         {{else}}
-                        <a href="/c/{{tx.voter}}">
-                        <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.voter}}"></a>
+                            <a href="/c/{{tx.sender}}">
+                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}"></a>
                         {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.voter}}
-                                {{tx.voter}}
-                                {{else}}
-                                <a style="color:#ff1a1a!important;" href="/c/{{tx.voter}}" class="user">{{tx.voter}}</a>
-                                {{/if}} 
-                                unvoted
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                <i class="thumbs down icon"></i> <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
                             </div>
-                            <a href="/v/{{tx.author}}/{{tx.permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
+                            <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.author tx.data.link}}</a>
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
@@ -124,31 +71,61 @@
         <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
             <div class="content pdg-non">
                 <div class="right floated" style="padding:5px;">
-                    <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}">
-                        {{#if getSnap tx.parent_author tx.parent_permlink}} 
-                        <img href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="margin-top:10px;" width="70" height="40"
-                            src="{{getSnap tx.parent_author tx.parent_permlink}}">
+                    <a href="/v/{{tx.data.pa}}/{{tx.data.pp}}">
+                        {{#if getSnap tx.data.pa tx.data.pp}} 
+                        <img href="/v/{{tx.data.pa}}/{{tx.data.pp}}" style="margin-top:10px;" width="70" height="40"
+                            src="{{getSnap tx.data.pa tx.data.pp}}">
                             {{/if}}
                     </a>
                 </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                            {{#if equals user.name tx.author}}
-                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.author}}">
+                            {{#if equals user.name tx.sender}}
+                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}">
                             {{else}}
-                            <a href="/c/{{tx.author}}">
-                            <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.author}}"></a>
+                            <a href="/c/{{tx.sender}}">
+                            <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}"></a>
                             {{/if}} 
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                {{#if equals user.name tx.author}}
-                                    {{tx.author}}
-                                        {{else}}
-                                        <a style="color:#ff1a1a!important;" href="/c/{{tx.author}}" class="user">{{tx.author}}</a>
-                                    {{/if}} 
-                                replied
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                replied to <a href="/v/{{tx.data.pa}}/{{tx.data.pp}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.pa}}/{{tx.data.pp}}</a>
                             </div>
-                            <a href="/v/{{tx.parent_author}}/{{tx.parent_permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.parent_author tx.parent_permlink}}</a>
+                            <a href="/v/{{tx.data.pa}}/{{tx.data.pp}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.pa tx.data.pp}}</a>
+                            <div>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}} 
+        {{#if equals type 'publish'}} 
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
+                <div class="right floated" style="padding:5px;">
+                    <a href="/v/{{tx.sender}}/{{tx.data.link}}">
+                        {{#if getSnap tx.sender tx.data.link}} 
+                        <img href="/v/{{tx.sender}}/{{tx.data.link}}" style="margin-top:10px;" width="70" height="40"
+                            src="{{getSnap tx.sender tx.data.link}}">
+                            {{/if}}
+                    </a>
+                </div>
+                <div style="padding: 10px;">
+                    <div class="dsp-flx">
+                            {{#if equals user.name tx.sender}}
+                            <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.sender}}">
+                            {{else}}
+                            <a href="/c/{{tx.sender}}">
+                            <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}"></a>
+                            {{/if}} 
+                        <div style="display: inline;margin-left: 5px;">
+                            <div>
+                                <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                published <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.sender}}/{{tx.data.link}}</a>
+                            </div>
+                            <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.sender tx.data.link}}</a>
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
@@ -163,13 +140,13 @@
             <div class="content pdg-non">
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].follower}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 subscribed to
-                                <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
-                                    <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.[1].following}}">
+                                <a href="/c/{{tx.data.target}}" style="color:rgb(255, 0, 0);">{{tx.data.target}}
+                                    <img class="ui avatar image" style="min-width:28px;" src="{{userPic tx.data.target}}">
                                 </a>
                             </div>
                             <div>
@@ -186,13 +163,13 @@
             <div class="content pdg-non">
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].follower}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                                <a style="color:#262626!important;" href="/c/{{tx.[1].follower}}" class="user">{{tx.[1].follower}}</a>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 unsubscribed from
-                                <a href="/c/{{tx.[1].following}}" style="color:rgb(255, 0, 0);">{{tx.[1].following}}
-                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.[1].following}}">
+                                <a href="/c/{{tx.data.target}}" style="color:rgb(255, 0, 0);">{{tx.data.target}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.target}}">
                                 </a>
                             </div>
                             <div>
@@ -203,30 +180,22 @@
                 </div>
             </div>
         </div>
-        {{/if}} 
-        {{#if equals type 'reblog'}} 
+        {{/if}}
+        {{#if equals type 'transfer'}} 
         <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
             <div class="content pdg-non">
-                <div class="right floated" style="padding:5px;">
-                    <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}">
-                        {{#if getSnap tx.[1].author tx.[1].permlink}} 
-                        <img href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="margin-top:10px;" width="70" height="40" src="{{getSnap tx.[1].author tx.[1].permlink}}">
-                        {{/if}}
-                    </a>
-                </div>
                 <div style="padding: 10px;">
                     <div class="dsp-flx">
-                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.[1].account}}">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
                         <div style="display: inline;margin-left: 5px;">
                             <div>
-                               {{tx.[1].account}}
-                                resteemed
-                                <a href="/c/{{tx.[1].author}}" style="color:rgb(255, 0, 0);">{{tx.[1].author}}
-                                    <img class="ui avatar image" style="width:28px;margin-left:5px;" src="{{userPic tx.[1].author}}">
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                sent {{displayMoney tx.data.amount 0 'DTC'}} to 
+                                <a href="/c/{{tx.data.receiver}}" style="color:rgb(255, 0, 0);">{{tx.data.receiver}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.receiver}}">
                                 </a>
                             </div>
-                            <a href="/v/{{tx.[1].author}}/{{tx.[1].permlink}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.author tx.permlink}}</a>
-                            
+                            <code>{{tx.data.memo}}</code>
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
@@ -235,5 +204,29 @@
                 </div>
             </div>
         </div>
-        {{/if}} 
+        {{/if}}
+        {{#if equals type 'newAccount'}} 
+        <div class="ui card wid-ful brd-rad-non" style="margin:0px;white-space: inherit;background: #ffffff;">
+            <div class="content pdg-non">
+                <div style="padding: 10px;">
+                    <div class="dsp-flx">
+                        <img class="ui avatar image" style="min-width:28px;"  src="{{userPic tx.sender}}">
+                        <div style="display: inline;margin-left: 5px;">
+                            <div>
+                                <a style="color:rgb(255, 0, 0)!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
+                                created the new account  
+                                <a href="/c/{{tx.data.name}}" style="color:rgb(255, 0, 0);">{{tx.data.name}}
+                                    <img class="ui avatar image" style="margin-left:5px;" src="{{userPic tx.data.name}}">
+                                </a>
+                            </div>
+                            <code>{{tx.data.memo}}</code>
+                            <div>
+                                <span class="crd-spa-lab">{{timeAgo date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
 </template>

@@ -42,6 +42,10 @@
   color: #212121;
 }
 
+.verticalvideosnap:hover .videosnapdescription {
+  color: black;
+}
+
 .videosnapauthor
 {
   font-size: 0.9rem;
@@ -76,6 +80,25 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
+  color: rgb(226, 226, 226);
+  background-color: rgba(34, 36, 38, 0.75);
+  margin-right: 4px;
+  margin-bottom: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
+  z-index: 99;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 17px;
+}
+
+
+.videoscore
+{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
   color: rgb(226, 226, 226);
   background-color: rgba(34, 36, 38, 0.75);
   margin-right: 4px;
@@ -127,6 +150,7 @@
   -webkit-line-clamp: 2;
   margin: 0 auto;
   height: 36px;
+  color: darkgrey;
 }
 
 .videosnapdescriptionmobile
@@ -201,7 +225,7 @@
 }
 
 .reblogged {
-  color: #ff0009;
+  color: #F01A30;
 }
 
 .title
@@ -241,7 +265,7 @@
 .activemenu
 {
   text-align: left;
-  color: #ff0009;
+  color: #F01A30;
 }
 
 .activemenu .dtubesidebartitle
@@ -251,7 +275,7 @@
 
 .activemenu.nightmodetext
 {
-  color: #ff0009 !important;
+  color: #F01A30 !important;
 }
 
 .ui.left.visible.sidebar, .ui.right.visible.sidebar {

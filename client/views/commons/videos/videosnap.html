@@ -1,18 +1,19 @@
 <template name='videosnap'>
   {{#unless isVideoHidden this}}
   <div class='videosnap wid-ful' style="max-width:210px;">
-    <a href='/v/{{info.author}}/{{info.permlink}}' title='{{info.title}}'>
+    <a href='/v/{{author}}/{{link}}' title='{{title}}'>
       <div id='snaphover wid-ful' class='videosnapsnap' style="height:118px;">
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">
-        {{#if info.duration}} 
-          <span class="videosnapduration">{{durationDisplay info.duration}}</span>
+        <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
+        {{#if json.duration}} 
+          <span class="videosnapduration">{{durationDisplay json.duration}}</span>
         {{/if}}
         {{#if viewers}} 
           <span class="livestreamviewcount">{{viewers}} viewer{{#unless equals viewers '1'}}s{{/unless}}</span>
         {{/if}}
         {{#if equals source 'wakaArticles'}}
         {{#if isOnWatchAgain}}
-        <div id="remove" class="remove snapbutton pos-abs" title='Stop sharing {{info.title}}' style="float: right;right: 5px;background: black;top: 5px;border-radius: 4px;opacity: 0.9;">
+        <div id="remove" class="remove snapbutton pos-abs" title='Stop sharing {{title}}' style="float: right;right: 5px;background: black;top: 5px;border-radius: 4px;opacity: 0.9;">
           <i class="remove icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
               <span style="z-index:9000;"></span>
             </i>
@@ -37,37 +38,30 @@
             <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div> 
-          <img id="snapimg" class="sprite" data-src="{{ipfsSrc info.snaphash}}" width="100%" height="100%" style="height:118px;width:210px;" alt="" >            
+          <img id="snapimg" class="sprite" data-src="{{json.thumbnailUrl}}" width="100%" height="100%" style="height:118px;width:210px;" alt="" >            
       </div>
         <br />
       </div>
     </a>
     <div class="boxdisplayer">
       <div class='videosnaptitle'>
-        <a href='/v/{{info.author}}/{{info.permlink}}'>
-          <span class="customtitlelink">{{info.title}}</span>
+        <a href='/v/{{author}}/{{link}}'>
+          <span class="customtitlelink">{{json.title}}</span>
         </a>
       </div>
     </div>
     <div class='videosnapauthor'>
-      <a href='/c/{{info.author}}'>
-        <span class="customlink">{{info.author}}</span>
+      <a href='/c/{{author}}'>
+        <span class="customlink">{{author}}</span>
       </a>
-      {{#if isResteemed reblogged_by}}
-      <i class="retweet icon reblogged" title={{reblogged_by}}></i>
-      {{/if}}
     </div>
     <div class='videosnapdetails'>
-        {{#if displayPayout pending_payout_value total_payout_value curator_payout_value}}
-      <div class='videosnaprest'>
-          ${{displayPayout pending_payout_value total_payout_value curator_payout_value}}
+        <div class='videosnaprest'>
+          {{displayRewards dist distSteem distScot}}
+        </div>
+        <div class='videosnaptime'>
+        {{timeAgo ts}}
       </div>
-      {{/if}}
-      {{#if created}}
-      <div class='videosnaptime'>
-        {{timeAgo created}}
-      </div>
-      {{/if}}
     </div>
     {{ticker}}
   </div>

@@ -6,77 +6,115 @@
           <i class="remove circle icon notificationremove"></i>
         </div>
       {{/unless}}
-      {{#if equals type 'follow'}}
-        <a class='notification-link' href="/c/{{follower}}">
+      {{#if equals tx.type '7'}}
+        <a class='notification-link' href="/c/{{tx.sender}}">
           <div class="dsp-flx" style="padding:10px;">
-            <img class="ui avatar image" src="{{userPic follower}}">
+            <img class="ui avatar image" src="{{userPic tx.sender}}">
             <div style="width: 100%;display: inline;margin-left: 5px;">
               <div>
                 <span style="color:#ff1a1a!important;" class="user">
-                  {{follower}}
+                  {{tx.sender}}
                 </span>
                 subscribed to your channel
               </div>
-              <span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span>
+              <span class="crd-spa-lab">{{timeAgoReal ts}}</span>
             </div>
           </div>
         </a>
       {{/if}}
-      {{#if equals type 'reply'}}
-        <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{parent_permlink}}">
+      {{#if equals tx.type '4'}}
+        {{#if equals tx.data.pa activeUsername}}
+          <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{tx.data.pp}}">
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic tx.sender}}">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
+                  <div>
+                    <span style="color:#ff1a1a!important;" class="user">
+                      {{tx.sender}}
+                    </span>
+                    commented on your content
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {{else}}
+          <a class='notification-link' href="/v/{{author}}/{{tx.data.link}}">
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic author}}">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
+                  <div>
+                    <span style="color:#ff1a1a!important;" class="user">
+                      {{author}}
+                    </span>
+                    mentioned you
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {{/if}}
+      {{/if}}
+      {{#if equals tx.type '3'}}
+        <a class='notification-link' href="/c/{{tx.sender}}">
           <div style="padding: 10px;">
             <div class="dsp-flx">
-              <img class="ui avatar image" src="{{userPic author}}">
+              <img class="ui avatar image" src="{{userPic tx.sender}}">
               <div style="width: 100%;display: inline;margin-left: 5px;">
                 <div>
                   <span style="color:#ff1a1a!important;" class="user">
-                    {{author}}
+                    {{tx.sender}}
                   </span>
-                  commented on your content
+                  sent you {{displayMoney tx.data.amount 0 'DTC'}}
                 </div>
-                <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+                <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
               </div>
             </div>
           </div>
         </a>
       {{/if}}
-      {{#if equals type 'transfer'}}
-        <a class='notification-link' href="/c/{{from}}">
-          <div style="padding: 10px;">
-            <div class="dsp-flx">
-              <img class="ui avatar image" src="{{userPic from}}">
-              <div style="width: 100%;display: inline;margin-left: 5px;">
-                <div>
-                  <span style="color:#ff1a1a!important;" class="user">
-                    {{from}}
-                  </span>
-                  sent you {{amount}}
+      {{#if equals tx.type '5'}}
+        {{#if equals tx.data.tag ''}}
+          <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{tx.data.link}}">
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic tx.sender}}">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
+                  <div>
+                    <span style="color:#ff1a1a!important;" class="user">
+                      {{tx.sender}}
+                    </span>
+                    voted on your content
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
                 </div>
-                <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
               </div>
             </div>
-          </div>
-        </a>
-      {{/if}}
-      {{#if equals type 'mention'}}
-        <a class='notification-link' href="/v/{{author}}/{{permlink}}">
-          <div style="padding: 10px;">
-            <div class="dsp-flx">
-              <img class="ui avatar image" src="{{userPic author}}">
-              <div style="width: 100%;display: inline;margin-left: 5px;">
-                <div>
-                  <span style="color:#ff1a1a!important;" class="user">
-                    {{author}}
-                  </span>
-                  mentioned you
+          </a>
+        {{else}}
+          <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{tx.data.link}}">
+            <div style="padding: 10px;">
+              <div class="dsp-flx">
+                <img class="ui avatar image" src="{{userPic tx.sender}}">
+                <div style="width: 100%;display: inline;margin-left: 5px;">
+                  <div>
+                    <span style="color:#ff1a1a!important;" class="user">
+                      {{tx.sender}}
+                    </span>
+                    {{tx.data.tag}}'d your content
+                  </div>
+                  <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
                 </div>
-                <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        {{/if}}
       {{/if}}
-      {{#if equals type 'reblog'}}
+      {{#if equals tx.type '9'}}
         <a class='notification-link' href="/v/{{session 'activeUsername'}}/{{permlink}}">
           <div style="padding: 10px;">
             <div class="dsp-flx">
@@ -88,7 +126,7 @@
                   </span>
                   resteemed your content
                 </div>
-                <div><span class="crd-spa-lab">{{timeAgoTimestamp timestamp}}</span></div>
+                <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
               </div>
             </div>
           </div>

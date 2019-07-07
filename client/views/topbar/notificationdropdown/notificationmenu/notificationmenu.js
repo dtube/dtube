@@ -6,13 +6,10 @@ Template.notificationmenu.helpers({
       || user.reward_vesting_balance.split(' ')[0] > 0)
       return true
   },
-  displayRewards: function(user) {
-    return Template.users.formatRewards(user)
-  },
   notifications: function() {
     return Notifications.find(
-      {user: Session.get('activeUsername')},
-      {sort: { block: -1 }, limit: 50})
+      {u: Session.get('activeUsername')},
+      {sort: { ts: -1 }, limit: 200})
       .fetch()
   },
   mainUser: function() {

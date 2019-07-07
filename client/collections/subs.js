@@ -1,40 +1,39 @@
 Subs = new Mongo.Collection(null)
 
 Subs.loadFollowing = function(username, startFollowing = undefined, recursive = true, cb) {
-  var limit = 100
-  steem.api.getFollowing(username, startFollowing, 'blog', limit, function(err, results) {
+  avalon.getFollowing(username, function(err, results) {
     if (err) console.log(err)
     if (results && results.length) {
-      for (var i = 0; i < results.length; i++)
-      Subs.upsert(results[i], results[i])
-      if (results.length == limit && recursive) 
-        Subs.loadFollowing(username, results[results.length-1].following, true, cb)
-      else {
-        Session.set('lastFollowingLoaded', results[results.length-1].following)
-        cb(username)
+      for (var i = 0; i < results.length; i++) {
+        var sub = {
+          follower: username,
+          following: results[i],
+          what: ['blog']
+        }
+        Subs.upsert(sub, sub)
       }
-    }
-  });
-}
-
-Subs.loadFollowers = function(username, startFollowers = undefined, recursive = true, cb) {
-  var limit = 100
-  steem.api.getFollowers(username, startFollowers, 'blog', limit, function(err, results) {
-    if (err) console.log(err)
-    for (var i = 0; i < results.length; i++)
-      Subs.upsert(results[i], results[i])
-
-    if (results.length == limit && recursive)
-      Subs.loadFollowers(username, results[results.length-1].follower, true, cb)
-    else {
-      Session.set('lastFollowerLoaded', results[results.length-1].follower)
       cb(username)
     }
   });
 }
 
+Subs.loadFollowers = function(username, startFollowers = undefined, recursive = true, cb) {
+  steem.api.getFollowers(username, function(err, results) {
+    if (err) console.log(err)
+    for (var i = 0; i < results.length; i++){
+      var sub = {
+        follower: results[i],
+        following: username,
+        what: ['blog']
+      }
+      Subs.upsert(sub, sub)
+    }
+    cb(username)
+  });
+}
+
 Subs.followUs = function(follower, cb) {
-  broadcast.follow(Meteor.settings.public.beneficiary, function(err, result) {
+  broadcast.avalon.follow(Meteor.settings.public.beneficiary, function(err, result) {
     cb()
   })
 }

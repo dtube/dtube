@@ -21,9 +21,9 @@
         <i class="dropdown icon"></i>
         <div class="default text almostblack">{{ translate 'TAGS_SORT_BY'}} </div>
         <div class="menu">
-          <div class="item sortby" data-value="net_votes">{{ translate 'TAGS_VOTES'}} </div>
-          <div class="item sortby" data-value="payout">{{ translate 'TAGS_PAYOUT'}} </div>
-          <div class="item sortby" data-value="created">{{ translate 'TAGS_DATE'}} </div>
+          <div class="item sortby" data-value="tags.{{currentTag}}">{{ translate 'TAGS_VOTES'}} </div>
+          <div class="item sortby" data-value="dist">{{ translate 'TAGS_PAYOUT'}} </div>
+          <div class="item sortby" data-value="ts">{{ translate 'TAGS_DATE'}} </div>
         </div>
       </div>
       <div class="ui selection dropdown ddtag" style="min-width:8em;z-index: 100;">
@@ -65,9 +65,9 @@
         <i class="dropdown icon"></i>
         <div class="default text almostblack">{{ translate 'TAGS_SORT_BY'}}</div>
         <div class="menu">
-          <div class="item sortby" data-value="net_votes">{{ translate 'TAGS_VOTES'}} </div>
-          <div class="item sortby" data-value="payout">{{ translate 'TAGS_PAYOUT'}} </div>
-          <div class="item sortby" data-value="created">{{ translate 'TAGS_DATE'}} </div>
+          <div class="item sortby" data-value="tags.{{currentTag}}">{{ translate 'TAGS_VOTES'}} </div>
+          <div class="item sortby" data-value="dist">{{ translate 'TAGS_PAYOUT'}} </div>
+          <div class="item sortby" data-value="ts">{{ translate 'TAGS_DATE'}} </div>
         </div>
       </div>
       <div class="ui selection dropdown ddtag">

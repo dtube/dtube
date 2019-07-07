@@ -1,18 +1,22 @@
 <template name='channeldesktopcover'>
         {{#if author}}
-        <div id="channelcover" class="channelcover {{#unless author.json_metadata.profile.cover_image}}{{randomBackgroundColor}}{{/unless}}">
-            {{#if author.json_metadata.profile.cover_image}}
-                <img src="{{userCover author.json_metadata.profile.cover_image}}" class="pos-abs" style="object-fit: cover;width: 100%;height: 100%;">
+        <div id="channelcover" class="channelcover {{#unless author.json.profile.cover_image}}{{randomBackgroundColor}}{{/unless}}">
+            {{#if author.json.profile.cover_image}}
+                <img src="{{userCover author.json.profile.cover_image}}" class="pos-abs" style="object-fit: cover;width: 100%;height: 100%;">
             {{/if}}
             <div class="ui container">
-                <h3 class="pos-abs" style="margin-left:160px;;bottom:0px;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">{{user.name}}</h3>
+                    <div class="pos-abs" style="margin-left:160px;;top:20%;z-index:10;color:white;text-shadow: 2px 2px 2px #262626;">
+                        <h1>{{user.name}}</h1>
+                        <i class="icon red play"></i><strong>{{displayMoney author.balance 0 'DTC'}}</strong>
+                        <br /><i class="icon yellow lightning"></i><strong>{{displayVotingPower author 0}}</strong>
+                    </div>
                 <div class="ui image circular"
                     style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
                 </div>
                 {{#if equals activeUser user.name}}
-                    <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
+                    <!-- <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
                         {{>buttoneditprofile}}
-                    </div>
+                    </div> -->
                 {{else}}
                     {{#if isSubscribedTo user.name}}
                         <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
@@ -23,20 +27,20 @@
                             {{>buttonsubscribe}}
                         </div>
                     {{/if}}
+                    <div class="pos-rel" tabindex="0" style="float: right;top: 100px;margin-right: 10px !important;">
+                        {{>buttontransfer}}
+                    </div>
                 {{/if}}
             </div>
         </div>
-        <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
+        <!-- <div id="showchannelinfo" class="ui grid" style="padding: 0px;margin:0px!important;max-width: 100%;display: block;">
             <div class="ui fluid compact menu brd-rad-non" style="min-height:0px!important;display: block;border-width:0px;">
                 <div class="ui container" style="display: block;">
-                    <div title="{{ translate 'CHANNEL_TOOLTIP_REPUTATION'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
-                        <i class="icon red star"></i>{{displayReputation author.reputation}}
-                    </div>
                     <div title="{{ translate 'CHANNEL_TOOLTIP_VOTING_POWER'}}" class="ui videoshowmore label" style="margin-left: 0em;float:right;">
-                        <i class="icon blue lightning"></i>{{displayVotingPower author.voting_power author.last_vote_time 2}} %
+                        <i class="icon blue lightning"></i>{{displayVotingPower author 0}}
                     </div>
                     <div class="ui videoshowmore money label" style="margin-left: 0em;float:right;">
-                        <i class="icon green money"></i>${{author.estimateAccountValue}}
+                        <i class="icon green money"></i>{{author.estimateAccountValue}} DTC
                     </div>
                     <div class="ui popup bottom left transition hidden" style="max-width: 100%;">
                         <div class="column">
@@ -55,6 +59,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         {{/if}}
 </template>

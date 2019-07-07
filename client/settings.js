@@ -1,7 +1,7 @@
 // default settings
 Meteor.settings.public = {
   "remote": {
-    "dfees": 2500,
+    "dfees": 1000,
     "loadLimit": 12,
     "displayNodes": [
       "https://snap1.d.tube",
@@ -24,7 +24,10 @@ Meteor.settings.public = {
     "upldr": ["cluster"],
     "localhost": false
   },
-  "app": "dtube/0.8",
+  "app": "dtube/0.9",
+  "scot": null,
+  "logo": "https://d.tube/DTube_files/images/DTube_Black.svg",
+  "logonight": "https://d.tube/DTube_files/images/DTube_White.svg",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",
@@ -54,10 +57,24 @@ Meteor.settings.public = {
   }
 }
 
+// example scot config
+// config_scot = {
+//   "token": "PAL",
+//   "precision": 0,
+//   "displayedPrecision": 0,
+//   "tag": "palnet",
+//   "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+//   "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+//   "websiteTitle": "PEACE, ABUNDANCE, AND LIBERTY"
+// }
+
+if (typeof config_scot != "undefined")
+  Meteor.settings.public.scot = config_scot
+
 // custom settings loaded from json
-$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
-  if (result == 'success') {
-    Meteor.settings.public = json
-    Session.set('remoteSettings', Meteor.settings.public.remote)
-  }
-})
+// $.get('https://d.tube/DTube_files/settings.json', function(json, result) {
+//   if (result == 'success') {
+//     Meteor.settings.public = json
+//     Session.set('remoteSettings', Meteor.settings.public.remote)
+//   }
+// })
