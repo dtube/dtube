@@ -60,7 +60,8 @@ Meteor.settings.public = {
 //   "displayedPrecision": 0,
 //   "tag": "palnet",
 //   "logo": "https://i.imgsafe.org/15/15bdc8a5ba.png",
-//   "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png"
+//   "logonight": "https://i.imgsafe.org/15/15bdc8a5ba.png",
+//   "websiteTitle": "PEACE, ABUNDANCE, AND LIBERTY"
 // }
 
 if (typeof config_scot != "undefined")
