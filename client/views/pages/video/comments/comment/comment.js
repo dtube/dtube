@@ -62,5 +62,23 @@ Template.comment.rendered = function () {
 }
 
  
-  
+function updateComment(author, permlink, rshares) {
+  var rootVideo = Videos.findOne({
+    author: FlowRouter.getParam("author"),
+    permlink: FlowRouter.getParam("permlink"),
+    source: 'chainDirect'
+  })
+  for (let i = 0; i < rootVideo.comments.length; i++) {
+    if (rootVideo.comments[i].author == author 
+      && rootVideo.comments[i].permlink == permlink) {
+        rootVideo.comments[i].active_votes.push({
+          rshares: rshares,
+          reputation: 25,
+          voter: Session.get('activeUsername'),
+          percent: rshares
+        })
+      }
+  }
+  Videos.upsert({_id: rootVideo._id}, rootVideo)
+}
 

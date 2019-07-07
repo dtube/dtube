@@ -5,8 +5,19 @@
       "displayNodes": [
         "https://snap1.d.tube",
         "https://ipfs.io",
-        // "https://ipfs.infura.io",
-        // "http://127.0.0.1:8080"
+        // "https://siderus.io",
+        // "https://cloudflare-ipfs.com",
+        // "https://ipfs.busy.org",
+        "http://127.0.0.1:8080"
+      ],
+      "APINodes": [
+        "https://api.steemit.com/",
+        "https://steemd.minnowsupportproject.org/",
+        "https://anyx.io/",
+        "https://rpc.steemviz.com/",
+        "https://rpc.usesteem.com/",
+        "https://steemd.privex.io/",
+        "https://api.steem.house/"
       ],
       "snapMaxFileSizeKB": 1024,
       "upldr": ["upldr1", "upldr3", "upldr5", "upldrg1", "upldrg5", "cluster"],

@@ -35,7 +35,9 @@
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3"
+    "autoprefixer": "^7.1.3",
+    "electron": "2.0.10",
+    "meteor-desktop": "^2.0.0"
   },
   "postcss": {
     "plugins": {
