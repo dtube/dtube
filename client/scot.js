@@ -53,6 +53,7 @@ Scot = {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(function(res) {
+            console.log(res)
             var distScot = []
             for (const key in res) {
                 var dist = 0

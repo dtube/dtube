@@ -359,17 +359,26 @@ Template.video.loadState = function () {
       })
     } else {
       isLoadingState = false
-      Template.video.loadScot()
+      if (result && result.json && result.json.refs) {
+        for (let i = 0; i < result.json.refs.length; i++) {
+          if (result.json.refs[i].split('/')[0] === 'steem') {
+            Template.video.loadScot(result.json.refs[i].split('/')[1], result.json.refs[i].split('/')[2])
+          }
+        }
+      }
+      
       Template.video.handleVideo(result, 'dtc/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
     }
   });
 }
 
-Template.video.loadScot = function() {
+Template.video.loadScot = function(author, link) {
   if (Session.get('scot')) {
-    console.log('Loading scot rewards')
-    Scot.getRewards(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function(err, distScot) {
-      console.log('Loaded scot rewards')
+    var author = author || FlowRouter.getParam("author")
+    var link = link || FlowRouter.getParam("permlink")
+    console.log('Loading scot rewards', author, link)
+    Scot.getRewards(author, link, function(err, distScot) {
+      console.log('Loaded scot rewards', distScot)
       Videos.update({
         author: FlowRouter.getParam("author"), 
         link: FlowRouter.getParam("permlink")
