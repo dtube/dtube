@@ -48,5 +48,17 @@ Template.channelabout.events({
                 Session.set('isEditingProfile', false)
             }
         })
+    },
+    'click .openkeys': function() {
+        Session.set('currentTab', 'keys')
+        $('.menu .item').tab();
+        $('.menu .item.keys').click()
+        $('.menu .item.keys').addClass('active')
+    },
+    'click .openrewards': function() {
+        Session.set('currentTab', 'rewards')
+        $('.menu .item').tab();
+        $('.menu .item.rewards').click()
+        $('.menu .item.rewards').addClass('active')
     }
 })

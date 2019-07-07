@@ -6,6 +6,10 @@
       <a class="item videos active" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
       <a class="item activities" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
       <a class="item about" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+      {{#if equals author.name activeUsername}}
+      <a class="item keys" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
+      <a class="item rewards" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
+      {{/if}}
     </div>
     <div class="ui infinite bottom attached tab segment active" data-tab="first" style="padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
       {{#if userVideos}}
@@ -20,6 +24,18 @@
         {{> channelactivities}} 
       {{/if}}
     </div>
+    {{#if equals author.name activeUsername}}
+      <div class="ui bottom attached tab segment" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        {{#if equals currentTab 'keys'}} 
+          {{> channelkeys}} 
+        {{/if}}
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        {{#if equals currentTab 'rewards'}} 
+          {{> channelrewards}} 
+        {{/if}}
+      </div>
+    {{/if}}
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'about'}} 
       {{> channelabout}} 

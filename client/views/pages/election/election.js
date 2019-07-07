@@ -7,7 +7,7 @@ Template.election.helpers({
         return leaders
     },
     isVotingFor: function(name){
-        var user = Users.findOne({username: Session.get('activeUsername')})
+        var user = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
         if (user && user.approves && user.approves.indexOf(name) > -1)
             return true
 
@@ -15,7 +15,7 @@ Template.election.helpers({
     },
     myOtherVotes: function(){
         var leaders = Session.get('leaders')
-        var user = Users.findOne({username: Session.get('activeUsername')})
+        var user = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
         var approves = []
         if (user && user.approves) approves = user.approves
         if (leaders)
