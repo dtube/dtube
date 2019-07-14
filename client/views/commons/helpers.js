@@ -516,6 +516,10 @@ Template.registerHelper('settings', function() {
   return Meteor.settings.public
 })
 
+Template.registerHelper('thirdPartyUploadEndpoints', () => {
+  return Meteor.settings.public.remote.thirdPartyUploadEndpoints
+})
+
 Template.registerHelper('ipfsSrc', function (ipfsHash) {
   if (!ipfsHash) return ''
   if (Session.get('ipfsGateway') == 'automatic') {

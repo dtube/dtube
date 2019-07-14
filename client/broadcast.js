@@ -383,6 +383,19 @@ broadcast = {
                 )
                 return;
             }
+        },
+        decrypt_memo: (memo,cb) => {
+            if (!Session.get('activeUsernameSteem')) return
+            if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem'}).type == 'keychain') {
+                if (!steem_keychain) return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                steem_keychain.requestVerifyKey(Session.get('activeUsernameSteem'),memo,'Posting',(response) => {
+                    cb(response.error,response.result.substr(1))
+                })
+                return
+            }
+            let wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
+            let decoded = steem.memo.decode(wif,memo).substr(1)
+            cb(null,decoded)
         }
     },
     avalon: {

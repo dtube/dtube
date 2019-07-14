@@ -22,6 +22,10 @@ Meteor.settings.public = {
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["cluster"],
+    "thirdPartyUploadEndpoints": [
+      "uploader.oneloved.tube",
+      // "uploader.dtube.network"
+    ],
     "localhost": false
   },
   "app": "dtube/0.9",

@@ -74,6 +74,13 @@
       <!-- OLD SCHOOL AND COMPLEX UPLOAD -->
 
       <center>
+        <select id="uploadEndpointSelection" class="ui fluid selection dropdown">
+          <option value="">{{ translate 'UPLOAD_ENDPOINT_PLACEHOLDER' }}</option>
+          <option value="cluster.d.tube">{{ translate 'UPLOAD_ENDPOINT_DEFAULT' }} (cluster.d.tube)</option>
+          {{#each endpoint in thirdPartyUploadEndpoints}}
+          <option value="{{endpoint}}">{{endpoint}}</option>
+          {{/each}}
+        </select><br>
         <div id="dropzone" class="dropzone needsclick">
           <div class="needsclick">
             <i class="video icon"></i>
