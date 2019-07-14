@@ -16,6 +16,7 @@ Template.upload.rendered = function () {
   $('#uploadEndpointSelection').dropdown({
     action: 'activate',
     onChange: (value,text) => {
+      $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
       // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
       if (value === 'uploader.oneloved.tube') {
         if (!Session.get('activeUsernameSteem')) { 
@@ -30,7 +31,7 @@ Template.upload.rendered = function () {
             broadcast.steem.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
               if (err === 'LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED') {
                 $('#uploadEndpointSelection').dropdown('restore defaults')
-                $(this).removeClass('loading')
+                $('#uploadEndpointSelection').parent().removeClass('loading')
                 return toastr.error(translate('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
               } else if (err) {
                 $('#uploadEndpointSelection').dropdown('restore defaults')
@@ -46,6 +47,7 @@ Template.upload.rendered = function () {
                   Session.set('Upload token for ' + value,result.access_token)
                   console.log(result.access_token)
                   $('#uploadEndpointSelection').parent().removeClass('loading')
+                  $('#uploadEndpointSelection').parent().children('.icon').removeClass('dropdown').addClass('check')
                 },
                 error: (req,status) => handleUploadEndpointCheckError(req,status)
               })
