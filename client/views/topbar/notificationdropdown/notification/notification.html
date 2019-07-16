@@ -6,6 +6,22 @@
           <i class="remove circle icon notificationremove"></i>
         </div>
       {{/unless}}
+      {{#if equals tx.type '1'}}
+        <a class='notification-link' href="/c/{{tx.sender}}">
+          <div class="dsp-flx" style="padding:10px;">
+            <img class="ui avatar image" src="{{userPic tx.sender}}">
+            <div style="width: 100%;display: inline;margin-left: 5px;">
+              <div>
+                <span style="color:#ff1a1a!important;" class="user">
+                  {{tx.sender}}
+                </span>
+                voted for you as chain leader
+              </div>
+              <span class="crd-spa-lab">{{timeAgoReal ts}}</span>
+            </div>
+          </div>
+        </a>
+      {{/if}}
       {{#if equals tx.type '7'}}
         <a class='notification-link' href="/c/{{tx.sender}}">
           <div class="dsp-flx" style="padding:10px;">
@@ -41,14 +57,14 @@
             </div>
           </a>
         {{else}}
-          <a class='notification-link' href="/v/{{author}}/{{tx.data.link}}">
+          <a class='notification-link' href="/v/{{tx.sender}}/{{tx.data.link}}">
             <div style="padding: 10px;">
               <div class="dsp-flx">
-                <img class="ui avatar image" src="{{userPic author}}">
+                <img class="ui avatar image" src="{{userPic tx.sender}}">
                 <div style="width: 100%;display: inline;margin-left: 5px;">
                   <div>
                     <span style="color:#ff1a1a!important;" class="user">
-                      {{author}}
+                      {{tx.sender}}
                     </span>
                     mentioned you
                   </div>
@@ -58,6 +74,24 @@
             </div>
           </a>
         {{/if}}
+      {{/if}}
+      {{#if equals tx.type '13'}}
+        <a class='notification-link' href="/v/{{tx.sender}}/{{tx.data.link}}">
+          <div style="padding: 10px;">
+            <div class="dsp-flx">
+              <img class="ui avatar image" src="{{userPic tx.sender}}">
+              <div style="width: 100%;display: inline;margin-left: 5px;">
+                <div>
+                  <span style="color:#ff1a1a!important;" class="user">
+                    {{tx.sender}}
+                  </span>
+                  mentioned you in a promoted post
+                </div>
+                <div><span class="crd-spa-lab">{{timeAgoReal ts}}</span></div>
+              </div>
+            </div>
+          </div>
+        </a>
       {{/if}}
       {{#if equals tx.type '3'}}
         <a class='notification-link' href="/c/{{tx.sender}}">
