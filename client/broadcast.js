@@ -691,7 +691,7 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
       body += description
       body += '\n\n<hr>'
       body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-      if (videoprovider == 'ipfs')
+      if (videoprovider == 'IPFS')
         body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
       if (videoprovider == 'YouTube')
         body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'

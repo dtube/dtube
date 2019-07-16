@@ -264,7 +264,13 @@ Template.upload.uploadImage = function (file, progressid, cb) {
   //   postUrl = postUrl.replace('snap1.d.tube', scotUpldr)
   // }
   var formData = new FormData();
-  formData.append('files', file);
+  
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+    postUrl = 'https://uploader.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+    formData.append('image',file)
+  } else {
+    formData.append('files', file)
+  }
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
   $.ajax({
@@ -290,6 +296,16 @@ Template.upload.uploadImage = function (file, progressid, cb) {
       if (typeof result === 'string')
         result = JSON.parse(result)
       $(progressid).hide()
+
+      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+        $('input[name="snaphash"]').val(result.imghash)
+        Session.set('overlayHash',result.imghash)
+        $('#uploadSnap').removeClass('disabled')
+        $('#uploadSnap > i').addClass('checkmark green')
+        $('#uploadSnap > i').removeClass('asterisk loading')
+        $('#uploadSnap > i').css('background', 'white')
+        return cb(null,result.imghash)
+      }
 
       refreshUploadSnapStatus = setInterval(function () {
         var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
