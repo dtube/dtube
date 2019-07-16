@@ -9,6 +9,7 @@ Template.upload.rendered = function () {
   Session.set('searchedLink', null)
   Session.set('publishBurn', 0)
   Session.set('tempContent', null)
+  Session.set('uploadEndpoint',null)
   $('.ui.sticky')
     .sticky({
       context: '#videouploadsteps'
@@ -44,6 +45,7 @@ Template.upload.rendered = function () {
                 contentType: 'text/plain',
                 data: decryptedMemo,
                 success: (result) => {
+                  Session.set('uploadEndpoint',value)
                   Session.set('Upload token for ' + value,result.access_token)
                   console.log(result.access_token)
                   $('#uploadEndpointSelection').parent().removeClass('loading')
@@ -55,6 +57,8 @@ Template.upload.rendered = function () {
           },
           error: (req,status) => handleUploadEndpointCheckError(req,status)
         })
+      } else {
+        Session.set('uploadEndpoint',null)
       }
     }
   })
@@ -123,6 +127,7 @@ Template.upload.inputVideo = function (dt) {
 }
 
 Template.upload.setBestUploadEndpoint = function (cb) {
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') return cb()
   if (Session.get('remoteSettings').localhost == true) {cb(); return}
   if (Session.get('upldr')) {cb();return}
   var uploaders = Session.get('remoteSettings').upldr
@@ -176,26 +181,30 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     : 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-  if (Session.get('scot')) {
+  let formData = new FormData()
+
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+    postUrl = 'https://uploader.oneloved.tube/uploadVideo?access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+    formData.append('VideoUpload',file)
+  } else if (Session.get('scot')) {
     var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
     postUrl = postUrl.replace('cluster.d.tube', scotUpldr)
+    formData.append('files', file)
+  } else {
+    formData.append('files', file);
   }
   console.log(postUrl)
-  var formData = new FormData();
-  formData.append('files', file);
+
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
   var credentials = Session.get('upldr') == 'cluster' ? true : false
-  $.ajax({
+  let ajaxVideoUpload = {
     cache: false,
     contentType: false,
     data: formData,
     processData: false,
     type: "POST",
     url: postUrl,
-    xhrFields: {
-      withCredentials: credentials
-    },
     xhr: function () {
       // listen for progress events on the upload
       var xhr = new window.XMLHttpRequest();
@@ -214,6 +223,12 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
         result = JSON.parse(result)
 
       $(progressid).hide()
+      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+        $('input[name="videohash"]').val(result.ipfshash)
+        $('input[name="spritehash"]').val(result.spritehash)
+        return cb(null, result)
+      }
+
       Session.set('uploadToken', result.token)
       refreshUploadStatus = setInterval(function () {
         Template.uploadvideoprogress.update()
@@ -224,7 +239,15 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
       $(progressid).hide()
       cb(error)
     }
-  });
+  }
+
+  if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube') {
+    ajaxVideoUpload.xhrFields = {
+      withCredentials: credentials
+    }
+  }
+
+  $.ajax(ajaxVideoUpload)
 }
 
 Template.upload.uploadImage = function (file, progressid, cb) {
