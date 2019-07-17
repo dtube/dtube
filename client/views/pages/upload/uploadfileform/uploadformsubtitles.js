@@ -60,8 +60,12 @@ Template.uploadformsubtitles.events({
     'click #uploadSubtitle': function() {
         var postUrl = 'https://snap1.d.tube/uploadSubtitle'
         var formData = new FormData();
-        formData.append('subtitle', $('#subtitleText').val());
-        $.ajax({
+        if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+          postUrl = 'https://uploader.oneloved.tube/uploadSubtitle?access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+        } else {
+          formData.append('subtitle', $('#subtitleText').val());
+        }
+        let ajaxUploadSubtitle = {
             url: postUrl,
             type: "POST",
             data: formData,
@@ -82,6 +86,14 @@ Template.uploadformsubtitles.events({
             contentType: false,
             processData: false,
             success: function (result) {
+              if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+                addSubtitle({
+                  lang: Session.get('isAddingSubtitle'),
+                  hash: result.hash
+                })
+                Session.set('isAddingSubtitle', false)
+                return console.log(result)
+              }
                 refreshUploadSubtitleStatus = setInterval(function () {
                     var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
                     $.getJSON(url, function (data) {
@@ -103,7 +115,12 @@ Template.uploadformsubtitles.events({
             error: function (error) {
                 console.log(error)
             }
-        });
+        }
+
+        if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+          ajaxUploadSubtitle.data = $('#subtitleText').val()
+        }
+        $.ajax(ajaxUploadSubtitle)
     }
 })
 

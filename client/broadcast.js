@@ -383,6 +383,19 @@ broadcast = {
                 )
                 return;
             }
+        },
+        decrypt_memo: (memo,cb) => {
+            if (!Session.get('activeUsernameSteem')) return
+            if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem'}).type == 'keychain') {
+                if (!steem_keychain) return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                steem_keychain.requestVerifyKey(Session.get('activeUsernameSteem'),memo,'Posting',(response) => {
+                    cb(response.error,response.result.substr(1))
+                })
+                return
+            }
+            let wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
+            let decoded = steem.memo.decode(wif,memo).substr(1)
+            cb(null,decoded)
         }
     },
     avalon: {
@@ -678,7 +691,7 @@ var genBody = function (author, permlink, title, snaphash, videohash, videoprovi
       body += description
       body += '\n\n<hr>'
       body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-      if (videoprovider == 'ipfs')
+      if (videoprovider == 'IPFS')
         body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
       if (videoprovider == 'YouTube')
         body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'

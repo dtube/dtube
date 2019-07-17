@@ -9,10 +9,59 @@ Template.upload.rendered = function () {
   Session.set('searchedLink', null)
   Session.set('publishBurn', 0)
   Session.set('tempContent', null)
+  Session.set('uploadEndpoint',null)
   $('.ui.sticky')
     .sticky({
       context: '#videouploadsteps'
     });
+  $('#uploadEndpointSelection').dropdown({
+    action: 'activate',
+    onChange: (value,text) => {
+      $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
+      // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
+      if (value === 'uploader.oneloved.tube') {
+        if (!Session.get('activeUsernameSteem')) { 
+          $('#uploadEndpointSelection').dropdown('restore defaults')
+          return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_STEEM_USERNAME'), translate('ERROR_TITLE'))
+        }
+        $('#uploadEndpointSelection').parent().addClass('loading')
+        $.ajax({
+          url: 'https://' + value + '/login?user=' + Session.get('activeUsernameSteem'),
+          method: 'GET',
+          success: (result) => {
+            broadcast.steem.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
+              if (err === 'LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED') {
+                $('#uploadEndpointSelection').dropdown('restore defaults')
+                $('#uploadEndpointSelection').parent().removeClass('loading')
+                return toastr.error(translate('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
+              } else if (err) {
+                $('#uploadEndpointSelection').dropdown('restore defaults')
+                $('#uploadEndpointSelection').parent().removeClass('loading')
+                return toastr.error(err,translate('ERROR_TITLE'))
+              }
+              $.ajax({
+                url: 'https://' + value + '/logincb',
+                method: 'POST',
+                contentType: 'text/plain',
+                data: decryptedMemo,
+                success: (result) => {
+                  Session.set('uploadEndpoint',value)
+                  Session.set('Upload token for ' + value,result.access_token)
+                  console.log(result.access_token)
+                  $('#uploadEndpointSelection').parent().removeClass('loading')
+                  $('#uploadEndpointSelection').parent().children('.icon').removeClass('dropdown').addClass('check')
+                },
+                error: (req,status) => handleUploadEndpointCheckError(req,status)
+              })
+            })
+          },
+          error: (req,status) => handleUploadEndpointCheckError(req,status)
+        })
+      } else {
+        Session.set('uploadEndpoint',null)
+      }
+    }
+  })
 }
 
 Template.upload.createPermlink = function (length) {
@@ -78,6 +127,7 @@ Template.upload.inputVideo = function (dt) {
 }
 
 Template.upload.setBestUploadEndpoint = function (cb) {
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') return cb()
   if (Session.get('remoteSettings').localhost == true) {cb(); return}
   if (Session.get('upldr')) {cb();return}
   var uploaders = Session.get('remoteSettings').upldr
@@ -131,26 +181,30 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     : 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-  if (Session.get('scot')) {
+  let formData = new FormData()
+
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+    postUrl = 'https://uploader.oneloved.tube/uploadVideo?access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+    formData.append('VideoUpload',file)
+  } else if (Session.get('scot')) {
     var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
     postUrl = postUrl.replace('cluster.d.tube', scotUpldr)
+    formData.append('files', file)
+  } else {
+    formData.append('files', file);
   }
   console.log(postUrl)
-  var formData = new FormData();
-  formData.append('files', file);
+
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
   var credentials = Session.get('upldr') == 'cluster' ? true : false
-  $.ajax({
+  let ajaxVideoUpload = {
     cache: false,
     contentType: false,
     data: formData,
     processData: false,
     type: "POST",
     url: postUrl,
-    xhrFields: {
-      withCredentials: credentials
-    },
     xhr: function () {
       // listen for progress events on the upload
       var xhr = new window.XMLHttpRequest();
@@ -169,6 +223,12 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
         result = JSON.parse(result)
 
       $(progressid).hide()
+      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+        $('input[name="videohash"]').val(result.ipfshash)
+        $('input[name="spritehash"]').val(result.spritehash)
+        return cb(null, result)
+      }
+
       Session.set('uploadToken', result.token)
       refreshUploadStatus = setInterval(function () {
         Template.uploadvideoprogress.update()
@@ -179,7 +239,15 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
       $(progressid).hide()
       cb(error)
     }
-  });
+  }
+
+  if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube') {
+    ajaxVideoUpload.xhrFields = {
+      withCredentials: credentials
+    }
+  }
+
+  $.ajax(ajaxVideoUpload)
 }
 
 Template.upload.uploadImage = function (file, progressid, cb) {
@@ -196,7 +264,13 @@ Template.upload.uploadImage = function (file, progressid, cb) {
   //   postUrl = postUrl.replace('snap1.d.tube', scotUpldr)
   // }
   var formData = new FormData();
-  formData.append('files', file);
+  
+  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+    postUrl = 'https://uploader.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+    formData.append('image',file)
+  } else {
+    formData.append('files', file)
+  }
   $(progressid).progress({ value: 0, total: 1 })
   $(progressid).show();
   $.ajax({
@@ -222,6 +296,16 @@ Template.upload.uploadImage = function (file, progressid, cb) {
       if (typeof result === 'string')
         result = JSON.parse(result)
       $(progressid).hide()
+
+      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+        $('input[name="snaphash"]').val(result.imghash)
+        Session.set('overlayHash',result.imghash)
+        $('#uploadSnap').removeClass('disabled')
+        $('#uploadSnap > i').addClass('checkmark green')
+        $('#uploadSnap > i').removeClass('asterisk loading')
+        $('#uploadSnap > i').css('background', 'white')
+        return cb(null,result.imghash)
+      }
 
       refreshUploadSnapStatus = setInterval(function () {
         var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
@@ -466,6 +550,18 @@ var getUploaderStatus = function (upldr) {
     req.send();
   });
 };
+
+function handleUploadEndpointCheckError(req,status) {
+  $('#uploadEndpointSelection').dropdown('restore defaults')
+  $('#uploadEndpointSelection').parent().removeClass('loading')
+  if (req.responseJSON.error === 'Looks like you do not have access to the uploader!') {
+    return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_ACCESS_DENIED'), translate('ERROR_TITLE'))
+  } else if (req.responseJSON && req.responseJSON.error) {
+    return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_OTHER' + req.responseJSON.error), translate('ERROR_TITLE'))
+  } else {
+    return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_UNKNOWN' + status, translate('ERROR_TITLE')))
+  }
+}
 
 function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
