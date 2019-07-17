@@ -24,18 +24,23 @@
                             {{/if}}
                         </td>
                         <td>
-                            <h4 class="ui image header">
-                            <img src="{{userPic name 'small'}}" class="ui mini rounded image">
-                            <div class="content">
-                                <a href="/c/{{name}}" style="color: black;">{{name}}</a>
-                                <div class="sub header">
-                                    {{#if json.profile.website}}
-                                        {{json.profile.website}}
+                            <div class="ui image header" title="{{json.node.ws}}">
+                                <img src="{{userPic name 'small'}}" class="ui mini rounded image">
+                                <div class="content">
+                                    {{#if json.node.ws}}
+                                        <a href="/c/{{name}}" style="color: black;">{{name}}</a>
                                     {{else}}
-                                        {{json.node.ws}}
+                                        <strike style="color: grey">{{name}}</strike>
                                     {{/if}}
+                                    <div class="sub header">
+                                        {{#if json.profile.website}}
+                                            <a href="{{json.profile.website}}" target="_blank">
+                                                {{json.profile.website}}
+                                            </a>
+                                        {{/if}}
+                                    </div>
                                 </div>
-                            </div></h4>
+                            </div>
                         </td>
                         <td class='right aligned'>
                             {{#if isVotingFor name}}
