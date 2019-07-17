@@ -57,10 +57,6 @@ The [dtube/minidtube](https://github.com/dtube/minidtube) repository is responsi
  - - - `client/views/topbar` the fixed menu on top of the app
  - - - `client/views/sidebar` the sidebar menu
  
-## Roadmap
-The plan is to keep on pushing key features of traditional video platforms to d.tube, and decentralizing it all over time. Our roadmap shows what is centralized / decentralized at the moment in the project and where work needs to be put.
-https://docs.google.com/presentation/d/10JjkCmQjKCo0p4wObrffcmApA9JwNpdMkpIfmEnir-U/edit?usp=sharing
-
 ## Common Issues
 
 If you are using windows, the `meteor npm` seems to be buggy at times. You can try using the normal `npm` instead if you have that installed.
