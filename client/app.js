@@ -29,14 +29,6 @@ Meteor.startup(function(){
 
   Session.set('steemAPI', steem.api.options.url)
 
-  // choose steem api on startup
-  if(!localStorage.getItem('steemAPI'))
-    steem.api.setOptions({ url: Meteor.settings.public.remote.APINodes[0], useAppbaseApi: true}); //Default
-  else
-    steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
-
-  Session.set('steemAPI', steem.api.options.url)
-
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
