@@ -61,7 +61,7 @@ Meteor.startup(function(){
     "closeButton": true,
     "debug": false,
     "newestOnTop": true,
-    "progressBar": true,
+    "progressBar": false,
     "positionClass": "toast-top-right",
     "preventDuplicates": false,
     "onclick": null,
@@ -71,8 +71,8 @@ Meteor.startup(function(){
     "extendedTimeOut": "1000",
     "showEasing": "linear",
     "hideEasing": "linear",
-    "showMethod": "linear",
-    "hideMethod": "linear"
+    "showMethod": "slideDown",
+    "hideMethod": "slideUp"
   }
 
   if (Session.get('remoteSettings').warning)
