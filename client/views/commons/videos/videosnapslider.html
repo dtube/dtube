@@ -1,6 +1,6 @@
 <template name='videosnapslider'>
   {{#unless isVideoHidden this}}
-  <div class='videosnap wid-ful' style="max-width:210px;">
+  <div class='videosnap wid-ful {{#if isVideoBlurred this}}blur{{/if}}' style="max-width:210px;">
     <a href='/v/{{author}}/{{link}}' title='{{json.title}}'>
       <div id='snaphover' class='videosnapsnap wid-ful' style="height:118px;">
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">

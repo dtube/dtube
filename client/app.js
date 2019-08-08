@@ -28,7 +28,6 @@ Meteor.startup(function(){
     steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
 
   Session.set('steemAPI', steem.api.options.url)
-
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
@@ -37,6 +36,13 @@ Meteor.startup(function(){
   Session.set('tagSortBy', null)
   Session.set('tagDuration', 999999)
   Session.set('scot', Meteor.settings.public.scot)
+
+  // load local storage settings (video visibility)
+  if (localStorage.getItem("nsfwSetting"))
+    Session.set('nsfwSetting', localStorage.getItem("nsfwSetting"))
+
+  if (localStorage.getItem("censorSetting"))
+    Session.set('censorSetting', localStorage.getItem("censorSetting"))
 
   // dark mode (buggy)
   // if (!UserSettings.get('isInNightMode'))

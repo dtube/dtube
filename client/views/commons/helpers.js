@@ -431,24 +431,50 @@ Template.registerHelper('isPlural', function (array) {
   return true
 })
 
+// censorshipLevel controls the visibility of videos
+// returns -1 is video is invalid format
+// returns 0 if video is 100% safe
+// returns 1 if video is moderated by community
+// returns 2 if video has the nsfw tag
+Template.registerHelper('censorshipLevel', function(video) {
+    if (!video || !video.json)
+      return -1
+    if ((!video.json.providerName || !video.json.videoId) && (!video.json.ipfs))
+      return -1
+    for (let i = 0; i < video.tags.length; i++)
+      if (video.tags[i].t == 'nsfw')
+        return 2
+    if (video.downs > video.ups) {
+      return 1
+    }
+      
+    return 0
+})
+
 Template.registerHelper('isVideoHidden', function (video) {
-  if (video.net_rshares && video.net_rshares < 0) return true
-  if (Session.get('nsfwSetting') == 'Show') return false
-  if (!video || !video.content || !video.content.tags) return false
-  if (video.content.tags.indexOf('nsfw') > -1) return true
+  var censor = UI._globalHelpers.censorshipLevel(video)
+  if (censor == -1)
+    return true
+  if (video.downs > video.ups && Session.get('censorSetting') == 'Fully Hidden')
+    return true
+  if (Session.get('nsfwSetting') == 'Fully Hidden')
+    for (let i = 0; i < video.tags.length; i++)
+      if (video.tags[i].t == 'nsfw')
+        return true
+
   return false
 })
 
-Template.registerHelper('isVideoHiddensearch', function (video) {
-  if (!video) return false
-  if (video.net_rshares && video.net_rshares < 0) return true
-  if (Session.get('nsfwSetting') == 'Show') return false
-  if (video.content) {
-    if (video.content.tags.indexOf('nsfw') > -1) return true
-  }
-  if (video.tags) {
-    if (video.tags.indexOf('nsfw') > -1) return true
-  }
+Template.registerHelper('isVideoBlurred', function (video) {
+  var censor = UI._globalHelpers.censorshipLevel(video)
+  if (video.downs > video.ups && Session.get('censorSetting') == 'Blurred')
+    return true
+    if (Session.get('nsfwSetting') == 'Blurred')
+      for (let i = 0; i < video.tags.length; i++)
+        if (video.tags[i].t == 'nsfw')
+          return true
+
+
   return false
 })
 

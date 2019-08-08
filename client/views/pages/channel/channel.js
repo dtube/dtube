@@ -28,9 +28,7 @@ Template.channel.rendered = function () {
 
 Template.channel.loadMore = function() {
   $('.ui.infinite .loader').show()
-  console.log('doing')
   Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err, finished) {
-    console.log('done')
     if (err) console.log(err)
     $('.ui.infinite .loader').hide()
 

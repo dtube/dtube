@@ -1,6 +1,6 @@
 <template name='verticalvideosnap'>
   {{#unless isVideoHidden this}}
-  <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful dsp-flx'>
+  <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful dsp-flx {{#if isVideoBlurred this}}blur{{/if}}'>
     <div class="pos-rel" style="min-width: 160px;height:90px;float: left;">
       {{#if equals source 'wakaArticles'}}
       {{#if isOnWatchAgain}}

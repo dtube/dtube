@@ -654,3 +654,18 @@ button {
   height:30px;
   width: 30px;
 }
+
+@-webkit-keyframes unblurrer {
+  0% { filter: blur(6px) }
+  100% { filter: blur(0px) }
+}
+
+.blur {
+  filter: blur(6px) contrast(50%); 
+}
+
+.blur:hover {
+  animation: unblurrer 0.5s ease-out;
+  animation-iteration-count: 1;
+  filter: blur(0px) contrast(100%);
+}

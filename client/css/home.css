@@ -1,3 +1,8 @@
+@-webkit-keyframes contraster {
+  0% { filter: contrast(100%); }
+  100% { filter: contrast(150%); }
+}
+
 .videosnap
 {
   display: inline-block;
@@ -7,15 +12,11 @@
   color: #212121;
 }
 
-.videosnap:hover
-{
-  display: inline-block;
-  /* margin-bottom: 8px; */
-  vertical-align:top;
-  /* max-width: 210px; */
-  color: #212121;
+.videosnap:hover {
+  animation: contraster 1s ease-out;
+  animation-iteration-count: 1;
+  filter: contrast(150%);
 }
-
 
 .videosnap:hover  .watchlater
 {
@@ -40,6 +41,11 @@
   margin-bottom: 8px;
   vertical-align:top;
   color: #212121;
+}
+.verticalvideosnap:hover {
+  animation: contraster 1s ease-out;
+  animation-iteration-count: 1;
+  filter: contrast(150%);
 }
 
 .verticalvideosnap:hover .videosnapdescription {
@@ -207,7 +213,6 @@
   max-height:118px;
   margin-bottom: 5px;
 }
-
 
 .verticalvideosnapsnap {
   position: relative;

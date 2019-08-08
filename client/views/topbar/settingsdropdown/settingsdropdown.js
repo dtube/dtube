@@ -23,7 +23,14 @@ Template.settingsdropdown.rendered = function() {
         })
       } else if (e.hasClass('nsfwSetting')) {
         if (e.hasClass('nsfwShow')) Session.set('nsfwSetting', 'Show')
+        if (e.hasClass('nsfwBlur')) Session.set('nsfwSetting', 'Blurred')
         if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
+        localStorage.setItem("nsfwSetting", Session.get('nsfwSetting'))
+      } else if (e.hasClass('censorSetting')) {
+        if (e.hasClass('censorShow')) Session.set('censorSetting', 'Show')
+        if (e.hasClass('censorBlur')) Session.set('censorSetting', 'Blurred')
+        if (e.hasClass('censorHide')) Session.set('censorSetting', 'Fully Hidden')
+        localStorage.setItem("censorSetting", Session.get('censorSetting'))
       } else if (e.hasClass('repogc')) {
         localIpfs.repo.gc()
       } else if (e.hasClass('nightMode')) {
@@ -44,9 +51,13 @@ Template.settingsdropdown.rendered = function() {
       } else {
         //console.log(value,text,e)
       }
-    }
+    },
+    direction: "downward"
   })
-  Session.set('nsfwSetting', 'Fully Hidden')
+  if (!Session.get('nsfwSetting'))
+    Session.set('nsfwSetting', 'Fully Hidden')
+  if (!Session.get('censorSetting'))
+    Session.set('censorSetting', 'Blurred')
   Session.set('ipfsGateway', 'automatic')
 
   Template.settingsdropdown.nightMode();
@@ -55,6 +66,9 @@ Template.settingsdropdown.rendered = function() {
 Template.settingsdropdown.helpers({
   nsfwSetting: function() {
     return Session.get('nsfwSetting');
+  },
+  censorSetting: function() {
+    return Session.get('censorSetting');
   },
   ipfsUpload: function() {
     return Session.get('ipfsUpload');

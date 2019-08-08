@@ -1,6 +1,6 @@
 <template name='videosearchresult'>
-  {{#unless isVideoHiddensearch this}}
-  <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful' style="display:-webkit-box;">
+  {{#unless isVideoHidden this}}
+  <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful {{#if isVideoBlurred this}}blur{{/if}}' style="display:-webkit-box;">
     <div style="height:100%px;">
       <div class='verticalvideosnapsnap' style="height:118px;width:210px;">
           <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>

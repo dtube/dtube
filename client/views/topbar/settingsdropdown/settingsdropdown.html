@@ -1,11 +1,11 @@
 <template name='settingsdropdown'>
   <div class="ui item top right floated dropdown dropdownsettings needsclick" style="float: right;">
     <i class="settings icon needsclick" style='font-size:1.3em; margin:0;'></i>
-    <div id="menu" class="menu">
+    <div id="menu" class="left menu">
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</span>
-        <div class="left menu">
+        <div class="menu">
           {{#each SteemAPIs}}
             {{#if equals this CurrentAPI}}
               <div class="item steemApi"><strong>{{this}}</strong></div>
@@ -43,6 +43,11 @@
           {{else}}
             <div class="item nsfwSetting nsfwShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
           {{/if}}
+          {{#if equals 'Blurred' nsfwSetting}}
+            <div class="item nsfwSetting nsfwBlur"><strong>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</strong></div>
+          {{else}}
+            <div class="item nsfwSetting nsfwBlur">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</div>
+          {{/if}}
           {{#if equals 'Fully Hidden' nsfwSetting}}
             <div class="item nsfwSetting nsfwHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
           {{else}}
@@ -50,6 +55,27 @@
           {{/if}}
         </div>
       </div>
+      <div class="item">
+          <i class="left dropdown icon"></i>
+          <span class="text">{{ translate 'SETTINGS_DROPDOWN_CENSOR_VIDEOS'}}</span>
+          <div class="left menu">
+            {{#if equals 'Show' censorSetting}}
+              <div class="item censorSetting censorShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
+            {{else}}
+              <div class="item censorSetting censorShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
+            {{/if}}
+            {{#if equals 'Blurred' censorSetting}}
+              <div class="item censorSetting censorBlur"><strong>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</strong></div>
+            {{else}}
+              <div class="item censorSetting censorBlur">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</div>
+            {{/if}}
+            {{#if equals 'Fully Hidden' censorSetting}}
+              <div class="item censorSetting censorHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
+            {{else}}
+              <div class="item censorSetting censorHide">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
+            {{/if}}
+          </div>
+        </div>
       <div class="item languages">
         <i class="language icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}</span>

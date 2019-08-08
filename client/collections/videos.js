@@ -163,7 +163,6 @@ Videos.getVideosByBlog = function(author, limit, cb) {
   }
 
   var user = ChainUsers.findOne({name: author})
-  console.log(user)
   if (user) {
     Videos.getVideosByBlogAvalon(author, function(err, finished) {
       cb(err, finished)

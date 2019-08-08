@@ -1,3 +1,5 @@
+// this file interact with the SCOT API (also called Tribes) from Steem-Engine.com
+
 Scot = {
     config: {
         api: [

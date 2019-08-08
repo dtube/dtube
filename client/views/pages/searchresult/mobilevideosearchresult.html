@@ -1,6 +1,6 @@
 <template name='mobilevideosearchresult'>
-  {{#unless isVideoHiddensearch this}}
-    <div class='verticalvideosnap wid-ful dsp-flx'>
+  {{#unless isVideoHidden this}}
+    <div class='verticalvideosnap wid-ful dsp-flx {{#if isVideoBlurred this}}blur{{/if}}'>
       <div class="pos-rel" style="width:160px;height:90px;float: left;">
         <a href='/v/{{author}}/{{link}}' title='{{json.title}}'>
           <div class='verticalvideosnapsnap' style="height:90px;width: 160px;">
