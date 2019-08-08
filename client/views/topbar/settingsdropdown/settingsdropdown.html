@@ -1,11 +1,11 @@
 <template name='settingsdropdown'>
   <div class="ui item top right floated dropdown dropdownsettings needsclick" style="float: right;">
     <i class="settings icon needsclick" style='font-size:1.3em; margin:0;'></i>
-    <div id="menu" class="left menu">
+    <div id="menu" class="menu">
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</span>
-        <div class="menu">
+        <div class="left menu">
           {{#each SteemAPIs}}
             {{#if equals this CurrentAPI}}
               <div class="item steemApi"><strong>{{this}}</strong></div>
