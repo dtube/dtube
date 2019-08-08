@@ -447,6 +447,7 @@ Template.upload.events({
   'click #remotelinkbutton': function(event) {
     $('#uploadSeparator').hide()
     $('#dropzone').hide()
+    $("#uploadEndpointSelection").parent().hide()
     var url = $('#remotelink').val()
     if (url == Session.get('searchedLink')) return
     Session.set('tempContent', null)
