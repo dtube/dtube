@@ -201,3 +201,8 @@ textarea {
  .ui.labeled.icon.buttons > .button > .icon, .ui.labeled.icon.button > .icon{
    line-height: 0!important;
  }
+
+ .ui.dropdown .menu .left.menu {
+  left: auto !important;
+  right: 100% !important;
+}
