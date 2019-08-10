@@ -15,6 +15,19 @@
           {{/each}}
         </div>
       </div>
+      <div class="item">
+        <i class="left dropdown icon"></i>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_AVALONAPI' }}</span>
+        <div class="left menu">
+          {{#each AvalonAPIs}}
+            {{#if equals this CurrentAvalonAPI}}
+              <div class="item avalonApi"><strong>{{this}}</strong></div>
+            {{else}}
+              <div class="item avalonApi">{{this}}</div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
       <!-- THIS OPTION SHOULD BE IN THE PLAYER
       <div class="item">
         <i class="left dropdown icon"></i>
