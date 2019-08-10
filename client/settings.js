@@ -22,7 +22,8 @@ Meteor.settings.public = {
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",
-      "https://avalon.oneloved.tube"
+      "https://avalon.oneloved.tube",
+      "https://avalon.christianknuchel.com"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["cluster"],
