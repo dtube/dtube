@@ -15,6 +15,10 @@ Template.settingsdropdown.rendered = function() {
         steem.api.setOptions({ url: value, useAppbaseApi: true });
         Session.set('steemAPI', value)
         localStorage.setItem('steemAPI', value);
+      } else if (e.hasClass('avalonApi')) {
+        javalon.init({api: value})
+        Session.set('avalonAPI',value)
+        localStorage.setItem('avalonAPI',value)
       } else if (e.hasClass('ipfsUpload')) {
         Session.set('ipfsUpload', {
           host: value.split('://')[1].split(':')[0],
@@ -82,8 +86,14 @@ Template.settingsdropdown.helpers({
   SteemAPIs: function() {
     return Session.get('remoteSettings').APINodes;
   },
+  AvalonAPIs: function() {
+    return Session.get('remoteSettings').AvalonAPINodes
+  },
   CurrentAPI: function() {
     return Session.get('steemAPI');
+  },
+  CurrentAvalonAPI: function() {
+    return Session.get('avalonAPI')
   },
   displayNodes: function() {
     return Session.get('remoteSettings').displayNodes;
@@ -93,12 +103,6 @@ Template.settingsdropdown.helpers({
   },
   isInNightMode:function() {
     return UserSettings.get('isInNightMode')
-  },
-  SteemAPIs: function() {
-    return Session.get('remoteSettings').APINodes;
-  },
-  CurrentAPI: function() {
-    return Session.get('steemAPI');
   },
 })
 

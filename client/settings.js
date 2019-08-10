@@ -20,6 +20,11 @@ Meteor.settings.public = {
       "https://steemd.privex.io/",
       "https://api.steem.house/"
     ],
+    "AvalonAPINodes": [
+      "https://avalon.d.tube",
+      "https://avalon.oneloved.tube",
+      "https://avalon.christianknuchel.com"
+    ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["cluster"],
     "thirdPartyUploadEndpoints": [
