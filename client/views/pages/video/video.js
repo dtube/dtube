@@ -69,9 +69,6 @@ Template.video.helpers({
       if (videos[i].source == 'chainByTrending') return videos[i]
     }
 
-    for (var i = 0; i < videos.length; i++) {
-      if (videos[i].source == 'wakaArticles') return videos[i]
-    }
     if (videos && videos[0]) return videos[0]
     return;
   },
@@ -438,7 +435,9 @@ Template.video.handleVideo = function(result, id, isRef) {
   video.source = 'chainDirect'
   video._id += 'd'
   Videos.upsert({ _id: video._id }, video)
-  Waka.db.Articles.upsert(video)
+  if (network == 'dtc')
+    WatchAgain.upsert({ _id: video._id }, video)
+  // Waka.db.Articles.upsert(video)
 
   // load refs
   if (isRef) {

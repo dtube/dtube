@@ -86,25 +86,13 @@ Template.loginavalon.helpers({
         if (allowedTxTypes.length > 0) {
           // correct key for the user, loggin in
           user.username = username
-          if (event.target.rememberme.checked) {
-            Waka.db.Users.upsert(user, function() {
-              Users.remove({network: 'avalon'})
-              Users.refreshLocalUsers(function(err) {
-                Template.loginavalon.success(user.username)
-              })
-            })
-          } else {
-            Users.insert(user)
+          user._id = user.network+'/'+user.username
+          if (event.target.rememberme.checked)
+            user.temporary = true
+
+          Users.upsert({_id: user._id}, user, function() {
             Template.loginavalon.success(user.username)
-            // steem.api.getAccounts([user.username], function(e, chainusers) {
-            //   for (var i = 0; i < chainusers.length; i++) {
-            //     var user = Users.findOne({username: chainusers[i].name})
-            //     if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
-            //       user.json_metadata = JSON.parse(chainusers[i].json_metadata)
-            //     Users.update({username: user.username}, user)
-            //   }
-            // })
-          }
+          })
         } else {
           toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
         }

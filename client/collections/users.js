@@ -1,25 +1,15 @@
 Users = new Mongo.Collection(null)
-
-var firstLoad = setInterval(function() {
-  if (!Users) return
-  if (!Waka) return
-  if (!Waka.db.Users) {
-    Waka.db.addCollection('Users')
-    return
+usersObserver = new PersistentMinimongo2(Users, 'users', function() {
+  var users = Users.find().fetch()
+  for (let o = 0; o < users.length; o++) {
+    if (users[o].temporary)
+      Users.remove({_id: users[o]._id})
+    if (users[o].network == 'steem')
+      Template.loginsteem.success(users[o].username, true)
+    if (users[o].network == 'avalon')
+      Template.loginavalon.success(users[o].username, true)
   }
-
-  Users.remove({})
-  Users.refreshLocalUsers(function(){
-    var dtubeDefUser = Users.findOne({network: 'avalon'})
-    var steemDefUser = Users.findOne({network: 'steem'})
-
-    if (dtubeDefUser)
-      Template.loginavalon.success(dtubeDefUser.username, true)
-    if (steemDefUser)
-      Template.loginsteem.success(steemDefUser.username, true)
-  })
-  clearInterval(firstLoad)
-}, 50)
+});
 
 Users.refreshUsers = function(usernames, cb) {
   if (usernames.length < 1) return;
@@ -59,31 +49,5 @@ Users.refreshUsers = function(usernames, cb) {
         }
       }
     }
-  })
-}
-
-Users.refreshLocalUsers = function(cb) {
-  Waka.db.Users.find({}).fetch(function(results) {
-    var usernames = []
-    for (var i = 0; i < results.length; i++) {
-      if (!results[i].network)
-        results[i].network = 'steem'
-
-      if (!Users.findOne({username: results[i].username, network: results[i].network})) {
-        Users.insert(results[i])
-        if (results[i].network == 'avalon')
-          usernames.push(results[i].username)
-        // fill the subscribes for each local user
-        Subs.loadFollowing(results[i].username, undefined, true, function(follower) {
-          //var sub = Subs.findOne({following: Meteor.settings.public.beneficiary, follower: follower})
-          // if (!sub) Subs.followUs(follower, function(follower){
-          //   console.log('Subscribed to dtube')
-          // })
-          console.log('Subs loaded')
-        })
-      }
-    }
-    cb(null)
-    Users.refreshUsers(usernames)
   })
 }

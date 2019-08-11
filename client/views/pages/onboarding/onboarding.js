@@ -119,10 +119,28 @@ Template.onboarding.events({
             allowedTxTypes: [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15],
             username: Session.get('activeUsernameSteem')
         }
-        Waka.db.Users.upsert(user, function() {
-            Users.remove({network: 'avalon'})
-            Users.refreshLocalUsers(function(err) {
-                Template.loginavalon.success(user.username, true)
+        user._id = user.network+'/'+user.username
+        Users.upsert({_id: user._id}, user, function() {
+          Template.loginavalon.success(user.username)
+          var json = {profile: {}}
+          json.profile.avatar = $('#profile_avatar').val()
+          json.profile.cover_image = $('#profile_cover').val()
+          json.profile.about = $('#profile_about').val()
+          json.profile.location = $('#profile_location').val()
+          json.profile.website = $('#profile_website').val()
+          json.profile.steem = $('#profile_steem').val()
+          broadcast.avalon.editProfile(json, function(err, res) {
+              if (err) toastr.error(Meteor.blockchainError(err))
+              else {
+                  toastr.success(translate('GLOBAL_EDIT_PROFILE'))
+                  FlowRouter.go('#!/')
+              }
+          })
+        })
+        // Waka.db.Users.upsert(user, function() {
+        //     Users.remove({network: 'avalon'})
+        //     Users.refreshLocalUsers(function(err) {
+        //         Template.loginavalon.success(user.username, true)
 
                 // updating profile
                 var json = {profile: {}}
@@ -139,7 +157,7 @@ Template.onboarding.events({
                         FlowRouter.go('#!/')
                     }
                 })
-            })
-        })
+        //     })
+        // })
     },
 })

@@ -47,24 +47,24 @@ Template.loginsteem.helpers({
       var username = document.getElementById("keychain_username").value.toLowerCase().replace('@','');
       steem_keychain.requestSignBuffer(username, "dtube_login-" + Math.round(99999999999*Math.random()), "Posting", function(response) {
           if(response.success === true) {
-              var currentUser = Session.get('activeUsernameSteem')
-              var username = response.data.username;
-              if (currentUser == username)
-              {
-                toastr.error(translate('LOGIN_ERROR_ALREADY_LOGGED'), translate('ERROR_TITLE'))
-                return
-              }
-              var user = {
-                 username: response.data.username,
-                 type: "keychain",
-                 network: "steem"
-              }
-              Waka.db.Users.upsert(user, function() {
-                Users.remove({})
-                Users.refreshLocalUsers(function(err) {
-                  Template.loginsteem.success(user.username)
-                })
-            })
+            var currentUser = Session.get('activeUsernameSteem')
+            var username = response.data.username;
+            if (currentUser == username)
+            {
+              toastr.error(translate('LOGIN_ERROR_ALREADY_LOGGED'), translate('ERROR_TITLE'))
+              return
+            }
+            var user = {
+                username: response.data.username,
+                type: "keychain",
+                network: "steem"
+            }
+            // Waka.db.Users.upsert(user, function() {
+            //   Users.remove({})
+            //   Users.refreshLocalUsers(function(err) {
+            //     Template.loginsteem.success(user.username)
+            //   })
+            // })
           } else {
             toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'));
           }
@@ -115,26 +115,13 @@ Template.loginsteem.helpers({
         if (chainuser.posting.key_auths[0][0] == user.publickey) {
           // correct key for the user, loggin in
           user.username = username
-          if (event.target.rememberme.checked) {
-            Waka.db.Users.upsert(user, function() {
-              Users.remove({network: 'steem'})
-              Users.refreshLocalUsers(function(err) {
-                Template.loginsteem.success(user.username)
-              })
-            })
-          } else {
-            Users.insert(user)
+          user._id = user.network+'/'+user.username
+          if (event.target.rememberme.checked)
+            user.temporary = true
+
+          Users.upsert({_id: user._id}, user, function() {
             Template.loginsteem.success(user.username)
-            Users.refreshUsers([user.username])
-            steem.api.getAccounts([user.username], function(e, chainusers) {
-              for (var i = 0; i < chainusers.length; i++) {
-                var user = Users.findOne({username: chainusers[i].name})
-                if (chainusers[i].json_metadata && JSON.parse(chainusers[i].json_metadata))
-                  user.json_metadata = JSON.parse(chainusers[i].json_metadata)
-                Users.update({username: user.username}, user)
-              }
-            })
-          }
+          })
         } else {
           toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
         }

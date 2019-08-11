@@ -31,7 +31,7 @@ Template.sidebar.rendered = function () {
     tag: FlowRouter.getParam("author"),
     limit: 100
   };
-  Videos.refreshWaka();
+  // Videos.refreshWaka();
   Template.settingsdropdown.nightMode();
   $('.subscribers.accordion').accordion({
     selector: {
@@ -53,25 +53,8 @@ Template.sidebar.dropdownSteem = function() {
         if (nextPercent<1) nextPercent = 1
         UserSettings.set('voteWeightSteem', nextPercent)
       } else if (e.hasClass('logOut')) {
-        Waka.db.Users.findOne({username: Session.get('activeUsernameSteem'), network: {'$not': 'avalon'}}, function(user) {
-          if (user) {
-            Waka.db.Users.remove(user._id, function(result) {
-              Users.remove({})
-              Users.refreshLocalUsers(function(){})
-              Waka.db.Users.findOne({network: 'steem'}, function(user) {
-                if (user) {
-                  Session.set('activeUsernameSteem', user.username)
-                  Videos.loadFeed(user.username)
-                }
-                else Session.set('activeUsernameSteem', null)
-              })
-            })
-          } else {
-            Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'})
-            var newUser = Users.findOne({network: 'steem'})
-            if (newUser) Session.set('activeUsernameSteem', newUser.username)
-            else Session.set('activeUsernameSteem', null)
-          }
+        Users.remove({username: Session.get('activeUsernameSteem'), network: {'$not': 'avalon'}}, function(){
+          Session.set('activeUsernameSteem', null)
         })
       }
     }
@@ -89,25 +72,8 @@ Template.sidebar.dropdownDTC = function() {
         if (nextPercent<1) nextPercent = 1
         UserSettings.set('voteWeight', nextPercent)
       } else if (e.hasClass('logOut')) {
-        Waka.db.Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}, function(user) {
-          if (user) {
-            Waka.db.Users.remove(user._id, function(result) {
-              Users.remove({})
-              Users.refreshLocalUsers(function(){})
-              Waka.db.Users.findOne({network: 'avalon'}, function(user) {
-                if (user) {
-                  Session.set('activeUsername', user.username)
-                  Videos.loadFeed(user.username)
-                }
-                else Session.set('activeUsername', null)
-              })
-            })
-          } else {
-            Users.remove({username: Session.get('activeUsername'), network: 'avalon'})
-            var newUser = Users.findOne({network: avalon})
-            if (newUser) Session.set('activeUsername', newUser.username)
-            else Session.set('activeUsername', null)
-          }
+        Users.remove({username: Session.get('activeUsername'), network: 'avalon'}, function(){
+          Session.set('activeUsername', null)
         })
       }
     }
@@ -127,9 +93,6 @@ Template.sidebar.helpers({
   subscribe: function () {
     if (Session.get('isSubscribesOpen'))
       return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-  },
-  watchAgain: function () {
-    return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
   },
   subsOpen: function () {
     return Session.get('isSubscribesOpen')

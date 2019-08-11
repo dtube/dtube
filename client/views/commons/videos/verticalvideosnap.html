@@ -2,12 +2,10 @@
   {{#unless isVideoHidden this}}
   <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful dsp-flx {{#if isVideoBlurred this}}blur{{/if}}'>
     <div class="pos-rel" style="min-width: 160px;height:90px;float: left;">
-      {{#if equals source 'wakaArticles'}}
       {{#if isOnWatchAgain}}
       <i id="remove" class="ui remove icon circular pos-abs" style="background-color: rgba(241, 241, 241, 0.85);">
         <span title='Stop sharing {{json.title}}' style="z-index:9000;"></span>
       </i>
-      {{/if}}
       {{/if}}
       <div class='verticalvideosnapsnap' style="height:90px;">
         <div id="snapload" class="ui active dimmer snaploader pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);float: left;height:90px;width: 160px;">

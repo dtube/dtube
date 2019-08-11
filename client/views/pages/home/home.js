@@ -2,10 +2,8 @@ var moment = require('moment')
 
 Template.home.helpers({
   watchAgain: function () {
-    return Videos.find({ source: 'wakaArticles' }, { limit: Session.get('remoteSettings').loadLimit }).fetch()
-  },
-  neighborhood: function () {
-    return Videos.find({ source: 'wakaPeers' }).fetch()
+    if (!Session.get('watchAgainLoaded')) return []
+    return WatchAgain.find({}, {limit: 25}).fetch()
   },
   newVideos: function () {
     return Videos.find({ source: 'chainByCreated' }, {limit: 25}).fetch()
@@ -30,14 +28,9 @@ Template.home.events({
     WatchLater.remove(this._id)
     event.preventDefault()
   },
-  'click #remove': function () {
+  'click #remove': function (event) {
     var removeId = this._id
-    Waka.db.Articles.remove(removeId.substring(0, removeId.length - 1), function (r) {
-      Videos.remove({ _id: removeId }, function (r) {
-        Videos.refreshWaka()
-        Template.videoslider.refreshSlider()
-      })
-    })
+    WatchAgain.remove({_id: removeId.substring(0, removeId.length - 1)})
     event.preventDefault()
 
   }

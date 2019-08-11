@@ -1,7 +1,7 @@
 import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import wakajs from 'wakajs';
+// import wakajs from 'wakajs';
 import steem from 'steem';
 import Gun from 'gun';
 import KonamiCode from 'konami-code';
@@ -86,11 +86,7 @@ Meteor.startup(function(){
 
   firstLoad = setInterval(function() {
     if (!Videos) return
-    if (!Waka) return
-    // loading home data
-    Videos.refreshBlockchain(function() {
-      Videos.refreshWaka()
-    })
+    Videos.refreshBlockchain(function() {})
     clearInterval(firstLoad)
   }, 50)
 

@@ -3,51 +3,6 @@ import xss from 'xss'
 
 Videos = new Mongo.Collection(null)
 
-Videos.refreshWaka = function() {
-  Waka.db.Articles.find({}).fetch(function(r) {
-    // articles we share
-    for (var i = 0; i < r.length; i++) {
-      r[i].source = 'wakaArticles'
-      r[i]._id += 'w'
-      try {
-        Videos.upsert({_id: r[i]._id}, r[i])
-      } catch(err) {
-        console.log(err)
-      }
-    }
-  })
-  // Waka.mem.Peers.find({},{}).fetch(function(res){
-  //   // articles in our network
-  //   var videos = []
-  //   for (var i = 0; i < res.length; i++) {
-  //     if (!res[i].index) continue
-  //     for (var y = 0; y < res[i].index.length; y++) {
-  //       var exists = false
-  //       for (var v = 0; v < videos.length; v++) {
-  //         if (videos[i].title == res[i].index[y].title) {
-  //           videos[i].sharedBy++
-  //           exists = true
-  //         }
-  //       }
-  //       if (!exists) {
-  //         res[i].index[y].sharedBy = 1
-  //         videos.push(res[i].index[y])
-  //       }
-  //     }
-  //   }
-
-  //   for (var i = 0; i < videos.length; i++) {
-  //     videos[i].source = 'wakaPeers'
-  //     videos[i]._id += 'p'
-  //     try {
-  //       Videos.upsert({_id: videos[i]._id}, videos[i])
-  //     } catch(err) {
-  //       console.log(err)
-  //     }
-  //   }
-  // })
-}
-
 Videos.refreshBlockchain = function(cb) {
   var nbCompleted = 0;
   if (!Session.get('lastHot'))
@@ -90,24 +45,6 @@ Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
     }
     cb(null)
   })
-  // AskSteem.related({author: author, permlink: permlink, include: 'meta,payout', q:dateQuery+" AND meta.video.info.title:*"}, function(err, response) {
-  //   var videos = []
-  //   for (let i = 0; i < response.results.length; i++) {
-  //     var video = Videos.parseFromAskSteemResult(response.results[i])
-  //     if (video) videos.push(video)
-  //   }
-  //   for (let i = 0; i < videos.length; i++) {
-  //     videos[i].source = 'askSteem'
-  //     videos[i]._id += 'a'
-  //     videos[i].relatedTo = author+'/'+permlink
-  //     try {
-  //       Videos.upsert({ _id: videos[i]._id }, videos[i])
-  //     } catch (err) {
-  //       cb(err)
-  //     }
-  //   }
-  //   cb(null)
-  // })
 }
 
 Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration, cb) {

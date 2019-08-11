@@ -14,7 +14,7 @@ ChainUsers.fetchNames = function (names, cb) {
       var user = result[i]
       user._id = user.name
       user.estimateAccountValue = ChainUsers.estimateAccountValue(user)
-      ChainUsers.upsert({ _id: user.name }, Waka.api.DeleteFieldsWithDots(user))
+      ChainUsers.upsert({ _id: user.name }, DeleteFieldsWithDots(user))
     }
     cb(null)
   });
@@ -22,4 +22,17 @@ ChainUsers.fetchNames = function (names, cb) {
 
 ChainUsers.estimateAccountValue = function(user) {
   return user.balance;
+}
+
+function DeleteFieldsWithDots(object) {
+  for (var key in object) {
+    if (key.indexOf('.') > -1) {
+      delete object[key]
+      continue
+    }
+    if (typeof object[key] === 'object') {
+      object[key] = DeleteFieldsWithDots(object[key])
+    }
+  }
+  return object
 }
