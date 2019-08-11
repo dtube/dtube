@@ -59,6 +59,10 @@ Template.loginsteem.helpers({
                 type: "keychain",
                 network: "steem"
             }
+            user._id = user.network+'/'+user.username  
+            Users.upsert({_id: user._id}, user, function() {
+              Template.loginsteem.success(user.username)
+            })
             // Waka.db.Users.upsert(user, function() {
             //   Users.remove({})
             //   Users.refreshLocalUsers(function(err) {
@@ -116,7 +120,7 @@ Template.loginsteem.helpers({
           // correct key for the user, loggin in
           user.username = username
           user._id = user.network+'/'+user.username
-          if (event.target.rememberme.checked)
+          if (event.target.rememberme.checked === false)
             user.temporary = true
 
           Users.upsert({_id: user._id}, user, function() {

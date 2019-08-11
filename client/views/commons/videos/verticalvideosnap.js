@@ -16,9 +16,7 @@ Template.verticalvideosnap.rendered = function () {
  }
 
  Template.verticalvideosnap.helpers({
-  isOnWatchAgain: function() {
-    return Session.get('isOnWatchAgain')
-  }
+
  })
 
 

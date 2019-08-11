@@ -16,9 +16,6 @@ Template.videosnapslider.events({
 Template.videosnapslider.helpers({
   isInWatchLater: function() {
     return  WatchLater.find({_id: this._id}).fetch()
-  },
-  isOnWatchAgain: function() {
-    return Session.get('isOnWatchAgain')
   }
 })
 

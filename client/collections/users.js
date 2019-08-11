@@ -2,8 +2,11 @@ Users = new Mongo.Collection(null)
 usersObserver = new PersistentMinimongo2(Users, 'users', function() {
   var users = Users.find().fetch()
   for (let o = 0; o < users.length; o++) {
-    if (users[o].temporary)
+    if (users[o].temporary) {
       Users.remove({_id: users[o]._id})
+      return
+    }
+      
     if (users[o].network == 'steem')
       Template.loginsteem.success(users[o].username, true)
     if (users[o].network == 'avalon')

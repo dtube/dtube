@@ -708,3 +708,9 @@ Template.registerHelper('topTags', function() {
 Template.registerHelper('scot', function() {
   return Session.get('scot')
 })
+
+Template.registerHelper('isOnWatchAgain', function() {
+  if (FlowRouter._current.path == '/history')
+    return true
+  return false
+})

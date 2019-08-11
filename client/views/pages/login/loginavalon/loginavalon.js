@@ -87,9 +87,11 @@ Template.loginavalon.helpers({
           // correct key for the user, loggin in
           user.username = username
           user._id = user.network+'/'+user.username
-          if (event.target.rememberme.checked)
+          console.log(event.target.rememberme.checked)
+          if (event.target.rememberme.checked === false)
             user.temporary = true
 
+          console.log(user)
           Users.upsert({_id: user._id}, user, function() {
             Template.loginavalon.success(user.username)
           })

@@ -38,7 +38,6 @@ Template.home.events({
 
 Template.home.rendered = function () {
   Template.settingsdropdown.nightMode();
-  Session.set('isOnWatchAgain', false);
   if (/Mobi/.test(navigator.userAgent)) {
     Template.sidebar.empty()
   }

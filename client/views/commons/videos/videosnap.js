@@ -16,9 +16,6 @@ Template.videosnap.events({
 Template.videosnap.helpers({
   isInWatchLater: function () {
     return WatchLater.find({ _id: this._id }).fetch()
-  },
-  isOnWatchAgain: function () {
-    return Session.get('isOnWatchAgain')
   }
 })
 

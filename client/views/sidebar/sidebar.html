@@ -66,12 +66,14 @@
     </div>
     <div class="ui divider"></div>
     <nav class="sectionslist">
-      <!-- <a href='/c/{{activeUsername}}' class="item pdg-non">
-        <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="grid layout icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
-        </div>
-      </a> -->
+      {{#if activeUsername}}
+        <a href='/c/{{activeUsername}}' class="item pdg-non">
+          <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="grid layout icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
+          </div>
+        </a>
+      {{/if}}
       <!-- <a href='/dtalk' class="item pdg-non">
         <div id="dtalksidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="comment icon dtubesidebaricon"></i>
