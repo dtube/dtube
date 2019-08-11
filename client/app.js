@@ -48,21 +48,6 @@ Meteor.startup(function(){
   // if (!UserSettings.get('isInNightMode'))
   //   UserSettings.set('isInNightMode', true)
 
-  // load language
-  loadDefaultLang(function() {
-    loadLangAuto(function() {
-      console.log('Loaded languages')
-      // start router
-      FlowRouter.initialize({hashbang: true}, function() {
-        console.log('Router initialized')
-      });
-      // handle manual fragment change
-      $(window).on('hashchange', function() {
-        FlowRouter.go(window.location.hash)
-      });
-    })
-  })
-
   toastr.options = {
     "closeButton": true,
     "debug": false,

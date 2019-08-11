@@ -22,6 +22,7 @@ window.loadLangAuto = function(cb) {
 window.loadJsonTranslate = function(culture, cb = function(){}){
   if (culture.substr(0,2) == 'en') {
     Session.set('jsonTranslate', null)
+    UserSettings.set('language', null)
     cb()
     return
   }
@@ -37,10 +38,6 @@ window.loadJsonTranslate = function(culture, cb = function(){}){
     }
   })
 }
-
-loadDefaultLang()
-
-
 
 function translate(code){
   //find translation
