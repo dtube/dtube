@@ -58,8 +58,13 @@ Template.settingsdropdown.rendered = function() {
     },
     direction: "downward"
   })
-  if (!Session.get('nsfwSetting'))
-    Session.set('nsfwSetting', 'Fully Hidden')
+  if (!Session.get('nsfwSetting')) {
+    if (Meteor.settings.public.scot.nsfw)
+      Session.set('nsfwSetting', 'Show')
+    else
+      Session.set('nsfwSetting', 'Fully Hidden')
+  }
+    
   if (!Session.get('censorSetting'))
     Session.set('censorSetting', 'Blurred')
   Session.set('ipfsGateway', 'automatic')
