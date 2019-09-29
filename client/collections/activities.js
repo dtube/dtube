@@ -4,7 +4,6 @@ Activities.getAccountHistory = function (username, cb) {
     if (Activities.find({ username: username }).fetch().length) {
         var lastActivity = Activities.findOne({ username: FlowRouter.getParam("author") }, { sort: { n: 1 } }).n
         avalon.getAccountHistory(username, lastActivity, function (e, r) {
-            console.log(e,r)
             for (let i = 0; i < r.length; i++) {
                 if (!r[i].txs || r[i].txs.length < 1) return
                 for (let y = 0; y < r[i].txs.length; y++)
