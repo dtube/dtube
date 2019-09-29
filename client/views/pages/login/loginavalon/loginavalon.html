@@ -27,15 +27,12 @@
                 <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
                 </button>
             </div>
-            <!-- <div class="ui message" style="margin-top:20px;">
-                <p>
-                    To register, take this key pair. Put the private key somewhere safe, and transmit the public key to an existing user who will be able to create your account.
-                    <br /><br />
-                    <strong>Public Key:</strong> <code>{{tmpKey.pub}}</code>
-                    <br />
-                    <strong>Priv Key:</strong> <code>{{tmpKey.priv}}</code>
-                </p>
-            </div> -->
+            <div class="ui message" style="margin-top:20px;">
+                {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
+                <a href="https://signup.d.tube" target="_blank"> 
+                    {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} d.tube</a>
+                <div class="ui tiny red label" style="vertical-align: middle;">New!</div>
+            </div>
             </div>
         </div>
         </form>
