@@ -280,7 +280,7 @@ Videos.getVideosByBlogAvalon = function(author, cb) {
         cb(null, false)
       else
         cb(null, true)
-    }
+    } else cb(null, true)
   })
 }
 
