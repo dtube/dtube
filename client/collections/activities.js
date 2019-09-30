@@ -40,6 +40,7 @@ Activities.filterOperations = function (username, tx, blockId) {
             Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'transfer', tx: tx, date: tx.ts, n: blockId })
             break;
         case 4:
+        case 13:
             if (tx.data.pa && tx.data.pp)
                 Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'comment', tx: tx, date: tx.ts, n: blockId })
             else

@@ -124,6 +124,9 @@
                             <div>
                                 <a style="color:#ff1a1a!important;" href="/c/{{tx.sender}}" class="user">{{tx.sender}}</a>
                                 published <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.sender}}/{{tx.data.link}}</a>
+                                {{#if tx.data.burn}}
+                                    and burnt {{displayMoney tx.data.burn 1 'DTC'}}
+                                {{/if}}
                             </div>
                             <a href="/v/{{tx.sender}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.sender tx.data.link}}</a>
                             <div>
