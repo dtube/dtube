@@ -62,7 +62,7 @@ Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration,
   var sort = 'tags.'+tags[0]+':desc'
   if (sort_by) sort = sort_by+':desc'
 
-  Search.text(query, sort, function(err, response) {
+  Search.text(query, sort,null, function(err, response) {
     console.log(response)
     var videos = response.results
     for (let i = 0; i < videos.length; i++) {

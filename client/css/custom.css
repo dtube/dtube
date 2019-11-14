@@ -206,3 +206,9 @@ textarea {
   left: auto !important;
   right: 100% !important;
 }
+
+.morebtn {
+  margin-left: auto!important;
+  margin-right: auto!important;
+  width: 150px!important;
+}
