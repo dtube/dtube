@@ -95,7 +95,7 @@ broadcast = {
                             author: originalposts.steem.author,
                             permlink: originalposts.steem.permlink,
                             title: jsonSteem.title,
-                            body: originalposts.steem.body,
+                            body: body || originalposts.steem.body,
                             json_metadata: JSON.stringify(newSteemJsonMeta)
                         }]
                     ]

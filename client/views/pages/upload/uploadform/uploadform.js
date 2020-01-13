@@ -106,11 +106,15 @@ Template.uploadformsubmit.events({
       if ($('input[name=video1080hash]')[0].value) video.json.ipfs.video1080hash = $('input[name=video1080hash]')[0].value
     }
 
-    broadcast.multi.editComment(Session.get('currentRefs'),video.json,null,(err) => {
+    let steembody;
+    if ($('textarea[name=body]').length !== 0) steembody = $('textarea[name=body]')[0].value
+
+    broadcast.multi.editComment(Session.get('currentRefs'),video.json,steembody,(err) => {
       if (err) toastr.error("Error while broadcasting comment edit")
       else {
         toastr.success(translate('EDIT_VIDEO_SUCCESS'))
         $('#editvideosegment').toggle()
+        $('#powerup').toggle()
         Template.video.loadState()
       }
     })

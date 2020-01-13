@@ -341,6 +341,7 @@ Template.video.events({
   },
   'click .editvideo': function() {
     $('#editvideosegment').toggle()
+    $('#powerup').toggle()
   }
 })
 
@@ -406,6 +407,7 @@ Template.video.handleVideo = function(result, id, isRef) {
     if (Object.keys(result.content).length == 0) return
     result.content[id[1]+'/'+id[2]].content = result.content
     result = result.content[id[1]+'/'+id[2]]
+    if ($('textarea[name=body]').length !== 0) $('textarea[name=body]')[0].value = result.body
   }
   var video = Videos.parseFromChain(result, false, network)
   console.log('Loaded '+id, video)
