@@ -117,7 +117,11 @@
             </div>
           </div>
           <div id='editvideosegment' class="ui segment" style="display: none">
-            {{> uploadfileform}}
+            {{#if isIPFSUpload}}
+              {{> uploadfileform}}
+            {{else}}
+              {{> uploadform}}
+            {{/if}}
             {{> uploadformsubmit}}
           </div>
           {{#unless json.videoId}}

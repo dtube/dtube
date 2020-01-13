@@ -30,6 +30,14 @@ Template.video.helpers({
     if (merged.length != 1) return false
     return true
   },
+  isIPFSUpload: () => {
+    let video = Videos.findOne({
+      'author': FlowRouter.getParam("author"),
+      'link': FlowRouter.getParam("permlink")
+    })
+    console.log(video)
+    return video.json.providerName === 'IPFS'
+  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")

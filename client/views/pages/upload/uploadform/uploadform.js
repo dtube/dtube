@@ -80,26 +80,31 @@ Template.uploadformsubmit.events({
       link: FlowRouter.getParam("permlink")	
     })
 
+    // General metadata
     if (!$('input[name=title]')[0].value) return toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
     if ($('input[name=title]')[0].value.length > 256) return toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
-    if (!$('input[name=videohash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_VIDEOHASH'), translate('ERROR_TITLE'))
-    if (!$('input[name=snaphash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_SNAPHASH'),translate('ERROR_TITLE'))
 
     video.json.title = $('input[name=title]')[0].value
     video.json.description = $('textarea[name=description]')[0].value
-    video.json.videoId = $('input[name=videohash]')[0].value
-    video.json.filesize = $('input[name=filesize]')[0].value
-    video.json.duration = $('input[name=duration]')[0].value
-    video.json.ipfs.videohash = $('input[name=videohash]')[0].value
-    video.json.ipfs.spritehash = $('input[name=spritehash]')[0].value
-    video.json.ipfs.snaphash = $('input[name=snaphash]')[0].value
-    video.json.thumbnailUrl = 'https://snap1.d.tube/ipfs/' + $('input[name=snaphash]')[0].value
-    video.json.providerName = 'IPFS'
 
-    if ($('input[name=video240hash]')[0].value) video.json.ipfs.video240hash = $('input[name=video240hash]')[0].value
-    if ($('input[name=video480hash]')[0].value) video.json.ipfs.video480hash = $('input[name=video480hash]')[0].value
-    if ($('input[name=video720hash]')[0].value) video.json.ipfs.video720hash = $('input[name=video720hash]')[0].value
-    if ($('input[name=video1080hash]')[0].value) video.json.ipfs.video1080hash = $('input[name=video1080hash]')[0].value
+    // IPFS specific metadata
+    if (video.json.providerName === 'IPFS') {
+      if (!$('input[name=videohash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_VIDEOHASH'), translate('ERROR_TITLE'))
+      if (!$('input[name=snaphash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_SNAPHASH'),translate('ERROR_TITLE'))
+
+      video.json.videoId = $('input[name=videohash]')[0].value
+      video.json.filesize = $('input[name=filesize]')[0].value
+      video.json.duration = $('input[name=duration]')[0].value
+      video.json.ipfs.videohash = $('input[name=videohash]')[0].value
+      video.json.ipfs.spritehash = $('input[name=spritehash]')[0].value
+      video.json.ipfs.snaphash = $('input[name=snaphash]')[0].value
+      video.json.thumbnailUrl = 'https://snap1.d.tube/ipfs/' + $('input[name=snaphash]')[0].value
+
+      if ($('input[name=video240hash]')[0].value) video.json.ipfs.video240hash = $('input[name=video240hash]')[0].value
+      if ($('input[name=video480hash]')[0].value) video.json.ipfs.video480hash = $('input[name=video480hash]')[0].value
+      if ($('input[name=video720hash]')[0].value) video.json.ipfs.video720hash = $('input[name=video720hash]')[0].value
+      if ($('input[name=video1080hash]')[0].value) video.json.ipfs.video1080hash = $('input[name=video1080hash]')[0].value
+    }
 
     broadcast.multi.editComment(Session.get('currentRefs'),video.json,null,(err) => {
       if (err) toastr.error("Error while broadcasting comment edit")
