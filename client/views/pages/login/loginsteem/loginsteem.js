@@ -27,6 +27,24 @@ Template.loginsteem.helpers({
           Session.set('avalonOnboarding', true)
       })
 
+    // check if subscribed to dtube hive
+    steem.api.call('bridge.list_all_subscriptions', {account: Session.get('activeUsernameSteem')}, function(e,hives) {
+      if (!e) {
+        var isSubd = false
+        for (let i = 0; i < hives.length; i++) {
+          if (hives[i][0] == 'hive-196037') {
+            isSubd = true
+          }
+        }
+        if (!isSubd) {
+          console.log('Subscribing to hive...')
+          broadcast.steem.subHive(function(){
+            console.log('Subscribed to hive...')
+          })
+        }
+      }
+    })
+
     setTimeout(function(){Template.sidebar.dropdownSteem()}, 200)
   }
   

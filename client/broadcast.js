@@ -78,7 +78,7 @@ broadcast = {
         comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
             if (!permlink) permlink = Template.upload.createPermlink(11)
             if (!parentAuthor) parentAuthor = ''
-            if (!parentPermlink) parentPermlink = ''
+            if (!parentPermlink) parentPermlink = 'hive-196037'
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
             var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
             if (!voter) return;
@@ -118,6 +118,7 @@ broadcast = {
                   parent_author: '',
                   parent_permlink: 'dtube',
                   author: author,
+                  category: 'hive-196037',
                   permlink: permlink,
                   title: title,
                   body: body,
@@ -141,10 +142,8 @@ broadcast = {
                 ]
               }]
             ];
-            if (parentAuthor && parentPermlink) {
-                operations[0][1].parent_author = parentAuthor
-                operations[0][1].parent_permlink = parentPermlink
-            }
+            operations[0][1].parent_author = parentAuthor
+            operations[0][1].parent_permlink = parentPermlink
             broadcast.steem.send(operations, function (err, res) {
                 if (!err && res && res.operations)
                     res = res.operations[0][1].author+'/'+res.operations[0][1].permlink
@@ -217,6 +216,48 @@ broadcast = {
         //         return;
         //     }
         // },
+        subHive: function(cb) {
+            if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
+            var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
+            if (!voter) return;
+            //Steem keychain support.
+            //Tested working
+            if(Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
+                console.log("");
+                if(!steem_keychain) {
+                    cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                    return;
+                }
+                var operations = JSON.stringify(
+                        ['subscribe', {
+                            community: "hive-196037"
+                        }]
+                    );
+                steem_keychain.requestCustomJson(voter, "community", "Posting", operations , "community" ,function(response) {
+                    console.log(response);
+                    cb(response.error, response)
+                });
+                return;
+            }
+            var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
+            if (wif) {
+                steem.broadcast.customJson(
+                    wif,
+                    [],
+                    [voter],
+                    'community',
+                    JSON.stringify(
+                        ['subscribe', {
+                            community: "hive-196037"
+                        }]
+                    ),
+                    function (err, result) {
+                        cb(err, result)
+                    }
+                );
+                return;
+            }
+        },
         follow: function(following, cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
             var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
