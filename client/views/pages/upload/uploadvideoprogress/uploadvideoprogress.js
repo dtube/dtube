@@ -11,7 +11,7 @@ Template.uploadvideoprogress.update = function() {
   var token = Session.get('uploadToken')
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getProgressByToken/'+token
-    : 'https://cluster.d.tube/getProgressByToken/'+token
+    : 'https://'+Session.get('upldr')+'.d.tube/getProgressByToken/'+token
   if (Session.get('scot')) {
     var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
     url = url.replace('cluster.d.tube', scotUpldr)

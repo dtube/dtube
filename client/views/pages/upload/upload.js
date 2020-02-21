@@ -180,7 +180,7 @@ Template.upload.setBestUploadEndpoint = function (cb) {
 Template.upload.uploadVideo = function (file, progressid, cb) {
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-    : 'https://cluster.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   let formData = new FormData()
 
   if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
@@ -529,7 +529,7 @@ Template.upload.events({
 var getUploaderStatus = function (upldr) {
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getStatus'
-    : 'https://cluster.d.tube/getStatus'
+    : 'https://'+upldr+'.d.tube/getStatus'
   if (Session.get('scot')) {
     var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
     url = url.replace('cluster.d.tube', scotUpldr)

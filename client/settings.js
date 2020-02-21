@@ -26,7 +26,7 @@ Meteor.settings.public = {
       "https://avalon.christianknuchel.com"
     ],
     "snapMaxFileSizeKB": 2048,
-    "upldr": ["cluster"],
+    "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
     "thirdPartyUploadEndpoints": [
       "uploader.oneloved.tube",
       // "uploader.dtube.network"

@@ -64,7 +64,7 @@ Template.uploadform.generateVideo = function () {
     toastr.error(translate('UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING'), translate('ERROR_TITLE'))
     return
   } else {
-    article.providerName = 'IPFS'
+    article.providerName = 'BTFS'
   }
   return article
 }
