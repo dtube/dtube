@@ -88,7 +88,7 @@ Template.uploadformsubmit.events({
     video.json.description = $('textarea[name=description]')[0].value
 
     // IPFS specific metadata
-    if (video.json.providerName === 'IPFS') {
+    if (video.json.providerName === 'IPFS' || video.json.providerName === 'BTFS') {
       if (!$('input[name=videohash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_VIDEOHASH'), translate('ERROR_TITLE'))
       if (!$('input[name=snaphash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_SNAPHASH'),translate('ERROR_TITLE'))
 

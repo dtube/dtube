@@ -30,13 +30,13 @@ Template.video.helpers({
     if (merged.length != 1) return false
     return true
   },
-  isIPFSUpload: () => {
+  isIPFSOrBTFSUpload: () => {
     let video = Videos.findOne({
       'author': FlowRouter.getParam("author"),
       'link': FlowRouter.getParam("permlink")
     })
     console.log(video)
-    return video.json.providerName === 'IPFS'
+    return video.json.providerName === 'IPFS' || video.json.providerName === 'BTFS'
   },
   user: function () {
     return {
