@@ -30,6 +30,14 @@ Template.video.helpers({
     if (merged.length != 1) return false
     return true
   },
+  isIPFSUpload: () => {
+    let video = Videos.findOne({
+      'author': FlowRouter.getParam("author"),
+      'link': FlowRouter.getParam("permlink")
+    })
+    console.log(video)
+    return video.json.providerName === 'IPFS'
+  },
   user: function () {
     return {
       name: FlowRouter.getParam("author")
@@ -258,7 +266,7 @@ Template.video.events({
           $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
         });
       if (refs[0].split('/')[0] == 'dtc')
-        broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', function (err, result) {
+        broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '',false, function (err, result) {
           console.log(err, result)
           if (err) {
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -333,6 +341,7 @@ Template.video.events({
   },
   'click .editvideo': function() {
     $('#editvideosegment').toggle()
+    $('#powerup').toggle()
   }
 })
 
@@ -398,6 +407,7 @@ Template.video.handleVideo = function(result, id, isRef) {
     if (Object.keys(result.content).length == 0) return
     result.content[id[1]+'/'+id[2]].content = result.content
     result = result.content[id[1]+'/'+id[2]]
+    if ($('textarea[name=body]').length !== 0) $('textarea[name=body]')[0].value = result.body
   }
   var video = Videos.parseFromChain(result, false, network)
   console.log('Loaded '+id, video)

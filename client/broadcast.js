@@ -31,7 +31,7 @@ broadcast = {
                     })
                 else
                     transactions.push(function(callback) {
-                        broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, callback)
+                        broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, false, callback)
                     })
 
             if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
@@ -41,6 +41,79 @@ broadcast = {
 
             parallel(transactions, function(err, results) {
                 cb(err, results)
+            })
+        },
+        editComment: (refs,json,body,cb) => {
+            // For editing existing post/comment only
+            if (!refs || refs === []) return cb('Nothing to edit')
+
+            let networks = []
+            for (let i = 0; i < refs.length; i++) {
+                let toEdit = refs[i].split('/')
+                networks.push(toEdit[0])
+            }
+
+            let jsonAvalon = Object.assign({},json)
+            let jsonSteem = Object.assign({},json)
+            if (networks.includes('dtc') && networks.includes('steem')) {
+                jsonAvalon.refs = [refs[networks.indexOf('steem')]]
+                jsonSteem.refs = [refs[networks.indexOf('dtc')]]
+            }
+
+            // Get content from each chain to check for parent posts (in case of comment edits)
+            let getops = {}
+
+            if (networks.includes('steem') && Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled')) {
+                let steemref = refs[networks.indexOf('steem')].split('/')
+                getops.steem = (callback) => {
+                    steem.api.getContent(steemref[1],steemref[2],callback)
+                }
+            }
+
+            if (networks.includes('dtc') && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
+                let avalonref = refs[networks.indexOf('dtc')].split('/')
+                getops.dtc = (callback) => {
+                    avalon.getContent(avalonref[1],avalonref[2],callback)
+                }
+            }
+
+            // if getops is still empty, there's nothing to edit (perhaps both steem and dtc broadcasts are disabled)
+            if (getops === {}) return cb('Nothing to edit')
+
+            parallel(getops,(errs,originalposts) => {
+                if (errs) return cb('Error get content')
+
+                // Broadcast edits
+                let broadcastops = []
+                if (originalposts.steem) {
+                    let newSteemJsonMeta = JSON.parse(originalposts.steem.json_metadata)
+                    newSteemJsonMeta.video = jsonSteem
+                    let steemtx = [
+                        ['comment',{
+                            parent_author: originalposts.steem.parent_author,
+                            parent_permlink: originalposts.steem.parent_permlink,
+                            author: originalposts.steem.author,
+                            permlink: originalposts.steem.permlink,
+                            title: jsonSteem.title,
+                            body: body || originalposts.steem.body,
+                            json_metadata: JSON.stringify(newSteemJsonMeta)
+                        }]
+                    ]
+                    broadcastops.push((callback) => {
+                        broadcast.steem.send(steemtx,callback)
+                    })
+                }
+
+                if (originalposts.dtc) {
+                    broadcastops.push((callback) => {
+                        broadcast.avalon.comment(originalposts.dtc.link,originalposts.dtc.pa,originalposts.dtc.pp,jsonAvalon,'',true,callback)
+                    })
+                }
+
+                parallel(broadcastops,(errors,results) => {
+                    if (errors) return cb('Error tx broadcast')
+                    cb(null,results)
+                })
             })
         },
         vote: function(refs, wAvalon, wSteem, tagAvalon, cb) {
@@ -440,7 +513,7 @@ broadcast = {
         }
     },
     avalon: {
-        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, cb) {
+        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb) {
             if (!permlink) {
                 permlink = Template.upload.createPermlink(11)
                 if (jsonMetadata.videoId)
@@ -460,6 +533,7 @@ broadcast = {
                     vt: Math.floor(avalon.votingPower(Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}))*weight/10000)
                 }
             }
+            if (isEditing) tx.data.vt = 1 // Spend only 1 VP for editing existing content
             if (tag) tx.data.tag = tag
             else tx.data.tag = ""
             if (parentAuthor && parentPermlink) {

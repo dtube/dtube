@@ -125,7 +125,7 @@ Template.uploadformsubtitles.events({
 })
 
 function listSubtitles() {
-    return Session.get('tempSubtitles')
+    return Session.get('tempSubtitles') || []
 }
 
 function addSubtitle(sub) {
