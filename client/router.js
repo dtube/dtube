@@ -13,6 +13,20 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/keypair', {
+  name: "upload",
+  action: function(params, queryParams) {
+    Session.set("currentMenu", 3)
+    Template.sidebar.selectMenu();
+    Session.set("pageTitle", 'Key Generator')
+    Template.sidebar.selectMenu();
+    BlazeLayout.render('masterLayout', {
+      main: "keypair",
+      nav: "nav",
+    });
+  }
+});
+
 FlowRouter.route('/upload', {
   name: "upload",
   action: function(params, queryParams) {
