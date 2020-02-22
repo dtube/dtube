@@ -15,6 +15,9 @@ Template.topbar.helpers({
     return Session.get('isSearchingMobile')
   }, mainUser: function() {
     return Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+  },
+  saleProgress: function() {
+    return Session.get('saleProgress')
   }
 });
 

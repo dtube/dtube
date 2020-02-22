@@ -16,6 +16,8 @@ Meteor.startup(function(){
     // ??
   })
 
+  Market.getSaleProgress()
+
   window.steem = steem
   window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
   window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});

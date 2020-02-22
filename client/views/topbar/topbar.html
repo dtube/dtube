@@ -49,6 +49,11 @@
         <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
+        <a href="https://signup.d.tube/sale.html" target="_blank"
+        class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_SALE_INFO'}}">
+            <i class="dollar sign icon" style="font-size: 14px;margin-right:0; color: green"></i>
+            <strong>{{saleProgress}}</strong>%
+        </a>
         {{#if isLoggedOn}}
           {{#if mainUser.balance}}
             <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">

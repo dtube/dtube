@@ -37,5 +37,22 @@ Market = {
             var SP = totalSteem * (userVests / totalVests)
             return SP
         }
+    },
+    getSaleProgress: function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://signup.d.tube/bar', true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var info = JSON.parse(xhr.responseText)
+                    var percent = parseFloat(100*(info.confirmed+info.pending)/info.max)
+                    percent = percent.toFixed(1)
+                    Session.set('saleProgress', percent)
+                } else {
+                  console.log("Error: API not responding!");
+                }
+            }
+        }
     }
 }
