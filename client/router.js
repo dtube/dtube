@@ -304,7 +304,8 @@ FlowRouter.route('/t/:tag', {
       main: "tags",
       nav: "nav"
     });
-    Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
+    Session.set('tagCount',0)
+    Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), 0, function(err, response) {
       // call finished
     })
     // Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {

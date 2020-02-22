@@ -1,10 +1,12 @@
 Search = {
     api: 'https://search.d.tube',
     //api: 'http://localhost:9200',
-    text: (query, sort, cb) => {
-        var url = Search.api+'/avalon.contents/_search?q=(NOT pa:*) AND '+query
+    text: (query, sort, startpos, cb) => {
+        var url = Search.api+'/avalon.contents/_search?q=(NOT pa:*) AND '+query+'&size=20'
         if (sort)
             url += '&sort='+sort
+        if (startpos)
+            url += '&from='+startpos
         fetch(url, {
             method: 'GET',
             headers: {

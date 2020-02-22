@@ -3,8 +3,8 @@
   <div style="margin-left:5px;margin-right:10px;" class="ui content">
     <h2 style="max-width: calc(100% - 90px);margin-bottom:20px;">
       {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
-      {{lengthOf search.response.results}} 
-      {{#if isPlural search.response.results}} 
+      {{ search.response.hits.total.value }} 
+      {{#if isPlural search.response.hits.total.value}} 
       {{translate 'SEARCH_RESULTS'}} 
       {{else}} 
       {{translate 'SEARCH_RESULT'}} 
@@ -24,9 +24,13 @@
   {{else}}
   <div class="ui container">
     <h2> 
+      {{#if isPlural search.response.hits.total.value}}
+      {{ translate 'SEARCH_RESULTS_THERE_ARE'}} 
+      {{else}}
       {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
-      {{lengthOf search.response.results}} 
-      {{#if isPlural search.response.results}}
+      {{/if}}
+      {{search.response.hits.total.value}} 
+      {{#if isPlural search.response.hits.total.value}}
       {{ translate 'SEARCH_RESULTS'}} 
       {{else}} 
       {{translate 'SEARCH_RESULT'}} 
@@ -43,5 +47,8 @@
     {{> videosearchresult}} 
     {{/each}}
   </div>
+  {{/if}}
+  {{#if moreThan20}}
+  <div class="ui blue morebtn button" id="moresearchres" style="display: block;">{{translate 'SEARCH_LOAD_MORE'}}</div>
   {{/if}}
 </template>

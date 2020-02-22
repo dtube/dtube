@@ -47,7 +47,7 @@ Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
   })
 }
 
-Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration, cb) {
+Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration, startpos, cb) {
   var queries = []
   if (days) {
     dateFrom = new Date().getTime() - (days*24*60*60*1000)
@@ -62,8 +62,9 @@ Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration,
   var sort = 'tags.'+tags[0]+':desc'
   if (sort_by) sort = sort_by+':desc'
 
-  Search.text(query, sort, function(err, response) {
+  Search.text(query, sort,startpos, function(err, response) {
     console.log(response)
+    Session.set('tagCount',response.hits.total.value)
     var videos = response.results
     for (let i = 0; i < videos.length; i++) {
       videos[i].source = 'askSteem'
