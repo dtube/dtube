@@ -267,6 +267,7 @@
     "UPLOAD_AUDIO_ENCODING": "Audio Encoding",
     "UPLOAD_GPU_ENCODING": "Video Encoding",
     "UPLOAD_LINK_PLACEHOLDER": "Link from YouTube, Vimeo, Dailymotion, Facebook, Twitch, ...",
+    "UPLOAD_MAGNET_PLACEHOLDER": "magnet:? link",    
     "USERS_USE": "Use",
     "USERS_CHANNEL": "Channel",
     "USERS_CLAIM_REWARDS": "Claim Rewards",

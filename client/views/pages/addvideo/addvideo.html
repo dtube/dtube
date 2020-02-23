@@ -1,0 +1,336 @@
+<template name="addvideo">
+    {{#if equals addVideoStep 'addvideoform'}}
+        {{> addvideoform}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformp2p'}}
+        {{> addvideoformp2p}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformp2pbtfs'}}
+        {{> addvideoformp2pbtfs}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformp2pipfs'}}
+        {{> addvideoformp2pipfs}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformp2ptorrent'}}
+        {{> addvideoformp2ptorrent}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoform3p'}}
+        {{> addvideoform3p}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformfile'}}
+        {{> addvideoformfile}}
+    {{/if}}
+</template>
+
+<template name="addvideobuttonback">
+    <div id="addvideoback" class="ui right floated labeled small button" tabindex="0">
+        <button name="button" class="ui blue left labeled dtube icon button">
+            <i class="arrow left icon blue" style="background:white;opacity:1;"></i>
+            <div style="display:inline-block;padding: 0.8em 1em;">Back</div>
+        </button>
+    </div>
+</template>
+
+<template name="addvideobuttonnext">
+    <div id="addvideonext" class="ui right floated labeled small button" tabindex="0">
+        <button name="button" class="ui blue right labeled dtube icon button">
+            <i class="arrow right icon blue" style="background:white;opacity:1;"></i>
+            <div style="display:inline-block;padding: 0.8em 1em;">Next</div>
+        </button>
+    </div>
+</template>
+
+<template name="addvideoform">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video</h1>
+            <p>
+                DTube enables you to share your video in a variety of ways, leaving no one out. Depending on your channel content, you should choose your video sources accordingly.
+                <br /><br />
+                <div class="ui tiny red label" style="vertical-align: middle;">New!</div> You can now combine multiple sources into the same DTube video.
+                <h2>Choose a source: </h2>
+            </p>
+            <div class="grouped fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtype" value="p2p">
+                        <label>Peer-to-peer - Best for <strong>resilience</strong> and <strong>anonymity</strong></label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtype" value="3p">
+                        <label>Third party - Best for <strong>speed</strong> and <strong>high-def</strong></label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtype" value="file">
+                        <label>File Upload - Best for <strong>simplicity</strong> and <strong>small files</strong></label>
+                    </div>
+                </div>
+            </div>
+            {{> addvideobuttonnext}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformp2p">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video with peer-to-peer</h1>
+            <p>
+                Great choice! Using peer-to-peer to share your video content is the best way to achieve freedom for your channel, while ensuring anyone can watch from anywhere.
+                <br /><br />This method requires you to convert your video files to a web compatible format before sharing. To do so, we recommend using <a href="https://handbrake.fr"><strong>HandBrake</strong></a>, as it is free, open-source, and available for Windows, Mac and Linux.
+                <h2>Choose a peer-to-peer protocol: </h2>
+            </p>
+            <div class="grouped fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtypep2p" value="btfs">
+                        <label>BTFS <div class="ui tiny red label" style="vertical-align: middle;">New!</div></label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtypep2p" value="ipfs">
+                        <label>IPFS</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtypep2p" value="torrent">
+                        <label>WebTorrent</label>
+                    </div>
+                </div>
+            </div>
+            
+            {{> addvideobuttonnext}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideohashes">
+    <div class="two fields">
+        <div class="field">
+            <label>* {{ translate 'UPLOAD_VIDEOHASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" value="{{json.ipfs.videohash}}">
+        </div>
+        <div class="field">
+            <label>{{ translate 'UPLOAD_SPRITEHASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}" value="{{json.ipfs.spritehash}}">
+        </div>
+    </div>
+    <div class="four fields">
+        <div class="field">
+            <label>{{ translate 'UPLOAD_VIDEO240HASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="video240hash" placeholder="{{ translate 'UPLOAD_VIDEO240HASH'}}" value="{{json.ipfs.video240hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translate 'UPLOAD_VIDEO480HASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}" value="{{json.ipfs.video480hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translate 'UPLOAD_VIDEO720HASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="video720hash" placeholder="{{ translate 'UPLOAD_VIDEO720HASH'}}" value="{{json.ipfs.video720hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translate 'UPLOAD_VIDEO1080HASH'}}
+            <i class="external icon"></i>
+            </label>
+            <input type="text" name="video1080hash" placeholder="{{ translate 'UPLOAD_VIDEO1080HASH'}}" value="{{json.ipfs.video1080hash}}">
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformp2pbtfs">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video with BTFS</h1>
+            <p>
+                    <a href="https://www.bittorrent.com/btfs/"><strong>BTFS</strong></a> is similar to IPFS in the way it works technically for file sharing, but BTFS is tokenized and becomes a marketplace for file storage.
+                    <br /><br />By running a BTFS Host and seeding DTube videos, you can earn <a target="_blank" href="https://www.bittorrent.com/btt/"><strong>BTT</strong></a>. Or you can spend BTT to host your videos on <a target="_blank" href="https://btfssoter.readme.io/docs/getting-started"><strong>BTFS Soter</strong></a>
+                    <br /><br />However, BTFS is currently a smaller ecosystem than IPFS, but growing fast. BTFS protocol is strongly recommended if you care about crypto-currency rewards.
+            </p>
+
+            {{> addvideohashes}}
+            
+            {{> addvideobuttonnext}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformp2pipfs">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video with IPFS</h1>
+            <p>
+                <a href="https://ipfs.io" target="_blank"><strong>IPFS</strong></a> is a modern peer-to-peer protocol focused on the web. On IPFS, your files are identified by a hash, a digital fingerprint. After downloading a file from IPFS, you can be verify the file hasn't been changed since the original upload, making your content trustable.
+                <br /><br /><a href="https://ipfs.github.io/public-gateway-checker/" target="_blank"><strong>IPFS Gateways</strong></a> around the world gives multiple access points to a file, making it really hard (if not impossible) to block access to the content.
+                <br /><br />You can use <a href="https://github.com/ipfs-shipyard/ipfs-desktop" target="_blank"><strong>IPFS Desktop</strong></a> app to easily use IPFS with a graphical user interface on your desktop PC. If you want to store large amount of videos (>1TB), on a server with large bandwidth, you should use <a href="https://github.com/ipfs/go-ipfs" target="_blank"><strong>go-ipfs</strong></a>
+            </p>
+
+            {{> addvideohashes}}
+
+            {{> addvideobuttonnext}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformp2ptorrent">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video with WebTorrent</h1>
+            <p>
+                <a href="https://webtorrent.io" target="_blank"><strong>WebTorrent</strong></a> is a torrent client that works in the browser. You can <a href="https://webtorrent.io/desktop/"><strong>download WebTorrent desktop</strong></a> and start seeding your video files very easily.
+                <br /><br />This is a good way for to self-host your videos if you have a moderate amount of video data (less than 1TB).
+                <br /><br />It's strongly recommended to combine WebTorrent with another video source as your home connection will most likely remain the only seeder, ever.
+            </p>
+            <div class="ui input" style='width: 100%'>
+                <input id="remotelink" type="text" name="url" placeholder="{{translate 'UPLOAD_MAGNET_PLACEHOLDER'}}" value="">              
+            </div>
+            <br /><br />
+            {{> addvideobuttonnext}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoform3p">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video from a third party url</h1>
+            <p>
+                Third party video providers is a great way to ensure that your video is watchable at highest qualities. It's never a bad thing to add a third party video source.
+                <br /><br />If you want to share a non-original video on DTube, this is the recommended way, as it will reward the original creator registered on these third party websites.
+                <br /><br />If you create original content, these solutions should not be your first choice as these platforms will most often force you to give them your personal data and/or put ads on top of your videos. Censorship or country restriction can also hurt the availability of your videos.
+                <br /><br />
+                <center>
+                    <div style="width: 32%; display: inline-block;">
+                        <img style="width: 32%" src="https://lh3.googleusercontent.com/proxy/F92_OxgL1fGJdWs8DJDb4ka0C1quO_vOOCSKd5gvt-kZgHVPa3efP48nFuLYQXCvZtcW69AxaroNIApAdxCLVPJG-_1k19fJZ4DN3V5A9REmuqSYri5nANalGaDOxzPNPNfguRmSxSnTig">
+                        <br />YouTube
+                    </div>
+                    <div style="width: 32%; display: inline-block;">
+                        <img style="width: 32%" src="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/gnome-twitch-icon.png">
+                        <br />Twitch
+                    </div>
+                    <div style="width: 32%; display: inline-block;">
+                        <img style="width: 32%" src="https://cdn.iconscout.com/icon/free/png-256/dailymotion-3-432502.png">
+                        <br />Dailymotion                            
+                    </div>
+                    <div style="width: 32%; display: inline-block;">
+                        <img style="width: 32%" src="https://res-4.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/apptopia/app/885c287d-86ce-4f5c-8c00-f003cbf17aca">
+                        <br />LiveLeak                            
+                    </div>
+                    <div style="width: 32%; display: inline-block;">
+                        <img style="width: 32%" src="https://www.shareicon.net/data/256x256/2016/07/05/791298_logo_512x512.png">
+                        <br />Vimeo                            
+                    </div>
+                </center>
+                <h2>Enter a video URL: </h2>
+            </p>
+            <div class="ui form" id="uploadLinkForm">
+                <div class="ui input" style='width: 100%'>
+                    <input id="remotelink" type="text" name="url" placeholder="{{translate 'UPLOAD_LINK_PLACEHOLDER'}}" value="">              
+                </div>
+                {{#if searchedLink}}
+                    <div class="preview">
+                    {{#if tempContent}}
+                        <div class="ui grid segment">
+                        <div class="six wide column">
+                            <div class="field segment">
+                            <label>{{ translate 'UPLOAD_THUMBNAIL'}}</label>
+                            <img width="100%" src='{{tempContent.thumbnailUrl}}' />
+                            </div>
+                            {{#if isOnMobile}}
+                            <div class="ui centered grid">
+                                <label for="snapFile" style="width:100%;">
+                                    <a class="ui red fluid dtube icon right labeled button needsclick" id="uploadSnap">
+                                    <div style="display:inline-block; padding:0.8em 1em;" class="needsclick">
+                                        {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                                    </div>
+                                    <i class="cloud upload icon red" style="background:white; opacity:1;"></i>
+                                    </a>
+                                </label>
+                                <input type="file" id="snapFile" style="display: none;">
+                            </div>
+                            {{else}}
+                            <div>
+                                <label for="snapFile">
+                                    <a class="ui red dtube icon right labeled button" style=" margin-top:10px;" id="uploadSnap">
+                                    <div style="display:inline-block; padding:0.8em 1em;">
+                                        {{ translate 'UPLOAD_UPLOAD_SNAP'}}
+                                    </div>
+                                    <i class="cloud upload icon red" style="background:white; opacity:1;"></i>
+                                    </a>
+                                </label>
+                                <input type="file" id="snapFile" style="display: none;">
+                            </div>
+                            {{/if}}
+                        </div>
+                        <div class="ten wide column">
+                            {{> uploadform}}
+                        </div>
+                        </div>
+                    {{else}}
+                        <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                        </div>
+                    {{/if}}
+                    </div>
+                {{/if}}
+            </div>
+            <br />
+            {{> addvideobuttonnext}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformfile">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video from a file</h1>
+            <p>
+                DTube provides a free video upload service, that encodes your video, creates a sprite, and stores all these files on a decentralized network (BTFS). However, this service has serious limitations:
+                <div style="font-size: 16px; font-weight: 450; margin-left: 15px; margin-bottom: 5px;">Maximum quality is 480p</div>
+                <div style="font-size: 16px; font-weight: 450; margin-left: 15px; margin-bottom: 5px;">Videos longer than 10 minutes will not get re-encoded, only stored</div>
+                <div style="font-size: 16px; font-weight: 450; margin-left: 15px;">Videos with low views and older than 6 months might get deleted</div>
+                <br />
+                <h2>Choose an upload server: </h2>
+            </p>
+
+            <center>
+                <select id="uploadEndpointSelection" class="ui fluid selection dropdown">
+                    <option value="">{{ translate 'UPLOAD_ENDPOINT_PLACEHOLDER' }}</option>
+                    <option value="cluster.d.tube">{{ translate 'UPLOAD_ENDPOINT_DEFAULT' }} (btfs.d.tube)</option>
+                    {{#each endpoint in thirdPartyUploadEndpoints}}
+                    <option value="{{endpoint}}">{{endpoint}}</option>
+                    {{/each}}
+                </select><br>
+                <div id="dropzone" class="dropzone needsclick">
+                    <div class="needsclick">
+                    <i class="video icon"></i>
+                    <h2>{{ translate 'UPLOAD_UPLOAD_FILE'}}</h2>
+                    </div>
+                </div>
+                <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
+            </center>
+            <br />
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>

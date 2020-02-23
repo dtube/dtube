@@ -41,19 +41,33 @@ FlowRouter.route('/upload', {
   }
 });
 
-FlowRouter.route('/golive', {
-  name: "golive",
+FlowRouter.route('/publish', {
+  name: "addvideo",
   action: function(params, queryParams) {
-    Session.set("currentMenu", 9)
+    Session.set("currentMenu", 3)
     Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Go Live')
+    Session.set("pageTitle", 'Add a video')
     Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
-      main: "golive",
+      main: "addvideo",
       nav: "nav",
     });
   }
 });
+
+// FlowRouter.route('/golive', {
+//   name: "golive",
+//   action: function(params, queryParams) {
+//     Session.set("currentMenu", 9)
+//     Template.sidebar.selectMenu();
+//     Session.set("pageTitle", 'Go Live')
+//     Template.sidebar.selectMenu();
+//     BlazeLayout.render('masterLayout', {
+//       main: "golive",
+//       nav: "nav",
+//     });
+//   }
+// });
 
 FlowRouter.route('/hotvideos', {
   name: "hotvideos",
