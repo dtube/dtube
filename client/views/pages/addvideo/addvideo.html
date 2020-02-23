@@ -152,6 +152,12 @@
             <input type="text" name="video1080hash" placeholder="{{ translate 'UPLOAD_VIDEO1080HASH'}}" value="{{json.ipfs.video1080hash}}">
         </div>
     </div>
+    <div class="field">
+        <label>{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}
+        <i class="info circle icon" id="gwoinfo" data-content="{{ translate 'DEFAULT_GATEWAY_OVERWRITE_INFO'}}"></i>
+        </label>
+        <input type="text" name="gatewayOverwrite" placeholder="{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}" value="{{ json.ipfs.gateway }}">
+    </div>
 </template>
 
 <template name="addvideoformp2pbtfs">
@@ -309,6 +315,8 @@
                 <div style="font-size: 16px; font-weight: 450; margin-left: 15px; margin-bottom: 5px;">Maximum quality is 480p</div>
                 <div style="font-size: 16px; font-weight: 450; margin-left: 15px; margin-bottom: 5px;">Videos longer than 10 minutes will not get re-encoded, only stored</div>
                 <div style="font-size: 16px; font-weight: 450; margin-left: 15px;">Videos with low views and older than 6 months might get deleted</div>
+                <br>
+                These limitations may not apply to 3rd party upload endpoints not operated by DTube. Please check with the respective upload endpoint providers regarding the limitations associated with the use of such upload endpoints.
                 <br />
                 <h2>Choose an upload server: </h2>
             </p>

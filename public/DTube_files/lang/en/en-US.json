@@ -45,6 +45,8 @@
     "COMMENT_HIDE": "Hide",
     "COMMENT_REPLIES": "replies",
     "COMMENT_REPLY": "reply",
+    "DEFAULT_GATEWAY_OVERWRITE": "Default Gateway Overwrite",
+    "DEFAULT_GATEWAY_OVERWRITE_INFO": "Define a gateway to be used on initial video load. Defaults to player.d.tube if left blank.",
     "DTALK_LIST": "Conversations",
     "DTALK_OPT_IN": "Publish my DTalk Key on STEEM",
     "DTALK_CONV_WITH": "Conversation with %1",
