@@ -1,6 +1,10 @@
 Template.addvideo.rendered = function () {
     if (!Session.get('addVideoStep'))
         Session.set('addVideoStep', 'addvideoform')
+
+    $('#gwoinfo').popup({
+        inline: true
+    })
 }
 
 Template.addvideo.helpers({
