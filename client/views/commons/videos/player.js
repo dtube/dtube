@@ -38,10 +38,16 @@ Template.player.reset = function(data) {
 }
 
 Template.player.init = function(author, link) {
-  $('.ui.embed.player').embed({
-    url: "https://emb.d.tube/#!/" + author + '/' + link
-    + "/true/true"
-  });
+  if (author && link)
+    $('.ui.embed.player').embed({
+      url: "https://emb.d.tube/#!/" + author + '/' + link
+      + "/true/true"
+    });
+  else if (Session.get('tmpVideo')) 
+    $('.ui.embed.player').embed({
+      url: "http://localhost:8080/#!//" + encodeURI(JSON.stringify(Session.get('tmpVideo').json))
+      + "/false/true"
+    });
 }
 
 Template.player.initYouTube = function(id) {

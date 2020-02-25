@@ -53,43 +53,38 @@ Template.uploadvideoprogress.update = function() {
   
       if (isCompleteUpload) {
         clearInterval(refreshUploadStatus)
-  
-        if (data.ipfsAddSourceVideo)
-          $('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
-  
-        if (data.encodedVideos) {
-          for (let i = 0; i < data.encodedVideos.length; i++) {
-            switch(data.encodedVideos[i].ipfsAddEncodeVideo.encodeSize || data.encodedVideos[i].encode.encodeSize) {
-              case '240p':
-                $('input[name="video240hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
-                break;
-              case '480p':
-                $('input[name="video480hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
-                break;
-              case '720p':
-                $('input[name="video720hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
-                break;
-              case '1080p':
-                $('input[name="video1080hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
-                break;
+        Session.set('addVideoStep', 'addvideoformfileuploaded')
+
+        setTimeout(function() {
+          if (data.ipfsAddSourceVideo)
+            $('input[name="videohash"]').val(data.ipfsAddSourceVideo.hash)
+          if (data.encodedVideos) {
+            for (let i = 0; i < data.encodedVideos.length; i++) {
+              switch(data.encodedVideos[i].ipfsAddEncodeVideo.encodeSize || data.encodedVideos[i].encode.encodeSize) {
+                case '240p':
+                  $('input[name="video240hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+                  break;
+                case '480p':
+                  $('input[name="video480hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+                  break;
+                case '720p':
+                  $('input[name="video720hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+                  break;
+                case '1080p':
+                  $('input[name="video1080hash"]').val(data.encodedVideos[i].ipfsAddEncodeVideo.hash)
+                  break;
+              }
             }
           }
-        }
-        
-  
-        if (data.sprite)
-          $('input[name="spritehash"]').val(data.sprite.ipfsAddSprite.hash)
+          
+    
+          if (data.sprite)
+            $('input[name="spritehash"]').val(data.sprite.ipfsAddSprite.hash)
+        }, 200)
   
         Session.set('uploadVideoProgress', null)
         $('#step1load').parent().addClass('completed')
       }
     }
   })
-  // $.getJSON(url, {
-  //     xhrFields: { withCredentials:true },
-  //     crossDomain: true
-  //   }, function( data ) {
-
-  //   }
-  // })
 }

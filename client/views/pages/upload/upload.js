@@ -343,7 +343,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
 
 Template.upload.burnRange = function(cb) {
   if (!Session.get('activeUsername')) {
-    cb()
+    if (cb) cb()
     return
   }
     
@@ -359,7 +359,7 @@ Template.upload.burnRange = function(cb) {
         Session.set('publishBurn', logSlider(parseInt(val), balance))
       }
     });
-    cb()
+    if (cb) cb()
   }, 100)
 }
 

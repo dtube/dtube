@@ -20,6 +20,15 @@
     {{#if equals addVideoStep 'addvideoformfile'}}
         {{> addvideoformfile}}
     {{/if}}
+    {{#if equals addVideoStep 'addvideoformfileuploading'}}
+        {{> addvideoformfileuploading}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideoformfileuploaded'}}
+        {{> addvideoformfileuploaded}}
+    {{/if}}
+    {{#if equals addVideoStep 'addvideopublish'}}
+        {{> publish}}
+    {{/if}}
 </template>
 
 <template name="addvideobuttonback">
@@ -40,6 +49,15 @@
     </div>
 </template>
 
+<template name="addvideobuttonfinish">
+    <div id="addvideofinish" class="ui right floated labeled small button" tabindex="0">
+        <button name="button" class="ui red right labeled dtube icon button">
+            <i class="arrow right icon red" style="background:white;opacity:1;"></i>
+            <div style="display:inline-block;padding: 0.8em 1em;">Finish</div>
+        </button>
+    </div>
+</template>
+
 <template name="addvideoform">
     <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
         <div class="ui form">
@@ -47,7 +65,7 @@
             <p>
                 DTube enables you to share your video in a variety of ways, leaving no one out. Depending on your channel content, you should choose your video sources accordingly.
                 <br /><br />
-                <div class="ui tiny red label" style="vertical-align: middle;">New!</div> You can now combine multiple sources into the same DTube video.
+                {{> badgenew}} You can now combine multiple sources into the same DTube video.
                 <h2>Choose a source: </h2>
             </p>
             <div class="grouped fields">
@@ -88,7 +106,7 @@
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtypep2p" value="btfs">
-                        <label>BTFS <div class="ui tiny red label" style="vertical-align: middle;">New!</div></label>
+                        <label>BTFS {{> badgenew}}</label>
                     </div>
                 </div>
                 <div class="field">
@@ -156,7 +174,7 @@
         <label>{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}
         <i class="info circle icon" id="gwoinfo" data-content="{{ translate 'DEFAULT_GATEWAY_OVERWRITE_INFO'}}"></i>
         </label>
-        <input type="text" name="gatewayOverwrite" placeholder="{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}" value="{{ json.ipfs.gateway }}">
+        <input type="text" name="gateway" placeholder="{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}" value="{{ json.ipfs.gateway }}">
     </div>
 </template>
 
@@ -172,7 +190,7 @@
 
             {{> addvideohashes}}
             
-            {{> addvideobuttonnext}}
+            {{> addvideobuttonfinish}}
             {{> addvideobuttonback}}
         </div>
     </div>
@@ -190,7 +208,7 @@
 
             {{> addvideohashes}}
 
-            {{> addvideobuttonnext}}
+            {{> addvideobuttonfinish}}
             {{> addvideobuttonback}}
         </div>
     </div>
@@ -209,7 +227,7 @@
                 <input id="remotelink" type="text" name="url" placeholder="{{translate 'UPLOAD_MAGNET_PLACEHOLDER'}}" value="">              
             </div>
             <br /><br />
-            {{> addvideobuttonnext}}
+            {{> addvideobuttonfinish}}
             {{> addvideobuttonback}}
         </div>
     </div>
@@ -324,7 +342,7 @@
             <center>
                 <select id="uploadEndpointSelection" class="ui fluid selection dropdown">
                     <option value="">{{ translate 'UPLOAD_ENDPOINT_PLACEHOLDER' }}</option>
-                    <option value="cluster.d.tube">{{ translate 'UPLOAD_ENDPOINT_DEFAULT' }} (btfs.d.tube)</option>
+                    <option value="btfs.d.tube">{{ translate 'UPLOAD_ENDPOINT_DEFAULT' }} (btfs.d.tube)</option>
                     {{#each endpoint in thirdPartyUploadEndpoints}}
                     <option value="{{endpoint}}">{{endpoint}}</option>
                     {{/each}}
@@ -342,3 +360,35 @@
         </div>
     </div>
 </template>
+
+<template name="addvideoformfileuploading">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form" style="width:100%">
+            <h1>DTube free upload</h1>
+            <p>
+                    Eu feugiat pretium nibh ipsum. Ut tristique et egestas quis. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla facilisi. Sem integer vitae justo eget magna fermentum iaculis. Arcu odio ut sem nulla. Amet venenatis urna cursus eget. Dignissim cras tincidunt lobortis feugiat. Quis hendrerit dolor magna eget est lorem ipsum. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Ornare lectus sit amet est placerat. Massa massa ultricies mi quis.
+            </p>
+
+            <div class="ui indicating progress" id="progressvideo" style="display:none">
+                <div class="bar"></div>
+                <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
+            </div>
+            {{> uploadvideoprogress}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformfileuploaded">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form" style="width:100%">
+            <h1>DTube upload success</h1>
+            <p>
+                    Eu feugiat pretium nibh ipsum. Ut tristique et egestas quis. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla facilisi. Sem integer vitae justo eget magna fermentum iaculis. Arcu odio ut sem nulla. Amet venenatis urna cursus eget. Dignissim cras tincidunt lobortis feugiat. Quis hendrerit dolor magna eget est lorem ipsum. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Ornare lectus sit amet est placerat. Massa massa ultricies mi quis.
+            </p>
+
+            {{> addvideohashes}}
+            {{> addvideobuttonfinish}}
+        </div>
+    </div>
+</template>
+
