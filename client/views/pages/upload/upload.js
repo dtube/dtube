@@ -231,7 +231,7 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
 
       Session.set('uploadToken', result.token)
       refreshUploadStatus = setInterval(function () {
-        Template.uploadvideoprogress.update()
+        Template.addvideoprogress.update()
       }, 1000)
       cb(null, result)
     },
@@ -325,7 +325,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
             $('#uploadSnap > i').addClass('checkmark green')
             $('#uploadSnap > i').removeClass('asterisk loading')
             $('#uploadSnap > i').css('background', 'white')
-            cb(null, data.ipfsAddSource.hash)
+            cb(null, data.ipfsAddSource.hash, data.ipfsAddOverlay.hash)
           }
         })
       }, 1000)

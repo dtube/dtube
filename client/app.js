@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 // import wakajs from 'wakajs';
 import steem from 'steem';
-import Gun from 'gun';
+// import Gun from 'gun';
 import KonamiCode from 'konami-code';
 
 console.log('Starting DTube APP')
@@ -19,8 +19,8 @@ Meteor.startup(function(){
   Market.getSaleProgress()
 
   window.steem = steem
-  window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
-  window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});
+  // window.testgun=Gun({peers:["https://guntest.herokuapp.com/gun"],localStorage:!1});
+  // window.testgun.get("test").on(function(t){testgun.count=(testgun.count||0)+1});
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
   // choose steem api on startup

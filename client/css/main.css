@@ -323,7 +323,7 @@ main
   object-fit: cover;
 }
 
-li {
+/* li {
   height: 140px;
   min-width: 100px;
   display: block;
@@ -333,7 +333,7 @@ li {
   background-color: black;
   background-position: center center;
   background-repeat: no-repeat;
-}
+} */
 
 li img,
 #status {

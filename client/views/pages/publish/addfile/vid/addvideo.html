@@ -29,6 +29,9 @@
     {{#if equals addVideoStep 'addvideopublish'}}
         {{> publish}}
     {{/if}}
+    {{#if equals addVideoStep 'addsubtitle'}}
+        {{> addsubtitle}}
+    {{/if}}
 </template>
 
 <template name="addvideobuttonback">
@@ -89,6 +92,9 @@
                 </div>
             </div>
             {{> addvideobuttonnext}}
+            {{#if existsFiles}}
+                {{> addvideobuttonback}}
+            {{/if}}
         </div>
     </div>
 </template>
@@ -126,55 +132,6 @@
             {{> addvideobuttonnext}}
             {{> addvideobuttonback}}
         </div>
-    </div>
-</template>
-
-<template name="addvideohashes">
-    <div class="two fields">
-        <div class="field">
-            <label>* {{ translate 'UPLOAD_VIDEOHASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="videohash" placeholder="{{ translate 'UPLOAD_VIDEOHASH'}}" value="{{json.ipfs.videohash}}">
-        </div>
-        <div class="field">
-            <label>{{ translate 'UPLOAD_SPRITEHASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="spritehash" placeholder="{{ translate 'UPLOAD_SPRITEHASH'}}" value="{{json.ipfs.spritehash}}">
-        </div>
-    </div>
-    <div class="four fields">
-        <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEO240HASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="video240hash" placeholder="{{ translate 'UPLOAD_VIDEO240HASH'}}" value="{{json.ipfs.video240hash}}">
-        </div>
-        <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEO480HASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="video480hash" placeholder="{{ translate 'UPLOAD_VIDEO480HASH'}}" value="{{json.ipfs.video480hash}}">
-        </div>
-        <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEO720HASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="video720hash" placeholder="{{ translate 'UPLOAD_VIDEO720HASH'}}" value="{{json.ipfs.video720hash}}">
-        </div>
-        <div class="field">
-            <label>{{ translate 'UPLOAD_VIDEO1080HASH'}}
-            <i class="external icon"></i>
-            </label>
-            <input type="text" name="video1080hash" placeholder="{{ translate 'UPLOAD_VIDEO1080HASH'}}" value="{{json.ipfs.video1080hash}}">
-        </div>
-    </div>
-    <div class="field">
-        <label>{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}
-        <i class="info circle icon" id="gwoinfo" data-content="{{ translate 'DEFAULT_GATEWAY_OVERWRITE_INFO'}}"></i>
-        </label>
-        <input type="text" name="gateway" placeholder="{{ translate 'DEFAULT_GATEWAY_OVERWRITE' }}" value="{{ json.ipfs.gateway }}">
     </div>
 </template>
 
@@ -373,7 +330,7 @@
                 <div class="bar"></div>
                 <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
             </div>
-            {{> uploadvideoprogress}}
+            {{> addvideoprogress}}
         </div>
     </div>
 </template>

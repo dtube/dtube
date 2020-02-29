@@ -43,11 +43,16 @@ Template.player.init = function(author, link) {
       url: "https://emb.d.tube/#!/" + author + '/' + link
       + "/true/true"
     });
-  else if (Session.get('tmpVideo')) 
+  else if (Session.get('tmpVideo')) {
+    var json = Session.get('tmpVideo').json
+    delete json.title
+    delete json.desc
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/#!//" + encodeURI(JSON.stringify(Session.get('tmpVideo').json))
+      url: "http://localhost:8080/#!//" + btoa(JSON.stringify(json))
       + "/false/true"
     });
+  }
+    
 }
 
 Template.player.initYouTube = function(id) {
