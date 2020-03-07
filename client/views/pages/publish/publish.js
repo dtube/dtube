@@ -1,4 +1,7 @@
 Template.publish.rendered = function() {
+  $('#tagDropdown').dropdown({
+    allowAdditions: true
+  })
   Template.upload.burnRange()
   var json = Session.get('tmpVideo').json
   if (json.title)
@@ -8,6 +11,19 @@ Template.publish.rendered = function() {
 }
 
 Template.publish.events({
+  'click #trashVideo': function() {
+    Session.set('addVideoStep', 'addvideoform')
+    Session.set('tmpVideo', {})
+    UserSettings.set('tmpVideo', {})
+  },
+  'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #nsfw': function() {
+    var tmpVideo = Session.get('tmpVideo')
+    tmpVideo.json.title = $('#uploadTitle')[0].value
+    tmpVideo.json.desc = $('#uploadDescription')[0].value
+    tmpVideo.tag = $('#tagDropdown')[0].value
+    Session.set('tmpVideo', tmpVideo)
+    UserSettings.set('tmpVideo', tmpVideo)
+  },
   'change #snapFile': function (event) {
     var file = event.currentTarget.files[0];
     var ValidImageTypes = ["image/gif", "image/jpeg", "image/png"];
@@ -68,7 +84,7 @@ Template.publish.events({
       if (this.tech == 'IPFS')
         if (this.type== 'img' && this.ver == 'spr')
           gw = 'ipfs.io'
-        else if (this.type == 'img' )
+        else if (this.type == 'img' || this.type == 'sub')
           gw = 'snap1.d.tube'
         else
           gw = 'ipfs.io'
@@ -81,6 +97,9 @@ Template.publish.events({
 Template.publish.helpers({
     tmpVideo: function () {
       return Session.get('tmpVideo')
+    },
+    activeUsernameSteem: function() {
+      return Session.get('activeUsernameSteem')
     },
     hasThumbnail: function() {
       var files = Session.get('tmpVideo').json.files
@@ -190,6 +209,7 @@ Template.publish.helpers({
           break;
 
         case 'sub':
+          return version+ ' Subtitle'
           break;
 
         default:

@@ -1,24 +1,5 @@
 <template name="addsubtitle">
     <div class="ui container" style="min-height: 800px">
-        {{#if tempSubtitles}}
-            <table class="ui celled table">
-                <thead>
-                    <th>Language</th>
-                    <th>IPFS Hash</th>
-                </thead>
-                <tbody>
-                    {{#each tempSubtitles}}
-                        <tr>
-                            <td>
-                                {{lang}}
-                                <i class="remove circle icon removeSubtitle" data-lang='{{lang}}' style='cursor: pointer;'></i>
-                            </td>
-                            <td>{{hash}}</td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        {{/if}}
         <form class="ui form uploadformsubtitles">
             <div class="two fields">
                 <div class="field">
@@ -46,7 +27,7 @@
                         <div style="display:inline-block;padding: 0.8em 1em;">
                         {{ translate 'UPLOAD_IMPORT_SUBTITLE'}}
                         </div>
-                        <i class="file text outline icon black" style="background: white;opacity: 1;"></i>
+                        <i class="file text icon black" style="background: white;opacity: 1;"></i>
                     </a>
                 </label>
                 <input type="file" id="importSubtitleFile" style='display: none'>

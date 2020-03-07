@@ -4,7 +4,12 @@ Template.addvideo.rendered = function () {
     if (!Session.get('addVideoStep'))
         Session.set('addVideoStep', 'addvideoform')
     if (!Session.get('tmpVideo'))
-        Session.set('tmpVideo', {})
+        if (!UserSettings.get('tmpVideo'))
+            Session.set('tmpVideo', {})
+        else {
+            Session.set('tmpVideo', UserSettings.get('tmpVideo'))
+            Session.set('addVideoStep', 'addvideopublish')
+        } 
 }
 
 Template.addvideo.tmpVid = function(data) {
@@ -12,6 +17,7 @@ Template.addvideo.tmpVid = function(data) {
     if (!tmpVideo.json) tmpVideo.json = {files: {}}
     Object.assign(tmpVideo.json, data)
     Session.set('tmpVideo', tmpVideo)
+    UserSettings.set('tmpVideo', tmpVideo)
 }
 
 Template.addvideo.addFiles = function(tech, files) {
@@ -19,6 +25,7 @@ Template.addvideo.addFiles = function(tech, files) {
     if (!tmpVideo.json) tmpVideo.json = {files: {}}
     tmpVideo.json.files[tech] = files
     Session.set('tmpVideo', tmpVideo)
+    UserSettings.set('tmpVideo', tmpVideo)
 }
 
 Template.addvideo.helpers({

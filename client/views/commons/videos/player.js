@@ -1,3 +1,5 @@
+var JSOUN = require('jsoun')
+
 Template.player.rendered = function () {
   Template.player.reset(this.data)
 }
@@ -48,11 +50,26 @@ Template.player.init = function(author, link) {
     delete json.title
     delete json.desc
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/#!//" + btoa(JSON.stringify(json))
+      url: "http://localhost:8080/#!//" + JSOUN.encode(json)
       + "/false/true"
     });
+
+    // listen for duration coming from the player
+    var eventMethod = window.addEventListener
+        ? "addEventListener"
+        : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod === "attachEvent"
+      ? "onmessage"
+      : "message";
+    eventer(messageEvent, function (e) {
+      if (e.origin !== 'http://localhost:8080') return;
+      if (e.data && e.data.dur) {
+        Template.addvideo.tmpVid({dur: e.data.dur})
+        $('input[name="duration"]')[0].value = e.data.dur
+      }
+    });
   }
-    
 }
 
 Template.player.initYouTube = function(id) {

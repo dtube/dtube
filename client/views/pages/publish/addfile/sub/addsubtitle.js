@@ -21,9 +21,6 @@ Template.addsubtitle.rendered = function () {
 Template.addsubtitle.helpers({
     isAddingSubtitle: function() {
         return Session.get('isAddingSubtitle')
-    },
-    tempSubtitles: function() {
-        return Session.get('tempSubtitles')
     }
 })
 
@@ -43,9 +40,6 @@ Template.addsubtitle.events({
             }
         }
     },
-    'click .removeSubtitle': function(event) {
-        removeSubtitle($(event.target).data('lang'))
-    },
     'change #importSubtitleFile': function(event) {
         var file = event.currentTarget.files[0]
         console.log(file)
@@ -61,6 +55,10 @@ Template.addsubtitle.events({
         reader.readAsText(event.currentTarget.files[0])
     },
     'click #uploadSubtitle': function() {
+        $('#uploadSubtitle').addClass('disabled')
+        $('#uploadSubtitle > i').removeClass('cloud upload red')
+        $('#uploadSubtitle > i').addClass('asterisk loading')
+        $('#uploadSubtitle > i').css('background', 'transparent')
         var postUrl = 'https://snap1.d.tube/uploadSubtitle'
         var formData = new FormData();
         if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
@@ -127,25 +125,15 @@ Template.addsubtitle.events({
     }
 })
 
-function listSubtitles() {
-    return Session.get('tempSubtitles') || []
-}
-
 function addSubtitle(sub) {
-    var subtitles = listSubtitles()
-    subtitles.push(sub)
-    Session.set('tempSubtitles', subtitles)
-}
-
-function removeSubtitle(lang) {
-    var subtitles = listSubtitles()
-    var newSubtitles = []
-
-    for (let i = 0; i < subtitles.length; i++)
-        if (subtitles[i].lang != lang)
-            newSubtitles.push(subtitles[i])
-
-    Session.set('tempSubtitles', newSubtitles)
+    var files = Session.get('tmpVideo').json.files
+    if (!files.ipfs) 
+        files.ipfs = {}
+    if (!files.ipfs.sub)
+        files.ipfs.sub = {}
+    files.ipfs.sub[sub.lang] = sub.hash
+    Template.addvideo.tmpVid({files: files})
+    Session.set('addVideoStep', 'addvideopublish')
 }
   
 function srt2webvtt(data) {

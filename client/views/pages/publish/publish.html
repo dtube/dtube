@@ -36,19 +36,24 @@
                                 <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
                                 <textarea id="uploadDescription" rows="4" name='description'>{{json.description}}</textarea>
                             </div>
-
-                            {{#unless tags}}
+                            <div class="two fields">
                                 <div class="field">
-                                <label>{{ translate 'UPLOAD_TAGS'}}</label>
-                                <select id="tagDropdown" name="skills" class="ui fluid search dropdown">
-                                    <option value=""></option>
-                                    {{#each topTags}}
-                                    <option value="{{tag}}">{{tag}}</option>
-                                    {{/each}}
-                                </select>
+                                    <label>{{ translate 'UPLOAD_TAGS'}}</label>
+                                    <select id="tagDropdown" name="skills" class="ui fluid search dropdown">
+                                        <option value=""></option>
+                                        {{#each topTags}}
+                                        <option value="{{tag}}">{{tag}}</option>
+                                        {{/each}}
+                                    </select>
                                 </div>
-                            {{/unless}}
-                            
+
+                                <div class="field">
+                                    <div class="field">
+                                        <label>{{ translate 'UPLOAD_DURATION'}}</label>
+                                        <input type="text" name="duration" placeholder="{{ translate 'UPLOAD_DURATION'}}" value="{{json.duration}}">
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     
@@ -56,7 +61,7 @@
                         <form class="ui form uploadform">
                             <div class="field">
                                 <label>{{ translate 'UPLOAD_VISIBILITY'}} {{> badgenew}}</label>
-                                <select id="tagDropdown" name="visibility" class="ui fluid search dropdown">
+                                <select id="visibilityDropdown" name="visibility" class="ui fluid search dropdown">
                                     <option value="public">{{ translate 'UPLOAD_VISIBILITY_PUBLIC'}}</option>
                                     <option value="unlisted">{{ translate 'UPLOAD_VISIBILITY_UNLISTED'}}</option>
                                 </select>
@@ -71,7 +76,7 @@
                                 <div class="field">
                                     <div class="content">
                                         <div class="header" style='text-align: right'>
-                                        Burn: 0 DTC
+                                        Burning 0 DTC to promote content
                                         </div>
                                         <div class="ui red range" id="burn-range"></div>
                                     </div>
@@ -81,12 +86,19 @@
 
                         <br /><br />
                         
-                            
+                        
                         
                         <div id="publishVideo" class="ui right floated labeled button" tabindex="0">
                             <button name="button" class="ui red right labeled dtube icon button">
                                 <i class="podcast icon red" style="background:white;opacity:1;"></i>
                                 <div style="display:inline-block;padding: 0.8em 1em;">Publish Video</div>
+                            </button>
+                        </div>
+
+                        <div id="trashVideo" class="ui right floated labeled button" tabindex="0">
+                            <button name="button" class="ui blue right labeled dtube icon button">
+                                <i class="trash icon blue" style="background:white;opacity:1;"></i>
+                                <div style="display:inline-block;padding: 0.8em 1em;">Trash</div>
                             </button>
                         </div>
                     </div>
@@ -156,6 +168,11 @@
                         {{/each}}
                     </tbody>
                 </table>
+
+                {{#if activeUsernameSteem}}
+                    <div class="ui divider"></div>
+                    <h2>Steem Options</h2>
+                {{/if}}
             </div>
         </div>
     </div>
