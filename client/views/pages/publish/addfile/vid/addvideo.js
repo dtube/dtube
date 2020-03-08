@@ -8,7 +8,10 @@ Template.addvideo.rendered = function () {
             Session.set('tmpVideo', {})
         else {
             Session.set('tmpVideo', UserSettings.get('tmpVideo'))
-            Session.set('addVideoStep', 'addvideopublish')
+            if (Object.keys(Session.get('tmpVideo')).length == 0)
+                Session.set('addVideoStep', 'addvideoform')
+            else
+                Session.set('addVideoStep', 'addvideopublish')
         } 
 }
 
@@ -83,16 +86,6 @@ Template.addvideoformfile.inputVideo = function(dt) {
     });
 }
 
-Template.addvideo.verifyHash = function(hash) {
-    // ex1: QmVsb6fZNhe5JNgTnjriNcv7a8vPhvS9f27eu5U7UnLTPk
-    // start Qm
-    if (hash[0] !== 'Q' || hash[1] !== 'm') return false
-    // 46 chars
-    if (hash.length !== 46) return false
-    // base58 (who cares?)
-    return true
-}
-
 Template.addvideoform.events({
     'click #addvideonext': function () {
         var options = $('input[type=radio]')
@@ -116,6 +109,7 @@ Template.addvideoformp2p.events({
         for (let i = 0; i < options.length; i++)
             if (options[i].checked)
                 checked = options[i].value
+        console.log(checked)
         if (checked)
             Session.set('addVideoStep', 'addvideoformp2p'+checked)
         if (checked == 'btfs' || checked == 'ipfs')
@@ -168,6 +162,26 @@ Template.addvideoformp2pipfs.rendered = function() {
     if (files.gw)
         $('input[name="gw"]')[0].value = files.gw
 }
+Template.addvideoformp2psia.rendered = function() {
+    var tmpVideo = Session.get('tmpVideo')
+    if (!tmpVideo.json || !tmpVideo.json.files || !tmpVideo.json.files.sia)
+        return
+    var files = tmpVideo.json.files.sia
+    if (files.vid && files.vid["src"])
+        $('input[name="vid.src"]')[0].value = files.vid["src"]
+    if (files.vid && files.vid["240"])
+        $('input[name="vid.240"]')[0].value = files.vid["240"]
+    if (files.vid && files.vid["480"])
+        $('input[name="vid.480"]')[0].value = files.vid["480"]
+    if (files.vid && files.vid["720"])
+        $('input[name="vid.720"]')[0].value = files.vid["720"]
+    if (files.vid && files.vid["1080"])
+        $('input[name="vid.1080"]')[0].value = files.vid["1080"]
+    if (files.img && files.img["spr"])
+        $('input[name="img.spr"]')[0].value = files.img["spr"]
+    if (files.gw)
+        $('input[name="gw"]')[0].value = files.gw
+}
 
 Template.addvideoformp2pbtfs.events({
     'click #addvideofinish': function () {
@@ -184,6 +198,15 @@ Template.addvideoformp2pipfs.events({
         var files = Template.addvideohashes.fillHashes()
         if (files) {
             Template.addvideo.addFiles('ipfs', files)
+            Session.set('addVideoStep', 'addvideopublish')
+        }
+    }
+})
+Template.addvideoformp2psia.events({
+    'click #addvideofinish': function () {
+        var files = Template.addvideohashes.fillHashes()
+        if (files) {
+            Template.addvideo.addFiles('sia', files)
             Session.set('addVideoStep', 'addvideopublish')
         }
     }
@@ -209,6 +232,11 @@ Template.addvideoformp2pbtfs.events({
     }
 })
 Template.addvideoformp2pipfs.events({
+    'click #addvideoback': function () {
+        Session.set('addVideoStep', 'addvideoformp2p')
+    }
+})
+Template.addvideoformp2psia.events({
     'click #addvideoback': function () {
         Session.set('addVideoStep', 'addvideoformp2p')
     }

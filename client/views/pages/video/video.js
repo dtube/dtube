@@ -35,7 +35,6 @@ Template.video.helpers({
       'author': FlowRouter.getParam("author"),
       'link': FlowRouter.getParam("permlink")
     })
-    console.log(video)
     return video.json.providerName === 'IPFS' || video.json.providerName === 'BTFS'
   },
   user: function () {
@@ -500,20 +499,6 @@ Template.video.handleVideo = function(result, id, isRef) {
     }
   }
 }
-
-// Template.video.pinFile = function (author, permlink, cb) {
-//   if (!Session.get('localIpfs')) return
-//   steem.api.getContent(author, permlink, function (e, video) {
-//     if (!video) return
-//     var video = Videos.parseFromChain(video)
-//     localIpfs.pin.add(video.info.snaphash, function (e, r) {
-//       console.log('pinned snap', e, r)
-//     })
-//     localIpfs.pin.add(video.content.videohash, function (e, r) {
-//       console.log('pinned video', e, r)
-//     })
-//   })
-// }
 
 Template.video.setScreenMode = function () {
   if ($(window).width() < 1166) {

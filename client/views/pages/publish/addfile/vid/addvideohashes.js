@@ -1,3 +1,11 @@
+Template.addvideohashes.helpers({
+    translateHash: function(string, prov) {
+        if (prov == 'sia')
+            return translate(string).replace('Hash', 'Skylink')
+        return translate(string)
+    }
+})
+
 Template.addvideohashes.fillHashes = function() {
     // put ipfs style video data
     var files = {
@@ -5,12 +13,15 @@ Template.addvideohashes.fillHashes = function() {
         img: {},
         sub: {}
     }
+    var isValid = Template.addvideohashes.isValidHash
+    if (Session.get('addVideoStep') == 'addvideoformp2psia')
+        isValid = Template.addvideohashes.isValidSkylink
     // source hash is the only required field
     if (!$('input[name="vid.src"]')[0].value) {
         toastr.error(translate('EDIT_ERROR_MISSING_VIDEOHASH'), translate('ERROR_TITLE'))
         return
     }
-    if (!Template.addvideo.verifyHash($('input[name="vid.src"]')[0].value)) {
+    if (!isValid($('input[name="vid.src"]')[0].value)) {
         toastr.error(translate('EDIT_ERROR_INVALID_VIDEOHASH'), translate('ERROR_TITLE'))
         return 
     }
@@ -22,7 +33,7 @@ Template.addvideohashes.fillHashes = function() {
     ]
     
     for (let i = 0; i < fields.length; i++)
-        if (Template.addvideo.verifyHash($('input[name="'+fields[i]+'"]')[0].value)) {
+        if (isValid($('input[name="'+fields[i]+'"]')[0].value)) {
             switch (fields[i]) {
                 case 'img.spr':
                     files.img["spr"] = $('input[name="'+fields[i]+'"]')[0].value
@@ -52,7 +63,7 @@ Template.addvideohashes.fillHashes = function() {
                     break;
             }
 
-        if ($('input[name="gw"]')[0].value)
+        if ($('input[name="gw"]')[0] && $('input[name="gw"]')[0].value)
             files.gw = $('input[name="gw"]')[0].value
     }
 
@@ -61,4 +72,30 @@ Template.addvideohashes.fillHashes = function() {
 
     // console.log(files)
     return files
+}
+
+Template.addvideohashes.isValidHash = function(hash) {
+    // ex1: QmVsb6fZNhe5JNgTnjriNcv7a8vPhvS9f27eu5U7UnLTPk
+    // start Qm
+    if (hash[0] !== 'Q' || hash[1] !== 'm') return false
+    // 46 chars
+    if (hash.length !== 46) return false
+    // base58
+    var alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+    for (let i = 0; i < hash.length; i++)
+        if (alphabet.indexOf(hash[i]) == -1)
+            return false
+    return true
+}
+
+Template.addvideohashes.isValidSkylink = function(skylink) {
+    // ex1: _ATcIAto1BT1_lmSwQQINqkRDu6_gp5dUFpMr-5DFHr7Ow
+    // 46 chars
+    if (skylink.length !== 46) return false
+    // base64
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
+    for (let i = 0; i < skylink.length; i++)
+        if (alphabet.indexOf(skylink[i]) == -1)
+            return false
+    return true
 }

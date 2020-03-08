@@ -42,7 +42,7 @@ Template.player.reset = function(data) {
 Template.player.init = function(author, link) {
   if (author && link)
     $('.ui.embed.player').embed({
-      url: "https://emb.d.tube/#!/" + author + '/' + link
+      url: "http://localhost:8080/debug.html#!/" + author + '/' + link
       + "/true/true"
     });
   else if (Session.get('tmpVideo')) {
@@ -50,7 +50,7 @@ Template.player.init = function(author, link) {
     delete json.title
     delete json.desc
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/#!//" + JSOUN.encode(json)
+      url: "http://localhost:8080/debug.html#!//" + JSOUN.encode(json)
       + "/false/true"
     });
 

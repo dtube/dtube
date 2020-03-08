@@ -11,6 +11,9 @@
     {{#if equals addVideoStep 'addvideoformp2pipfs'}}
         {{> addvideoformp2pipfs}}
     {{/if}}
+    {{#if equals addVideoStep 'addvideoformp2psia'}}
+        {{> addvideoformp2psia}}
+    {{/if}}
     {{#if equals addVideoStep 'addvideoformp2ptorrent'}}
         {{> addvideoformp2ptorrent}}
     {{/if}}
@@ -117,6 +120,12 @@
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
+                        <input type="radio" name="uploadtypep2p" value="sia">
+                        <label>Skynet {{> badgenew}}</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
                         <input type="radio" name="uploadtypep2p" value="ipfs">
                         <label>IPFS</label>
                     </div>
@@ -164,6 +173,28 @@
             </p>
 
             {{> addvideohashes}}
+
+            {{> addvideobuttonfinish}}
+            {{> addvideobuttonback}}
+        </div>
+    </div>
+</template>
+
+<template name="addvideoformp2psia">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <div class="ui form">
+            <h1>Add a video with Skynet</h1>
+            <p>
+                <a href="https://siasky.net/" target="_blank"><strong>Skynet</strong></a> is a next-gen decentralized protocol focused on putting the users in control of their content. Content is identified by a Skylink, which can be used to verify the file hasn't been changed since the original upload, making your content trustable.
+                <br /><br />
+                Anyone running a Skynet node can access any file on Skynet. There are multiple portals around the world which enable users to access content without downloading special software.
+                <br /><br />
+                You can use <a href="https://sia.tech/get-started" target="_blank"><strong>Sia-UI</strong></a> to easily upload content to Skynet from a desktop or laptop. Unlike other solutions, once you have uploaded a file your computer does not need to remain online for the file to be available continuously. The Sia network will seed the file for you.
+                <br /><br />
+                Skynet is a high speed network that has been optimized for large files such as video.
+            </p>
+
+            {{> addvideohashes "sia"}}
 
             {{> addvideobuttonfinish}}
             {{> addvideobuttonback}}

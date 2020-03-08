@@ -64,7 +64,10 @@ Template.publish.events({
       Session.set('addVideoStep', 'addsubtitle')
   },
   "click .edit-file": function() {
-    Session.set('addVideoStep', 'addvideoformp2p'+this.tech.toLowerCase())
+    if (this.tech == 'Skynet')
+      Session.set('addVideoStep', 'addvideoformp2psia')
+    else
+      Session.set('addVideoStep', 'addvideoformp2p'+this.tech.toLowerCase())
   },
   "click .trash-file": function() {
     var tmpVideo = Session.get('tmpVideo')
@@ -72,6 +75,10 @@ Template.publish.events({
     Session.set('tmpVideo', tmpVideo)
   },
   "click .preview-file": function() {
+    if (this.tech == 'Skynet') {
+      window.open("https://siasky.net/"+this.hash)
+      return
+    }
     var gw = this.gw
     if (!gw) {
       if (this.tech == 'BTFS')
@@ -108,6 +115,8 @@ Template.publish.helpers({
       if (files.btfs && files.btfs.img && files.btfs.img["360"]) return true
       if (files.ipfs && files.ipfs.img && files.ipfs.img["118"]) return true
       if (files.ipfs && files.ipfs.img && files.ipfs.img["360"]) return true
+      if (files.sia && files.sia.img && files.sia.img["118"]) return true
+      if (files.sia && files.sia.img && files.sia.img["360"]) return true
       return false
     },
     hasVideo: function() {
@@ -115,12 +124,14 @@ Template.publish.helpers({
       if (files["youtube"]) return true
       if (files.btfs && files.btfs.vid && files.btfs.vid["src"]) return true
       if (files.ipfs && files.ipfs.vid && files.ipfs.vid["src"]) return true
+      if (files.sia && files.sia.vid && files.sia.vid["src"]) return true
       return false
     },
     hasDecentralizedVideo: function() {
       var files = Session.get('tmpVideo').json.files
       if (files.btfs && files.btfs.vid && files.btfs.vid["src"]) return true
       if (files.ipfs && files.ipfs.vid && files.ipfs.vid["src"]) return true
+      if (files.sia && files.sia.vid && files.sia.vid["src"]) return true
       return false
     },
     files: function() {
@@ -140,6 +151,20 @@ Template.publish.helpers({
             for (const ver in files[tech][type]) {
               filesList.push({
                 tech: tech.toUpperCase(),
+                type: type,
+                ver: ver,
+                hash: files[tech][type][ver],
+                gw: gw
+              })
+            }
+          }
+          continue
+        }
+        if (tech == 'sia') {
+          for (const type in files[tech]) {
+            for (const ver in files[tech][type]) {
+              filesList.push({
+                tech: 'Skynet',
                 type: type,
                 ver: ver,
                 hash: files[tech][type][ver],
@@ -220,6 +245,7 @@ Template.publish.helpers({
     isDecentralized: function(tech) {
       if (tech == 'BTFS') return true
       if (tech == 'IPFS') return true
+      if (tech == 'Skynet') return true
       return false
     }
 })

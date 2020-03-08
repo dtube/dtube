@@ -30,7 +30,7 @@ Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
   idsplit = id.split('/')
   if (idsplit.length == 3)
     id = idsplit[1]+'/'+idsplit[2]
-  console.log('Loading related videos for '+id)
+  // console.log('Loading related videos for '+id)
   Search.moreLikeThis(id, function(err, response) {
     var videos = response.results
     for (let i = 0; i < videos.length; i++) {
