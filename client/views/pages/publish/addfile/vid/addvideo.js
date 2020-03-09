@@ -109,7 +109,6 @@ Template.addvideoformp2p.events({
         for (let i = 0; i < options.length; i++)
             if (options[i].checked)
                 checked = options[i].value
-        console.log(checked)
         if (checked)
             Session.set('addVideoStep', 'addvideoformp2p'+checked)
         if (checked == 'btfs' || checked == 'ipfs')

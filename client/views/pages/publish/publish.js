@@ -1,13 +1,33 @@
 Template.publish.rendered = function() {
-  $('#tagDropdown').dropdown({
-    allowAdditions: true
-  })
   Template.upload.burnRange()
   var json = Session.get('tmpVideo').json
   if (json.title)
     $("#uploadTitle")[0].value = json.title
   if (json.desc)
     $("#uploadDescription")[0].value = json.desc
+  if (json.dur)
+    $("#inputDuration")[0].value = json.dur
+
+  $('#tagDropdown').dropdown({
+    allowAdditions: true
+  })
+  if (json.tag)
+    $('#tagDropdown').dropdown('set selected', json.tag)
+
+  $('#visibilityDropdown').dropdown({
+    allowAdditions: false
+  })
+  if (json.hide)
+    $('#visibilityDropdown').dropdown('set selected', json.hide)
+  if (json.nsfw == 1)
+    $('#inputNsfw').click()
+
+  var steemData = Session.get('tmpVideo').steem
+  if (!steemData) return
+  if (steemData && steemData.body)
+    $("#inputSteemMarkdown")[0].value = steemData.body
+  if (steemData && steemData.powerup == 1)
+    $('#inputSteemPowerup').click()
 }
 
 Template.publish.events({
@@ -16,11 +36,28 @@ Template.publish.events({
     Session.set('tmpVideo', {})
     UserSettings.set('tmpVideo', {})
   },
-  'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #nsfw': function() {
+  'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputDuration': function() {
     var tmpVideo = Session.get('tmpVideo')
     tmpVideo.json.title = $('#uploadTitle')[0].value
     tmpVideo.json.desc = $('#uploadDescription')[0].value
-    tmpVideo.tag = $('#tagDropdown')[0].value
+    tmpVideo.json.tag = $('#tagDropdown')[0].value
+    tmpVideo.json.dur = $('#inputDuration')[0].value
+    tmpVideo.json.hide = parseInt($('#visibilityDropdown')[0].value)
+    if ($('#inputNsfw')[0].checked)
+      tmpVideo.json.nsfw = 1
+    else
+      tmpVideo.json.nsfw = 0
+    Session.set('tmpVideo', tmpVideo)
+    UserSettings.set('tmpVideo', tmpVideo)
+  },
+  'change #inputSteemMarkdown, change #inputSteemPowerup': function() {
+    var tmpVideo = Session.get('tmpVideo')
+    if (!tmpVideo.steem) tmpVideo.steem = {}
+    tmpVideo.steem.body = $('#inputSteemMarkdown')[0].value
+    if ($('#inputSteemPowerup')[0].checked)
+      tmpVideo.steem.powerup = 1
+    else
+      tmpVideo.steem.powerup = 0
     Session.set('tmpVideo', tmpVideo)
     UserSettings.set('tmpVideo', tmpVideo)
   },
@@ -54,6 +91,7 @@ Template.publish.events({
         files.ipfs.img["360"] = bigHash
         tmpVideo.files = files
         Session.set('tmpVideo', tmpVideo)
+        UserSettings.set('tmpVideo', tmpVideo)
       }
     })
   },
@@ -71,8 +109,13 @@ Template.publish.events({
   },
   "click .trash-file": function() {
     var tmpVideo = Session.get('tmpVideo')
-    delete tmpVideo.json.files[this.tech]
+    console.log(this)
+    if (isDecentralized(this.tech))
+      delete tmpVideo.json.files[this.tec][this.type][this.ver]
+    else
+      delete tmpVideo.json.files[this.tech]
     Session.set('tmpVideo', tmpVideo)
+    UserSettings.set('tmpVideo', tmpVideo)
   },
   "click .preview-file": function() {
     if (this.tech == 'Skynet') {
@@ -150,6 +193,7 @@ Template.publish.helpers({
           for (const type in files[tech]) {
             for (const ver in files[tech][type]) {
               filesList.push({
+                tec: tech,
                 tech: tech.toUpperCase(),
                 type: type,
                 ver: ver,
@@ -164,6 +208,7 @@ Template.publish.helpers({
           for (const type in files[tech]) {
             for (const ver in files[tech][type]) {
               filesList.push({
+                tec: tech,
                 tech: 'Skynet',
                 type: type,
                 ver: ver,
@@ -243,9 +288,13 @@ Template.publish.helpers({
       }
     },
     isDecentralized: function(tech) {
-      if (tech == 'BTFS') return true
-      if (tech == 'IPFS') return true
-      if (tech == 'Skynet') return true
-      return false
+      return isDecentralized(tech)
     }
 })
+
+function isDecentralized(tech) {
+  if (tech == 'BTFS') return true
+  if (tech == 'IPFS') return true
+  if (tech == 'Skynet') return true
+  return false
+}

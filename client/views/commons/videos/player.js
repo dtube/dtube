@@ -63,6 +63,7 @@ Template.player.init = function(author, link) {
       ? "onmessage"
       : "message";
     eventer(messageEvent, function (e) {
+      // console.log(e)
       if (e.origin !== 'http://localhost:8080') return;
       if (e.data && e.data.dur) {
         Template.addvideo.tmpVid({dur: e.data.dur})
