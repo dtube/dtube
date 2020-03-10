@@ -578,6 +578,8 @@ Videos.parseFromChain = function(video, isComment, network) {
   video.tags = tags
   video.totals = video.ups - video.downs
   if (!video.dist) video.dist = 0
+  if (!video.json.thumbnailUrl)
+    video.json.thumbnailUrl = Videos.getThumbnailUrl(video)
   return video;
 }
 
@@ -709,7 +711,29 @@ Videos.parseFromSteem = function(video, isComment) {
   }
 
   if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink
+  if (!newVideo.json.thumbnailUrl)
+    newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(video)
   return newVideo;
+}
+
+Videos.getThumbnailUrl = function(video) {
+  if (!video || !video.json)
+    return ''
+  if (video.json.thumbnailUrl) 
+    return video.json.thumbnailUrl
+  if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["118"])
+    return 'https://btfs.d.tube/btfs/'+video.json.files.btfs.img["118"]
+  if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["118"])
+    return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["118"]
+  if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["360"])
+    return 'https://btfs.d.tube/btfs/'+video.json.files.btfs.img["360"]
+  if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["360"])
+    return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["360"]
+  
+  if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.ipfs.snaphash
+  if (video.json.info && video.json.info.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.info.snaphash
+  console.log(video)
+  return ''
 }
 
 Videos.commentsTree = function(content, rootAuthor, rootPermlink) {

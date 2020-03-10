@@ -1,5 +1,5 @@
 Template.publish.rendered = function() {
-  Template.upload.burnRange()
+  Template.publish.burnRange()
   var json = Session.get('tmpVideo').json
   if (json.title)
     $("#uploadTitle")[0].value = json.title
@@ -31,6 +31,52 @@ Template.publish.rendered = function() {
 }
 
 Template.publish.events({
+  'click #publishVideo': function() {
+    var json = Session.get('tmpVideo').json
+    if (!json) {
+      toastr.error('There is no content to publish')
+      return
+    }
+    if (!json.title) {
+      toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
+      return
+    }
+    if (!json.title.length > 256) {
+      toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
+      return
+    }
+    if (json.tag.indexOf(' ') > -1 || json.tag.indexOf(',') > -1 ) {
+      toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
+      return
+    }
+
+    var burn = parseInt(Session.get('publishBurn'))
+    if (burn > 0) {
+      broadcast.multi.comment(null, null, null, null, null, json, json.tag, burn, function(err, res) {
+        console.log(err, res)
+        $(".uploadsubmit").removeClass('disabled')
+        $(".uploadsubmit > i.loading").addClass('dsp-non')
+        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
+        $(".uploadsubmit > i.fire").removeClass('dsp-non')
+        if (err) toastr.error(Meteor.blockchainError(err))
+        else FlowRouter.go('/v/' + res[0])
+      })
+    } else {
+      broadcast.multi.comment(null, null, null, null, null, json, json.tag, null, function(err, res) {
+        console.log(err, res)
+        $(".uploadsubmit").removeClass('disabled')
+        $(".uploadsubmit > i.loading").addClass('dsp-non')
+        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
+        $(".uploadsubmit > i.fire").removeClass('dsp-non')
+        if (err) toastr.error(Meteor.blockchainError(err))
+        else {
+          FlowRouter.go('/v/' + res[0])
+          
+        }
+      })
+    }
+    console.log(burn, json)
+  },
   'click #trashVideo': function() {
     Session.set('addVideoStep', 'addvideoform')
     Session.set('tmpVideo', {})
@@ -289,12 +335,106 @@ Template.publish.helpers({
     },
     isDecentralized: function(tech) {
       return isDecentralized(tech)
+    },
+    publishBurn: function () {
+      return Session.get('publishBurn')
     }
 })
+
+Template.publish.burnRange = function(cb) {
+  if (!Session.get('activeUsername')) {
+    if (cb) cb()
+    return
+  }
+    
+  var balance = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'}).balance
+  var step = Math.pow(10, balance.toString().length - 1)/100
+  if (step<1) step = 1
+  setTimeout(function() {
+    $('#burn-range').range({
+      min: 0,
+      max: 100,
+      start: Session.get('publishBurn'),
+      onChange: function(val) { 
+        Session.set('publishBurn', logSlider(parseInt(val), balance))
+      }
+    });
+    if (cb) cb()
+  }, 100)
+}
+
+Template.publish.generateVideo = function() {
+  var article = {
+    videoId: $('input[name=videohash]')[0].value,
+    duration: parseFloat($('input[name=duration]')[0].value),
+    title: $('input[name=title]')[0].value,
+    description: $('textarea[name=description]')[0].value,
+    filesize: parseInt($('input[name=filesize]')[0].value),
+    ipfs: {
+      snaphash: $('input[name=snaphash]')[0].value,
+      spritehash: $('input[name=spritehash]')[0].value,
+      videohash: $('input[name=videohash]')[0].value
+    }
+  }
+
+  if ($('input[name=video240hash]')[0].value.length > 0)
+    article.ipfs.video240hash = $('input[name=video240hash]')[0].value
+  if ($('input[name=video480hash]')[0].value.length > 0)
+    article.ipfs.video480hash = $('input[name=video480hash]')[0].value
+  if ($('input[name=video720hash]')[0].value.length > 0)
+    article.ipfs.video720hash = $('input[name=video720hash]')[0].value
+  if ($('input[name=video1080hash]')[0].value.length > 0)
+    article.ipfs.video1080hash = $('input[name=video1080hash]')[0].value
+  if ($('input[name=magnet]')[0].value.length > 0)
+    article.magnet = $('input[name=magnet]')[0].value
+
+  if (Session.get('tempSubtitles') && Session.get('tempSubtitles').length > 0)
+    article.ipfs.subtitles = Session.get('tempSubtitles')
+
+  if (article.ipfs.snaphash) {
+    article.thumbnailUrl = 'https://snap1.d.tube/ipfs/'+article.ipfs.snaphash
+  }
+
+  if (!article.title) {
+    toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.title.length > 256) {
+    toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.ipfs.snaphash || !article.thumbnailUrl) {
+    toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
+    return
+  }
+  if (!article.ipfs.videohash || !article.videoId) {
+    toastr.error(translate('UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING'), translate('ERROR_TITLE'))
+    return
+  } else {
+    article.providerName = 'BTFS'
+  }
+  return article
+}
 
 function isDecentralized(tech) {
   if (tech == 'BTFS') return true
   if (tech == 'IPFS') return true
   if (tech == 'Skynet') return true
   return false
+}
+
+function logSlider(position, maxburn) {
+  if (position == 0) return 0
+  // position will be between 0 and 100
+  var minp = 0;
+  var maxp = 100;
+
+  // The result should be between 1 and maxburn
+  var minv = 0;
+  var maxv = Math.log(maxburn);
+
+  // calculate adjustment factor
+  var scale = (maxv-minv) / (maxp-minp);
+
+  return Math.round(Math.exp(minv + scale*(position-minp)))
 }
