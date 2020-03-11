@@ -361,3 +361,18 @@
 .sparkline--line {
   stroke: #223154;
 }
+
+.mirrors {
+  padding-right: 0em !important;
+  padding-left: 0em !important;
+  width: min-content;
+  position: absolute;
+  z-index:8000;
+  top: 0px;
+  right: 0px;
+}
+
+.mirrorLogo {
+  max-width: 50px;
+  cursor: pointer;
+}

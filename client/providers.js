@@ -1,24 +1,37 @@
 var allProviders = [
-    {id: 'btfs', disp: 'BTFS', dht: 1},
-    {id: 'ipfs', disp: 'IPFS', dht: 1},
-    {id: 'sia', disp: 'Skynet', dht: 1},
-    {id: 'youtube', disp: 'YouTube'},
-    {id: 'twitch', disp: 'Twitch'},
-    {id: 'dailymotion', disp: 'Dailymotion'},
-    {id: 'instagram', disp: 'Instagram'},
-    {id: 'liveleak', disp: 'LiveLeak'},
-    {id: 'vimeo', disp: 'Vimeo'},
-    {id: 'facebook', disp: 'Facebook'},
+    {id: 'btfs', disp: 'BTFS', dht: 1, logo: 'ipfs.png'},
+    {id: 'ipfs', disp: 'IPFS', dht: 1, logo: 'ipfs.png'},
+    {id: 'sia', disp: 'Skynet', dht: 1, logo: 'sia.png'},
+    {id: 'twitch', disp: 'Twitch', logo: 'twitch.png'},
+    {id: 'youtube', disp: 'YouTube', logo: 'youtube.png'},
+    {id: 'dailymotion', disp: 'Dailymotion', logo: 'dailymotion.webp'},
+    {id: 'instagram', disp: 'Instagram', logo: 'instagram.png'},
+    {id: 'liveleak', disp: 'LiveLeak', logo: 'liveleak.png'},
+    {id: 'vimeo', disp: 'Vimeo', logo: 'vimeo.png'},
+    {id: 'facebook', disp: 'Facebook', logo: 'facebook.png'},
 ]
 Providers = {
     all: function() {
         return allProviders
+    },
+    all3p: function() {
+        var providers = []
+        for (let i = 0; i < allProviders.length; i++) {
+            if (allProviders[i].dht) continue
+            providers.push(allProviders[i])
+        }
+        return providers
     },
     idToDisp: function(id) {
         for (let i = 0; i < allProviders.length; i++)
             if (allProviders[i].id == id)
                 return allProviders[i].disp
         return
+    },
+    dispToLogo: function(disp) {
+        for (let i = 0; i < allProviders.length; i++)
+        if (allProviders[i].disp == disp)
+            return allProviders[i].logo
     },
     dispToId: function(disp) {
         for (let i = 0; i < allProviders.length; i++)
@@ -42,8 +55,9 @@ Providers = {
         if (provider == 'Skynet') return portals.Skynet[1]
     },
     available: function(video) {
+        if (!video) return []
         var provs = []
-        if (video && video.files) {
+        if (video.files) {
             for (let i = 0; i < allProviders.length; i++) {
                 if (
                     video.files[allProviders[i].id] &&
@@ -51,10 +65,13 @@ Providers = {
                     Object.keys(video.files[allProviders[i].id].vid).length > 0
                 ) {
                     provs.push(allProviders[i].disp)
+                } else {
+                    if (video.files[allProviders[i].id])
+                        provs.push(allProviders[i].disp)
                 }
             }
         }
-        if (video && video.providerName && provs.indexOf(video.providerName) == -1) 
+        if (video.providerName && provs.indexOf(video.providerName) == -1) 
             provs.push(video.providerName)
         return provs
     },

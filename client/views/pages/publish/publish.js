@@ -21,6 +21,8 @@ Template.publish.rendered = function() {
     $('#visibilityDropdown').dropdown('set selected', json.hide)
   if (json.nsfw == 1)
     $('#inputNsfw').click()
+  if (json.oc == 1)
+    $('#inputOC').click()
 
   var steemData = Session.get('tmpVideo').steem
   if (!steemData) return
@@ -59,7 +61,12 @@ Template.publish.events({
         $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
         $(".uploadsubmit > i.fire").removeClass('dsp-non')
         if (err) toastr.error(Meteor.blockchainError(err))
-        else FlowRouter.go('/v/' + res[0])
+        else {
+          FlowRouter.go('/v/' + res[0])
+          Session.set('tmpVideo', {})
+          UserSettings.set('tmpVideo', {})
+          Session.set('addVideoStep', 'addvideoform')
+        }
       })
     } else {
       broadcast.multi.comment(null, null, null, null, null, json, json.tag, null, function(err, res) {
@@ -71,7 +78,9 @@ Template.publish.events({
         if (err) toastr.error(Meteor.blockchainError(err))
         else {
           FlowRouter.go('/v/' + res[0])
-          
+          Session.set('tmpVideo', {})
+          UserSettings.set('tmpVideo', {})
+          Session.set('addVideoStep', 'addvideoform')
         }
       })
     }
@@ -81,7 +90,7 @@ Template.publish.events({
     Session.set('tmpVideo', {})
     UserSettings.set('tmpVideo', {})
   },
-  'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputDuration': function() {
+  'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputOC, change #inputDuration': function() {
     var tmpVideo = Session.get('tmpVideo')
     tmpVideo.json.title = $('#uploadTitle')[0].value
     tmpVideo.json.desc = $('#uploadDescription')[0].value
@@ -92,6 +101,10 @@ Template.publish.events({
       tmpVideo.json.nsfw = 1
     else
       tmpVideo.json.nsfw = 0
+    if ($('#inputOC')[0].checked)
+      tmpVideo.json.oc = 1
+    else
+      tmpVideo.json.oc = 0
     Session.set('tmpVideo', tmpVideo)
     UserSettings.set('tmpVideo', tmpVideo)
   },
@@ -197,7 +210,10 @@ Template.publish.helpers({
       return Session.get('activeUsernameSteem')
     },
     hasThumbnail: function() {
-      var files = Session.get('tmpVideo').json.files
+      var json = Session.get('tmpVideo').json
+      if (json.thumbnailUrl)
+        return true
+      var files = json.files
       if (files["youtube"]) return true
       if (files.btfs && files.btfs.img && files.btfs.img["118"]) return true
       if (files.btfs && files.btfs.img && files.btfs.img["360"]) return true
@@ -209,6 +225,9 @@ Template.publish.helpers({
     },
     hasVideo: function() {
       var files = Session.get('tmpVideo').json.files
+      var prov3p = Providers.all3p()
+      for (let i = 0; i < prov3p.length; i++)
+        if (files[prov3p[i].id]) return true
       if (files["youtube"]) return true
       if (files.btfs && files.btfs.vid && files.btfs.vid["src"]) return true
       if (files.ipfs && files.ipfs.vid && files.ipfs.vid["src"]) return true

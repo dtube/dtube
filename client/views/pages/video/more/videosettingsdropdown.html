@@ -12,26 +12,26 @@
           <i class="chart area icon"></i>Stats
         </span>
       </div>
-      <!-- <div class="item resteem">
-        <a>
-          <span class="customlink">
-            <i class="retweet icon"></i>{{ translate 'VIDEO_SETTINGS_RESTEEM'}}
-          </span>
-        </a>
-      </div> -->
       <div class="item copylink">
         <span class="customlink">
           <i class="share icon"></i>{{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}</span>
         <input id="permalink" style="width:0px;visibility:hidden;" type="text" placeholder="Permalink" value="https://d.tube/v/{{author}}/{{link}}" readonly>
-        <!--<div class="ui button copy" style="width:130px;">{{ translate 'VIDEO_COPY_PERMA_LINK'}} </div>   -->
       </div>
-      {{#unless isInWatchLater}}
-      <div class="item addvideotowatchlater">
+      {{#each availProviders}}
+        <div class="item mirrorlink">
           <a>
             <span class="customlink">
-              <i class="plus icon"></i>{{ translate 'VIDEO_SETTINGS_ADD_TO_WATCH_LATER'}}</span>
+              <i class="tv icon"></i> Watch using {{disp}}</span>
           </a>
         </div>
+      {{/each}}
+      {{#unless isInWatchLater}}
+      <div class="item addvideotowatchlater">
+        <a>
+          <span class="customlink">
+            <i class="plus icon"></i>{{ translate 'VIDEO_SETTINGS_ADD_TO_WATCH_LATER'}}</span>
+        </a>
+      </div>
       {{/unless}} 
     </div>
   </div>

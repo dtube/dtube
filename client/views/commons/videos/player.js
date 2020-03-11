@@ -2,13 +2,69 @@ var JSOUN = require('jsoun')
 
 Template.player.rendered = function () {
   Template.player.reset(this.data)
+
+  Template.player.isGonnaCloseMirrors = null
+  setTimeout(function(){
+    $('.embed>iframe').hover(function(){
+      if ($('.mirrors').is(':animated'))
+        $('.mirrors').stop(true, true)
+      $('.mirrors').show()
+      clearTimeout(Template.player.isGonnaCloseMirrors)
+    },function(){
+      Template.player.isGonnaCloseMirrors = setTimeout(function() {
+        $('.mirrors').fadeOut(2500)
+      }, 1000)
+    })
+    $('.mirrors').hover(function(){
+      clearTimeout(Template.player.isGonnaCloseMirrors)
+    },function(){
+      Template.player.isGonnaCloseMirrors = setTimeout(function() {
+        $('.mirrors').fadeOut(2500)
+      }, 1000)
+    })
+  }, 1000)
 }
 
+Template.player.helpers({
+  availProviders: function() {
+    var video = this
+    if (video.json) video = video.json
+    var provDisp = Providers.available(video)
+    var provs = []
+    for (let i = 0; i < provDisp.length; i++) {
+      provs.push({
+        disp: provDisp[i],
+        logo: Providers.dispToLogo(provDisp[i])
+      })
+    }
+    if (provs.length <= 1)
+      return []
+    return provs
+  },
+})
+
+Template.player.events({
+  'click .mirrorLogo': function() {
+    Template.player.changeProvider(this.disp)
+    $('.embed>iframe').hover(function(){
+      if ($('.mirrors').is(':animated'))
+        $('.mirrors').stop(true, true)
+      $('.mirrors').show()
+      clearTimeout(Template.video.isGonnaCloseMirrors)
+    },function(){
+      Template.video.isGonnaCloseMirrors = setTimeout(function() {
+        $('.mirrors').fadeOut(2500)
+      }, 1000)
+    })
+  },
+})
+
 Template.player.reset = function(data) {
-  if (!data) {
-    console.log('Player got no data!!')
+  console.log(data)
+  if (!data)
     data = Template.video.__helpers[" video"]()
-  }
+  if (!data)
+    data = Session.get('tmpVideo')
   if (!data) return
   // Template.player.init(data.author, data.link)
   //   return
@@ -44,18 +100,23 @@ Template.player.reset = function(data) {
 }
 
 Template.player.init = function(author, link) {
-  if (author && link)
+  var options = ["true", "true"]
+  if (UserSettings.get('defaultProvider'))
+    options.push(UserSettings.get('defaultProvider'))
+  if (author && link) {
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/debug.html#!/" + author + '/' + link
-      + "/true/true"
+      url: "https://emb.d.tube/#!/" + author + '/' + link
+      + "/" + options.join('/')
     });
+  }
   else if (Session.get('tmpVideo')) {
+    options[0] = "false"
     var json = Session.get('tmpVideo').json
     delete json.title
     delete json.desc
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/debug.html#!//" + JSOUN.encode(json)
-      + "/false/true"
+      url: "https://emb.d.tube/#!//" + JSOUN.encode(json)
+      + "/" + options.join('/')
     });
 
     // listen for duration coming from the player
@@ -68,13 +129,18 @@ Template.player.init = function(author, link) {
       : "message";
     eventer(messageEvent, function (e) {
       // console.log(e)
-      if (e.origin !== 'http://localhost:8080') return;
+      if (e.origin !== 'https://emb.d.tube') return;
       if (e.data && e.data.dur) {
         Template.addvideo.tmpVid({dur: e.data.dur})
         $('input[name="duration"]')[0].value = e.data.dur
       }
     });
   }
+}
+
+Template.player.changeProvider = function(provider) {
+  UserSettings.set('defaultProvider', provider)
+  Template.player.reset()
 }
 
 Template.player.initYouTube = function(id) {

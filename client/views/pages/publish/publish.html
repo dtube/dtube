@@ -65,12 +65,21 @@
                                 <option value="1">{{ translate 'UPLOAD_VISIBILITY_UNLISTED'}}</option>
                             </select>
                         </div>
-                        <div class="field">
-                            <div class="ui checkbox">
-                                <input id='inputNsfw' type="checkbox" name="nsfw">
-                                <label>{{ translate 'UPLOAD_NFWS_CONTENT' }}</label>
+                        <div class="two fields">
+                            <div class="field">
+                                <div class="ui checkbox">
+                                    <input id='inputNsfw' type="checkbox" name="nsfw">
+                                    <label>NSFW</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui checkbox">
+                                    <input id='inputOC' type="checkbox" name="nsfw">
+                                    <label>Original Content</label>
+                                </div>
                             </div>
                         </div>
+                        
                         {{#if activeUsername}}
                             <div class="field">
                                 <div class="content">

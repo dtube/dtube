@@ -164,8 +164,8 @@ broadcast = {
                     finalTags.push(tags[i])
 
             if (!body)
-                body = genSteemBody(permlink, jsonMetadata)
-        
+                body = genSteemBody(author, permlink, jsonMetadata)
+
             // console.log(body)
             var jsonMetadata = {
               video: jsonMetadata,
@@ -744,7 +744,7 @@ broadcast = {
     }
 }
 
-var genSteemBody = function(permlink, video) {
+var genSteemBody = function(author, permlink, video) {
     var body = '<center>'
     body += '<a href=\'https://d.tube/#!/v/' + Session.get('activeUsernameSteem') + '/' + permlink + '\'>'
     if (Videos.getOverlayUrl({json: video}))
@@ -759,15 +759,18 @@ var genSteemBody = function(permlink, video) {
     else if (video.description)
         body += video.description
 
-        
-    // todo handle all providers links
-    // body += '\n\n<hr>'
-    // body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-    // if (videoprovider == 'IPFS')
-    // body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
-    // if (videoprovider == 'YouTube')
-    // body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'
+    body += '\n\n<hr>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
     
-    
+    var files = video.files
+    if (!files) return body
+    if (files.ipfs && files.ipfs.vid && files.ipfs.vid.src)
+        body += '<a href=\'https://ipfs.io/ipfs/' + files.ipfs.vid.src + '\'> ▶️ IPFS</a><br />'
+    if (files.btfs && files.btfs.vid && files.btfs.vid.src)
+        body += '<a href=\'https://btfs.d.tube/btfs/' + files.btfs.vid.src + '\'> ▶️ BTFS</a><br />'
+    if (files.sia && files.sia.vid && files.sia.vid.src)
+        body += '<a href=\'https://siasky.net/' + files.sia.vid.src + '\'> ▶️ Skynet</a><br />'
+
+    // todo link to 3rd parties ?
     return body
 }
