@@ -35,6 +35,7 @@
                             <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
                             <textarea id="uploadDescription" rows="4" name='description'>{{json.description}}</textarea>
                         </div>
+                        {{#unless isEditingVideo}}
                         <div class="two fields">
                             <div class="field">
                                 <label>{{ translate 'UPLOAD_TAGS'}}</label>
@@ -53,6 +54,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{/unless}}
                     </form>
                 </div>
                 
@@ -81,6 +83,7 @@
                         </div>
                         
                         {{#if activeUsername}}
+                            {{#unless isEditingVideo}}
                             <div class="field">
                                 <div class="content">
                                     <div class="header" style='text-align: right'>
@@ -89,26 +92,34 @@
                                     <div class="ui red range" id="burn-range"></div>
                                 </div>
                             </div>
+                            {{/unless}}
                         {{/if}}
                     </form>
 
                     <br /><br />
                     
-                    
-                    
-                    <div id="publishVideo" class="ui right floated labeled button" style='margin-bottom: 10px;' tabindex="0">
-                        <button name="button" class="ui red right labeled dtube icon button">
-                            <i class="podcast icon red" style="background:white;opacity:1;"></i>
-                            <div style="display:inline-block;padding: 0.8em 1em;">Publish Video</div>
-                        </button>
-                    </div>
-
-                    <div id="trashVideo" class="ui right floated labeled button" tabindex="0">
-                        <button name="button" class="ui blue right labeled dtube icon button">
-                            <i class="trash icon blue" style="background:white;opacity:1;"></i>
-                            <div style="display:inline-block;padding: 0.8em 1em;">Trash</div>
-                        </button>
-                    </div>
+                    {{#if isEditingVideo}}
+                        <div id="editVideo" class="ui right floated labeled button" style='margin-bottom: 10px;' tabindex="0">
+                            <button name="button" class="ui red right labeled dtube icon button">
+                                <i class="podcast icon red" style="background:white;opacity:1;"></i>
+                                <div style="display:inline-block;padding: 0.8em 1em;">Edit Video</div>
+                            </button>
+                        </div>
+                    {{else}}
+                        <div id="publishVideo" class="ui right floated labeled button" style='margin-bottom: 10px;' tabindex="0">
+                            <button name="button" class="ui red right labeled dtube icon button">
+                                <i class="podcast icon red" style="background:white;opacity:1;"></i>
+                                <div style="display:inline-block;padding: 0.8em 1em;">Publish Video</div>
+                            </button>
+                        </div>
+    
+                        <div id="trashVideo" class="ui right floated labeled button" tabindex="0">
+                            <button name="button" class="ui blue right labeled dtube icon button">
+                                <i class="trash icon blue" style="background:white;opacity:1;"></i>
+                                <div style="display:inline-block;padding: 0.8em 1em;">Trash</div>
+                            </button>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
             
@@ -177,6 +188,7 @@
             </table>
 
             {{#if activeUsernameSteem}}
+                {{#unless isEditingVideo}}
                 <div class="ui divider"></div>
                 <h2>Steem Options</h2>
                 <form class="ui form uploadformadvanced">
@@ -195,6 +207,7 @@
                         </div>
                     </div>
                 </form>
+                {{/unless}}
             {{/if}}
         </div>
     </div>

@@ -18,6 +18,10 @@ Template.registerHelper('count', function (array) {
   return array.length;
 });
 
+Template.registerHelper('pipe', function (one, two) {
+  return one || two
+});
+
 Template.registerHelper('isOnMobile', function () {
   if (/Mobi/.test(navigator.userAgent)) {
     return true;

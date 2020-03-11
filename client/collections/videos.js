@@ -744,7 +744,7 @@ Videos.getThumbnailUrl = function(video) {
   
   if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.ipfs.snaphash
   if (video.json.info && video.json.info.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.info.snaphash
-  console.log('Found video with no thumbnail!!', video)
+  // console.log('Found video with no thumbnail!!', video)
   return ''
 }
 

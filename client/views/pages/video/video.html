@@ -123,6 +123,9 @@
               {{> uploadform}}
             {{/if}}
             {{> uploadformsubmit}}
+            {{#if json.files}}
+              {{> uploadformfulledit}}
+            {{/if}}
           </div>
           {{#unless json.videoId}}
             <!-- No Video, Display all text -->

@@ -44,7 +44,7 @@ Search = {
               'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(function(res) {
-            console.log(res)
+            // console.log(res)
             res.results = []
             for (let i = 0; i < res.hits.hits.length; i++) {
                 res.hits.hits[i]._source._id = res.hits.hits[i]._id

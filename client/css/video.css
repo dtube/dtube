@@ -367,7 +367,7 @@
   padding-left: 0em !important;
   width: min-content;
   position: absolute;
-  z-index:8000;
+  z-index:100;
   top: 0px;
   right: 0px;
 }

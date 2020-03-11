@@ -3,11 +3,6 @@ var isNsfw = false
 
 Template.uploadform.rendered = function () {
   $('.menu .item').tab();
-  $('#tagDropdown')
-    .dropdown({
-      allowAdditions: true
-    })
-  ;
 }
 
 Template.uploadform.helpers({
@@ -69,6 +64,19 @@ Template.uploadform.generateVideo = function () {
   return article
 }
 
+Template.uploadformfulledit.events({
+  'click .editadvanced': function(event) {
+    event.preventDefault()
+    var video = Videos.findOne({	
+      author: FlowRouter.getParam("author"),
+      link: FlowRouter.getParam("permlink")	
+    })
+    Session.set('tmpVideo', video)
+    Session.set('tmpVideoEdit', true)
+    FlowRouter.go('/publish')
+    Session.set('addVideoStep', 'addvideopublish')
+  },
+})
 Template.uploadformsubmit.events({
   'submit .form': function (event) {
     event.preventDefault()
@@ -76,7 +84,7 @@ Template.uploadformsubmit.events({
   'click .editsubmit': function (event) {
     event.preventDefault()
     var video = Videos.findOne({	
-      author: FlowRouter.getParam("author"),	
+      author: FlowRouter.getParam("author"),
       link: FlowRouter.getParam("permlink")	
     })
 
@@ -85,9 +93,10 @@ Template.uploadformsubmit.events({
     if ($('input[name=title]')[0].value.length > 256) return toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
 
     video.json.title = $('input[name=title]')[0].value
-    video.json.description = $('textarea[name=description]')[0].value
+    video.json.desc = $('textarea[name=description]')[0].value
+    delete video.json.description
 
-    // IPFS specific metadata
+    // IPFS specific metadata (old format)
     if (video.json.providerName === 'IPFS' || video.json.providerName === 'BTFS') {
       if (!$('input[name=videohash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_VIDEOHASH'), translate('ERROR_TITLE'))
       if (!$('input[name=snaphash]')[0].value) return toastr.error(translate('EDIT_ERROR_MISSING_SNAPHASH'),translate('ERROR_TITLE'))

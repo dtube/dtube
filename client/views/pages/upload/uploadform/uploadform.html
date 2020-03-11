@@ -8,19 +8,8 @@
         </div>
         <div class="field">
           <label>{{ translate 'UPLOAD_DESCRIPTION'}}</label>
-          <textarea id="uploadDescription" rows="4" name='description'>{{json.description}}</textarea>
+          <textarea id="uploadDescription" rows="4" name='description'>{{pipe json.desc json.description}}</textarea>
         </div>
-        {{#unless tags}}
-          <div class="field">
-            <label>{{ translate 'UPLOAD_TAGS'}}</label>
-            <select id="tagDropdown" name="skills" class="ui fluid search dropdown">
-                <option value=""></option>
-              {{#each topTags}}
-                <option value="{{tag}}">{{tag}}</option>
-              {{/each}}
-            </select>
-          </div>
-        {{/unless}}
       </form>
     </div>
   </div>
@@ -29,8 +18,17 @@
 <template name="uploadformsubmit">
   <button class="ui red right labeled dtube icon button editsubmit" type="button" style="float:right;margin-bottom: 10px">
       <div style="display:inline-block;padding: 0.8em 1em;">
-          {{ translate 'VIDEO_EDIT'}} 
+          {{ translate 'VIDEO_EDIT'}}
       </div>
     <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
   </button>
 </template>
+
+<template name="uploadformfulledit">
+    <button class="ui blue right labeled dtube icon button editadvanced" type="button" style="float:right;margin-bottom: 10px">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'VIDEO_ADVANCED_EDIT'}} 
+        </div>
+      <i class="checkmark icon blue" style="background: white;opacity: 1;"></i>
+    </button>
+  </template>

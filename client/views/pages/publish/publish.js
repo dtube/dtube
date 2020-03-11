@@ -5,14 +5,24 @@ Template.publish.rendered = function() {
     $("#uploadTitle")[0].value = json.title
   if (json.desc)
     $("#uploadDescription")[0].value = json.desc
-  if (json.dur)
-    $("#inputDuration")[0].value = json.dur
 
-  $('#tagDropdown').dropdown({
-    allowAdditions: true
-  })
-  if (json.tag)
-    $('#tagDropdown').dropdown('set selected', json.tag)
+  if (!Session.get('tmpVideoEdit')) {
+    if (json.dur)
+      $("#inputDuration")[0].value = json.dur
+
+    $('#tagDropdown').dropdown({
+      allowAdditions: true
+    })
+    if (json.tag)
+      $('#tagDropdown').dropdown('set selected', json.tag)
+
+    var steemData = Session.get('tmpVideo').steem
+    if (!steemData) return
+    if (steemData && steemData.body)
+      $("#inputSteemMarkdown")[0].value = steemData.body
+    if (steemData && steemData.powerup == 1)
+      $('#inputSteemPowerup').click()
+  }
 
   $('#visibilityDropdown').dropdown({
     allowAdditions: false
@@ -24,15 +34,42 @@ Template.publish.rendered = function() {
   if (json.oc == 1)
     $('#inputOC').click()
 
-  var steemData = Session.get('tmpVideo').steem
-  if (!steemData) return
-  if (steemData && steemData.body)
-    $("#inputSteemMarkdown")[0].value = steemData.body
-  if (steemData && steemData.powerup == 1)
-    $('#inputSteemPowerup').click()
 }
 
 Template.publish.events({
+  'click #editVideo': function() {
+    var json = Session.get('tmpVideo').json
+    if (!json) {
+      toastr.error('There is no content to publish')
+      return
+    }
+    if (!json.title) {
+      toastr.error(translate('UPLOAD_ERROR_TITLE_REQUIRED'), translate('ERROR_TITLE'))
+      return
+    }
+    if (!json.title.length > 256) {
+      toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
+      return
+    }
+    if (!json.tag || json.tag.indexOf(' ') > -1 || json.tag.indexOf(',') > -1 ) {
+      toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
+      return
+    }
+    broadcast.multi.editComment(Session.get('currentRefs'),json,null,(err, res) => {
+      if (err) toastr.error("Error while broadcasting comment edit")
+      else {
+        toastr.success(translate('EDIT_VIDEO_SUCCESS'))
+        var permlink = res[0]
+        if (typeof permlink !== 'string')
+          permlink = res[1]
+        FlowRouter.go('/v/' + permlink)
+        Session.set('tmpVideo', {})
+        Session.set('tmpVideoEdit', null)
+        UserSettings.set('tmpVideo', {})
+        Session.set('addVideoStep', 'addvideoform')
+      }
+    })
+  },
   'click #publishVideo': function() {
     var json = Session.get('tmpVideo').json
     if (!json) {
@@ -94,8 +131,11 @@ Template.publish.events({
     var tmpVideo = Session.get('tmpVideo')
     tmpVideo.json.title = $('#uploadTitle')[0].value
     tmpVideo.json.desc = $('#uploadDescription')[0].value
-    tmpVideo.json.tag = $('#tagDropdown')[0].value
-    tmpVideo.json.dur = $('#inputDuration')[0].value
+    if (!Session.get('tmpVideoEdit')) {
+      tmpVideo.json.tag = $('#tagDropdown')[0].value
+      tmpVideo.json.dur = $('#inputDuration')[0].value
+    }
+
     tmpVideo.json.hide = parseInt($('#visibilityDropdown')[0].value)
     if ($('#inputNsfw')[0].checked)
       tmpVideo.json.nsfw = 1
@@ -205,6 +245,11 @@ Template.publish.events({
 Template.publish.helpers({
     tmpVideo: function () {
       return Session.get('tmpVideo')
+    },
+    isEditingVideo: function() {
+      if (Session.get('tmpVideoEdit'))
+        return true
+      return false
     },
     activeUsernameSteem: function() {
       return Session.get('activeUsernameSteem')

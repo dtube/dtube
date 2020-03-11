@@ -340,7 +340,6 @@ Template.video.events({
   },
   'click .editvideo': function() {
     $('#editvideosegment').toggle()
-    $('#powerup').toggle()
   }
 })
 
