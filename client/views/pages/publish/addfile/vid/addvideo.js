@@ -261,7 +261,7 @@ Template.addvideoformfile.events({
 Template.addvideoform3p.events({
     'click #addvideonext': function() {
         Template.addvideoform3p.grabData($('#remotelink')[0].value, function(content) {
-            Template.addvideo.addFiles('youtube', content.videoId)
+            Template.addvideo.addFiles(Providers.dispToId(content.providerName), content.videoId)
             Template.addvideo.tmpVid({title: content.title})
             Template.addvideo.tmpVid({desc: content.description})
             Template.addvideo.tmpVid({dur: content.duration})
@@ -327,7 +327,21 @@ function getOEmbedData(url, callback) {
     xhr.open("GET", 'https://avalon.d.tube/oembed/'+encodeURIComponent(url));
     //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
     xhr.send();
-  }
+}
+
+
+function getOpenGraphData(url, callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        let video = JSON.parse(this.responseText).data;
+        callback(sanitizeVideo(video, url));
+      }
+    }
+    xhr.open("GET", 'https://avalon.d.tube/opengraph/'+encodeURIComponent(url));
+    //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
+    xhr.send();
+}  
   
 function getYoutubeVideoData(url, callback) {
     var videoId = ''
@@ -444,3 +458,43 @@ function providerNameFromUrl(url) {
         break;
     }
 }
+
+function videoIdFromUrl(video, url) {
+    var urlInfo = parse(url, true)
+    switch (urlInfo.host) {
+      case "www.twitch.tv":
+      case "clips.twitch.tv":
+      case "twitch.tv":
+        if (video.twitch_type == 'clip')
+          return urlInfo.pathname.split('/')[3]
+        else if (urlInfo.pathname.split('/')[2] == 'clip')
+          return urlInfo.pathname.split('/')[3]
+        else if (urlInfo.pathname.split('/')[1] == 'videos')
+          return urlInfo.pathname.split('/')[2]
+        else
+          return urlInfo.pathname.split('/')[1]
+        break;
+  
+      case "www.dailymotion.com":
+        return urlInfo.pathname.replace('/video/', '')
+        break;
+  
+      case "www.instagram.com":
+        return urlInfo.pathname.replace('/p/', '').replace('/', '')
+        break;
+  
+      case "www.facebook.com":
+        // https://www.facebook.com/zap.magazine/videos/278373702868688/
+        // https://www.facebook.com/watch/?v=1371488622995266
+        return urlInfo.query.v || urlInfo.pathname.split('/')[3]
+        break;
+  
+      case "www.liveleak.com":
+        return urlInfo.query.t
+        break;
+    
+      default:
+        break;
+    }
+    console.log(urlInfo)
+  }

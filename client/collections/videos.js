@@ -716,6 +716,20 @@ Videos.parseFromSteem = function(video, isComment) {
   return newVideo;
 }
 
+Videos.getOverlayUrl = function(video) {
+  if (!video || !video.json)
+    return ''
+  if (video.json.overlayUrl) 
+    return video.json.overlayUrl
+  if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["360"])
+    return 'https://btfs.d.tube/btfs/'+video.json.files.btfs.img["360"]
+  if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["360"])
+    return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["360"]
+  if (video.json.files && video.json.files.youtube)
+    return 'http://i.ytimg.com/vi/'+video.json.files.youtube+'/hqdefault.jpg'
+  return ''
+}
+
 Videos.getThumbnailUrl = function(video) {
   if (!video || !video.json)
     return ''
@@ -725,14 +739,12 @@ Videos.getThumbnailUrl = function(video) {
     return 'https://btfs.d.tube/btfs/'+video.json.files.btfs.img["118"]
   if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["118"])
     return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["118"]
-  if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["360"])
-    return 'https://btfs.d.tube/btfs/'+video.json.files.btfs.img["360"]
-  if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["360"])
-    return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["360"]
+  if (video.json.files && video.json.files.youtube)
+    return 'http://i.ytimg.com/vi/'+video.json.files.youtube+'/mqdefault.jpg'
   
   if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.ipfs.snaphash
   if (video.json.info && video.json.info.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.info.snaphash
-  console.log(video)
+  console.log('Found video with no thumbnail!!', video)
   return ''
 }
 

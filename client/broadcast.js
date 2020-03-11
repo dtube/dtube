@@ -164,17 +164,10 @@ broadcast = {
                 if (finalTags.indexOf(tags[i]) == -1)
                     finalTags.push(tags[i])
 
-            if (!body) {
-                if ($('textarea[name=body]')[0])
-                    body = $('textarea[name=body]')[0].value
-                else body = ''
-            
-                if (!body || body.length < 1)
-                    body = genBody(author, permlink, title, jsonMetadata.thumbnailUrl, jsonMetadata.videoId, jsonMetadata.providerName, jsonMetadata.description)
-                else
-                    body = genBody(author, permlink, title, jsonMetadata.thumbnailUrl, jsonMetadata.videoId, jsonMetadata.providerName, body)
-            }
+            if (!body)
+                body = genSteemBody(permlink, jsonMetadata)
         
+            // console.log(body)
             var jsonMetadata = {
               video: jsonMetadata,
               tags: finalTags,
@@ -251,44 +244,6 @@ broadcast = {
                 return;
             }
         },
-        // claimRewardBalance: function(username, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, cb) {
-        //     var account = Users.findOne({ username: username }).username
-        //     if (!account) return;
-        //     //Unknown for steem keychain support, will wait on that. Most likely a custom JSON operation.
-        //     //Steem keychain.
-        //     if(Users.findOne({ username: Session.get('activeUsernameSteem') }).type == "keychain") {
-        //         if(!steem_keychain) {
-        //             cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
-        //             return;
-        //         }
-        //         var operations = [
-        //                 ['claim_reward_balance', {
-        //                     account: account,
-        //                     reward_steem: reward_steem_balance,
-        //                     reward_sbd: reward_sbd_balance,
-        //                     reward_vests: reward_vesting_balance
-        //                 }]
-        //         ];
-    
-        //         steem_keychain.requestBroadcast(account, operations, "Posting", function(response) {
-        //             console.log(response);
-        //             cb(response.error, response)
-        //         });
-        //         return;
-        //     }
-        //     var wif = Users.findOne({ username: username }).privatekey
-        //     if (wif) {
-        //         steem.broadcast.claimRewardBalance(wif, account, reward_steem_balance, reward_sbd_balance, reward_vesting_balance, function (err, result) {
-        //             cb(err, result)
-        //         })
-        //         return;
-        //     }
-        //     var accessToken = Users.findOne({ username: username }).access_token
-        //     if (!accessToken) {
-        //         cb('ERROR_BROADCAST')
-        //         return;
-        //     }
-        // },
         subHive: function(cb) {
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
             var voter = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).username
@@ -791,25 +746,48 @@ broadcast = {
 }
 
 var genBody = function (author, permlink, title, snaphash, videohash, videoprovider, description) {
-    if (FlowRouter.current().route.name == 'golive')
-      return Template.upload.genBodyLivestream(author, permlink, title, snaphash, description)
-    else {
-      var body = '<center>'
-      body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
-      if (Session.get('overlayHash'))
-        body += '<img src=\'https://snap1.d.tube/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
-      else
-        body += '<img src=\'' + snaphash + '\'></a></center><hr>\n\n'
-      
-      if (videoprovider == 'YouTube')
-        body += 'https://www.youtube.com/watch?v=' + videohash + '\n\n'
-      body += description
-      body += '\n\n<hr>'
-      body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-      if (videoprovider == 'IPFS')
-        body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
-      if (videoprovider == 'YouTube')
-        body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'
-      return body
-    }
+    var body = '<center>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
+    if (Session.get('overlayHash'))
+    body += '<img src=\'https://snap1.d.tube/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
+    else
+    body += '<img src=\'' + snaphash + '\'></a></center><hr>\n\n'
+    
+    if (videoprovider == 'YouTube')
+    body += 'https://www.youtube.com/watch?v=' + videohash + '\n\n'
+    body += description
+    body += '\n\n<hr>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+    if (videoprovider == 'IPFS')
+    body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
+    if (videoprovider == 'YouTube')
+    body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'
+    return body
+}
+
+var genSteemBody = function(permlink, video) {
+    var body = '<center>'
+    body += '<a href=\'https://d.tube/#!/v/' + Session.get('activeUsernameSteem') + '/' + permlink + '\'>'
+    if (Videos.getOverlayUrl({json: video}))
+        body += '<img src=\'' + Videos.getOverlayUrl({json: video}) + '\' ></a></center><hr>\n\n'
+    else
+        body += '<img src=\'' + Videos.getThumbnailUrl({json: video}) + '\' ></a></center><hr>\n\n'
+
+    if ($('textarea[name=body]')[0] && $('textarea[name=body]')[0].value.length > 0)
+        body += $('textarea[name=body]')[0].value
+    else if (video.desc)
+        body += video.desc
+    else if (video.description)
+        body += video.description
+
+    // todo handle all providers links
+    // body += '\n\n<hr>'
+    // body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+    // if (videoprovider == 'IPFS')
+    // body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
+    // if (videoprovider == 'YouTube')
+    // body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'
+    
+    
+    return body
 }

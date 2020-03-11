@@ -75,7 +75,6 @@ Template.publish.events({
         }
       })
     }
-    console.log(burn, json)
   },
   'click #trashVideo': function() {
     Session.set('addVideoStep', 'addvideoform')

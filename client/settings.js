@@ -2,7 +2,7 @@
 Meteor.settings.public = {
   "remote": {
     "dfees": 1000,
-    "loadLimit": 12,
+    "loadLimit": 50,
     "displayNodes": [
       "https://snap1.d.tube",
       "https://ipfs.io",
