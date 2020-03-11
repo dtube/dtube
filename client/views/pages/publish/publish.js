@@ -45,7 +45,7 @@ Template.publish.events({
       toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
       return
     }
-    if (json.tag.indexOf(' ') > -1 || json.tag.indexOf(',') > -1 ) {
+    if (!json.tag || json.tag.indexOf(' ') > -1 || json.tag.indexOf(',') > -1 ) {
       toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
       return
     }
@@ -413,6 +413,30 @@ Template.publish.generateVideo = function() {
     article.providerName = 'BTFS'
   }
   return article
+}
+
+Template.publish.createPermlink = function(video) {
+  if (!video) return
+  if (!video.files) return
+  if (video.files.btfs && video.files.btfs.vid && video.files.btfs.vid.src)
+    return video.files.btfs.vid.src
+  if (video.files.ipfs && video.files.ipfs.vid && video.files.ipfs.vid.src)
+    return video.files.ipfs.vid.src
+  if (video.files.sia && video.files.sia.vid && video.files.sia.vid.src)
+    return video.files.sia.vid.src
+
+  // todo add 3rd party videoIds
+  return Template.publish.randomPermlink(11)
+}
+
+Template.publish.randomPermlink = function(length) {
+  var text = "";
+  var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
 }
 
 function isDecentralized(tech) {

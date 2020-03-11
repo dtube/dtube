@@ -748,6 +748,13 @@ Videos.getThumbnailUrl = function(video) {
   return ''
 }
 
+Videos.getDescription = function(json) {
+  if (!json) return ''
+  if (json.desc) return json.desc
+  if (json.description) return json.description
+  return ''
+}
+
 Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
   if (!content) return []
   var rootVideo = content[rootAuthor+'/'+rootPermlink]

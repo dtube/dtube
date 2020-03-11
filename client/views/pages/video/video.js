@@ -83,8 +83,8 @@ Template.video.helpers({
     return Session.get('localIpfs')
   },
   hasMoreThan4Lines: function () {
-    if (!this.json.description) return false
-    var numberOfLineBreaks = (this.json.description.match(/\n/g) || []).length;
+    var desc = Videos.getDescription(this.json)
+    var numberOfLineBreaks = (desc.match(/\n/g) || []).length;
     if (numberOfLineBreaks >= 4) {
       return true;
     }

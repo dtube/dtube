@@ -6,12 +6,11 @@ broadcast = {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
             var authorAvalon = Session.get('activeUsername')
-            var permlinkAvalon = Template.upload.createPermlink(11)
-            if (jsonMetadata.videoId)
-                permlinkAvalon = String(jsonMetadata.videoId)
+            var permlinkAvalon = Template.publish.createPermlink(jsonMetadata)
 
             var authorSteem = Session.get('activeUsernameSteem')
-            var permlinkSteem = Template.upload.createPermlink(11)
+            // Steem cannot have capital letters in permlink :,(
+            var permlinkSteem = Template.publish.randomPermlink(11)
             
             var jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
             var jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
@@ -745,26 +744,6 @@ broadcast = {
     }
 }
 
-var genBody = function (author, permlink, title, snaphash, videohash, videoprovider, description) {
-    var body = '<center>'
-    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
-    if (Session.get('overlayHash'))
-    body += '<img src=\'https://snap1.d.tube/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
-    else
-    body += '<img src=\'' + snaphash + '\'></a></center><hr>\n\n'
-    
-    if (videoprovider == 'YouTube')
-    body += 'https://www.youtube.com/watch?v=' + videohash + '\n\n'
-    body += description
-    body += '\n\n<hr>'
-    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
-    if (videoprovider == 'IPFS')
-    body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
-    if (videoprovider == 'YouTube')
-    body += '<a href=\'https://www.youtube.com/watch?v=' + videohash + '\'> ▶️ YouTube</a>'
-    return body
-}
-
 var genSteemBody = function(permlink, video) {
     var body = '<center>'
     body += '<a href=\'https://d.tube/#!/v/' + Session.get('activeUsernameSteem') + '/' + permlink + '\'>'
@@ -780,6 +759,7 @@ var genSteemBody = function(permlink, video) {
     else if (video.description)
         body += video.description
 
+        
     // todo handle all providers links
     // body += '\n\n<hr>'
     // body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'

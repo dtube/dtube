@@ -11,6 +11,9 @@ var allProviders = [
     {id: 'facebook', disp: 'Facebook'},
 ]
 Providers = {
+    all: function() {
+        return allProviders
+    },
     idToDisp: function(id) {
         for (let i = 0; i < allProviders.length; i++)
             if (allProviders[i].id == id)

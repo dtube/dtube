@@ -40,7 +40,7 @@ Template.addvideo.helpers({
 Template.addvideoform.helpers({
     existsFiles: function() {
         var tmpVideo = Session.get('tmpVideo')
-        if (!tmpVideo.json || !tmpVideo.json.files) return false
+        if (!tmpVideo || !tmpVideo.json || !tmpVideo.json.files) return false
         if (Object.keys(tmpVideo.json.files).length > 0) return true
         return false
     }
@@ -260,6 +260,10 @@ Template.addvideoformfile.events({
 
 Template.addvideoform3p.events({
     'click #addvideonext': function() {
+        $('#addvideonext').addClass('disabled')
+        $('#addvideonext i').removeClass('arrow right blue')
+        $('#addvideonext i').addClass('asterisk loading')
+        $('#addvideonext i').css('background', 'transparent')
         Template.addvideoform3p.grabData($('#remotelink')[0].value, function(content) {
             Template.addvideo.addFiles(Providers.dispToId(content.providerName), content.videoId)
             Template.addvideo.tmpVid({title: content.title})

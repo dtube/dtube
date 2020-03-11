@@ -7,8 +7,8 @@ Template.player.rendered = function () {
 Template.player.reset = function(data) {
   if (!data) {
     console.log('Player got no data!!')
+    data = Template.video.__helpers[" video"]()
   }
-  data = Template.video.__helpers[" video"]()
   if (!data) return
   // Template.player.init(data.author, data.link)
   //   return
@@ -46,7 +46,7 @@ Template.player.reset = function(data) {
 Template.player.init = function(author, link) {
   if (author && link)
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/#!/" + author + '/' + link
+      url: "http://localhost:8080/debug.html#!/" + author + '/' + link
       + "/true/true"
     });
   else if (Session.get('tmpVideo')) {
@@ -54,7 +54,7 @@ Template.player.init = function(author, link) {
     delete json.title
     delete json.desc
     $('.ui.embed.player').embed({
-      url: "http://localhost:8080/#!//" + JSOUN.encode(json)
+      url: "http://localhost:8080/debug.html#!//" + JSOUN.encode(json)
       + "/false/true"
     });
 
