@@ -104,10 +104,21 @@ Template.player.init = function(author, link, json) {
     options.push(UserSettings.get('defaultProvider'))
   if (author && link) {
     if (json) {
-      var jsoun = {files: json.files}
-      if (json.thumbnailUrl)
-        jsoun.thumbnailUrl = json.thumbnailUrl
-      jsoun = JSOUN.encode(jsoun)
+      delete json.desc
+      delete json.description
+      delete json.title
+      delete json.tag
+      delete json.hide
+      delete json.refs
+      delete json.genre
+      delete json.datePublished
+      delete json.channelThumbnailUrl
+      delete json.channelId
+      delete json.app
+      delete json.owner
+      delete json.isFamilyFriendly
+      delete json.url
+      jsoun = JSOUN.encode(json)
       $('.ui.embed.player').embed({
         url: "https://emb.d.tube/#!//" + jsoun
         + "/" + options.join('/')
