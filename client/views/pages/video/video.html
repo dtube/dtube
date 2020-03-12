@@ -127,39 +127,30 @@
               {{> uploadformfulledit}}
             {{/if}}
           </div>
-          {{#unless json.videoId}}
-            <!-- No Video, Display all text -->
-            <div id="descriptionsegment" class="ui segment open descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
-              <div id="truncateddesc">
-                <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
-                <br/> {{{syntaxed json.desc json.description}}}
+
+          <!-- Syntaxed video description - Show More -->
+          <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
+            <div id="truncateddesc" class="truncate" style="overflow: hidden;">
+              <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
+              <br/> {{{syntaxed json.desc json.description}}}
+            </div>
+          </div>
+          {{#if hasMoreThan4Lines}}
+            <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
+              <div id="showmore" style="text-align: center;">
+                <button class="ui button videoshowmore">
+                  {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
+                </button>
+                <i class="ui icon angle down"></i>
+              </div>
+              <div id="showless" class="hidden" style="text-align: center;">
+                <button class="ui button videoshowmore">
+                  {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
+                </button>
+                <i class="ui icon angle up"></i>
               </div>
             </div>
-          {{else}}
-            <!-- Syntaxed video description - Show More -->
-            <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
-              <div id="truncateddesc" class="truncate" style="overflow: hidden;">
-                <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
-                <br/> {{{syntaxed json.desc json.description}}}
-              </div>
-            </div>
-            {{#if hasMoreThan4Lines}}
-              <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
-                <div id="showmore" style="text-align: center;">
-                  <button class="ui button videoshowmore">
-                    {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
-                  </button>
-                  <i class="ui icon angle down"></i>
-                </div>
-                <div id="showless" class="hidden" style="text-align: center;">
-                  <button class="ui button videoshowmore">
-                    {{ translate 'VIDEO_DESCRIPTION_SHOW_LESS'}}
-                  </button>
-                  <i class="ui icon angle up"></i>
-                </div>
-              </div>
-            {{/if}}
-          {{/unless}}
+          {{/if}}
 
           <!-- Related Videos Mobile -->
           {{#if isOnMobile}}
