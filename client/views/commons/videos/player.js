@@ -100,8 +100,10 @@ Template.player.reset = function(data) {
 
 Template.player.init = function(author, link, json) {
   var options = ["true", "true"]
-  if (UserSettings.get('defaultProvider'))
+  if (UserSettings.get('defaultProvider') && Providers.available(json).indexOf(UserSettings.get('defaultProvider')) > -1) {
     options.push(UserSettings.get('defaultProvider'))
+  }
+    
   if (author && link) {
     if (json) {
       delete json.desc

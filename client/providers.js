@@ -66,7 +66,7 @@ Providers = {
                 ) {
                     provs.push(allProviders[i].disp)
                 } else {
-                    if (video.files[allProviders[i].id])
+                    if (video.files[allProviders[i].id] && !allProviders[i].dht)
                         provs.push(allProviders[i].disp)
                 }
             }
