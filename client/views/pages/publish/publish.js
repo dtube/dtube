@@ -55,7 +55,13 @@ Template.publish.events({
       toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
       return
     }
+    $("#editVideo").addClass('disabled')
+    $("#editVideo i.podcast").addClass('dsp-non')
+    $("#editVideo i.loading").removeClass('dsp-non')
     broadcast.multi.editComment(Session.get('currentRefs'),json,null,(err, res) => {
+      $("#editVideo").removeClass('disabled')
+      $("#editVideo i.loading").addClass('dsp-non')
+      $("#editVideo i.podcast").removeClass('dsp-non')
       if (err) toastr.error("Error while broadcasting comment edit")
       else {
         toastr.success(translate('EDIT_VIDEO_SUCCESS'))
@@ -63,10 +69,12 @@ Template.publish.events({
         if (typeof permlink !== 'string')
           permlink = res[1]
         FlowRouter.go('/v/' + permlink)
-        Session.set('tmpVideo', {})
-        Session.set('tmpVideoEdit', null)
-        UserSettings.set('tmpVideo', {})
-        Session.set('addVideoStep', 'addvideoform')
+        setTimeout(function() {
+          Session.set('tmpVideo', {})
+          Session.set('tmpVideoEdit', null)
+          UserSettings.set('tmpVideo', {})
+          Session.set('addVideoStep', 'addvideoform')
+        }, 1000)
       }
     })
   },
@@ -90,13 +98,16 @@ Template.publish.events({
     }
 
     var burn = parseInt(Session.get('publishBurn'))
+    $("#publishVideo").addClass('disabled')
+    $("#publishVideo i.podcast").addClass('dsp-non')
+    $("#publishVideo i.loading").removeClass('dsp-non')
+    
     if (burn > 0) {
       broadcast.multi.comment(null, null, null, null, null, json, json.tag, burn, function(err, res) {
         console.log(err, res)
-        $(".uploadsubmit").removeClass('disabled')
-        $(".uploadsubmit > i.loading").addClass('dsp-non')
-        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
-        $(".uploadsubmit > i.fire").removeClass('dsp-non')
+        $("#publishVideo").removeClass('disabled')
+        $("#publishVideo i.loading").addClass('dsp-non')
+        $("#publishVideo i.podcast").removeClass('dsp-non')
         if (err) toastr.error(Meteor.blockchainError(err))
         else {
           FlowRouter.go('/v/' + res[0])
@@ -108,16 +119,17 @@ Template.publish.events({
     } else {
       broadcast.multi.comment(null, null, null, null, null, json, json.tag, null, function(err, res) {
         console.log(err, res)
-        $(".uploadsubmit").removeClass('disabled')
-        $(".uploadsubmit > i.loading").addClass('dsp-non')
-        $(".uploadsubmit > i.checkmark").removeClass('dsp-non')
-        $(".uploadsubmit > i.fire").removeClass('dsp-non')
+        $("#publishVideo").removeClass('disabled')
+        $("#publishVideo i.loading").addClass('dsp-non')
+        $("#publishVideo i.podcast").removeClass('dsp-non')
         if (err) toastr.error(Meteor.blockchainError(err))
         else {
           FlowRouter.go('/v/' + res[0])
-          Session.set('tmpVideo', {})
-          UserSettings.set('tmpVideo', {})
-          Session.set('addVideoStep', 'addvideoform')
+          setTimeout(function() {
+            Session.set('tmpVideo', {})
+            UserSettings.set('tmpVideo', {})
+            Session.set('addVideoStep', 'addvideoform')
+          }, 1000)
         }
       })
     }

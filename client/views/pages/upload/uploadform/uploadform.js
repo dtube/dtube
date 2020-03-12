@@ -118,9 +118,16 @@ Template.uploadformsubmit.events({
     let steembody;
     if ($('textarea[name=body]').length !== 0) steembody = $('textarea[name=body]')[0].value
 
+    $(".editsubmit").addClass('disabled')
+    $(".editsubmit > i.checkmark").addClass('dsp-non')
+    $(".editsubmit > i.loading").removeClass('dsp-non')
+
     broadcast.multi.editComment(Session.get('currentRefs'),video.json,steembody,(err) => {
       if (err) toastr.error("Error while broadcasting comment edit")
       else {
+        $(".editsubmit").removeClass('disabled')
+        $(".editsubmit > i.loading").addClass('dsp-non')
+        $(".editsubmit > i.checkmark").removeClass('dsp-non')
         toastr.success(translate('EDIT_VIDEO_SUCCESS'))
         $('#editvideosegment').toggle()
         $('#powerup').toggle()
