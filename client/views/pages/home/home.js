@@ -37,6 +37,7 @@ Template.home.events({
 })
 
 Template.home.rendered = function () {
+  Videos.refreshBlockchain(function() {})
   Template.settingsdropdown.nightMode();
   if (/Mobi/.test(navigator.userAgent)) {
     Template.sidebar.empty()

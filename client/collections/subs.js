@@ -18,15 +18,17 @@ Subs.loadFollowing = function(username, startFollowing = undefined, recursive = 
 }
 
 Subs.loadFollowers = function(username, startFollowers = undefined, recursive = true, cb) {
-  steem.api.getFollowers(username, function(err, results) {
+  avalon.getFollowers(username, function(err, results) {
     if (err) console.log(err)
-    for (var i = 0; i < results.length; i++){
-      var sub = {
-        follower: results[i],
-        following: username,
-        what: ['blog']
+    if (results && results.length) {
+      for (var i = 0; i < results.length; i++){
+        var sub = {
+          follower: results[i],
+          following: username,
+          what: ['blog']
+        }
+        Subs.upsert(sub, sub)
       }
-      Subs.upsert(sub, sub)
     }
     cb(username)
   });

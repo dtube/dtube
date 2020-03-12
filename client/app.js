@@ -72,82 +72,8 @@ Meteor.startup(function(){
     toastr.warning(Session.get('remoteSettings').warning, translate('WARNING_TITLE'))
 
   firstLoad = setInterval(function() {
-    if (!Videos) return
-    Videos.refreshBlockchain(function() {})
+    // if (!Videos) return
+    // Videos.refreshBlockchain(function() {})
     clearInterval(firstLoad)
   }, 50)
-
-  // steem.api.getDynamicGlobalProperties(function(err, result) {
-  //   if (result)
-  //   Session.set('steemGlobalProp', result)
-  // })
-
-  // Market.getSteemPrice()
-  // Market.getSteemDollarPrice()
-
-  // loading remote settings -- disabled
-  // steem.api.getAccounts(['dtube'], function(err, result) {
-  //   if (!result || !result[0]) return
-  //   var jsonMeta = JSON.parse(result[0].json_metadata)
-  //   if (jsonMeta.remoteSettings) {
-  //     //Session.set('remoteSettings', jsonMeta.remoteSettings)
-  //     if (jsonMeta.remoteSettings.upldr) {
-  //       var rand = jsonMeta.remoteSettings.upldr[Math.floor(Math.random() * jsonMeta.remoteSettings.upldr.length)];
-  //       Session.set('upldr', rand)
-  //     }
-  //   }
-  // });
-
-
-  // JS IPFS node
-  // $.getScript('js/ipfs.js', function(){
-  //   console.log('IPFS loaded')
-  //   const repoPath = 'dtube-'+String(Math.random())
-  //
-  //   const node = new Ipfs({
-  //     repo: repoPath,
-  //     config: {
-  //       Addresses: {
-  //         Swarm: [
-  //           '/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss'
-  //         ]
-  //       },
-  //       Bootstrap: [
-  //         "/ip4/127.0.0.1/tcp/9999/ws/ipfs/QmYRokUHWByetfpdcaaVJLrJpPtYUjXX78Ce5SSWNmFfxg"
-  //       ]
-  //     },
-  //     init: true,
-  //     start: true,
-  //     EXPERIMENTAL: {
-  //       pubsub: false
-  //     }
-  //   })
-  //
-  //   // expose the node to the window, for the fun!
-  //   window.ipfs = node
-  //
-  //   node.on('ready', () => {
-  //     console.log('Your node is ready to use')
-  //   })
-  // });
-
-  //window.localIpfs = IpfsApi(Session.get('remoteSettings').uploadNodes[Session.get('remoteSettings').uploadNodes.length-1].node)
-  // setInterval(function() {
-  //   try {
-  //     localIpfs.repo.stat(function(e,r) {
-  //       if (e) {
-  //         Session.set('localIpfs', false)
-  //         return;
-  //       }
-  //       Session.set('localIpfs', r)
-  //
-  //       // using local gateway seems to make my internet very unstable and nothing works
-  //       // Session.set('ipfsGateway', Session.get('remoteSettings').displayNodes[Session.get('remoteSettings').displayNodes.length - 1])
-  //     })
-  //   } catch(e) {
-  //
-  //   }
-  //
-  // }, 10000)
-
 })
