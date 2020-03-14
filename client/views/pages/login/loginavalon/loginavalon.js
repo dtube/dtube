@@ -13,11 +13,11 @@ Template.loginavalon.helpers({
   
   Template.loginavalon.success = function(activeUsername, noreroute) {
     Session.set('activeUsername', activeUsername)
-    Subs.loadFollowing(activeUsername, null, true, function(user) {
-      console.log('Loaded following for '+user)
+    Subs.loadFollowing(activeUsername, null, true, function(user, count) {
+      console.log('Loaded '+count+' following for '+user)
     })
-    Subs.loadFollowers(activeUsername, null, true, function(user) {
-      console.log('Loaded followers for '+user)
+    Subs.loadFollowers(activeUsername, null, true, function(user, count) {
+      console.log('Loaded '+count+' followers for '+user)
     })
     Users.refreshUsers([activeUsername], function() {
       setTimeout(function(){

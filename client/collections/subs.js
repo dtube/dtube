@@ -12,7 +12,7 @@ Subs.loadFollowing = function(username, startFollowing = undefined, recursive = 
         }
         Subs.upsert(sub, sub)
       }
-      cb(username)
+      cb(username, results.length)
     }
   });
 }
@@ -30,7 +30,7 @@ Subs.loadFollowers = function(username, startFollowers = undefined, recursive = 
         Subs.upsert(sub, sub)
       }
     }
-    cb(username)
+    cb(username, results.length)
   });
 }
 

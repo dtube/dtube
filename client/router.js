@@ -27,15 +27,29 @@ FlowRouter.route('/keypair', {
   }
 });
 
-FlowRouter.route('/upload', {
-  name: "upload",
+// FlowRouter.route('/upload', {
+//   name: "upload",
+//   action: function(params, queryParams) {
+//     Session.set("currentMenu", 3)
+//     Template.sidebar.selectMenu();
+//     Session.set("pageTitle", 'Upload')
+//     Template.sidebar.selectMenu();
+//     BlazeLayout.render('masterLayout', {
+//       main: "upload",
+//       nav: "nav",
+//     });
+//   }
+// });
+
+FlowRouter.route('/test', {
+  name: "testdev",
   action: function(params, queryParams) {
     Session.set("currentMenu", 3)
     Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Upload')
+    Session.set("pageTitle", 'Dev Testing')
     Template.sidebar.selectMenu();
     BlazeLayout.render('masterLayout', {
-      main: "upload",
+      main: "testdev",
       nav: "nav",
     });
   }
