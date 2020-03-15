@@ -6,16 +6,16 @@ Template.home.helpers({
     return WatchAgain.find({}, {limit: 25}).fetch()
   },
   newVideos: function () {
-    return Videos.find({ source: 'chainByCreated' }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
   },
   hotVideos: function () {
-    return Videos.find({ source: 'chainByHot' }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByHot', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
   },
   trendingVideos: function () {
-    return Videos.find({ source: 'chainByTrending' }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByTrending', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
   },
   feedVideos: function () {
-    return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername') }).fetch()
+    return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }).fetch()
   }
 })
 

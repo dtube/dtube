@@ -306,6 +306,7 @@
     "VIDEO_PERMA_LINK_COPIED": "Link successfully copied to your clipboard",
     "VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
     "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
+    "VIDEO_UNLISTED": "Unlisted",
     "WARNING_TITLE": "Warning",
     "NEWACCOUNT_PUBLICKEY": "Public Key",
     "NEWACCOUNT_NEWACCOUNT": "Create new account",

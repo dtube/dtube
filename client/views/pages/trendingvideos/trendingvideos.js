@@ -1,6 +1,6 @@
 Template.trendingvideos.helpers({
   trendingVideos: function () {
-    return Videos.find({ source: 'chainByTrending' }).fetch()
+    return Videos.find({ source: 'chainByTrending', "json.hide": {$ne: 1} }).fetch()
   }
 })
 

@@ -59,7 +59,13 @@ Template.channel.helpers({
     return Session.get('activeUsername')
   },
   userVideos: function () {
-    return Videos.find({ 'author': FlowRouter.getParam("author"), source: 'chainByBlog' }, {sort: {ts: -1}}).fetch()
+    var query = { 
+      'author': FlowRouter.getParam("author"),
+      source: 'chainByBlog'
+    }
+    if (Session.get('activeUsername') != query.author)
+      query["json.hide"] = {$ne: 1}
+    return Videos.find(query, {sort: {ts: -1}}).fetch()
   },
   userResteems: function () {
     var videos = Videos.find({ source: 'chainByBlog', fromBlog: FlowRouter.getParam("author") }).fetch()

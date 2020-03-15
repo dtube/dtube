@@ -1,6 +1,6 @@
 Template.hotvideos.helpers({
   hotVideos: function () {
-    return Videos.find({ source: 'chainByHot' }).fetch()
+    return Videos.find({ source: 'chainByHot', "json.hide": {$ne: 1} }).fetch()
   }
 })
 
