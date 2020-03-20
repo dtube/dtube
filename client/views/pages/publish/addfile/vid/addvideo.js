@@ -1,4 +1,8 @@
 Template.addvideo.rendered = function () {
+    if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem')) {
+        FlowRouter.go('/login')
+        return
+    }
     if (!Session.get('addVideoStep'))
         Session.set('addVideoStep', 'addvideoform')
     if (!Session.get('tmpVideo'))
