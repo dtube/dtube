@@ -212,7 +212,10 @@ Template.addvideoformfileuploaded.events({
     'click #addvideofinish': function () {
         var files = Template.addvideohashes.fillHashes()
         if (files) {
-            Template.addvideo.addFiles('btfs', files)
+            if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
+                Template.addvideo.addFiles('ipfs', files)
+            else
+                Template.addvideo.addFiles('btfs', files)
             Session.set('addVideoStep', 'addvideopublish')
         }
     }
@@ -249,3 +252,66 @@ Template.addvideoformfile.events({
         Session.set('addVideoStep', 'addvideoform')
     }
 })
+
+Template.addvideoformfile.rendered = function() {
+    $('#uploadEndpointSelection').dropdown({
+        action: 'activate',
+        onChange: (value,text) => {
+          $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
+          // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
+          if (value === 'uploader.oneloved.tube') {
+            if (!Session.get('activeUsernameSteem')) { 
+              $('#uploadEndpointSelection').dropdown('restore defaults')
+              return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_STEEM_USERNAME'), translate('ERROR_TITLE'))
+            }
+            $('#uploadEndpointSelection').parent().addClass('loading')
+            $.ajax({
+              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameSteem'),
+              method: 'GET',
+              success: (result) => {
+                broadcast.steem.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
+                  if (err === 'LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED') {
+                    $('#uploadEndpointSelection').dropdown('restore defaults')
+                    $('#uploadEndpointSelection').parent().removeClass('loading')
+                    return toastr.error(translate('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
+                  } else if (err) {
+                    $('#uploadEndpointSelection').dropdown('restore defaults')
+                    $('#uploadEndpointSelection').parent().removeClass('loading')
+                    return toastr.error(err,translate('ERROR_TITLE'))
+                  }
+                  $.ajax({
+                    url: 'https://' + value + '/logincb',
+                    method: 'POST',
+                    contentType: 'text/plain',
+                    data: decryptedMemo,
+                    success: (result) => {
+                      Session.set('uploadEndpoint',value)
+                      Session.set('Upload token for ' + value,result.access_token)
+                      console.log(result.access_token)
+                      $('#uploadEndpointSelection').parent().removeClass('loading')
+                      $('#uploadEndpointSelection').parent().children('.icon').removeClass('dropdown').addClass('check')
+                    },
+                    error: (req,status) => handleUploadEndpointCheckError(req,status)
+                  })
+                })
+              },
+              error: (req,status) => handleUploadEndpointCheckError(req,status)
+            })
+          } else {
+            Session.set('uploadEndpoint',null)
+          }
+        }
+    })
+}
+
+function handleUploadEndpointCheckError(req,status) {
+    $('#uploadEndpointSelection').dropdown('restore defaults')
+    $('#uploadEndpointSelection').parent().removeClass('loading')
+    if (req.responseJSON.error === 'Looks like you do not have access to the uploader!') {
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_ACCESS_DENIED'), translate('ERROR_TITLE'))
+    } else if (req.responseJSON && req.responseJSON.error) {
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_OTHER' + req.responseJSON.error), translate('ERROR_TITLE'))
+    } else {
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_UNKNOWN' + status, translate('ERROR_TITLE')))
+    }
+}

@@ -12,10 +12,6 @@ Template.addvideoprogress.update = function() {
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getProgressByToken/'+token
     : 'https://'+Session.get('upldr')+'.d.tube/getProgressByToken/'+token
-  if (Session.get('scot')) {
-    var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
-    url = url.replace('cluster.d.tube', scotUpldr)
-  }
   var credentials = Session.get('upldr') == 'cluster' ? true : false
   $.ajax({
     cache: false,

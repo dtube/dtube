@@ -55,6 +55,13 @@ Template.publish.events({
       toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
       return
     }
+
+    var steemData = Session.get('tmpVideo').steem
+    var body = null
+    if (steemData && steemData.body)
+      body = steemData.body
+
+      
     $("#editVideo").addClass('disabled')
     $("#editVideo i.podcast").addClass('dsp-non')
     $("#editVideo i.loading").removeClass('dsp-non')
@@ -96,14 +103,23 @@ Template.publish.events({
       toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
       return
     }
+    if (!Template.publish.__helpers[" hasThumbnail"]()) {
+      toastr.error(translate('UPLOAD_ERROR_UPLOAD_SNAP_FILE'), translate('ERROR_TITLE'))
+      return
+    }
+
+    var steemData = Session.get('tmpVideo').steem
+    var body = null
+    if (steemData && steemData.body)
+      body = steemData.body
 
     var burn = parseInt(Session.get('publishBurn'))
     $("#publishVideo").addClass('disabled')
     $("#publishVideo i.podcast").addClass('dsp-non')
     $("#publishVideo i.loading").removeClass('dsp-non')
-    
+
     if (burn > 0) {
-      broadcast.multi.comment(null, null, null, null, null, json, json.tag, burn, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, body, json, json.tag, burn, function(err, res) {
         console.log(err, res)
         $("#publishVideo").removeClass('disabled')
         $("#publishVideo i.loading").addClass('dsp-non')
@@ -202,6 +218,7 @@ Template.publish.events({
         tmpVideo.files = files
         Session.set('tmpVideo', tmpVideo)
         UserSettings.set('tmpVideo', tmpVideo)
+        Template.player.reset()
       }
     })
   },

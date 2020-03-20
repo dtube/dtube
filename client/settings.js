@@ -18,7 +18,8 @@ Meteor.settings.public = {
       "https://rpc.steemviz.com/",
       "https://rpc.usesteem.com/",
       "https://steemd.privex.io/",
-      "https://api.steem.house/"
+      "https://api.steem.house/",
+      "https://api.openhive.network/",
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",

@@ -243,7 +243,7 @@
     "UPLOAD_ERROR_REACH_MAX_SIZE": "Maximum snap file size is",
     "UPLOAD_ERROR_TITLE_REQUIRED": "Title is required",
     "UPLOAD_ERROR_TITLE_TOO_LONG": "Title is too long",
-    "UPLOAD_ERROR_UPLOAD_SNAP_FILE": "Please upload a snap picture",
+    "UPLOAD_ERROR_UPLOAD_SNAP_FILE": "Please upload a thumbnail",
     "UPLOAD_ERROR_LOGIN_BEFORE_UPLOADING": "Please login before uploading",
     "UPLOAD_ERROR_UPLOAD_VIDEO_BEFORE_SUBMITTING": "Please upload a video before submitting",
     "UPLOAD_ERROR_SUBMIT_BLOCKCHAIN": "Error while submitting to the blockchain",

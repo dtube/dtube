@@ -186,17 +186,21 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
   if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
     postUrl = 'https://uploader.oneloved.tube/uploadVideo?access_token=' + Session.get('Upload token for uploader.oneloved.tube')
     formData.append('VideoUpload',file)
-  } else if (Session.get('scot')) {
-    var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
-    postUrl = postUrl.replace('cluster.d.tube', scotUpldr)
-    formData.append('files', file)
   } else {
     formData.append('files', file);
   }
-  console.log(postUrl)
+  // console.log(postUrl, progressid)
 
-  $(progressid).progress({ value: 0, total: 1 })
-  $(progressid).show();
+  if ($(progressid).length) {
+    $(progressid).progress({ value: 0, total: 1 })
+    $(progressid).show();
+  } else {
+    setTimeout(function() {
+      $(progressid).progress({ value: 0, total: 1 })
+      $(progressid).show();
+    }, 150)
+  }
+  
   var credentials = Session.get('upldr') == 'cluster' ? true : false
   let ajaxVideoUpload = {
     cache: false,
@@ -224,16 +228,22 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
 
       $(progressid).hide()
       if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
-        $('input[name="videohash"]').val(result.ipfshash)
-        $('input[name="spritehash"]').val(result.spritehash)
-        return cb(null, result)
+        Session.set('addVideoStep', 'addvideoformfileuploaded')
+        setTimeout(function() {
+          if (result.ipfshash)
+            $('input[name="vid.src"]').val(result.ipfshash)
+          if (result.spritehash)
+            $('input[name="img.spr"]').val(result.spritehash)
+          $('input[name="gw"]').val('video.oneloveipfs.com')
+          cb(null, result)
+        }, 200)
+      } else {
+        Session.set('uploadToken', result.token)
+        refreshUploadStatus = setInterval(function () {
+          Template.addvideoprogress.update()
+        }, 1000)
+        cb(null, result)
       }
-
-      Session.set('uploadToken', result.token)
-      refreshUploadStatus = setInterval(function () {
-        Template.addvideoprogress.update()
-      }, 1000)
-      cb(null, result)
     },
     error: function (error) {
       $(progressid).hide()
@@ -253,16 +263,12 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
 Template.upload.uploadImage = function (file, progressid, cb) {
   if (typeof refreshUploadSnapStatus !== 'undefined') clearInterval(refreshUploadSnapStatus)
   $('#uploadSnap').addClass('disabled')
-  $('#uploadSnap > i').removeClass('cloud upload red')
+  $('#uploadSnap > i').removeClass('file image red')
   $('#uploadSnap > i').addClass('asterisk loading')
   $('#uploadSnap > i').css('background', 'transparent')
   var postUrl = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/uploadImage'
     : 'https://snap1.d.tube/uploadImage'
-  // if (Session.get('scot')) {
-  //   var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
-  //   postUrl = postUrl.replace('snap1.d.tube', scotUpldr)
-  // }
   var formData = new FormData();
   
   if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {

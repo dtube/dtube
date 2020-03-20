@@ -127,40 +127,48 @@
             
             <div class="ui divider"></div>
             <h2>Files</h2>
-            {{#unless hasThumbnail}}
-                <label for="snapFile">
-                    <a class="ui red dtube icon right labeled button needsclick" id="uploadSnap" style='margin-bottom: 10px;'>
-                        <div style="display:inline-block; padding:0.8em 1em;" class="needsclick">
-                        Add Thumbnail
-                        </div>
-                        <i class="cloud upload icon red" style="background:white; opacity:1;"></i>
-                    </a>
-                    </label>
-                <input type="file" id="snapFile" style="display: none;">
-            {{/unless}}
-
-            <div id="addVideo" class="ui labeled button" tabindex="0" style='margin-bottom: 10px;'>
-                <button name="button" class="ui blue right labeled dtube icon button">
-                    <i class="video icon blue" style="background:white;opacity:1;"></i>
-                    <div style="display:inline-block;padding: 0.8em 1em;">Add Video</div>
-                </button>
-            </div>
-
-            <!-- <div id="addSprite" class="ui labeled small button" tabindex="0">
-                <button name="button" class="ui blue right labeled dtube icon button">
-                    <i class="film icon blue" style="background:white;opacity:1;"></i>
-                    <div style="display:inline-block;padding: 0.8em 1em;">Add Sprite</div>
-                </button>
-            </div> -->
-
-            {{#if hasDecentralizedVideo}}
-                <div id="addSubtitle" class="ui labeled button" tabindex="0">
-                    <button name="button" class="ui blue right labeled dtube icon button">
-                        <i class="file alternate icon blue" style="background:white;opacity:1;"></i>
-                        <div style="display:inline-block;padding: 0.8em 1em;">Add Subtitle</div>
-                    </button>
+            <div class="ui three column stackable grid"><div class="row">
+                {{#unless hasThumbnail}}
+                    <div class="column">
+                        <label for="snapFile">
+                            <a class="ui red dtube icon right labeled button needsclick" id="uploadSnap" style='margin-bottom: 10px;'>
+                                <div style="display:inline-block; padding:0.8em 1em;" class="needsclick">
+                                Add Thumbnail
+                                </div>
+                                <i class="file image icon red" style="background:white; opacity:1;"></i>
+                            </a>
+                        </label>
+                        <input type="file" id="snapFile" style="display: none;">
+                    </div>
+                    
+                {{/unless}}
+                <div class="column">
+                    <div id="addVideo" class="ui labeled button" tabindex="0" style='margin-bottom: 10px;'>
+                        <button name="button" class="ui blue right labeled dtube icon button">
+                            <i class="video icon blue" style="background:white;opacity:1;"></i>
+                            <div style="display:inline-block;padding: 0.8em 1em;">Add Video</div>
+                        </button>
+                    </div>
                 </div>
-            {{/if}}
+
+                <!-- <div id="addSprite" class="ui labeled small button" tabindex="0">
+                    <button name="button" class="ui blue right labeled dtube icon button">
+                        <i class="film icon blue" style="background:white;opacity:1;"></i>
+                        <div style="display:inline-block;padding: 0.8em 1em;">Add Sprite</div>
+                    </button>
+                </div> -->
+
+                {{#if hasDecentralizedVideo}}
+                    <div class="column">
+                        <div id="addSubtitle" class="ui labeled button" tabindex="0">
+                            <button name="button" class="ui blue right labeled dtube icon button">
+                                <i class="file alternate icon blue" style="background:white;opacity:1;"></i>
+                                <div style="display:inline-block;padding: 0.8em 1em;">Add Subtitle</div>
+                            </button>
+                        </div>
+                    </div>
+                {{/if}}
+            </div></div>
             
             <table class="ui celled table">
                 <thead>
