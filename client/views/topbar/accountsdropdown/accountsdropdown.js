@@ -40,19 +40,19 @@ Template.accountsdropdown.rendered = () => {
 
     $('.dtcSwitch').checkbox().first().checkbox({
         onChecked: () => {
-            Session.set('isDTCDisabled', true)
+            Session.set('isDTCDisabled', false)
         },
         onUnchecked: () => {
-            Session.set('isDTCDisabled', false)
+            Session.set('isDTCDisabled', true)
         }
     })
 
     $('.steemSwitch').checkbox().first().checkbox({
         onChecked: () => {
-            Session.set('isSteemDisabled', true)
+            Session.set('isSteemDisabled', false)
         },
         onUnchecked: () => {
-            Session.set('isSteemDisabled', false)
+            Session.set('isSteemDisabled', true)
         }
     })
 }
