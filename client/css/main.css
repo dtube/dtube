@@ -669,3 +669,7 @@ button {
   animation-iteration-count: 1;
   filter: blur(0px) contrast(100%);
 }
+
+.networkLogoAccDropdown {
+  margin-left: 10px !important;
+}

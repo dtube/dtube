@@ -1,0 +1,18 @@
+<template name="accountsdropdown">
+    <div class="ui item top inline right floated dropdown dropdownaccounts needsclick" style="float: right;">
+        {{#if hasAnyLogins}}
+        <img class="ui avatar image" src="{{topbarAvatarUrl}}" style="height: 35px; width: auto; border-radius: 50%; vertical-align: middle;">
+        <div style="margin-left: 5px; vertical-align: middle;">{{topbarUsername}}</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <div class="item inline">
+                <i class="left dropdown icon"></i>
+                <img class="ui networkLogoAccDropdown avatar image" src="https://s2.coinmarketcap.com/static/img/coins/32x32/1230.png">
+                {{activeUsernameSteem}}
+            </div>
+        </div>
+        {{else}}
+        {{> buttonlogin}}
+        {{/if}}
+    </div>
+</template>
