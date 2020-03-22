@@ -18,6 +18,10 @@ Template.topbar.helpers({
   },
   saleProgress: function() {
     return Session.get('saleProgress')
+  },
+  hasAnyLogins: () => {
+    if (Session.get('activeUsernameSteem') || Session.get('activeUsername')) return true
+    else return false
   }
 });
 

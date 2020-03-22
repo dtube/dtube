@@ -82,7 +82,13 @@
         {{/if}}
         {{> notificationdropdown}}
         {{> settingsdropdown}}
-        {{> accountsdropdown}}
+        {{#if hasAnyLogins}}
+          {{> accountsdropdown}}
+        {{else}}
+          <div class="topbarLogin">
+            {{> buttonlogin}}
+          </div>
+        {{/if}}
       </div>
     </div>
   {{/if}}

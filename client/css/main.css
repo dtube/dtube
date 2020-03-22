@@ -670,6 +670,13 @@ button {
   filter: blur(0px) contrast(100%);
 }
 
-.networkLogoAccDropdown {
-  margin-left: 10px !important;
+.topbarLogin {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.networkSwitch {
+  margin-top: 6px;
+  margin-left: 20px;
 }
