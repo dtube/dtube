@@ -44,8 +44,6 @@ Template.loginsteem.helpers({
         }
       }
     })
-
-    setTimeout(function(){Template.sidebar.dropdownSteem()}, 200)
   }
   
   Template.loginsteem.events({

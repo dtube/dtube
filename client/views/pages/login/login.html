@@ -1,6 +1,6 @@
 <template name='login'>
   <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
-    <div class="ui top attached tabular menu">
+    <!-- <div class="ui top attached tabular menu">
         <a class="active item" id="steem-tab" data-tab="first">Steem</a>
         <a class="item" id="dtube-tab" data-tab="second">DTube</a>
       </div>
@@ -9,6 +9,53 @@
       </div>
       <div class="ui bottom attached tab segment" data-tab="second">
         {{>loginavalon}}
+    </div> -->
+    {{#if isSelectingNetwork}}
+    <div class="ui form">
+      <h1>Login</h1>
+      <p>DTube supports authentication with multiple networks at the same time. Please select a network to begin:</p>
+      <div class="grouped fields">
+        {{#if noAvalonLogin}}
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="network" value="Avalon">
+            <label>Avalon (DTube Chain)</label>
+          </div>
+        </div>
+        {{/if}}
+        {{#if noHiveLogin}}
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="network" value="Hive">
+            <label>Hive</label>
+          </div>
+        </div>
+        {{/if}}
+        {{#if noSteemLogin}}
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="network" value="Steem">
+            <label>Steem</label>
+          </div>
+        </div>
+        {{/if}}
       </div>
+      <div id="loginNext" class="ui right floated labeled small button" tabindex="0">
+          <button name="button" class="ui blue right labeled dtube icon button">
+              <i class="arrow right icon blue" style="background:white;opacity:1;"></i>
+              <div style="display:inline-block;padding: 0.8em 1em;">Next</div>
+          </button>
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if isAvalonAuth}}
+    {{>loginavalon}}
+    {{/if}}
+
+    {{#if isSteemAuth}}
+    {{>loginsteem}}
+    {{/if}}
+    
   </div>
 </template>
