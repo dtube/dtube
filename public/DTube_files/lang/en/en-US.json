@@ -104,6 +104,7 @@
     "LOGIN_ERROR_AUTHENTIFICATION_FAILED": "Username and Private Posting Key do not match",
     "LOGIN_ERROR_ALREADY_LOGGED": "You are already logged with this account",
     "LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED" : "Steem Keychain is not installed!",
+    "LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED" : "Hive Keychain is not installed!",
     "KEYPAIR_SAVE_KEY_TO_DISK": "Save key to disk",
     "KEYPAIR_PUBLIC_KEY": "Public key",
     "KEYPAIR_PRIVATE_KEY": "Private key",

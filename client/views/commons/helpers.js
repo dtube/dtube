@@ -653,6 +653,10 @@ Template.registerHelper('activeUsernameSteem', function() {
   return Session.get('activeUsernameSteem')
 })
 
+Template.registerHelper('activeUsernameHive', () => {
+  return Session.get('activeUsernameHive')
+})
+
 Template.registerHelper('subCount', function() {
   var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
   if (user)

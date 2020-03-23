@@ -22,8 +22,6 @@ Template.loginavalon.helpers({
     Users.refreshUsers([activeUsername], function() {
       setTimeout(function(){
         // ui shenanigans
-        Template.sidebar.dropdownDTC()
-  
         $('#dispDTC').popup({
           position : 'bottom center',
         })

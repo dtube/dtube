@@ -30,6 +30,32 @@
                 </div>
             </div>
             {{/if}}
+            {{#if activeUsernameHive}}
+            <div class="item inline">
+                <i class="left dropdown icon" style="margin-right: 10px;"></i>
+                <!-- <img class="ui networkLogoAccDropdown avatar image" style="display: inline-block;" src="https://s2.coinmarketcap.com/static/img/coins/32x32/1230.png"> -->
+                <div style="margin-right: 10px;">{{activeUsernameHive}} <div style="font-size: 9px; display: inline-block;">(Hive)</div></div>
+                <div class="left menu">
+                    <div class="ui toggle checkbox hiveSwitch networkSwitch">
+                        <label>Enabled</label>
+                        <input type="checkbox" id="hiveSwitch" name="hiveSwitch">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="header" style='font-size: 1rem'>
+                        <i class="bolt icon"></i>Voting @ {{voteWeightHive}}%
+                        </div>
+                        <div style='text-align: center'>
+                        <div class='ui buttons'>
+                            <button id='minus1vphive' class="ui compact red basic button needsclick" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                            <button id='plus1vphive' class="ui compact blue basic button needsclick" style='width: 50%; border-radius: 0rem;'>+1%</button>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <a class='item' href='/c/{{mainUserHive.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+                    <div class="item logOut logOutHive" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+                </div>
+            </div>
+            {{/if}}
             {{#if activeUsernameSteem}}
             <div class="item inline">
                 <i class="left dropdown icon" style="margin-right: 10px;"></i>

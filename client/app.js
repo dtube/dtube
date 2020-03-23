@@ -2,6 +2,7 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import steem from 'steem';
+import hive from '@hiveio/hive-js'
 
 console.log('Starting DTube APP')
 
@@ -10,6 +11,7 @@ Meteor.startup(function(){
   console.log('DTube APP Started')
   Market.getSaleProgress()
 
+  window.hive = hive
   window.steem = steem
   Session.set('remoteSettings', Meteor.settings.public.remote)
 

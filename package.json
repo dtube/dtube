@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
+    "@hiveio/hive-js": "0.0.1",
     "@trust/webcrypto": "^0.9.0",
     "bufferutil": "^3.0.5",
     "cheerio": "^1.0.0-rc.2",

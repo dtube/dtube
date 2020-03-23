@@ -53,9 +53,12 @@
     {{>loginavalon}}
     {{/if}}
 
+    {{#if isHiveAuth}}
+    {{>loginhive}}
+    {{/if}}
+
     {{#if isSteemAuth}}
     {{>loginsteem}}
     {{/if}}
-    
   </div>
 </template>
