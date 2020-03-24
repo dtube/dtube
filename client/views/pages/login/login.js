@@ -47,6 +47,7 @@ Template.login.events({
         Session.set('loginSteemStep',true)
         break
       default:
+        toastr.error(translate('LOGIN_ERROR_NO_SELECTED_NETWORK'),translate('ERROR_TITLE'))
         break
     }
   }
