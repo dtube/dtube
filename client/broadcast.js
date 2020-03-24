@@ -741,6 +741,39 @@ broadcast = {
                 return;
             }
         }
+    },
+    hive: {
+        subHive: () => {
+            if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return
+            let voter = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' })
+            if (!voter.username) return;
+
+            let operations = JSON.stringify(
+                ['subscribe', {
+                    community: "hive-196037"
+                }]
+            )
+
+            // Hive Keychain
+            if(voter.type == "keychain") {
+                if(!hive_keychain) {
+                    return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                }
+                hive_keychain.requestCustomJson(voter.username, "community", "Posting", operations , "community" ,(response) => {
+                    cb(response.error, response)
+                })
+                return
+            }
+            let wif = voter.privatekey
+            if (wif) hive.broadcast.customJson(
+                wif,
+                [],
+                [voter.username],
+                'community',
+                operations,
+                (err, result) => cb(err, result)
+            )
+        }
     }
 }
 

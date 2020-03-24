@@ -12,19 +12,22 @@ Meteor.settings.public = {
       "http://127.0.0.1:8080"
     ],
     "APINodes": [
-      "https://api.steemit.com/",
-      "https://steemd.minnowsupportproject.org/",
-      "https://anyx.io/",
-      "https://rpc.steemviz.com/",
-      "https://rpc.usesteem.com/",
-      "https://steemd.privex.io/",
-      "https://api.steem.house/",
-      "https://api.openhive.network/",
+      "https://api.steemit.com",
+      "https://api.justyy.com",
+      "https://steemd.privex.io",
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",
       "https://avalon.oneloved.tube",
       "https://avalon.christianknuchel.com"
+    ],
+    "HiveAPINodes": [
+      "https://api.hive.blog",
+      "https://api.openhive.network",
+      "https://api.hivekings.com",
+      "https://rpc.esteem.app",
+      "https://anyx.io",
+      "https://techcoderx.com"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],

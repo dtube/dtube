@@ -28,25 +28,19 @@
           {{/each}}
         </div>
       </div>
-      <!-- THIS OPTION SHOULD BE IN THE PLAYER
       <div class="item">
         <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_GATEWAY'}}</span>
+        <span class="text">{{ translate 'SETTINGS_DROPDOWN_HIVEAPI' }}</span>
         <div class="left menu">
-          {{#if equals 'automatic' ipfsGateway}}
-            <div class="item ipfsGateway automatic"><strong>{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</strong></div>
-          {{else}}
-            <div class="item ipfsGateway automatic">{{ translate 'SETTINGS_DROPDOWN_AUTOMATIC'}}</div>
-          {{/if}}
-          {{#each displayNodes}}
-            {{#if equals this ipfsGateway}}
-              <div class="item ipfsGateway"><strong>{{this}}</strong></div>
+          {{#each HiveAPIs}}
+            {{#if equals this CurrentHiveAPI}}
+              <div class="item hiveApi"><strong>{{this}}</strong></div>
             {{else}}
-              <div class="item ipfsGateway">{{this}}</div>
+              <div class="item hiveApi">{{this}}</div>
             {{/if}}
           {{/each}}
         </div>
-      </div> -->
+      </div>
       <div class="item">
         <i class="left dropdown icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>

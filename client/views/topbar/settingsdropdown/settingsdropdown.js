@@ -19,6 +19,10 @@ Template.settingsdropdown.rendered = function() {
         javalon.init({api: value})
         Session.set('avalonAPI',value)
         localStorage.setItem('avalonAPI',value)
+      } else if (e.hasClass('hiveApi')) {
+        hive.api.setOptions({ url: value, useAppbaseApi: true })
+        Session.set('hiveAPI', value)
+        localStorage.setItem('hiveAPI', value)
       } else if (e.hasClass('ipfsUpload')) {
         Session.set('ipfsUpload', {
           host: value.split('://')[1].split(':')[0],
@@ -94,11 +98,17 @@ Template.settingsdropdown.helpers({
   AvalonAPIs: function() {
     return Session.get('remoteSettings').AvalonAPINodes
   },
+  HiveAPIs: () => {
+    return Session.get('remoteSettings').HiveAPINodes
+  },
   CurrentAPI: function() {
     return Session.get('steemAPI');
   },
   CurrentAvalonAPI: function() {
     return Session.get('avalonAPI')
+  },
+  CurrentHiveAPI: () => {
+    return Session.get('hiveAPI')
   },
   displayNodes: function() {
     return Session.get('remoteSettings').displayNodes;

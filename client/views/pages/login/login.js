@@ -3,6 +3,8 @@ Template.login.rendered = () => {
   Session.set('loginAvalonStep',false)
   Session.set('loginHiveStep',false)
   Session.set('loginSteemStep',false)
+  Session.set('forcePostingKeyHive',false)
+  Session.get('forcePostingKey',false)
 }
 
 Template.login.helpers({

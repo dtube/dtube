@@ -116,12 +116,7 @@ Template.loginhive.success = function(activeUsername, noreroute) {
           isSubd = true
         }
       }
-      if (!isSubd) {
-        console.log('Subscribing to hive...')
-        // broadcast.steem.subHive(function(){
-        //   console.log('Subscribed to hive...')
-        // })
-      }
+      if (!isSubd) broadcast.hive.subHive(() => console.log('Subscribed to hive...'))
     }
   })
 }
