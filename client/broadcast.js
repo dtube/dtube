@@ -72,9 +72,20 @@ broadcast = {
 
             let jsonAvalon = Object.assign({},json)
             let jsonSteem = Object.assign({},json)
-            if (networks.includes('dtc') && networks.includes('steem')) {
+            let jsonHive = Object.assign({},json)
+            if (networks.includes('dtc') && networks.includes('steem') && networks.includes('hive')) {
+                jsonAvalon.refs = [refs[networks.indexOf('steem')],refs[networks.indexOf('hive')]]
+                jsonSteem.refs = [refs[networks.indexOf('dtc')],refs[networks.indexOf('hive')]]
+                jsonHive.refs = [refs[networks.indexOf('dtc')],refs[networks.indexOf('steem')]]
+            } else if (networks.includes('dtc') && networks.includes('steem')) {
                 jsonAvalon.refs = [refs[networks.indexOf('steem')]]
                 jsonSteem.refs = [refs[networks.indexOf('dtc')]]
+            } else if (networks.includes('dtc') && networks.includes('hive')) {
+                jsonAvalon.refs = [refs[networks.indexOf('hive')]]
+                jsonHive.refs = [refs[networks.indexOf('dtc')]]
+            } else if (networks.includes('hive') && networks.includes('steem')) {
+                jsonHive.refs = [refs[networks.indexOf('steem')]]
+                jsonSteem.refs = [refs[networks.indexOf('hive')]]
             }
 
             // Get content from each chain to check for parent posts (in case of comment edits)
@@ -91,6 +102,13 @@ broadcast = {
                 let avalonref = refs[networks.indexOf('dtc')].split('/')
                 getops.dtc = (callback) => {
                     avalon.getContent(avalonref[1],avalonref[2],callback)
+                }
+            }
+
+            if (networks.includes('hive') && Session.get('activeUsernameHive') && !Session.get('isHiveDisabled')) {
+                let hiveref = refs[networks.indexOf('hive')].split('/')
+                getops.hive = (callback) => {
+                    hive.api.getContent(hiveref[1],hiveref[2],callback)
                 }
             }
 
@@ -118,6 +136,25 @@ broadcast = {
                     ]
                     broadcastops.push((callback) => {
                         broadcast.steem.send(steemtx,callback)
+                    })
+                }
+
+                if (originalposts.hive) {
+                    let newHiveJsonMeta = JSON.parse(originalposts.hive.json_metadata)
+                    newHiveJsonMeta.video = jsonHive
+                    let hivetx = [
+                        ['comment',{
+                            parent_author: originalposts.hive.parent_author,
+                            parent_permlink: originalposts.hive.parent_permlink,
+                            author: originalposts.hive.author,
+                            permlink: originalposts.hive.permlink,
+                            title: jsonHive.title,
+                            body: body || originalposts.hive.body,
+                            json_metadata: JSON.stringify(newHiveJsonMeta)
+                        }]
+                    ]
+                    broadcastops.push((callback) => {
+                        broadcast.hive.send(hivetx,callback)
                     })
                 }
 
@@ -784,7 +821,6 @@ broadcast = {
             if (!body)
                 body = genSteemBody(author, permlink, jsonMetadata)
 
-            // console.log(body)
             var jsonMetadata = {
               video: jsonMetadata,
               tags: finalTags,

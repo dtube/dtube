@@ -50,13 +50,13 @@ Template.comment.helpers({
     return FlowRouter.getParam("author")
   },
   picture: function(id) {
-    var username = id.split('/')[1]
+    let username = id.split('/')[1]
     if (id.split('/')[0] == 'steem') {
       return 'https://steemitimages.com/u/'+username+'/avatar/'
-    }
-    else if (id.split('/')[0] == 'dtc') {
+    } else if (id.split('/')[0] == 'dtc') {
       return 'https://image.d.tube/u/'+username+'/avatar/'
-    }
+    } else if (id.split('/')[0] == 'hive')
+      return 'https://images.hive.blog/u/'+username+'/avatar'
   }
 })
 Template.comment.rendered = function () {
