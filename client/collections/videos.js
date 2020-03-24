@@ -533,7 +533,7 @@ Videos.loadFeed = function(username) {
 }
 
 Videos.parseFromChain = function(video, isComment, network) {
-  if (network == 'steem') return Videos.parseFromSteem(video, isComment)
+  if (network == 'steem' || network === 'hive') return Videos.parseFromSteem(video, isComment)
   if (!video || !video.json) return
   video.comments = avalon.generateCommentTree(video, video.author, video.link)
   video.comments = cleanTree(video.comments)

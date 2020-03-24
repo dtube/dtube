@@ -356,13 +356,21 @@ Template.video.loadState = function () {
   avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
     if (err) {
       steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function (err, result) {
-        if (err) throw err;
+        if (err || Object.keys(result.content).length == 0) {
+          hive.api.getState('/dtube/@'+FlowRouter.getParam('author')+'/'+FlowRouter.getParam("permlink"), (hiveerror,hiveresult) => {
+            if (hiveerror) throw hiveerror
+            isLoadingState = false
+            Template.video.handleVideo(hiveresult,'hive/'+FlowRouter.getParam('author')+'/'+FlowRouter.getParam('permlink'),false)
+          })
+        }
         isLoadingState = false
         Template.video.loadScot()
         Template.video.handleVideo(result, 'steem/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
       })
     } else {
       isLoadingState = false
+
+      // Load SCOT (Steem only)
       if (result && result.json && result.json.refs) {
         for (let i = 0; i < result.json.refs.length; i++) {
           if (result.json.refs[i].split('/')[0] === 'steem') {
@@ -401,7 +409,8 @@ Template.video.handleVideo = function(result, id, isRef) {
   if (!result) return
   id = id.split('/')
   var network = id[0]
-  if (network == 'steem') {
+  console.log('netowkr',network)
+  if (network == 'steem' || network == 'hive') {
     if (Object.keys(result.content).length == 0) return
     result.content[id[1]+'/'+id[2]].content = result.content
     result = result.content[id[1]+'/'+id[2]]
@@ -447,37 +456,19 @@ Template.video.handleVideo = function(result, id, isRef) {
     WatchAgain.upsert({ _id: video._id }, video)
   // Waka.db.Articles.upsert(video)
 
-  // load refs
-  if (isRef) {
-    if (video.json.refs) {
-      for (let i = 0; i < video.json.refs.length; i++) {
-        var netw = video.json.refs[i].split('/')[0]
-        if (netw == 'dtc') {
-          Videos.update({_id: video.json.refs[i]+'d'}, {
-            $set: {
-              distSteem: video.distSteem,
-              votesSteem: video.votesSteem,
-              commentsSteem: video.commentsSteem
-            },
-            $inc: {
-              ups: video.ups,
-              downs: video.downs
-            }
-          })
-        }
-        if (netw == 'steem') {
-          Videos.update({_id: video.json.refs[i]+'d'}, {
-            $set: {
-              dist: video.dist,
-              votes: video.votes,
-              comments: video.comments
-            },
-            $inc: {
-              ups: video.ups,
-              downs: video.downs
-            }
-          })
-        }
+  console.log('video',Videos.findOne({_id: video._id}))
+
+  // load cross ref data if isRef == true
+  if (isRef && video.json.refs) {
+    console.log("Referenced",video.json.refs)
+    for (let i = 0; i < video.json.refs.length; i++) {
+      var netw = video.json.refs[i].split('/')[0]
+      console.log("crossref-ed",netw)
+      if (netw == 'dtc') {
+        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+      }
+      if (netw == 'steem') {
+        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs)
       }
     }
   } else if (video.json && video.json.refs) {
@@ -495,8 +486,56 @@ Template.video.handleVideo = function(result, id, isRef) {
           Template.video.handleVideo(result, 'dtc/'+ref[1]+'/'+ref[2], true)
         });
       }
+      if (ref[0] == 'hive') {
+        hive.api.getState('/dtube/@'+ref[1]+'/'+ref[2],(hiveerror,hiveresult) => {
+          if (hiveerror) throw hiveerror
+          Template.video.handleVideo(hiveresult,'hive/'+ref[1]+'/'+ref[2],true)
+        })
+      }
     }
   }
+}
+
+function updateDtc(id,dist,votes,comments,ups,downs) {
+  Videos.update({_id: id}, {
+    $set: {
+      dist: dist,
+      votes: votes,
+      comments: comments
+    },
+    $inc: {
+      ups: ups,
+      downs: downs
+    }
+  })
+}
+
+function updateHive(id,dist,votes,comments,ups,downs) {
+  Videos.update({_id: id}, {
+    $set: {
+      distHive: dist,
+      votesHive: votes,
+      commentsHive: comments
+    },
+    $inc: {
+      ups: ups,
+      downs: downs
+    }
+  })
+}
+
+function updateSteem(id,dist,votes,comments,ups,downs) {
+  Videos.update({_id: id}, {
+    $set: {
+      distSteem: dist,
+      votesSteem: votes,
+      commentsSteem: comments
+    },
+    $inc: {
+      ups: ups,
+      downs: downs
+    }
+  })
 }
 
 Template.video.setScreenMode = function () {

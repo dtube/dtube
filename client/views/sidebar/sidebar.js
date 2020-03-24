@@ -53,12 +53,6 @@ Template.sidebar.events({
     }
 
   },
-  'click #disableSteem': function() {
-    Session.set('isSteemDisabled', !Session.get('isSteemDisabled'))
-  },
-  'click #disableDTC': function() {
-    Session.set('isDTCDisabled', !Session.get('isDTCDisabled'))
-  },
 })
 
 Template.sidebar.resetActiveMenu = function () {
@@ -128,8 +122,6 @@ Template.sidebar.half = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.full = function() {
@@ -138,8 +130,6 @@ Template.sidebar.full = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.empty = function() {
@@ -153,6 +143,4 @@ Template.sidebar.mobile = function() {
   .sidebar('setting', 'dimPage', true)
   .sidebar('setting', 'closable', true)
   .sidebar('toggle')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }
