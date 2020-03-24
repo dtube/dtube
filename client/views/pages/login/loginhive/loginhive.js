@@ -25,17 +25,17 @@ Template.loginhive.events({
     hive_keychain.requestHandshake(function() {
         console.log('Handshake received!')
     })
-    var username = document.getElementById("keychain_username").value.toLowerCase().replace('@','')
+    let username = document.getElementById("keychain_username").value.toLowerCase().replace('@','')
     hive_keychain.requestSignBuffer(username, "dtube_login-" + Math.round(99999999999*Math.random()), "Posting", function(response) {
         if(response.success === true) {
-          var currentUser = Session.get('activeUsernameHive')
-          var username = response.data.username
+          let currentUser = Session.get('activeUsernameHive')
+          let username = response.data.username
           if (currentUser == username)
           {
             toastr.error(translate('LOGIN_ERROR_ALREADY_LOGGED'), translate('ERROR_TITLE'))
             return
           }
-          var user = {
+          let user = {
               username: response.data.username,
               type: "keychain",
               network: "hive"

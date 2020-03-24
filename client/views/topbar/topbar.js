@@ -7,7 +7,7 @@ Template.topbar.helpers({
     return Session.get('searchSuggestions')
   },
   isLoggedOn: function () {
-    if (Session.get('activeUsername') || Session.get('activeUsernameSteem'))
+    if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
       return true
     return false
   },
@@ -18,10 +18,6 @@ Template.topbar.helpers({
   },
   saleProgress: function() {
     return Session.get('saleProgress')
-  },
-  hasAnyLogins: () => {
-    if (Session.get('activeUsernameSteem') || Session.get('activeUsername')) return true
-    else return false
   }
 });
 

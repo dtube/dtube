@@ -11,6 +11,8 @@ usersObserver = new PersistentMinimongo2(Users, 'users', function() {
       Template.loginsteem.success(users[o].username, true)
     if (users[o].network == 'avalon')
       Template.loginavalon.success(users[o].username, true)
+    if (users[o].network == 'hive')
+      Template.loginhive.success(users[o].username, true)
   }
 });
 
