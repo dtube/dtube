@@ -162,12 +162,13 @@ Template.video.events({
     });
   },
   'click .upvote': function (event) {
-    var author = FlowRouter.getParam("author")
-    var permlink = FlowRouter.getParam("permlink")
-    var weight = UserSettings.get('voteWeight') * 100
-    var weightSteem = UserSettings.get('voteWeightSteem') * 100
-    var refs = Session.get('currentRefs')
-    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
+    let author = FlowRouter.getParam("author")
+    let permlink = FlowRouter.getParam("permlink")
+    let weight = UserSettings.get('voteWeight') * 100
+    let weightSteem = UserSettings.get('voteWeightSteem') * 100
+    let weightHive = UserSettings.get('voteWeightHive') * 100
+    let refs = Session.get('currentRefs')
+    broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -178,12 +179,13 @@ Template.video.events({
     });
   },
   'click .downvote': function (event) {
-    var author = FlowRouter.getParam("author")
-    var permlink = FlowRouter.getParam("permlink")
-    var weight = UserSettings.get('voteWeight') * -100
-    var weightSteem = UserSettings.get('voteWeightSteem') * -100
-    var refs = Session.get('currentRefs')
-    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
+    let author = FlowRouter.getParam("author")
+    let permlink = FlowRouter.getParam("permlink")
+    let weight = UserSettings.get('voteWeight') * -100
+    let weightSteem = UserSettings.get('voteWeightSteem') * -100
+    let weightHive = UserSettings.get('voteWeightHive') * -100
+    let refs = Session.get('currentRefs')
+    broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))

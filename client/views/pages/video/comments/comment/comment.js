@@ -1,16 +1,17 @@
 Template.comment.events({
   'click .downvoteComment': function (event) {
-    var refs = $(event.target).data('refs')
+    let refs = $(event.target).data('refs')
     if (!refs) refs = $(event.target).parent().data('refs')
     if (!refs) refs = []
     else refs = refs.split(',')
-    var id = $(event.target).data('id')
+    let id = $(event.target).data('id')
     if (!id) id = $(event.target).parent().data('id')
     refs.push(id)
-    var weight = UserSettings.get('voteWeight') * -100
-    var weightSteem = UserSettings.get('voteWeightSteem') * -100
+    let weight = UserSettings.get('voteWeight') * -100
+    let weightSteem = UserSettings.get('voteWeightSteem') * -100
+    let weightHive = UserSettings.get('voteWeightHive') * -100
 
-    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
+    broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', id))
@@ -21,17 +22,18 @@ Template.comment.events({
     });
   },
   'click .upvoteComment': function (event) {
-    var refs = $(event.target).data('refs')
+    let refs = $(event.target).data('refs')
     if (!refs) refs = $(event.target).parent().data('refs')
     if (!refs) refs = []
     else refs = refs.split(',')
-    var id = $(event.target).data('id')
+    let id = $(event.target).data('id')
     if (!id) id = $(event.target).parent().data('id')
     refs.push(id)
-    var weight = UserSettings.get('voteWeight') * 100
-    var weightSteem = UserSettings.get('voteWeightSteem') * 100
+    let weight = UserSettings.get('voteWeight') * 100
+    let weightSteem = UserSettings.get('voteWeightSteem') * 100
+    let weightHive = UserSettings.get('voteWeightHive') * 100
     
-    broadcast.multi.vote(refs, weight, weightSteem, '', function (err, result) {
+    broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function (err, result) {
       if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
       else {
         toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', id))
