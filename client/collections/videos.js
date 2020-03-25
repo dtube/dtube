@@ -533,7 +533,7 @@ Videos.loadFeed = function(username) {
 }
 
 Videos.parseFromChain = function(video, isComment, network) {
-  if (network == 'steem' || network === 'hive') return Videos.parseFromSteem(video, isComment)
+  if (network == 'steem' || network === 'hive') return Videos.parseFromSteem(video, isComment, network)
   if (!video || !video.json) return
   video.comments = avalon.generateCommentTree(video, video.author, video.link)
   video.comments = cleanTree(video.comments)
@@ -583,9 +583,10 @@ Videos.parseFromChain = function(video, isComment, network) {
   return video;
 }
 
-Videos.parseFromSteem = function(video, isComment) {
+Videos.parseFromSteem = function(video, isComment, network) {
+  let newVideo
   if (isComment) {
-    var newVideo = {
+    newVideo = {
       json: {
         refs: [],
         description: video.body,
@@ -594,7 +595,7 @@ Videos.parseFromSteem = function(video, isComment) {
     }
   }
   else try {
-    var newVideo = {
+    newVideo = {
       json: JSON.parse(video.json_metadata).video
     }
     if (newVideo.json.info && newVideo.json.content)
@@ -627,7 +628,7 @@ Videos.parseFromSteem = function(video, isComment) {
         title: video.title
       }
     }
-    newVideo.commentsSteem = Videos.commentsTree(video.content, video.author, video.permlink)    
+    newVideo.commentsSteem = Videos.commentsTree(video.content, video.author, video.permlink, network)    
   }
   
   
@@ -644,7 +645,7 @@ Videos.parseFromSteem = function(video, isComment) {
 
     newVideo.distScot.push({token: video.token, value: distScot})
   } else {
-    // steem rewards
+    // steem/hive rewards
     if (video.pending_payout_value)
       newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', ''))/1000
     if (video.total_payout_value.split(' ')[0] > 0) {
@@ -710,7 +711,7 @@ Videos.parseFromSteem = function(video, isComment) {
     if (!hasTheTag) return
   }
 
-  if (!newVideo._id) newVideo._id = 'steem/'+newVideo.author+'/'+newVideo.permlink
+  if (!newVideo._id) newVideo._id = network + '/'+newVideo.author+'/'+newVideo.permlink
   if (!newVideo.json.thumbnailUrl)
     newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(video)
   return newVideo;
@@ -755,13 +756,13 @@ Videos.getDescription = function(json) {
   return ''
 }
 
-Videos.commentsTree = function(content, rootAuthor, rootPermlink) {
+Videos.commentsTree = function(content, rootAuthor, rootPermlink, network) {
   if (!content) return []
   var rootVideo = content[rootAuthor+'/'+rootPermlink]
   var comments = []
   for (var i = 0; i < rootVideo.replies.length; i++) {
-    var comment = Videos.parseFromSteem(content[rootVideo.replies[i]], true)
-    comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink)
+    var comment = Videos.parseFromSteem(content[rootVideo.replies[i]], true, network)
+    comment.comments = Videos.commentsTree(content, content[rootVideo.replies[i]].author, content[rootVideo.replies[i]].permlink, network)
     comments.push(comment)
   }
   comments = comments.sort(function(a,b) {

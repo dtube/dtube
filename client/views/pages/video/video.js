@@ -1,9 +1,14 @@
 var isLoadingState = false
+let netarr = []
 
 Template.video.rendered = function () {
   Session.set('isSearchingMobile', false)
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
+  Session.set('isSteemRefLoaded',false)
+  Session.set('isHiveRefLoaded',false)
+  Session.set('isDTCRefLoaded',false)
+  Session.set('urlNet','')
   Template.video.setScreenMode();
   $(window).on('resize', Template.video.setScreenMode)
   Template.sidebar.resetActiveMenu()
@@ -362,6 +367,7 @@ Template.video.loadState = function () {
           hive.api.getState('/dtube/@'+FlowRouter.getParam('author')+'/'+FlowRouter.getParam("permlink"), (hiveerror,hiveresult) => {
             if (hiveerror) throw hiveerror
             isLoadingState = false
+            Session.set('urlNet','hive')
             Template.video.handleVideo(hiveresult,'hive/'+FlowRouter.getParam('author')+'/'+FlowRouter.getParam('permlink'),false)
           })
         }
@@ -371,6 +377,7 @@ Template.video.loadState = function () {
       })
     } else {
       isLoadingState = false
+      Session.set('urlNet','steem')
 
       // Load SCOT (Steem only)
       if (result && result.json && result.json.refs) {
@@ -380,7 +387,7 @@ Template.video.loadState = function () {
           }
         }
       }
-      
+      Session.set('urlNet','dtc')
       Template.video.handleVideo(result, 'dtc/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
     }
   });
@@ -448,29 +455,35 @@ Template.video.handleVideo = function(result, id, isRef) {
       for (let i = 0; i < video.json.refs.length; i++)
         refs.push(video.json.refs[i])
     Session.set('currentRefs', refs)
-  }
-    
 
+    for (let i = 0; i < Session.get('currentRefs').length; i++) {
+      let net = Session.get('currentRefs')[i].split('/')[0]
+      netarr.push(net)
+    }
+  }
   video.source = 'chainDirect'
   video._id += 'd'
   Videos.upsert({ _id: video._id }, video)
   if (network == 'dtc')
     WatchAgain.upsert({ _id: video._id }, video)
-  // Waka.db.Articles.upsert(video)
-
-  console.log('video',Videos.findOne({_id: video._id}))
 
   // load cross ref data if isRef == true
   if (isRef && video.json.refs) {
     console.log("Referenced",video.json.refs)
     for (let i = 0; i < video.json.refs.length; i++) {
       var netw = video.json.refs[i].split('/')[0]
-      console.log("crossref-ed",netw)
+      console.log('netw is ' + netw)
       if (netw == 'dtc') {
         updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
       }
       if (netw == 'steem') {
         updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs)
+        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+      }
+      if (netw == 'hive') {
+        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs)
+        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
       }
     }
   } else if (video.json && video.json.refs) {
@@ -499,6 +512,17 @@ Template.video.handleVideo = function(result, id, isRef) {
 }
 
 function updateDtc(id,dist,votes,comments,ups,downs) {
+  // Do not update more than once
+  if (Session.get('isDTCRefLoaded')) return
+
+  // Update only if not permlink network
+  if (Session.get('urlNet') == 'dtc') return
+
+  // Do not update if network not part of refs
+  if (!netarr.includes('dtc')) return
+
+  Session.set('isDTCRefLoaded',true)
+  console.log('dtc updated?')
   Videos.update({_id: id}, {
     $set: {
       dist: dist,
@@ -513,6 +537,12 @@ function updateDtc(id,dist,votes,comments,ups,downs) {
 }
 
 function updateHive(id,dist,votes,comments,ups,downs) {
+  if (Session.get('isHiveRefLoaded')) return
+  if (Session.get('urlNet') == 'hive') return
+  if (!netarr.includes('hive')) return
+  Session.set('isHiveRefLoaded',true)
+  console.log('hive updated?')
+  
   Videos.update({_id: id}, {
     $set: {
       distHive: dist,
@@ -527,6 +557,12 @@ function updateHive(id,dist,votes,comments,ups,downs) {
 }
 
 function updateSteem(id,dist,votes,comments,ups,downs) {
+  if (Session.get('isSteemRefLoaded')) return
+  if (Session.get('urlNet') == 'steem') return
+  if (!netarr.includes('steem')) return
+  Session.set('isSteemRefLoaded',true)
+  console.log('steem updated?')
+
   Videos.update({_id: id}, {
     $set: {
       distSteem: dist,
