@@ -1,5 +1,5 @@
 Template.addvideo.rendered = function () {
-    if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem')) {
+    if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem') && !Session.get('activeUsernameHive')) {
         FlowRouter.go('/login')
         return
     }
@@ -216,7 +216,7 @@ Template.addvideoformfileuploaded.events({
     'click #addvideofinish': function () {
         var files = Template.addvideohashes.fillHashes()
         if (files) {
-            if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
+            if (Session.get('uploadEndpoint') === 'beta.oneloved.tube')
                 Template.addvideo.addFiles('ipfs', files)
             else
                 Template.addvideo.addFiles('btfs', files)
@@ -262,22 +262,22 @@ Template.addvideoformfile.rendered = function() {
         action: 'activate',
         onChange: (value,text) => {
           $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
-          // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
-          if (value === 'uploader.oneloved.tube') {
-            if (!Session.get('activeUsernameSteem')) { 
+          // If beta.oneloved.tube endpoint selected, check if user is in uploader whitelist
+          if (value === 'beta.oneloved.tube') {
+            if (!Session.get('activeUsernameHive')) { 
               $('#uploadEndpointSelection').dropdown('restore defaults')
-              return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_STEEM_USERNAME'), translate('ERROR_TITLE'))
+              return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_HIVE_USERNAME'), translate('ERROR_TITLE'))
             }
             $('#uploadEndpointSelection').parent().addClass('loading')
             $.ajax({
-              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameSteem'),
+              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameHive'),
               method: 'GET',
               success: (result) => {
-                broadcast.steem.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
-                  if (err === 'LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED') {
+                broadcast.hive.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
+                  if (err === 'LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED') {
                     $('#uploadEndpointSelection').dropdown('restore defaults')
                     $('#uploadEndpointSelection').parent().removeClass('loading')
-                    return toastr.error(translate('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
+                    return toastr.error(translate('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
                   } else if (err) {
                     $('#uploadEndpointSelection').dropdown('restore defaults')
                     $('#uploadEndpointSelection').parent().removeClass('loading')

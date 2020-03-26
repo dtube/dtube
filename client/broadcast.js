@@ -953,6 +953,19 @@ broadcast = {
                 return
             }
         },
+        decrypt_memo: (memo,cb) => {
+            if (!Session.get('activeUsernameHive')) return
+            if (Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive'}).type == 'keychain') {
+                if (!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                hive_keychain.requestVerifyKey(Session.get('activeUsernameHive'),memo,'Posting',(response) => {
+                    cb(response.error,response.result.substr(1))
+                })
+                return
+            }
+            let wif = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).privatekey
+            let decoded = hive.memo.decode(wif,memo).substr(1)
+            cb(null,decoded)
+        }
     }
 }
 

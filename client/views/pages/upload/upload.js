@@ -1,5 +1,7 @@
 var cheerio = require('cheerio')
 var parse = require('url-parse')
+const tus = require('tus-js-client')
+const socketio = require('socket.io-client')
 refreshUploadStatus = null
 
 Template.upload.rendered = function () {
@@ -18,8 +20,8 @@ Template.upload.rendered = function () {
     action: 'activate',
     onChange: (value,text) => {
       $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
-      // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
-      if (value === 'uploader.oneloved.tube') {
+      // If beta.oneloved.tube endpoint selected, check if user is in uploader whitelist
+      if (value === 'beta.oneloved.tube') {
         if (!Session.get('activeUsernameSteem')) { 
           $('#uploadEndpointSelection').dropdown('restore defaults')
           return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_STEEM_USERNAME'), translate('ERROR_TITLE'))
@@ -127,7 +129,7 @@ Template.upload.inputVideo = function (dt) {
 }
 
 Template.upload.setBestUploadEndpoint = function (cb) {
-  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') return cb()
+  if (Session.get('uploadEndpoint') === 'beta.oneloved.tube') return cb()
   if (Session.get('remoteSettings').localhost == true) {cb(); return}
   if (Session.get('upldr')) {cb();return}
   var uploaders = Session.get('remoteSettings').upldr
@@ -183,13 +185,8 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
     : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
   let formData = new FormData()
 
-  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
-    postUrl = 'https://uploader.oneloved.tube/uploadVideo?access_token=' + Session.get('Upload token for uploader.oneloved.tube')
-    formData.append('VideoUpload',file)
-  } else {
-    formData.append('files', file);
-  }
-  // console.log(postUrl, progressid)
+  if (Session.get('uploadEndpoint') !== 'beta.oneloved.tube')
+    formData.append('files',file)
 
   if ($(progressid).length) {
     $(progressid).progress({ value: 0, total: 1 })
@@ -200,7 +197,52 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
       $(progressid).show();
     }, 150)
   }
+
+  // Use resumable upload API for OneLoveIPFS service
+  if (Session.get('uploadEndpoint') === 'beta.oneloved.tube') {
+    let uplStat = socketio.connect('https://beta.oneloved.tube/uploadStat')
+    uplStat.on('result',(result) => {
+      Session.set('addVideoStep', 'addvideoformfileuploaded')
+      setTimeout(() => {
+        if (result.ipfshash)
+          $('input[name="vid.src"]').val(result.ipfshash)
+        if (result.spritehash)
+          $('input[name="img.spr"]').val(result.spritehash)
+        $('input[name="gw"]').val('video.oneloveipfs.com')
+        cb(null, result)
+      }, 200)
+    })
+
+    let tusVideoUpload = new tus.Upload(file,{
+      endpoint: 'https://tusd.oneloved.tube/files',
+      retryDelays: [0,3000,5000,10000,20000],
+      metadata: {
+        access_token: Session.get('Upload token for beta.oneloved.tube'),
+        keychain: true,
+        type: 'videos'
+      },
+      onError: (e) => {
+        $(progressid).hide()
+        cb(error)
+      },
+      onProgress: (bu,bt) => {
+        $(progressid).progress({ value: bu, total: bt})
+      },
+      onSuccess: () => {
+        let idurl = tusVideoUpload.url.toString().split('/')
+        uplStat.emit('registerid',{
+          id: idurl[idurl.length - 1],
+          type: 'videos',
+          access_token: Session.get('Upload token for beta.oneloved.tube'),
+          keychain: 'true'
+        })
+      }
+    })
+    tusVideoUpload.start()
+    return
+  }
   
+  // Default BTFS upload clusters
   var credentials = Session.get('upldr') == 'cluster' ? true : false
   let ajaxVideoUpload = {
     cache: false,
@@ -209,6 +251,9 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
     processData: false,
     type: "POST",
     url: postUrl,
+    xhrFields: {
+      withCredentials: credentials
+    },
     xhr: function () {
       // listen for progress events on the upload
       var xhr = new window.XMLHttpRequest();
@@ -227,33 +272,15 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
         result = JSON.parse(result)
 
       $(progressid).hide()
-      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
-        Session.set('addVideoStep', 'addvideoformfileuploaded')
-        setTimeout(function() {
-          if (result.ipfshash)
-            $('input[name="vid.src"]').val(result.ipfshash)
-          if (result.spritehash)
-            $('input[name="img.spr"]').val(result.spritehash)
-          $('input[name="gw"]').val('video.oneloveipfs.com')
-          cb(null, result)
-        }, 200)
-      } else {
-        Session.set('uploadToken', result.token)
-        refreshUploadStatus = setInterval(function () {
-          Template.addvideoprogress.update()
-        }, 1000)
-        cb(null, result)
-      }
+      Session.set('uploadToken', result.token)
+      refreshUploadStatus = setInterval(function () {
+        Template.addvideoprogress.update()
+      }, 1000)
+      cb(null, result)
     },
     error: function (error) {
       $(progressid).hide()
       cb(error)
-    }
-  }
-
-  if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube') {
-    ajaxVideoUpload.xhrFields = {
-      withCredentials: credentials
     }
   }
 
@@ -271,8 +298,8 @@ Template.upload.uploadImage = function (file, progressid, cb) {
     : 'https://snap1.d.tube/uploadImage'
   var formData = new FormData();
   
-  if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
-    postUrl = 'https://uploader.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+  if (Session.get('uploadEndpoint') === 'beta.oneloved.tube') {
+    postUrl = 'https://beta.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for beta.oneloved.tube')
     formData.append('image',file)
   } else {
     formData.append('files', file)
@@ -303,7 +330,7 @@ Template.upload.uploadImage = function (file, progressid, cb) {
         result = JSON.parse(result)
       $(progressid).hide()
 
-      if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+      if (Session.get('uploadEndpoint') === 'beta.oneloved.tube') {
         $('input[name="snaphash"]').val(result.imghash)
         Session.set('overlayHash',result.imghash)
         $('#uploadSnap').removeClass('disabled')
