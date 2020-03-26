@@ -3,28 +3,36 @@
     {{#if isSelectingNetwork}}
       <h1>Login</h1>
       <p>DTube supports authentication with multiple networks at the same time. Please select a network to begin:</p>
-      {{#if noAvalonLogin}}
-      <div class="column loginOption" data-network="Avalon">
-        {{#if isNightMode}}
-        <img style="width: 100%" src="./DTube_files/images/logos/dtube_white.png">
-        {{else}}
-        <img style="width: 100%" src="./DTube_files/images/logos/dtube.png">
+      {{#each randomOrder}}
+        {{#if equals this 'steem'}}
+          {{#if noSteemLogin}}
+          <div class="column loginOption" data-network="Steem">
+            <img style="width: 100%" src="./DTube_files/images/logos/steem.png">
+            <span>Steem</span>
+          </div>
+          {{/if}}
         {{/if}}
-        <span>DTube</span>
-      </div>
-      {{/if}}
-      {{#if noHiveLogin}}
-      <div class="column loginOption" data-network="Hive">
-        <img style="width: 100%" src="./DTube_files/images/logos/hive.png">
-        <span>Hive</span>
-      </div>
-      {{/if}}
-      {{#if noSteemLogin}}
-      <div class="column loginOption" data-network="Steem">
-        <img style="width: 100%" src="./DTube_files/images/logos/steem.png">
-        <span>Steem</span>
-      </div>
-      {{/if}}
+        {{#if equals this 'hive'}}
+          {{#if noHiveLogin}}
+          <div class="column loginOption" data-network="Hive">
+            <img style="width: 100%" src="./DTube_files/images/logos/hive.png">
+            <span>Hive</span>
+          </div>
+          {{/if}}
+        {{/if}}
+        {{#if equals this 'dtc'}}
+          {{#if noAvalonLogin}}
+          <div class="column loginOption" data-network="Avalon">
+            {{#if isNightMode}}
+            <img style="width: 100%" src="./DTube_files/images/logos/dtube_white.png">
+            {{else}}
+            <img style="width: 100%" src="./DTube_files/images/logos/dtube.png">
+            {{/if}}
+            <span>DTube</span>
+          </div>
+          {{/if}}
+        {{/if}}
+      {{/each}}
     {{/if}}
 
     {{#if isAvalonAuth}}
