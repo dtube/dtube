@@ -110,6 +110,11 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         cb(err, finished)
       })
     }
+    if (user.json && user.json.profile && (user.json.profile.hive || user.json.profile.steem)) {
+      Videos.getVideosByBlogHive(user.json.profile.hive || user.json.profile.steem,(err,finished) => {
+        cb(err,finished)
+      })
+    }
   } else {
     Videos.getVideosByBlogSteem(author, function(err, finished) {
       cb(err, finished)
@@ -224,6 +229,75 @@ Videos.getVideosByBlogSteem = function(author, cb) {
       cb(null, true)
   })
 }
+
+Videos.getVideosByBlogHive = function (author,cb) {
+  var query = {
+    tag: author,
+    limit: Session.get('remoteSettings').loadLimit,
+    truncate_body: 1
+  };
+  if (Session.get('lastBlogs')['hive/'+author]) {
+    query.start_author = Session.get('lastBlogs')['hive/'+author].author
+    query.start_permlink = Session.get('lastBlogs')['hive/'+author].permlink
+  }
+  hive.api.getDiscussionsByBlog(query, function(err, result) {
+    if (err) {
+      cb(err);
+      return
+    }
+    if (!result || result.length == 0) {
+      cb(null)
+      return
+    }
+    Videos.setLastBlog('hive/'+author, result[result.length-1])
+    var i, len = result.length;
+    var videos = []
+    for (i = 0; i < len; i++) {
+      var video = Videos.parseFromChain(result[i], false, 'hive')
+      if (video) videos.push(video)
+    }
+    for (var i = 0; i < videos.length; i++) {
+      videos[i].source = 'chainByBlog'
+      videos[i]._id += 'b'
+      videos[i].fromBlog = FlowRouter.getParam("author")
+      var existingVideo = null
+      if (videos[i].json && videos[i].json.refs) {
+        for (let y = 0; y < videos[i].json.refs.length; y++) {
+          var existingVideo = Videos.findOne({_id: videos[i].json.refs[y]+'b'})
+          if (existingVideo) break
+        }
+      }
+      if (existingVideo) {
+        try {
+          Videos.update({_id: existingVideo._id}, {
+            $set: {
+              distHive: videos[i].distSteem,
+              votesHive: videos[i].votesSteem,
+              commentsHive: videos[i].commentsSteem
+            },
+            $inc: {
+              ups: videos[i].ups,
+              downs: videos[i].downs
+            }
+          })
+        } catch (err) {
+          cb(err)
+        }
+      } else {
+        try {
+          Videos.upsert({ _id: videos[i]._id }, videos[i])
+        } catch (err) {
+          cb(err)
+        }
+      }
+    }
+    if (result.length == Session.get('remoteSettings').loadLimit)
+      cb(null, false)
+    else
+      cb(null, true)
+  })
+}
+
 Videos.getVideosByBlogAvalon = function(author, cb) {
   var start_author = null
   var start_permlink = null
