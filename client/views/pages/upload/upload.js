@@ -533,7 +533,7 @@ Template.upload.events({
     
     var burn = parseInt(Session.get('publishBurn'))
     if (burn > 0) {
-      broadcast.multi.comment(null, null, null, null, null, content, tag, burn, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, null, null, null, content, tag, burn, function(err, res) {
         console.log(err, res)
         $(".uploadsubmit").removeClass('disabled')
         $(".uploadsubmit > i.loading").addClass('dsp-non')
@@ -543,7 +543,7 @@ Template.upload.events({
         else FlowRouter.go('/v/' + res[0])
       })
     } else {
-      broadcast.multi.comment(null, null, null, null, null, content, tag, null, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, null, null, null, content, tag, null, function(err, res) {
         console.log(err, res)
         $(".uploadsubmit").removeClass('disabled')
         $(".uploadsubmit > i.loading").addClass('dsp-non')

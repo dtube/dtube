@@ -2,7 +2,7 @@ var parallel = require('run-parallel')
 
 broadcast = {
     multi: {
-        comment: function(paSteem, ppSteem, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
+        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
             let authorAvalon = !Session.get('isDTCDisabled') ? Session.get('activeUsername') : null

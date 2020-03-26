@@ -210,9 +210,16 @@ Template.video.events({
     Session.set('replyingTo', replyingTo)
   },
   'click .submit': function (event) {
-    var body = $(event.currentTarget).prev().children()[0].value
-    var jsonMetadata = {
-      app: 'deadtube',
+    // Grammarly fix
+    let body
+    let commentbox = $(event.currentTarget).prev().children()
+    for (let i = 0; i < commentbox.length; i++) {
+      if (commentbox[i].type === "textarea") {
+        body = commentbox[i].value
+      }
+    }
+    let jsonMetadata = {
+      app: 'dtube/0.9',
       description: body,
       title: ''
     }
@@ -241,13 +248,17 @@ Template.video.events({
           paSteem = ref.split('/')[1]
           ppSteem = ref.split('/')[2]
         }
+        if (ref.split('/')[0] == 'hive') {
+          paHive = ref.split('/')[1]
+          ppHive = ref.split('/')[2]
+        }
       }
-      broadcast.multi.comment(paSteem, ppSteem, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', null, function (err, result) {
+      broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', null, function (err, result) {
         console.log(err, result)
         if (err) {
           $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
           $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-          toastr.error(err.payload.error.data.stack[0].format, 'Error')
+          toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
           return
         }
         $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
@@ -263,7 +274,7 @@ Template.video.events({
           if (err) {
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
             $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-            toastr.error(err.payload.error.data.stack[0].format, 'Error')
+            toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
             return
           }
           $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
@@ -278,7 +289,22 @@ Template.video.events({
           if (err) {
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
             $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-            toastr.error(err.payload.error.data.stack[0].format, 'Error')
+            toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
+            return
+          }
+          $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
+          Template.video.loadState()
+          Session.set('replyingTo', null)
+          document.getElementById('replytext').value = "";
+          $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
+        });
+      if (refs[0].split('/')[0] == 'hive')
+        broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '',false, function (err, result) {
+          console.log(err, result)
+          if (err) {
+            $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+            $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
+            toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
             return
           }
           $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');

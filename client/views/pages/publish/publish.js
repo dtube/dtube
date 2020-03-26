@@ -120,7 +120,7 @@ Template.publish.events({
     $("#publishVideo i.loading").removeClass('dsp-non')
 
     if (burn > 0) {
-      broadcast.multi.comment(null, null, null, null, body, json, json.tag, burn, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, null, null, body, json, json.tag, burn, function(err, res) {
         console.log(err, res)
         $("#publishVideo").removeClass('disabled')
         $("#publishVideo i.loading").addClass('dsp-non')
@@ -134,7 +134,7 @@ Template.publish.events({
         }
       })
     } else {
-      broadcast.multi.comment(null, null, null, null, null, json, json.tag, null, function(err, res) {
+      broadcast.multi.comment(null, null, null, null, null, null, null, json, json.tag, null, function(err, res) {
         console.log(err, res)
         $("#publishVideo").removeClass('disabled')
         $("#publishVideo i.loading").addClass('dsp-non')
