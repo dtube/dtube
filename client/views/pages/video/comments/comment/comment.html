@@ -11,7 +11,7 @@
         {{/if}}
         <div class="metadata">
           <a class="date" href='/v/{{author}}/{{link}}'>{{timeAgo ts}}</a>
-          <span class="money">{{displayRewards dist distSteem distScot}}</span>
+          <span class="money">{{displayRewards dist distSteem distScot distHive}}</span>
         </div>
         <div class="text" style="word-wrap: normal;flex-wrap: wrap;overflow: hidden; margin-top: 10px;">
           {{{syntaxed json.description}}}
@@ -19,16 +19,16 @@
         <div class="actions noselect">
           {{#if hasUpvoted this}}
             <a class="upvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
-            <i class="thumbs up icon red"></i> {{uniques votes votesSteem 'up'}}</a>
+            <i class="thumbs up icon red"></i> {{uniques votes votesSteem votesHive 'up'}}</a>
           {{else}}
             <a class="upvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
-            <i class="thumbs up icon"></i> {{uniques votes votesSteem 'up'}}</a>
+            <i class="thumbs up icon"></i> {{uniques votes votesSteem votesHive 'up'}}</a>
           {{/if}} {{#if hasDownvoted this}}
             <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
-            <i class="thumbs down icon red"></i> {{uniques votes votesSteem 'down'}}</a>
+            <i class="thumbs down icon red"></i> {{uniques votes votesSteem votesHive 'down'}}</a>
           {{else}}
             <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
-            <i class="thumbs down icon"></i> {{uniques votes votesSteem 'down'}}</a>
+            <i class="thumbs down icon"></i> {{uniques votes votesSteem votesHive 'down'}}</a>
           {{/if}}
           <a class="replyTo ui blue" data-refs='{{json.refs}}' data-id='{{_id}}'>{{ translate 'GLOBAL_REPLY'}}</a>
         </div>

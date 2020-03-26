@@ -1,5 +1,5 @@
 <template name="topupvoters">
-    {{#each topVoters votes votesSteem 3}}
+    {{#each topVoters votes votesSteem votesHive 3}}
         <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VP){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
             {{#if equals network 'dtc'}}
                 <a id="top-curator" href="/c/{{u}}">
@@ -27,12 +27,25 @@
                 {{/if}}
                 </a>
             {{/if}}
+            {{#if equals network 'hive'}}
+                <a id="top-curator" href="/c/{{voter}}">
+                {{#if downvote}}
+                <span class="ui image avatar circular "
+                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
+                </span>
+                {{else}}
+                <span class="ui image avatar circular "
+                    style="z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
+                </span>
+                {{/if}}
+                </a>
+            {{/if}}
         </span>
     {{/each}}
-    {{#if nonTopVotesCount votes votesSteem 3}}
+    {{#if nonTopVotesCount votes votesSteem votesHive 3}}
     <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VP){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
         <a id="top-curator" href="/c/{{u}}">
-            <a class="ui red large circular label" style="z-index:0">+{{nonTopVotesCount votes votesSteem 3}}</a>
+            <a class="ui red large circular label" style="z-index:0">+{{nonTopVotesCount votes votesSteem votesHive 3}}</a>
         </a>
     </span>
     {{/if}}

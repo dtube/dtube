@@ -50,6 +50,7 @@ Template.video.helpers({
   activeUser: function () {
     var user = Session.get('activeUsername')
     if (!user) user = Session.get('activeUsernameSteem')
+    if (!user) user = Session.get('activeUsernameHive')
     return user
   },
   userVideosAndResteems: function () {
@@ -474,16 +475,16 @@ Template.video.handleVideo = function(result, id, isRef) {
       var netw = video.json.refs[i].split('/')[0]
       console.log('netw is ' + netw)
       if (netw == 'dtc') {
-        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
-        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
+        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
       }
       if (netw == 'steem') {
-        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs)
-        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs,network)
+        updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
       }
       if (netw == 'hive') {
-        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs)
-        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs)
+        updateDtc(video.json.refs[i]+'d',video.dist,video.votes,video.comments,video.ups,video.downs,network)
+        updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
       }
     }
   } else if (video.json && video.json.refs) {
@@ -511,7 +512,7 @@ Template.video.handleVideo = function(result, id, isRef) {
   }
 }
 
-function updateDtc(id,dist,votes,comments,ups,downs) {
+function updateDtc(id,dist,votes,comments,ups,downs,currentNet) {
   // Do not update more than once
   if (Session.get('isDTCRefLoaded')) return
 
@@ -520,6 +521,9 @@ function updateDtc(id,dist,votes,comments,ups,downs) {
 
   // Do not update if network not part of refs
   if (!netarr.includes('dtc')) return
+
+  // Do not update if currentNet doesn't match
+  if (currentNet != 'dtc') return
 
   Session.set('isDTCRefLoaded',true)
   console.log('dtc updated?')
@@ -536,12 +540,17 @@ function updateDtc(id,dist,votes,comments,ups,downs) {
   })
 }
 
-function updateHive(id,dist,votes,comments,ups,downs) {
+function updateHive(id,dist,votes,comments,ups,downs,currentNet) {
   if (Session.get('isHiveRefLoaded')) return
   if (Session.get('urlNet') == 'hive') return
   if (!netarr.includes('hive')) return
+  if (currentNet != 'hive') return
   Session.set('isHiveRefLoaded',true)
   console.log('hive updated?')
+  console.log('hive id',id)
+  console.log('hive dist',dist)
+  console.log('hive votes',votes)
+  console.log('hive ups',ups)
   
   Videos.update({_id: id}, {
     $set: {
@@ -556,12 +565,17 @@ function updateHive(id,dist,votes,comments,ups,downs) {
   })
 }
 
-function updateSteem(id,dist,votes,comments,ups,downs) {
+function updateSteem(id,dist,votes,comments,ups,downs,currentNet) {
   if (Session.get('isSteemRefLoaded')) return
   if (Session.get('urlNet') == 'steem') return
   if (!netarr.includes('steem')) return
+  if (currentNet != 'steem') return
   Session.set('isSteemRefLoaded',true)
   console.log('steem updated?')
+  console.log('steem id',id)
+  console.log('steem dist',dist)
+  console.log('steem votes',votes)
+  console.log('steem ups',ups)
 
   Videos.update({_id: id}, {
     $set: {

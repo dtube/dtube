@@ -49,7 +49,7 @@
                       {{else}}
                         <i class="thumbs up icon"></i>
                       {{/if}}
-                      <span>{{uniques votes votesSteem 'up'}}</span>
+                      <span>{{uniques votes votesSteem votesHive 'up'}}</span>
                     </button>
                     <button class="ui icon button downvote votebutton">
                       {{#if hasDownvoted video}}
@@ -57,7 +57,7 @@
                       {{else}}
                         <i class="thumbs down icon"></i>
                       {{/if}}
-                      <span>{{uniques votes votesSteem 'down'}}</span>
+                      <span>{{uniques votes votesSteem votesHive 'down'}}</span>
                     </button>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                     {{#if scot}}
                       {{displayScot distScot scot}}
                     {{else}}
-                      {{displayRewards dist distSteem distScot}}
+                      {{displayRewards dist distSteem distScot distHive}}
                     {{/if}}
                   </div>
                   <svg class="sparkline" width="200" height="60" stroke-width="2" style="display:none"></svg>                  
