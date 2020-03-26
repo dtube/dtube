@@ -39,5 +39,8 @@ Template.login.events({
     var selected = $(event.currentTarget).data('network')
     Session.set('loginSelectionStep',false)
     Session.set('login'+selected+'Step',true)
+  },
+  'click .otherNetwork': () => {
+    Template.login.rendered()
   }
 })
