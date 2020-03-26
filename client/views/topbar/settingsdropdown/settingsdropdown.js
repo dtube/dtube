@@ -161,6 +161,10 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.videoshowmore').addClass('nightmodetext');
   $('.buttonlabel').addClass('nightbutton');
   $('.ui.checkbox label').addClass('nightmodetext');
+  $('.crd-spa-lab').addClass('nightmode')
+  $('th').addClass('nightmodetext')
+  $('.publishfield label').addClass('nightmodetext')
+  $('.ui.checkbox + label').addClass('nightmode')
 
   $('.ui.segments > .segment').addClass('nightsegment');
   $('.commentbutton').addClass('nightmodetext');
@@ -182,6 +186,15 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.sidebar.fixed').removeClass('inverted');
   $('.ui.menu .item:before').addClass('nightmodeinverted');
   $('.ellipsis.horizontal.icon').addClass('nightmode');
+
+  // LINKS
+  $('a').addClass('nightmodelinks')
+
+  // LEADERS
+  $('.leader').addClass('nightmodeleader')
+  $('.leader .disabled').addClass('nightmodeleader')
+  $('.topleader').addClass('nightmodetopleader')
+  $('.nontopleader').addClass('nightmodeleader')
 
   //LOGO
   $('.blacklogo').addClass('dsp-non');
@@ -220,6 +233,10 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.videoshowmore').removeClass('nightmodetext');
   $('.buttonlabel').removeClass('nightbutton');
   $('.ui.checkbox label').removeClass('nightmodetext');
+  $('.crd-spa-lab').removeClass('nightmode')
+  $('th').removeClass('nightmodetext')
+  $('.publishfield label').removeClass('nightmodetext')
+  $('.ui.checkbox + label').removeClass('nightmode')
 
   $('.ui.segments > .segment').removeClass('nightsegment');
   $('.commentbutton').removeClass('nightmodetext');
@@ -241,6 +258,15 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.sidebar.fixed').addClass('inverted');
   $('.ui.menu .item:before').removeClass('nightmodeinverted');
   $('.ellipsis.horizontal.icon').removeClass('nightmode');
+
+  // LINKS
+  $('a').removeClass('nightmodelinks')
+
+  // LEADERS
+  $('.leader').removeClass('nightmodeleader')
+  $('.leader .disabled').removeClass('nightmodeleader')
+  $('.topleader').removeClass('nightmodetopleader')
+  $('.nontopleader').removeClass('nightmodeleader')
 
   //LOGO
   $('.blacklogo').removeClass('dsp-non');

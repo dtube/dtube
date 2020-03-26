@@ -69,6 +69,10 @@
   color:#555;
 }
 
+.crd-spa-lab.nightmode {
+  color: aliceblue;
+}
+
 .ui.card.card-notification{
   min-height:50px;
   margin: 0px 0px;

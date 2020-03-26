@@ -88,11 +88,12 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
     if (!dtc && !hive) return steem
     if (!dtc && !steem) return hive
     var length = dtc.length
-    if (steem.length > length) length = steem.length
-    if (hive.length > length) length = hive.length
+    if (steem && steem.length > length) length = steem.length
+    if (hive && hive.length > length) length = hive.length
+    console.log('comment length',length)
     var tree = []
     for (let i = 0; i < length; i++) {
-      if (dtc[i]) {
+      if (dtc && dtc[i]) {
         if (tree.length == 0) {
           tree.push(JSON.parse(JSON.stringify(dtc[i])))
         } else {
@@ -110,7 +111,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
           if (!exists) tree.push(JSON.parse(JSON.stringify(dtc[i])))
         }
       }
-      if (steem[i]) {
+      if (steem && steem[i]) {
         if (tree.length == 0) {
           tree.push(JSON.parse(JSON.stringify(steem[i])))
         } else {
@@ -128,7 +129,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
           if (!exists) tree.push(JSON.parse(JSON.stringify(steem[i])))
         }
       }
-      if (hive[i]) {
+      if (hive && hive[i]) {
         if (tree.length == 0) {
           tree.push(JSON.parse(JSON.stringify(hive[i])))
         } else {

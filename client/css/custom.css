@@ -130,6 +130,10 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
 }
 
+a.nightmodelinks {
+  color: rgb(145, 234, 250);
+}
+
 .ui.inline.dropdown>.text {
   font-weight: 500;
 }
@@ -211,4 +215,50 @@ textarea {
   margin-left: auto!important;
   margin-right: auto!important;
   width: 150px!important;
+}
+
+.leader {
+  color: black;
+}
+
+.leader.nightmodeleader {
+  color: white!important;
+}
+
+.nontopleader.nightmodeleader {
+  color: white;
+}
+
+.leader.disabled {
+  color: grey;
+}
+
+.leader.disabled.nightmodeleader {
+  color: lightgrey!important;
+}
+
+.nightmodetopleader {
+  background: rgb(10, 46, 6)!important;
+}
+
+.topleader {
+  background: #fcfff5;
+  color: #2c662d;
+  box-shadow: 0px 0px 0px #a3c293 inset;
+}
+
+.topleader.nightmodetopleader {
+  color: lawngreen;
+}
+
+.ui.table thead.nightmode {
+  background: rgba(82, 82, 82, 0.8);
+}
+
+.ui.toggle.checkbox input:checked ~ .box,
+.ui.toggle.checkbox input:checked ~ label.nightmodetext,
+.ui.checkbox label.nightmode,
+.ui.checkbox + label.nightmode,
+.publishfield label.nightmodetext {
+  color: rgb(240,240,240)!important;
 }
