@@ -1,5 +1,7 @@
 Template.publish.rendered = function() {
-  Template.settingsdropdown.nightMode()
+  setTimeout(() => {
+    Template.settingsdropdown.nightMode()
+  },200)
   Template.publish.burnRange()
   var json = Session.get('tmpVideo').json
   if (json.title)

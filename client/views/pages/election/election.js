@@ -1,5 +1,7 @@
 Template.election.rendered = () => {
-    Template.settingsdropdown.nightMode()
+    setTimeout(() => {
+        Template.settingsdropdown.nightMode()
+    },200)
 }
 
 Template.election.helpers({
