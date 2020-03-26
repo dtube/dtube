@@ -21,17 +21,17 @@ Template.video.rendered = function () {
 
 Template.video.helpers({
   mergedCommentsLength: function(dtc, steem) {
-    var merged = UI._globalHelpers['mergeComments'](dtc, steem)
+    var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive)
     return merged.length
   },
   isNoComment: function() {
     var vid = Template.video.__helpers[" video"]()
-    if (!vid.comments && !vid.commentsSteem) return true
+    if (!vid.comments && !vid.commentsSteem && !vid.commentsHive) return true
     return false
   },
   isSingleComment: function() {
     var vid = Template.video.__helpers[" video"]()
-    var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem)
+    var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive)
     if (merged.length != 1) return false
     return true
   },
@@ -526,7 +526,6 @@ function updateDtc(id,dist,votes,comments,ups,downs,currentNet) {
   if (currentNet != 'dtc') return
 
   Session.set('isDTCRefLoaded',true)
-  console.log('dtc updated?')
   Videos.update({_id: id}, {
     $set: {
       dist: dist,
@@ -546,11 +545,6 @@ function updateHive(id,dist,votes,comments,ups,downs,currentNet) {
   if (!netarr.includes('hive')) return
   if (currentNet != 'hive') return
   Session.set('isHiveRefLoaded',true)
-  console.log('hive updated?')
-  console.log('hive id',id)
-  console.log('hive dist',dist)
-  console.log('hive votes',votes)
-  console.log('hive ups',ups)
   
   Videos.update({_id: id}, {
     $set: {
@@ -571,11 +565,6 @@ function updateSteem(id,dist,votes,comments,ups,downs,currentNet) {
   if (!netarr.includes('steem')) return
   if (currentNet != 'steem') return
   Session.set('isSteemRefLoaded',true)
-  console.log('steem updated?')
-  console.log('steem id',id)
-  console.log('steem dist',dist)
-  console.log('steem votes',votes)
-  console.log('steem ups',ups)
 
   Videos.update({_id: id}, {
     $set: {

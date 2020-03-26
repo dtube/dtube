@@ -81,13 +81,15 @@ Template.registerHelper('downvotes', function (active_votes) {
   return count;
 });
 
-Template.registerHelper('mergeComments', function(dtc, steem) {
-  function mergeTree(dtc, steem) {
-    if (!steem && !dtc) return []
-    if (!steem) return dtc
-    if (!dtc) return steem
+Template.registerHelper('mergeComments', function(dtc, steem, hive) {
+  function mergeTree(dtc, steem, hive) {
+    if (!steem && !dtc && !hive) return []
+    if (!steem && !hive) return dtc
+    if (!dtc && !hive) return steem
+    if (!dtc && !steem) return hive
     var length = dtc.length
     if (steem.length > length) length = steem.length
+    if (hive.length > length) length = hive.length
     var tree = []
     for (let i = 0; i < length; i++) {
       if (dtc[i]) {
@@ -126,10 +128,28 @@ Template.registerHelper('mergeComments', function(dtc, steem) {
           if (!exists) tree.push(JSON.parse(JSON.stringify(steem[i])))
         }
       }
+      if (hive[i]) {
+        if (tree.length == 0) {
+          tree.push(JSON.parse(JSON.stringify(hive[i])))
+        } else {
+          var exists = false
+          for (let y = 0; y < tree.length; y++) {
+            if (tree[y].json.refs.indexOf(hive[i]._id) > -1) {
+              exists = true
+              tree[y].comments = mergeTree(tree[y].comments, hive[i].comments)
+              tree[y].distSteem = hive[i].distSteem
+              tree[y].votesSteem = hive[i].votesSteem
+              tree[y].ups += hive[i].votes
+              tree[y].downs += hive[i].votes
+            }
+          }
+          if (!exists) tree.push(JSON.parse(JSON.stringify(hive[i])))
+        }
+      }
     }
     return tree
   }
-  var tree = mergeTree(dtc, steem)
+  let tree = mergeTree(dtc, steem, hive)
   
   return tree
 })
@@ -210,7 +230,7 @@ Template.registerHelper('displayRewards', function (dtc, steem, scot, hive) {
     let HBDPlusSBD = hive + steem
     rewards.push('$'+HBDPlusSBD)
   } else if (steem || steem === 0) rewards.push('$'+steem)
-  else if (hive || hive == 0) rewards.push('$',hive)
+  else if (hive || hive == 0) rewards.push('$'+hive)
   if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
   if (!rewards || rewards.length == 0) return '0 DTC'
   return rewards.join(' + ')
