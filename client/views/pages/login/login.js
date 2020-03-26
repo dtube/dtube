@@ -29,26 +29,15 @@ Template.login.helpers({
   isSteemAuth: () => {
     return Session.get('loginSteemStep')
   },
+  isNightMode: () => {
+    return UserSettings.get('isInNightMode')
+  }
 })
 
 Template.login.events({
-  'click #loginNext': () => {
-    let selected = $("input[name='network']:checked").val()
-    if (selected) Session.set('loginSelectionStep',false)
-
-    switch (selected) {
-      case 'Avalon':
-        Session.set('loginAvalonStep',true)
-        break
-      case 'Hive':
-        Session.set('loginHiveStep',true)
-        break
-      case 'Steem':
-        Session.set('loginSteemStep',true)
-        break
-      default:
-        toastr.error(translate('LOGIN_ERROR_NO_SELECTED_NETWORK'),translate('ERROR_TITLE'))
-        break
-    }
+  'click .loginOption': (event) => {
+    var selected = $(event.currentTarget).data('network')
+    Session.set('loginSelectionStep',false)
+    Session.set('login'+selected+'Step',true)
   }
 })

@@ -680,3 +680,19 @@ button {
   margin-top: 6px;
   margin-left: 20px;
 }
+
+.loginOption {
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.loginOption:hover {
+  text-align: center;
+  border: 1px solid #F01A30;
+  cursor: pointer;
+}
+
+.loginOption>span {
+  font-size: 18px;
+  font-weight: 500;
+}
