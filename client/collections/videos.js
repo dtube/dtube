@@ -789,7 +789,7 @@ Videos.parseFromSteem = function(video, isComment, network) {
 
   if (!newVideo._id) newVideo._id = network + '/'+newVideo.author+'/'+newVideo.permlink
   if (!newVideo.json.thumbnailUrl)
-    newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(video)
+    newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(newVideo)
   return newVideo;
 }
 
