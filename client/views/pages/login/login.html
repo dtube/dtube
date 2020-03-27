@@ -1,22 +1,42 @@
 <template name='login'>
   <div class="ui equal width grid" style="max-width:600px;margin:auto;margin-top:10px;">
     {{#if isSelectingNetwork}}
-      <h1>Login</h1>
-      <p>DTube supports authentication with multiple networks at the same time. Please select a network to begin:</p>
+      <div class='row'>
+        <h1>Login</h1>
+        <p>
+          DTube supports authentication with multiple networks at the same time.
+          Please select a network:
+        </p>
+      </div>
+      
       {{#each randomOrder}}
         {{#if equals this 'steem'}}
           {{#if noSteemLogin}}
           <div class="column loginOption" data-network="Steem">
-            <img style="width: 100%" src="./DTube_files/images/logos/steem.png">
+            <img src="./DTube_files/images/logos/steem.png">
             <span>Steem</span>
+          </div>
+          {{else}}
+          <div class="column loginOptionDisabled" data-network="Steem">
+            <img src="./DTube_files/images/logos/steem.png">
+            <span>Logged in: <strong>{{activeUsernameSteem}}</strong></span>
+            <br /><br />
+            <button class="ui red button logOut" data-network='{{this}}'>Log-out</button>
           </div>
           {{/if}}
         {{/if}}
         {{#if equals this 'hive'}}
           {{#if noHiveLogin}}
           <div class="column loginOption" data-network="Hive">
-            <img style="width: 100%" src="./DTube_files/images/logos/hive.png">
-            <span>Hive</span>
+            <img src="./DTube_files/images/logos/hive.png">
+            <span>Hive {{>badgenew}}</span>
+          </div>
+          {{else}}
+          <div class="column loginOptionDisabled" data-network="Hive">
+            <img src="./DTube_files/images/logos/hive.png">
+            <span>Logged in: <strong>{{activeUsernameHive}}</strong></span>
+            <br /><br />
+            <button class="ui red button logOut" data-network='{{this}}'>Log-out</button>
           </div>
           {{/if}}
         {{/if}}
@@ -24,11 +44,22 @@
           {{#if noAvalonLogin}}
           <div class="column loginOption" data-network="Avalon">
             {{#if isNightMode}}
-            <img style="width: 100%" src="./DTube_files/images/logos/dtube_white.png">
+            <img src="./DTube_files/images/logos/dtube_white.png">
             {{else}}
-            <img style="width: 100%" src="./DTube_files/images/logos/dtube.png">
+            <img src="./DTube_files/images/logos/dtube.png">
             {{/if}}
             <span>DTube</span>
+          </div>
+          {{else}}
+          <div class="column loginOptionDisabled" data-network="Avalon">
+            {{#if isNightMode}}
+            <img src="./DTube_files/images/logos/dtube_white.png">
+            {{else}}
+            <img src="./DTube_files/images/logos/dtube.png">
+            {{/if}}
+            <span>Logged in: <strong>{{activeUsernameHive}}</strong></span>
+            <br /><br />
+            <button class="ui red button logOut" data-network='{{this}}'>Log-out</button>
           </div>
           {{/if}}
         {{/if}}

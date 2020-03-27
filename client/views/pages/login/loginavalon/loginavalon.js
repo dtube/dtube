@@ -37,8 +37,6 @@ Template.loginavalon.helpers({
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')
-
-    
   }
   
   Template.loginavalon.events({

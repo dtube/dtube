@@ -100,7 +100,6 @@ Template.loginhive.events({
 })
 
 Template.loginhive.success = function(activeUsername, noreroute) {
-  console.log('hive username',activeUsername)
   Session.set('activeUsernameHive', activeUsername)
   if (!UserSettings.get('voteWeightHive')) UserSettings.set('voteWeightHive', 100)
   Videos.loadFeed(activeUsername)

@@ -691,8 +691,20 @@ button {
   border: 1px solid #F01A30;
   cursor: pointer;
 }
+.loginOption>img {
+  width: 100%;
+}
+.loginOptionDisabled {
+  text-align: center;
+}
+.loginOptionDisabled>img {
+  width: 100%;
+}
 
 .loginOption>span {
   font-size: 18px;
   font-weight: 500;
+}
+.loginOptionDisabled>span {
+  font-size: 14px;
 }

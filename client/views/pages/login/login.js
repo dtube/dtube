@@ -50,5 +50,14 @@ Template.login.events({
   },
   'click .otherNetwork': () => {
     Template.login.rendered()
+  },
+  'click .logOut' : (event) => {
+    var network = $(event.currentTarget).data('network')
+    if (network == 'dtc')
+      Users.remove({username: Session.get('activeUsername'), network: 'avalon'}, () => Session.set('activeUsername', null))
+    else if (network == 'hive')
+      Users.remove({username: Session.get('activeUsernameHive'), network: 'hive'}, () => Session.set('activeUsernameHive', null))
+    else if (network == 'steem')
+      Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'}, () => Session.set('activeUsernameSteem', null))
   }
 })

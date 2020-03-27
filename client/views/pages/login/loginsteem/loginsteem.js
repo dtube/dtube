@@ -79,25 +79,10 @@ Template.loginsteem.helpers({
             Users.upsert({_id: user._id}, user, function() {
               Template.loginsteem.success(user.username)
             })
-            // Waka.db.Users.upsert(user, function() {
-            //   Users.remove({})
-            //   Users.refreshLocalUsers(function(err) {
-            //     Template.loginsteem.success(user.username)
-            //   })
-            // })
           } else {
             toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'));
           }
       });
-      /*steem_keychain.requestVerifyKey(Session.get(Steem), "dtube_login-" + String(Math.random()), "Posting", function(response) {
-          console.log(response);
-      });*/
-    },
-    'click #loginbuttonsc2': function(event) {
-      event.preventDefault()
-      var url = sc2.getLoginURL()
-      console.log(url)
-      window.location.href = url
     },
     'submit .form': function(event) {
       event.preventDefault()
