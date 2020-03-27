@@ -1,7 +1,7 @@
 var allProviders = [
     {id: 'btfs', disp: 'BTFS', dht: 1, logo: 'ipfs.png'},
     {id: 'ipfs', disp: 'IPFS', dht: 1, logo: 'ipfs.png'},
-    {id: 'sia', disp: 'Skynet', dht: 1, logo: 'sia.png'},
+    {id: 'sia', disp: 'Skynet', dht: 1, logo: 'sia.svg'},
     {id: 'twitch', disp: 'Twitch', logo: 'twitch.png'},
     {id: 'youtube', disp: 'YouTube', logo: 'youtube.png'},
     {id: 'dailymotion', disp: 'Dailymotion', logo: 'dailymotion.webp'},
