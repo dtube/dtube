@@ -90,7 +90,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
     var length = dtc.length
     if (steem && steem.length > length) length = steem.length
     if (hive && hive.length > length) length = hive.length
-    console.log('comment length',length)
+    // console.log('comment length',length)
     var tree = []
     for (let i = 0; i < length; i++) {
       if (dtc && dtc[i]) {
@@ -150,9 +150,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
     }
     return tree
   }
-  let tree = mergeTree(dtc, steem, hive)
-  
-  return tree
+  return mergeTree(dtc, steem, hive)
 })
 
 Template.registerHelper('userPic', function (username, size) {

@@ -445,7 +445,7 @@ Template.video.handleVideo = function(result, id, isRef) {
   if (!result) return
   id = id.split('/')
   var network = id[0]
-  console.log('netowkr',network)
+  // console.log('network: ',network)
   if (network == 'steem' || network == 'hive') {
     if (Object.keys(result.content).length == 0) return
     result.content[id[1]+'/'+id[2]].content = result.content
@@ -496,10 +496,10 @@ Template.video.handleVideo = function(result, id, isRef) {
 
   // load cross ref data if isRef == true
   if (isRef && video.json.refs) {
-    console.log("Referenced",video.json.refs)
+    // console.log("Referenced",video.json.refs)
     for (let i = 0; i < video.json.refs.length; i++) {
       var netw = video.json.refs[i].split('/')[0]
-      console.log('netw is ' + netw)
+      // console.log('netw is ' + netw)
       if (netw == 'dtc') {
         updateSteem(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
         updateHive(video.json.refs[i]+'d',video.distSteem,video.votesSteem,video.commentsSteem,video.ups,video.downs,network)
