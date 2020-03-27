@@ -9,6 +9,11 @@ Template.mobiletopbar.helpers({
     if ($(window).width() > 396)
       return true
     return false
+  },
+  isLargeEnoughForMiniLogo: function() {
+    if ($(window).width() > 330)
+      return true
+    return false
   }
 });
   

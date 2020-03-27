@@ -25,14 +25,14 @@
                     <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo'>
                         <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
                     </a>
-                    {{else}}
+                    {{else}}{{#if isLargeEnoughForMiniLogo}}
                     <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo'>
                         <img  alt="" style="width:32px;" src="{{settings.logosmall}}" >
                     </a>
                     <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo'>
                         <img  alt="" style="width:32px;" src="{{settings.logosmallnight}}" >
                     </a>
-                    {{/if}}
+                    {{/if}}{{/if}}
                 {{/if}}
                 <!-- <div class="ui sidebartoggleicon item" style="cursor: pointer;float:left;padding-left:10px;padding-right:8px;">
                     <i class="sidebar icon" style="font-size:1.2em; margin:18px 0 0 0;"></i>
