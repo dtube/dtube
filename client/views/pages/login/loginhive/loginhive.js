@@ -118,4 +118,6 @@ Template.loginhive.success = function(activeUsername, noreroute) {
       if (!isSubd) broadcast.hive.subHive(() => console.log('Subscribed to hive...'))
     }
   })
+
+  Template.accountsdropdown.refreshNetworkSwitch()
 }

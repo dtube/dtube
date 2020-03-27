@@ -44,6 +44,8 @@ Template.loginsteem.helpers({
         }
       }
     })
+
+    Template.accountsdropdown.refreshNetworkSwitch()
   }
   
   Template.loginsteem.events({

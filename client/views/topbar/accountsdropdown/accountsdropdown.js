@@ -43,6 +43,10 @@ Template.accountsdropdown.rendered = () => {
         }
     })
 
+    Template.accountsdropdown.refreshNetworkSwitch()
+}
+
+Template.accountsdropdown.refreshNetworkSwitch = () => {
     $('#dtcSwitch').prop('checked',!Session.get('isDTCDisabled'))
     $('#steemSwitch').prop('checked',!Session.get('isSteemDisabled'))
     $('#hiveSwitch').prop('checked',!Session.get('isHiveDisabled'))
