@@ -93,6 +93,7 @@
     "LOGIN_REMEMBER_ME": "Remember me",
     "LOGIN_BUTTON_LOGIN": "Login",
     "LOGIN_BUTTON_STEEMCONNECT": "Login with SteemConnect",
+    "LOGIN_LOGGED_IN": "Logged-in as:",
     "LOGIN_LINK_NO_ACCOUNT": "No Account ?",
     "LOGIN_LINK_SIGN_UP_ON": "Sign Up on",
     "LOGIN_DIFFICULTY_FOR_LOGIN": "Difficulty for login ?",
