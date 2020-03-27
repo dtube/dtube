@@ -5,9 +5,6 @@ Template.video.rendered = function () {
   Session.set('isSearchingMobile', false)
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
-  Session.set('isSteemRefLoaded',false)
-  Session.set('isHiveRefLoaded',false)
-  Session.set('isDTCRefLoaded',false)
   Session.set('urlNet','')
   Template.video.setScreenMode();
   $(window).on('resize', Template.video.setScreenMode)
@@ -387,6 +384,9 @@ Template.video.seekTo = function (seconds) {
 Template.video.loadState = function () {
   if (isLoadingState) return
   isLoadingState = true
+  Session.set('isSteemRefLoaded',false)
+  Session.set('isHiveRefLoaded',false)
+  Session.set('isDTCRefLoaded',false)
   avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
     if (err) {
       steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function (err, result) {
