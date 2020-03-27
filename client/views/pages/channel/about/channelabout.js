@@ -40,7 +40,8 @@ Template.channelabout.events({
         json.profile.about = event.target.profile_about.value.trim()
         json.profile.location = event.target.profile_location.value.trim()
         json.profile.website = event.target.profile_website.value.trim()
-        json.profile.steem = event.target.profile_steem.value.trim()
+        json.profile.steem = event.target.profile_steem.value.trim().replace('@','')
+        json.profile.hive = event.target.profile_hive.value.trim().replace('@','')
         broadcast.avalon.editProfile(json, function(err, res) {
             if (err) toastr.error(Meteor.blockchainError(err))
             else {

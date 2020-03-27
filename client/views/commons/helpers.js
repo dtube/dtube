@@ -81,16 +81,19 @@ Template.registerHelper('downvotes', function (active_votes) {
   return count;
 });
 
-Template.registerHelper('mergeComments', function(dtc, steem) {
-  function mergeTree(dtc, steem) {
-    if (!steem && !dtc) return []
-    if (!steem) return dtc
-    if (!dtc) return steem
+Template.registerHelper('mergeComments', function(dtc, steem, hive) {
+  function mergeTree(dtc, steem, hive) {
+    if (!steem && !dtc && !hive) return []
+    if (!steem && !hive) return dtc
+    if (!dtc && !hive) return steem
+    if (!dtc && !steem) return hive
     var length = dtc.length
-    if (steem.length > length) length = steem.length
+    if (steem && steem.length > length) length = steem.length
+    if (hive && hive.length > length) length = hive.length
+    // console.log('comment length',length)
     var tree = []
     for (let i = 0; i < length; i++) {
-      if (dtc[i]) {
+      if (dtc && dtc[i]) {
         if (tree.length == 0) {
           tree.push(JSON.parse(JSON.stringify(dtc[i])))
         } else {
@@ -108,7 +111,7 @@ Template.registerHelper('mergeComments', function(dtc, steem) {
           if (!exists) tree.push(JSON.parse(JSON.stringify(dtc[i])))
         }
       }
-      if (steem[i]) {
+      if (steem && steem[i]) {
         if (tree.length == 0) {
           tree.push(JSON.parse(JSON.stringify(steem[i])))
         } else {
@@ -126,12 +129,28 @@ Template.registerHelper('mergeComments', function(dtc, steem) {
           if (!exists) tree.push(JSON.parse(JSON.stringify(steem[i])))
         }
       }
+      if (hive && hive[i]) {
+        if (tree.length == 0) {
+          tree.push(JSON.parse(JSON.stringify(hive[i])))
+        } else {
+          var exists = false
+          for (let y = 0; y < tree.length; y++) {
+            if (tree[y].json.refs.indexOf(hive[i]._id) > -1) {
+              exists = true
+              tree[y].comments = mergeTree(tree[y].comments, hive[i].comments)
+              tree[y].distSteem = hive[i].distSteem
+              tree[y].votesSteem = hive[i].votesSteem
+              tree[y].ups += hive[i].votes
+              tree[y].downs += hive[i].votes
+            }
+          }
+          if (!exists) tree.push(JSON.parse(JSON.stringify(hive[i])))
+        }
+      }
     }
     return tree
   }
-  var tree = mergeTree(dtc, steem)
-  
-  return tree
+  return mergeTree(dtc, steem, hive)
 })
 
 Template.registerHelper('userPic', function (username, size) {
@@ -143,6 +162,11 @@ Template.registerHelper('userPicSteem', function (username, size) {
   if (!size || typeof size != 'string') size=''
   return 'https://steemitimages.com/u/'+username+'/avatar/'+size
 });
+
+Template.registerHelper('userPicHive', (username, size) => {
+  if (!size || typeof size != 'string') size = ''
+  return 'https://images.hive.blog/u/'+username+'/avatar/'+size
+})
 
 Template.registerHelper('userCover', function(coverurl) {
   return 'https://image.d.tube/2048x512/'+coverurl
@@ -196,12 +220,16 @@ Template.registerHelper('displayPayout', function (ups, downs) {
   return cuteNumber(ups - downs)
 })
 
-Template.registerHelper('displayRewards', function (dtc, steem, scot) {
+Template.registerHelper('displayRewards', function (dtc, steem, scot, hive) {
   var rewards = []
   if (Session.get('scot') && scot) {
     return Scot.formatCurrency(scot, Session.get('scot'))
   }
-  if (steem || steem === 0) rewards.push('$'+steem)
+  if ((hive || hive == 0) && (steem || steem == 0)) {
+    let HBDPlusSBD = hive + steem
+    rewards.push('$'+HBDPlusSBD)
+  } else if (steem || steem === 0) rewards.push('$'+steem)
+  else if (hive || hive == 0) rewards.push('$'+hive)
   if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
   if (!rewards || rewards.length == 0) return '0 DTC'
   return rewards.join(' + ')
@@ -283,15 +311,20 @@ Template.registerHelper('displayVoters', function (votes, isDownvote) {
   return top20
 })
 
-Template.registerHelper('topVoters', function (votes, votesSteem, x) {
+Template.registerHelper('topVoters', function (votes, votesSteem, votesHive, x) {
   if (!votes || votes.length == 0) votes = []
   if (!votesSteem || votesSteem.length == 0) votesSteem = []
+  if (!votesHive || votesHive.length == 0) votesHive = []
   var votes = JSON.parse(JSON.stringify(votes))
   var votesSteem = JSON.parse(JSON.stringify(votesSteem))
+  var votesHive = JSON.parse(JSON.stringify(votesHive))
   votes.sort(function (a, b) {
     return Math.abs(b.vt) - Math.abs(a.vt)
   })
   votesSteem.sort(function (a, b) {
+    return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
+  })
+  votesHive.sort((a,b) => {
     return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
   })
 
@@ -303,6 +336,11 @@ Template.registerHelper('topVoters', function (votes, votesSteem, x) {
   var topSteem = []
   for (let i = 0; i < votesSteem.length; i++) {
     topSteem.push(votesSteem[i])
+  }
+
+  let topHive = []
+  for (let i = 0; i < votesHive.length; i++) {
+    topHive.push(votesHive[i])
   }
 
   var realTop = []
@@ -320,6 +358,13 @@ Template.registerHelper('topVoters', function (votes, votesSteem, x) {
         topSteem[i].downvote = true
       realTop.push(topSteem[i])
     }
+
+    if (topHive[i]) {
+      topHive[i].network = 'hive'
+      if (parseInt(topHive[i].rshares) < 0)
+        topHive[i].downvote = true
+      realTop.push(topHive[i])
+    }
   }
   var zi = 800
   for (let i = 0; i < realTop.length; i++) {
@@ -329,7 +374,7 @@ Template.registerHelper('topVoters', function (votes, votesSteem, x) {
   return realTop
 })
 
-Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, x) {
+Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHive, x) {
   var total = 0
   if (votes)
     if (votes.length >= x)
@@ -337,6 +382,9 @@ Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, x) {
   if (votesSteem) 
     if (votesSteem.length >= x)
       total += votesSteem.length-x
+  if (votesHive)
+    if (votesHive.length >= x)
+      total += votesHive.length-x
   if (total == 0) return
   return total
 })
@@ -384,6 +432,12 @@ Template.registerHelper('hasUpvoted', function (video) {
         && parseInt(video.votesSteem[i].rshares) > 0)
         return true
     }
+  if (video.votesHive)
+    for (let i = 0; i < video.votesHive.length; i++) {
+      if (video.votesHive[i].voter == Session.get('activeUsernameHive')
+       && parseInt(video.votesHive[i].rshares) > 0)
+        return true
+    }
   return false
 })
 
@@ -402,12 +456,19 @@ Template.registerHelper('hasDownvoted', function (video) {
         && parseInt(video.votesSteem[i].rshares) < 0)
         return true
     }
+  if (video.votesHive)
+    for (let i = 0; i < video.votesHive.length; i++) {
+      if (video.votesHive[i].u == Session.get('activeUsernameHive')
+        && parseInt(video.votesHive[i].rshares) < 0)
+          return true
+    }
   return false
 })
 
-Template.registerHelper('uniques', function (votes, votesSteem, type) {
+Template.registerHelper('uniques', function (votes, votesSteem, votesHive, type) {
   if (!votes) votes=[]
   if (!votesSteem) votesSteem=[]
+  if (!votesHive) votesHive=[]
   var counter = 0
   for (let i = 0; i < votes.length; i++) {
     if (votes[i].vt>0 && type == 'up')
@@ -419,6 +480,12 @@ Template.registerHelper('uniques', function (votes, votesSteem, type) {
     if (votesSteem[i].percent>0 && type == 'up')
       counter++
     if (votesSteem[i].percent<0 && type == 'down')
+      counter++
+  }
+  for (let i = 0; i < votesHive.length; i++) {
+    if (votesHive[i].percent>0 && type == 'up')
+      counter++
+    if (votesHive[i].percent<0 && type == 'down')
       counter++
   }
   return counter
@@ -651,6 +718,10 @@ Template.registerHelper('activeUsername', function() {
 
 Template.registerHelper('activeUsernameSteem', function() {
   return Session.get('activeUsernameSteem')
+})
+
+Template.registerHelper('activeUsernameHive', () => {
+  return Session.get('activeUsernameHive')
 })
 
 Template.registerHelper('subCount', function() {

@@ -22,4 +22,7 @@ Deps.autorun(function(){
 setTimeout(function() {
   if (window.steem_keychain && !Session.get('steem_keychain'))
     Session.set('steem_keychain', true)
+  
+  if (window.hive_keychain && !Session.get('hive_keychain'))
+    Session.set('hive_keychain',true)
 }, 500)

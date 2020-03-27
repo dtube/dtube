@@ -669,3 +669,42 @@ button {
   animation-iteration-count: 1;
   filter: blur(0px) contrast(100%);
 }
+
+.topbarLogin {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.networkSwitch {
+  margin-top: 6px;
+  margin-left: 20px;
+}
+
+.loginOption {
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.loginOption:hover {
+  text-align: center;
+  border: 1px solid #F01A30;
+  cursor: pointer;
+}
+.loginOption>img {
+  width: 100%;
+}
+.loginOptionDisabled {
+  text-align: center;
+}
+.loginOptionDisabled>img {
+  width: 100%;
+}
+
+.loginOption>span {
+  font-size: 18px;
+  font-weight: 500;
+}
+.loginOptionDisabled>span {
+  font-size: 14px;
+}

@@ -22,8 +22,6 @@ Template.loginavalon.helpers({
     Users.refreshUsers([activeUsername], function() {
       setTimeout(function(){
         // ui shenanigans
-        Template.sidebar.dropdownDTC()
-  
         $('#dispDTC').popup({
           position : 'bottom center',
         })
@@ -40,7 +38,7 @@ Template.loginavalon.helpers({
     if (!noreroute)
       FlowRouter.go('#!/')
 
-    
+    Template.accountsdropdown.refreshNetworkSwitch()
   }
   
   Template.loginavalon.events({

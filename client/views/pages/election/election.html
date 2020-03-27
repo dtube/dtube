@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 {{#each leaders}}
-                    <tr class="{{#if lowerThan 11 position}}positive{{/if}}">
+                    <tr class="{{#if lowerThan 11 position}}topleader{{else}}nontopleader{{/if}}">
                         <td>
                             {{#if lowerThan 11 position}}
                                 <strong>{{position}}</strong>
@@ -28,9 +28,9 @@
                                 <img src="{{userPic name 'small'}}" class="ui mini rounded image" style="{{#unless json.node.ws}}filter: grayscale(100%);{{/unless}}">
                                 <div class="content">
                                     {{#if json.node.ws}}
-                                        <a href="/c/{{name}}" style="color: black;">{{name}}</a>
+                                        <a href="/c/{{name}}" class="leader">{{name}}</a>
                                     {{else}}
-                                        <a href="/c/{{name}}" style="color: grey;"><strike>{{name}}</strike></a>
+                                        <a href="/c/{{name}}" class="leader disabled"><strike>{{name}}</strike></a>
                                     {{/if}}
                                     <div class="sub header">
                                         {{#if json.profile.website}}

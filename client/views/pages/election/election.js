@@ -1,3 +1,9 @@
+Template.election.rendered = () => {
+    setTimeout(() => {
+        Template.settingsdropdown.nightMode()
+    },200)
+}
+
 Template.election.helpers({
     leaders: function(){
         var leaders = Session.get('leaders')

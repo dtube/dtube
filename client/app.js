@@ -2,6 +2,7 @@ import './buffer';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import steem from 'steem';
+import hive from '@hiveio/hive-js'
 
 console.log('Starting DTube APP')
 
@@ -10,6 +11,7 @@ Meteor.startup(function(){
   console.log('DTube APP Started')
   Market.getSaleProgress()
 
+  window.hive = hive
   window.steem = steem
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
@@ -19,7 +21,13 @@ Meteor.startup(function(){
   else
     steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
 
+  if (!localStorage.getItem('hiveAPI'))
+    hive.api.setOptions({ url: Meteor.settings.public.remote.HiveAPINodes[0], useAppbaseApi: true })
+  else
+    hive.api.setOptions({ url: localStorage.getItem('hiveAPI'), useAppbaseApi: true })
+
   Session.set('steemAPI', steem.api.options.url)
+  Session.set('hiveAPI',hive.api.options.url)
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)

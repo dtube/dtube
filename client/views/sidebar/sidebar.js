@@ -1,30 +1,3 @@
-var intervalVPChange = null
-var vpChangeSpeed = 200
-
-function updateVP(type, change) {
-  if (type == 'steem') {
-    var currentPercent = UserSettings.get('voteWeightSteem')
-    var nextPercent = currentPercent+change
-    if (nextPercent>100) nextPercent = 100
-    if (nextPercent<1) nextPercent = 1
-    UserSettings.set('voteWeightSteem', nextPercent)
-  } else {
-    var currentPercent = UserSettings.get('voteWeight')
-    var nextPercent = currentPercent+change
-    if (nextPercent>100) nextPercent = 100
-    if (nextPercent<1) nextPercent = 1
-    UserSettings.set('voteWeight', nextPercent)
-  }
-  if (nextPercent != 1 && nextPercent != 100) {
-    clearTimeout(intervalVPChange)
-    intervalVPChange = setTimeout(function() {
-      if (vpChangeSpeed > 50)
-        vpChangeSpeed = 0.90*vpChangeSpeed
-      updateVP(type, change)
-    }, vpChangeSpeed)
-  }
-}
-
 Template.sidebar.rendered = function () {
   //TrendingTags.loadTopTags(50);
   var query = {
@@ -42,51 +15,7 @@ Template.sidebar.rendered = function () {
   Template.sidebar.selectMenu();
 }
 
-Template.sidebar.dropdownSteem = function() {
-  $('.dropdownsteem').dropdown({
-    action: function(text, value, e) {
-      var e = $(e)
-      if (e.hasClass('voteWeightSteem')) {
-        var currentPercent = UserSettings.get('voteWeightSteem')
-        var nextPercent = currentPercent+parseInt(value)
-        if (nextPercent>100) nextPercent = 100
-        if (nextPercent<1) nextPercent = 1
-        UserSettings.set('voteWeightSteem', nextPercent)
-      } else if (e.hasClass('logOut')) {
-        Users.remove({username: Session.get('activeUsernameSteem'), network: {'$not': 'avalon'}}, function(){
-          Session.set('activeUsernameSteem', null)
-        })
-      }
-    }
-  })
-}
-
-Template.sidebar.dropdownDTC = function() {
-  $('.dropdowndtc').dropdown({
-    action: function(text, value, e) {
-      var e = $(e)
-      if (e.hasClass('voteWeight')) {
-        var currentPercent = UserSettings.get('voteWeight')
-        var nextPercent = currentPercent+parseInt(value)
-        if (nextPercent>100) nextPercent = 100
-        if (nextPercent<1) nextPercent = 1
-        UserSettings.set('voteWeight', nextPercent)
-      } else if (e.hasClass('logOut')) {
-        Users.remove({username: Session.get('activeUsername'), network: 'avalon'}, function(){
-          Session.set('activeUsername', null)
-        })
-      }
-    }
-  })
-}
-
 Template.sidebar.helpers({
-  mainUser: function() {
-    return Users.findOne({username: Session.get('activeUsername')})
-  },
-  mainUserSteem: function() {
-    return Users.findOne({username: Session.get('activeUsernameSteem')})
-  },
   subscribelength: function () {
     return Subs.find({ follower: Session.get('activeUsername') }).fetch()
   },
@@ -104,18 +33,6 @@ Template.sidebar.helpers({
       || user.reward_vesting_balance.split(' ')[0] > 0)
       return true
   },
-  isSteemDisabled: function() {
-    return Session.get('isSteemDisabled')
-  },
-  isDTCDisabled: function() {
-    return Session.get('isDTCDisabled')
-  },
-  voteWeight: function() {
-    return UserSettings.get('voteWeight');
-  },
-  voteWeightSteem: function() {
-    return UserSettings.get('voteWeightSteem');
-  }
 });
 
 
@@ -136,44 +53,6 @@ Template.sidebar.events({
     }
 
   },
-  'click #disableSteem': function() {
-    Session.set('isSteemDisabled', !Session.get('isSteemDisabled'))
-  },
-  'click #disableDTC': function() {
-    Session.set('isDTCDisabled', !Session.get('isDTCDisabled'))
-  },
-  'mousedown #minus1vp': function() {
-    updateVP('dtc', -1)
-  },
-  'mousedown #plus1vp': function() {
-    updateVP('dtc', 1)
-  },
-  'mousedown #minus1vpsteem': function() {
-    updateVP('steem', -1)
-  },
-  'mousedown #plus1vpsteem': function() {
-    updateVP('steem', 1)
-  },
-  'touchstart #minus1vp': function() {
-    updateVP('dtc', -1)
-  },
-  'touchstart #plus1vp': function() {
-    updateVP('dtc', 1)
-  },
-  'touchstart #minus1vpsteem': function() {
-    updateVP('steem', -1)
-  },
-  'touchstart #plus1vpsteem': function() {
-    updateVP('steem', 1)
-  },
-  'mouseup #minus1vp, mouseup #plus1vp, mouseup #minus1vpsteem, mouseup #plus1vpsteem': function() {
-    clearTimeout(intervalVPChange)
-    vpChangeSpeed = 200
-  },
-  'touchend #minus1vp, touchend #plus1vp, touchend #minus1vpsteem, touchend #plus1vpsteem': function() {
-    clearTimeout(intervalVPChange)
-    vpChangeSpeed = 200
-  }
 })
 
 Template.sidebar.resetActiveMenu = function () {
@@ -243,8 +122,6 @@ Template.sidebar.half = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.full = function() {
@@ -253,8 +130,6 @@ Template.sidebar.full = function() {
     .sidebar('setting', 'dimPage', false)
     .sidebar('setting', 'closable', true)
     .sidebar('show')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }
 
 Template.sidebar.empty = function() {
@@ -268,6 +143,4 @@ Template.sidebar.mobile = function() {
   .sidebar('setting', 'dimPage', true)
   .sidebar('setting', 'closable', true)
   .sidebar('toggle')
-  Template.sidebar.dropdownSteem()
-  Template.sidebar.dropdownDTC()
 }

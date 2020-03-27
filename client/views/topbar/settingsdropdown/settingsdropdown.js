@@ -19,6 +19,10 @@ Template.settingsdropdown.rendered = function() {
         javalon.init({api: value})
         Session.set('avalonAPI',value)
         localStorage.setItem('avalonAPI',value)
+      } else if (e.hasClass('hiveApi')) {
+        hive.api.setOptions({ url: value, useAppbaseApi: true })
+        Session.set('hiveAPI', value)
+        localStorage.setItem('hiveAPI', value)
       } else if (e.hasClass('ipfsUpload')) {
         Session.set('ipfsUpload', {
           host: value.split('://')[1].split(':')[0],
@@ -94,11 +98,17 @@ Template.settingsdropdown.helpers({
   AvalonAPIs: function() {
     return Session.get('remoteSettings').AvalonAPINodes
   },
+  HiveAPIs: () => {
+    return Session.get('remoteSettings').HiveAPINodes
+  },
   CurrentAPI: function() {
     return Session.get('steemAPI');
   },
   CurrentAvalonAPI: function() {
     return Session.get('avalonAPI')
+  },
+  CurrentHiveAPI: () => {
+    return Session.get('hiveAPI')
   },
   displayNodes: function() {
     return Session.get('remoteSettings').displayNodes;
@@ -151,6 +161,10 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.videoshowmore').addClass('nightmodetext');
   $('.buttonlabel').addClass('nightbutton');
   $('.ui.checkbox label').addClass('nightmodetext');
+  $('.crd-spa-lab').addClass('nightmode')
+  $('th').addClass('nightmodetext')
+  $('.publishfield label').addClass('nightmodetext')
+  $('.ui.checkbox + label').addClass('nightmode')
 
   $('.ui.segments > .segment').addClass('nightsegment');
   $('.commentbutton').addClass('nightmodetext');
@@ -172,6 +186,15 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.sidebar.fixed').removeClass('inverted');
   $('.ui.menu .item:before').addClass('nightmodeinverted');
   $('.ellipsis.horizontal.icon').addClass('nightmode');
+
+  // LINKS
+  $('a').addClass('nightmodelinks')
+
+  // LEADERS
+  $('.leader').addClass('nightmodeleader')
+  $('.leader .disabled').addClass('nightmodeleader')
+  $('.topleader').addClass('nightmodetopleader')
+  $('.nontopleader').addClass('nightmodeleader')
 
   //LOGO
   $('.blacklogo').addClass('dsp-non');
@@ -210,6 +233,10 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.videoshowmore').removeClass('nightmodetext');
   $('.buttonlabel').removeClass('nightbutton');
   $('.ui.checkbox label').removeClass('nightmodetext');
+  $('.crd-spa-lab').removeClass('nightmode')
+  $('th').removeClass('nightmodetext')
+  $('.publishfield label').removeClass('nightmodetext')
+  $('.ui.checkbox + label').removeClass('nightmode')
 
   $('.ui.segments > .segment').removeClass('nightsegment');
   $('.commentbutton').removeClass('nightmodetext');
@@ -231,6 +258,15 @@ Template.settingsdropdown.switchToNormalMode = function (){
   $('.sidebar.fixed').addClass('inverted');
   $('.ui.menu .item:before').removeClass('nightmodeinverted');
   $('.ellipsis.horizontal.icon').removeClass('nightmode');
+
+  // LINKS
+  $('a').removeClass('nightmodelinks')
+
+  // LEADERS
+  $('.leader').removeClass('nightmodeleader')
+  $('.leader .disabled').removeClass('nightmodeleader')
+  $('.topleader').removeClass('nightmodetopleader')
+  $('.nontopleader').removeClass('nightmodeleader')
 
   //LOGO
   $('.blacklogo').removeClass('dsp-non');

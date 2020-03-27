@@ -2,26 +2,39 @@ var parallel = require('run-parallel')
 
 broadcast = {
     multi: {
-        comment: function(paSteem, ppSteem, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
+        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
-            var authorAvalon = Session.get('activeUsername')
-            var permlinkAvalon = Template.publish.createPermlink(jsonMetadata)
+            let authorAvalon = !Session.get('isDTCDisabled') ? Session.get('activeUsername') : null
+            let permlinkAvalon = Template.publish.createPermlink(jsonMetadata)
 
-            var authorSteem = Session.get('activeUsernameSteem')
+            let authorHive = !Session.get('isHiveDisabled') ? Session.get('activeUsernameHive') : null
+            let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
             // Steem cannot have capital letters in permlink :,(
-            var permlinkSteem = Template.publish.randomPermlink(11)
+            let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
             
-            var jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
-            var jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
+            let jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
+            let jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
+            let jsonHive = JSON.parse(JSON.stringify(jsonMetadata))
             jsonSteem.refs = []
             jsonAvalon.refs = []
-            if (authorAvalon)
-                jsonSteem.refs = ['dtc/'+authorAvalon+'/'+permlinkAvalon]
-            if (authorSteem)
+            jsonHive.refs = []
+            if (authorAvalon && authorHive && authorSteem) {
+                jsonSteem.refs = ['dtc/'+authorAvalon+'/'+permlinkAvalon,'hive/'+authorHive+'/'+permlinkSteem]
+                jsonAvalon.refs = ['steem/'+authorSteem+'/'+permlinkSteem,'hive/'+authorHive+'/'+permlinkSteem]
+                jsonHive.refs = ['dtc/'+authorAvalon+'/'+permlinkAvalon,'steem/'+authorSteem+'/'+permlinkSteem]
+            } else if (authorAvalon && authorHive) {
+                jsonAvalon.refs = ['hive/'+authorHive+'/'+permlinkSteem]
+                jsonHive.refs = ['dtc/'+authorAvalon+'/'+permlinkAvalon]
+            } else if (authorAvalon && authorSteem) {
                 jsonAvalon.refs = ['steem/'+authorSteem+'/'+permlinkSteem]
+                jsonSteem.refs = ['dtc/'+authorAvalon+'/'+permlinkAvalon]
+            } else if (authorHive && authorSteem) {
+                jsonSteem.refs = ['hive/'+authorHive+'/'+permlinkSteem]
+                jsonHive.refs = ['steem/'+authorSteem+'/'+permlinkSteem]
+            }
 
-            var transactions = []
+            let transactions = []
 
             if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                 if (burn)
@@ -36,6 +49,11 @@ broadcast = {
             if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
                 transactions.push(function(callback) {
                     broadcast.steem.comment(permlinkSteem, paSteem, ppSteem, body, jsonSteem, [tag], callback)
+                })
+            
+            if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
+                transactions.push((callback) => {
+                    broadcast.hive.comment(permlinkSteem, paSteem, ppSteem, body, jsonHive, [tag], callback)
                 })
 
             parallel(transactions, function(err, results) {
@@ -54,9 +72,20 @@ broadcast = {
 
             let jsonAvalon = Object.assign({},json)
             let jsonSteem = Object.assign({},json)
-            if (networks.includes('dtc') && networks.includes('steem')) {
+            let jsonHive = Object.assign({},json)
+            if (networks.includes('dtc') && networks.includes('steem') && networks.includes('hive')) {
+                jsonAvalon.refs = [refs[networks.indexOf('steem')],refs[networks.indexOf('hive')]]
+                jsonSteem.refs = [refs[networks.indexOf('dtc')],refs[networks.indexOf('hive')]]
+                jsonHive.refs = [refs[networks.indexOf('dtc')],refs[networks.indexOf('steem')]]
+            } else if (networks.includes('dtc') && networks.includes('steem')) {
                 jsonAvalon.refs = [refs[networks.indexOf('steem')]]
                 jsonSteem.refs = [refs[networks.indexOf('dtc')]]
+            } else if (networks.includes('dtc') && networks.includes('hive')) {
+                jsonAvalon.refs = [refs[networks.indexOf('hive')]]
+                jsonHive.refs = [refs[networks.indexOf('dtc')]]
+            } else if (networks.includes('hive') && networks.includes('steem')) {
+                jsonHive.refs = [refs[networks.indexOf('steem')]]
+                jsonSteem.refs = [refs[networks.indexOf('hive')]]
             }
 
             // Get content from each chain to check for parent posts (in case of comment edits)
@@ -73,6 +102,13 @@ broadcast = {
                 let avalonref = refs[networks.indexOf('dtc')].split('/')
                 getops.dtc = (callback) => {
                     avalon.getContent(avalonref[1],avalonref[2],callback)
+                }
+            }
+
+            if (networks.includes('hive') && Session.get('activeUsernameHive') && !Session.get('isHiveDisabled')) {
+                let hiveref = refs[networks.indexOf('hive')].split('/')
+                getops.hive = (callback) => {
+                    hive.api.getContent(hiveref[1],hiveref[2],callback)
                 }
             }
 
@@ -103,6 +139,25 @@ broadcast = {
                     })
                 }
 
+                if (originalposts.hive) {
+                    let newHiveJsonMeta = JSON.parse(originalposts.hive.json_metadata)
+                    newHiveJsonMeta.video = jsonHive
+                    let hivetx = [
+                        ['comment',{
+                            parent_author: originalposts.hive.parent_author,
+                            parent_permlink: originalposts.hive.parent_permlink,
+                            author: originalposts.hive.author,
+                            permlink: originalposts.hive.permlink,
+                            title: jsonHive.title,
+                            body: body || originalposts.hive.body,
+                            json_metadata: JSON.stringify(newHiveJsonMeta)
+                        }]
+                    ]
+                    broadcastops.push((callback) => {
+                        broadcast.hive.send(hivetx,callback)
+                    })
+                }
+
                 if (originalposts.dtc) {
                     broadcastops.push((callback) => {
                         broadcast.avalon.comment(originalposts.dtc.link,originalposts.dtc.pa,originalposts.dtc.pp,jsonAvalon,'',true,callback)
@@ -115,7 +170,7 @@ broadcast = {
                 })
             })
         },
-        vote: function(refs, wAvalon, wSteem, tagAvalon, cb) {
+        vote: function(refs, wAvalon, wSteem, wHive, tagAvalon, cb) {
             var transactions = []
 
             for (let i = 0; i < refs.length; i++) {
@@ -130,6 +185,11 @@ broadcast = {
                     if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
                         transactions.push(function(callback) {
                             broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
+                        })
+                if (ref[0] == 'hive')
+                    if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
+                        transactions.push((callback) => {
+                            broadcast.hive.vote(ref[1],ref[2],wHive,callback)
                         })
             }
 
@@ -740,6 +800,171 @@ broadcast = {
                 })
                 return;
             }
+        }
+    },
+    hive: {
+        comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
+            if (!permlink) permlink = Template.upload.createPermlink(11)
+            if (!parentAuthor) parentAuthor = ''
+            if (!parentPermlink) parentPermlink = 'hive-196037'
+            if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return
+            let voter = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).username
+            if (!voter) return;
+            let author = Session.get('activeUsernameHive')
+            let title = jsonMetadata.title
+            finalTags = ['dtube']
+            
+            for (let i = 0; i < tags.length; i++)
+                if (finalTags.indexOf(tags[i]) == -1)
+                    finalTags.push(tags[i])
+
+            if (!body)
+                body = genSteemBody(author, permlink, jsonMetadata)
+
+            var jsonMetadata = {
+              video: jsonMetadata,
+              tags: finalTags,
+              app: Meteor.settings.public.app
+            }
+        
+            let percent_steem_dollars = 10000
+            if ($('input[name=powerup]')[0] && $('input[name=powerup]')[0].checked)
+              percent_steem_dollars = 0
+        
+            let operations = [
+              ['comment',
+                {
+                  parent_author: '',
+                  parent_permlink: 'dtube',
+                  author: author,
+                  category: 'hive-196037',
+                  permlink: permlink,
+                  title: title,
+                  body: body,
+                  json_metadata: JSON.stringify(jsonMetadata)
+                }
+              ],
+              ['comment_options', {
+                author: author,
+                permlink: permlink,
+                max_accepted_payout: '1000000.000 SBD',
+                percent_steem_dollars: percent_steem_dollars,
+                allow_votes: true,
+                allow_curation_rewards: true,
+                extensions: [
+                  [0, {
+                    beneficiaries: [{
+                      account: Meteor.settings.public.beneficiary,
+                      weight: Session.get('remoteSettings').dfees
+                    }]
+                  }]
+                ]
+              }]
+            ];
+            operations[0][1].parent_author = parentAuthor
+            operations[0][1].parent_permlink = parentPermlink
+            broadcast.hive.send(operations, function (err, res) {
+                if (!err && res && res.operations)
+                    res = res.operations[0][1].author+'/'+res.operations[0][1].permlink
+                if (!err && res && res.data && res.data.operations)
+                    res = res.data.operations[0][1].author+'/'+res.data.operations[0][1].permlink
+                cb(err, res)
+            })
+        },
+        vote: function(author, permlink, weight, cb) {
+            if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return
+            let voter = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' })
+            if (!voter.username) return;
+            
+            if(voter.type == "keychain") {
+                if(!hive_keychain) {
+                    return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
+                }
+                hive_keychain.requestVote(Session.get('activeUsernameHive'), permlink, author, weight, function(response) {
+                    console.log(response);
+                    cb(response.error, response)
+                })
+                return
+            }
+    
+            let wif = voter.privatekey
+            if (wif) {
+                hive.broadcast.vote(wif, voter, author, permlink, weight, function (err, result) {
+                    cb(err, result)
+                })
+                return
+            }
+        },
+        subHive: () => {
+            if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return
+            let voter = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' })
+            if (!voter.username) return;
+
+            let operations = JSON.stringify(
+                ['subscribe', {
+                    community: "hive-196037"
+                }]
+            )
+
+            // Hive Keychain
+            if(voter.type == "keychain") {
+                if(!hive_keychain) {
+                    return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                }
+                hive_keychain.requestCustomJson(voter.username, "community", "Posting", operations , "community" ,(response) => {
+                    cb(response.error, response)
+                })
+                return
+            }
+            let wif = voter.privatekey
+            if (wif) hive.broadcast.customJson(
+                wif,
+                [],
+                [voter.username],
+                'community',
+                operations,
+                (err, result) => cb(err, result)
+            )
+        },
+        send: (operations, cb) => {
+            if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return
+            let voter = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).username
+            if (!voter) return;
+            
+            if(Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).type == "keychain") {
+                if(!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                
+                hive_keychain.requestBroadcast(voter, operations, "Posting" ,(response) => {
+                    console.log(response);
+                    cb(response.error, response)
+                })
+                return
+            }
+
+            let wif = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).privatekey
+            if (wif) {
+                hive.broadcast.send(
+                    { operations: operations, extensions: [] },
+                    { posting: wif },
+                    function(err, result) {
+                        cb(err, result)
+                    }
+                )
+                return
+            }
+        },
+        decrypt_memo: (memo,cb) => {
+            if (!Session.get('activeUsernameHive')) return
+            if (Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive'}).type == 'keychain') {
+                if (!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                hive_keychain.requestVerifyKey(Session.get('activeUsernameHive'),memo,'Posting',(response) => {
+                    cb(response.error,response.result.substr(1))
+                })
+                return
+            }
+            let wif = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).privatekey
+            let decoded = hive.memo.decode(wif,memo).substr(1)
+            cb(null,decoded)
         }
     }
 }

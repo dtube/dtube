@@ -1,6 +1,6 @@
 <template name="sidebar">
   <div style="height:100%;">
-    <div class="ui" style="margin-top: 15px; margin-bottom: 15px;">
+    <!-- <div class="ui" style="margin-top: 15px; margin-bottom: 15px;">
       <span id="disableSteem" data-position="bottom left">
           <img class="ui avatar image" src="https://assets.coingecko.com/coins/images/398/large/steem.png?1547034126">          
           {{#if isSteemDisabled}}
@@ -64,8 +64,14 @@
         {{>buttonloginavalon}}
       {{/if}}
     </div>
-    <div class="ui divider"></div>
+    <div class="ui divider"></div> -->
     <nav class="sectionslist">
+      <a href='/' class="item pdg-non">
+        <div id="homesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="home icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
+        </div>
+      </a>
       {{#if activeUsername}}
         <a href='/c/{{activeUsername}}' class="item pdg-non">
           <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
