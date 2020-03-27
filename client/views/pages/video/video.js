@@ -496,7 +496,8 @@ Template.video.handleVideo = function(result, id, isRef) {
     for (let i = 0; i < Session.get('currentRefs').length; i++) {
       let net = Session.get('currentRefs')[i].split('/')[0]
       let networksArray = Session.get('allNet') || []
-      networksArray.push(net)
+      if (!networksArray.includes(net))
+        networksArray.push(net)
       Session.set('allNet', networksArray)
     }
   }
