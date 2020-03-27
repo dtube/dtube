@@ -1,5 +1,4 @@
 var isLoadingState = false
-let netarr = []
 
 Template.video.rendered = function () {
   Session.set('isSearchingMobile', false)
@@ -16,6 +15,14 @@ Template.video.rendered = function () {
 }
 
 Template.video.helpers({
+  allNetworks: function() {
+    var a = Session.get('allNet')
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a
+  },
   mergedCommentsLength: function(dtc, steem) {
     var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive)
     return merged.length
@@ -488,7 +495,9 @@ Template.video.handleVideo = function(result, id, isRef) {
 
     for (let i = 0; i < Session.get('currentRefs').length; i++) {
       let net = Session.get('currentRefs')[i].split('/')[0]
-      netarr.push(net)
+      let networksArray = Session.get('allNet') || []
+      networksArray.push(net)
+      Session.set('allNet', networksArray)
     }
   }
   video.source = 'chainDirect'
@@ -549,7 +558,7 @@ function updateDtc(id,dist,votes,comments,ups,downs,currentNet) {
   if (Session.get('urlNet') == 'dtc') return
 
   // Do not update if network not part of refs
-  if (!netarr.includes('dtc')) return
+  if (!Session.get('allNet').includes('dtc')) return
 
   // Do not update if currentNet doesn't match
   if (currentNet != 'dtc') return
@@ -571,7 +580,7 @@ function updateDtc(id,dist,votes,comments,ups,downs,currentNet) {
 function updateHive(id,dist,votes,comments,ups,downs,currentNet) {
   if (Session.get('isHiveRefLoaded')) return
   if (Session.get('urlNet') == 'hive') return
-  if (!netarr.includes('hive')) return
+  if (!Session.get('allNet').includes('hive')) return
   if (currentNet != 'hive') return
   Session.set('isHiveRefLoaded',true)
   
@@ -591,7 +600,7 @@ function updateHive(id,dist,votes,comments,ups,downs,currentNet) {
 function updateSteem(id,dist,votes,comments,ups,downs,currentNet) {
   if (Session.get('isSteemRefLoaded')) return
   if (Session.get('urlNet') == 'steem') return
-  if (!netarr.includes('steem')) return
+  if (!Session.get('allNet').includes('steem')) return
   if (currentNet != 'steem') return
   Session.set('isSteemRefLoaded',true)
 

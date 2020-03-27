@@ -130,8 +130,23 @@
 
           <!-- Syntaxed video description - Show More -->
           <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful" style="display:grid;overflow: hidden;">
+            <div class='allNetworks'>
+              {{#each allNetworks}}
+                {{#if equals this 'dtc'}}
+                  <img width="32" src="./DTube_files/images/logos/dtube.png">
+                {{/if}}
+                {{#if equals this 'steem'}}
+                  <img width="32" src="./DTube_files/images/logos/steem.png">
+                {{/if}}
+                {{#if equals this 'hive'}}
+                  <img width="32" src="./DTube_files/images/logos/hive.png">                  
+                {{/if}}
+              {{/each}}
+            </div>
             <div id="truncateddesc" class="truncate" style="overflow: hidden;">
-              <strong title='{{timeAgo ts}}'>{{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}</strong>
+              <strong title='{{timeAgo ts}}'>
+                {{ translate 'VIDEO_ADDED_ON'}} {{timeDisplay ts}}
+              </strong>
               <br/> {{{syntaxed json.desc json.description}}}
             </div>
           </div>
