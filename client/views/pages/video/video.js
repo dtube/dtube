@@ -399,12 +399,12 @@ Template.video.loadState = function () {
           })
         }
         isLoadingState = false
+        Session.set('urlNet','steem')
         Template.video.loadScot()
         Template.video.handleVideo(result, 'steem/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
       })
     } else {
       isLoadingState = false
-      Session.set('urlNet','steem')
 
       // Load SCOT (Steem only)
       if (result && result.json && result.json.refs) {
