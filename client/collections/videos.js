@@ -676,6 +676,8 @@ Videos.parseFromSteem = function(video, isComment, network) {
       newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
     newVideo.json.app = JSON.parse(video.json_metadata).app
     newVideo.json.tags = JSON.parse(video.json_metadata).tags
+    if (newVideo.json.app.indexOf(Meteor.settings.public.beneficiary) == -1)
+      return
   } catch(e) {
     return
   }
