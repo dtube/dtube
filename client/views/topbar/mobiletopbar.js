@@ -6,9 +6,7 @@ Template.mobiletopbar.helpers({
     return Session.get('isSearchingMobile')
   },
   isLargeEnoughForLogo: function() {
-    if (!Session.get('activeUsername') && $(window).width() > 350)
-      return true
-    if ($(window).width() > 393)
+    if ($(window).width() > 396)
       return true
     return false
   }

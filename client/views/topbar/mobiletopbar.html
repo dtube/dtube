@@ -18,12 +18,21 @@
                     <div class="ui sidebartoggleicon item needsclick" style="cursor: pointer;float:left;padding-left:10px;padding-right:8px;">
                         <i class="sidebar icon" style="font-size:1.2em; margin:18px 0 0 0;"></i>
                     </div>
+                    {{#if isLargeEnoughForLogo}}
                     <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo'>
-                      <img  alt="" style="width:90px;" src="{{settings.logo}}" >
+                        <img  alt="" style="width:90px;" src="{{settings.logo}}" >
                     </a>
                     <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo'>
-                      <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
+                        <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
                     </a>
+                    {{else}}
+                    <a href='/' class="blacklogo ui header tiny item mobilelogoheader" id='textlogo'>
+                        <img  alt="" style="width:32px;" src="{{settings.logosmall}}" >
+                    </a>
+                    <a href='/' class="whitelogo ui header tiny item mobilelogoheader dsp-non" id='textlogo'>
+                        <img  alt="" style="width:32px;" src="{{settings.logosmallnight}}" >
+                    </a>
+                    {{/if}}
                 {{/if}}
                 <!-- <div class="ui sidebartoggleicon item" style="cursor: pointer;float:left;padding-left:10px;padding-right:8px;">
                     <i class="sidebar icon" style="font-size:1.2em; margin:18px 0 0 0;"></i>
@@ -42,13 +51,11 @@
                         {{> notificationdropdown}}
                     {{/if}}
                     {{> settingsdropdown}}
-                    {{#unless isLoggedOn}}
                     <a class="ui item" style="float:right;">
                         <a href="/login" class="circular ui icon youtube button">
                             <i class="user icon" style='margin:0; padding:0px;'></i>
                         </a>
                     </a>
-                    {{/unless}}
                 </div>
             </div>
         </div>
