@@ -5,7 +5,6 @@ Template.video.rendered = function () {
   Session.set('isSearchingMobile', false)
   Session.set('isShareOpen', false)
   Session.set('isDescriptionOpen', false)
-  Session.set('urlNet','')
   Template.video.setScreenMode();
   $(window).on('resize', Template.video.setScreenMode)
   Template.sidebar.resetActiveMenu()
@@ -387,10 +386,14 @@ Template.video.loadState = function () {
   Session.set('isSteemRefLoaded',false)
   Session.set('isHiveRefLoaded',false)
   Session.set('isDTCRefLoaded',false)
+  // maybe move this to parallel calls instead of series
+  // especially if we keep adding more networks
   avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
     if (err) {
+      // content is not available on avalon
       steem.api.getState('/dtube/@'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), function (err, result) {
         if (err || Object.keys(result.content).length == 0) {
+          // content is not available on avalon nor steem
           hive.api.getState('/dtube/@'+FlowRouter.getParam('author')+'/'+FlowRouter.getParam("permlink"), (hiveerror,hiveresult) => {
             if (hiveerror) throw hiveerror
             isLoadingState = false
@@ -405,7 +408,7 @@ Template.video.loadState = function () {
       })
     } else {
       isLoadingState = false
-
+      Session.set('urlNet','dtc')
       // Load SCOT (Steem only)
       if (result && result.json && result.json.refs) {
         for (let i = 0; i < result.json.refs.length; i++) {
@@ -414,7 +417,7 @@ Template.video.loadState = function () {
           }
         }
       }
-      Session.set('urlNet','dtc')
+      
       Template.video.handleVideo(result, 'dtc/'+FlowRouter.getParam("author")+'/'+FlowRouter.getParam("permlink"), false)
     }
   });

@@ -278,6 +278,7 @@ FlowRouter.route('/newaccount', {
 FlowRouter.route('/v/:author/:permlink', {
   name: "video",
   action: function(params, queryParams) {
+    Session.set('urlNet','')
     Meteor.isDMCA(params.author, params.permlink, function(block) {
       if (block==0) {
         BlazeLayout.render('masterLayout', {
