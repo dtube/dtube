@@ -971,7 +971,7 @@ broadcast = {
 
 var genSteemBody = function(author, permlink, video) {
     var body = '<center>'
-    body += '<a href=\'https://d.tube/#!/v/' + Session.get('activeUsernameSteem') + '/' + permlink + '\'>'
+    body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
     if (Videos.getOverlayUrl({json: video}))
         body += '<img src=\'' + Videos.getOverlayUrl({json: video}) + '\' ></a></center><hr>\n\n'
     else
