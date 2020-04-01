@@ -217,7 +217,8 @@ Videos.getVideosByBlogSteem = function(author, cb) {
         }
       } else {
         try {
-          Videos.upsert({ _id: videos[i]._id }, videos[i])
+          if (!Videos.findOne({ _id: videos[i]._id.replace('steem/', 'hive/') }))
+            Videos.upsert({ _id: videos[i]._id }, videos[i])
         } catch (err) {
           cb(err)
         }
@@ -285,7 +286,8 @@ Videos.getVideosByBlogHive = function (author,cb) {
         }
       } else {
         try {
-          Videos.upsert({ _id: videos[i]._id }, videos[i])
+          if (!Videos.findOne({ _id: videos[i]._id.replace('hive/', 'steem/') }))
+            Videos.upsert({ _id: videos[i]._id }, videos[i])
         } catch (err) {
           cb(err)
         }
@@ -676,7 +678,7 @@ Videos.parseFromSteem = function(video, isComment, network) {
       newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
     newVideo.json.app = JSON.parse(video.json_metadata).app
     newVideo.json.tags = JSON.parse(video.json_metadata).tags
-    if (!newVideo.json.videoId && !newVideo.json.files)
+    if (!newVideo.json.videoId && !newVideo.json.files && !newVideo.json.ipfs.snaphash)
       return
   } catch(e) {
     return
