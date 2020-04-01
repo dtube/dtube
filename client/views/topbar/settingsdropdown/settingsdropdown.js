@@ -63,7 +63,7 @@ Template.settingsdropdown.rendered = function() {
     direction: "downward"
   })
   if (!Session.get('nsfwSetting')) {
-    if (Meteor.settings.public.scot.nsfw)
+    if (Meteor.settings.public.scot && Meteor.settings.public.scot.nsfw)
       Session.set('nsfwSetting', 'Show')
     else
       Session.set('nsfwSetting', 'Fully Hidden')
