@@ -792,6 +792,8 @@ Videos.parseFromSteem = function(video, isComment, network) {
   if (!newVideo._id) newVideo._id = network + '/'+newVideo.author+'/'+newVideo.permlink
   if (!newVideo.json.thumbnailUrl)
     newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(newVideo)
+  if (newVideo.json.ipfs && newVideo.json.ipfs.snaphash == "QmSi8pbdzgESJEuaeFMUtEv8NRTCA1gipRMvS9WHfo7HVz")
+    return
   return newVideo;
 }
 
