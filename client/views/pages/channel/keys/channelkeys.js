@@ -72,10 +72,10 @@ Template.channelkeys.events({
         var newKeyId = $('#newkey-id').val()
         var newKeyPub = $('#newkey-pub').val()
         var txTypes = []
-        for (const key in $('input[type=checkbox]')) {
+        for (const key in $('.transactionType')) {
             if (!Number.isInteger(parseInt(key))) break
-            if (!$('input[type=checkbox]')[key].checked) continue
-            txTypes.push(parseInt($('input[type=checkbox]')[key].dataset.txid))
+            if (!$('.transactionType')[key].checked) continue
+            txTypes.push(parseInt($('.transactionType')[key].dataset.txid))
         }
         broadcast.avalon.newKey(newKeyId, newKeyPub, txTypes, function(err, res) {
             if (err)
