@@ -16,12 +16,14 @@ Meteor.startup(function(){
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
   // choose steem api on startup
-  if(!localStorage.getItem('steemAPI'))
+  if(!localStorage.getItem('steemAPI')
+  || Meteor.settings.public.remote.APINodes.indexOf(localStorage.getItem('steemAPI')) === -1)
     steem.api.setOptions({ url: Meteor.settings.public.remote.APINodes[0], useAppbaseApi: true}); //Default
   else
     steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
 
-  if (!localStorage.getItem('hiveAPI'))
+  if (!localStorage.getItem('hiveAPI')
+  || Meteor.settings.public.remote.HiveAPINodes.indexOf(localStorage.getItem('hiveAPI')) === -1)
     hive.api.setOptions({ url: Meteor.settings.public.remote.HiveAPINodes[0], useAppbaseApi: true })
   else
     hive.api.setOptions({ url: localStorage.getItem('hiveAPI'), useAppbaseApi: true })

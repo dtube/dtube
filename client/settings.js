@@ -22,12 +22,12 @@ Meteor.settings.public = {
       "https://avalon.christianknuchel.com"
     ],
     "HiveAPINodes": [
-      "https://api.hive.blog",
-      "https://api.openhive.network",
+      "https://anyx.io",
       "https://api.hivekings.com",
       "https://rpc.esteem.app",
-      "https://anyx.io",
-      "https://techcoderx.com"
+      "https://techcoderx.com",
+      // "https://api.hive.blog",
+      // "https://api.openhive.network",
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
