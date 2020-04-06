@@ -54,12 +54,12 @@ Videos.getVideosByTags = function(page, tags, days, sort_by, order, maxDuration,
     queries.push('ts:%3E='+dateFrom)
   }
   if (maxDuration && maxDuration < 99999)
-    queries.push('json.duration:%3C='+maxDuration)
+    queries.push('json.dur:%3C='+maxDuration)
   for (let i = 0; i < tags.length; i++)
-    queries.push('tags.'+tags[i]+':%3E=0')
+    queries.push('tags:'+tags[i])
 
   var query = queries.join(' AND ')
-  var sort = 'tags.'+tags[0]+':desc'
+  var sort = 'ups:desc'
   if (sort_by) sort = sort_by+':desc'
 
   Search.text(query, sort,startpos, function(err, response) {

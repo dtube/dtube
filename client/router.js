@@ -27,20 +27,6 @@ FlowRouter.route('/keypair', {
   }
 });
 
-// FlowRouter.route('/upload', {
-//   name: "upload",
-//   action: function(params, queryParams) {
-//     Session.set("currentMenu", 3)
-//     Template.sidebar.selectMenu();
-//     Session.set("pageTitle", 'Upload')
-//     Template.sidebar.selectMenu();
-//     BlazeLayout.render('masterLayout', {
-//       main: "upload",
-//       nav: "nav",
-//     });
-//   }
-// });
-
 FlowRouter.route('/test', {
   name: "testdev",
   action: function(params, queryParams) {
@@ -68,20 +54,6 @@ FlowRouter.route('/publish', {
     });
   }
 });
-
-// FlowRouter.route('/golive', {
-//   name: "golive",
-//   action: function(params, queryParams) {
-//     Session.set("currentMenu", 9)
-//     Template.sidebar.selectMenu();
-//     Session.set("pageTitle", 'Go Live')
-//     Template.sidebar.selectMenu();
-//     BlazeLayout.render('masterLayout', {
-//       main: "golive",
-//       nav: "nav",
-//     });
-//   }
-// });
 
 FlowRouter.route('/hotvideos', {
   name: "hotvideos",
@@ -145,9 +117,6 @@ FlowRouter.route('/newvideos', {
     Session.set("currentMenu", 6)
     Template.sidebar.selectMenu();
     Session.set("pageTitle", 'New Videos')
-    // Videos.getVideosBy('createdLive', 50, function (err) {
-    //   if (err) console.log(err)
-    // })
     BlazeLayout.render('masterLayout', {
       main: "newvideos",
       nav: "nav",
@@ -296,10 +265,6 @@ FlowRouter.route('/v/:author/:permlink', {
     Template.sidebar.empty()
 
     Template.video.loadState()
-    // Videos.getVideosByBlog(params.author, 100, function() {
-    //   // call finished
-    // })
-    // SubCounts.loadSubscribers(params.author)
     ChainUsers.fetchNames([params.author], function (error) {
       if (error) console.log('Error fetch name')
     })
@@ -316,10 +281,6 @@ FlowRouter.route('/c/:author', {
     
     if (Session.get('avalonOnboarding'))
       Session.set('avalonOnboarding', false)
-    // Videos.getVideosByBlog(params.author, 50, function(err) {
-    //   if (err) console.log(err)
-    // })
-    //SubCounts.loadSubscribers(params.author)
     Session.set('currentTab', 'videos');
     if(Session.get('activeUsername') == params.author)
     {
@@ -349,15 +310,7 @@ FlowRouter.route('/t/:tag', {
       nav: "nav"
     });
     Session.set('tagCount',0)
-    Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), 0, function(err, response) {
-      // call finished
-    })
-    // Videos.getVideosByTags(2, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-    //   // call finished
-    // })
-    // Videos.getVideosByTags(3, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), function(err, response) {
-    //   // call finished
-    // })
+    Videos.getVideosByTags(1, [params.tag], Session.get('tagDays'), Session.get('tagSortBy'), 'desc', Session.get('tagDuration'), 0, function(err, response) {})
     Session.set("currentMenu", 0)
     Template.sidebar.selectMenu();
     Session.set('askSteemCurrentPage', 3)

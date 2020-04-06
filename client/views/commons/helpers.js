@@ -724,6 +724,10 @@ Template.registerHelper('activeUsernameHive', () => {
   return Session.get('activeUsernameHive')
 })
 
+Template.registerHelper('getVideoDesc', (video) => {
+  return video.desc || video.description
+})
+
 Template.registerHelper('subCount', function() {
   var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
   if (user)
