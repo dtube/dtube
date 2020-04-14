@@ -807,7 +807,7 @@ Videos.getOverlayUrl = function(video) {
   if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["360"])
     return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["360"]
   if (video.json.files && video.json.files.youtube)
-    return 'http://i.ytimg.com/vi/'+video.json.files.youtube+'/hqdefault.jpg'
+    return 'https://i.ytimg.com/vi/'+video.json.files.youtube+'/hqdefault.jpg'
   return ''
 }
 
@@ -821,7 +821,7 @@ Videos.getThumbnailUrl = function(video) {
   if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["118"])
     return 'https://snap1.d.tube/ipfs/'+video.json.files.ipfs.img["118"]
   if (video.json.files && video.json.files.youtube)
-    return 'http://i.ytimg.com/vi/'+video.json.files.youtube+'/mqdefault.jpg'
+    return 'https://i.ytimg.com/vi/'+video.json.files.youtube+'/mqdefault.jpg'
   
   if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.ipfs.snaphash
   if (video.json.info && video.json.info.snaphash) return 'https://snap1.d.tube/ipfs/'+video.json.info.snaphash
