@@ -227,7 +227,7 @@ Template.registerHelper('displayRewards', function (dtc, steem, scot, hive) {
   }
   if ((hive || hive == 0) && (steem || steem == 0)) {
     let HBDPlusSBD = hive + steem
-    rewards.push('$'+HBDPlusSBD)
+    rewards.push('$'+HBDPlusSBD.toFixed(3))
   } else if (steem || steem === 0) rewards.push('$'+steem)
   else if (hive || hive == 0) rewards.push('$'+hive)
   if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
