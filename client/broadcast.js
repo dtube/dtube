@@ -761,6 +761,23 @@ broadcast = {
                 return;
             }
         },
+        changePassword: (pub,cb) => {
+            if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
+            // avalon only
+            let voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            if (voter && wif) {
+                let tx = {
+                    type: 12,
+                    data: {
+                        pub: pub
+                    }
+                }
+                tx = avalon.sign(wif,voter,tx)
+                avalon.sendTransaction(tx,(err,res) => cb(err,res))
+                return
+            }
+        },
         voteLeader: function(target, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             // avalon only
