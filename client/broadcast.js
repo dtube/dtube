@@ -53,7 +53,7 @@ broadcast = {
             
             if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
                 transactions.push((callback) => {
-                    broadcast.hive.comment(permlinkSteem, paSteem, ppSteem, body, jsonHive, [tag], callback)
+                    broadcast.hive.comment(permlinkSteem, paHive, ppHive, body, jsonHive, [tag], callback)
                 })
 
             parallel(transactions, function(err, results) {

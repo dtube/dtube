@@ -13,8 +13,7 @@ Meteor.settings.public = {
     ],
     "APINodes": [
       "https://api.steemit.com",
-      "https://api.justyy.com",
-      "https://steemd.privex.io",
+      "https://api.justyy.com"
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",
