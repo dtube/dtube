@@ -83,6 +83,8 @@ Template.addvideoformfile.inputVideo = function(dt) {
           return
         } else {
           console.log('Uploaded video', result);
+          if (result.skylink && Session.get('uploadEndpoint') === 'beta.oneloved.tube')
+              Template.addvideo.addFiles('sia',{ vid: { src: result.skylink }})
         }
       })
     });

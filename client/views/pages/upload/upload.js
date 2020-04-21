@@ -208,7 +208,7 @@ Template.upload.uploadVideo = function (file, progressid, cb) {
           $('input[name="vid.src"]').val(result.ipfshash)
         if (result.spritehash)
           $('input[name="img.spr"]').val(result.spritehash)
-        $('input[name="gw"]').val('video.oneloveipfs.com')
+        $('input[name="gw"]').val('https://video.oneloveipfs.com')
         cb(null, result)
       }, 200)
     })
