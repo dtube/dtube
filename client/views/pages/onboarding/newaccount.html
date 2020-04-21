@@ -9,8 +9,9 @@
                 <label>{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}</label>
                 <div class="ui left icon input">
                   <i class="user icon"></i>
-                  <input type="text" name="newacc_username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}">
+                  <input type="text" name="newacc_username" id="newacc_username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}">
                 </div>
+                <p id="newusernamedet"></p>
               </div>
               {{#if generatedKeys}}
               {{>keypair}}<br>

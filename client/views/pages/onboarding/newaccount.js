@@ -37,5 +37,19 @@ Template.newaccount.events({
   'click #avalonkeygen': (e) => {
     e.preventDefault()
     Session.set('generatedKey',true)
+  },
+  'keyup #newacc_username': () => {
+    if ($('#newacc_username').val())
+      $.ajax({
+        url: avalon.config.api + '/accountPrice/' + $('#newacc_username').val(),
+        success: (result) => {
+          if (!isNaN(result))
+            $('#newusernamedet').text('Account price: ' + (parseInt(result)/100) + ' DTC')
+          else 
+            $('#newusernamedet').text(result)
+        }
+      })
+    else 
+      $('#newusernamedet').text('')
   }
 })
