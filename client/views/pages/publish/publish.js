@@ -512,8 +512,8 @@ Template.publish.generateVideo = function() {
 }
 
 Template.publish.createPermlink = function(video) {
-  if (!video) return
-  if (!video.files) return
+  if (!video) return Template.publish.randomPermlink(11)
+  if (!video.files) return Template.publish.randomPermlink(11)
   if (video.files.btfs && video.files.btfs.vid && video.files.btfs.vid.src)
     return video.files.btfs.vid.src
   if (video.files.ipfs && video.files.ipfs.vid && video.files.ipfs.vid.src)

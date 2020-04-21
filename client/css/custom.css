@@ -217,6 +217,14 @@ textarea {
   width: 150px!important;
 }
 
+.keypairpopupbtn {
+  float: right;
+}
+
+.newcustomkey h5 {
+  margin-block-start: 0.5em;
+}
+
 .leader {
   color: black;
 }

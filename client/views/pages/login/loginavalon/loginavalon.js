@@ -11,7 +11,7 @@ Template.loginavalon.helpers({
     }
   })
   
-  Template.loginavalon.success = function(activeUsername, noreroute) {
+  Template.loginavalon.success = function(activeUsername, noreroute, isSecurityKey) {
     Session.set('activeUsername', activeUsername)
     Subs.loadFollowing(activeUsername, null, true, function(user, count) {
       console.log('Loaded '+count+' following for '+user)
@@ -37,7 +37,10 @@ Template.loginavalon.helpers({
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')
-
+    if (isSecurityKey)
+      toastr.warning(translate('WARNING_SECURITY_KEY_LOGIN'),translate('WARNING_TITLE'))
+    else if (!isSecurityKey && !noreroute)
+      toastr.success(translate('LOGIN_SUCCESS_CUSTOM_KEY'),translate('USERS_SUCCESS'))
     Template.accountsdropdown.refreshNetworkSwitch()
   }
   
@@ -80,9 +83,12 @@ Template.loginavalon.helpers({
           return
         }
 
+        let isSecurityKey = false
         var allowedTxTypes = []
-        if (chainuser.pub == user.publickey)
+        if (chainuser.pub == user.publickey) {
           allowedTxTypes = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15]
+          isSecurityKey = true
+        }
         for (let i = 0; i < chainuser.keys.length; i++)
           if (chainuser.keys[i].pub == user.publickey)
             allowedTxTypes = chainuser.keys[i].types
@@ -97,7 +103,7 @@ Template.loginavalon.helpers({
 
           console.log(user)
           Users.upsert({_id: user._id}, user, function() {
-            Template.loginavalon.success(user.username)
+            Template.loginavalon.success(user.username,false,isSecurityKey)
           })
         } else {
           toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))

@@ -1,7 +1,17 @@
-var QRCode = require('qrcode')
+const QRCode = require('qrcode')
 
 Template.channelkeys.rendered = function() {
-    $('.ui.checkbox').checkbox()
+    $('.ui.checkbox').checkbox({
+        onChecked: () => {
+            if ($('#masterkeyconfirm1').prop('checked') === true && $('#masterkeyconfirm2').prop('checked') === true) $('#changeMasterKeyBtn').removeClass('disabled')
+        },
+        onUnchecked: () => {
+            if ($('#masterkeyconfirm1').prop('checked') != true || $('#masterkeyconfirm2').prop('checked') != true) $('#changeMasterKeyBtn').addClass('disabled')
+        }
+    })
+    $('.ui.accordion').accordion({
+        exclusive: true
+    })
 
     $('.qrButton')
         .popup({
@@ -63,6 +73,7 @@ Template.channelkeys.events({
             if (err)
                 toastr.error(Meteor.blockchainError(err))
             else {
+                toastr.success(translate('CUSTOM_KEY_DELETE_SUCCESS'),translate('USERS_SUCCESS'))
                 ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
             }
         })
@@ -70,7 +81,7 @@ Template.channelkeys.events({
     'click #newKeyButton': function(e) {
         e.preventDefault()
         var newKeyId = $('#newkey-id').val()
-        var newKeyPub = $('#newkey-pub').val()
+        var newKeyPub = $('#avalonpub').val()
         var txTypes = []
         for (const key in $('.transactionType')) {
             if (!Number.isInteger(parseInt(key))) break
@@ -81,8 +92,18 @@ Template.channelkeys.events({
             if (err)
                 toastr.error(Meteor.blockchainError(err))
             else {
+                toastr.success(translate('CUSTOM_KEY_CREATE_SUCCESS'),translate('USERS_SUCCESS'))
                 ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
             }
+        })
+    },
+    'click #changeMasterKeyBtn': (e) => {
+        e.preventDefault()
+        let newMasterPubKey = $('#avalonpub').val()
+        broadcast.avalon.changePassword(newMasterPubKey,(e,r) => {
+            if (e) return toastr.error(Meteor.blockchainError(e))
+            toastr.success(translate('MASTER_KEY_CHANGE_SUCCESS'),translate('USERS_SUCCESS'))
+            ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
         })
     }
 })

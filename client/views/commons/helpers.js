@@ -227,7 +227,7 @@ Template.registerHelper('displayRewards', function (dtc, steem, scot, hive) {
   }
   if ((hive || hive == 0) && (steem || steem == 0)) {
     let HBDPlusSBD = hive + steem
-    rewards.push('$'+HBDPlusSBD)
+    rewards.push('$'+HBDPlusSBD.toFixed(3))
   } else if (steem || steem === 0) rewards.push('$'+steem)
   else if (hive || hive == 0) rewards.push('$'+hive)
   if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
@@ -419,7 +419,7 @@ Template.registerHelper('durationDisplay', function (seconds) {
 
 Template.registerHelper('hasUpvoted', function (video) {
   if (!video) return false
-  if (!video.votes && !video.votesSteem) return false
+  if (!video.votes && !video.votesSteem && !video.votesHive) return false
   if (video.votes)
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')
@@ -443,7 +443,7 @@ Template.registerHelper('hasUpvoted', function (video) {
 
 Template.registerHelper('hasDownvoted', function (video) {
   if (!video) return false
-  if (!video.votes && !video.votesSteem) return false
+  if (!video.votes && !video.votesSteem && !video.votesHive) return false
   if (video.votes)
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')

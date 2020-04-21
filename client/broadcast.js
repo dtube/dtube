@@ -53,7 +53,7 @@ broadcast = {
             
             if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
                 transactions.push((callback) => {
-                    broadcast.hive.comment(permlinkSteem, paSteem, ppSteem, body, jsonHive, [tag], callback)
+                    broadcast.hive.comment(permlinkSteem, paHive, ppHive, body, jsonHive, [tag], callback)
                 })
 
             parallel(transactions, function(err, results) {
@@ -759,6 +759,23 @@ broadcast = {
                     cb(err, res)
                 })
                 return;
+            }
+        },
+        changePassword: (pub,cb) => {
+            if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
+            // avalon only
+            let voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            if (voter && wif) {
+                let tx = {
+                    type: 12,
+                    data: {
+                        pub: pub
+                    }
+                }
+                tx = avalon.sign(wif,voter,tx)
+                avalon.sendTransaction(tx,(err,res) => cb(err,res))
+                return
             }
         },
         voteLeader: function(target, cb) {

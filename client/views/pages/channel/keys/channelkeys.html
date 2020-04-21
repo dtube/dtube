@@ -6,7 +6,7 @@
                 <img src="{{qrCode}}">
             </div>
             <div class="ui inverted segment">
-                <h4>Security Key</h4>
+                <h4>{{ translate 'MASTER_KEY' }}</h4>
                 {{#if equals mainKey loggedInPub}}
                     <h3>
                         <i class="icon exclamation triangle red"></i>
@@ -62,28 +62,52 @@
                 {{/each}}
             {{else}}
             {{/if}}
-            <div class="ui segment">
-                <h4>New Key</h4>
-                <form class="ui form">
-                    <div class="field">
-                        <label>Key identifier</label>
-                        <input type="text" id="newkey-id">
-                    </div>
-                    <div class="field">
-                        <label>Public Key</label>
-                        <input type="text" id="newkey-pub">
-                    </div>
-                    <h5>Permissions:</h5>
-                    {{#each transactionTypes}}
+            <div class="ui styled fluid accordion">
+                <div class="title" style="text-align: left;">
+                    <i class="dropdown icon"></i>
+                    {{ translate 'CUSTOM_KEY_NEW' }}
+                </div>
+                <div class="content">
+                    <form class="ui form newcustomkey">
                         <div class="field">
-                            <div class="ui toggle checkbox">
-                                <input type="checkbox" tabindex="0" class="hidden transactionType" data-txid="{{id}}">
-                                <label>{{name}}</label>
+                            <label>Key identifier</label>
+                            <input type="text" id="newkey-id">
+                        </div>
+                        {{>keypair}}
+                        <h5>Permissions:</h5>
+                        {{#each transactionTypes}}
+                            <div class="field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" tabindex="0" class="hidden transactionType" data-txid="{{id}}">
+                                    <label>{{name}}</label>
+                                </div>
+                            </div>
+                        {{/each}}
+                        <button id="newKeyButton" class="ui red button" type="submit">Create</button>
+                    </form>
+                </div>
+                <div class="title" style="text-align: left;">
+                    <i class="dropdown icon"></i>
+                    {{ translate 'MASTER_KEY_CHANGE' }}
+                </div>
+                <div class="content">
+                    <form class="ui form">
+                        {{>keypair}}
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <label>{{ translate 'MASTER_KEY_CHANGE_CONFIRM_ONE' }}</label>
+                                <input type="checkbox" id="masterkeyconfirm1">
                             </div>
                         </div>
-                    {{/each}}
-                    <button id="newKeyButton" class="ui red button" type="submit">Create</button>
-                </form>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <label>{{ translate 'MASTER_KEY_CHANGE_CONFIRM_TWO' }}</label>
+                                <input type="checkbox" id="masterkeyconfirm2">
+                            </div>
+                        </div><br>
+                        <button id="changeMasterKeyBtn" class="ui red button disabled" type="submit">{{ translate 'UPLOAD_SUBMIT' }}</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
