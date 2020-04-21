@@ -420,19 +420,19 @@ Template.registerHelper('durationDisplay', function (seconds) {
 Template.registerHelper('hasUpvoted', function (video) {
   if (!video) return false
   if (!video.votes && !video.votesSteem && !video.votesHive) return false
-  if (video.votes)
+  if (video.votes && Session.get('activeUsername'))
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')
         && video.votes[i].vt > 0)
         return true
     }
-  if (video.votesSteem)
+  if (video.votesSteem && Session.get('activeUsernameSteem'))
     for (var i = 0; i < video.votesSteem.length; i++) {
       if (video.votesSteem[i].voter == Session.get('activeUsernameSteem')
         && parseInt(video.votesSteem[i].rshares) > 0)
         return true
     }
-  if (video.votesHive)
+  if (video.votesHive && Session.get('activeUsernameHive'))
     for (let i = 0; i < video.votesHive.length; i++) {
       if (video.votesHive[i].voter == Session.get('activeUsernameHive')
        && parseInt(video.votesHive[i].rshares) > 0)
@@ -444,21 +444,21 @@ Template.registerHelper('hasUpvoted', function (video) {
 Template.registerHelper('hasDownvoted', function (video) {
   if (!video) return false
   if (!video.votes && !video.votesSteem && !video.votesHive) return false
-  if (video.votes)
+  if (video.votes && Session.get('activeUsername'))
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')
         && video.votes[i].vt < 0)
-        return true
+          return true
     }
-  if (video.votesSteem)
+  if (video.votesSteem && Session.get('activeUsernameSteem'))
     for (var i = 0; i < video.votesSteem.length; i++) {
-      if (video.votesSteem[i].u == Session.get('activeUsernameSteem')
+      if (video.votesSteem[i].voter == Session.get('activeUsernameSteem')
         && parseInt(video.votesSteem[i].rshares) < 0)
-        return true
+          return true
     }
-  if (video.votesHive)
+  if (video.votesHive && Session.get('activeUsernameHive'))
     for (let i = 0; i < video.votesHive.length; i++) {
-      if (video.votesHive[i].u == Session.get('activeUsernameHive')
+      if (video.votesHive[i].voter == Session.get('activeUsernameHive')
         && parseInt(video.votesHive[i].rshares) < 0)
           return true
     }
