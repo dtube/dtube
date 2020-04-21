@@ -13,34 +13,6 @@ FlowRouter.route('/', {
   }
 });
 
-FlowRouter.route('/keypair', {
-  name: "upload",
-  action: function(params, queryParams) {
-    Session.set("currentMenu", 3)
-    Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Key Generator')
-    Template.sidebar.selectMenu();
-    BlazeLayout.render('masterLayout', {
-      main: "keypair",
-      nav: "nav",
-    });
-  }
-});
-
-FlowRouter.route('/test', {
-  name: "testdev",
-  action: function(params, queryParams) {
-    Session.set("currentMenu", 3)
-    Template.sidebar.selectMenu();
-    Session.set("pageTitle", 'Dev Testing')
-    Template.sidebar.selectMenu();
-    BlazeLayout.render('masterLayout', {
-      main: "testdev",
-      nav: "nav",
-    });
-  }
-});
-
 FlowRouter.route('/publish', {
   name: "addvideo",
   action: function(params, queryParams) {
