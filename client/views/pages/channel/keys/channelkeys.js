@@ -41,6 +41,8 @@ Template.channelkeys.helpers({
     'transactionTypes': function(){
         types = []
         for (const key in avalon.TransactionType) {
+            if (key == 'TRANSFER_VT' || key == 'TRANSFER_BW')
+                continue
             types.push({
                 name: key,
                 id: avalon.TransactionType[key]
