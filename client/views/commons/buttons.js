@@ -48,3 +48,9 @@
       Template.buttontransfer.transfer()
     },
   })
+
+Template.buttonkeypairgen.events({
+  'click .keypairpopupbtn': () => {
+    console.log('keypair req')
+  }
+})

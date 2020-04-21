@@ -1,4 +1,4 @@
-var QRCode = require('qrcode')
+const QRCode = require('qrcode')
 
 Template.channelkeys.rendered = function() {
     $('.ui.checkbox').checkbox({
@@ -73,6 +73,7 @@ Template.channelkeys.events({
             if (err)
                 toastr.error(Meteor.blockchainError(err))
             else {
+                toastr.success(translate('CUSTOM_KEY_DELETE_SUCCESS'),translate('USERS_SUCCESS'))
                 ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
             }
         })
@@ -80,7 +81,7 @@ Template.channelkeys.events({
     'click #newKeyButton': function(e) {
         e.preventDefault()
         var newKeyId = $('#newkey-id').val()
-        var newKeyPub = $('#newkey-pub').val()
+        var newKeyPub = $('#avalonpub').val()
         var txTypes = []
         for (const key in $('.transactionType')) {
             if (!Number.isInteger(parseInt(key))) break
@@ -98,9 +99,7 @@ Template.channelkeys.events({
     },
     'click #changeMasterKeyBtn': (e) => {
         e.preventDefault()
-        let newMasterPubKey = $('#newmasterkey-pub').val()
-        if (!newMasterPubKey)
-            return toastr.error(translate('NEW_PUBLIC_KEY_REQUIRED'),translate('ERROR_TITLE'))
+        let newMasterPubKey = $('#avalonpub').val()
         broadcast.avalon.changePassword(newMasterPubKey,(e,r) => {
             if (e) return toastr.error(Meteor.blockchainError(e))
             toastr.success(translate('MASTER_KEY_CHANGE_SUCCESS'),translate('USERS_SUCCESS'))

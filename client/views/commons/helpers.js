@@ -419,7 +419,7 @@ Template.registerHelper('durationDisplay', function (seconds) {
 
 Template.registerHelper('hasUpvoted', function (video) {
   if (!video) return false
-  if (!video.votes && !video.votesSteem) return false
+  if (!video.votes && !video.votesSteem && !video.votesHive) return false
   if (video.votes)
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')
@@ -443,7 +443,7 @@ Template.registerHelper('hasUpvoted', function (video) {
 
 Template.registerHelper('hasDownvoted', function (video) {
   if (!video) return false
-  if (!video.votes && !video.votesSteem) return false
+  if (!video.votes && !video.votesSteem && !video.votesHive) return false
   if (video.votes)
     for (var i = 0; i < video.votes.length; i++) {
       if (video.votes[i].u == Session.get('activeUsername')

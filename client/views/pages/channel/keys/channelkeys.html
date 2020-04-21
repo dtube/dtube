@@ -68,15 +68,12 @@
                     {{ translate 'CUSTOM_KEY_NEW' }}
                 </div>
                 <div class="content">
-                    <form class="ui form">
+                    <form class="ui form newcustomkey">
                         <div class="field">
                             <label>Key identifier</label>
                             <input type="text" id="newkey-id">
                         </div>
-                        <div class="field">
-                            <label>{{ translate 'NEWACCOUNT_PUBLICKEY' }}</label>
-                            <input type="text" id="newkey-pub">
-                        </div>
+                        {{>keypair}}
                         <h5>Permissions:</h5>
                         {{#each transactionTypes}}
                             <div class="field">
@@ -95,10 +92,7 @@
                 </div>
                 <div class="content">
                     <form class="ui form">
-                        <div class="field">
-                            <label>{{ translate 'NEW_PUBLIC_KEY' }}</label>
-                            <input type="text" id="newmasterkey-pub">
-                        </div><br>
+                        {{>keypair}}
                         <div class="field">
                             <div class="ui checkbox">
                                 <label>{{ translate 'MASTER_KEY_CHANGE_CONFIRM_ONE' }}</label>
