@@ -39,7 +39,8 @@ Template.newaccount.events({
     Session.set('generatedKey',true)
   },
   'keyup #newacc_username': () => {
-    if ($('#newacc_username').val())
+    if ($('#newacc_username').val()) {
+      $('#newacc_username').val($('#newacc_username').val().trim().toLowerCase())
       $.ajax({
         url: avalon.config.api + '/accountPrice/' + $('#newacc_username').val(),
         success: (result) => {
@@ -49,6 +50,7 @@ Template.newaccount.events({
             $('#newusernamedet').text(result)
         }
       })
+    }
     else 
       $('#newusernamedet').text('')
   }

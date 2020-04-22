@@ -1,6 +1,7 @@
 {
     "ACCOUNT_CREATOR_NOTICE1": "The new account will start with nothing and will need some DTC to start transacting.",
     "ACCOUNT_CREATOR_NOTICE2": "Usernames must be between 3 and 50 characters long, and only contain alphanumeric lowercase characters. It may also contain hyphens (-) or full-stops (.) in between. Usernames may not be changed once created.",
+    "ACCOUNT_CREATOR_TITLE": "Create a new account",    
     "CHANNEL_TITLE_VIDEOS_BY": "Videos by ",
     "CHANNEL_TITLE_NO_VIDEOS": "There is no videos from ",
     "CHANNEL_EDIT_MY_PROFIL": "Edit my profile",
