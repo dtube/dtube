@@ -15,36 +15,15 @@
   <div class="pusher">
     <div class='article'>
       {{#if isOnMobile }}
-        <!-- <div class="ui container-fluid" style="margin-bottom:2em;">
-          <div class="ui orange message">
-            <a href="https://token.d.tube" class="ui red right floated button" tabindex="0">
-              Buy DTC
-            </a>
-            <div class="header">
-              Take part in the first round of DTube's fundraising.
-            </div>
-            The sale is running! Buy your share in the upcoming main-net now
-          </div>
-        </div> -->
         <main class='ui main mobile only' style="margin-top: -12px;">
           {{> Template.dynamic template=main}}
         </main>
       {{else}}
         <main class='ui maingrid content'>
-          <!-- <div class="ui container" style="margin-bottom:2em;">
-            <div class="ui orange message">
-              <a href="https://token.d.tube" class="ui red right floated button" tabindex="0">
-                Buy DTC
-              </a>
-              <div class="header">
-                Take part in the first round of DTube's fundraising.
-              </div>
-              The sale is running! Buy your share in the upcoming main-net now
-            </div>
-          </div> -->
           {{> Template.dynamic template=main}}
         </main>
       {{/if}}
     </div>
   </div>
+  {{> announcement}}
 </template>

@@ -196,9 +196,12 @@ Template.settingsdropdown.switchToNightMode = function (){
   $('.topleader').addClass('nightmodetopleader')
   $('.nontopleader').addClass('nightmodeleader')
 
-  //LOGO
+  // LOGO
   $('.blacklogo').addClass('dsp-non');
   $('.whitelogo').removeClass('dsp-non');
+
+  // ANNOUNCEMENT
+  $('.announcement').addClass('black');
 }
 
 Template.settingsdropdown.switchToNormalMode = function (){
@@ -271,4 +274,7 @@ Template.settingsdropdown.switchToNormalMode = function (){
   //LOGO
   $('.blacklogo').removeClass('dsp-non');
   $('.whitelogo').addClass('dsp-non');
+
+  // ANNOUNCEMENT
+  $('.announcement').removeClass('black');
 }
