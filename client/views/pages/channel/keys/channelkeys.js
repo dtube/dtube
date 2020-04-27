@@ -55,7 +55,6 @@ Template.channelkeys.helpers({
 Template.channelkeys.events({
     'click .qrButtonMaster': function(e) {
         QRCode.toDataURL(Users.findOne({username: FlowRouter.getParam("author")}).privatekey, function (err, url) {
-            console.log('aaa', url)
             Session.set('keyQRCode', url)
         })
     },
