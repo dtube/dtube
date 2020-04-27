@@ -13,11 +13,11 @@ Template.channelkeys.rendered = function() {
         exclusive: true
     })
 
-    $('.qrButton')
+    $('.qrButtonMaster')
         .popup({
         popup: $('.popupQRCode'),
         on: 'click'
-        });
+    });
 }
 
 Template.channelkeys.helpers({
@@ -53,8 +53,9 @@ Template.channelkeys.helpers({
 })
 
 Template.channelkeys.events({
-    'click .qrButton': function(e) {
+    'click .qrButtonMaster': function(e) {
         QRCode.toDataURL(Users.findOne({username: FlowRouter.getParam("author")}).privatekey, function (err, url) {
+            console.log('aaa', url)
             Session.set('keyQRCode', url)
         })
     },
