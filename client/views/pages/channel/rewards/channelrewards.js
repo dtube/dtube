@@ -12,6 +12,7 @@ Template.channelrewards.helpers({
             for (let i = 0; i < rawRewards.length; i++) {
                 rewards.push({
                     source: rawRewards[i]._id.split('/').slice(0,2).join('/'),
+                    voter: rawRewards[i]._id.split('/').slice(2,3).join('/'),
                     ts: rawRewards[i].ts,
                     dist: rawRewards[i].dist
                 })

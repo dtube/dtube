@@ -146,5 +146,9 @@ Template.channel.events({
       $('.menu .item.rewards').click()
       $('.menu .item.rewards').addClass('active')
     }
-  }
+  },
+  'click .item.videos': function () {
+    Session.set('currentTab', 'videos')
+    Template.channel.rendered()
+  },
 })

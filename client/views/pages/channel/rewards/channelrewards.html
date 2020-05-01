@@ -7,6 +7,7 @@
                 <thead>
                     <tr><th>Time</th>
                     <th>Video</th>
+                    <th>Voter</th>
                     <th>Reward</th>
                 </tr></thead>
                 <tbody>
@@ -14,6 +15,10 @@
                     <tr>
                         <td title="{{timeDisplay ts}}">{{timeAgo ts}}</td>
                         <td><a href='/v/{{source}}'>{{source}}</a></td>
+                        <td>
+                            <img class="ui avatar image" src="{{userPic voter}}">
+                            <a href='/c/{{voter}}'>{{voter}}</a>
+                        </td>
                         <td><strong>+{{displayMoney dist 0 'DTC'}}</strong></td>
                     </tr>
                     {{/each}}
