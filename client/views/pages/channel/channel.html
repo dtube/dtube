@@ -58,7 +58,9 @@
       <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
         <div class="ui infinite">
           {{#if userVideos}} 
-            {{> videoband userVideos}} 
+            {{> videoband userVideos}}
+          {{else}}
+            {{translate 'CHANNEL_NO_VIDEOS' author.name}}
           {{/if}}
           <div class="ui large centered inline text loader"></div>
         </div>

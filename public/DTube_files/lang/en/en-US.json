@@ -30,6 +30,7 @@
     "CHANNEL_ABOUT_TAB_HIVE_USERNAME": "HIVE Username :",
     "CHANNEL_ABOUT_TOTALS_VIDEOS": "Total videos :",
     "CHANNEL_ABOUT_SAVE_PROFILE": "Save Profile",
+    "CHANNEL_NO_VIDEOS": "No videos published by %1 yet.",
     "CHANNEL_TOOLTIP_VALUE": "Value",
     "CHANNEL_TOOLTIP_VOTING_POWER": "Voting Power",
     "CHANNEL_TOOLTIP_REPUTATION": "Reputation",
