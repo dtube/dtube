@@ -110,8 +110,8 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         cb(err, finished)
       })
     }
-    if (user.json && user.json.profile && (user.json.profile.hive || user.json.profile.steem)) {
-      Videos.getVideosByBlogHive(user.json.profile.hive || user.json.profile.steem,(err,finished) => {
+    if (user.json && user.json.profile && (user.json.profile.hive)) {
+      Videos.getVideosByBlogHive(user.json.profile.hive,(err,finished) => {
         cb(err,finished)
       })
     }
@@ -178,7 +178,7 @@ Videos.getVideosByBlogSteem = function(author, cb) {
       return
     }
     if (!result || result.length == 0) {
-      cb(null)
+      cb(null, true)
       return
     }
     Videos.setLastBlog('steem/'+author, result[result.length-1])
@@ -247,7 +247,7 @@ Videos.getVideosByBlogHive = function (author,cb) {
       return
     }
     if (!result || result.length == 0) {
-      cb(null)
+      cb(null, true)
       return
     }
     Videos.setLastBlog('hive/'+author, result[result.length-1])
