@@ -241,6 +241,7 @@ Template.video.events({
       $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
     }
     if (refs.length > 1) {
+      let parentAuthor, parentPermlink, paSteem, ppSteem, paHive, ppHive
       for (let i = 0; i < refs.length; i++) {
         const ref = refs[i];
         if (ref.split('/')[0] == 'dtc') {
