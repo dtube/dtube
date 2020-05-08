@@ -526,11 +526,12 @@ Template.registerHelper('isVideoHidden', function (video) {
     return true
   if (video.downs > video.ups && Session.get('censorSetting') == 'Fully Hidden')
     return true
-  if (Session.get('nsfwSetting') == 'Fully Hidden')
+  if (Session.get('nsfwSetting') == 'Fully Hidden') {
+    if (video.json.nsfw == 1) return true
     for (let i = 0; i < video.tags.length; i++)
       if (video.tags[i].t == 'nsfw')
         return true
-
+  }
   return false
 })
 
@@ -538,11 +539,12 @@ Template.registerHelper('isVideoBlurred', function (video) {
   var censor = UI._globalHelpers.censorshipLevel(video)
   if (video.downs > video.ups && Session.get('censorSetting') == 'Blurred')
     return true
-    if (Session.get('nsfwSetting') == 'Blurred')
+    if (Session.get('nsfwSetting') == 'Blurred') {
+      if (video.json.nsfw == 1) return true
       for (let i = 0; i < video.tags.length; i++)
         if (video.tags[i].t == 'nsfw')
           return true
-
+    }
 
   return false
 })
