@@ -1,34 +1,33 @@
 <template name='videosharedropdown'>
   <div class="ui item dropdown dropdownvideoshare right floated" style="float: right;margin-bottom: 0px;padding-right: 0px;z-index: 999;padding-left: 0px;
   padding-bottom: 0px;">
-    <button class="ui icon button brd-rad-non" style="font-size: 1.1rem;border-style: solid;background: transparent none !important;  margin-right: 0px; padding-bottom:5px;
-      border-width: 0px 0px 0px 0px;box-shadow:none;-webkit-box-shadow: none;border-color: rgba(34, 36, 38, 0.15);">
+    <button class="ui icon button brd-rad-non" style="font-size: 1rem;border-style: solid;background: transparent none !important;border-width: 0px 0px 0px 0px;box-shadow:none;-webkit-box-shadow: none;">
       <span class="customlink">
-        share <i class="share horizontal icon" style="margin-top: -6px !important;"></i>
+        Share <i class="share horizontal icon" style="margin-top: 0px !important;"></i>
       </span>
     </button>
     <div class="menu">
       <div class="item">
   		<a href="mailto:someone@gmail.com?subject=DTubeVideo!&body=Enjoy this dtube video.\nhttp://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-          <i class="mail icon"></i>
+		  <img src="./DTube_files/images/share/email.png" style="width:30px;">
 		</a>
  		<a href="http://www.facebook.com/sharer/sharer.php?u=http://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-          <i class="facebook icon"></i>
+		  <img src="./DTube_files/images/share/facebook.png" style="width:30px;">
   		</a>
   		<a href="http://linkedin.com/shareArticle?mini=true&amp;url=http://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-            <i class="linkedin icon"></i>
+		  <img src="./DTube_files/images/share/linkedin.png" style="width:30px;">
 		</a>
   		<a href="http://twitter.com/intent/tweet?url=http://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-          <i class="twitter icon"></i>
+		  <img src="./DTube_files/images/share/twitter.png" style="width:30px;">
 		</a>
   		<a href="http://www.reddit.com/submit?url=http://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-          <i class="reddit icon"></i>
+		  <img src="./DTube_files/images/share/reddit.png" style="width:30px;">
 		</a>
   		<a href="http://www.pinterest.com/pin/create/button/?url=http://d.tube/v/{{author}}/{{link}}&media={{video.json.thumbnailUrl}}&time={{seekCurrentTimeInPlayer}}" class="popup" target="_blank">
-          <i class="pinterest icon"></i>
+		  <img src="./DTube_files/images/share/pinterest.png" style="width:30px;">
 		</a>
   		<a href="http://www.tumblr.com/share/link?url=http://d.tube/v/{{author}}/{{link}}" class="popup" target="_blank">
-          <i class="tumblr icon"></i>
+		  <img src="./DTube_files/images/share/tumblr.png" style="width:30px;">
 		</a>
       </div>
       <div class="item copyembed">
