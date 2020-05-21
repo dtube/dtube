@@ -45,7 +45,13 @@ Template.addvideoform.helpers({
         if (!tmpVideo || !tmpVideo.json || !tmpVideo.json.files) return false
         if (Object.keys(tmpVideo.json.files).length > 0) return true
         return false
-    }
+    },
+    isInNormalMode: function() {
+		return !UserSettings.get('isInNightMode')
+	},
+	isInNightMode: function() {
+		return UserSettings.get('isInNightMode')
+	}
 })
 
 Template.addvideoformfile.events({
@@ -123,6 +129,15 @@ Template.addvideoformp2p.events({
                 })
             }, 200)
     }
+})
+
+Template.addvideoformp2p.helpers({
+    isInNormalMode: function() {
+		return !UserSettings.get('isInNightMode')
+	},
+	isInNightMode: function() {
+		return UserSettings.get('isInNightMode')
+	}
 })
 
 Template.addvideoformp2pbtfs.rendered = function() {

@@ -78,19 +78,34 @@
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtype" value="p2p">
-                        <label>Peer-to-peer - Best for <strong>resilience</strong> and <strong>anonymity</strong></label>
+                        {{#if isInNormalMode}}
+                            <label>Peer-to-peer - Best for <strong>resilience</strong> and <strong>anonymity</strong></label>
+                        {{/if}}
+                        {{#if isInNightMode}}
+                            <label class="nightmodetext">Peer-to-peer - Best for <strong>resilience</strong> and <strong>anonymity</strong></label>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtype" value="3p">
-                        <label>Third party - Best for <strong>speed</strong> and <strong>high-def</strong></label>
+                        {{#if isInNormalMode}}
+                            <label>Third party - Best for <strong>speed</strong> and <strong>high-def</strong></label>
+                        {{/if}}
+                        {{#if isInNightMode}}
+                            <label class="nightmodetext">Third party - Best for <strong>speed</strong> and <strong>high-def</strong></label>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtype" value="file">
-                        <label>File Upload - Best for <strong>simplicity</strong> and <strong>small files</strong></label>
+                        {{#if isInNormalMode}}
+                            <label>File Upload - Best for <strong>simplicity</strong> and <strong>small files</strong></label>
+                        {{/if}}
+                        {{#if isInNightMode}}
+                            <label class="nightmodetext">File Upload - Best for <strong>simplicity</strong> and <strong>small files</strong></label>
+                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -115,19 +130,34 @@
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtypep2p" value="btfs">
-                        <label>BTFS {{> badgenew}}</label>
+                            {{#if isInNormalMode}}
+                                <label>BTFS {{> badgenew}}</label>
+                            {{/if}}
+                            {{#if isInNightMode}}
+                                <label class="nightmodetext">BTFS {{> badgenew}}</label>
+                            {{/if}}
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtypep2p" value="sia">
-                        <label>Skynet {{> badgenew}}</label>
+                            {{#if isInNormalMode}}
+                                <label>Skynet {{> badgenew}}</label>
+                            {{/if}}
+                            {{#if isInNightMode}}
+                                <label class="nightmodetext">Skynet {{> badgenew}}</label>
+                            {{/if}}
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
                         <input type="radio" name="uploadtypep2p" value="ipfs">
-                        <label>IPFS</label>
+                            {{#if isInNormalMode}}
+                                <label>IPFS</label>
+                            {{/if}}
+                            {{#if isInNightMode}}
+                                <label class="nightmodetext">IPFS</label>
+                            {{/if}}
                     </div>
                 </div>
                 <!-- <div class="field">
