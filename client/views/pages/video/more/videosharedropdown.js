@@ -5,7 +5,6 @@ Template.videosharedropdown.rendered = function() {
 Template.videosharedropdown.events({
   'click .item.copylink': function () {
     var text = document.getElementById('permalink').value;
-    console.log(text)
     if (window.clipboardData && window.clipboardData.setData) {
       return clipboardData.setData("Text", text);
     } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
@@ -27,7 +26,6 @@ Template.videosharedropdown.events({
   },
   'click .item.copyembed': function () {
     var text = document.getElementById('embedlink').value;
-    console.log(text)
     if (window.clipboardData && window.clipboardData.setData) {
       return clipboardData.setData("Text", text);
     } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
