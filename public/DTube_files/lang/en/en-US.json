@@ -323,6 +323,7 @@
     "VIDEO_SETTINGS_RESTEEM": "Resteem",
     "VIDEO_SETTINGS_DOWNLOAD_FROM_MAGNET": "Download from magnet",
     "VIDEO_SETTINGS_ADD_TO_WATCH_LATER": "Add to watch later",
+    "VIDEO_SETTINGS_SHARE_LINK": "Share",
     "VIDEO_PERMA_LINK_COPIED": "Link successfully copied to your clipboard",
     "VIDEO_EMBED_LINK_COPIED": "Embed Link successfully copied to your clipboard",
     "VIDEO_LINK_ERROR": "Your browser doesnt support Copy to clipboard",
