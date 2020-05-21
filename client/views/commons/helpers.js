@@ -794,3 +794,7 @@ Template.registerHelper('isOnWatchAgain', function() {
     return true
   return false
 })
+
+Template.registerHelper('encodeURIComponent', function(text) {
+  return encodeURIComponent(text)
+})
