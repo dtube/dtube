@@ -83,7 +83,7 @@ Template.addvideoformfile.inputVideo = function(dt) {
           return
         } else {
           console.log('Uploaded video', result);
-          if (result.skylink && Session.get('uploadEndpoint') === 'beta.oneloved.tube')
+          if (result.skylink && Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
               Template.addvideo.addFiles('sia',{ vid: { src: result.skylink }})
         }
       })
@@ -218,7 +218,7 @@ Template.addvideoformfileuploaded.events({
     'click #addvideofinish': function () {
         var files = Template.addvideohashes.fillHashes()
         if (files) {
-            if (Session.get('uploadEndpoint') === 'beta.oneloved.tube')
+            if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
                 Template.addvideo.addFiles('ipfs', files)
             else
                 Template.addvideo.addFiles('btfs', files)
@@ -264,8 +264,8 @@ Template.addvideoformfile.rendered = function() {
         action: 'activate',
         onChange: (value,text) => {
           $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
-          // If beta.oneloved.tube endpoint selected, check if user is in uploader whitelist
-          if (value === 'beta.oneloved.tube') {
+          // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
+          if (value === 'uploader.oneloved.tube') {
             if (!Session.get('activeUsernameHive')) { 
               $('#uploadEndpointSelection').dropdown('restore defaults')
               return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_HIVE_USERNAME'), translate('ERROR_TITLE'))

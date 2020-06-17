@@ -28,7 +28,7 @@
     "socket.io-client": "^2.3.0",
     "steem": "^0.7.4",
     "text-encoding": "^0.6.4",
-    "tus-js-client": "^1.8.0",
+    "tus-js-client": "^2.1.1",
     "url-parse": "^1.4.4",
     "utf-8-validate": "^5.0.1",
     "xss": "^0.3.8"
