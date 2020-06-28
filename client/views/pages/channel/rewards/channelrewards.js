@@ -1,4 +1,4 @@
-const time_to_claim = 1000*60*20
+const time_to_claim = 1000*60*60*24*7
 
 Template.channelrewards.rendered = function() {
     avalon.getVotesByAccount(Session.get('activeUsername'), 0, function(err, res) {

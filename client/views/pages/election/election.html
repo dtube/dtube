@@ -25,9 +25,9 @@
                         </td>
                         <td>
                             <div class="ui image header" title="{{json.node.ws}}">
-                                <img src="{{userPic name 'small'}}" class="ui mini rounded image" style="{{#unless json.node.ws}}filter: grayscale(100%);{{/unless}}">
+                                <img src="{{userPic name 'small'}}" class="ui mini rounded image" style="{{#unless pub_leader}}filter: grayscale(100%);{{/unless}}">
                                 <div class="content">
-                                    {{#if json.node.ws}}
+                                    {{#if pub_leader}}
                                         <a href="/c/{{name}}" class="leader">{{name}}</a>
                                     {{else}}
                                         <a href="/c/{{name}}" class="leader disabled"><strike>{{name}}</strike></a>
@@ -76,8 +76,6 @@
                                 <div class="sub header">
                                     {{#if json.profile.website}}
                                         {{json.profile.website}}
-                                    {{else}}
-                                        {{json.node.ws}}
                                     {{/if}}
                                 </div>
                             </div></h4>
