@@ -18,7 +18,8 @@ Meteor.settings.public = {
     "AvalonAPINodes": [
       "https://avalon.d.tube",
       "https://avalon.oneloved.tube",
-      "https://avalon.christianknuchel.com"
+      "https://avalon.christianknuchel.com",
+      "http://localhost:3001",
     ],
     "HiveAPINodes": [
       "https://anyx.io",

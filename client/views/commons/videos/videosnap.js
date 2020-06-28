@@ -16,6 +16,11 @@ Template.videosnap.events({
 Template.videosnap.helpers({
   isInWatchLater: function () {
     return WatchLater.find({ _id: this._id }).fetch()
+  },
+  votesLength: function() {
+    if (!this || !this.votes)
+      return 0
+    return this.votes.length
   }
 })
 

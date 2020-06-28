@@ -4,7 +4,8 @@
     <a href='/v/{{author}}/{{link}}' title='{{title}}'>
       <div id='snaphover wid-ful' class='videosnapsnap' style="height:118px;">
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">
-        <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
+        <span class="videoscore"><i class="thumbs up icon"></i>{{votesLength}}</span>
+        <span class="videopower">{{displayPayout ups downs}}<i class="bolt icon"></i></span>
         {{#if json.duration}} 
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
         {{/if}}
@@ -37,7 +38,7 @@
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
           </div> 
           <img id="snapimg" class="sprite" data-src="{{json.thumbnailUrl}}" width="100%" height="100%" style="height:118px;width:210px;" alt="" >            
-      </div>
+        </div>
         <br />
       </div>
     </a>

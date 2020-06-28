@@ -817,6 +817,26 @@ broadcast = {
                 })
                 return;
             }
+        },
+        claimReward: function(author, link, cb) {
+            if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
+            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            if (!voter) return;
+            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            if (wif) {
+                var tx = {
+                    type: 17,
+                    data: {
+                        author: author,
+                        link: link
+                    }
+                }
+                tx = avalon.sign(wif, voter, tx)
+                avalon.sendTransaction(tx, function(err, res) {
+                    cb(err, res)
+                })
+                return;
+            }
         }
     },
     hive: {

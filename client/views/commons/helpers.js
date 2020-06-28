@@ -236,13 +236,14 @@ Template.registerHelper('displayRewards', function (dtc, steem, scot, hive) {
 })
 
 Template.registerHelper('displayMoney', function(amount, shorten, symbol) {
+  amount = Math.round(amount)
   amount = amount/100
   var string = ''
   if (shorten) {
     amount = cuteNumber(amount)
     string = amount
   } else {
-    string = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+    string = amount.toString()
     if (symbol)
       string += ' '
   }
