@@ -4,7 +4,12 @@ Template.channelabout.rendered = function () {
 
 Template.channelabout.helpers({
     author: function () {
-        return ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+        let authorDetail = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
+        if (!authorDetail.created) authorDetail.created = {
+            by: 'dtube',
+            ts: 1593350655283 // timestamp of block #1
+        }
+        return authorDetail
     },
     userVideos: function () {
         return Videos.find({ 'info.author': FlowRouter.getParam("author"), source: 'chainByBlog' }).fetch()

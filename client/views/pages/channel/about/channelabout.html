@@ -115,7 +115,13 @@
         <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_TAB_JOINED'}}
           <div>
-            <span class="crd-spa-lab">{{displayDate author.created}}</span>
+            <span class="crd-spa-lab">{{displayDate author.created.ts}}</span>
+          </div>
+        </div>
+        <div class="crd-lab">
+          {{ translate 'CHANNEL_ACTIVITIES_TAB_CREATED_BY' }}
+          <div>
+            <span class="crd-spa-lab"><a href="/c/{{author.created.by}}">{{author.created.by}}</a></span>
           </div>
         </div>
       </div>
