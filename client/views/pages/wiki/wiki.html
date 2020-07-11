@@ -1,0 +1,12 @@
+<template name="wiki">
+    <div class="ui container">
+        <div class="ui breadcrumb">
+            <a class="section" href="/wiki/README">Wiki</a>
+            {{#each page}}
+                <div class="divider"> / </div>
+                <div class="active section">{{this}}</div>
+            {{/each}}
+        </div>
+        {{{ markdown }}}
+    </div>
+</template>

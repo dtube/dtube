@@ -301,6 +301,18 @@ FlowRouter.route('/s/:query', {
   }
 });
 
+FlowRouter.route('/wiki/:page', {
+  name: "wiki",
+  action: function(params, queryParams) {
+    Session.set('wikiContent', '# Loading wiki page...')
+    BlazeLayout.render('masterLayout', {
+      main: "wiki",
+      nav: "nav"
+    });
+    Template.wiki.load()
+  }
+});
+
 FlowRouter.notFound = {
   action: function() {
     BlazeLayout.render('masterLayout', {
