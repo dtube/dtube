@@ -116,6 +116,9 @@ Videos.getVideosByBlog = function(author, limit, cb) {
       })
     }
   } else {
+    Videos.getVideosByBlogHive(author, function(err, finished) {
+      cb(err, finished)
+    })
     Videos.getVideosByBlogSteem(author, function(err, finished) {
       cb(err, finished)
     })

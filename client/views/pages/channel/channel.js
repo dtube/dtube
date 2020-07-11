@@ -31,7 +31,7 @@ Template.channel.loadMore = function() {
   Videos.getVideosByBlog(FlowRouter.getParam("author"), 50, function(err, finished) {
     if (err) console.log(err)
     $('.ui.infinite .loader').hide()
-    if ($('.ui.infinite').height() < window.outerHeight && !finished)
+    if (!err && $('.ui.infinite').height() < window.outerHeight && !finished)
       setTimeout(Template.channel.loadMore, 1000)
   })
 }
