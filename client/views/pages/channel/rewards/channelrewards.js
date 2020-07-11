@@ -1,7 +1,11 @@
 const time_to_claim = 1000*60*60*24*7
+const max_items_per_call = 50
 
 Template.channelrewards.rendered = function() {
+    Session.set('finishedLoadingRewards', false)
     avalon.getVotesByAccount(Session.get('activeUsername'), 0, function(err, res) {
+        if (res.length < max_items_per_call)
+            Session.set('finishedLoadingRewards', true)
         for (let i = 0; i < res.length; i++) {
             if (!res[i].claimed)
                 res[i].timeToClaim = res[i].ts+time_to_claim
@@ -24,6 +28,9 @@ Template.channelrewards.helpers({
         if (vote.claimed && vote.claimed > 0)
             return true
         return false
+    },
+    finishedLoading: function(){
+        return Session.get('finishedLoadingRewards')
     }
 })
 
@@ -49,6 +56,24 @@ Template.channelrewards.events({
                 }
             }
             Session.set('myRewards',myRewards)
+        })
+    },
+    'click #loadMoreRewardsBtn': function() {
+        $('#loadMoreRewardsBtn').prop('disabled', true);
+        var currentRewards = Session.get('myRewards')
+        var lastRewardTime = currentRewards[currentRewards.length-1].contentTs
+        avalon.getVotesByAccount(Session.get('activeUsername'), lastRewardTime, function(err, res) {
+            $('#loadMoreRewardsBtn').prop('disabled', false);
+            if (err) return
+            if (res.length < max_items_per_call)
+                Session.set('finishedLoadingRewards', true)
+            for (let i = 0; i < res.length; i++) {
+                if (!res[i].claimed)
+                    res[i].timeToClaim = res[i].ts+time_to_claim
+                res[i].claimable = Math.floor(res[i].claimable)
+                currentRewards.push(res[i])
+            }
+            Session.set('myRewards', currentRewards)
         })
     }
 })

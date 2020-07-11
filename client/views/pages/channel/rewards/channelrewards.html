@@ -49,6 +49,11 @@
                     {{/each}}
                 </tbody>
             </table>
+            {{#unless finishedLoading}}
+            <center>
+                <button class="ui button" id="loadMoreRewardsBtn">Load more</button>
+            </center>
+            {{/unless}}
         </div>
     </div>
 </template>
