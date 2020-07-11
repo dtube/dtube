@@ -41,7 +41,7 @@ function getWikiContent(filePath) {
     filePath = filePath.replace(/\\/g, '/')
     if (filePath.indexOf('.md') !== filePath.length-2)
         filePath += '.md'
-    fetch('https://api.github.com/repos/dtube/Contribute/contents/'+filePath, {mode: 'cors'})
+    fetch('https://api.github.com/repos/dtube/docs/contents/'+filePath, {mode: 'cors'})
         .then(data => data.json())
         .then(data => {
             if (!data || !data.download_url) {
