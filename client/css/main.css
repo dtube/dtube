@@ -685,11 +685,13 @@ button {
   text-align: center;
   border: 1px solid transparent;
   cursor: pointer;
+  border-radius: 5px;
 }
 .loginOption:hover {
   text-align: center;
   border: 1px solid #F01A30;
   cursor: pointer;
+  box-shadow: 0px 0px 10px #00000024;
 }
 .loginOption>img {
   width: 100%;

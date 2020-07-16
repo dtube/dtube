@@ -1,0 +1,66 @@
+<template name="verticalvoteslider">
+    <div style="float: right; text-align: center;" class="button icon bottom aligned {{voteType}}">
+        {{#if equals voteType 'down'}}
+        <button class="ui icon button votebutton down voteslider">
+            {{#if downvoted}}
+            <i class="thumbs down icon red"></i>
+            {{else}}
+            <i class="thumbs down icon"></i>
+            {{/if}}
+            <span>{{uniques content.votes votesSteem votesHive 'down'}}</span>
+        </button>
+        <button class="ui icon button votebutton down votesliderloader dsp-non">
+            <div class="ui mini red active centered inline loader"></div>
+        </button>
+        {{else}}
+        <button class="ui icon button votebutton up voteslider">
+            {{#if upvoted}}
+            <i class="thumbs up icon red"></i>
+            {{else}}
+            <i class="thumbs up icon"></i>
+            {{/if}}
+            <span>{{uniques content.votes votesSteem votesHive 'up'}}</span>
+        </button>
+        <button class="ui icon button votebutton up votesliderloader dsp-non">
+            <div class="ui mini red active centered inline loader"></div>
+        </button>
+        {{/if}}
+
+        <div class="ui {{voteType}}vote popup top center transition hidden vertical" data-variation="basic">
+            <div class="item">
+                <div class="ui equal width grid mrg-non">
+                    <div class="sixteen wide column pdg-non" style="width: 80px!important;">
+                        <i class="icon yellow lightning"></i> <strong
+                            id="votevt{{voteType}}">{{displayPayout mainUser.vtDisplay 0}}</strong>VP
+                    </div>
+                </div>
+                <div class="pos-rel">
+                    <div class="vertical-slider-bubble" id="sliderBubble{{voteType}}">
+                        <span>{{displayPayout voteVt}}</span></div>
+                    <input type="range" min="1" max="100" value="50" class="vslider vertical" orient="vertical"
+                        id="voterange{{voteType}}">
+                </div>
+
+                <div class="simplevote" style="display: grid;">
+                    {{#if firstTag content.allTags}}
+                    <div class="ui tiny button addtag dsp-blk">Add tag</div>
+                    {{/if}}
+                    <div class="ui button verticalslider {{voteType}}vote upper dsp-blk"><i
+                            class="thumbs {{voteType}} icon"></i><span>+</span></div>
+                </div>
+                <div class="tagvote dsp-non {{voteType}}" style="display: grid;">
+                    <div class="ui tiny button removetag">Remove</div>
+                    {{#with firstTag content.allTags}}
+                    {{#unless equals t 'dtube'}}
+                    <input type="string" value="{{convertTag t}}" class="tagvalue"
+                        style="max-width: 80px; text-align: center;" />
+                    {{/unless}}
+                    {{/with}}
+                    <div class="ui button verticalslider {{voteType}}votetag upper dsp-blk"><i
+                            class="thumbs {{voteType}} icon"></i><span>+</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>

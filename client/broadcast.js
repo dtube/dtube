@@ -178,7 +178,7 @@ broadcast = {
                 if (ref[0] == 'dtc')
                     if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                         transactions.push(function(callback) {
-                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, '', callback)
+                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, callback)
                         })
 
                 if (ref[0] == 'steem')
