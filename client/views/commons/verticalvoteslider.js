@@ -17,7 +17,7 @@ Template.verticalvoteslider.rendered = function() {
         else bubble.innerHTML = `<span>-${slider.value}%</span>`;
         bubble.style.bottom = `calc(${newPosition}% + 26px)`;
         bubble.style.left = `9px`;
-        // var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
+        var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
     }
 
