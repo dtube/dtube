@@ -1,19 +1,23 @@
 Template.verticalvoteslider.rendered = function() {
+    var voteType = this.data.voteType
     var slider = document.getElementById("voterange" + this.data.voteType);
     var bubble = document.getElementById("sliderBubble" + this.data.voteType)
     var value = document.getElementById("votevt" + this.data.voteType);
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
-    var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * 50).toFixed(2)
+    var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * UserSettings.get('voteWeight')).toFixed(2)
     value.innerHTML = cuteNumber(vt)
+    slider.value = UserSettings.get('voteWeight')
 
     function setBubble() {
         const
             newValue = Number((slider.value - slider.min) * 100 / (slider.max - slider.min)),
             newPosition = (newValue * 0.88);
-        bubble.innerHTML = `<span>${slider.value}%</span>`;
+        if (voteType === 'up')
+            bubble.innerHTML = `<span>${slider.value}%</span>`;
+        else bubble.innerHTML = `<span>-${slider.value}%</span>`;
         bubble.style.bottom = `calc(${newPosition}% + 26px)`;
-        bubble.style.left = `14px`;
-        var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
+        bubble.style.left = `9px`;
+        // var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
     }
 
@@ -52,13 +56,13 @@ Template.verticalvoteslider.rendered = function() {
         })
 
     function moveSlider(e) {
-        var zoomLevel = parseInt(slider.value);
-        if (e.originalEvent.wheelDelta < 0) {
+        var zoomLevel = parseFloat(slider.value).toFixed(1);
+        if (e.originalEvent.wheelDelta < 0 || e.detail > 0) {
             //scroll down
-            slider.value = (zoomLevel - 5);
+            slider.value = Number(zoomLevel) - 0.1;
         } else {
             //scroll up
-            slider.value = (zoomLevel + 5);
+            slider.value = Number(zoomLevel) + 0.1;
         }
         var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
@@ -94,7 +98,6 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.up.votesliderloader').removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up').addClass('dsp-non');
-
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function(err, result) {
             if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
@@ -142,7 +145,6 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.up.votesliderloader').removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up').addClass('dsp-non');
-
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, newTag, function(err, result) {
             if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
@@ -190,7 +192,9 @@ Template.verticalvoteslider.helpers({
         return tagWithoutDtube
     },
     firstTag: function(alltags) {
-        return alltags[0]
+        if (alltags)
+            return alltags[0]
+        else return false
     },
     hasVoted: function(one, two) {
         if (one || two) return true;
