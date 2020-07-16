@@ -7,7 +7,7 @@
             {{else}}
             <i class="thumbs down icon"></i>
             {{/if}}
-            <span>{{uniques content.votes votesSteem votesHive 'down'}}</span>
+            <span>{{uniques content.votes content.votesSteem content.votesHive 'down'}}</span>
         </button>
         <button class="ui icon button votebutton down votesliderloader dsp-non">
             <div class="ui mini red active centered inline loader"></div>
@@ -19,7 +19,7 @@
             {{else}}
             <i class="thumbs up icon"></i>
             {{/if}}
-            <span>{{uniques content.votes votesSteem votesHive 'up'}}</span>
+            <span>{{uniques content.votes content.votesSteem content.votesHive 'up'}}</span>
         </button>
         <button class="ui icon button votebutton up votesliderloader dsp-non">
             <div class="ui mini red active centered inline loader"></div>
