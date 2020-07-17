@@ -19,9 +19,9 @@
 
 .vslider.vertical {
     appearance: none;
-    min-width: 8px!important;
+    min-width: 60px!important;
     min-height: 200px;
-    width: 8px!important;
+    width: 60px!important;
     height: 200px;
     background: transparent;
     outline: none;
@@ -34,41 +34,35 @@
     appearance: slider-vertical;
 }
 
-#vsliderbackholder {
-    left: calc(50% - 12px);
-    bottom: 0px;
-    height: 100%;
-    border: 6px solid white;
+.vsliderbackholder {
+    left: calc(50% - 16px);
+    top: -3px;
+    height: calc(100% + 7px);
+    border: 10px solid white;
     position: absolute;
-    min-width: 24px!important;
-    width: 24px!important;
+    min-width: 32px!important;
+    width: 32px!important;
     background: rgb(80, 80, 80);
-    border-radius: 12px;
+    border-radius: 16px;
     -webkit-transition: .2s;
     transition: opacity .2s;
     pointer-events: none;
 }
 
-#vsliderholderup,
-#vsliderholderdown {
+.vsliderholder {
     left: calc(50% - 5px);
     bottom: 7px;
     position: absolute;
     min-width: 10px!important;
     width: 10px!important;
-    background: #14b081;
+    background: red;
     border-radius: 12px;
     -webkit-transition: .2s;
     transition: opacity .2s;
     pointer-events: none;
 }
 
-#vsliderholderdown {
-    background: rgb(255, 0, 0)!important;
-}
-
-#bubblevsliderholderup,
-#bubblevsliderholderdown {
+.bubblevsliderholder {
     left: calc(50% - 10px);
     position: absolute;
     width: 20px!important;
@@ -78,7 +72,6 @@
     -webkit-transition: .2s;
     transition: opacity .2s;
     pointer-events: none;
-    box-shadow: 0px 0px 5px black;
 }
 
 .vslider:hover {
@@ -139,7 +132,7 @@
     text-align: center;
     background: #F01A30;
     color: #fff;
-    font-size: 12px;
+    font-size: 8px;
     display: block;
     position: absolute;
     left: 50%;
@@ -159,7 +152,8 @@
     text-align: center;
     background: #F01A30;
     color: #fff;
-    font-size: 12px;
+    z-index: 99999;
+    font-size: 10px;
     display: block;
     position: absolute;
     border-radius: 5px;
@@ -212,4 +206,8 @@
 
 .verticalslider.button i {
     margin: 0px!important;
+}
+
+.popup {
+    overflow: auto;
 }

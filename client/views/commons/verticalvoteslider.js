@@ -1,11 +1,12 @@
 Template.verticalvoteslider.rendered = function() {
     var voteType = this.data.voteType
-    var slider = document.getElementById("voterange" + this.data.voteType);
-    var bubble = document.getElementById("sliderBubble" + this.data.voteType)
-    var holder = document.getElementById("vsliderholder" + this.data.voteType)
-    var bubbleholder = document.getElementById("bubblevsliderholder" + this.data.voteType)
+    var sliderclass = this.data.sliderclass
+    var slider = document.getElementById("voterange" + voteType + sliderclass);
+    var bubble = document.getElementById("sliderBubble" + voteType + sliderclass)
+    var holder = document.getElementById("vsliderholder" + voteType + sliderclass)
+    var bubbleholder = document.getElementById("bubblevsliderholder" + voteType + sliderclass)
 
-    var value = document.getElementById("votevt" + this.data.voteType);
+    var value = document.getElementById("votevt" + voteType + sliderclass);
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * UserSettings.get('voteWeight')).toFixed(2)
     value.innerHTML = cuteNumber(vt)
@@ -45,9 +46,9 @@ Template.verticalvoteslider.rendered = function() {
         return newNum;
     }
 
-    $(`.${this.data.voteType}.button.voteslider`)
+    $(`.${voteType}.button.voteslider.${sliderclass}`)
         .popup({
-            popup: $(`.${this.data.voteType}vote.popup`),
+            popup: $(`.${voteType}vote.popup.${sliderclass}`),
             on: 'click',
             position: 'top center',
             onShow: function() {

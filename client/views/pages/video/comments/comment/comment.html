@@ -23,13 +23,20 @@
           {{else}}
             <a class="upvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
             <i class="thumbs up icon"></i> {{uniques votes votesSteem votesHive 'up'}}</a>
-          {{/if}} {{#if hasDownvoted this}}
+            <!-- {{> verticalvoteslider sliderclass=link content=this voteType="up" downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }} -->
+
+          {{/if}} 
+          {{#if hasDownvoted this}}
             <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
             <i class="thumbs down icon red"></i> {{uniques votes votesSteem votesHive 'down'}}</a>
           {{else}}
             <a class="downvoteComment" data-refs='{{json.refs}}' data-id='{{_id}}'>
             <i class="thumbs down icon"></i> {{uniques votes votesSteem votesHive 'down'}}</a>
+            <!-- {{> verticalvoteslider sliderclass=link content=this voteType="down" downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }} -->
+
           {{/if}}
+
+
           <a class="replyTo ui blue" data-refs='{{json.refs}}' data-id='{{_id}}'>{{ translate 'GLOBAL_REPLY'}}</a>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <template name="verticalvoteslider">
-    <div style="float: right; text-align: center;" class="button icon bottom aligned {{voteType}}">
+    <div style="float: right; text-align: center;" class="button icon bottom aligned {{voteType}} {{sliderclass}}">
         {{#if equals voteType 'down'}}
-        <button class="ui icon button votebutton down voteslider">
+        <button class="ui icon button votebutton down voteslider {{sliderclass}}">
             {{#if downvoted}}
             <i class="thumbs down icon red"></i>
             {{else}}
@@ -13,7 +13,7 @@
             <div class="ui mini red active centered inline loader"></div>
         </button>
         {{else}}
-        <button class="ui icon button votebutton up voteslider">
+        <button class="ui icon button votebutton up voteslider {{sliderclass}}">
             {{#if upvoted}}
             <i class="thumbs up icon red"></i>
             {{else}}
@@ -26,32 +26,32 @@
         </button>
         {{/if}}
 
-        <div class="ui {{voteType}}vote popup top center transition hidden vertical" data-variation="basic">
+        <div class="ui {{voteType}}vote popup top center transition hidden vertical {{sliderclass}}" data-variation="basic">
             <div class="item">
                 <div class="ui equal width grid mrg-non">
                     <div class="sixteen wide column pdg-non" style="width: 80px!important;">
                         <i class="icon yellow lightning"></i> <strong
-                            id="votevt{{voteType}}">{{displayPayout mainUser.vtDisplay 0}}</strong>VP
+                            id="votevt{{voteType}}{{sliderclass}}">{{displayPayout mainUser.vtDisplay 0}}</strong>VP
                     </div>
                 </div>
                 <div class="pos-rel">
-                    <div class="vertical-slider-bubble" id="sliderBubble{{voteType}}">
+                    <div class="vertical-slider-bubble" id="sliderBubble{{voteType}}{{sliderclass}}">
                         <span>{{displayPayout voteVt}}</span></div>
                     <input type="range" min="0.1" max="100" step="0.1" class="vslider vertical" orient="vertical"
-                        id="voterange{{voteType}}">
-                        <div id="vsliderbackholder"></div>
-                        <div id="vsliderholder{{voteType}}"></div>
-                        <div id="bubblevsliderholder{{voteType}}"></div>
+                        id="voterange{{voteType}}{{sliderclass}}">
+                        <div id="vsliderbackholder" class="vsliderbackholder"></div>
+                        <div id="vsliderholder{{voteType}}{{sliderclass}}" class="vsliderholder"></div>
+                        <div id="bubblevsliderholder{{voteType}}{{sliderclass}}" class="bubblevsliderholder"></div>
                 </div>
 
-                <div class="simplevote" style="display: grid;">
+                <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
                     {{#if firstTag content.allTags}}
                     <div class="ui tiny button addtag dsp-blk">Add tag</div>
                     {{/if}}
                     <div class="ui button verticalslider {{voteType}}vote upper dsp-blk"><i
                             class="thumbs {{voteType}} icon"></i></div>
                 </div>
-                <div class="tagvote dsp-non {{voteType}}" style="display: grid;">
+                <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;">
                     <div class="ui tiny button removetag">Remove</div>
                     {{#with firstTag content.allTags}}
                     {{#unless equals t 'dtube'}}

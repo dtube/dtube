@@ -63,8 +63,8 @@
                   </button>
                 </div>
                 {{else}}
-                {{> verticalvoteslider content=video voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
-                {{> verticalvoteslider content=video voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider sliderclass=video.link content=video voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider sliderclass=video.link content=video voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{/if}}
               </div>
             </div>
