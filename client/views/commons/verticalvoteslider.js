@@ -2,6 +2,9 @@ Template.verticalvoteslider.rendered = function() {
     var voteType = this.data.voteType
     var slider = document.getElementById("voterange" + this.data.voteType);
     var bubble = document.getElementById("sliderBubble" + this.data.voteType)
+    var holder = document.getElementById("vsliderholder" + this.data.voteType)
+    var bubbleholder = document.getElementById("bubblevsliderholder" + this.data.voteType)
+
     var value = document.getElementById("votevt" + this.data.voteType);
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * UserSettings.get('voteWeight')).toFixed(2)
@@ -19,6 +22,8 @@ Template.verticalvoteslider.rendered = function() {
         bubble.style.left = `9px`;
         var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
+        holder.style.height = `calc(${newPosition}% + 15px)`;
+        bubbleholder.style.bottom = `calc(${newPosition}% + 5px)`;
     }
 
     function cuteNumber(num, digits) {
@@ -59,10 +64,10 @@ Template.verticalvoteslider.rendered = function() {
         var zoomLevel = parseFloat(slider.value).toFixed(1);
         if (e.originalEvent.wheelDelta < 0 || e.detail > 0) {
             //scroll down
-            slider.value = Number(zoomLevel) - 0.1;
+            slider.value = Number(zoomLevel) - 1;
         } else {
             //scroll up
-            slider.value = Number(zoomLevel) + 0.1;
+            slider.value = Number(zoomLevel) + 1;
         }
         var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
