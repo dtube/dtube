@@ -35,31 +35,49 @@
 }
 
 .vsliderbackholder {
-    left: calc(50% - 16px);
+    left: calc(50% - 20px);
     top: -3px;
-    height: calc(100% + 7px);
-    border: 10px solid white;
+    height: 210px;
+    border: 14px solid white;
     position: absolute;
-    min-width: 32px!important;
-    width: 32px!important;
-    background: rgb(80, 80, 80);
-    border-radius: 16px;
+    min-width: 40px!important;
+    width: 40px!important;
+    border-radius: 18px;
+    pointer-events: none;
+    background-color: #fbbd08 !important;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .25) 50%, rgba(255, 255, 255, .25) 75%, transparent 75%, transparent);
+    background-size: 1rem 1rem;
+    background-repeat: round;
+    -webkit-animation: move 3s linear infinite;
+    animation: move 3s linear infinite;
+    overflow: hidden;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    pointer-events: none;
+    background-position: bottom;
+}
+
+.vsliderholder {
+    left: calc(50% - 6px);
+    top: 7px;
+    position: absolute;
+    min-width: 12px!important;
+    width: 12px!important;
+    border: 1px solid rgb(95, 95, 95);
+    background: white;
+    border-radius: 12px;
     -webkit-transition: .2s;
     transition: opacity .2s;
     pointer-events: none;
 }
 
-.vsliderholder {
-    left: calc(50% - 5px);
-    bottom: 7px;
-    position: absolute;
-    min-width: 10px!important;
-    width: 10px!important;
-    background: red;
-    border-radius: 12px;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-    pointer-events: none;
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 -210px;
+    }
 }
 
 .bubblevsliderholder {
@@ -194,7 +212,6 @@
     bottom: -20px!important;
     box-shadow: 0px -10px 9px 0px rgba(34, 36, 38, 0.12), 0px 0px 0px 0px rgba(34, 36, 38, 0.15)!important;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0) 3%, rgb(255, 255, 255) 4%, rgb(255, 255, 255) 100%)!important;
-    height: 320px;
 }
 
 .vertical.popup::before {
@@ -207,8 +224,4 @@
 
 .verticalslider.button i {
     margin: 0px!important;
-}
-
-.ui.popup {
-    overflow: auto;
 }

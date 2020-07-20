@@ -110,6 +110,11 @@ Template.video.helpers({
     hasVoted: function(one, two) {
         if (one || two) return true;
         return false;
+    },
+    votable: function(dtube, steem, hive) {
+        if (dtube || steem || hive)
+            return true
+        else return false
     }
 })
 
