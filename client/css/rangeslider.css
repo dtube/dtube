@@ -194,6 +194,7 @@
     bottom: -20px!important;
     box-shadow: 0px -10px 9px 0px rgba(34, 36, 38, 0.12), 0px 0px 0px 0px rgba(34, 36, 38, 0.15)!important;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0) 3%, rgb(255, 255, 255) 4%, rgb(255, 255, 255) 100%)!important;
+    height: 320px;
 }
 
 .vertical.popup::before {
@@ -208,6 +209,6 @@
     margin: 0px!important;
 }
 
-.popup {
+.ui.popup {
     overflow: auto;
 }

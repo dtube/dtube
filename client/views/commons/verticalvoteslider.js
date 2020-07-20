@@ -11,6 +11,11 @@ Template.verticalvoteslider.rendered = function() {
     var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * UserSettings.get('voteWeight')).toFixed(2)
     value.innerHTML = cuteNumber(vt)
     slider.value = UserSettings.get('voteWeight')
+    var resizePopup = function() { $('.ui.popup').css('max-height', $(window).height()); };
+
+    $(window).resize(function(e) {
+        resizePopup();
+    });
 
     function setBubble() {
         const
@@ -50,8 +55,10 @@ Template.verticalvoteslider.rendered = function() {
         .popup({
             popup: $(`.${voteType}vote.popup.${sliderclass}`),
             on: 'click',
+            lastResort: 'bottom right',
             position: 'top center',
             onShow: function() {
+                resizePopup();
                 $('body').first().addClass('lock-vscroll')
                 $('.ui.videocontainer').bind(mousewheelevt, moveSlider);
             },
