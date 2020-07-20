@@ -1,16 +1,20 @@
 Template.wiki.load = function () {
     Session.set('pageTitle', 'Wiki: '+FlowRouter.getParam("page"))
+    var page = FlowRouter.getParam("page")
+    if (FlowRouter.getParam("folder"))
+        page = FlowRouter.getParam("folder")+'/'+FlowRouter.getParam("page")
+
     if (typeof showdown === 'undefined')
         jQuery.ajax({
             url: 'https://cdn.rawgit.com/showdownjs/showdown/1.9.1/dist/showdown.min.js',
             dataType: 'script',
             success: function() {
-                getWikiContent(FlowRouter.getParam("page"))
+                getWikiContent(page)
             },
             async: true
         });
     else
-        getWikiContent(FlowRouter.getParam("page"))
+        getWikiContent(page)
 }
 
 
@@ -18,7 +22,17 @@ Template.wiki.load = function () {
 
 Template.wiki.helpers({
     page: function () {
-        return FlowRouter.getParam("page").split('\\')
+        return FlowRouter.getParam("page")
+    },
+    folder: function () {
+        return FlowRouter.getParam("folder")
+    },
+    editLink: function() {
+        var link = "https://github.com/dtube/docs/edit/master/"
+        var page = FlowRouter.getParam("page")
+        if (FlowRouter.getParam("folder"))
+            page = FlowRouter.getParam("folder") + '/'+page
+        return link+page+'.md'
     },
     markdown: function() {
         var content = Session.get('wikiContent')
@@ -29,7 +43,7 @@ Template.wiki.helpers({
             strikethrough: true,
             tasklists: true,
             ghCodeBlocks: true,
-            openLinksInNewWindow: true
+            openLinksInNewWindow: false
         })
         var html = converter.makeHtml(content)
         html = html.replace(/<table>/g, '<table class="ui table">')
@@ -38,7 +52,6 @@ Template.wiki.helpers({
 })
 
 function getWikiContent(filePath) {
-    filePath = filePath.replace(/\\/g, '/')
     if (filePath.indexOf('.md') !== filePath.length-2)
         filePath += '.md'
     fetch('https://api.github.com/repos/dtube/docs/contents/'+filePath, {mode: 'cors'})
