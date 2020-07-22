@@ -255,10 +255,12 @@ function videoIdFromUrl(video, url) {
       case 'www.youtube.com':
       case 'm.youtube.com':
       case 'music.youtube.com':
-      case 'youtu.be':
         return urlInfo.query.v
         break;
-    
+
+      case 'youtu.be':
+        return urlInfo.pathname.split('/')[1]
+        break;
       default:
         break;
     }
