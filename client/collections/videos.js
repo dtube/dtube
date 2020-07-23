@@ -102,19 +102,19 @@ Videos.getVideosByBlog = function(author, limit, cb) {
 
     var user = ChainUsers.findOne({ name: author })
     if (user) {
-        // Videos.getVideosByBlogAvalon(author, function(err, finished) {
-        //   cb(err, finished)
-        // })
-        // if (user.json && user.json.profile && user.json.profile.steem) {
-        //   Videos.getVideosByBlogSteem(user.json.profile.steem, function(err, finished) {
-        //     cb(err, finished)
-        //   })
-        // }
-        // if (user.json && user.json.profile && (user.json.profile.hive)) {
-        //   Videos.getVideosByBlogHive(user.json.profile.hive,(err,finished) => {
-        //     cb(err,finished)
-        //   })
-        // }
+        Videos.getVideosByBlogAvalon(author, function(err, finished) {
+            cb(err, finished)
+        })
+        if (user.json && user.json.profile && user.json.profile.steem) {
+            Videos.getVideosByBlogSteem(user.json.profile.steem, function(err, finished) {
+                cb(err, finished)
+            })
+        }
+        if (user.json && user.json.profile && (user.json.profile.hive)) {
+            Videos.getVideosByBlogHive(user.json.profile.hive, (err, finished) => {
+                cb(err, finished)
+            })
+        }
     } else {
         Videos.getVideosByBlogHive(author, function(err, finished) {
             cb(err, finished)
