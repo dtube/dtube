@@ -8,10 +8,15 @@ Template.video.rendered = function() {
     $(window).on('resize', Template.video.setScreenMode)
     Template.sidebar.resetActiveMenu()
     Template.settingsdropdown.nightMode();
-
+    Session.set('commentBurn', null)
     setTimeout(function() {
         $('.ui.newtag').dropdown({})
+        var commentSlider = document.getElementById("comment-range");
+        commentSlider.oninput = function() {
+            Session.set('commentBurn', this.value)
+        }
     }, 1000)
+
 }
 
 Template.video.helpers({
@@ -115,6 +120,9 @@ Template.video.helpers({
         if (dtube || steem || hive)
             return true
         else return false
+    },
+    commentBurn: function() {
+        return Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance / 100 * Session.get('commentBurn')
     }
 })
 
@@ -233,7 +241,9 @@ Template.video.events({
                     ppHive = ref.split('/')[2]
                 }
             }
-            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', null, function(err, result) {
+            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            var burn = balance / 100 * Session.get('commentBurn')
+            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function(err, result) {
                 console.log(err, result)
                 if (err) {
                     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -264,7 +274,7 @@ Template.video.events({
                     $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
                 });
             if (refs[0].split('/')[0] == 'dtc')
-                broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, function(err, result) {
+                broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', burn, function(err, result) {
                     console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');

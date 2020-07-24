@@ -837,6 +837,8 @@ Template.registerHelper('dtubeVotable', function(content) {
 
 
 Template.registerHelper('contentNetwork', function(content) {
+    if (!content)
+        return
     let network = 'dtube'
     if (content._id)
         network = content._id.split('/')[0]

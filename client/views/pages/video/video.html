@@ -64,13 +64,15 @@
                 </div>
                 {{else}}
                 {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
-                  {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
-                  {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{else}}
-                <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this}} account">
+                <button class="ui icon button votebutton"
+                  data-tooltip="Please login with {{contentNetwork this}} account">
                   <i class="thumbs up icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'up'}}</button>
-                  <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this}} account">
-                    <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
+                <button class="ui icon button votebutton"
+                  data-tooltip="Please login with {{contentNetwork this}} account">
+                  <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
                 {{/if}}
                 {{/if}}
               </div>
@@ -216,15 +218,20 @@
               <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
                 <textarea id="replytext" rows="3"></textarea>
               </div>
-              <div class="ui blue right labeled icon submit button dtube pos-rel"
-                style="float:right;vertical-align: top;">
-                <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
-                <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;">
-                  <div class="ui active loader"></div>
-                </i>
-                <i class="ui blue right icon repl talk iconloader on" style="background:white;"></i>
-                <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
+              <div style="width: auto; min-width:460px;float: left;">
+                Promote this comment <strong style='color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong>
+                {{> horizontalslider sliderid="comment-range"}}
               </div>
+                <div class="ui blue right labeled icon submit button dtube pos-rel"
+                  style="float:right;vertical-align: top;">
+                  <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
+                  <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;">
+                    <div class="ui active loader"></div>
+                  </i>
+                  <i class="ui blue right icon repl talk iconloader on" style="background:white;"></i>
+
+                  <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
+                </div>
             </form>
           </div>
           {{/if}}
