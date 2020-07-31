@@ -1,0 +1,308 @@
+<template name='votes'>
+    {{#with video}}
+    <div class="ui container grid computer tablet only">
+        <div style="padding: 10px;">
+            {{#if json.title}}
+            <div class="videotitlecontainer">
+                <h1 class="videotitle">{{json.title}}</h1>
+            </div>
+            {{/if}}
+        </div>
+        <!-- {{#if or distSteem distHive}}
+        <div class="ui top attached tabular menu">
+            <a class="active item votenetwork first" data-tab="first">Dtube</a>
+            <a class="item votenetwork second" data-tab="second">Others</a>
+        </div>
+        {{/if}} -->
+        <div class="ui bottom active attached votenetwork tab first pdg-non">
+            <table class="ui celled table unstackable"
+                style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        {{#unless isOnMobile}}
+                        <th>Vote Time</th>
+                        {{/unless}}
+                        <th>Spent</th>
+                        <th>Reward</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#if equals network 'dtc'}}
+                    <tr>
+                        <td style="overflow: hidden;">
+                            <img class="ui avatar image" src="{{userPic u}}">&nbsp;<a href='/c/{{u}}'>{{u}}</a>
+                        </td>
+                        {{#unless isOnMobile}}
+                        <td title="{{timeDisplay ts}}">{{timeAgo ts}}</td>
+                        {{/unless}}
+                        <td>
+                            {{displayPayout vt 0}} VP
+                            {{#if burn}}
+                            <br />{{displayMoney burn 0 'DTC'}}
+                            {{/if}}
+                        </td>
+                        <td class="{{#if isClaimed this}}positive{{/if}}{{#unless isClaimable this}}warning{{/unless}}">
+                            {{#if equals claimable 0}}
+                            {{translate "CHANNEL_REWARDS_NO_REWARD_YET"}}
+                            {{else}}
+                            {{#if isClaimable this}}
+                            {{#if isClaimed this}}
+                            <i class="icon checkmark"></i> {{translate "CHANNEL_REWARDS_CLAIMED"}}
+                            {{displayMoney claimable 0 'DTC'}}
+                            <br />{{timeAgo claimed}}
+                            {{else}}
+                            <button type="button" name="button"
+                                class="ui fluid red right labeled dtube icon submit claim button">
+                                <div style="display:inline-block;padding: 0.8em 1em;">
+                                    {{ translate 'CHANNEL_REWARDS_CLAIM'}} {{displayMoney claimable 0 'DTC'}}</div>
+                            </button>
+                            {{/if}}
+                            {{else}}
+                            <strong><i class="icon clock"></i> {{displayMoney claimable 0 'DTC'}}</strong>
+                            <br />{{translate "CHANNEL_REWARDS_CLAIMABLE"}} {{timeAgo timeToClaim}}
+                            {{/if}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/if}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="ui bottom attached votenetwork tab second segment pdg-non">
+            {{#if distSteem}}
+            <div class="ui middle aligned divided list">
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            STEEM ${{distSteem}}
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive 0}}
+                {{#if equals network 'steem'}}
+                {{#if downvote}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if distHive}}
+            <div class="ui middle aligned divided list">
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            HIVE ${{distHive}}
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive 0}}
+                {{#if equals network 'hive'}}
+                {{#if downvote}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="ui main grid mobile only">
+        <div style="padding-left: 2rem;padding-right: 2rem;">
+            {{#if json.title}}
+            <div class="videotitlecontainer">
+                <h1 class="videotitle">{{json.title}}</h1>
+            </div>
+            {{/if}}
+<!-- 
+            {{#if or distSteem distHive}}
+            <div class="ui top attached tabular menu">
+                <a class="active item votenetwork first" data-tab="first">Dtube</a>
+                <a class="item votenetwork second" data-tab="second">Others</a>
+            </div>
+            {{/if}} -->
+            <div class="ui bottom active attached votenetwork tab first">
+                <table class="ui celled table unstackable"
+                    style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            {{#if isOnMobile}}
+                            {{else}}
+                            <th>Vote Time</th>
+                            {{/if}}
+                            <th>Spent</th>
+                            <th>Reward</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each topVoters votes votesSteem votesHive 0}}
+                        {{#if equals network 'dtc'}}
+                        <tr>
+                            <td style="overflow: hidden;">
+                                <img class="ui avatar image" src="{{userPic u}}">&nbsp;<a href='/c/{{u}}'>{{u}}</a>
+                            </td>
+                            {{#if isOnMobile}}
+                            {{else}}
+                            <td title="{{timeDisplay ts}}">{{timeAgo ts}}</td>
+                            {{/if}}
+                            <td>
+                                {{displayPayout vt 0}} VP
+                                {{#if burn}}
+                                <br />{{displayMoney burn 0 'DTC'}}
+                                {{/if}}
+                            </td>
+                            <td
+                                class="{{#if isClaimed this}}positive{{/if}}{{#unless isClaimable this}}warning{{/unless}}">
+                                {{#if equals claimable 0}}
+                                {{translate "CHANNEL_REWARDS_NO_REWARD_YET"}}
+                                {{else}}
+                                {{#if isClaimable this}}
+                                {{#if isClaimed this}}
+                                <i class="icon checkmark"></i> {{translate "CHANNEL_REWARDS_CLAIMED"}}
+                                {{displayMoney claimable 0 'DTC'}}
+                                <br />{{timeAgo claimed}}
+                                {{else}}
+                                <button type="button" name="button"
+                                    class="ui fluid red right labeled dtube icon submit claim button">
+                                    <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{ translate 'CHANNEL_REWARDS_CLAIM'}} {{displayMoney claimable 0 'DTC'}}</div>
+                                </button>
+                                {{/if}}
+                                {{else}}
+                                <strong><i class="icon clock"></i> {{displayMoney claimable 0 'DTC'}}</strong>
+                                <br />{{translate "CHANNEL_REWARDS_CLAIMABLE"}} {{timeAgo timeToClaim}}
+                                {{/if}}
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui bottom attached votenetwork tab second segment">
+                {{#if distSteem}}
+                <div class="ui middle aligned divided list">
+                    <div class="ui item">
+                        <div class="content">
+                            <div class="header">
+                                STEEM ${{distSteem}}
+                            </div>
+                        </div>
+                    </div>
+                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#if equals network 'steem'}}
+                    {{#if downvote}}
+                    <div class="ui item">
+                        <a href='/c/{{voter}}'>
+                            <div class="content">
+                                <div class="header">
+                                    {{voter}}
+                                    <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {{else}}
+                    <div class="ui item">
+                        <a href='/c/{{voter}}'>
+                            <div class="content">
+                                <div class="header">
+                                    {{voter}}
+                                    <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {{/if}}
+                    {{/if}}
+                    {{/each}}
+                </div>
+                {{/if}}
+                {{#if distHive}}
+                <div class="ui middle aligned divided list">
+                    <div class="ui item">
+                        <div class="content">
+                            <div class="header">
+                                HIVE ${{distHive}}
+                            </div>
+                        </div>
+                    </div>
+                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#if equals network 'hive'}}
+                    {{#if downvote}}
+                    <div class="ui item">
+                        <a href='/c/{{voter}}'>
+                            <div class="content">
+                                <div class="header">
+                                    {{voter}}
+                                    <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {{else}}
+                    <div class="ui item">
+                        <a href='/c/{{voter}}'>
+                            <div class="content">
+                                <div class="header">
+                                    {{voter}}
+                                    <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {{/if}}
+                    {{/if}}
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    {{/with}}
+</template>

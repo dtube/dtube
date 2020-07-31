@@ -5,11 +5,11 @@
                 <a id="top-curator" href="/c/{{u}}">
                 {{#if downvote}}
                 <span class="ui image avatar circular "
-                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+                    style="background-color: #f3f3f3;border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
                 </span>
                 {{else}}
                 <span class="ui image avatar circular "
-                    style="z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+                    style="background-color: #f3f3f3;z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
                 </span>
                 {{/if}}
                 </a>
@@ -18,11 +18,11 @@
                 <a id="top-curator" href="/c/{{voter}}">
                 {{#if downvote}}
                 <span class="ui image avatar circular "
-                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
+                    style="background-color: #f3f3f3;border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
                 </span>
                 {{else}}
                 <span class="ui image avatar circular "
-                    style="z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
+                    style="background-color: #f3f3f3;z-index: {{zindex}}; background-image:url('{{userPicSteem voter ''}}')">
                 </span>
                 {{/if}}
                 </a>
@@ -31,11 +31,11 @@
                 <a id="top-curator" href="/c/{{voter}}">
                 {{#if downvote}}
                 <span class="ui image avatar circular "
-                    style="border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
+                    style="background-color: #f3f3f3;border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
                 </span>
                 {{else}}
                 <span class="ui image avatar circular "
-                    style="z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
+                    style="background-color: #f3f3f3;z-index: {{zindex}}; background-image:url('{{userPicHive voter ''}}')">
                 </span>
                 {{/if}}
                 </a>
@@ -43,8 +43,8 @@
         </span>
     {{/each}}
     {{#if nonTopVotesCount votes votesSteem votesHive 3}}
-    <span class="topvoters" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VP){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
-        <a id="top-curator" href="/c/{{u}}">
+    <span class="topvoters" style="z-index:800" data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VP){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}" data-inverted="" data-position="top left">
+        <a id="top-curator">
             <a class="ui red large circular label" style="z-index:0">+{{nonTopVotesCount votes votesSteem votesHive 3}}</a>
         </a>
     </span>
