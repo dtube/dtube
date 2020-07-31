@@ -1,0 +1,110 @@
+<template name="settings">
+    <div class="ui container">
+        <div class="ui form">
+            <h2>API Connection</h2>
+            <div class="three fields">
+                <div class="field">
+                <label>{{ translate 'SETTINGS_DROPDOWN_AVALONAPI'}}</label>
+                <select id='avalonApi'>
+                    {{#each AvalonAPIs}}
+                        {{#if equals this CurrentAvalonAPI}}
+                            <option value="{{this}}" selected>{{this}}</option>
+                        {{else}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/if}}
+                    {{/each}}
+                </select>
+                </div>
+                <div class="field">
+                <label>{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</label>
+                <select id='steemApi'>
+                    {{#each SteemAPIs}}
+                        {{#if equals this CurrentSteemAPI}}
+                            <option value="{{this}}" selected>{{this}}</option>
+                        {{else}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/if}}
+                    {{/each}}
+                </select>
+                </div>
+                <div class="field">
+                <label>{{ translate 'SETTINGS_DROPDOWN_HIVEAPI'}}</label>
+                <select id='hiveApi'>
+                    {{#each HiveAPIs}}
+                        {{#if equals this CurrentHiveAPI}}
+                            <option value="{{this}}" selected>{{this}}</option>
+                        {{else}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/if}}
+                    {{/each}}
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui form">
+            <h2>Video Visibility</h2>
+            <div class="two fields">
+                <div class="field">
+                <label>{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</label>
+                <select id='nsfwSetting'>
+                    {{#if equals 'Show' nsfwSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_SHOW'}}" selected>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_SHOW'}}">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</option>
+                    {{/if}}
+                    {{#if equals 'Blurred' nsfwSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}" selected>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</option>
+                    {{/if}}
+                    {{#if equals 'Fully Hidden' nsfwSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}" selected>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</option>
+                    {{/if}}
+                </select>
+                </div>
+                <div class="field">
+                <label>{{ translate 'SETTINGS_DROPDOWN_CENSOR_VIDEOS'}}</label>
+                <select id='censorSetting'>
+                    {{#if equals 'Show' censorSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_SHOW'}}" selected>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_SHOW'}}">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</option>
+                    {{/if}}
+                    {{#if equals 'Blurred' censorSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}" selected>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</option>
+                    {{/if}}
+                    {{#if equals 'Fully Hidden' censorSetting}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}" selected>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</option>
+                    {{else}}
+                        <option value="{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</option>
+                    {{/if}}
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <center>
+            <div>
+                <label>{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}: <strong>{{currentLang}}</strong></label>
+                <br />
+                <button id='changeLanguage' class="ui tiny red button">Change language</button>
+            </div>
+            <div class="ui divider"></div>
+            <div class="inline field">
+                <div id='nightmodeSwitch' class="ui toggle checkbox">
+                    {{#if isInNightMode}}
+                        <input type="checkbox" tabindex="0" class="hidden" checked>
+                    {{else}}
+                        <input type="checkbox" tabindex="0" class="hidden">
+                    {{/if}}
+                    <label>{{ translate 'SETTINGS_NIGHTMODE' }}</label>
+                </div>
+            </div>
+        </center>
+    </div>
+</template>

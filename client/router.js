@@ -358,6 +358,16 @@ FlowRouter.route('/wiki/:page', {
     }
 });
 
+FlowRouter.route('/settings', {
+  name: "settings",
+  action: function(params, queryParams) {
+    BlazeLayout.render('masterLayout', {
+      main: "settings",
+      nav: "nav"
+    });
+  }
+});
+
 FlowRouter.notFound = {
     action: function() {
         BlazeLayout.render('masterLayout', {

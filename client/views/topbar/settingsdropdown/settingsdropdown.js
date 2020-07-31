@@ -76,51 +76,6 @@ Template.settingsdropdown.rendered = function() {
   Template.settingsdropdown.nightMode();
 }
 
-Template.settingsdropdown.helpers({
-  nsfwSetting: function() {
-    return Session.get('nsfwSetting');
-  },
-  censorSetting: function() {
-    return Session.get('censorSetting');
-  },
-  ipfsUpload: function() {
-    return Session.get('ipfsUpload');
-  },
-  ipfsGateway: function() {
-    return Session.get('ipfsGateway');
-  },
-  uploadNodes: function() {
-    return Session.get('remoteSettings').uploadNodes;
-  },
-  SteemAPIs: function() {
-    return Session.get('remoteSettings').APINodes;
-  },
-  AvalonAPIs: function() {
-    return Session.get('remoteSettings').AvalonAPINodes
-  },
-  HiveAPIs: () => {
-    return Session.get('remoteSettings').HiveAPINodes
-  },
-  CurrentAPI: function() {
-    return Session.get('steemAPI');
-  },
-  CurrentAvalonAPI: function() {
-    return Session.get('avalonAPI')
-  },
-  CurrentHiveAPI: () => {
-    return Session.get('hiveAPI')
-  },
-  displayNodes: function() {
-    return Session.get('remoteSettings').displayNodes;
-  },
-  localIpfs: function() {
-    return Session.get('localIpfs')
-  },
-  isInNightMode:function() {
-    return UserSettings.get('isInNightMode')
-  },
-})
-
 
 Template.settingsdropdown.nightMode = function()
 {
