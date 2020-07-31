@@ -11,7 +11,7 @@
       <a class="item rewards" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
       {{/if}}
     </div>
-    <div class="ui infinite bottom attached tab segment active" data-tab="first" style="padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
+    <div class="ui infinite bottom attached tab segment active videos" data-tab="first" style="padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
       {{#if userVideos}}
       <div style="padding-left:10px;padding-right:10px; padding-bottom: 10px;">
         {{> verticalvideoband userVideos}}
@@ -19,24 +19,24 @@
       {{/if}}
       <div class="ui large centered inline text loader"></div>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+    <div class="ui bottom attached tab segment activites" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'activities'}} 
         {{> channelactivities}} 
       {{/if}}
     </div>
     {{#if equals author.name activeUsername}}
-      <div class="ui bottom attached tab segment" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      <div class="ui bottom attached tab segment keys" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'keys'}} 
           {{> channelkeys}} 
         {{/if}}
       </div>
-      <div class="ui bottom attached tab segment" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      <div class="ui bottom attached tab segment rewards" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'rewards'}} 
           {{> channelrewards}} 
         {{/if}}
       </div>
     {{/if}}
-    <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+    <div class="ui bottom attached tab segment about" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'about'}} 
       {{> channelabout}} 
       {{/if}}
@@ -55,7 +55,7 @@
         {{/if}}
         <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
       </div>
-      <div class="ui bottom attached tab segment active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
+      <div class="ui bottom attached tab segment videos active" data-tab="first" style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
         <div class="ui infinite">
           {{#if userVideos}} 
             {{> videoband userVideos}}
@@ -65,24 +65,24 @@
           <div class="ui large centered inline text loader"></div>
         </div>
       </div>
-      <div class="ui bottom attached tab segment" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      <div class="ui bottom attached tab segment activities" data-tab="second" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'activities'}} 
           {{> channelactivities}} 
         {{/if}}
       </div>
       {{#if equals author.name activeUsername}}
-        <div class="ui bottom attached tab segment" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        <div class="ui bottom attached tab segment keys" data-tab="fourth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
           {{#if equals currentTab 'keys'}} 
             {{> channelkeys}} 
           {{/if}}
         </div>
-        <div class="ui bottom attached tab segment" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        <div class="ui bottom attached tab segment rewards" data-tab="fifth" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
           {{#if equals currentTab 'rewards'}} 
             {{> channelrewards}} 
           {{/if}}
         </div>
       {{/if}}
-      <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+      <div class="ui bottom attached tab segment about" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'about'}} 
           {{> channelabout}} 
         {{/if}}

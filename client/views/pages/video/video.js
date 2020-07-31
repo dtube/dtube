@@ -15,6 +15,12 @@ Template.video.rendered = function() {
         commentSlider.oninput = function() {
             Session.set('commentBurn', this.value)
         }
+        $('.videopayout')
+            .popup({
+                popup: '.popupupvotes',
+                position: 'bottom right',
+            });
+
     }, 1000)
 
 }

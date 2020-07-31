@@ -87,13 +87,14 @@
                 <div class='topvotersdiv'>
                   {{> topupvoters}}
                 </div>
-                <div class='videopayout'>
+                <a href="/v/{{video.author}}/{{video.link}}/votes" class='videopayout'>
                   {{#if scot}}
                   {{displayScot distScot scot}}
                   {{else}}
                   {{displayRewards dist distSteem distScot distHive}}
                   {{/if}}
-                </div>
+                  {{> popupvoter}}
+                </a>
                 <svg class="sparkline" width="200" height="60" stroke-width="2" style="display:none"></svg>
               </div>
               {{#if body}}

@@ -13,6 +13,12 @@ Template.registerHelper('equals', function(one, two) {
     return false;
 });
 
+
+Template.registerHelper('or', function(one, two) {
+    if (one || two) return true;
+    return false;
+});
+
 Template.registerHelper('count', function(array) {
     if (!array) return 0;
     return array.length;
@@ -269,7 +275,7 @@ Template.registerHelper('displayBandwidth', function(user) {
 })
 
 Template.registerHelper('displayPayoutUpvote', function(share, rewards) {
-    return (share * rewards).toFixed(3);
+    return (Number(share) * rewards).toFixed(3);
 })
 
 Template.registerHelper('displayVoters', function(votes, isDownvote) {
@@ -345,6 +351,9 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
     }
 
     var realTop = []
+    if (!x) {
+        x = top.length + topSteem.length + topHive.length
+    }
     for (let i = 0; i < x; i++) {
         if (top[i]) {
             top[i].network = 'dtc'

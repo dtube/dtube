@@ -1,6 +1,6 @@
 import moment from 'moment'
 import xss from 'xss'
-
+const time_to_claim = 1000 * 60 * 60 * 24 * 7
 Videos = new Mongo.Collection(null)
 
 Videos.refreshBlockchain = function(cb) {
@@ -660,6 +660,11 @@ Videos.parseFromChain = function(video, isComment, network) {
     if (!video.dist) video.dist = 0
     if (!video.json.thumbnailUrl)
         video.json.thumbnailUrl = Videos.getThumbnailUrl(video)
+    for (let i = 0; i < video.votes.length; i++) {
+        if (!video.votes[i].claimed)
+            video.votes[i].timeToClaim = video.votes[i].ts + time_to_claim
+        video.votes[i].claimable = Math.floor(video.votes[i].claimable)
+    }
     return video;
 }
 
