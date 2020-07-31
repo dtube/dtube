@@ -1,3 +1,7 @@
+Template.settings.rendered = function () {
+    Template.settingsdropdown.nightMode()
+}
+
 Template.settings.helpers({
     nsfwSetting: function() {
       return Session.get('nsfwSetting');
