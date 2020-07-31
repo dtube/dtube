@@ -5,6 +5,10 @@ Template.login.rendered = () => {
   Session.set('loginSteemStep',false)
   Session.set('forcePostingKeyHive',false)
   Session.get('forcePostingKey',false)
+  if (!Session.get('activeUsername')) {
+    Session.set('loginSelectionStep',false)
+    Session.set('loginAvalonStep',true)
+  }
 }
 
 Template.login.helpers({
@@ -33,7 +37,7 @@ Template.login.helpers({
     return UserSettings.get('isInNightMode')
   },
   randomOrder: () => {
-    var a = ['steem', 'hive', 'dtc']
+    var a = ['steem', 'hive']
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
@@ -49,7 +53,12 @@ Template.login.events({
     Session.set('login'+selected+'Step',true)
   },
   'click .otherNetwork': () => {
-    Template.login.rendered()
+    Session.set('loginSelectionStep',true)
+    Session.set('loginAvalonStep',false)
+    Session.set('loginHiveStep',false)
+    Session.set('loginSteemStep',false)
+    Session.set('forcePostingKeyHive',false)
+    Session.get('forcePostingKey',false)
   },
   'click .logOut' : (event) => {
     var network = $(event.currentTarget).data('network')

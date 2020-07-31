@@ -344,5 +344,6 @@
     "TRANSFER_AMOUNT": "Amount",
     "TRANSFER_MEMO": "Memo",
     "TRANSFER_SUCCESS_TITLE": "Transfer Complete",
-    "TRANSFER_SUCCESS_DESC": "Sent %1 DTC to %2"
+    "TRANSFER_SUCCESS_DESC": "Sent %1 DTC to %2",
+    "WIKI_EDIT_GITHUB": "Edit this page on GitHub"
 }

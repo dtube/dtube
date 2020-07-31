@@ -100,7 +100,7 @@ function getOpenGraphData(url, callback) {
     //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
     xhr.send();
 }  
-  
+
 function getYoutubeVideoData(url, callback) {
     var videoId = ''
     if (url.indexOf('v=') == -1)
@@ -251,7 +251,16 @@ function videoIdFromUrl(video, url) {
       case "www.liveleak.com":
         return urlInfo.query.t
         break;
-    
+
+      case 'www.youtube.com':
+      case 'm.youtube.com':
+      case 'music.youtube.com':
+        return urlInfo.query.v
+        break;
+
+      case 'youtu.be':
+        return urlInfo.pathname.split('/')[1]
+        break;
       default:
         break;
     }

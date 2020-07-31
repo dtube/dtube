@@ -6,14 +6,14 @@
           <div class="ui segments">
             <div class="ui segment" style="padding: 20px;">
               <div class="field">
-                <label>{{ translate 'CHANNEL_ABOUT_TAB_AVATAR'}}</label>
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_AVATAR'}} {{>badgehelp 'faq/how-can-i-add-cover-image-and-avatar'}}</label>
                 <div class="ui left icon input">
                   <i class="user circle icon"></i>
                   <input type="text" name="profile_avatar" value="{{author.json.profile.avatar}}">
                 </div>
               </div>
               <div class="field">
-                <label>{{ translate 'CHANNEL_ABOUT_TAB_COVER'}}</label>
+                <label>{{ translate 'CHANNEL_ABOUT_TAB_COVER'}} {{>badgehelp 'faq/how-can-i-add-cover-image-and-avatar'}}</label>
                 <div class="ui left icon input">
                   <i class="image icon"></i>
                   <input type="text" name="profile_cover" value="{{author.json.profile.cover_image}}">

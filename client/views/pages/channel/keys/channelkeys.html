@@ -1,7 +1,10 @@
 <template name='channelkeys'>
     <div class="ui stackable grid column">
         <div class="sixteen wide column" style="padding-left:5px;">
-            <p>{{ translate 'CHANNEL_KEYS_PARAGRAPH_INTRO' }}</p>
+            <p>
+                {{ translate 'CHANNEL_KEYS_PARAGRAPH_INTRO' }}
+                {{>badgehelp 'keys'}}
+            </p>
             <div class="ui custom popup popupQRCode bottom left transition hidden">
                 <img src="{{qrCode}}">
             </div>
