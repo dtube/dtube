@@ -670,11 +670,25 @@ table {
     position: relative!important;
 }
 
+table thead {
+    display: table-header-group!important;
+}
+
+table thead tr {
+    display: table-row!important;
+}
+
 table thead tr th {
     border-right: 1px solid #ddd;
     background: #223154!important;
+    font-size: 18px!important;
     color: #fff!important;
     font-weight: unset!important;
+}
+
+table tbody tr td {
+    text-overflow: ellipsis!important;
+    overflow: hidden;
 }
 
 table thead tr th:last-child {
@@ -683,4 +697,13 @@ table thead tr th:last-child {
 
 tbody tr:nth-child(even) {
     background-color: #f5f5f5;
+}
+
+.channelmenu.parent {
+    overflow: hidden;
+    height: 43px;
+}
+
+.channelmenu.mobile {
+    overflow-x: auto;
 }
