@@ -51,7 +51,12 @@ Template.settings.helpers({
     currentLang:function() {
         var lang = UserSettings.get('language')
         if (!lang) lang = 'en'
+        if (Meteor.settings.public.lang[lang])
+            return Meteor.settings.public.lang[lang].name
         return lang
+    },
+    buildVersion: function() {
+      return Session.get('buildVersion')
     }
 })
 

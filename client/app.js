@@ -76,4 +76,14 @@ Meteor.startup(function(){
     // Videos.refreshBlockchain(function() {})
     clearInterval(firstLoad)
   }, 50)
+
+  // detect build javascript hash
+  var scripts = document.getElementsByTagName("script")
+  var sources = []
+  for (let i = 0; i < scripts.length; i++)
+    if (scripts[i].src.length > 0)
+      sources.push(scripts[i].src)
+  
+  if (sources.length == 1)
+    Session.set('buildVersion', sources[0].substr(0, 8))
 })

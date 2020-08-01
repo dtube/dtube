@@ -1,7 +1,37 @@
 <template name="settings">
     <div class="ui container" style="margin-top: 25px;">
         <div class="ui form">
-            <h2>API Connection</h2>
+            <div class="two fields">
+                <div class="field">
+                <h2>{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}: <strong>{{currentLang}}</strong></h2>
+                
+                </div>
+                <div class="field">
+                <div id='changeLanguage' class="ui right labeled icon button red editvideo dtube pos-rel">
+                    <div style="display:inline-block;padding: 0.8em 1em;">
+                        {{ translate 'SETTINGS_CHANGE_LANG'}}
+                    </div>
+                    <i class="icon edit red" style="background:white;opacity:1;"></i>
+                </div> 
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <center>
+            <div class="inline field">
+                <div id='nightmodeSwitch' class="ui toggle checkbox">
+                    {{#if isInNightMode}}
+                        <input type="checkbox" tabindex="0" class="hidden" checked>
+                    {{else}}
+                        <input type="checkbox" tabindex="0" class="hidden">
+                    {{/if}}
+                    <label>{{ translate 'SETTINGS_NIGHTMODE' }}</label>
+                </div>
+            </div>
+        </center>
+        <div class="ui divider"></div>
+        <div class="ui form">
+            <h2>{{ translate 'SETTINGS_API_CONNECTION' }}</h2>
             <div class="three fields">
                 <div class="field">
                 <label>{{ translate 'SETTINGS_DROPDOWN_AVALONAPI'}}</label>
@@ -43,7 +73,7 @@
         </div>
         <div class="ui divider"></div>
         <div class="ui form">
-            <h2>Video Visibility</h2>
+            <h2>{{ translate 'SETTINGS_DISPLAY_PREFERENCES' }}</h2>
             <div class="two fields">
                 <div class="field">
                 <label>{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</label>
@@ -88,23 +118,14 @@
             </div>
         </div>
         <div class="ui divider"></div>
-        <center>
-            <div>
-                <label>{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}: <strong>{{currentLang}}</strong></label>
-                <br />
-                <button id='changeLanguage' class="ui tiny red button">Change language</button>
-            </div>
-            <div class="ui divider"></div>
-            <div class="inline field">
-                <div id='nightmodeSwitch' class="ui toggle checkbox">
-                    {{#if isInNightMode}}
-                        <input type="checkbox" tabindex="0" class="hidden" checked>
-                    {{else}}
-                        <input type="checkbox" tabindex="0" class="hidden">
-                    {{/if}}
-                    <label>{{ translate 'SETTINGS_NIGHTMODE' }}</label>
-                </div>
-            </div>
-        </center>
+        <span style="font-weight: 6px; opacity: 0.5">
+            Device: 
+            {{#if isOnMobile}}<i class="mobile icon"></i>Mobile
+            {{else}}<i class="desktop icon"></i>Desktop
+            {{/if}}
+            <br >
+            {{#if buildVersion}}Build: {{buildVersion}}{{/if}}
+            
+        </span>
     </div>
 </template>
