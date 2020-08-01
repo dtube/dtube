@@ -266,40 +266,20 @@ Template.addvideoformfile.rendered = function() {
           $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
           // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
           if (value === 'uploader.oneloved.tube') {
-            if (!Session.get('activeUsernameHive')) { 
+            if (!Session.get('activeUsernameHive') && !Session.get('activeUsername')) { 
               $('#uploadEndpointSelection').dropdown('restore defaults')
-              return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_HIVE_USERNAME'), translate('ERROR_TITLE'))
+              return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_USERNAME'), translate('ERROR_TITLE'))
             }
             $('#uploadEndpointSelection').parent().addClass('loading')
+            let net = Session.get('activeUsernameHive') ? 'hive' : 'dtc'
             $.ajax({
-              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameHive'),
+              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameHive') + '&needscredits=true&network=' + net,
               method: 'GET',
               success: (result) => {
-                broadcast.hive.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => {
-                  if (err === 'LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED') {
-                    $('#uploadEndpointSelection').dropdown('restore defaults')
-                    $('#uploadEndpointSelection').parent().removeClass('loading')
-                    return toastr.error(translate('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED'),translate('ERROR_TITLE'))
-                  } else if (err) {
-                    $('#uploadEndpointSelection').dropdown('restore defaults')
-                    $('#uploadEndpointSelection').parent().removeClass('loading')
-                    return toastr.error(err,translate('ERROR_TITLE'))
-                  }
-                  $.ajax({
-                    url: 'https://' + value + '/logincb',
-                    method: 'POST',
-                    contentType: 'text/plain',
-                    data: decryptedMemo,
-                    success: (result) => {
-                      Session.set('uploadEndpoint',value)
-                      Session.set('Upload token for ' + value,result.access_token)
-                      console.log(result.access_token)
-                      $('#uploadEndpointSelection').parent().removeClass('loading')
-                      $('#uploadEndpointSelection').parent().children('.icon').removeClass('dropdown').addClass('check')
-                    },
-                    error: (req,status) => handleUploadEndpointCheckError(req,status)
-                  })
-                })
+                if (net == 'hive')
+                  broadcast.hive.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => uploadEndpointAuthCb(err,value,decryptedMemo))
+                else
+                  broadcast.avalon.decrypt_memo(result.encrypted_memo,(err,decryptedMemo) => uploadEndpointAuthCb(err,value,decryptedMemo))
               },
               error: (req,status) => handleUploadEndpointCheckError(req,status)
             })
@@ -310,14 +290,38 @@ Template.addvideoformfile.rendered = function() {
     })
 }
 
-function handleUploadEndpointCheckError(req,status) {
+function uploadEndpointAuthCb(err,endpoint,decryptedMemo) {
+  if (err)
+    return handleUploadEndpointCheckError(null,null,err)
+  $.ajax({
+    url: 'https://' + endpoint + '/logincb',
+    method: 'POST',
+    contentType: 'text/plain',
+    data: decryptedMemo,
+    success: (result) => {
+      Session.set('uploadEndpoint',endpoint)
+      Session.set('Upload token for ' + endpoint,result.access_token)
+      console.log(result.access_token)
+      $('#uploadEndpointSelection').parent().removeClass('loading')
+      $('#uploadEndpointSelection').parent().children('.icon').removeClass('dropdown').addClass('check')
+    },
+    error: (req,status) => handleUploadEndpointCheckError(req,status)
+  })
+}
+
+function handleUploadEndpointCheckError(req,status,mainerror) {
     $('#uploadEndpointSelection').dropdown('restore defaults')
     $('#uploadEndpointSelection').parent().removeClass('loading')
-    if (req.responseJSON.error === 'Looks like you do not have access to the uploader!') {
+    if (mainerror)
+      return toastr.error(mainerror, translate('ERROR_TITLE'))
+
+    if (req.status === 403) {
       return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_ACCESS_DENIED'), translate('ERROR_TITLE'))
+    } else if (req.status === 402 && req.responseJSON && req.responseJSON.needs) {
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_INSUFFICIENT_CREDITS',req.responseJSON.needs), translate('ERROR_TITLE'))
     } else if (req.responseJSON && req.responseJSON.error) {
-      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_OTHER' + req.responseJSON.error), translate('ERROR_TITLE'))
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_OTHER') + req.responseJSON.error, translate('ERROR_TITLE'))
     } else {
-      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_UNKNOWN' + status, translate('ERROR_TITLE')))
+      return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_UNKNOWN', req.status), translate('ERROR_TITLE'))
     }
 }

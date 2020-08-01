@@ -827,6 +827,17 @@ broadcast = {
                 })
                 return;
             }
+        },
+        decrypt_memo: (memo,cb) => {
+            let username = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            if (!username || !wif) return
+            avalon.decrypt(wif,memo,(e,decrypted) => {
+                if (e)
+                    cb(e.error)
+                else
+                    cb(null,decrypted)
+            })
         }
     },
     hive: {
@@ -979,7 +990,7 @@ broadcast = {
         decrypt_memo: (memo, cb) => {
             if (!Session.get('activeUsernameHive')) return
             if (Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).type == 'keychain') {
-                if (!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
+                if (!hive_keychain) return cb(translate('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED'))
                 hive_keychain.requestVerifyKey(Session.get('activeUsernameHive'), memo, 'Posting', (response) => {
                     cb(response.error, response.result.substr(1))
                 })
