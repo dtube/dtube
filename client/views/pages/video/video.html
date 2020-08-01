@@ -64,8 +64,8 @@
                 </div>
                 {{else}}
                 {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
-                {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
-                {{> verticalvoteslider network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{else}}
                 <button class="ui icon button votebutton"
                   data-tooltip="Please login with {{contentNetwork this}} account">
@@ -221,7 +221,7 @@
               </div>
               <div style="width: auto; min-width:460px;float: left;">
                 Promote this comment <strong style='color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong>
-                {{> horizontalslider sliderid="comment-range"}}
+                {{> horizontalslider color="red" sliderid="comment-range"}}
               </div>
                 <div class="ui blue right labeled icon submit button dtube pos-rel"
                   style="float:right;vertical-align: top;">
