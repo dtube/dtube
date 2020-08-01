@@ -562,7 +562,8 @@ Template.registerHelper('isVideoBlurred', function(video) {
 Template.registerHelper('syntaxed', function(text, text2) {
     if (!text) text = text2
     if (!text) return ''
-        // escape the string for security
+    if (typeof text != 'string')
+        return ''
     text = xss(text, {
         whiteList: [],
         stripIgnoreTag: true,
