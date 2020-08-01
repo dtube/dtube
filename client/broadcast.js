@@ -553,6 +553,11 @@ broadcast = {
             return;
         },
         promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb) {
+            if (!permlink) {
+                permlink = Template.upload.createPermlink(11)
+                if (jsonMetadata.videoId)
+                    permlink = String(jsonMetadata.videoId)
+            }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // can be cross posted but wont be promoted on steem
             var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
@@ -569,6 +574,7 @@ broadcast = {
                 }
             }
             if (tag) tx.data.tag = tag
+            else tx.data.tag = ""
             if (parentAuthor && parentPermlink) {
                 tx.data.pa = parentAuthor
                 tx.data.pp = parentPermlink

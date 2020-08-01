@@ -205,7 +205,7 @@ Template.video.events({
     'click .submit': function(event) {
         // Grammarly fix
         let body
-        let commentbox = $(event.currentTarget).prev().children()
+        let commentbox = $(event.currentTarget).prev().prev().children()
         for (let i = 0; i < commentbox.length; i++) {
             if (commentbox[i].type === "textarea") {
                 body = commentbox[i].value
@@ -230,6 +230,11 @@ Template.video.events({
             $('.ui.button > .ui.icon.talk.repl').addClass('dsp-non');
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
         }
+
+        var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+        var burn = Math.floor(balance * Session.get('commentBurn') / 100)
+        if (!burn) burn = 0
+
         if (refs.length > 1) {
             let parentAuthor, parentPermlink, paSteem, ppSteem, paHive, ppHive
             for (let i = 0; i < refs.length; i++) {
@@ -247,14 +252,18 @@ Template.video.events({
                     ppHive = ref.split('/')[2]
                 }
             }
-            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
-            var burn = balance / 100 * Session.get('commentBurn')
             broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function(err, result) {
                 console.log(err, result)
                 if (err) {
                     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                     $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-                    toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
+                    var errorMessage
+                    try {
+                        errorMessage = err.payload.error.data.stack[0].format
+                    } catch(error) {
+                        errorMessage = Meteor.blockchainError(err)
+                    }
+                    toastr.error(errorMessage, translate('ERROR_TITLE'))
                     return
                 }
                 $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
@@ -279,13 +288,13 @@ Template.video.events({
                     document.getElementById('replytext').value = "";
                     $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
                 });
-            if (refs[0].split('/')[0] == 'dtc')
-                broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', burn, function(err, result) {
+            if (refs[0].split('/')[0] == 'dtc') {
+                function handleAvalonComment(err, result) {
                     console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-                        toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
+                        toastr.error(Meteor.blockchainError(err), translate('ERROR_TITLE'))
                         return
                     }
                     $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
@@ -293,7 +302,12 @@ Template.video.events({
                     Session.set('replyingTo', null)
                     document.getElementById('replytext').value = "";
                     $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
-                });
+                }
+                if (burn > 0)
+                    broadcast.avalon.promotedComment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', burn, handleAvalonComment)
+                else
+                    broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, handleAvalonComment)
+            } 
             if (refs[0].split('/')[0] == 'hive')
                 broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, function(err, result) {
                     console.log(err, result)
