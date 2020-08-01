@@ -105,7 +105,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
                 } else {
                     var exists = false
                     for (let y = 0; y < tree.length; y++) {
-                        if (tree[y].json.refs.indexOf(dtc[i]._id) > -1) {
+                        if (tree[y].json.refs && tree[y].json.refs.indexOf(dtc[i]._id) > -1) {
                             exists = true
                             tree[y].comments = mergeTree(tree[y].comments, dtc[i].comments)
                             tree[y].dist = dtc[i].dist
@@ -123,7 +123,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
                 } else {
                     var exists = false
                     for (let y = 0; y < tree.length; y++) {
-                        if (tree[y].json.refs.indexOf(steem[i]._id) > -1) {
+                        if (tree[y].json.refs && tree[y].json.refs.indexOf(steem[i]._id) > -1) {
                             exists = true
                             tree[y].comments = mergeTree(tree[y].comments, steem[i].comments)
                             tree[y].distSteem = steem[i].distSteem
@@ -141,7 +141,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
                 } else {
                     var exists = false
                     for (let y = 0; y < tree.length; y++) {
-                        if (tree[y].json.refs.indexOf(hive[i]._id) > -1) {
+                        if (tree[y].json.refs && tree[y].json.refs.indexOf(hive[i]._id) > -1) {
                             exists = true
                             tree[y].comments = mergeTree(tree[y].comments, hive[i].comments)
                             tree[y].distSteem = hive[i].distSteem
