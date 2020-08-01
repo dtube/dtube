@@ -85,5 +85,5 @@ Meteor.startup(function(){
       sources.push(scripts[i].src)
   
   if (sources.length == 1)
-    Session.set('buildVersion', sources[0].substr(0, 8))
+    Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].substr(0, 8))
 })
