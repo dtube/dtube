@@ -32,7 +32,7 @@ Template.sidebar.helpers({
       || user.reward_steem_balance.split(' ')[0] > 0
       || user.reward_vesting_balance.split(' ')[0] > 0)
       return true
-  },
+  }
 });
 
 

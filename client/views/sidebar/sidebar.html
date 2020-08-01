@@ -140,6 +140,18 @@
           <span class="dtubesidebartitle">{{ translate 'HOME_TITLE_ELECTIONS'}}</span>
         </div>
       </a>
+      <a href='/settings' class="item pdg-non">
+        <div id="settingssidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="cogs icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_SETTINGS'}}</span>
+        </div>
+      </a>
+      <a href='/wiki/faq/README' class="item pdg-non">
+        <div id="settingssidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="question circle icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HELP'}}</span>
+        </div>
+      </a>
     </nav>
     <div class="ui divider"></div>
 
@@ -183,12 +195,6 @@
       {{#if isOnMobile }}
       <a class="item pdg-non wid-ful" style="margin-bottom: 50px;">
         <div class="menuitem dtubesidebarmenu mobilesidebarlinks" style="font-weight: 600;font-size: 13px;line-height: 1.5em;display: grid;">
-          <a href='/wiki/faq/README' id="help">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-          </a>
-          <a href='/settings' id="settings">
-            <span class="sidebarlink">{{ translate 'SIDEBAR_SETTINGS'}}</span>
-          </a>
           <a href='https://peakd.com/@dtube' target="_blank" id="blog">
             <span class="sidebarlink">{{ translate 'SIDEBAR_BLOG'}}</span>
           </a>
@@ -209,13 +215,6 @@
       </a>
       {{else}}
       <div class="sidebarlink" style="color: red; padding: 10px 10px 70px 10px;font-weight: 600;font-size: 14px;line-height: 1.5em;">
-        <a href='/wiki/faq/README' id="help">
-          <span class="sidebarlink">{{ translate 'SIDEBAR_HELP'}}</span>
-        </a>-
-        <a href='/settings' id="settings">
-          <span class="sidebarlink">{{ translate 'SIDEBAR_SETTINGS'}}</span>
-        </a>
-        <br>
         <a href='https://peakd.com/@dtube' target="_blank" id="blog">
           <span class="sidebarlink">{{ translate 'SIDEBAR_BLOG'}}</span>
         </a>-
