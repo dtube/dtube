@@ -111,7 +111,7 @@ Template.sidebar.selectMenu = function() {
         default:
             break;
     }
-    if (FlowRouter.current().route.name == 'video') {
+    if (FlowRouter.current().route.name == 'video' || FlowRouter.current().route.name == 'addvideo') {
         Template.sidebar.empty()
     } else {
         Template.sidebar.half()

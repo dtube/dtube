@@ -91,22 +91,40 @@ Template.addvideoformfile.inputVideo = function(dt) {
 }
 
 Template.addvideoform.events({
-    'click #addvideonext': function () {
-        var options = $('input[type=radio]')
-        var checked = null
-        for (let i = 0; i < options.length; i++)
-            if (options[i].checked)
-                checked = options[i].value
-        if (checked)
-            Session.set('addVideoStep', 'addvideoform'+checked)
-        
+    'click .button.uploadtype': function (event) {
+        var type = event.target.dataset.uploadtype
+        console.log(event.target)
+        Session.set('addVideoStep', 'addvideoform'+type)
     },
+
+    // 'click #addvideonext': function () {
+    //     var options = $('input[type=radio]')
+    //     var checked = null
+    //     for (let i = 0; i < options.length; i++)
+    //         if (options[i].checked)
+    //             checked = options[i].value
+    //     if (checked)
+    //         Session.set('addVideoStep', 'addvideoform'+checked)
+        
+    // },
     'click #addvideoback': function() {
         Session.set('addVideoStep', 'addvideopublish')
     }
 })
 
 Template.addvideoformp2p.events({
+    'click .button.uploadp2p': function (event) {
+        var type = event.target.dataset.uploadtype
+        if (type)
+            Session.set('addVideoStep', 'addvideoformp2p'+type)
+        if (type == 'btfs' || type == 'ipfs')
+            setTimeout(function() {
+                $('#gwoinfo').popup({
+                    inline: true,
+                    content: translate('DEFAULT_GATEWAY_OVERWRITE_INFO')
+                })
+            }, 200)
+    },
     'click #addvideonext': function () {
         var options = $('input[type=radio]')
         var checked = null
