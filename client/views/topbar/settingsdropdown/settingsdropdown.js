@@ -137,6 +137,8 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
     $('.videopayout').addClass('nightmodetext')
+    $('.ui.about.segment').addClass('inverted')
+    
 
     $('.main.menu.fixed').addClass('nightmode');
     $('.step').addClass('nightmode');
@@ -217,11 +219,12 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.ui.header').removeClass('nightmodetext');
     $('.item').removeClass('nightmodetext');
     $('.videopayout').removeClass('nightmodetext')
+    $('.ui.about.segment').removeClass('inverted')
 
     $('.main.menu.fixed').removeClass('nightmode');
     $('.step').removeClass('nightmode');
     $('.sidebar').removeClass('nightmodegray');
-    $('.sidebar.fixed').addClass('inverted');
+    $('.sidebar.fixed').addClass('eded');
     $('.ui.menu .item:before').removeClass('nightmodeinverted');
     $('.ellipsis.horizontal.icon').removeClass('nightmode');
     $('.hsliderbackholder').removeClass('invert');
