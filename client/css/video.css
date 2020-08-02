@@ -13,10 +13,11 @@
     text-align: right;
     font-size: 22px;
     white-space: nowrap;
+    margin-top: 5px;
     margin-bottom: 2px;
-    margin-right: 10px;
     overflow: visible;
     color:black;
+    display: block;
 }
 
 .channelLink {
@@ -398,4 +399,8 @@
 
 .allNetworks>img {
     float: right;
+}
+
+.popupupvotes::before{
+    display: none;
 }

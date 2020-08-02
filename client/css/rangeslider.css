@@ -148,9 +148,13 @@
     background-position: bottom;
 }
 
-.vsliderbackholder.invert,
+
 .hsliderbackholder.invert {
     border-color: #111111!important;
+}
+
+.hsliderbackholder.comment-range {
+    border-color: whitesmoke!important;
 }
 
 .hsliderbackholder.comment-range.invert {

@@ -2,7 +2,7 @@
   {{#with video}}
   <div class="ui videocontainer stackable two column grid computergrid">
     <!-- Player on page -->
-    <div class="videocol eleven wide column" style="padding:0px!important">
+    <div class="videocol eleven wide column" style="padding:0px!important;z-index: 999;">
       {{#if json.title}}
       {{> player}}
       {{/if}}
@@ -93,8 +93,8 @@
                   {{else}}
                   {{displayRewards dist distSteem distScot distHive}}
                   {{/if}}
-                  {{> popupvoter}}
                 </a>
+                  {{> popupvoter}}
                 <svg class="sparkline" width="200" height="60" stroke-width="2" style="display:none"></svg>
               </div>
               {{#if body}}

@@ -568,8 +568,9 @@ button {
 }
 
 .topvoters {
-    margin-left: -20px;
-    text-align: right;
+    /* margin-left: -20px;*/
+    text-align: right; 
+    
 }
 
 .topvoters:hover {
@@ -577,13 +578,21 @@ button {
 }
 
 .topvotersdiv {
-    line-height: 32px;
+    text-align: right;
+
+    /* line-height: 32px;
     max-height: 32px;
     font-size: 22px;
     white-space: nowrap;
     margin-bottom: 5px;
     margin-top: 2px;
     text-align: right;
+    display: flex; */
+}
+
+#top-curator{
+    width: 20px;
+    display: inline-grid;
 }
 
 #top-curator>span {

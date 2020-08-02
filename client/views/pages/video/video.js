@@ -1,6 +1,6 @@
 var isLoadingState = false
 
-Template.video.rendered = function() {
+Template.video.rendered = function () {
     Session.set('isSearchingMobile', false)
     Session.set('isShareOpen', false)
     Session.set('isDescriptionOpen', false)
@@ -9,23 +9,32 @@ Template.video.rendered = function() {
     Template.sidebar.resetActiveMenu()
     Template.settingsdropdown.nightMode();
     Session.set('commentBurn', null)
-    setTimeout(function() {
+    setTimeout(function () {
         $('.ui.newtag').dropdown({})
         var commentSlider = document.getElementById("comment-range");
-        commentSlider.oninput = function() {
+        commentSlider.oninput = function () {
             Session.set('commentBurn', this.value)
         }
         $('.videopayout')
             .popup({
+                inline: true,
+                hoverable: true,
                 popup: '.popupupvotes',
                 position: 'bottom right',
             });
-
-    }, 1000)
+        $('#votecount')
+            .popup({
+                inline: true,
+                hoverable: true,
+                popup: '.popupupvotes',
+                position: 'bottom right',
+            });
+        $('#votecount').fitText(0.16);
+    }, 500)
 }
 
 Template.video.helpers({
-    allNetworks: function() {
+    allNetworks: function () {
         var a = Session.get('allNet')
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -33,16 +42,16 @@ Template.video.helpers({
         }
         return a
     },
-    mergedCommentsLength: function(dtc, steem) {
+    mergedCommentsLength: function (dtc, steem) {
         var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive)
         return merged.length
     },
-    isNoComment: function() {
+    isNoComment: function () {
         var vid = Template.video.__helpers[" video"]()
         if (!vid.comments && !vid.commentsSteem && !vid.commentsHive) return true
         return false
     },
-    isSingleComment: function() {
+    isSingleComment: function () {
         var vid = Template.video.__helpers[" video"]()
         var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive)
         if (merged.length != 1) return false
@@ -55,25 +64,25 @@ Template.video.helpers({
         })
         return video.json.providerName === 'IPFS' || video.json.providerName === 'BTFS'
     },
-    user: function() {
+    user: function () {
         return {
             name: FlowRouter.getParam("author")
         }
     },
-    activeUser: function() {
+    activeUser: function () {
         var user = Session.get('activeUsername')
         if (!user) user = Session.get('activeUsernameSteem')
         if (!user) user = Session.get('activeUsernameHive')
         return user
     },
-    userVideosAndResteems: function() {
+    userVideosAndResteems: function () {
         var suggestions = Videos.find({ relatedTo: FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), source: 'askSteem' }, { limit: 12 }).fetch();
         return suggestions;
     },
-    author: function() {
+    author: function () {
         return ChainUsers.findOne({ name: FlowRouter.getParam("author") })
     },
-    video: function() {
+    video: function () {
         var videos = Videos.find({
             'author': FlowRouter.getParam("author"),
             'link': FlowRouter.getParam("permlink")
@@ -98,42 +107,41 @@ Template.video.helpers({
         if (videos && videos[0]) return videos[0]
         return;
     },
-    localIpfs: function() {
+    localIpfs: function () {
         return Session.get('localIpfs')
     },
-    hasMoreThan4Lines: function() {
+    hasMoreThan4Lines: function () {
         var desc = Videos.getDescription(this.json)
         var numberOfLineBreaks = (desc.match(/\n/g) || []).length;
         if (numberOfLineBreaks >= 4) {
             return true;
         }
     },
-    isLoggedOn: function() {
+    isLoggedOn: function () {
         if (Session.get('activeUsername') || Session.get('activeUsernameSteem'))
             return true
         return false
     },
-    convertTag: function(tag) {
+    convertTag: function (tag) {
         var tagWithoutDtube = tag.replace("dtube-", "")
         return tagWithoutDtube
     },
-    hasVoted: function(one, two) {
+    hasVoted: function (one, two) {
         if (one || two) return true;
         return false;
     },
-    votable: function(dtube, steem, hive) {
+    votable: function (dtube, steem, hive) {
         if (dtube || steem || hive)
             return true
         else return false
     },
-    commentBurn: function() {
-        console.log(Session.get('commentBurn'))
+    commentBurn: function () {
         return Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance / 100 * Session.get('commentBurn')
     }
 })
 
-Template.video.activatePopups = function() {
-    $('[data-tcs]').each(function() {
+Template.video.activatePopups = function () {
+    $('[data-tcs]').each(function () {
         var $el = $(this);
         $el.popup({
             popup: $el.attr('data-tcs'),
@@ -149,19 +157,24 @@ Template.video.activatePopups = function() {
 }
 
 Template.video.events({
-    'click .voteATag': function(event) {
+    // 'click .videopayout': function(event) {
+    //     var author = FlowRouter.getParam("author")
+    //     var permlink = FlowRouter.getParam("permlink")
+    //     FlowRouter.go('/'+author+'/'+permlink+'/votes')
+    // },
+    'click .voteATag': function (event) {
         var newTag = event.target.dataset.value
         if (!newTag) return
         var author = FlowRouter.getParam("author")
         var permlink = FlowRouter.getParam("permlink")
         var weight = UserSettings.get('voteWeight') * 100
-        broadcast.avalon.vote(author, permlink, weight, newTag, function(err, result) {
+        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Template.video.loadState()
         });
     },
-    'click .voteCustomTag': function(event) {
+    'click .voteCustomTag': function (event) {
         var author = FlowRouter.getParam("author")
         var permlink = FlowRouter.getParam("permlink")
         var weight = UserSettings.get('voteWeight') * 100
@@ -171,13 +184,13 @@ Template.video.events({
             toastr.warning('Only a single tag is allowed')
             return
         }
-        broadcast.avalon.vote(author, permlink, weight, newTag, function(err, result) {
+        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Template.video.loadState()
         });
     },
-    'click .downvoteCustomTag': function(event) {
+    'click .downvoteCustomTag': function (event) {
         var author = FlowRouter.getParam("author")
         var permlink = FlowRouter.getParam("permlink")
         var weight = UserSettings.get('voteWeight') * -100
@@ -187,15 +200,14 @@ Template.video.events({
             toastr.warning('Only a single tag is allowed')
             return
         }
-        broadcast.avalon.vote(author, permlink, weight, newTag, function(err, result) {
+        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
             if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
         });
     },
-    'click #promotereply': function(event) {
-        if(event.target.checked)
-        {
+    'click #promotereply': function (event) {
+        if (event.target.checked) {
             $('#promoteslider').show()
             $('#promotedtc').show()
         }
@@ -205,7 +217,7 @@ Template.video.events({
             Session.set('commentBurn', null)
         }
     },
-    'click .replyTo': function(event) {
+    'click .replyTo': function (event) {
         var replyingTo = {
             id: $(event.target).data('id')
         }
@@ -213,7 +225,7 @@ Template.video.events({
             replyingTo.refs = $(event.target).data('refs').split(',')
         Session.set('replyingTo', replyingTo)
     },
-    'click .submit': function(event) {
+    'click .submit': function (event) {
         // Grammarly fix
         let body
         let commentbox = $(event.currentTarget).prev().prev().children()
@@ -263,7 +275,7 @@ Template.video.events({
                     ppHive = ref.split('/')[2]
                 }
             }
-            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function(err, result) {
+            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function (err, result) {
                 console.log(err, result)
                 if (err) {
                     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -271,7 +283,7 @@ Template.video.events({
                     var errorMessage
                     try {
                         errorMessage = err.payload.error.data.stack[0].format
-                    } catch(error) {
+                    } catch (error) {
                         errorMessage = Meteor.blockchainError(err)
                     }
                     toastr.error(errorMessage, translate('ERROR_TITLE'))
@@ -285,7 +297,7 @@ Template.video.events({
             });
         } else if (refs.length == 1) {
             if (refs[0].split('/')[0] == 'steem')
-                broadcast.steem.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function(err, result) {
+                broadcast.steem.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
                     console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -318,9 +330,9 @@ Template.video.events({
                     broadcast.avalon.promotedComment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', burn, handleAvalonComment)
                 else
                     broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, handleAvalonComment)
-            } 
+            }
             if (refs[0].split('/')[0] == 'hive')
-                broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, function(err, result) {
+                broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, function (err, result) {
                     console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
@@ -336,12 +348,12 @@ Template.video.events({
                 });
         }
     },
-    'click .subscribe': function() {
+    'click .subscribe': function () {
         var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
         if (user.followersCount)
             user.followersCount++
-            else
-                user.followersCount = 1
+        else
+            user.followersCount = 1
         ChainUsers.upsert({ _id: user._id }, user)
         Subs.insert({
             follower: Session.get('activeUsername'),
@@ -349,29 +361,29 @@ Template.video.events({
             what: ['blog']
         })
 
-        broadcast.avalon.follow(FlowRouter.getParam("author"), function(err, result) {
+        broadcast.avalon.follow(FlowRouter.getParam("author"), function (err, result) {
             if (err)
                 toastr.error(Meteor.blockchainError(err))
         })
     },
-    'click .unsubscribe': function() {
+    'click .unsubscribe': function () {
         var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
         if (user.followersCount)
             user.followersCount--
-            else
-                user.followersCount = -1 // ?!
+        else
+            user.followersCount = -1 // ?!
         ChainUsers.upsert({ _id: user._id }, user)
         Subs.remove({
             follower: Session.get('activeUsername'),
             following: FlowRouter.getParam("author")
         })
-        broadcast.avalon.unfollow(FlowRouter.getParam("author"), function(err, result) {
+        broadcast.avalon.unfollow(FlowRouter.getParam("author"), function (err, result) {
             // finished unfollowing
             if (err)
                 toastr.error(Meteor.blockchainError(err))
         })
     },
-    'click .description': function() {
+    'click .description': function () {
         if (Session.get('isDescriptionOpen')) {
             $('#descriptionsegment').addClass('closed');
             $('#truncateddesc').addClass('truncate');
@@ -385,7 +397,7 @@ Template.video.events({
         }
         Session.set('isDescriptionOpen', !Session.get('isDescriptionOpen'))
     },
-    'click .ui.share': function() {
+    'click .ui.share': function () {
         if (Session.get('isShareOpen'))
             $('#sharesegment').addClass('subcommentsclosed');
         else
@@ -393,30 +405,30 @@ Template.video.events({
 
         Session.set('isShareOpen', !Session.get('isShareOpen'))
     },
-    'click .editvideo': function() {
+    'click .editvideo': function () {
         $('#editvideosegment').toggle()
     }
 })
 
-Template.video.seekTo = function(seconds) {
+Template.video.seekTo = function (seconds) {
     $('iframe')[0].contentWindow.postMessage({
         seekTo: true,
         seekTime: seconds
     }, '*')
 }
 
-Template.video.loadState = function() {
+Template.video.loadState = function () {
     if (isLoadingState) return
     isLoadingState = true
     Session.set('isSteemRefLoaded', false)
     Session.set('isHiveRefLoaded', false)
     Session.set('isDTCRefLoaded', false)
-        // maybe move this to parallel calls instead of series
-        // especially if we keep adding more networks
-    avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function(err, result) {
+    // maybe move this to parallel calls instead of series
+    // especially if we keep adding more networks
+    avalon.getContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), function (err, result) {
         if (err) {
             // content is not available on avalon
-            steem.api.getState('/dtube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function(err, result) {
+            steem.api.getState('/dtube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function (err, result) {
                 if (err || Object.keys(result.content).length == 0) {
                     // content is not available on avalon nor steem
                     hive.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (hiveerror, hiveresult) => {
@@ -434,7 +446,7 @@ Template.video.loadState = function() {
         } else {
             isLoadingState = false
             Session.set('urlNet', 'dtc')
-                // Load SCOT (Steem only)
+            // Load SCOT (Steem only)
             if (result && result.json && result.json.refs) {
                 for (let i = 0; i < result.json.refs.length; i++) {
                     if (result.json.refs[i].split('/')[0] === 'steem') {
@@ -448,12 +460,12 @@ Template.video.loadState = function() {
     });
 }
 
-Template.video.loadScot = function(author, link) {
+Template.video.loadScot = function (author, link) {
     if (Session.get('scot')) {
         var author = author || FlowRouter.getParam("author")
         var link = link || FlowRouter.getParam("permlink")
         console.log('Loading scot rewards', author, link)
-        Scot.getRewards(author, link, function(err, distScot) {
+        Scot.getRewards(author, link, function (err, distScot) {
             console.log('Loaded scot rewards', distScot)
             Videos.update({
                 author: FlowRouter.getParam("author"),
@@ -469,11 +481,11 @@ Template.video.loadScot = function(author, link) {
     }
 }
 
-Template.video.handleVideo = function(result, id, isRef) {
+Template.video.handleVideo = function (result, id, isRef) {
     if (!result) return
     id = id.split('/')
     var network = id[0]
-        // console.log('network: ',network)
+    // console.log('network: ',network)
     if (network == 'steem' || network == 'hive') {
         if (Object.keys(result.content).length == 0) return
         result.content[id[1] + '/' + id[2]].content = result.content
@@ -501,7 +513,7 @@ Template.video.handleVideo = function(result, id, isRef) {
     else description = video.description
 
     if (!isRef) {
-        Videos.getVideosRelatedTo(result._id, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), 7, function() {
+        Videos.getVideosRelatedTo(result._id, FlowRouter.getParam("author"), FlowRouter.getParam("permlink"), 7, function () {
             // call finished
         })
         Session.set('videoDescription', description)
@@ -530,7 +542,7 @@ Template.video.handleVideo = function(result, id, isRef) {
         // console.log("Referenced",video.json.refs)
         for (let i = 0; i < video.json.refs.length; i++) {
             var netw = video.json.refs[i].split('/')[0]
-                // console.log('netw is ' + netw)
+            // console.log('netw is ' + netw)
             if (netw == 'dtc') {
                 updateSteem(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
                 updateHive(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
@@ -548,13 +560,13 @@ Template.video.handleVideo = function(result, id, isRef) {
         for (let i = 0; i < video.json.refs.length; i++) {
             var ref = video.json.refs[i].split('/')
             if (ref[0] == 'steem') {
-                steem.api.getState('/dtube/@' + ref[1] + '/' + ref[2], function(err, result) {
+                steem.api.getState('/dtube/@' + ref[1] + '/' + ref[2], function (err, result) {
                     if (err) throw err;
                     Template.video.handleVideo(result, 'steem/' + ref[1] + '/' + ref[2], true)
                 })
             }
             if (ref[0] == 'dtc') {
-                avalon.getContent(ref[1], ref[2], function(err, result) {
+                avalon.getContent(ref[1], ref[2], function (err, result) {
                     if (err) throw err;
                     Template.video.handleVideo(result, 'dtc/' + ref[1] + '/' + ref[2], true)
                 });
@@ -636,7 +648,7 @@ function updateSteem(id, dist, votes, comments, ups, downs, currentNet) {
     })
 }
 
-Template.video.setScreenMode = function() {
+Template.video.setScreenMode = function () {
     if ($(window).width() < 1166) {
         $('.ui.videocontainer').removeClass('computergrid').addClass('tabletgrid').removeClass('grid');
     }
@@ -654,7 +666,7 @@ Template.video.setScreenMode = function() {
     }
 }
 
-Template.video.popularityChart = function() {
+Template.video.popularityChart = function () {
     if ($('.sparkline').is(':visible')) {
         $('.sparkline').hide()
         return
@@ -670,7 +682,7 @@ Template.video.popularityChart = function() {
         // first voter advantage is real !
         if (i === 0)
             content.votes[i].vpPerDayBefore = 0
-            // two similar votes at the same block/timestamp should be have equal earnings / vp per day
+        // two similar votes at the same block/timestamp should be have equal earnings / vp per day
         else if (content.votes[i].ts === content.votes[i - 1].ts)
             content.votes[i].vpPerDayBefore = content.votes[i - 1].vpPerDayBefore
         else
@@ -684,7 +696,7 @@ Template.video.popularityChart = function() {
     }
     points.push(86400000 * sumVt / (new Date().getTime() - content.votes[0].ts))
     sparkline(document.querySelector(".sparkline"), points, {
-        onmousemove: function(event, datapoint) {},
-        onmouseout: function() {}
+        onmousemove: function (event, datapoint) { },
+        onmouseout: function () { }
     })
 }
