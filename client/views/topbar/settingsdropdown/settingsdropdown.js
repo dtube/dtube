@@ -119,6 +119,9 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('th').addClass('nightmodetext')
     $('.publishfield label').addClass('nightmodetext')
     $('.ui.checkbox + label').addClass('nightmode')
+    $('.votebutton.voteslider').addClass('nightmodetext')
+    $('.ui.icon.button.votebutton').addClass('nightmodetext')
+    
 
     $('.ui.segments > .segment').addClass('nightsegment');
     $('.commentbutton').addClass('nightmodetext');
@@ -197,6 +200,8 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('th').removeClass('nightmodetext')
     $('.publishfield label').removeClass('nightmodetext')
     $('.ui.checkbox + label').removeClass('nightmode')
+    $('.votebutton.voteslider').removeClass('nightmodetext')
+    $('.ui.icon.button.votebutton').removeClass('nightmodetext')
 
     $('.ui.segments > .segment').removeClass('nightsegment');
     $('.commentbutton').removeClass('nightmodetext');
