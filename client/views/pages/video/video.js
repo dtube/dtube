@@ -22,6 +22,8 @@ Template.video.rendered = function () {
                 popup: '.popupupvotes',
                 position: 'bottom right',
             });
+        $('#votecount').fitText(0.26);
+
         $('#votecount')
             .popup({
                 inline: true,
@@ -29,8 +31,7 @@ Template.video.rendered = function () {
                 popup: '.popupupvotes',
                 position: 'bottom right',
             });
-        $('#votecount').fitText(0.26);
-    }, 500)
+    }, 1000)
 }
 
 Template.video.helpers({
