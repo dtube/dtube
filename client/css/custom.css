@@ -134,6 +134,10 @@ a.nightmodelinks {
   color: rgb(145, 234, 250);
 }
 
+.breadcrumb a.nightmodelinks {
+  color: rgb(145, 234, 250)!important;
+}
+
 .ui.inline.dropdown>.text {
   font-weight: 500;
 }
