@@ -29,7 +29,7 @@ Template.video.rendered = function () {
                 popup: '.popupupvotes',
                 position: 'bottom right',
             });
-        $('#votecount').fitText(0.16);
+        $('#votecount').fitText(0.26);
     }, 500)
 }
 
