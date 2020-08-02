@@ -22,7 +22,6 @@ Template.video.rendered = function() {
             });
 
     }, 1000)
-
 }
 
 Template.video.helpers({
@@ -128,6 +127,7 @@ Template.video.helpers({
         else return false
     },
     commentBurn: function() {
+        console.log(Session.get('commentBurn'))
         return Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance / 100 * Session.get('commentBurn')
     }
 })
@@ -193,7 +193,18 @@ Template.video.events({
             Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
         });
     },
-
+    'click #promotereply': function(event) {
+        if(event.target.checked)
+        {
+            $('#promoteslider').show()
+            $('#promotedtc').show()
+        }
+        else {
+            $('#promoteslider').hide()
+            $('#promotedtc').hide()
+            Session.set('commentBurn', null)
+        }
+    },
     'click .replyTo': function(event) {
         var replyingTo = {
             id: $(event.target).data('id')

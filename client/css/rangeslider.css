@@ -18,11 +18,11 @@
 }
 
 .hsliderbackholder.yellow {
-    top: 4px;
+    top: -2px;
     width: 100%;
-    border: 4px solid white;
+    border: 10px solid white;
     position: absolute;
-    height: 20px!important;
+    height: 30px!important;
     border-radius: 18px;
     pointer-events: none;
     background-color: #fbbd08 !important;
@@ -39,11 +39,11 @@
 }
 
 .hsliderbackholder.red {
-    top: 4px;
+    top: -2px;
     width: 100%;
-    border: 4px solid white;
+    border: 10px solid white;
     position: absolute;
-    height: 20px!important;
+    height: 30px!important;
     border-radius: 18px;
     pointer-events: none;
     background-color: #fb0808 !important;
@@ -151,6 +151,10 @@
 .vsliderbackholder.invert,
 .hsliderbackholder.invert {
     border-color: #111111!important;
+}
+
+.hsliderbackholder.comment-range.invert {
+    border-color: #1d1d1d!important;
 }
 
 .vsliderholder {

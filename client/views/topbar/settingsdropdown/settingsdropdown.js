@@ -133,6 +133,7 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.ui.secondary.segment').addClass('nightmodegray');
     $('.ui.header').addClass('nightmodetext');
     $('.item').addClass('nightmodetext');
+    $('.videopayout').addClass('nightmodetext')
 
     $('.main.menu.fixed').addClass('nightmode');
     $('.step').addClass('nightmode');
@@ -145,6 +146,7 @@ Template.settingsdropdown.switchToNightMode = function() {
     // LINKS
     $('a').addClass('nightmodelinks')
 
+    
     // LEADERS
     $('.leader').addClass('nightmodeleader')
     $('.leader .disabled').addClass('nightmodeleader')
@@ -209,6 +211,7 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.ui.secondary.segment').removeClass('nightmodegray');
     $('.ui.header').removeClass('nightmodetext');
     $('.item').removeClass('nightmodetext');
+    $('.videopayout').removeClass('nightmodetext')
 
     $('.main.menu.fixed').removeClass('nightmode');
     $('.step').removeClass('nightmode');
