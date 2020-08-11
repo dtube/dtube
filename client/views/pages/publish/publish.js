@@ -1,8 +1,8 @@
 Template.publish.rendered = function() {
     setTimeout(() => {
         Template.settingsdropdown.nightMode()
+        Template.publish.burnRange()
     }, 200)
-    Template.publish.burnRange()
     var json = Session.get('tmpVideo').json
     if (json.title)
         $("#uploadTitle")[0].value = json.title
