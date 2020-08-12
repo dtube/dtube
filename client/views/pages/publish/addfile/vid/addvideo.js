@@ -1,3 +1,7 @@
+const tus = require('tus-js-client')
+const socketio = require('socket.io-client')
+refreshUploadStatus = null
+
 Template.addvideo.rendered = function () {
     if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem') && !Session.get('activeUsernameHive')) {
         FlowRouter.go('/login')
@@ -74,9 +78,9 @@ Template.addvideoformfile.inputVideo = function(dt) {
     Session.set('addVideoStep', 'addvideoformfileuploading')
 
     // checking best ipfs-uploader endpoint available
-    Template.upload.setBestUploadEndpoint(function () {
+    Template.addvideoformfile.setBestUploadEndpoint(function () {
       // uploading to ipfs
-      Template.upload.uploadVideo(file, '#progressvideo', function (err, result) {
+      Template.addvideoformfile.uploadVideo(file, '#progressvideo', function (err, result) {
         if (err) {
           console.log(err)
           toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
@@ -88,6 +92,171 @@ Template.addvideoformfile.inputVideo = function(dt) {
         }
       })
     });
+}
+
+Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
+    if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') return cb()
+    if (Session.get('remoteSettings').localhost == true) {cb(); return}
+    if (Session.get('upldr')) {cb();return}
+    var uploaders = Session.get('remoteSettings').upldr
+    shuffleArray(uploaders)
+    console.log(uploaders)
+    var results = []
+    var queuethreshold = 3;
+    var finished = false;
+    for (let i = 0; i < uploaders.length; i++) {
+      getUploaderStatus(uploaders[i]).then(function (response) {
+        var upldr = response.upldr
+        var totalQueueSize = 0;
+        if (response.version == '0.6.6' || response.currentWaitingInQueue.version) {
+          totalQueueSize += response.currentWaitingInQueue.ipfsToAddInQueue
+          totalQueueSize += response.currentWaitingInQueue.spriteToCreateInQueue
+          totalQueueSize += response.currentWaitingInQueue.videoToEncodeInQueue
+        } else {
+          totalQueueSize += response.currentWaitingInQueue.audioCpuToEncode
+          totalQueueSize += response.currentWaitingInQueue.videoGpuToEncode
+          totalQueueSize += response.currentWaitingInQueue.audioVideoCpuToEncode
+          totalQueueSize += response.currentWaitingInQueue.spriteToCreate
+          totalQueueSize += response.currentWaitingInQueue.ipfsToAdd
+        }
+  
+        results.push({
+          upldr: upldr,
+          totalQueueSize: totalQueueSize
+        })
+  
+        if (totalQueueSize < queuethreshold && !finished) {
+          Session.set('upldr', upldr)
+          console.log('upldr' + upldr + ' ' + ' ---  totalQueueSize: ' + totalQueueSize)
+          finished = true
+          cb()
+        } else if (results.length == uploaders.length && !finished) {
+          var bestEndpoint = results.sort(function (a, b) {
+            return a.totalQueueSize - b.totalQueueSize
+          })[0]
+          Session.set('upldr', bestEndpoint.upldr)
+          console.log('upldr' + bestEndpoint.upldr + ' ' + ' ---  totalQueueSize: ' + bestEndpoint.totalQueueSize)
+          finished = true
+          cb()
+        }
+      }, function (upldr) {
+        results.push({ upldr: upldr, error: true })
+      });
+    }
+  }
+  
+  Template.addvideoformfile.uploadVideo = function (file, progressid, cb) {
+    var postUrl = (Session.get('remoteSettings').localhost == true)
+      ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+      : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+    let formData = new FormData()
+  
+    if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube')
+      formData.append('files',file)
+  
+    if ($(progressid).length) {
+      $(progressid).progress({ value: 0, total: 1 })
+      $(progressid).show();
+    } else {
+      setTimeout(function() {
+        $(progressid).progress({ value: 0, total: 1 })
+        $(progressid).show();
+      }, 150)
+    }
+  
+    // Use resumable upload API for OneLoveIPFS service
+    if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+      let uplStat = socketio.connect('https://uploader.oneloved.tube/uploadStat')
+      uplStat.on('result',(result) => {
+        Session.set('addVideoStep', 'addvideoformfileuploaded')
+        setTimeout(() => {
+          if (result.ipfshash)
+            $('input[name="vid.src"]').val(result.ipfshash)
+          if (result.spritehash)
+            $('input[name="img.spr"]').val(result.spritehash)
+          $('input[name="gw"]').val('https://video.oneloveipfs.com')
+          cb(null, result)
+        }, 200)
+      })
+  
+      let tusVideoUpload = new tus.Upload(file,{
+        endpoint: 'https://tusd.oneloved.tube/files',
+        retryDelays: [0,3000,5000,10000,20000],
+        parallelUploads: 10,
+        metadata: {
+          access_token: Session.get('Upload token for uploader.oneloved.tube'),
+          keychain: true,
+          type: 'videos'
+        },
+        onError: (e) => {
+          $(progressid).hide()
+          cb(error)
+        },
+        onProgress: (bu,bt) => {
+          $(progressid).progress({ value: bu, total: bt})
+        },
+        onSuccess: () => {
+          let idurl = tusVideoUpload.url.toString().split('/')
+          uplStat.emit('registerid',{
+            id: idurl[idurl.length - 1],
+            type: 'videos',
+            access_token: Session.get('Upload token for uploader.oneloved.tube'),
+            keychain: 'true'
+          })
+        }
+      })
+  
+      tusVideoUpload.findPreviousUploads().then((p) => {
+        if (p.length > 0)
+          tusVideoUpload.resumeFromPreviousUpload(p[0])
+        tusVideoUpload.start()
+      })
+      return
+    }
+    
+    // Default BTFS upload clusters
+    var credentials = Session.get('upldr') == 'cluster' ? true : false
+    let ajaxVideoUpload = {
+      cache: false,
+      contentType: false,
+      data: formData,
+      processData: false,
+      type: "POST",
+      url: postUrl,
+      xhrFields: {
+        withCredentials: credentials
+      },
+      xhr: function () {
+        // listen for progress events on the upload
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+          if (evt.lengthComputable) {
+            $(progressid).progress({ value: evt.loaded, total: evt.total });
+            if (evt.loaded == evt.total) {
+              $(progressid).progress({ value: evt.loaded, total: evt.total });
+            }
+          }
+        }, false);
+        return xhr;
+      },
+      success: function (result) {
+        if (typeof result === 'string')
+          result = JSON.parse(result)
+  
+        $(progressid).hide()
+        Session.set('uploadToken', result.token)
+        refreshUploadStatus = setInterval(function () {
+          Template.addvideoprogress.update()
+        }, 1000)
+        cb(null, result)
+      },
+      error: function (error) {
+        $(progressid).hide()
+        cb(error)
+      }
+    }
+  
+    $.ajax(ajaxVideoUpload)
 }
 
 Template.addvideoform.events({
@@ -341,5 +510,40 @@ function handleUploadEndpointCheckError(req,status,mainerror) {
       return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_OTHER') + req.responseJSON.error, translate('ERROR_TITLE'))
     } else {
       return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_AUTH_UNKNOWN', req.status), translate('ERROR_TITLE'))
+    }
+}
+
+function getUploaderStatus (upldr) {
+    var url = (Session.get('remoteSettings').localhost == true)
+      ? 'http://localhost:5000/getStatus'
+      : 'https://'+upldr+'.d.tube/getStatus'
+    if (Session.get('scot')) {
+      var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
+      url = url.replace('cluster.d.tube', scotUpldr)
+    }
+    return new Promise(function (resolve, reject) {
+      var req = new XMLHttpRequest();
+      req.open('get', url, true);
+      req.overrideMimeType("application/json");
+      req.onload = function () {
+        var status = req.status;
+        if (status == 200) {
+          var jsonResult = JSON.parse(req.responseText)
+          jsonResult.upldr = upldr
+          resolve(jsonResult);
+        } else {
+          reject(upldr);
+        }
+      };
+      req.send();
+    });
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j]; 1
+      array[j] = temp;
     }
 }

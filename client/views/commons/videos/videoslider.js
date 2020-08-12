@@ -7,7 +7,7 @@ Template.videoslider.isOnMobile = function () {
 }
 
 Template.videoslider.rendered = function () {
-  var random = Template.upload.createPermlink(10)
+  var random = Template.publish.randomPermlink(10)
   this.firstNode.id = random
   Template.videoslider.createSlider(random)
   $(this.firstNode).find('.dropdown').dropdown({});

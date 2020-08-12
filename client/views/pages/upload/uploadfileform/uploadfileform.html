@@ -11,31 +11,4 @@
     <div class="ui bottom attached tab segment" data-tab="third" style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{> uploadformadvanced}}
     </div>
-    </template>
-    
-    <template name="uploadfileformsubmit">
-    {{#if info.title}}
-        <button class="ui red right labeled dtube icon button editsubmit" type="button" style="float:right;margin-bottom: 10px;margin-top: -30px;">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate 'VIDEO_EDIT'}} 
-            </div>
-        <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-        </button>
-    {{else}}
-        {{#if isOnMobile}}
-        <button class="ui fluid red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate 'UPLOAD_SUBMIT'}}
-            </div>
-            <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-        </button>
-        {{else}}
-        <button class="ui red right labeled dtube icon button uploadsubmit" type="button" style="margin-bottom:10px;">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate 'UPLOAD_SUBMIT'}}
-            </div>
-            <i class="checkmark icon red" style="background: white;opacity: 1;"></i>
-        </button>
-        {{/if}}
-    {{/if}}
 </template>

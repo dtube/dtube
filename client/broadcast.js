@@ -208,7 +208,7 @@ broadcast = {
     },
     steem: {
         comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
-            if (!permlink) permlink = Template.upload.createPermlink(11)
+            if (!permlink) permlink = Template.publish.randomPermlink(11)
             if (!parentAuthor) parentAuthor = ''
             if (!parentPermlink) parentPermlink = 'hive-196037'
             if (!Session.get('activeUsernameSteem') || Session.get('isSteemDisabled')) return
@@ -491,7 +491,6 @@ broadcast = {
                 });
                 return;
             }
-            var permlink = Template.upload.createPermlink(9)
             var wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
             if (wif) {
                 steem.broadcast.send({ operations: operations, extensions: [] }, { posting: wif },
@@ -519,7 +518,7 @@ broadcast = {
     avalon: {
         comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb) {
             if (!permlink) {
-                permlink = Template.upload.createPermlink(11)
+                permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
                     permlink = String(jsonMetadata.videoId)
             }
@@ -554,7 +553,7 @@ broadcast = {
         },
         promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb) {
             if (!permlink) {
-                permlink = Template.upload.createPermlink(11)
+                permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
                     permlink = String(jsonMetadata.videoId)
             }
@@ -848,7 +847,7 @@ broadcast = {
     },
     hive: {
         comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
-            if (!permlink) permlink = Template.upload.createPermlink(11)
+            if (!permlink) permlink = Template.publish.randomPermlink(11)
             if (!parentAuthor) parentAuthor = ''
             if (!parentPermlink) parentPermlink = 'hive-196037'
             if (!Session.get('activeUsernameHive') || Session.get('isHiveDisabled')) return

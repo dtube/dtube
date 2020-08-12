@@ -205,7 +205,7 @@ Template.publish.events({
 
         // uploading to ipfs
         if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
-        Template.upload.uploadImage(file, '#progresssnap', function(err, smallHash, bigHash) {
+        Template.publish.uploadImage(file, '#progresssnap', function(err, smallHash, bigHash) {
             if (err) {
                 console.log(err)
                 toastr.error(err, translate('UPLOAD_ERROR_IPFS_UPLOADING'))
@@ -527,6 +527,93 @@ Template.publish.randomPermlink = function(length) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
+}
+
+Template.publish.uploadImage = function (file, progressid, cb) {
+    if (typeof refreshUploadSnapStatus !== 'undefined') clearInterval(refreshUploadSnapStatus)
+    $('#uploadSnap').addClass('disabled')
+    $('#uploadSnap > i').removeClass('file image red')
+    $('#uploadSnap > i').addClass('asterisk loading')
+    $('#uploadSnap > i').css('background', 'transparent')
+    var postUrl = (Session.get('remoteSettings').localhost == true)
+      ? 'http://localhost:5000/uploadImage'
+      : 'https://snap1.d.tube/uploadImage'
+    var formData = new FormData();
+    
+    if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+      postUrl = 'https://uploader.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for uploader.oneloved.tube')
+      formData.append('image',file)
+    } else {
+      formData.append('files', file)
+    }
+    $(progressid).progress({ value: 0, total: 1 })
+    $(progressid).show();
+    $.ajax({
+      url: postUrl,
+      type: "POST",
+      data: formData,
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+          if (evt.lengthComputable) {
+            $(progressid).progress({ value: evt.loaded, total: evt.total });
+            if (evt.loaded == evt.total) {
+              $(progressid).progress({ value: evt.loaded, total: evt.total });
+            }
+          }
+        }, false);
+        return xhr;
+      },
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (result) {
+        if (typeof result === 'string')
+          result = JSON.parse(result)
+        $(progressid).hide()
+  
+        if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
+          $('input[name="snaphash"]').val(result.imghash)
+          Session.set('overlayHash',result.imghash)
+          $('#uploadSnap').removeClass('disabled')
+          $('#uploadSnap > i').addClass('checkmark green')
+          $('#uploadSnap > i').removeClass('asterisk loading')
+          $('#uploadSnap > i').css('background', 'white')
+          return cb(null,result.imghash)
+        }
+  
+        refreshUploadSnapStatus = setInterval(function () {
+          var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
+          $.getJSON(url, function (data) {
+            var isCompleteUpload = true
+            if (data.ipfsAddSource.progress !== "100.00%") {
+              isCompleteUpload = false;
+            }
+            if (data.ipfsAddOverlay.progress !== "100.00%") {
+              isCompleteUpload = false;
+            }
+            if (isCompleteUpload) {
+              clearInterval(refreshUploadSnapStatus)
+              $('input[name="snaphash"]').val(data.ipfsAddSource.hash)
+              Session.set('overlayHash', data.ipfsAddOverlay.hash)
+              $('#uploadSnap').removeClass('disabled')
+              $('#uploadSnap > i').addClass('checkmark green')
+              $('#uploadSnap > i').removeClass('asterisk loading')
+              $('#uploadSnap > i').css('background', 'white')
+              cb(null, data.ipfsAddSource.hash, data.ipfsAddOverlay.hash)
+            }
+          })
+        }, 1000)
+      },
+      error: function (error) {
+        $(progressid).hide()
+        cb(error)
+        $('#uploadSnap').removeClass('disabled')
+        $('#uploadSnap > i').addClass('cloud upload red')
+        $('#uploadSnap > i').removeClass('asterisk loading')
+        $('#uploadSnap > i').css('background', 'white')
+      }
+    });
 }
 
 function isDecentralized(tech) {
