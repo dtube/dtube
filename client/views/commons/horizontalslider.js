@@ -1,7 +1,10 @@
+// horizontal slider is for VP in the /publish
+// otherwise it's always for promoting content with DTC burn
+
 Template.horizontalslider.rendered = function() {
     var slider = document.getElementById(this.data.sliderid)
-    var holder = document.getElementById("hsliderholder")
-    var bubbleholder = document.getElementById("bubblehsliderholder")
+    var holder = slider.nextSibling.nextSibling.nextSibling.nextSibling
+    var bubbleholder = holder.nextSibling.nextSibling
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
 
     function setBubble() {
@@ -34,9 +37,18 @@ Template.horizontalslider.rendered = function() {
             currentvalue = this.value;
         }
     }
+
+    if (this.data.sliderid == 'vp-range') {
+        slider.value = UserSettings.get('voteWeight')
+    } else {
+        slider.value = 0
+    }
+
+
     setTimeout(() => {
         setBubble()
-
     }, 500);
+    setBubble()
 
+    
 }

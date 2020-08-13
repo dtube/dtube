@@ -1,3 +1,5 @@
+// vertical slider is always yellow (VP)
+
 Template.verticalvoteslider.rendered = function() {
     var voteType = this.data.voteType
     var sliderclass = this.data.sliderclass

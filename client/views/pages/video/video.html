@@ -222,23 +222,23 @@
               <div style="width: auto; min-width:460px;float: left;">
                 <div class="ui filter checkbox comment" style="width: 100%;">
                   <input id="promotereply" type="checkbox" name="comment">
-                  <label>Promote this comment  <strong id="promotedtc" style='display: none;color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong></label>
+                  <label>{{translate 'VIDEO_PROMOTE_COMMENT'}}  <strong id="promotedtc" style='display: none;color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong></label>
                   <div id="promoteslider" style="display: none;margin-top: 5px;">
-                  {{> horizontalslider color="red" sliderid="comment-range"}}
+                    {{> horizontalslider color="red" sliderid="comment-range"}}
+                  </div>
                 </div>
               </div>
-          
-              </div>
-                <div class="ui blue right labeled icon submit button dtube pos-rel"
-                  style="float:right;vertical-align: top;">
-                  <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
-                  <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;">
-                    <div class="ui active loader"></div>
-                  </i>
-                  <i class="ui blue right icon repl talk iconloader on" style="background:white;"></i>
+              
+              <div class="ui blue right labeled icon submit button dtube pos-rel"
+                style="float:right;vertical-align: top;">
+                <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>
+                <i class="ui blue icon load repl dsp-non" style="background:white;opacity:1;">
+                  <div class="ui active loader"></div>
+                </i>
+                <i class="ui blue right icon repl talk iconloader on" style="background:white;"></i>
 
-                  <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
-                </div>
+                <div style="display:inline-block;padding: 0.8em 1em;">{{ translate 'VIDEO_ADD_COMMENT'}}</div>
+              </div>
             </form>
           </div>
           {{/if}}

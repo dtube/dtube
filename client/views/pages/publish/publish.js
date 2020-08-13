@@ -1,7 +1,20 @@
 Template.publish.rendered = function() {
+    Session.set('publishBurn', null)
+    Session.set('publishVP', Math.floor(UserSettings.get('voteWeight')*Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v))
     setTimeout(() => {
         Template.settingsdropdown.nightMode()
-        Template.publish.burnRange()
+
+        var publishBurnSlider = document.getElementById("dtc-range");
+        publishBurnSlider.oninput = function () {
+            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            Session.set('publishBurn', logSlider(this.value, balance))
+        }
+
+        var publishVPSlider = document.getElementById("vp-range");
+        publishVPSlider.oninput = function () {
+            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v
+            Session.set('publishVP', Math.floor(this.value*balance))
+        }
     }, 200)
     var json = Session.get('tmpVideo').json
     if (json.title)
@@ -271,6 +284,18 @@ Template.publish.events({
         }
 
         window.open("https://" + gw + "/" + this.tech.toLowerCase() + "/" + this.hash);
+    },
+    'click #promotevideo': function (event) {
+        if (event.target.checked) {
+            $('#promoteslider').show()
+            $('#promotedtc').show()
+            Session.set('publishBurn', 0)
+        }
+        else {
+            $('#promoteslider').hide()
+            $('#promotedtc').hide()
+            Session.set('publishBurn', null)
+        }
     }
 })
 
@@ -431,26 +456,16 @@ Template.publish.helpers({
     isDecentralized: function(tech) {
         return isDecentralized(tech)
     },
-    publishBurn: function() {
+    publishBurn: function () {
         return Session.get('publishBurn')
+    },
+    publishBurnOutput: function () {
+        return Session.get('publishBurn')*600
+    },
+    publishVP: function() {
+        return Session.get('publishVP')
     }
 })
-
-Template.publish.burnRange = function(cb) {
-    var slider = document.getElementById("burn-range");
-
-    if (!Session.get('activeUsername')) {
-        if (cb) cb()
-        return
-    }
-    Session.set('publishBurn', 1)
-    var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
-    var step = Math.pow(10, balance.toString().length - 1) / 100
-    if (step < 1) step = 1
-    slider.oninput = function() {
-        Session.set('publishBurn', logSlider(parseInt(this.value), balance))
-    }
-}
 
 Template.publish.generateVideo = function() {
     var article = {
