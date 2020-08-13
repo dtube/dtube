@@ -1,19 +1,44 @@
 <template name='votes'>
     {{#with video}}
     <div class="ui container grid computer tablet only">
-        <div style="padding: 10px;">
-            {{#if json.title}}
-            <div class="videotitlecontainer">
-                <h1 class="videotitle">{{json.title}}</h1>
-            </div>
-            {{/if}}
+        
+        <div style="float:right">
+            {{>videosnap video}}
         </div>
-        <!-- {{#if or distSteem distHive}}
+        <center><h1>Votes & Rewards</h1><br /></center>
+        <div class="ui two column centered grid">
+            {{#each allNetworks}}
+                {{#if equals this 'dtc'}}
+                <div class="four wide column" style="text-align: center">
+                    <img width="32" src="./DTube_files/images/logos/dtube.png">
+                    <br />{{lengthOf video.votes}} votes
+                    <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
+                </div>
+                {{/if}}
+                {{#if equals this 'steem'}}
+                <div class="four wide column" style="text-align: center">
+                    <img width="32" src="./DTube_files/images/logos/steem.png">
+                    <br />{{lengthOf video.votesSteem}} votes
+                    <br /><strong>{{video.distSteem}} SBD</strong>
+                </div>
+                {{/if}}
+                {{#if equals this 'hive'}}
+                <div class="four wide column" style="text-align: center">
+                    <img width="32" src="./DTube_files/images/logos/hive.png">
+                    <br />{{lengthOf video.votesHive}} votes
+                    <br /><strong>{{video.distHive}} HBD</strong>
+                </div>
+                {{/if}}
+            {{/each}}
+        </div>
+        
+        {{#if or distSteem distHive}}
         <div class="ui top attached tabular menu">
             <a class="active item votenetwork first" data-tab="first">Dtube</a>
             <a class="item votenetwork second" data-tab="second">Others</a>
         </div>
-        {{/if}} -->
+        {{/if}}
+        
         <div class="ui bottom active attached votenetwork tab first pdg-non">
             <table class="ui celled table unstackable"
                 style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
@@ -152,18 +177,35 @@
     </div>
     <div class="ui main grid mobile only">
         <div style="padding-left: 2rem;padding-right: 2rem;">
-            {{#if json.title}}
-            <div class="videotitlecontainer">
-                <h1 class="videotitle">{{json.title}}</h1>
+            <h1>Votes & Rewards</h1>
+            {{>verticalvideosnap video}}
+            <div class='ui divider'></div>
+            <div class="ui two column centered grid">
+                {{#each allNetworks}}
+                    {{#if equals this 'dtc'}}
+                    <div class="four wide column" style="text-align: center">
+                        <img width="32" src="./DTube_files/images/logos/dtube.png">
+                        <br />{{lengthOf video.votes}} votes
+                        <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
+                    </div>
+                    {{/if}}
+                    {{#if equals this 'steem'}}
+                    <div class="four wide column" style="text-align: center">
+                        <img width="32" src="./DTube_files/images/logos/steem.png">
+                        <br />{{lengthOf video.votesSteem}} votes
+                        <br /><strong>{{video.distSteem}} SBD</strong>
+                    </div>
+                    {{/if}}
+                    {{#if equals this 'hive'}}
+                    <div class="four wide column" style="text-align: center">
+                        <img width="32" src="./DTube_files/images/logos/hive.png">
+                        <br />{{lengthOf video.votesHive}} votes
+                        <br /><strong>{{video.distHive}} HBD</strong>
+                    </div>
+                    {{/if}}
+                {{/each}}
             </div>
-            {{/if}}
-<!-- 
-            {{#if or distSteem distHive}}
-            <div class="ui top attached tabular menu">
-                <a class="active item votenetwork first" data-tab="first">Dtube</a>
-                <a class="item votenetwork second" data-tab="second">Others</a>
-            </div>
-            {{/if}} -->
+            <div class='ui divider'></div>
             <div class="ui bottom active attached votenetwork tab first">
                 <table class="ui celled table unstackable"
                     style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">

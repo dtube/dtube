@@ -249,22 +249,18 @@ FlowRouter.route('/v/:author/:permlink', {
 FlowRouter.route('/v/:author/:permlink/votes', {
     name: "votes",
     action: function(params, queryParams) {
-        Session.set('urlNet', '')
-        Session.set('allNet', [])
-        Meteor.isDMCA(params.author, params.permlink, function(block) {
-            if (block == 0) {
-                BlazeLayout.render('masterLayout', {
-                    main: "votes",
-                    nav: "nav"
-                });
-                $('html').animate({ scrollTop: 0 }, 'slow'); //IE, FF
-                $('body').animate({ scrollTop: 0 }, 'slow');
-            } else FlowRouter.go('/')
-        })
-        Template.video.loadState()
-        ChainUsers.fetchNames([params.author], function(error) {
-            if (error) console.log('Error fetch name')
-        })
+        BlazeLayout.render('masterLayout', {
+            main: "votes",
+            nav: "nav"
+        });
+        $('html').animate({ scrollTop: 0 }, 'slow'); //IE, FF
+        $('body').animate({ scrollTop: 0 }, 'slow');
+        var videos = Videos.find({
+            'author': FlowRouter.getParam("author"),
+            'link': FlowRouter.getParam("permlink")
+        }).fetch()
+        if (!videos || videos.length == 0)
+            Template.video.loadState()
         Session.set("currentMenu", 0)
     }
 });
