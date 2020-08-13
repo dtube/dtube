@@ -31,11 +31,34 @@ Template.horizontalslider.rendered = function() {
         return false;
     }
     var currentvalue = slider.value;
-    slider.onmousemove = function() {
-        if (slider.value != currentvalue) {
-            setBubble()
-            currentvalue = this.value;
-        }
+    var touchstartx = null;
+    var touchmovex = null;
+    var movex = null;
+    var sliderWidth = slider.getBoundingClientRect().width
+    slider.onmouseup = function(event) {
+        currentvalue = slider.value;
+        setBubble()
+    }
+
+    slider.onmousemove = function(event) {
+        currentvalue = slider.value;
+        setBubble()
+    }
+
+    slider.ontouchstart = function(event) {
+        touchstartx =  event.touches[0].pageX
+        currentvalue = Math.floor(1000*touchstartx/sliderWidth)/10
+        console.log(slider.value, touchstartx/sliderWidth)
+        setBubble()
+    }
+    slider.ontouchmove = function(event) {
+        touchmovex =  event.touches[0].pageX
+        currentvalue = slider.value
+        setBubble()
+    }
+    slider.ontouchend = function(event) {
+        currentvalue = slider.value;
+        setBubble()
     }
 
     if (this.data.sliderid == 'vp-range') {
