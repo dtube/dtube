@@ -1,48 +1,9 @@
 Template.sidebar.rendered = function() {
-    //TrendingTags.loadTopTags(50);
-    var query = {
-        tag: FlowRouter.getParam("author"),
-        limit: 100
-    };
-    // Videos.refreshWaka();
     Template.settingsdropdown.nightMode();
-    $('.subscribers.accordion').accordion({
-        selector: {
-            trigger: '.title'
-        }
-    });
-    Session.set('isSubscribesOpen', false)
     Template.sidebar.selectMenu();
 }
 
-Template.sidebar.helpers({
-    subscribelength: function() {
-        return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-    },
-    subscribe: function() {
-        if (Session.get('isSubscribesOpen'))
-            return Subs.find({ follower: Session.get('activeUsername') }).fetch()
-    },
-    subsOpen: function() {
-        return Session.get('isSubscribesOpen')
-    },
-    hasRewards: function(user) {
-        if (!user || !user.reward_sbd_balance || !user.reward_steem_balance || !user.reward_vesting_balance) return false
-        if (user.reward_sbd_balance.split(' ')[0] > 0 ||
-            user.reward_steem_balance.split(' ')[0] > 0 ||
-            user.reward_vesting_balance.split(' ')[0] > 0)
-            return true
-    }
-});
-
-
 Template.sidebar.events({
-    'click .loadsubs': function() {
-        if (!Session.get('isSubscribesOpen')) {
-            Session.set('isSubscribesOpen', true)
-            Subs.find({ follower: Session.get('activeUsername') }).fetch()
-        } else Session.set('isSubscribesOpen', false)
-    },
     'click .dtubesidebarmenu': function() {
         if (/Mobi/.test(navigator.userAgent)) {
             Template.sidebar.empty()
@@ -66,6 +27,8 @@ Template.sidebar.resetActiveMenu = function() {
     $('#livesidebarmenu').removeClass('activemenu')
     $('#dtalksidebarmenu').removeClass('activemenu')
     $('#electionsidebarmenu').removeClass('activemenu')
+    $('#settingssidebarmenu').removeClass('activemenu')
+    $('#helpsidebarmenu').removeClass('activemenu')
     Template.settingsdropdown.nightMode();
 }
 
@@ -108,6 +71,12 @@ Template.sidebar.selectMenu = function() {
         case 12:
             $('#electionsidebarmenu').addClass('activemenu')
             break;
+        case 13:
+            $('#settingssidebarmenu').addClass('activemenu')
+            break
+        case 14:
+            $('#helpsidebarmenu').addClass('activemenu')
+            break
         default:
             break;
     }

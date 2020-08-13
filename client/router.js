@@ -353,7 +353,9 @@ FlowRouter.route('/wiki/:page', {
         BlazeLayout.render('masterLayout', {
             main: "wiki",
             nav: "nav"
-        });
+        })
+        Session.set("currentMenu", 14)
+        Template.sidebar.selectMenu()
         Template.wiki.load()
     }
 });
@@ -364,7 +366,9 @@ FlowRouter.route('/settings', {
     BlazeLayout.render('masterLayout', {
       main: "settings",
       nav: "nav"
-    });
+    })
+    Session.set("currentMenu", 13)
+    Template.sidebar.selectMenu()
   }
 });
 
@@ -375,7 +379,9 @@ FlowRouter.route('/wiki/:folder/:page', {
     BlazeLayout.render('masterLayout', {
       main: "wiki",
       nav: "nav"
-    });
+    })
+    Session.set("currentMenu", 14)
+    Template.sidebar.selectMenu()
     Template.wiki.load()
   }
 });
