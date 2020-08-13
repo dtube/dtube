@@ -9,21 +9,21 @@
                         {{#if equals this 'dtc'}}
                         <div class="four wide column" style="text-align: center">
                             <img width="32" src="./DTube_files/images/logos/dtube.png">
-                            <br />{{lengthOf video.votes}} votes
+                            <br />{{lengthOf video.votes}} vote{{#unless equals (lengthOf video.votes) 1}}s{{/unless}}
                             <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
                         </div>
                         {{/if}}
                         {{#if equals this 'steem'}}
                         <div class="four wide column" style="text-align: center">
                             <img width="32" src="./DTube_files/images/logos/steem.png">
-                            <br />{{lengthOf video.votesSteem}} votes
+                            <br />{{lengthOf video.votesSteem}} vote{{#unless equals (lengthOf video.votesSteem) 1}}s{{/unless}}
                             <br /><strong>{{video.distSteem}} SBD</strong>
                         </div>
                         {{/if}}
                         {{#if equals this 'hive'}}
                         <div class="four wide column" style="text-align: center">
                             <img width="32" src="./DTube_files/images/logos/hive.png">
-                            <br />{{lengthOf video.votesHive}} votes
+                            <br />{{lengthOf video.votesHive}} vote{{#unless equals (lengthOf video.votesHive) 1}}s{{/unless}}
                             <br /><strong>{{video.distHive}} HBD</strong>
                         </div>
                         {{/if}}
