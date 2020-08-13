@@ -10,7 +10,6 @@ Template.sidebar.events({
         } else {
             Template.sidebar.half()
         }
-
     },
 })
 
@@ -80,11 +79,11 @@ Template.sidebar.selectMenu = function() {
         default:
             break;
     }
-    if (FlowRouter.current().route.name == 'video' || FlowRouter.current().route.name == 'addvideo') {
-        Template.sidebar.empty()
-    } else {
-        Template.sidebar.half()
-    }
+    // if (FlowRouter.current().route.name == 'video' || FlowRouter.current().route.name == 'addvideo') {
+    //     Template.sidebar.empty()
+    // } else {
+    //     Template.sidebar.half()
+    // }
 }
 
 Template.sidebar.half = function() {
