@@ -1,35 +1,38 @@
 <template name='votes'>
     {{#with video}}
     <div class="ui container grid computer tablet only">
-        
-        <div style="float:right">
-            {{>videosnap video}}
+        <div class="ui twelve wide column">
+            <center><h1>Votes & Rewards</h1><br /></center>
+            <div class="ui grid">
+                <div class="ui three column centered row">
+                    {{#each allNetworks}}
+                        {{#if equals this 'dtc'}}
+                        <div class="four wide column" style="text-align: center">
+                            <img width="32" src="./DTube_files/images/logos/dtube.png">
+                            <br />{{lengthOf video.votes}} votes
+                            <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
+                        </div>
+                        {{/if}}
+                        {{#if equals this 'steem'}}
+                        <div class="four wide column" style="text-align: center">
+                            <img width="32" src="./DTube_files/images/logos/steem.png">
+                            <br />{{lengthOf video.votesSteem}} votes
+                            <br /><strong>{{video.distSteem}} SBD</strong>
+                        </div>
+                        {{/if}}
+                        {{#if equals this 'hive'}}
+                        <div class="four wide column" style="text-align: center">
+                            <img width="32" src="./DTube_files/images/logos/hive.png">
+                            <br />{{lengthOf video.votesHive}} votes
+                            <br /><strong>{{video.distHive}} HBD</strong>
+                        </div>
+                        {{/if}}
+                    {{/each}}
+                </div>
+            </div>
         </div>
-        <center><h1>Votes & Rewards</h1><br /></center>
-        <div class="ui two column centered grid">
-            {{#each allNetworks}}
-                {{#if equals this 'dtc'}}
-                <div class="four wide column" style="text-align: center">
-                    <img width="32" src="./DTube_files/images/logos/dtube.png">
-                    <br />{{lengthOf video.votes}} votes
-                    <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
-                </div>
-                {{/if}}
-                {{#if equals this 'steem'}}
-                <div class="four wide column" style="text-align: center">
-                    <img width="32" src="./DTube_files/images/logos/steem.png">
-                    <br />{{lengthOf video.votesSteem}} votes
-                    <br /><strong>{{video.distSteem}} SBD</strong>
-                </div>
-                {{/if}}
-                {{#if equals this 'hive'}}
-                <div class="four wide column" style="text-align: center">
-                    <img width="32" src="./DTube_files/images/logos/hive.png">
-                    <br />{{lengthOf video.votesHive}} votes
-                    <br /><strong>{{video.distHive}} HBD</strong>
-                </div>
-                {{/if}}
-            {{/each}}
+        <div class="ui four wide right floated column">
+            {{>videosnap video}}
         </div>
         
         {{#if or distSteem distHive}}
