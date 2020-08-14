@@ -297,7 +297,7 @@ textarea {
 
 input.nightmode,
 textarea.nightmode,
-.dropdown.nightmode:not(.dropdownnotification),
+.dropdown.nightmode:not(.dropdownnotification):not(.dropdownvideoshare):not(.dropdownvideosettings),
 .nightmode .settingspage select,
 .ui.form.nightmode .segments .segment .field input {
   color: #ffffff!important;
