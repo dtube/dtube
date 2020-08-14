@@ -859,3 +859,7 @@ Template.registerHelper('contentNetwork', function(content) {
     });
     return network
 })
+
+Template.registerHelper('isNightMode',() => {
+    return UserSettings.get('isInNightMode')
+})

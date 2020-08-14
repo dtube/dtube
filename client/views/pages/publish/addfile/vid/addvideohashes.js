@@ -1,3 +1,4 @@
+Template.addvideohashes.rendered = () => Template.settingsdropdown.nightMode()
 Template.addvideohashes.helpers({
     translateHash: function(string, prov) {
         if (prov == 'sia')

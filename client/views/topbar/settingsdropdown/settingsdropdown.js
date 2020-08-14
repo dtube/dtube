@@ -120,8 +120,8 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.ui.checkbox + label').addClass('nightmode')
     $('.votebutton.voteslider').addClass('nightmodetext')
     $('.ui.icon.button.votebutton').addClass('nightmodetext')
+    $('.progress .label').addClass('nightmodetext')
     
-
     $('.ui.segments > .segment').addClass('nightsegment');
     $('.commentbutton').addClass('nightmodetext');
     $('.ui.comments .comment .actions a').addClass('nightsecondarytext');
@@ -149,6 +149,12 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.vsliderbackholder').addClass('invert');
     $('.accordion').addClass('nightmodeaccordion')
     $('.ui.toggle.checkbox').addClass('nightmode')
+
+    // INPUT CONTROLS
+    $('textarea').addClass('nightmode')
+    $('input').addClass('nightmode')
+    $('.dropdown').addClass('nightmode')
+    $('i').addClass('nightmodetext')
 
     // LINKS
     $('a').addClass('nightmodelinks')
@@ -210,6 +216,7 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.ui.checkbox + label').removeClass('nightmode')
     $('.votebutton.voteslider').removeClass('nightmodetext')
     $('.ui.icon.button.votebutton').removeClass('nightmodetext')
+    $('.progress .label').removeClass('nightmodetext')
 
     $('.ui.segments > .segment').removeClass('nightsegment');
     $('.commentbutton').removeClass('nightmodetext');
@@ -237,6 +244,12 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.vsliderbackholder').removeClass('invert');
     $('.accordion').removeClass('nightmodeaccordion')
     $('.ui.toggle.checkbox').removeClass('nightmode')
+
+    // INPUT CONTROLS
+    $('textarea').removeClass('nightmode')
+    $('input').removeClass('nightmode')
+    $('.dropdown').removeClass('nightmode')
+    $('i').removeClass('nightmodetext')
 
     // LINKS
     $('a').removeClass('nightmodelinks')

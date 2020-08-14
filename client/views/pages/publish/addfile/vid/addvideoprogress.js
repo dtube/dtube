@@ -1,3 +1,4 @@
+Template.addvideoprogress.rendered = () => Template.settingsdropdown.nightMode()
 Template.addvideoprogress.helpers({
     progress: function() {
       return Session.get('uploadVideoProgress')

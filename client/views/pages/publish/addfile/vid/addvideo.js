@@ -7,6 +7,7 @@ Template.addvideo.rendered = function () {
         FlowRouter.go('/login')
         return
     }
+    Template.settingsdropdown.nightMode()
     if (!Session.get('addVideoStep'))
         Session.set('addVideoStep', 'addvideoform')
     if (!Session.get('tmpVideo'))

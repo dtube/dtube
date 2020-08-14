@@ -88,7 +88,7 @@
   color: #111111!important;
 }
 
-.nightmodetext {
+.nightmodetext:not(.dtubesidebaricon) {
   color: rgb(240, 240, 240)!important;
 }
 
@@ -289,11 +289,21 @@ textarea {
 .nightmodeaccordion { background-color: rgb(30,30,30)!important; }
 .nightmodeaccordion .title { color: #ffffff!important; }
 
-/* Profile edit */
 .ui.form.nightmode .segments .segment { background-color: #000000; }
 .ui.form.nightmode .segments .segment .field label,
-.ui.form.nightmode .segments .segment .field a { color: #ffffff; }
+.ui.form.nightmode .segments .segment .field a,
+.ui.form.nightmode .segments .segment .field i,
+.votenetwork .content .header.nightmodetext { color: #ffffff; }
 
-.votenetwork .content .header.nightmodetext {
-  color: #ffffff;
+input.nightmode,
+textarea.nightmode,
+.dropdown.nightmode:not(.dropdownnotification),
+.nightmode .settingspage select,
+.ui.form.nightmode .segments .segment .field input {
+  color: #ffffff!important;
+  background-color: rgb(30,30,30)!important;
+}
+
+#replytext.nightmode {
+  background-color: rgb(0,0,0)!important;
 }

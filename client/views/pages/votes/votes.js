@@ -45,9 +45,6 @@ Template.votes.helpers({
         if (vote.claimed && vote.claimed > 0)
             return true
         return false
-    },
-    isNightMode: () => {
-        return UserSettings.get('isInNightMode')
     }
 })
 

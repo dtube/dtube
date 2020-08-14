@@ -358,7 +358,7 @@
             </p>
 
             <center>
-                <select id="uploadEndpointSelection" class="ui fluid selection dropdown">
+                <select id="uploadEndpointSelection" class="ui fluid selection dropdown {{#if isNightMode}}nightmode{{/if}}">
                     <option value="">{{ translate 'UPLOAD_ENDPOINT_PLACEHOLDER' }}</option>
                     <option selected="selected" value="btfs.d.tube">{{ translate 'UPLOAD_ENDPOINT_DEFAULT' }} (btfs.d.tube)</option>
                     {{#each endpoint in thirdPartyUploadEndpoints}}
@@ -389,7 +389,7 @@
 
             <div class="ui indicating progress" id="progressvideo" style="display:none">
                 <div class="bar"></div>
-                <div class="label">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
+                <div class="label {{#if isNightMode}}nightmodetext{{/if}}">{{ translate 'UPLOAD_UPLOADING_VIDEO'}}</div>
             </div>
             {{> addvideoprogress}}
         </div>
