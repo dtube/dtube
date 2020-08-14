@@ -4,10 +4,10 @@ Template.publish.rendered = function() {
     setTimeout(() => {
         Template.settingsdropdown.nightMode()
 
-        var publishBurnSlider = document.getElementById("dtc-range");
+        let publishBurnSlider = document.getElementById("dtc-range");
         publishBurnSlider.oninput = function () {
-            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
-            Session.set('publishBurn', logSlider(this.value, balance))
+            let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            Session.set('publishBurn', Template.publish.logSlider(this.value, balance))
         }
 
         var publishVPSlider = document.getElementById("vp-range");
@@ -638,7 +638,7 @@ function isDecentralized(tech) {
     return false
 }
 
-function logSlider(position, maxburn) {
+Template.publish.logSlider = (position, maxburn) => {
     if (position == 0) return 0
         // position will be between 0 and 100
     var minp = 0;

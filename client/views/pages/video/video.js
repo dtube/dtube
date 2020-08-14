@@ -13,7 +13,8 @@ Template.video.rendered = function () {
         $('.ui.newtag').dropdown({})
         var commentSlider = document.getElementById("comment-range");
         commentSlider.oninput = function () {
-            Session.set('commentBurn', this.value)
+            let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            Session.set('commentBurn', Template.publish.logSlider(this.value,balance))
         }
         $('.videopayout')
             .popup({
@@ -137,7 +138,7 @@ Template.video.helpers({
         else return false
     },
     commentBurn: function () {
-        return Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance / 100 * Session.get('commentBurn')
+        return Session.get('commentBurn')
     }
 })
 
@@ -255,8 +256,7 @@ Template.video.events({
             $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
         }
 
-        var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
-        var burn = Math.floor(balance * Session.get('commentBurn') / 100)
+        let burn = Session.get('commentBurn')
         if (!burn) burn = 0
 
         if (refs.length > 1) {
