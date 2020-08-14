@@ -81,11 +81,8 @@
                             {{displayMoney claimable 0 'DTC'}}
                             <br />{{timeAgo claimed}}
                             {{else}}
-                            <button type="button" name="button"
-                                class="ui fluid red right labeled dtube icon submit claim button">
-                                <div style="display:inline-block;padding: 0.8em 1em;">
-                                    {{ translate 'CHANNEL_REWARDS_CLAIM'}} {{displayMoney claimable 0 'DTC'}}</div>
-                            </button>
+                            <strong><i class="icon plus"></i> {{displayMoney claimable 0 'DTC'}}</strong>
+                            <br />{{translate "CHANNEL_REWARDS_CLAIMABLE"}} {{timeAgo timeToClaim}}
                             {{/if}}
                             {{else}}
                             <strong><i class="icon clock"></i> {{displayMoney claimable 0 'DTC'}}</strong>
@@ -251,11 +248,8 @@
                                 {{displayMoney claimable 0 'DTC'}}
                                 <br />{{timeAgo claimed}}
                                 {{else}}
-                                <button type="button" name="button"
-                                    class="ui fluid red right labeled dtube icon submit claim button">
-                                    <div style="display:inline-block;padding: 0.8em 1em;">
-                                        {{ translate 'CHANNEL_REWARDS_CLAIM'}} {{displayMoney claimable 0 'DTC'}}</div>
-                                </button>
+                                <strong><i class="icon plus"></i> {{displayMoney claimable 0 'DTC'}}</strong>
+                                <br />{{translate "CHANNEL_REWARDS_CLAIMABLE"}} {{timeAgo timeToClaim}}
                                 {{/if}}
                                 {{else}}
                                 <strong><i class="icon clock"></i> {{displayMoney claimable 0 'DTC'}}</strong>
