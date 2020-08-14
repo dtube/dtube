@@ -289,9 +289,9 @@ Template.verticalvoteslider.helpers({
         var tagWithoutDtube = tag.replace("dtube-", "")
         return tagWithoutDtube
     },
-    firstTag: function(alltags) {
-        if (alltags)
-            return alltags[0]
+    firstTag: function(tags) {
+        if (tags)
+            return tags[0]
         else return false
     },
     hasVoted: function(one, two) {

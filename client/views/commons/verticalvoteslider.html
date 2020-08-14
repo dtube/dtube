@@ -47,7 +47,7 @@
             </div>
             <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
                 {{#if dtubeVotable content}}
-                    {{#if firstTag content.allTags}}
+                    {{#if firstTag content.tags}}
                     <div class="ui tiny button addtag {{sliderclass}} dsp-blk">Add tag</div>
                     {{/if}}
                 {{/if}}
@@ -56,7 +56,7 @@
             </div>
             <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;">
                 <div class="ui tiny button removetag">Remove</div>
-                {{#with firstTag content.allTags}}
+                {{#with firstTag content.tags}}
                 {{#unless equals t 'dtube'}}
                 <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}"
                     style="max-width: 80px; text-align: center;" />

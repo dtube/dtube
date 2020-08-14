@@ -627,7 +627,7 @@ Videos.parseFromChain = function(video, isComment, network) {
     }
     video.ups = 0
     video.downs = 0
-    video.allTags = []
+    // video.allTags = []
     video._id = 'dtc/' + video._id
     if (video.votes) {
         for (let i = 0; i < video.votes.length; i++) {
@@ -635,23 +635,23 @@ Videos.parseFromChain = function(video, isComment, network) {
                 video.ups += video.votes[i].vt
             if (video.votes[i].vt < 0)
                 video.downs -= video.votes[i].vt
-            if (video.votes[i].tag) {
-                var isAdded = false
-                for (let y = 0; y < video.allTags.length; y++) {
-                    if (video.allTags[y].t == video.votes[i].tag) {
-                        video.allTags[y].total += video.votes[i].vt
-                        isAdded = true
-                        break
-                    }
-                }
-                if (!isAdded)
-                    video.allTags.push({ t: video.votes[i].tag, total: video.votes[i].vt })
-            }
+            // if (video.votes[i].tag) {
+            //     var isAdded = false
+            //     for (let y = 0; y < video.allTags.length; y++) {
+            //         if (video.allTags[y].t == video.votes[i].tag) {
+            //             video.allTags[y].total += video.votes[i].vt
+            //             isAdded = true
+            //             break
+            //         }
+            //     }
+            //     if (!isAdded)
+            //         video.allTags.push({ t: video.votes[i].tag, total: video.votes[i].vt })
+            // }
         }
     }
-    video.allTags = video.allTags.sort(function(a, b) {
-        return b.total - a.total
-    })
+    // video.allTags = video.allTags.sort(function(a, b) {
+    //     return b.total - a.total
+    // })
     var tags = []
     for (const key in video.tags)
         tags.push({ t: key, total: video.tags[key] })

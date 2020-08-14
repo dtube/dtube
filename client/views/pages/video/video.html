@@ -28,7 +28,7 @@
                 <a class="ui small label newtag scrolling dropdown dropdownTags">
                   <i class="thumbs up icon"></i> {{translate 'VIDEO_VOTE_TAG'}}
                   <div class="menu">
-                    {{#each allTags}}
+                    {{#each tags}}
                     {{#unless equals t 'dtube'}}
                     <div class="item voteATag" data-value="{{convertTag t}}">{{convertTag t}}</div>
                     {{/unless}}
