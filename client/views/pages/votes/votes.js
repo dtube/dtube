@@ -1,5 +1,6 @@
 const time_to_claim = 1000 * 60 * 60 * 24 * 7
 const max_items_per_call = 50
+Template.votes.rendered = () => setTimeout(() => Template.settingsdropdown.nightMode(),1500)
 Template.votes.helpers({
     allNetworks: function() {
         var a = Session.get('allNet')
@@ -45,6 +46,9 @@ Template.votes.helpers({
             return true
         return false
     },
+    isNightMode: () => {
+        return UserSettings.get('isInNightMode')
+    }
 })
 
 Template.votes.helpers({

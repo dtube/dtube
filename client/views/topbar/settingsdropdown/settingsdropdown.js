@@ -152,10 +152,12 @@ Template.settingsdropdown.switchToNightMode = function() {
 
     // LINKS
     $('a').addClass('nightmodelinks')
+    $('.votenetwork .content .header').addClass('nightmodetext')
 
     // TABLES
     $('.channelrewardtbl').addClass('nightmodetable')
     $('.publishtbl').addClass('nightmodetable')
+    $('.votenetwork .table').addClass('nightmodetable')
     
     // LEADERS
     $('.leader').addClass('nightmodeleader')
@@ -238,10 +240,12 @@ Template.settingsdropdown.switchToNormalMode = function() {
 
     // LINKS
     $('a').removeClass('nightmodelinks')
+    $('.votenetwork .content .header').removeClass('nightmodetext')
 
     // TABLES
     $('.channelrewardtbl').removeClass('nightmodetable')
     $('.publishtbl').removeClass('nightmodetable')
+    $('.votenetwork .table').removeClass('nightmodetable')
 
     // LEADERS
     $('.leader').removeClass('nightmodeleader')

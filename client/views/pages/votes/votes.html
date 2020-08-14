@@ -37,8 +37,8 @@
         
         {{#if or distSteem distHive}}
         <div class="ui top attached tabular menu">
-            <a class="active item votenetwork first" data-tab="first">Dtube</a>
-            <a class="item votenetwork second" data-tab="second">Others</a>
+            <a class="active item votenetwork first {{#if isNightMode}}nightmode{{/if}}" data-tab="first">Dtube</a>
+            <a class="item votenetwork second {{#if isNightMode}}nightmode{{/if}}" data-tab="second">Others</a>
         </div>
         {{/if}}
         
