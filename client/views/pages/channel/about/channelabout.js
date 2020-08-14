@@ -1,5 +1,5 @@
 Template.channelabout.rendered = function () {
-    Template.settingsdropdown.nightMode();
+    setTimeout(() => Template.settingsdropdown.nightMode(),200)
   }
 
 Template.channelabout.helpers({
@@ -27,6 +27,9 @@ Template.channelabout.helpers({
     },
     isEditingProfile: function() {
         return Session.get('isEditingProfile')
+    },
+    isNightMode: () => {
+        return UserSettings.get('isInNightMode')
     }
 })
 

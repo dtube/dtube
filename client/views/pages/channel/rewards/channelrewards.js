@@ -2,6 +2,7 @@ const time_to_claim = 1000*60*60*24*7
 const max_items_per_call = 50
 
 Template.channelrewards.rendered = function() {
+    setTimeout(() => Template.settingsdropdown.nightMode(),200)
     Session.set('finishedLoadingRewards', false)
     avalon.getVotesByAccount(Session.get('activeUsername'), 0, function(err, res) {
         if (res.length < max_items_per_call)

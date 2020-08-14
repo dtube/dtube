@@ -74,6 +74,10 @@
   background-color: #ff1a1a !important;
 }
 
+.ui.toggle.checkbox.nightmode .box:before, .ui.toggle.checkbox.nightmode label:before {
+  background-color: rgb(70,70,70);
+}
+
 .nightmode {
   background: #111111!important;
   color: rgb(240, 240, 240)!important;
@@ -229,6 +233,12 @@ textarea {
   margin-block-start: 0.5em;
 }
 
+.nightmodetable tbody tr:nth-child(odd) { background-color: rgb(40,40,40); }
+.nightmodetable tbody tr:nth-child(even) { background-color: rgb(30,30,30); }
+.nightmodetable tbody tr {
+  color: #ffffff;
+}
+
 .leader {
   color: black;
 }
@@ -241,6 +251,9 @@ textarea {
   color: white;
 }
 
+.nontopleader.nightmodeleader:nth-child(odd) { background-color: rgb(40,40,40); }
+.nontopleader.nightmodeleader:nth-child(even) { background-color: rgb(30,30,30); }
+
 .leader.disabled {
   color: grey;
 }
@@ -249,9 +262,8 @@ textarea {
   color: lightgrey!important;
 }
 
-.nightmodetopleader {
-  background: rgb(10, 46, 6)!important;
-}
+.nightmodetopleader:nth-child(odd) { background-color: rgb(20,50,20); }
+.nightmodetopleader:nth-child(even) { background-color: rgb(15,40,15); }
 
 .topleader {
   background: #fcfff5;
@@ -274,3 +286,10 @@ textarea {
 .publishfield label.nightmodetext {
   color: rgb(240,240,240)!important;
 }
+
+.nightmodeaccordion { background-color: rgb(30,30,30)!important; }
+.nightmodeaccordion .title { color: #ffffff!important; }
+
+.ui.form.nightmode .segments .segment { background-color: #000000; }
+.ui.form.nightmode .segments .segment .field label,
+.ui.form.nightmode .segments .segment .field a { color: #ffffff; }

@@ -116,7 +116,6 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.buttonlabel').addClass('nightbutton');
     $('.ui.checkbox label').addClass('nightmodetext');
     $('.crd-spa-lab').addClass('nightmode')
-    $('th').addClass('nightmodetext')
     $('.publishfield label').addClass('nightmodetext')
     $('.ui.checkbox + label').addClass('nightmode')
     $('.votebutton.voteslider').addClass('nightmodetext')
@@ -148,9 +147,15 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.ellipsis.horizontal.icon').addClass('nightmode');
     $('.hsliderbackholder').addClass('invert');
     $('.vsliderbackholder').addClass('invert');
+    $('.accordion').addClass('nightmodeaccordion')
+    $('.ui.toggle.checkbox').addClass('nightmode')
+
     // LINKS
     $('a').addClass('nightmodelinks')
 
+    // TABLES
+    $('.channelrewardtbl').addClass('nightmodetable')
+    $('.publishtbl').addClass('nightmodetable')
     
     // LEADERS
     $('.leader').addClass('nightmodeleader')
@@ -199,7 +204,6 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.buttonlabel').removeClass('nightbutton');
     $('.ui.checkbox label').removeClass('nightmodetext');
     $('.crd-spa-lab').removeClass('nightmode')
-    $('th').removeClass('nightmodetext')
     $('.publishfield label').removeClass('nightmodetext')
     $('.ui.checkbox + label').removeClass('nightmode')
     $('.votebutton.voteslider').removeClass('nightmodetext')
@@ -229,9 +233,15 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.ellipsis.horizontal.icon').removeClass('nightmode');
     $('.hsliderbackholder').removeClass('invert');
     $('.vsliderbackholder').removeClass('invert');
+    $('.accordion').removeClass('nightmodeaccordion')
+    $('.ui.toggle.checkbox').removeClass('nightmode')
 
     // LINKS
     $('a').removeClass('nightmodelinks')
+
+    // TABLES
+    $('.channelrewardtbl').removeClass('nightmodetable')
+    $('.publishtbl').removeClass('nightmodetable')
 
     // LEADERS
     $('.leader').removeClass('nightmodeleader')

@@ -86,7 +86,7 @@
     "GLOBAL_ERROR_RESTEEMED": "You have resteemed %1",
     "GLOBAL_VOTE_LEADER": "Now voting for %1 as leader",
     "GLOBAL_UNVOTE_LEADER": "No longer voting %1 as leader",
-    "GLOBAL_EDIT_PROFILE": "Succesfully logged in and synchronized profile",
+    "GLOBAL_EDIT_PROFILE": "Profile edited successfully",
     "GOLIVE_GET_STREAM_KEY": "Get Stream Key",
     "GOLIVE_STREAM_URL": "Stream URL",
     "GOLIVE_STREAM_KEY": "Stream Key",
