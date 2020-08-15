@@ -56,11 +56,11 @@
         </a> -->
         {{#if isLoggedOn}}
           {{#if mainUser.balance}}
-            <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
                 <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
                 <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
             </div>
-            <div class="ui item" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
                 <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
                 <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VP
             </div>

@@ -335,14 +335,10 @@
     fill: none;
 }
 
-
-/* line with highlight area */
-
-.sparkline {
-    stroke: #223154;
-    /* fill: rgba(255, 0, 0, .3); */
+/* line in night mode */
+.sparkline.nightmode .sparkline--line {
+    stroke: #ffffff;
 }
-
 
 /* change the spot color */
 
@@ -367,11 +363,6 @@
 
 
 /* style fill area and line colors using specific class name */
-
-.sparkline--fill {
-    /* fill: rgba(255, 0, 0, .3); */
-}
-
 .sparkline--line {
     stroke: #223154;
 }

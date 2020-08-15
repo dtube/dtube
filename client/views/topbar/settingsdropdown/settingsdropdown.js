@@ -171,6 +171,9 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.topleader').addClass('nightmodetopleader')
     $('.nontopleader').addClass('nightmodeleader')
 
+    // LOGIN
+    $('.loginsegment').addClass('nightmode')
+
     // LOGO
     $('.blacklogo').addClass('dsp-non');
     $('.whitelogo').removeClass('dsp-non');
@@ -265,6 +268,9 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.leader .disabled').removeClass('nightmodeleader')
     $('.topleader').removeClass('nightmodetopleader')
     $('.nontopleader').removeClass('nightmodeleader')
+
+    // LOGIN
+    $('.loginsegment').removeClass('nightmode')
 
     //LOGO
     $('.blacklogo').removeClass('dsp-non');

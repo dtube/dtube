@@ -293,11 +293,13 @@ textarea {
 .ui.form.nightmode .segments .segment .field label,
 .ui.form.nightmode .segments .segment .field a,
 .ui.form.nightmode .segments .segment .field i,
-.votenetwork .content .header.nightmodetext { color: #ffffff; }
+.votenetwork .content .header.nightmodetext,
+.ui.slider.checkbox input:checked ~ .box,
+.ui.slider.checkbox input:checked ~ label { color: #ffffff!important; }
 
 input.nightmode,
 textarea.nightmode,
-.dropdown.nightmode:not(.dropdownnotification):not(.dropdownvideoshare):not(.dropdownvideosettings),
+.dropdown.nightmode:not(.dropdownnotification):not(.dropdownvideoshare):not(.dropdownvideosettings):not(.dropdownsettings),
 .nightmode .settingspage select,
 .ui.form.nightmode .segments .segment .field input {
   color: #ffffff!important;
@@ -307,3 +309,10 @@ textarea.nightmode,
 #replytext.nightmode {
   background-color: rgb(0,0,0)!important;
 }
+
+.nightmodemodal .header,
+.nightmodemodal .actions { background-color: rgb(45,45,45)!important; }
+.nightmodemodal .content { background-color: rgb(0,0,0)!important; }
+.nightmodemodal .actions #cancelTransfer .icon,
+.transferdtcbtn.tipbtn .gift.nightmodetext,
+.ui.tiny.icon.button .icon.nightmodetext { color: rgb(40,40,40)!important;}

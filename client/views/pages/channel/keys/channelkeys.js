@@ -1,7 +1,7 @@
 const QRCode = require('qrcode')
 
 Template.channelkeys.rendered = function() {
-    setTimeout(() => Template.settingsdropdown.nightMode(),200)
+    Template.settingsdropdown.nightMode()
     $('.ui.checkbox').checkbox({
         onChecked: () => {
             if ($('#masterkeyconfirm1').prop('checked') === true && $('#masterkeyconfirm2').prop('checked') === true) $('#changeMasterKeyBtn').removeClass('disabled')

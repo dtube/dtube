@@ -1,5 +1,6 @@
 Template.channelactivities.rendered = function() {
     //Activities.getAccountHistory(FlowRouter.getParam("author"), -1, 20)
+    Template.settingsdropdown.nightMode()
     setTimeout(() => {
         $('.ui.infinite.activities').visibility({
             once: false,
@@ -19,7 +20,6 @@ Template.channelactivities.rendered = function() {
                 Template.channelactivities.removeFilterType(this.name);
             }
         })
-        Template.settingsdropdown.nightMode();
     }, 500);
 
 }

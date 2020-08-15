@@ -24,7 +24,7 @@
         <div class="ui mini red active centered inline loader"></div>
     </button>
     {{/if}}
-    <div class="ui {{voteType}}vote popup top center transition hidden vertical {{sliderclass}}">
+    <div class="ui {{voteType}}vote popup top center transition hidden vertical {{sliderclass}} {{#if isNightMode}}nightmode{{/if}}">
         <div class="item">
             {{#if dtubeVotable content}}
             <div class="ui equal width grid mrg-non">

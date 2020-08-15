@@ -95,7 +95,7 @@
                   {{/if}}
                 </a>
                   {{> popupvoter}}
-                <svg class="sparkline" width="200" height="60" stroke-width="2" style="display:none"></svg>
+                <svg class="sparkline {{#if isNightMode}}nightmode{{/if}}" width="200" height="60" stroke-width="2" style="display:none"></svg>
               </div>
               {{#if body}}
               <div class="ui left tiny circular avatar floated image"
@@ -150,7 +150,7 @@
           <div class='allNetworks'>
             {{#each allNetworks}}
             {{#if equals this 'dtc'}}
-            <img width="32" src="./DTube_files/images/logos/dtube.png">
+            <img width="32" src="{{#if isNightMode}}./DTube_files/images/logos/dtube_white.png{{else}}./DTube_files/images/logos/dtube.png{{/if}}">
             {{/if}}
             {{#if equals this 'steem'}}
             <img width="32" src="./DTube_files/images/logos/steem.png">

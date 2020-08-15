@@ -1,9 +1,8 @@
 Template.publish.rendered = function() {
     Session.set('publishBurn', null)
     Session.set('publishVP', Math.floor(UserSettings.get('voteWeight')*Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v))
+    Template.settingsdropdown.nightMode()
     setTimeout(() => {
-        Template.settingsdropdown.nightMode()
-
         let publishBurnSlider = document.getElementById("dtc-range");
         publishBurnSlider.oninput = function () {
             let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance

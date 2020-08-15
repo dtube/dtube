@@ -1,4 +1,5 @@
 Template.newaccount.rendered = () => {
+  Template.settingsdropdown.nightMode()
   Session.set('generatedKey',false)
 }
 

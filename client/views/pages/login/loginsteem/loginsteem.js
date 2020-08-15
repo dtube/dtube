@@ -1,3 +1,4 @@
+Template.loginsteem.rendered = () => Template.settingsdropdown.nightMode()
 Template.loginsteem.helpers({
     users: function() {
       return Users.find().fetch()

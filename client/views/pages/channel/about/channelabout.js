@@ -1,5 +1,5 @@
 Template.channelabout.rendered = function () {
-    setTimeout(() => Template.settingsdropdown.nightMode(),200)
+    Template.settingsdropdown.nightMode()
   }
 
 Template.channelabout.helpers({

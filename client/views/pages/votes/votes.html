@@ -8,7 +8,7 @@
                     {{#each allNetworks}}
                         {{#if equals this 'dtc'}}
                         <div class="four wide column" style="text-align: center">
-                            <img width="32" src="./DTube_files/images/logos/dtube.png">
+                            <img width="32" src="{{#if isNightMode}}./DTube_files/images/logos/dtube_white.png{{else}}./DTube_files/images/logos/dtube.png{{/if}}">
                             <br />{{lengthOf video.votes}} vote{{#unless equals (lengthOf video.votes) 1}}s{{/unless}}
                             <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
                         </div>
@@ -184,7 +184,7 @@
                 {{#each allNetworks}}
                     {{#if equals this 'dtc'}}
                     <div class="four wide column" style="text-align: center">
-                        <img width="32" src="./DTube_files/images/logos/dtube.png">
+                        <img width="32" src="{{#if isNightMode}}./DTube_files/images/logos/dtube_white.png{{else}}./DTube_files/images/logos/dtube.png{{/if}}">
                         <br />{{lengthOf video.votes}} votes
                         <br /><strong>{{displayMoney video.dist 0 'DTC'}}</strong>
                     </div>

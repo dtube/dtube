@@ -148,6 +148,10 @@
     background-position: bottom;
 }
 
+.nightmode .vsliderbackholder.red,
+.nightmode .vsliderbackholder.yellow {
+    border: 14px solid rgb(40,40,40);
+}
 
 .hsliderbackholder.invert {
     border-color: #111111!important;
@@ -316,6 +320,10 @@
     bottom: -20px!important;
     box-shadow: 0px -10px 9px 0px rgba(34, 36, 38, 0.12), 0px 0px 0px 0px rgba(34, 36, 38, 0.15)!important;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0) 3%, rgb(255, 255, 255) 4%, rgb(255, 255, 255) 100%)!important;
+}
+
+.vertical.popup.nightmode {
+    background: linear-gradient(0deg, rgba(40, 40, 40, 0) 3%, rgb(40, 40, 40) 4%, rgb(40, 40, 40) 100%)!important;
 }
 
 .vertical.popup::before {

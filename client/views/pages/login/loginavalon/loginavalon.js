@@ -1,5 +1,6 @@
 Template.loginavalon.rendered = function() {
     Session.set("tmpKey", avalon.keypair())
+    Template.settingsdropdown.nightMode()
 }
 
 Template.loginavalon.helpers({
