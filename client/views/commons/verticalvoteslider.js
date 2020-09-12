@@ -161,13 +161,13 @@ Template.verticalvoteslider.events({
         let weightSteem = 100
         let weightHive = 100
         if (this.network === 'dtube') {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
             weightSteem = UserSettings.get('voteWeightSteem') * -100
             weightHive = UserSettings.get('voteWeightHive') * -100
         } else {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * -100
-            weightSteem = document.getElementById("voterangeup" + this.sliderclass).value * -100
-            weightHive = document.getElementById("voterangeup" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weightSteem = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weightHive = document.getElementById("voterangedown" + this.sliderclass).value * -100
         }
         let refs = [];
         if (this.isComment)
@@ -246,13 +246,13 @@ Template.verticalvoteslider.events({
         let weightSteem = 100
         let weightHive = 100
         if (this.network === 'dtube') {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
             weightSteem = UserSettings.get('voteWeightSteem') * -100
             weightHive = UserSettings.get('voteWeightHive') * -100
         } else {
             weight = document.getElementById("voterangeup" + this.sliderclass).value * -100
-            weightSteem = document.getElementById("voterangeup" + this.sliderclass).value * -100
-            weightHive = document.getElementById("voterangeup" + this.sliderclass).value * -100
+            weightSteem = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weightHive = document.getElementById("voterangedown" + this.sliderclass).value * -100
         }
         let refs = [];
         if (this.isComment)
