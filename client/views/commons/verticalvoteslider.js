@@ -9,6 +9,15 @@ Template.verticalvoteslider.rendered = function() {
     var bubbleholder = document.getElementById("bubblevsliderholder" + voteType + sliderclass)
     var network = this.data.network
 
+    // Undefined network for comments patch
+    if (!network && this.data.isComment) {
+        let idNet = this.data.content._id.split('/')[0]
+        if (idNet === 'dtc')
+            network = 'dtube'
+        else
+            network = idNet
+    }
+
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     if (Session.get('activeUsername') && network === 'dtube') {
         var value = document.getElementById("votevt" + voteType + sliderclass);
@@ -85,7 +94,6 @@ Template.verticalvoteslider.rendered = function() {
             //scroll up
             slider.value = Number(zoomLevel) + 1;
         }
-        console.log(Session.get('activeUsername'), network)
         if (Session.get('activeUsername') && network === 'dtube') {
             var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
             value.innerHTML = cuteNumber(vt)
@@ -250,7 +258,7 @@ Template.verticalvoteslider.events({
             weightSteem = UserSettings.get('voteWeightSteem') * -100
             weightHive = UserSettings.get('voteWeightHive') * -100
         } else {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
             weightSteem = document.getElementById("voterangedown" + this.sliderclass).value * -100
             weightHive = document.getElementById("voterangedown" + this.sliderclass).value * -100
         }

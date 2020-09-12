@@ -810,9 +810,9 @@ Template.registerHelper('encodeURIComponent', function(text) {
 
 Template.registerHelper('steemVotable', function(content) {
     if (Session.get('activeUsernameSteem')) {
-        if (content._id.includes('steem')) {
+        if (content._id.startsWith('steem'))
             return true
-        }
+        if (!content.json.refs) return false
         content.json.refs.forEach(ref => {
             if (ref.includes('steem'))
                 return true
@@ -823,8 +823,9 @@ Template.registerHelper('steemVotable', function(content) {
 
 Template.registerHelper('hiveVotable', function(content) {
     if (Session.get('activeUsernameHive')) {
-        if (content._id.includes('hive'))
+        if (content._id.startsWith('hive'))
             return true
+        if (!content.json.refs) return false
         content.json.refs.forEach(ref => {
             if (ref.includes('hive'))
                 return true
@@ -835,8 +836,9 @@ Template.registerHelper('hiveVotable', function(content) {
 
 Template.registerHelper('dtubeVotable', function(content) {
     if (Session.get('activeUsername')) {
-        if (content && content._id.includes('dtc'))
+        if (content && content._id.startsWith('dtc'))
             return true
+        if (!content.json.refs) return false
         content.json.refs.forEach(ref => {
             if (ref.includes('dtc'))
                 return true
