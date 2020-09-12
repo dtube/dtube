@@ -316,3 +316,13 @@ textarea.nightmode,
 .nightmodemodal .actions #cancelTransfer .icon,
 .transferdtcbtn.tipbtn .gift.nightmodetext,
 .ui.tiny.icon.button .icon.nightmodetext { color: rgb(40,40,40)!important;}
+
+.ui.table.nightmodetable tr.warning, .ui.table.nightmodetable td.warning {
+  background: #404400!important;
+  color: #ffffff!important;
+}
+
+.ui.table.nightmodetable tr.positive, .ui.table.nightmodetable td.positive {
+  background: unset!important;
+  color: #ffffff!important;
+}
