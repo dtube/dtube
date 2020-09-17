@@ -256,6 +256,19 @@ Template.publish.events({
             delete tmpVideo.json.files[this.tec][this.type][this.ver]
         else
             delete tmpVideo.json.files[this.tech]
+
+        // Cleanup thumbnail URLs
+        let files = tmpVideo.json.files
+        if (tmpVideo.json.thumbnailUrl && 
+          !(files.btfs && files.btfs.img && files.btfs.img["118"] ||
+            files.btfs && files.btfs.img && files.btfs.img["360"] ||
+            files.ipfs && files.ipfs.img && files.ipfs.img["118"] ||
+            files.ipfs && files.ipfs.img && files.ipfs.img["360"] ||
+            files.sia && files.sia.img && files.sia.img["118"] ||
+            files.sia && files.sia.img && files.sia.img["360"])) {
+                delete tmpVideo.json.thumbnailUrl
+        }
+
         Session.set('tmpVideo', tmpVideo)
         UserSettings.set('tmpVideo', tmpVideo)
     },
