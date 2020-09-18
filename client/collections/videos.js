@@ -629,33 +629,47 @@ Videos.parseFromChain = function(video, isComment, network) {
     video.downs = 0
     // video.allTags = []
     video._id = 'dtc/' + video._id
+    
+    var tags = []
+    if (typeof video.tags === 'string') {
+        var tagsStrings = video.tags.split(' ')
+        if (video.tags.trim() != '')
+            for (let i = 0; i < tagsStrings.length; i++)
+                tags.push({ t: tagsStrings[i], total: 0})
+    } else {
+        for (const key in video.tags) {
+            tags.push({ t: key, total: video.tags[key] })
+        }
+    }
+        
+    video.tags = tags
+
     if (video.votes) {
         for (let i = 0; i < video.votes.length; i++) {
             if (video.votes[i].vt > 0)
                 video.ups += video.votes[i].vt
             if (video.votes[i].vt < 0)
                 video.downs -= video.votes[i].vt
-            // if (video.votes[i].tag) {
-            //     var isAdded = false
-            //     for (let y = 0; y < video.allTags.length; y++) {
-            //         if (video.allTags[y].t == video.votes[i].tag) {
-            //             video.allTags[y].total += video.votes[i].vt
-            //             isAdded = true
-            //             break
-            //         }
-            //     }
-            //     if (!isAdded)
-            //         video.allTags.push({ t: video.votes[i].tag, total: video.votes[i].vt })
-            // }
+
+            // this part will become obsolete when avalon properly sorts tags
+            if (video.votes[i].tag) {
+                for (let y = 0; y < video.tags.length; y++) {
+                    if (video.tags[y].t == video.votes[i].tag) {
+                        if (!video.tags[y].abs)
+                            video.tags[y].abs = 0
+                        video.tags[y].abs += Math.abs(video.votes[i].vt)
+                        break
+                    }
+                }
+            }
         }
     }
-    // video.allTags = video.allTags.sort(function(a, b) {
-    //     return b.total - a.total
-    // })
-    var tags = []
-    for (const key in video.tags)
-        tags.push({ t: key, total: video.tags[key] })
-    video.tags = tags
+
+    // this same
+    video.tags = video.tags.sort(function(a, b) {
+        return b.abs - a.abs
+    })
+
     video.totals = video.ups - video.downs
     if (!video.dist) video.dist = 0
     if (!video.json.thumbnailUrl)

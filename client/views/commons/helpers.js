@@ -513,16 +513,15 @@ Template.registerHelper('isPlural', function(array) {
 // censorshipLevel controls the visibility of videos
 // returns -1 is video is invalid format
 // returns 0 if video is 100% safe
-// returns 1 if video is moderated by community
+// returns 1 if video is negative (vp upvotes < vp downvotes)
 // returns 2 if video has the nsfw tag
 Template.registerHelper('censorshipLevel', function(video) {
     if (!video || !video.json)
         return -1
-            // if ((!video.json.providerName || !video.json.videoId) && (!video.json.ipfs))
-            //   return -1
-    for (let i = 0; i < video.tags.length; i++)
-        if (video.tags[i].t == 'nsfw')
-            return 2
+    if (video.json && video.json.nsfw)
+        return 2
+    if (video.tags && video.tags.length > 0 && video.tags[0] == 'nsfw')
+        return 2
     if (video.downs > video.ups) {
         return 1
     }
@@ -534,27 +533,20 @@ Template.registerHelper('isVideoHidden', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
     if (censor == -1)
         return true
-    if (video.downs > video.ups && Session.get('censorSetting') == 'Fully Hidden')
+    if (censor == 1 && Session.get('censorSetting') == 'Fully Hidden')
         return true
-    if (Session.get('nsfwSetting') == 'Fully Hidden') {
-        if (video.json.nsfw == 1) return true
-        for (let i = 0; i < video.tags.length; i++)
-            if (video.tags[i].t == 'nsfw')
-                return true
-    }
+    if (censor == 2 && Session.get('nsfwSetting') == 'Fully Hidden')
+        return true
+
     return false
 })
 
 Template.registerHelper('isVideoBlurred', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
-    if (video.downs > video.ups && Session.get('censorSetting') == 'Blurred')
+    if (censor == 1 && Session.get('censorSetting') == 'Blurred')
         return true
-    if (Session.get('nsfwSetting') == 'Blurred') {
-        if (video.json.nsfw == 1) return true
-        for (let i = 0; i < video.tags.length; i++)
-            if (video.tags[i].t == 'nsfw')
-                return true
-    }
+    if (censor == 2 && Session.get('nsfwSetting') == 'Blurred')
+        return true
 
     return false
 })
