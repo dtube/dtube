@@ -627,17 +627,6 @@ Template.registerHelper('thirdPartyUploadEndpoints', () => {
     return Meteor.settings.public.remote.thirdPartyUploadEndpoints
 })
 
-Template.registerHelper('ipfsSrc', function(ipfsHash) {
-    if (!ipfsHash) return ''
-    if (Session.get('ipfsGateway') == 'automatic') {
-        var n = Session.get('remoteSettings').displayNodes.length - 1
-        var i = ipfsHash.charCodeAt(ipfsHash.length - 1) % n
-        return Session.get('remoteSettings').displayNodes[i] + '/ipfs/' + ipfsHash
-    } else {
-        return Session.get('ipfsGateway') + '/ipfs/' + ipfsHash
-    }
-})
-
 Template.registerHelper('isSubscribedTo', function(following) {
     var sub = Subs.findOne({ follower: Session.get('activeUsername'), following: following })
     if (sub) return true
@@ -654,14 +643,6 @@ Template.registerHelper('getEmbedCode', function(author, permlink) {
     code = code.replace('@@@author@@@', author)
     code = code.replace('@@@permlink@@@', permlink)
     return code
-})
-
-Template.registerHelper('getSteemGProp', function() {
-    // if (!Session.get('steemGlobalProp'))
-    //   steem.api.getDynamicGlobalProperties(function (err, result) {
-    //     if (result)
-    //       Session.set('steemGlobalProp', result)
-    //   })
 })
 
 Template.registerHelper('getPercent', function(string) {
@@ -682,26 +663,6 @@ Template.registerHelper('displayDate', function(date) {
 
 Template.registerHelper('displayDateFull', function(date) {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a');
-})
-
-Template.registerHelper('displaySteemPower', function(vesting_shares) {
-    // if (vesting_shares) {
-    //   var SP = Market.vestToSteemPower(vesting_shares.split(' ')[0])
-    //   return `${SP.toFixed(3)} SP`
-    // }
-    return 0
-})
-
-Template.registerHelper('displaySavings', function(savings_balance, savings_sbd_balance) {
-    return 0;
-    if (!savings_balance || !savings_sbd_balance) return
-    else {
-        var savings_balance = parseFloat(savings_balance.split(' ')[0]);
-        var savings_sbd_balance = parseFloat(savings_sbd_balance.split(' ')[0]);
-        var amount = savings_balance * Session.get('steemprice') + savings_sbd_balance ** Session.get('steemdollarsprice')
-        if (isNaN(amount)) return 0 + ' $'
-        else return (amount + ' $')
-    }
 })
 
 Template.registerHelper('arrayify', function(obj) {

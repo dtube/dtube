@@ -9,12 +9,6 @@ Template.settings.helpers({
     censorSetting: function() {
       return Session.get('censorSetting');
     },
-    ipfsUpload: function() {
-      return Session.get('ipfsUpload');
-    },
-    ipfsGateway: function() {
-      return Session.get('ipfsGateway');
-    },
     uploadNodes: function() {
       return Session.get('remoteSettings').uploadNodes;
     },
@@ -41,9 +35,6 @@ Template.settings.helpers({
     },
     displayNodes: function() {
       return Session.get('remoteSettings').displayNodes;
-    },
-    localIpfs: function() {
-      return Session.get('localIpfs')
     },
     isInNightMode:function() {
       return UserSettings.get('isInNightMode')

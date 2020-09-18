@@ -2,46 +2,7 @@ Template.settingsdropdown.rendered = function() {
     $('.dropdownsettings').dropdown({
         action: function(text, value, e) {
             var e = $(e)
-            if (e.hasClass('voteWeight')) {
-                var currentPercent = UserSettings.get('voteWeight')
-                var nextPercent = currentPercent + parseInt(value)
-                if (nextPercent > 100) nextPercent = 100
-                if (nextPercent < 1) nextPercent = 1
-                UserSettings.set('voteWeight', nextPercent)
-            } else if (e.hasClass('ipfsGateway')) {
-                if (e.hasClass('automatic')) Session.set('ipfsGateway', 'automatic')
-                else Session.set('ipfsGateway', value)
-            } else if (e.hasClass('steemApi')) {
-                steem.api.setOptions({ url: value, useAppbaseApi: true });
-                Session.set('steemAPI', value)
-                localStorage.setItem('steemAPI', value);
-            } else if (e.hasClass('avalonApi')) {
-                javalon.init({ api: value })
-                Session.set('avalonAPI', value)
-                localStorage.setItem('avalonAPI', value)
-            } else if (e.hasClass('hiveApi')) {
-                hive.api.setOptions({ url: value, useAppbaseApi: true })
-                Session.set('hiveAPI', value)
-                localStorage.setItem('hiveAPI', value)
-            } else if (e.hasClass('ipfsUpload')) {
-                Session.set('ipfsUpload', {
-                    host: value.split('://')[1].split(':')[0],
-                    port: value.split('://')[1].split(':')[1],
-                    protocol: value.split('://')[0]
-                })
-            } else if (e.hasClass('nsfwSetting')) {
-                if (e.hasClass('nsfwShow')) Session.set('nsfwSetting', 'Show')
-                if (e.hasClass('nsfwBlur')) Session.set('nsfwSetting', 'Blurred')
-                if (e.hasClass('nsfwHide')) Session.set('nsfwSetting', 'Fully Hidden')
-                localStorage.setItem("nsfwSetting", Session.get('nsfwSetting'))
-            } else if (e.hasClass('censorSetting')) {
-                if (e.hasClass('censorShow')) Session.set('censorSetting', 'Show')
-                if (e.hasClass('censorBlur')) Session.set('censorSetting', 'Blurred')
-                if (e.hasClass('censorHide')) Session.set('censorSetting', 'Fully Hidden')
-                localStorage.setItem("censorSetting", Session.get('censorSetting'))
-            } else if (e.hasClass('repogc')) {
-                localIpfs.repo.gc()
-            } else if (e.hasClass('nightMode')) {
+            if (e.hasClass('nightMode')) {
                 if (!UserSettings.get('isInNightMode')) {
                     Template.settingsdropdown.switchToNightMode();
                 } else {
@@ -50,14 +11,7 @@ Template.settingsdropdown.rendered = function() {
                 UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
             } else if (e.hasClass('languages')) {
                 Session.set('selectortype', 'languages');
-
                 Template.mobileselector.revealMenu('bottom');
-            } else if (e.hasClass('steemApi')) {
-                steem.api.setOptions({ url: value, useAppbaseApi: true });
-                Session.set('steemAPI', value)
-                localStorage.setItem('steemAPI', value);
-            } else {
-                //console.log(value,text,e)
             }
         },
         direction: "downward"
@@ -71,7 +25,6 @@ Template.settingsdropdown.rendered = function() {
 
     if (!Session.get('censorSetting'))
         Session.set('censorSetting', 'Blurred')
-    Session.set('ipfsGateway', 'automatic')
 
     Template.settingsdropdown.nightMode();
 }

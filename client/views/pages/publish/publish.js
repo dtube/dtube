@@ -214,9 +214,7 @@ Template.publish.events({
             return
         }
 
-
         // uploading to ipfs
-        if (Session.get('ipfsUpload')) node = Session.get('ipfsUpload')
         Template.publish.uploadImage(file, '#progresssnap', function(err, smallHash, bigHash) {
             if (err) {
                 console.log(err)

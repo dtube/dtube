@@ -109,9 +109,6 @@ Template.video.helpers({
         if (videos && videos[0]) return videos[0]
         return;
     },
-    localIpfs: function () {
-        return Session.get('localIpfs')
-    },
     hasMoreThan4Lines: function () {
         var desc = Videos.getDescription(this.json)
         var numberOfLineBreaks = (desc.match(/\n/g) || []).length;
