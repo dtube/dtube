@@ -274,7 +274,6 @@ Template.video.events({
                 }
             }
             broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function (err, result) {
-                console.log(err, result)
                 if (err) {
                     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                     $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
@@ -296,7 +295,6 @@ Template.video.events({
         } else if (refs.length == 1) {
             if (refs[0].split('/')[0] == 'steem')
                 broadcast.steem.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
-                    console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
@@ -311,7 +309,6 @@ Template.video.events({
                 });
             if (refs[0].split('/')[0] == 'dtc') {
                 function handleAvalonComment(err, result) {
-                    console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
@@ -331,7 +328,6 @@ Template.video.events({
             }
             if (refs[0].split('/')[0] == 'hive')
                 broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, function (err, result) {
-                    console.log(err, result)
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');

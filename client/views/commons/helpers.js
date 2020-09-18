@@ -633,11 +633,6 @@ Template.registerHelper('isSubscribedTo', function(following) {
     return false;
 })
 
-Template.registerHelper('isResteemed', function(array) {
-    if (array && array.length && array.length > 0) return true
-    return false
-})
-
 Template.registerHelper('getEmbedCode', function(author, permlink) {
     var code = '<iframe width="560" height="315" src="https://emb.d.tube/#!/@@@author@@@/@@@permlink@@@" frameborder="0" allowfullscreen></iframe>'
     code = code.replace('@@@author@@@', author)
@@ -651,10 +646,6 @@ Template.registerHelper('getPercent', function(string) {
 
 Template.registerHelper('displayShortDescription', function(string) {
     return string.substring(0, 130)
-})
-
-Template.registerHelper('displayReputation', function(string) {
-    return 0
 })
 
 Template.registerHelper('displayDate', function(date) {

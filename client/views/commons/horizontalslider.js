@@ -48,7 +48,6 @@ Template.horizontalslider.rendered = function() {
     slider.ontouchstart = function(event) {
         touchstartx =  event.touches[0].pageX
         currentvalue = Math.floor(1000*touchstartx/sliderWidth)/10
-        console.log(slider.value, touchstartx/sliderWidth)
         setBubble()
     }
     slider.ontouchmove = function(event) {

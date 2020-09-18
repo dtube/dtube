@@ -46,12 +46,6 @@ Template.loginavalon.helpers({
   }
   
   Template.loginavalon.events({
-    'click #loginbuttonsc2': function(event) {
-      event.preventDefault()
-      var url = sc2.getLoginURL()
-      console.log(url)
-      window.location.href = url
-    },
     'submit .form': function(event) {
       event.preventDefault()
       var currentUser = Session.get('activeUsername')
@@ -98,11 +92,9 @@ Template.loginavalon.helpers({
           // correct key for the user, loggin in
           user.username = username
           user._id = user.network+'/'+user.username
-          console.log(event.target.rememberme.checked)
           if (event.target.rememberme.checked === false)
             user.temporary = true
 
-          console.log(user)
           Users.upsert({_id: user._id}, user, function() {
             Template.loginavalon.success(user.username,false,isSecurityKey)
           })

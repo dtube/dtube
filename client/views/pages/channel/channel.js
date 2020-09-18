@@ -1,6 +1,4 @@
 Template.channel.rendered = function() {
-    console.log(Session.get('currentTab'))
-
     if (Session.get('currentTab') === 'videos') {
 
     } else {
@@ -79,15 +77,6 @@ Template.channel.helpers({
         if (Session.get('activeUsername') != query.author)
             query["json.hide"] = { $ne: 1 }
         return Videos.find(query, { sort: { ts: -1 } }).fetch()
-    },
-    userResteems: function() {
-        var videos = Videos.find({ source: 'chainByBlog', fromBlog: FlowRouter.getParam("author") }).fetch()
-        var resteems = []
-        for (var i = 0; i < videos.length; i++) {
-            if (videos[i].author != FlowRouter.getParam("author"))
-                resteems.push(videos[i])
-        }
-        return resteems
     },
     subCount: function() {
         return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followersCount || 0
