@@ -9,10 +9,11 @@
             </form>
             <i class="search icon"></i>
         </div>
-        <div class="results wid-ful">
+        <div class="results wid-ful" style="margin-left: 1em;">
             {{#each searchSuggestions}}
-                <a class="result">   
+                <a class="result">
                     <div class="content">
+                        <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">                            
                         <div class="title">{{this}}</div>
                     </div>
                 </a>

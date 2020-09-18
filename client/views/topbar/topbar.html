@@ -33,11 +33,14 @@
               </form>
               <i class="search icon"></i>
             </div>
-            <div class="results">
+            <div class="results" style="margin-left: 1em;">
               {{#each searchSuggestions}}
-              <a class="result">
+              <a class="result" style="padding: 0.45714286em 0.6285714em;">
                 <div class="content">
-                  <div class="title">{{this}}</div>
+                  <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">
+                  <div class="title" style="padding-top: 7px;">
+                    {{this}}
+                  </div>
                 </div>
               </a>
               {{/each}}
