@@ -46,6 +46,7 @@ Template.topbar.events({
     }
   },
   'keyup #dsearch': function (evt) {
+    if (evt.key == 'Enter') return
     var query = evt.target.value
     if (query.length < 1) {
       $('.results').hide()
@@ -69,6 +70,16 @@ Template.topbar.events({
     Search.text(query, null,null, function(err, response){
       Session.set('search', {query: query, response: response})
     })
+    Session.set('searchSuggestions', null)
+    FlowRouter.go('/s/'+query)
+  },
+  'click #searchIcon': function(event) {
+    var query = $('#dsearch').val()
+    Session.set('search', {query: query})
+    Search.text(query, null,null, function(err, response){
+      Session.set('search', {query: query, response: response})
+    })
+    Session.set('searchSuggestions', null)
     FlowRouter.go('/s/'+query)
   },
   'click .result': function (event) {

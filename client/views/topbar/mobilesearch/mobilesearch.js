@@ -11,6 +11,7 @@ Template.mobilesearch.helpers({
   
 Template.mobilesearch.events({
   'keyup #dsearchmobile': function(event) {
+    if (event.key == 'Enter') return
     var query = event.target.value
     if (query.length < 1) {
       $('.results').hide()
@@ -38,6 +39,16 @@ Template.mobilesearch.events({
     Search.text(query, null,null, function(err, response){
       Session.set('search', {query: query, response: response})
     })
+    Session.set('searchSuggestions', null)
+    FlowRouter.go('/s/'+query)
+  },
+  'click #searchIconMobile': function(event) {
+    var query = $('#dsearchmobile').val()
+    Session.set('search', {query: query})
+    Search.text(query, null,null, function(err, response){
+      Session.set('search', {query: query, response: response})
+    })
+    Session.set('searchSuggestions', null)
     FlowRouter.go('/s/'+query)
   },
   'click .result': function(event) {

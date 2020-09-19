@@ -31,20 +31,22 @@
               <form class='searchForm wid-ful'>
                 <input id='dsearch' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
               </form>
-              <i class="search icon"></i>
+              <i class="search link icon" id="searchIcon"></i>
             </div>
-            <div class="results" style="margin-left: 1em;">
-              {{#each searchSuggestions}}
-              <a class="result" style="padding: 0.45714286em 0.6285714em;">
-                <div class="content">
-                  <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">
-                  <div class="title" style="padding-top: 7px;">
-                    {{this}}
+            {{#if searchSuggestions}}
+              <div class="results" style="margin-left: 1em;">
+                {{#each searchSuggestions}}
+                <a class="result" style="padding: 0.45714286em 0.6285714em;">
+                  <div class="content">
+                    <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">
+                    <div class="title" style="padding-top: 7px;">
+                      {{this}}
+                    </div>
                   </div>
-                </div>
-              </a>
-              {{/each}}
-            </div>
+                </a>
+                {{/each}}
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>

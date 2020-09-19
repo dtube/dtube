@@ -19,7 +19,6 @@ Search = {
                 res.hits.hits[i]._source._id = res.hits.hits[i]._id
                 res.results.push(Videos.parseFromChain(res.hits.hits[i]._source))
             }
-            delete res.hits
             cb(null, res)
         });
     },
@@ -50,7 +49,6 @@ Search = {
                 res.hits.hits[i]._source._id = res.hits.hits[i]._id
                 res.results.push(Videos.parseFromChain(res.hits.hits[i]._source))
             }
-            delete res.hits
             cb(null, res)
         });
     },
@@ -68,7 +66,6 @@ Search = {
                 res.hits.hits[i]._source._id = res.hits.hits[i]._id
                 res.results.push(res.hits.hits[i]._source)
             }
-            delete res.hits
             cb(null, res)
         });
     }
