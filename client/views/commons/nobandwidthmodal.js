@@ -1,7 +1,7 @@
 let timeUpdateInterval
 let timeStartCountdown
 
-Template.nobandwidthmodal.rendered = function() {
+Template.nobandwidthmodal.updateCountdown = function() {
     function updateTime() {
         var missingBytes = Session.get('missingBytes')
         var balance = Users.findOne({username: Session.get('activeUsername')}).balance

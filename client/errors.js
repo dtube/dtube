@@ -4,6 +4,7 @@ Meteor.blockchainError = function(error, errorTitle) {
     if (error.error.startsWith("need more bandwidth")) {
       Session.set('missingBytes', parseInt(error.error.split('(')[1].split(' B)')[0]))
       $('.nobandwidth').show()
+      Template.nobandwidthmodal.updateCountdown()
       return
     } else
       errorMessage = error.error

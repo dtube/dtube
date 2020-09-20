@@ -1,6 +1,6 @@
 Template.publish.rendered = function() {
     Session.set('publishBurn', null)
-    Session.set('publishVP', Math.floor(UserSettings.get('voteWeight')*Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v))
+    Session.set('publishVP', Math.floor(UserSettings.get('voteWeight')*avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))))
     Template.settingsdropdown.nightMode()
     setTimeout(() => {
         let publishBurnSlider = document.getElementById("dtc-range");
@@ -11,8 +11,8 @@ Template.publish.rendered = function() {
 
         var publishVPSlider = document.getElementById("vp-range");
         publishVPSlider.oninput = function () {
-            var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v
-            Session.set('publishVP', Math.floor(this.value*balance))
+            var vpBalance = avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
+            Session.set('publishVP', Math.floor(this.value*vpBalance))
         }
     }, 200)
     var json = Session.get('tmpVideo').json

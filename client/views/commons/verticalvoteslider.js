@@ -21,8 +21,7 @@ Template.verticalvoteslider.rendered = function() {
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     if (Session.get('activeUsername') && network === 'dtube') {
         var value = document.getElementById("votevt" + voteType + sliderclass);
-
-        var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * UserSettings.get('voteWeight')).toFixed(2)
+        var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * UserSettings.get('voteWeight')).toFixed(2)
         value.innerHTML = cuteNumber(vt)
         slider.value = UserSettings.get('voteWeight')
     }
@@ -42,7 +41,7 @@ Template.verticalvoteslider.rendered = function() {
         bubble.style.bottom = `calc(${newPosition}% + 26px)`;
         bubble.style.left = `9px`;
         if (Session.get('activeUsername') && network === 'dtube') {
-            var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
+            var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * slider.value).toFixed(2)
             value.innerHTML = cuteNumber(vt)
         }
         holder.style.height = `calc(${100 - newPosition}% - 15px)`;
@@ -95,7 +94,7 @@ Template.verticalvoteslider.rendered = function() {
             slider.value = Number(zoomLevel) + 1;
         }
         if (Session.get('activeUsername') && network === 'dtube') {
-            var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
+            var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * slider.value).toFixed(2)
             value.innerHTML = cuteNumber(vt)
         }
         setBubble()
@@ -103,7 +102,7 @@ Template.verticalvoteslider.rendered = function() {
     }
     slider.oninput = function() {
         if (Session.get('activeUsername') && network === 'dtube') {
-            var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * this.value).toFixed(2)
+            var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * slider.value).toFixed(2)
             value.innerHTML = cuteNumber(vt)
         }
         setBubble()

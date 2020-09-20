@@ -24,7 +24,7 @@ Template.horizontalslider.rendered = function() {
             //scroll up
             slider.value = Number(zoomLevel) + 1;
         }
-        var vt = parseFloat(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).vt.v / 100 * slider.value).toFixed(2)
+        var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * slider.value).toFixed(2)
         value.innerHTML = cuteNumber(vt)
 
         setBubble()

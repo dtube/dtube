@@ -76,11 +76,6 @@
           <!--<a href='/golive' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_GO_LIVE"}}'>-->
             <!--<i class="podcast icon" style='font-size:1.3em; margin:0;'></i>-->
           <!--</a>-->
-        {{else}}
-        <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
-          <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
-        </a>
-        {{> settingsdropdown}}
         {{/if}}
         {{#if isLoggedOn}}
           {{> accountsdropdown}}
