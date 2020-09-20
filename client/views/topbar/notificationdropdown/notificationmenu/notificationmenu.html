@@ -1,6 +1,21 @@
 <template name="notificationmenu">
     <div class='item' style='padding: 0px !important;'></div>
     <h4 style="margin-top: 0px;padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
+    {{#if shouldParticipateInGovernance}}
+        <div class="ui card brd-rad-non card-notification">
+            <div class="content" style="padding: 0px;">
+                <a class='notification-link' href="/election">
+                    <div class="dsp-flx" style="padding:10px;">
+                        <div style="width: 100%;display: inline;margin-left: 5px;">
+                            <div>
+                                {{ translate 'NOTIFICATION_NOT_VOTING_LEADERS' }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {{/if}}
     {{#each notifications}}
         {{>notification}}
     {{/each}}
