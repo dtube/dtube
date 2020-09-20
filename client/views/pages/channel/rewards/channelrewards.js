@@ -46,7 +46,7 @@ Template.channelrewards.events({
         broadcast.avalon.claimReward(claim.author, claim.link, function(err, res) {
             if (err) {
                 button.classList.remove('disabled')
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
                 return
             }
             toastr.success(translate('CHANNEL_REWARDS_CLAIMED_POPUP', claim.claimable/100), translate('USERS_SUCCESS'))            

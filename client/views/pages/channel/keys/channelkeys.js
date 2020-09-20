@@ -74,7 +74,7 @@ Template.channelkeys.events({
         var oldKeyId = e.target.dataset.key
         broadcast.avalon.removeKey(oldKeyId, function(err, res) {
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
             else {
                 toastr.success(translate('CUSTOM_KEY_DELETE_SUCCESS'),translate('USERS_SUCCESS'))
                 ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
@@ -93,7 +93,7 @@ Template.channelkeys.events({
         }
         broadcast.avalon.newKey(newKeyId, newKeyPub, txTypes, function(err, res) {
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
             else {
                 toastr.success(translate('CUSTOM_KEY_CREATE_SUCCESS'),translate('USERS_SUCCESS'))
                 ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
@@ -104,7 +104,7 @@ Template.channelkeys.events({
         e.preventDefault()
         let newMasterPubKey = $('#avalonpub').val()
         broadcast.avalon.changePassword(newMasterPubKey,(e,r) => {
-            if (e) return toastr.error(Meteor.blockchainError(e))
+            if (e) return Meteor.blockchainError(e)
             toastr.success(translate('MASTER_KEY_CHANGE_SUCCESS'),translate('USERS_SUCCESS'))
             ChainUsers.fetchNames([Session.get('activeUsername')], function(){})
         })

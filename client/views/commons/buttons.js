@@ -29,7 +29,7 @@
       $("#confirmTransfer").removeClass('disabled')
       $("#confirmTransfer > i.loading").addClass('dsp-non')
       $("#confirmTransfer > i.check").removeClass('dsp-non')
-      if (err) toastr.error(Meteor.blockchainError(err))
+      if (err) Meteor.blockchainError(err)
       else {
         toastr.success(translate('TRANSFER_SUCCESS_DESC', $('#transfer_amount').val(), receiver), translate('TRANSFER_SUCCESS_TITLE'))
         $('.transferdtc').hide()

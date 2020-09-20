@@ -38,7 +38,7 @@ Template.election.events({
         var username = $('#newleader').val()
         $('#newleader').val('')
         broadcast.avalon.voteLeader(username, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err))
+            if (err) Meteor.blockchainError(err)
             else {
                 avalon.getLeaders(function(err, res){
                     Session.set('leaders', res)
@@ -52,7 +52,7 @@ Template.election.events({
         var button = clickEvent.target
         var username = button.parentElement.getAttribute('data-username')
         broadcast.avalon.voteLeader(username, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err))
+            if (err) Meteor.blockchainError(err)
             else {
                 avalon.getLeaders(function(err, res){
                     Session.set('leaders', res)
@@ -66,7 +66,7 @@ Template.election.events({
         var button = clickEvent.target
         var username = button.parentElement.getAttribute('data-username')
         broadcast.avalon.unvoteLeader(username, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err))
+            if (err) Meteor.blockchainError(err)
             else {
                 avalon.getLeaders(function(err, res){
                     Session.set('leaders', res)

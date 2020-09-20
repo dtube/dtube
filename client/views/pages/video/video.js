@@ -168,7 +168,7 @@ Template.video.events({
         var permlink = FlowRouter.getParam("permlink")
         var weight = UserSettings.get('voteWeight') * 100
         broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Template.video.loadState()
         });
@@ -184,7 +184,7 @@ Template.video.events({
             return
         }
         broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Template.video.loadState()
         });
@@ -200,7 +200,7 @@ Template.video.events({
             return
         }
         broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
             Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
         });
@@ -312,7 +312,7 @@ Template.video.events({
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
-                        toastr.error(Meteor.blockchainError(err), translate('ERROR_TITLE'))
+                        Meteor.blockchainError(err, translate('ERROR_TITLE'))
                         return
                     }
                     $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
@@ -357,7 +357,7 @@ Template.video.events({
 
         broadcast.avalon.follow(FlowRouter.getParam("author"), function (err, result) {
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
         })
     },
     'click .unsubscribe': function () {
@@ -374,7 +374,7 @@ Template.video.events({
         broadcast.avalon.unfollow(FlowRouter.getParam("author"), function (err, result) {
             // finished unfollowing
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
         })
     },
     'click .description': function () {

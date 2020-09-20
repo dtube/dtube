@@ -28,7 +28,7 @@ Template.newaccount.events({
     }
     broadcast.avalon.newAccount(username, pub, function (err, result) {
       if (err)
-        toastr.error(Meteor.blockchainError(err))
+        Meteor.blockchainError(err)
       else {
           toastr.success("Account "+username+ " created")
           FlowRouter.go('/c/'+username)

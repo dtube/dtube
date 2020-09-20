@@ -48,7 +48,7 @@ Template.channelabout.events({
         json.profile.steem = event.target.profile_steem.value.trim().replace('@','')
         json.profile.hive = event.target.profile_hive.value.trim().replace('@','')
         broadcast.avalon.editProfile(json, function(err, res) {
-            if (err) toastr.error(Meteor.blockchainError(err))
+            if (err) Meteor.blockchainError(err)
             else {
                 toastr.success(translate('GLOBAL_EDIT_PROFILE'))
                 Session.set('isEditingProfile', false)

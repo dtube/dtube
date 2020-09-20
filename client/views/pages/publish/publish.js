@@ -139,7 +139,7 @@ Template.publish.events({
                 $("#publishVideo").removeClass('disabled')
                 $("#publishVideo i.loading").addClass('dsp-non')
                 $("#publishVideo i.podcast").removeClass('dsp-non')
-                if (err) toastr.error(Meteor.blockchainError(err))
+                if (err) Meteor.blockchainError(err)
                 else {
                     FlowRouter.go('/v/' + res[0])
                     Session.set('tmpVideo', {})
@@ -153,7 +153,7 @@ Template.publish.events({
                 $("#publishVideo").removeClass('disabled')
                 $("#publishVideo i.loading").addClass('dsp-non')
                 $("#publishVideo i.podcast").removeClass('dsp-non')
-                if (err) toastr.error(Meteor.blockchainError(err))
+                if (err) Meteor.blockchainError(err)
                 else {
                     FlowRouter.go('/v/' + res[0])
                     setTimeout(function() {

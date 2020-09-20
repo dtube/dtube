@@ -109,7 +109,7 @@ Template.channel.events({
             //   SubCounts.upsert({_id: r.account}, r)
             // })
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
         })
     },
     'click .unsubscribe': function() {
@@ -123,7 +123,7 @@ Template.channel.events({
         broadcast.avalon.unfollow(FlowRouter.getParam("author"), function(err, result) {
             // finished unfollowing
             if (err)
-                toastr.error(Meteor.blockchainError(err))
+                Meteor.blockchainError(err)
         })
     },
     'click .item.activities': function() {

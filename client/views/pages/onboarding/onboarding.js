@@ -130,7 +130,7 @@ Template.onboarding.events({
           json.profile.website = $('#profile_website').val()
           json.profile.steem = $('#profile_steem').val()
           broadcast.avalon.editProfile(json, function(err, res) {
-              if (err) toastr.error(Meteor.blockchainError(err))
+              if (err) Meteor.blockchainError(err)
               else {
                   toastr.success(translate('GLOBAL_EDIT_PROFILE'))
                   FlowRouter.go('#!/')
@@ -151,7 +151,7 @@ Template.onboarding.events({
                 json.profile.website = $('#profile_website').val()
                 json.profile.steem = $('#profile_steem').val()
                 broadcast.avalon.editProfile(json, function(err, res) {
-                    if (err) toastr.error(Meteor.blockchainError(err))
+                    if (err) Meteor.blockchainError(err)
                     else {
                         toastr.success(translate('GLOBAL_EDIT_PROFILE'))
                         FlowRouter.go('#!/')

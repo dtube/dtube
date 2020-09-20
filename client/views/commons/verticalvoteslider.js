@@ -151,7 +151,7 @@ Template.verticalvoteslider.events({
         $('.ui.up.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up.' + this.sliderclass).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function(err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
@@ -191,7 +191,7 @@ Template.verticalvoteslider.events({
         $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', function(err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
@@ -234,7 +234,7 @@ Template.verticalvoteslider.events({
         $('.ui.up.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up.' + this.sliderclass).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, newTag, function(err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
@@ -276,7 +276,7 @@ Template.verticalvoteslider.events({
         $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, newTag, function(err, result) {
-            if (err) toastr.error(Meteor.blockchainError(err), translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
+            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
