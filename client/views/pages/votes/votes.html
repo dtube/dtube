@@ -35,13 +35,6 @@
             {{>videosnap video}}
         </div>
         
-        {{#if or distSteem distHive}}
-        <div class="ui top attached tabular menu">
-            <a class="active item votenetwork first {{#if isNightMode}}nightmode{{/if}}" data-tab="first">Dtube</a>
-            <a class="item votenetwork second {{#if isNightMode}}nightmode{{/if}}" data-tab="second">Others</a>
-        </div>
-        {{/if}}
-        
         <div class="ui bottom active attached votenetwork tab first pdg-non">
             <table class="ui celled table unstackable"
                 style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
@@ -95,84 +88,6 @@
                     {{/each}}
                 </tbody>
             </table>
-        </div>
-        <div class="ui bottom attached votenetwork tab second segment pdg-non">
-            {{#if distSteem}}
-            <div class="ui middle aligned divided list">
-                <div class="ui item">
-                    <div class="content">
-                        <div class="header">
-                            STEEM ${{distSteem}}
-                        </div>
-                    </div>
-                </div>
-                {{#each topVoters votes votesSteem votesHive 0}}
-                {{#if equals network 'steem'}}
-                {{#if downvote}}
-                <div class="ui item">
-                    <a href='/c/{{voter}}'>
-                        <div class="content">
-                            <div class="header">
-                                {{voter}}
-                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {{else}}
-                <div class="ui item">
-                    <a href='/c/{{voter}}'>
-                        <div class="content">
-                            <div class="header">
-                                {{voter}}
-                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {{/if}}
-                {{/if}}
-                {{/each}}
-            </div>
-            {{/if}}
-            {{#if distHive}}
-            <div class="ui middle aligned divided list">
-                <div class="ui item">
-                    <div class="content">
-                        <div class="header">
-                            HIVE ${{distHive}}
-                        </div>
-                    </div>
-                </div>
-                {{#each topVoters votes votesSteem votesHive 0}}
-                {{#if equals network 'hive'}}
-                {{#if downvote}}
-                <div class="ui item">
-                    <a href='/c/{{voter}}'>
-                        <div class="content">
-                            <div class="header">
-                                {{voter}}
-                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {{else}}
-                <div class="ui item">
-                    <a href='/c/{{voter}}'>
-                        <div class="content">
-                            <div class="header">
-                                {{voter}}
-                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                {{/if}}
-                {{/if}}
-                {{/each}}
-            </div>
-            {{/if}}
         </div>
     </div>
     <div class="ui main grid mobile only">
