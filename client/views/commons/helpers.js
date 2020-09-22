@@ -61,10 +61,6 @@ Template.registerHelper('isTabletOrLower', function() {
     return false;
 });
 
-Template.registerHelper('avalonOnboarding', function() {
-    return Session.get('avalonOnboarding')
-});
-
 Template.registerHelper('session', function(key) {
     return Session.get(key)
 });

@@ -24,7 +24,6 @@ Template.sidebar.resetActiveMenu = function() {
     $('#watchlatersidebarmenu').removeClass('activemenu')
     $('#golivesidebarmenu').removeClass('activemenu')
     $('#livesidebarmenu').removeClass('activemenu')
-    $('#dtalksidebarmenu').removeClass('activemenu')
     $('#electionsidebarmenu').removeClass('activemenu')
     $('#settingssidebarmenu').removeClass('activemenu')
     $('#helpsidebarmenu').removeClass('activemenu')

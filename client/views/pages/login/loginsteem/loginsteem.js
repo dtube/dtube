@@ -19,15 +19,6 @@ Template.loginsteem.helpers({
     if (!noreroute)
       FlowRouter.go('#!/')
 
-    // check if equivalent avalon exists and propose onboarding
-    // disabled for scottubes
-    if (!Session.get('scot'))
-      avalon.getAccounts([activeUsername], function(err, results){
-        if (err) console.log(err)
-        else if (results.length == 0 && !Session.get('activeUsername'))
-          Session.set('avalonOnboarding', true)
-      })
-
     // check if subscribed to dtube hive
     steem.api.call('bridge.list_all_subscriptions', {account: Session.get('activeUsernameSteem')}, function(e,hives) {
       if (!e) {

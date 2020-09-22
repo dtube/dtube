@@ -40,36 +40,6 @@ FlowRouter.route('/hotvideos', {
     }
 });
 
-FlowRouter.route('/dtalk', {
-    name: "dtalk",
-    action: function(params, queryParams) {
-        Session.set("pageTitle", 'DTalk');
-        Session.set("currentMenu", 11)
-        Template.sidebar.selectMenu();
-        ChainUsers.fetchNames([Session.get('activeUsername')], function() {})
-        BlazeLayout.render('masterLayout', {
-            main: "dtalk",
-            nav: "nav",
-        });
-    }
-});
-
-FlowRouter.route('/dtalk/:pub', {
-    name: "pm",
-    action: function(params, queryParams) {
-        DTalk.getThread(params.pub)
-        if (DTalk.findOne({ pub: params.pub }))
-            ChainUsers.fetchNames([DTalk.findOne({ pub: params.pub }).alias.username], function() {})
-        Session.set("pageTitle", 'Private Message');
-        Session.set("currentMenu", 11)
-        Template.sidebar.selectMenu();
-        BlazeLayout.render('masterLayout', {
-            main: "pm",
-            nav: "nav",
-        });
-    }
-});
-
 FlowRouter.route('/trendingvideos', {
     name: "trendingvideos",
     action: function(params, queryParams) {
@@ -160,17 +130,6 @@ FlowRouter.route('/login/:network', {
             $("#steem-tab").click()
         BlazeLayout.render('masterLayout', {
             main: "login",
-            nav: "nav",
-        });
-    }
-});
-
-FlowRouter.route('/onboarding', {
-    name: "onboarding",
-    action: function(params, queryParams) {
-        Session.set("pageTitle", 'Join DTube Chain')
-        BlazeLayout.render('masterLayout', {
-            main: "onboarding",
             nav: "nav",
         });
     }
@@ -270,8 +229,6 @@ FlowRouter.route('/c/:author', {
     action: function(params, queryParams) {
         Session.set("pageTitle", params.author + '\'s channel')
 
-        if (Session.get('avalonOnboarding'))
-            Session.set('avalonOnboarding', false)
         Session.set('currentTab', 'videos');
         if (Session.get('activeUsername') == params.author) {
             Session.set("currentMenu", 2)
@@ -295,8 +252,6 @@ FlowRouter.route('/c/:author/:tab', {
     action: function(params, queryParams) {
         Session.set("pageTitle", params.author + '\'s channel')
         Session.set('currentTab', params.tab);
-        if (Session.get('avalonOnboarding'))
-            Session.set('avalonOnboarding', false)
         if (Session.get('activeUsername') == params.author) {
             Session.set("currentMenu", 2)
             Template.sidebar.selectMenu();
