@@ -19,7 +19,9 @@ Template.nobandwidthmodal.helpers({
         return Session.get('missingBytes')
     },
     userBalance: function() {
-        return Users.findOne({username: Session.get('activeUsername')}).balance
+        if (Users.findOne({username: Session.get('activeUsername')}))
+            return Users.findOne({username: Session.get('activeUsername')}).balance
+        else return 0
     }
 })
 

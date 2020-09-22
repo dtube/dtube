@@ -47,13 +47,13 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
        },
        854: {
          items: 4,
-         slideBy: 3,
+         slideBy: 2,
          nav: true,
          loop: itemCount > 4
        },
        1060: {
          items: 5,
-         slideBy: 4,
+         slideBy: 2,
          nav: true,
          loop: itemCount > 5
        }
@@ -93,25 +93,25 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
         },
         854: {
           items: 4,
-          slideBy: 3,
+          slideBy: 2,
           nav: true,
           loop: itemCount > 4
         },
         1060: {
           items: 5,
-          slideBy: 4,
+          slideBy: 2,
           nav: true,
           loop: itemCount > 5
         },
         1272: {
           items: 6,
-          slideBy: 5,
+          slideBy: 3,
           nav: true,
           loop: itemCount > 6
         },
         1484: {
           items: 7,
-          slideBy: 5,
+          slideBy: 3,
           nav: true,
           loop: itemCount > 7
         }
