@@ -46,8 +46,17 @@ Template.settings.helpers({
             return Meteor.settings.public.lang[lang].name
         return lang
     },
+    voteWeight: function() {
+        return UserSettings.get('voteWeight')
+    },
+    voteWeightSteem: function() {
+        return UserSettings.get('voteWeightSteem')
+    },
+    voteWeightHive: function() {
+        return UserSettings.get('voteWeightHive')
+    },
     buildVersion: function() {
-      return Session.get('buildVersion')
+        return Session.get('buildVersion')
     }
 })
 
@@ -90,5 +99,9 @@ Template.settings.events({
         else 
             Template.settingsdropdown.switchToNormalMode()
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
+    },
+    'change #voteWeight': function() {
+        var value = $('#voteWeight').val()
+        UserSettings.set('voteWeight', value)
     }
 })
