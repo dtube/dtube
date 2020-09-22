@@ -581,13 +581,20 @@ Videos.getVideosBy = function(type, limit, cb) {
     }
 }
 
-Videos.loadFeed = function(username) {
-    console.log('Loading notifications for ' + username)
-    Notifications.getDecentralized()
+Videos.loadFeed = function(username, loadNotifs = true, cb) {
+    if (loadNotifs)
+        Notifications.getDecentralized()
 
-    console.log('Loading feed for ' + username)
-    avalon.getFeedDiscussions(username, null, null, function(err, result) {
+    var lastAuthor = Session.get('lastFeed'+username) ? Session.get('lastFeed'+username).author : null
+    var lastLink = Session.get('lastFeed'+username) ? Session.get('lastFeed'+username).link : null
+    if (!lastLink && Session.get('lastFeed'+username) && Session.get('lastFeed'+username).permlink)
+        lastLink = Session.get('lastFeed'+username).permlink
+    if (!lastLink && Session.get('lastFeed'+username) && Session.get('lastFeed'+username).authorperm)
+        lastLink = Session.get('lastFeed'+username).authorperm.split('/')[1]
+
+    avalon.getFeedDiscussions(username, lastAuthor, lastLink, function(err, result) {
         if (err === null || err === '') {
+            Session.set('lastFeed'+username, result[result.length - 1])
             var i, len = result.length;
             var videos = []
             for (i = 0; i < len; i++) {
@@ -608,6 +615,7 @@ Videos.loadFeed = function(username) {
         } else {
             console.log(err);
         }
+        if (cb) cb()
     });
 }
 

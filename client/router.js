@@ -66,6 +66,20 @@ FlowRouter.route('/newvideos', {
     }
 });
 
+FlowRouter.route('/feed/:username', {
+    name: "feed",
+    action: function(params, queryParams) {
+        // todo
+        Session.set("currentMenu", 15)
+        Template.sidebar.selectMenu();
+        Session.set("pageTitle", 'Feed for @'+FlowRouter.getParam('username'))
+        BlazeLayout.render('masterLayout', {
+            main: "feed",
+            nav: "nav",
+        });
+    }
+});
+
 FlowRouter.route('/live', {
     name: "livestreams",
     action: function(params, queryParams) {

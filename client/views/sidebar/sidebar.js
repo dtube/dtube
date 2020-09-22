@@ -16,6 +16,7 @@ Template.sidebar.events({
 Template.sidebar.resetActiveMenu = function() {
     $('#homesidebarmenu').removeClass('activemenu')
     $('#channelsidebarmenu').removeClass('activemenu')
+    $('#feedsidebarmenu').removeClass('activemenu')
     $('#trendingsidebarmenu').removeClass('activemenu')
     $('#watchagainsidebarmenu').removeClass('activemenu')
     $('#uploadsidebarmenu').removeClass('activemenu')
@@ -75,14 +76,11 @@ Template.sidebar.selectMenu = function() {
         case 14:
             $('#helpsidebarmenu').addClass('activemenu')
             break
+        case 15:
+            $('#feedsidebarmenu').addClass('activemenu')
         default:
             break;
     }
-    // if (FlowRouter.current().route.name == 'video' || FlowRouter.current().route.name == 'addvideo') {
-    //     Template.sidebar.empty()
-    // } else {
-    //     Template.sidebar.half()
-    // }
 }
 
 Template.sidebar.half = function() {

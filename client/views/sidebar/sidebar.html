@@ -7,6 +7,12 @@
           <span class="dtubesidebartitle">{{ translate 'SIDEBAR_HOME'}}</span>
         </div>
       </a>
+      <a href='/publish' class="item pdg-non">
+        <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+          <i class="upload icon dtubesidebaricon"></i>
+          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
+        </div>
+      </a>
       {{#if activeUsername}}
         <a href='/c/{{activeUsername}}' class="item pdg-non">
           <div id="channelsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
@@ -14,13 +20,13 @@
             <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_CHANNEL'}}</span>
           </div>
         </a>
+        <a href='/feed/{{activeUsername}}' class="item pdg-non">
+          <div id="feedsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
+            <i class="rss icon dtubesidebaricon"></i>
+            <span class="dtubesidebartitle">{{ translate 'SIDEBAR_MY_FEED'}}</span>
+          </div>
+        </a>
       {{/if}}
-      <a href='/publish' class="item pdg-non">
-        <div id="uploadsidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
-          <i class="upload icon dtubesidebaricon"></i>
-          <span class="dtubesidebartitle">{{ translate 'SIDEBAR_UPLOAD'}}</span>
-        </div>
-      </a>
       <!-- <a href='/golive' class="item pdg-non">
         <div id="golivesidebarmenu" class="menuitem dtubesidebarmenu dsp-inh pdg-non">
           <i class="podcast icon dtubesidebaricon"></i>
