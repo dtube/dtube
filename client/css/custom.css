@@ -315,6 +315,7 @@ textarea.nightmode,
 .nightmodemodal .actions { background-color: rgb(45,45,45)!important; }
 .nightmodemodal .content { background-color: rgb(0,0,0)!important; }
 .nightmodemodal .actions #cancelTransfer .icon,
+.nightmodemodal .actions #cancelTransact .icon,
 .transferdtcbtn.tipbtn .gift.nightmodetext,
 .ui.tiny.icon.button .icon.nightmodetext { color: rgb(40,40,40)!important;}
 

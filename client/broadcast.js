@@ -516,7 +516,7 @@ broadcast = {
         }
     },
     avalon: {
-        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb) {
+        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb, newWif) {
             if (!permlink) {
                 permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
@@ -524,11 +524,14 @@ broadcast = {
             }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(4) == -1)
-                return cb('missing required permission COMMENT')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(4) == -1)
+                return missingPermission.handler('COMMENT',
+                    (newWif)=>broadcast.avalon.comment(permlink,parentAuthor,parentPermlink,jsonMetadata,tag,isEditing,cb,newWif),
+                    ()=>cb('missing required permission COMMENT'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             let weight = UserSettings.get('voteWeight') * 100
             let tx = {
                 type: 4,
@@ -553,7 +556,7 @@ broadcast = {
             })
             return;
         },
-        promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb) {
+        promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb, newWif) {
             if (!permlink) {
                 permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
@@ -562,11 +565,14 @@ broadcast = {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // can be cross posted but wont be promoted on steem
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(13) == -1)
-                return cb('missing required permission PROMOTED_COMMENT')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(13) == -1)
+                return missingPermission.handler('PROMOTED_COMMENT',
+                    (newWif)=>broadcast.avalon.promotedComment(permlink,parentAuthor,parentPermlink,jsonMetadata,tag,burn,cb,newWif),
+                    ()=>cb('missing required permission PROMOTED_COMMENT'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             let weight = UserSettings.get('voteWeight') * 100
             let tx = {
                 type: 13,
@@ -591,16 +597,19 @@ broadcast = {
             })
             return;
         },
-        vote: function(author, permlink, weight, tag, cb) {
+        vote: function(author, permlink, weight, tag, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross vote possible
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
-                return cb('missing required permission VOTE')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
+                return missingPermission.handler('VOTE',
+                    (newWif)=>broadcast.avalon.vote(author,permlink,weight,tag,cb,newWif),
+                    ()=>cb('missing required permission VOTE'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
             let vt = Math.floor(avalon.votingPower(activeuser) * weight / 10000)
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 5,
@@ -619,15 +628,18 @@ broadcast = {
                 return;
             }
         },
-        follow: function(following, cb) {
+        follow: function(following, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross follow possible
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(7) == -1)
-                return cb('missing required permission FOLLOW')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(7) == -1)
+                return missingPermission.handler('FOLLOW',
+                    (newWif)=>broadcast.avalon.follow(following,cb,newWif),
+                    ()=>cb('missing required permission FOLLOW'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 7,
@@ -642,15 +654,18 @@ broadcast = {
                 return;
             }
         },
-        unfollow: function(following, cb) {
+        unfollow: function(following, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross unfollow possible
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(8) == -1)
-                return cb('missing required permission UNFOLLOW')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(8) == -1)
+                return missingPermission.handler('UNFOLLOW',
+                    (newWif)=>broadcast.avalon.unfollow(following,cb,newWif),
+                    ()=>cb('missing required permission UNFOLLOW'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 8,
@@ -665,15 +680,18 @@ broadcast = {
                 return;
             }
         },
-        transfer: function(receiver, amount, memo, cb) {
+        transfer: function(receiver, amount, memo, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(8) == -1)
-                return cb('missing required permission UNFOLLOW')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(3) == -1)
+                return missingPermission.handler('TRANSFER',
+                    (newWif)=>broadcast.avalon.transfer(receiver,amount,memo,cb,newWif),
+                    ()=>cb('missing required permission TRANSFER'))
             let sender = activeuser.username
             if (!sender) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 3,
@@ -690,15 +708,18 @@ broadcast = {
                 return;
             }
         },
-        editProfile: function(json, cb) {
+        editProfile: function(json, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only - steemitwallet.com for steem
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(6) == -1)
-                return cb('missing required permission USER_JSON')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(6) == -1)
+                return missingPermission.handler('USER_JSON',
+                    (newWif)=>broadcast.avalon.editProfile(json,cb,newWif),
+                    ()=>cb('missing required permission USER_JSON'))
             let creator = activeuser.username
             if (!creator) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 6,
@@ -713,15 +734,18 @@ broadcast = {
                 return;
             }
         },
-        newAccount: function(username, pub, cb) {
+        newAccount: function(username, pub, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(0) == -1)
-                return cb('missing required permission NEW_ACCOUNT')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(0) == -1)
+                return missingPermission.handler('NEW_ACCOUNT',
+                    (newWif)=>broadcast.avalon.newAccount(username,pub,cb,newWif),
+                    ()=>cb('missing required permission NEW_ACCOUNT'))
             let creator = activeuser.username
             if (!creator) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 0,
@@ -737,15 +761,18 @@ broadcast = {
                 return;
             }
         },
-        newKey: function(id, pub, types, cb) {
+        newKey: function(id, pub, types, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(10) == -1)
-                return cb('missing required permission NEW_KEY')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(10) == -1)
+                return missingPermission.handler('NEW_KEY',
+                    (newWif)=>broadcast.avalon.newKey(id,pub,types,cb,newWif),
+                    ()=>cb('missing required permission NEW_KEY'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 10,
@@ -762,15 +789,18 @@ broadcast = {
                 return;
             }
         },
-        removeKey: function(id, cb) {
+        removeKey: function(id, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(11) == -1)
-                return cb('missing required permission REMOVE_KEY')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(11) == -1)
+                return missingPermission.handler('REMOVE_KEY',
+                    (newWif)=>broadcast.avalon.removeKey(id,cb,newWif),
+                    ()=>cb('missing required permission REMOVE_KEY'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 11,
@@ -785,14 +815,17 @@ broadcast = {
                 return;
             }
         },
-        changePassword: (pub, cb) => {
+        changePassword: (pub, cb, newWif) => {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(12) == -1)
-                return cb('missing required permission CHANGE_PASSWORD')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(12) == -1)
+                return missingPermission.handler('CHANGE_PASSWORD',
+                    (newWif)=>broadcast.avalon.changePassword(pub,cb,newWif),
+                    ()=>cb('missing required permission CHANGE_PASSWORD'))
             let voter = activeuser.username
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (voter && wif) {
                 let tx = {
                     type: 12,
@@ -805,15 +838,18 @@ broadcast = {
                 return
             }
         },
-        voteLeader: function(target, cb) {
+        voteLeader: function(target, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(1) == -1)
-                return cb('missing required permission APPROVE_NODE_OWNER')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(1) == -1)
+                return missingPermission.handler('APPROVE_NODE_OWNER',
+                    (newWif)=>broadcast.avalon.voteLeader(target,cb,newWif),
+                    ()=>cb('missing required permission APPROVE_NODE_OWNER'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 1,
@@ -828,15 +864,18 @@ broadcast = {
                 return;
             }
         },
-        unvoteLeader: function(target, cb) {
+        unvoteLeader: function(target, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(2) == -1)
-                return cb('missing required permission DISAPPROVE_NODE_OWNER')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(2) == -1)
+                return missingPermission.handler('DISAPPROVE_NODE_OWNER',
+                    (newWif)=>broadcast.avalon.unvoteLeader(target,cb,newWif),
+                    ()=>cb('missing required permission DISAPPROVE_NODE_OWNER'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 2,
@@ -851,14 +890,17 @@ broadcast = {
                 return;
             }
         },
-        claimReward: function(author, link, cb) {
+        claimReward: function(author, link, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(17) == -1)
-                return cb('missing required permission CLAIM_REWARD')
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(17) == -1)
+            return missingPermission.handler('CLAIM_REWARD',
+                    (newWif)=>broadcast.avalon.claimReward(author,link,cb,newWif),
+                    ()=>cb('missing required permission CLAIM_REWARD'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
+            if (newWif) wif = newWif
             if (wif) {
                 let tx = {
                     type: 17,
@@ -1046,6 +1088,25 @@ broadcast = {
             let decoded = hive.memo.decode(wif, memo).substr(1)
             cb(null, decoded)
         }
+    }
+}
+
+missingPermission = {
+    handler: (permission,retry,cancel) => {
+        Session.set('requiredPermission',permission)
+        missingPermission.retry = (newWif) => {
+            if (!newWif)
+                return toastr.error(translate('MISSING_PERMISSIONS_PROCEED_NOKEY'),translate('ERROR_TITLE'))
+            retry(newWif)
+            $('#retryKey').val('')
+            $('.nopermission').hide()
+        }
+        missingPermission.cancel = () => {
+            cancel()
+            $('#retryKey').val('')
+            $('.nopermission').hide()
+        }
+        return $('.nopermission').show()
     }
 }
 
