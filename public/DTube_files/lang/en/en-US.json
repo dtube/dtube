@@ -73,6 +73,7 @@
     "ELECTION_VOTE": "Vote",
     "ERROR_UNKNOWN": "Unknown error",
     "ERROR_TITLE": "Error",
+    "ERROR_MISSING_PERMISSION": "Missing required permission %1",
     "ERROR_PAGE_NOT_FOUND": "Page Not Found",
     "GLOBAL_REPLY": "Reply",
     "GLOBAL_REPLY_TO": "Reply to",

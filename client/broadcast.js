@@ -523,17 +523,19 @@ broadcast = {
                     permlink = String(jsonMetadata.videoId)
             }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
-                // cross posting possible
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(4) == -1)
+                return cb('missing required permission COMMENT')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
-            var weight = UserSettings.get('voteWeight') * 100
-            var tx = {
+            let wif = activeuser.privatekey
+            let weight = UserSettings.get('voteWeight') * 100
+            let tx = {
                 type: 4,
                 data: {
                     link: permlink,
                     json: jsonMetadata,
-                    vt: Math.floor(avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) * weight / 10000)
+                    vt: Math.floor(avalon.votingPower(activeuser) * weight / 10000)
                 }
             }
             if (isEditing) tx.data.vt = 1 // Spend only 1 VP for editing existing content
@@ -559,17 +561,20 @@ broadcast = {
             }
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // can be cross posted but wont be promoted on steem
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(13) == -1)
+                return cb('missing required permission PROMOTED_COMMENT')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
-            var weight = UserSettings.get('voteWeight') * 100
-            var tx = {
+            let wif = activeuser.privatekey
+            let weight = UserSettings.get('voteWeight') * 100
+            let tx = {
                 type: 13,
                 data: {
                     link: permlink,
                     json: jsonMetadata,
                     burn: burn,
-                    vt: Math.floor(avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) * weight / 10000)
+                    vt: Math.floor(avalon.votingPower(activeuser) * weight / 10000)
                 }
             }
             if (tag) tx.data.tag = tag
@@ -589,12 +594,15 @@ broadcast = {
         vote: function(author, permlink, weight, tag, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross vote possible
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
+                return cb('missing required permission VOTE')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
-            var vt = Math.floor(avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) * weight / 10000)
+            let wif = activeuser.privatekey
+            let vt = Math.floor(avalon.votingPower(activeuser) * weight / 10000)
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 5,
                     data: {
                         author: author,
@@ -614,11 +622,14 @@ broadcast = {
         follow: function(following, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross follow possible
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(7) == -1)
+                return cb('missing required permission FOLLOW')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 7,
                     data: {
                         target: following
@@ -634,11 +645,14 @@ broadcast = {
         unfollow: function(following, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross unfollow possible
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(8) == -1)
+                return cb('missing required permission UNFOLLOW')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 8,
                     data: {
                         target: following
@@ -654,11 +668,14 @@ broadcast = {
         transfer: function(receiver, amount, memo, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var sender = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(8) == -1)
+                return cb('missing required permission UNFOLLOW')
+            let sender = activeuser.username
             if (!sender) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 3,
                     data: {
                         receiver: receiver,
@@ -676,11 +693,14 @@ broadcast = {
         editProfile: function(json, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only - steemitwallet.com for steem
-            var creator = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(6) == -1)
+                return cb('missing required permission USER_JSON')
+            let creator = activeuser.username
             if (!creator) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 6,
                     data: {
                         json: json
@@ -696,11 +716,14 @@ broadcast = {
         newAccount: function(username, pub, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var creator = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(0) == -1)
+                return cb('missing required permission NEW_ACCOUNT')
+            let creator = activeuser.username
             if (!creator) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 0,
                     data: {
                         name: username,
@@ -717,11 +740,14 @@ broadcast = {
         newKey: function(id, pub, types, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(10) == -1)
+                return cb('missing required permission NEW_KEY')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 10,
                     data: {
                         id: id,
@@ -739,11 +765,14 @@ broadcast = {
         removeKey: function(id, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(11) == -1)
+                return cb('missing required permission REMOVE_KEY')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 11,
                     data: {
                         id: id
@@ -759,8 +788,11 @@ broadcast = {
         changePassword: (pub, cb) => {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            let voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
-            let wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(12) == -1)
+                return cb('missing required permission CHANGE_PASSWORD')
+            let voter = activeuser.username
+            let wif = activeuser.privatekey
             if (voter && wif) {
                 let tx = {
                     type: 12,
@@ -776,11 +808,14 @@ broadcast = {
         voteLeader: function(target, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(1) == -1)
+                return cb('missing required permission APPROVE_NODE_OWNER')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 1,
                     data: {
                         target: target
@@ -796,11 +831,14 @@ broadcast = {
         unvoteLeader: function(target, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // avalon only
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(2) == -1)
+                return cb('missing required permission DISAPPROVE_NODE_OWNER')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 2,
                     data: {
                         target: target
@@ -815,11 +853,14 @@ broadcast = {
         },
         claimReward: function(author, link, cb) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
-            var voter = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).username
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(17) == -1)
+                return cb('missing required permission CLAIM_REWARD')
+            let voter = activeuser.username
             if (!voter) return;
-            var wif = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).privatekey
+            let wif = activeuser.privatekey
             if (wif) {
-                var tx = {
+                let tx = {
                     type: 17,
                     data: {
                         author: author,

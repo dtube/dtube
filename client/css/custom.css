@@ -294,8 +294,8 @@ textarea {
 .ui.form.nightmode .segments .segment .field a,
 .ui.form.nightmode .segments .segment .field i,
 .votenetwork .content .header.nightmodetext,
-.ui.slider.checkbox input:checked ~ .box,
-.ui.slider.checkbox input:checked ~ label { color: #ffffff!important; }
+.ui.nightsegment .ui.slider.checkbox input:checked ~ .box,
+.ui.nightsegment .ui.slider.checkbox input:checked ~ label { color: #ffffff!important; }
 
 input.nightmode,
 textarea.nightmode,

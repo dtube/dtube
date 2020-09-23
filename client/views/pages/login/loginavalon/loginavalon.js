@@ -81,7 +81,7 @@ Template.loginavalon.helpers({
         let isSecurityKey = false
         var allowedTxTypes = []
         if (chainuser.pub == user.publickey) {
-          allowedTxTypes = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15]
+          allowedTxTypes = Array.from(Array(19).keys())
           isSecurityKey = true
         }
         for (let i = 0; i < chainuser.keys.length; i++)
@@ -92,6 +92,7 @@ Template.loginavalon.helpers({
           // correct key for the user, loggin in
           user.username = username
           user._id = user.network+'/'+user.username
+          user.allowedTxTypes = allowedTxTypes
           if (event.target.rememberme.checked === false)
             user.temporary = true
 
