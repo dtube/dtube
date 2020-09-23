@@ -286,7 +286,8 @@ textarea {
   color: rgb(240,240,240)!important;
 }
 
-.nightmodeaccordion { background-color: rgb(30,30,30)!important; }
+.nightmodeaccordion,
+.nightmodeaccordion .newcustomkey .checkbox { background-color: rgb(30,30,30)!important; }
 .nightmodeaccordion .title { color: #ffffff!important; }
 
 .ui.form.nightmode .segments .segment { background-color: #000000; }
