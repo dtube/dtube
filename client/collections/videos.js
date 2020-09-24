@@ -885,48 +885,6 @@ Videos.commentsTree = function(content, rootAuthor, rootPermlink, network) {
     return comments
 }
 
-Videos.getContent = function(author, permlink, loadComments, loadUsers) {
-    steem.api.getContent(author, permlink, function(err, result) {
-        var video = Videos.parseFromChain(result, false, 'steem')
-        if (!video) return;
-        video.source = 'chainDirect'
-        video._id += 'd'
-        Videos.upsert({ _id: video._id }, video)
-        if (!loadComments) return
-        Template.video.loadComments(author, permlink, false)
-    });
-}
-
-Videos.updateContent = function(author, permlink, loadComments, loadUsers) {
-    steem.api.getContent(author, permlink, function(err, result) {
-        var video = Videos.parseFromChain(result)
-        if (!video) return;
-        Videos.update({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' }, {
-            $set: {
-                pending_payout_value: video.pending_payout_value,
-                active_votes: video.active_votes
-            }
-        })
-    });
-}
-
-Videos.loadComments = function(author, permlink, loadUsers) {
-    Session.set('loadingComments', true)
-    steem.api.getContentReplies(author, permlink, function(err, result) {
-        var oldVideo = Videos.findOne({ 'info.author': author, 'info.permlink': permlink, source: 'chainDirect' })
-        oldVideo.comments = result
-        Videos.upsert({ _id: oldVideo._id }, oldVideo)
-        Session.set('loadingComments', false)
-
-        if (!loadUsers) return
-        var usernames = [oldVideo.info.author]
-        for (var i = 0; i < oldVideo.comments.length; i++) {
-            usernames.push(oldVideo.comments[i].author)
-        }
-        ChainUsers.fetchNames(usernames)
-    })
-}
-
 Videos.convertToNewFormat = function(oldJson, video) {
     var newJson = {
         app: oldJson.app,

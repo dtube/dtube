@@ -202,7 +202,7 @@ Template.video.events({
         broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-            Videos.updateContent(FlowRouter.getParam("author"), FlowRouter.getParam("permlink"))
+            Template.video.loadState()
         });
     },
     'click #promotereply': function (event) {
