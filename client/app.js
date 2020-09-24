@@ -39,6 +39,7 @@ Meteor.startup(function(){
   hive.utils.autoDetectApiVersion().then((r) => {
     hiveoptions.rebranded_api = r.rebranded_api
     hive.api.setOptions(hiveoptions)
+    hive.broadcast.updateOperations()
   })
 
   Session.set('steemAPI', steem.api.options.url)
