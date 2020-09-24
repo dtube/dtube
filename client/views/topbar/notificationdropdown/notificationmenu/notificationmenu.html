@@ -2,7 +2,7 @@
     <div class='item' style='padding: 0px !important;'></div>
     <h4 style="margin-top: 0px;padding-left: 10px;margin-bottom: 10px;padding-top: 10px;">Notifications</h4>
     {{#if shouldParticipateInGovernance}}
-        <div class="ui card brd-rad-non card-notification">
+        <div class="ui card brd-rad-non card-notification {{#if isNightMode}}nightmode{{/if}}">
             <div class="content" style="padding: 0px;">
                 <a class='notification-link' href="/election">
                     <div class="dsp-flx" style="padding:10px;">
