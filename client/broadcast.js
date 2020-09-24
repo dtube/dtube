@@ -987,6 +987,13 @@ broadcast = {
                     ]
                 }]
             ];
+
+            if (hive.config.rebranded_api) {
+                operations[1][1].percent_hbd = percent_steem_dollars
+                delete operations[1][1].percent_steem_dollars
+                operations[1][1].max_accepted_payout = '1000000.000 HBD'
+            }
+
             operations[0][1].parent_author = parentAuthor
             operations[0][1].parent_permlink = parentPermlink
             broadcast.hive.send(operations, function(err, res) {

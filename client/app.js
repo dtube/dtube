@@ -1,6 +1,10 @@
 import './buffer';
-import steem from 'steem';
-import hive from '@hiveio/hive-js'
+import steem from 'steem'
+//import hive from '@hiveio/hive-js'
+
+// Meteor does not support the module hot reload code used in updateOperations() for
+// HF24 transition, so a minified version will have to be used until post HF24. 
+// lib/hive.js is automatically imported by Meteor, so no manual import is needed here.
 
 console.log('Starting DTube APP')
 
@@ -19,14 +23,25 @@ Meteor.startup(function(){
   else
     steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
 
+  // configure hive options
+  let hiveoptions = {
+    useAppbaseApi: true,
+    rebranded_api: true,
+    alternative_api_endpoints: Meteor.settings.public.remote.HiveAPINodes
+  }
   if (!localStorage.getItem('hiveAPI')
   || Meteor.settings.public.remote.HiveAPINodes.indexOf(localStorage.getItem('hiveAPI')) === -1)
-    hive.api.setOptions({ url: Meteor.settings.public.remote.HiveAPINodes[0], useAppbaseApi: true })
+    hiveoptions.url = Meteor.settings.public.remote.HiveAPINodes[0]
   else
-    hive.api.setOptions({ url: localStorage.getItem('hiveAPI'), useAppbaseApi: true })
+    hiveoptions.url = localStorage.getItem('hiveAPI')
+
+  hive.utils.autoDetectApiVersion().then((r) => {
+    hiveoptions.rebranded_api = r.rebranded_api
+    hive.api.setOptions(hiveoptions)
+  })
 
   Session.set('steemAPI', steem.api.options.url)
-  Session.set('hiveAPI',hive.api.options.url)
+  Session.set('hiveAPI',hiveoptions.url)
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
