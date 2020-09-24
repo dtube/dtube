@@ -490,18 +490,8 @@ Template.video.handleVideo = function (result, id, isRef) {
     console.log('Loaded ' + id, video)
 
     // non dtube videos can only load from State
-    if (!video) {
-        return;
-        video = result.content[FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink")]
-        video.info = {
-            author: FlowRouter.getParam("author"),
-            permlink: FlowRouter.getParam("permlink"),
-            title: video.title
-        }
-        video.content = {
-            description: video.body
-        }
-    }
+    if (!video) return
+    
     var description = ''
     if (video.json) description = video.json.description
     else description = video.description

@@ -14,7 +14,6 @@ Meteor.settings.public = {
     "APINodes": [
       "https://api.steemit.com",
       "https://api.justyy.com",
-      "https://steemd.privex.io",
       "https://steem.61bts.com"
     ],
     "AvalonAPINodes": [

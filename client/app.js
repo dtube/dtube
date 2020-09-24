@@ -5,6 +5,7 @@ import steem from 'steem'
 // Meteor does not support the module hot reload code used in updateOperations() for
 // HF24 transition, so a minified version will have to be used until post HF24. 
 // lib/hive.js is automatically imported by Meteor, so no manual import is needed here.
+// Minified code from https://cdn.jsdelivr.net/npm/@hiveio/hive-js@0.8.4/dist/hive.min.js
 
 console.log('Starting DTube APP')
 
