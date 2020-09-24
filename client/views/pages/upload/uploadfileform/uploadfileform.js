@@ -28,9 +28,3 @@ Template.uploadfileform.helpers({
     return Users.findOne({ username: Session.get('activeUsername') })
   }
 })
-
-Template.uploadfileformsubmit.events({
-  'submit .form': function (event) {
-    event.preventDefault()
-  }
-})

@@ -31,17 +31,22 @@
               <form class='searchForm wid-ful'>
                 <input id='dsearch' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
               </form>
-              <i class="search icon"></i>
+              <i class="search link icon" id="searchIcon"></i>
             </div>
-            <div class="results">
-              {{#each searchSuggestions}}
-              <a class="result">
-                <div class="content">
-                  <div class="title">{{this}}</div>
-                </div>
-              </a>
-              {{/each}}
-            </div>
+            {{#if searchSuggestions}}
+              <div class="results" style="margin-left: 1em;">
+                {{#each searchSuggestions}}
+                <a class="result" style="padding: 0.45714286em 0.6285714em;">
+                  <div class="content">
+                    <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">
+                    <div class="title" style="padding-top: 7px;">
+                      {{this}}
+                    </div>
+                  </div>
+                </a>
+                {{/each}}
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>
@@ -49,18 +54,13 @@
         <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
-        <!-- <a href="https://signup.d.tube/sale.html" target="_blank"
-        class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_SALE_INFO'}}">
-            <i class="dollar sign icon" style="font-size: 14px;margin-right:0; color: green"></i>
-            <strong>{{saleProgress}}</strong>%
-        </a> -->
         {{#if isLoggedOn}}
           {{#if mainUser.balance}}
-            <div class="ui item" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
                 <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
                 <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
             </div>
-            <div class="ui item" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
                 <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
                 <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VP
             </div>
@@ -72,16 +72,11 @@
           <a href='/publish' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
             <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
           </a>
+          {{> notificationdropdown}}
           <!--<a href='/golive' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_GO_LIVE"}}'>-->
             <!--<i class="podcast icon" style='font-size:1.3em; margin:0;'></i>-->
           <!--</a>-->
-        {{else}}
-        <a class="ui item" href='/login' title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
-          <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
-        </a>
         {{/if}}
-        {{> notificationdropdown}}
-        {{> settingsdropdown}}
         {{#if isLoggedOn}}
           {{> accountsdropdown}}
         {{else}}

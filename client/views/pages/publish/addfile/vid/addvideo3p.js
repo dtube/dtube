@@ -1,5 +1,6 @@
 var parse = require('url-parse')
 
+Template.addvideoform3p.rendered = () => Template.settingsdropdown.nightMode()
 Template.addvideoform3p.helpers({
   providers: function() {
     return Providers.all3p()

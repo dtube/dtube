@@ -44,11 +44,27 @@ Search = {
               'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(function(res) {
-            // console.log(res)
             res.results = []
             for (let i = 0; i < res.hits.hits.length; i++) {
                 res.hits.hits[i]._source._id = res.hits.hits[i]._id
                 res.results.push(Videos.parseFromChain(res.hits.hits[i]._source))
+            }
+            cb(null, res)
+        });
+    },
+    users: (query, cb) => {
+        var url = Search.api+'/avalon.accounts/_search?q=name:*'+query+'*&size=5&sort=balance:desc'
+        fetch(url, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(function(res) {
+            res.results = []
+            for (let i = 0; i < res.hits.hits.length; i++) {
+                res.hits.hits[i]._source._id = res.hits.hits[i]._id
+                res.results.push(res.hits.hits[i]._source)
             }
             cb(null, res)
         });

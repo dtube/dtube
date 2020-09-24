@@ -1,5 +1,6 @@
 Template.loginavalon.rendered = function() {
     Session.set("tmpKey", avalon.keypair())
+    Template.settingsdropdown.nightMode()
 }
 
 Template.loginavalon.helpers({
@@ -45,12 +46,6 @@ Template.loginavalon.helpers({
   }
   
   Template.loginavalon.events({
-    'click #loginbuttonsc2': function(event) {
-      event.preventDefault()
-      var url = sc2.getLoginURL()
-      console.log(url)
-      window.location.href = url
-    },
     'submit .form': function(event) {
       event.preventDefault()
       var currentUser = Session.get('activeUsername')
@@ -86,7 +81,7 @@ Template.loginavalon.helpers({
         let isSecurityKey = false
         var allowedTxTypes = []
         if (chainuser.pub == user.publickey) {
-          allowedTxTypes = [0,1,2,3,4,5,6,7,8,10,11,12,13,14,15]
+          allowedTxTypes = Array.from(Array(19).keys())
           isSecurityKey = true
         }
         for (let i = 0; i < chainuser.keys.length; i++)
@@ -97,11 +92,10 @@ Template.loginavalon.helpers({
           // correct key for the user, loggin in
           user.username = username
           user._id = user.network+'/'+user.username
-          console.log(event.target.rememberme.checked)
+          user.allowedTxTypes = allowedTxTypes
           if (event.target.rememberme.checked === false)
             user.temporary = true
 
-          console.log(user)
           Users.upsert({_id: user._id}, user, function() {
             Template.loginavalon.success(user.username,false,isSecurityKey)
           })

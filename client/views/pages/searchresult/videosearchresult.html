@@ -46,11 +46,13 @@
       </div>
       {{/if}}
       </div>
-      {{#each allTags}}
+      {{#each tags}}
         {{#unless equals t 'dtube'}}
           <div class="ui small label">
             {{convertTag t}}
-            <div class="detail">{{displayPayout total 0}}</div>
+            {{#unless equals total 0}}
+              <div class="detail">{{displayPayout total 0}}</div>
+            {{/unless}}
           </div>
         {{/unless}}
       {{/each}}

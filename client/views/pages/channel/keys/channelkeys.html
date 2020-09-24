@@ -35,13 +35,13 @@
             </div>
             {{#if keys}}
                 {{#each keys}}
-                    <div class="ui segment">
+                    <div class="ui segment {{#if isNightMode}}nightmode{{/if}}">
                         <h4>
                             Custom Key: {{id}}
                         </h4>
                         <div class="ui left icon input">
-                            <input type="text" value="{{pub}}" readonly>
-                            <i class="lock icon"></i>
+                            <input type="text" value="{{pub}}" class="{{#if isNightMode}}nightmode{{/if}}" readonly>
+                            <i class="lock icon {{#if isNightMode}}nightmodetext{{/if}}"></i>
                         </div>
                         {{#if equals pub loggedInPub}}
                             <i class="icon check green"></i>

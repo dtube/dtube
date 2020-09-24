@@ -7,14 +7,14 @@ Template.videoslider.isOnMobile = function () {
 }
 
 Template.videoslider.rendered = function () {
-  var random = Template.upload.createPermlink(10)
+  var random = Template.publish.randomPermlink(10)
   this.firstNode.id = random
-  Template.videoslider.createSlider(random)
+  Template.videoslider.createSlider(random,this.data.length)
   $(this.firstNode).find('.dropdown').dropdown({});
   Template.settingsdropdown.nightMode();
 }
 
-Template.videoslider.createSlider = function (elemId) {
+Template.videoslider.createSlider = function (elemId,itemCount) {
   if (Template.videoslider.isOnMobile() == true) {
     $("#" + elemId).owlCarousel({
       loop: true,
@@ -30,28 +30,32 @@ Template.videoslider.createSlider = function (elemId) {
         299: {
           items: 2,
           nav: false,
-          slideBy: 2
+          slideBy: 2,
+          loop: itemCount > 2
         },
         499: {
           items: 3,
           nav: false,
-          slideBy: 2
+          slideBy: 2,
+          loop: itemCount > 3
         },
         699: {
          items: 3,
          slideBy: 2,
-        nav: true
+        nav: true,
+        loop: itemCount > 3
        },
        854: {
          items: 4,
-         slideBy: 3,
-         nav: true
+         slideBy: 2,
+         nav: true,
+         loop: itemCount > 4
        },
        1060: {
          items: 5,
-         slideBy: 4,
+         slideBy: 2,
          nav: true,
-         loop: true
+         loop: itemCount > 5
        }
       }
     });
@@ -72,40 +76,44 @@ Template.videoslider.createSlider = function (elemId) {
          211: {
            items: 1,
            slideBy: 1,
-           nav: false
+           nav: false,
+           loop: itemCount > 1
          },
         399: {
            items: 2,
            slideBy: 2,
-          nav: false
+          nav: false,
+          loop: itemCount > 2
          },
          642: {
           items: 3,
           slideBy: 2,
-         nav: true
+         nav: true,
+         loop: itemCount > 3
         },
         854: {
           items: 4,
-          slideBy: 3,
-          nav: true
+          slideBy: 2,
+          nav: true,
+          loop: itemCount > 4
         },
         1060: {
           items: 5,
-          slideBy: 4,
+          slideBy: 2,
           nav: true,
-          loop: true
+          loop: itemCount > 5
         },
         1272: {
           items: 6,
-          slideBy: 5,
+          slideBy: 3,
           nav: true,
-          loop: true
+          loop: itemCount > 6
         },
         1484: {
           items: 7,
-          slideBy: 5,
+          slideBy: 3,
           nav: true,
-          loop: true
+          loop: itemCount > 7
         }
       }
     });

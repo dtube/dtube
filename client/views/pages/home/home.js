@@ -1,21 +1,22 @@
 var moment = require('moment')
+var sliderMaxSize = 12
 
 Template.home.helpers({
   watchAgain: function () {
     if (!Session.get('watchAgainLoaded')) return []
-    return WatchAgain.find({}, {limit: 25}).fetch()
+    return WatchAgain.find({}, {limit: sliderMaxSize}).fetch()
   },
   newVideos: function () {
-    return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   },
   hotVideos: function () {
-    return Videos.find({ source: 'chainByHot', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByHot', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   },
   trendingVideos: function () {
-    return Videos.find({ source: 'chainByTrending', "json.hide": {$ne: 1} }, {limit: 25}).fetch()
+    return Videos.find({ source: 'chainByTrending', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   },
   feedVideos: function () {
-    return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }).fetch()
+    return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   }
 })
 

@@ -15,4 +15,12 @@ Template.notificationmenu.helpers({
   mainUser: function() {
     return Users.findOne({username: Session.get('activeUsername')})
   },
+  shouldParticipateInGovernance: function() {
+    // if user balance is >= 100 DTC and user is not voting for leaders
+    // then show notification about it
+    var user = Users.findOne({username: Session.get('activeUsername')})
+    if (user.balance >= 10000 && (!user.approves || user.approves.length == 0))
+      return true
+    return false
+  }
 })

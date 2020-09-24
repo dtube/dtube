@@ -1,7 +1,7 @@
 
 <template name="senddtcmodal">
     <!-- Send DTC Modal -->
-    <div class="ui small modal transferdtc" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
+    <div class="ui small modal transferdtc {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
         <div class="header" style="border-bottom: 0">
             {{ translate 'TRANSFER_TO' recipient}}
             <img class="ui avatar image" src="{{userPic recipient}}">            
@@ -38,7 +38,7 @@
             </div>
             <div id="cancelTransfer" class="ui right labeled icon button grey dtube pos-rel">
                 <div style="display:inline-block;padding: 0.8em 1em;">
-                    Cancel
+                    {{ translate 'BUTTON_CANCEL' }}
                 </div>
                 <i class="icon x" style="background:white;opacity:1;"></i>
             </div>

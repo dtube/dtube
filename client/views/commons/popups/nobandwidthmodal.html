@@ -1,0 +1,25 @@
+
+<template name="nobandwidthmodal">
+    <!-- Not Enough Bandwidth Modal -->
+    <div class="ui small modal nobandwidth {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
+        <div class="header" style="border-bottom: 0">
+            {{ translate 'NO_BANDWIDTH_TITLE' }}
+        </div>
+        <div class="content">
+            {{ translate 'NO_BANDWIDTH_1' }} <strong>{{missingBytes}} bytes</strong> {{ translate 'NO_BANDWIDTH_2' }}
+            {{#unless equals userBalance 0}}
+                {{ translate 'NO_BANDWIDTH_3' (displayMoney userBalance 0 'DTC') }} <span id='nobandwidthtime' style="font-weight: 600">{{timeNeeded}}</span>
+                <br /><br />
+            {{/unless}}
+            {{ translate 'NO_BANDWIDTH_4' }}
+        </div>
+        <div class="actions">
+            <div id="closePopup" class="ui right labeled icon button grey dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Close
+                </div>
+                <i class="icon x" style="background:white;opacity:1;"></i>
+            </div>
+        </div>
+    </div>
+</template>

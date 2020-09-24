@@ -2,126 +2,14 @@
   <div class="ui item top right floated dropdown dropdownsettings needsclick" style="float: right;">
     <i class="settings icon needsclick" style='font-size:1.3em; margin:0;'></i>
     <div id="menu" class="menu">
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_STEEMAPI'}}</span>
-        <div class="left menu">
-          {{#each SteemAPIs}}
-            {{#if equals this CurrentAPI}}
-              <div class="item steemApi"><strong>{{this}}</strong></div>
-            {{else}}
-              <div class="item steemApi">{{this}}</div>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_AVALONAPI' }}</span>
-        <div class="left menu">
-          {{#each AvalonAPIs}}
-            {{#if equals this CurrentAvalonAPI}}
-              <div class="item avalonApi"><strong>{{this}}</strong></div>
-            {{else}}
-              <div class="item avalonApi">{{this}}</div>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_HIVEAPI' }}</span>
-        <div class="left menu">
-          {{#each HiveAPIs}}
-            {{#if equals this CurrentHiveAPI}}
-              <div class="item hiveApi"><strong>{{this}}</strong></div>
-            {{else}}
-              <div class="item hiveApi">{{this}}</div>
-            {{/if}}
-          {{/each}}
-        </div>
-      </div>
-      <div class="item">
-        <i class="left dropdown icon"></i>
-        <span class="text">{{ translate 'SETTINGS_DROPDOWN_NSFW_VIDEOS'}}</span>
-        <div class="left menu">
-          {{#if equals 'Show' nsfwSetting}}
-            <div class="item nsfwSetting nsfwShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
-          {{else}}
-            <div class="item nsfwSetting nsfwShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
-          {{/if}}
-          {{#if equals 'Blurred' nsfwSetting}}
-            <div class="item nsfwSetting nsfwBlur"><strong>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</strong></div>
-          {{else}}
-            <div class="item nsfwSetting nsfwBlur">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</div>
-          {{/if}}
-          {{#if equals 'Fully Hidden' nsfwSetting}}
-            <div class="item nsfwSetting nsfwHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
-          {{else}}
-            <div class="item nsfwSetting nsfwHide">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
-          {{/if}}
-        </div>
-      </div>
-      <div class="item">
-          <i class="left dropdown icon"></i>
-          <span class="text">{{ translate 'SETTINGS_DROPDOWN_CENSOR_VIDEOS'}}</span>
-          <div class="left menu">
-            {{#if equals 'Show' censorSetting}}
-              <div class="item censorSetting censorShow"><strong>{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</strong></div>
-            {{else}}
-              <div class="item censorSetting censorShow">{{ translate 'SETTINGS_DROPDOWN_SHOW'}}</div>
-            {{/if}}
-            {{#if equals 'Blurred' censorSetting}}
-              <div class="item censorSetting censorBlur"><strong>{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</strong></div>
-            {{else}}
-              <div class="item censorSetting censorBlur">{{ translate 'SETTINGS_DROPDOWN_BLURRED'}}</div>
-            {{/if}}
-            {{#if equals 'Fully Hidden' censorSetting}}
-              <div class="item censorSetting censorHide"><strong>{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</strong></div>
-            {{else}}
-              <div class="item censorSetting censorHide">{{ translate 'SETTINGS_DROPDOWN_FULLY_HIDDEN'}}</div>
-            {{/if}}
-          </div>
-        </div>
       <div class="item languages">
         <i class="language icon"></i>
         <span class="text">{{ translate 'SETTINGS_DROPDOWN_LANGUAGE'}}</span>
-        <!-- <div class="left menu"  style="right: 105%; min-width: 0px;">
-          {{#each arrayify languages}}
-            <div class="item langSetting" onclick="loadJsonTranslate('{{key}}')">{{value.name}}</div>
-          {{/each}}
-        </div> -->
       </div>
       <div class="item nightMode">
           <i class="adjust icon"></i>
           <span class="text">{{ translate 'SETTINGS_NIGHTMODE'}}</span>
       </div>
-      {{#unless isOnMobile}}
-        <!-- <div class="ui divider"></div>
-        <div class="header">{{ translate 'SETTINGS_DROPDOWN_IPFS_SETTINGS'}}</div>
-        <div class="item">
-          <i class="left dropdown icon"></i>
-          <span class="text">{{ translate 'SETTINGS_DROPDOWN_LOCAL_IPFS'}}</span>
-          <div class="left menu" style="min-width: 0px;">
-            <div class="header">
-              {{#if localIpfs}}
-                <span style='color: green'>{{ translate 'SETTINGS_DROPDOWN_RUNNING_IPFS'}}</span>
-              {{else}}
-                <span style='color: red'>{{ translate 'SETTINGS_DROPDOWN_NOT_RUNNING_IPFS'}}</span>
-              {{/if}}
-            </div>
-            {{#if localIpfs}}
-              {{#with localIpfs}}
-                <div class="ui divider"></div>
-                <div class="header">{{ translate 'SETTINGS_DROPDOWN_PINNED'}}: {{humanFilesize RepoSize 1}}</div>
-                <div class="header">{{ translate 'SETTINGS_DROPDOWN_MAX'}}: {{humanFilesize StorageMax 1}}</div>
-              {{/with}}
-              <div class="item repogc">{{ translate 'SETTINGS_DROPDOWN_EMPTY_GARBAGE'}}</div>
-              <div class="item bootstrap">Bootstrap</div>
-            {{/if}}
-          </div>
-        </div> -->
-      {{/unless}}
     </div>
   </div>
 </template>

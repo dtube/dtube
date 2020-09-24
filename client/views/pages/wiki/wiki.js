@@ -5,6 +5,7 @@ Template.wiki.load = function () {
         page = FlowRouter.getParam("folder")+'/'+FlowRouter.getParam("page")
 
     if (typeof showdown === 'undefined')
+    {
         jQuery.ajax({
             url: 'https://cdn.rawgit.com/showdownjs/showdown/1.9.1/dist/showdown.min.js',
             dataType: 'script',
@@ -13,6 +14,7 @@ Template.wiki.load = function () {
             },
             async: true
         });
+    }
     else
         getWikiContent(page)
 }
@@ -66,6 +68,10 @@ function getWikiContent(filePath) {
                 .then(data => data.text())
                 .then(data => {
                     Session.set('wikiContent', data)
+                    setTimeout(() => {
+                        Template.settingsdropdown.nightMode();
+                    }, 100);
+
                 })
         })
 }

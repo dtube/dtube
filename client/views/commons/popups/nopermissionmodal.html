@@ -1,0 +1,32 @@
+<template name="nopermissionmodal">
+    <!-- Not Enough Bandwidth Modal -->
+    <div class="ui small modal nopermission {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top:50%; left:50%; transform: translate(-50%, -50%)">
+        <div class="header" style="border-bottom: 0">
+            {{ translate 'MISSING_PERMISSIONS_TITLE' }}
+        </div>
+        <div class="content">
+            {{ translate 'MISSING_PERMISSIONS_BODY' requiredPermission }}<br><br>
+            <div class="field">
+                <div class="ui left icon input" style="width: 100%;">
+                <i class="key icon"></i>
+                <input id="retryKey" type="password" name="privatekey" placeholder="{{ translate 'LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY'}}">
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div id="cancelTransact" class="ui right labeled icon button grey dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'BUTTON_CANCEL' }}
+                </div>
+                <i class="icon x" style="background:white;opacity:1;"></i>
+            </div>
+            <div id="proceedTransact" class="ui right labeled icon button red dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'BUTTON_PROCEED' }}
+                </div>
+                <i class="icon check red" style="background:white;opacity:1;"></i>
+                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+            </div>
+        </div>
+    </div>
+</template>

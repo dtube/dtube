@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 {{#each leaders}}
-                    <tr class="{{#if lowerThan 11 position}}topleader{{else}}nontopleader{{/if}}">
+                    <tr class="{{#if lowerThan 11 position}}topleader {{#if isNightMode}}nightmodetopleader{{/if}}{{else}}nontopleader {{#if isNightMode}}nightmodeleader{{/if}}{{/if}}">
                         <td>
                             {{#if lowerThan 11 position}}
                                 <strong>{{position}}</strong>
@@ -31,13 +31,13 @@
                                 <img src="{{userPic name 'small'}}" class="ui mini rounded image" style="{{#unless pub_leader}}filter: grayscale(100%);{{/unless}}">
                                 <div class="content">
                                     {{#if pub_leader}}
-                                        <a href="/c/{{name}}" class="leader">{{name}}</a>
+                                        <a href="/c/{{name}}" class="leader {{#if isNightMode}}nightmodetext{{/if}}">{{name}}</a>
                                     {{else}}
-                                        <a href="/c/{{name}}" class="leader disabled"><strike>{{name}}</strike></a>
+                                        <a href="/c/{{name}}" class="leader disabled {{#if isNightMode}}nightmodetext{{/if}}"><strike>{{name}}</strike></a>
                                     {{/if}}
                                     <div class="sub header">
                                         {{#if json.profile.website}}
-                                            <a href="{{json.profile.website}}" target="_blank">
+                                            <a href="{{json.profile.website}}" target="_blank" class="{{#if isNightMode}}nightmodelinks{{/if}}">
                                                 {{json.profile.website}}
                                             </a>
                                         {{/if}}

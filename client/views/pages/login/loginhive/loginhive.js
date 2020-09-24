@@ -1,3 +1,4 @@
+Template.loginhive.rendered = () => Template.settingsdropdown.nightMode()
 Template.loginhive.helpers({
   users: function() {
     return Users.find().fetch()

@@ -2,6 +2,7 @@ import {saveAs} from 'file-saver'
 var QRCode = require('qrcode')
 
 Template.keypair.rendered = function() {
+    Template.settingsdropdown.nightMode()
     Session.set("tmpKey", avalon.keypair())
     $('.qrButton')
     .popup({

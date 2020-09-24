@@ -6,12 +6,12 @@ Template.mobiletopbar.helpers({
     return Session.get('isSearchingMobile')
   },
   isLargeEnoughForLogo: function() {
-    if ($(window).width() > 396)
+    if ($(window).width() > 346)
       return true
     return false
   },
   isLargeEnoughForMiniLogo: function() {
-    if ($(window).width() > 330)
+    if ($(window).width() > 280)
       return true
     return false
   }

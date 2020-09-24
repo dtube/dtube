@@ -1,5 +1,5 @@
 <template name='notification'>
-  <div class="ui card brd-rad-non card-notification {{#if opened}}opened{{/if}}">
+  <div class="ui card brd-rad-non card-notification {{#if opened}}opened{{/if}} {{#if isNightMode}}nightmode{{/if}}">
     <div class="content" style="padding: 0px;">
       {{#unless isOnMobile}}
         <div class="right floated" style="padding:5px;">

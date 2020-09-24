@@ -6,9 +6,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "@hiveio/hive-js": "0.0.1",
     "@trust/webcrypto": "^0.9.0",
-    "bufferutil": "^3.0.5",
+    "bufferutil": "^4.0.1",
     "cheerio": "^1.0.0-rc.2",
     "dtube-autolinker": "1.4.3",
     "file-saver": "^2.0.1",

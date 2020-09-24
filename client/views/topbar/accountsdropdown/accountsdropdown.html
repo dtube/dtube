@@ -1,13 +1,12 @@
 <template name="accountsdropdown">
-    <div class="ui item top inline right floated dropdown dropdownaccounts needsclick" style="float: right;">
+    <a href="/login" class="ui item top inline right floated" style="float: right;">
         <img class="ui avatar image" src="{{topbarAvatarUrl}}" style="height: 35px; width: auto; border-radius: 50%; vertical-align: middle;">
         <div style="margin-left: 5px; vertical-align: middle;">{{topbarUsername}}</div>
-        <i class="dropdown icon"></i>
+        <!-- <i class="dropdown icon"></i>
         <div class="menu">
             {{#if activeUsername}}
             <div class="item inline">
                 <i class="left dropdown icon" style="margin-right: 10px;"></i>
-                <!-- <img class="ui networkLogoAccDropdown avatar image" style="display: inline-block;" src="https://s2.coinmarketcap.com/static/img/coins/32x32/1230.png"> -->
                 <div style="margin-right: 10px;">{{activeUsername}} <div style="font-size: 9px; display: inline-block;">(Avalon)</div></div>
                 <div class="left menu">
                     <div class="ui toggle checkbox dtcSwitch networkSwitch">
@@ -33,7 +32,6 @@
             {{#if activeUsernameHive}}
             <div class="item inline">
                 <i class="left dropdown icon" style="margin-right: 10px;"></i>
-                <!-- <img class="ui networkLogoAccDropdown avatar image" style="display: inline-block;" src="https://s2.coinmarketcap.com/static/img/coins/32x32/1230.png"> -->
                 <div style="margin-right: 10px;">{{activeUsernameHive}} <div style="font-size: 9px; display: inline-block;">(Hive)</div></div>
                 <div class="left menu">
                     <div class="ui toggle checkbox hiveSwitch networkSwitch">
@@ -59,7 +57,6 @@
             {{#if activeUsernameSteem}}
             <div class="item inline">
                 <i class="left dropdown icon" style="margin-right: 10px;"></i>
-                <!-- <img class="ui networkLogoAccDropdown avatar image" style="display: inline-block;" src="https://s2.coinmarketcap.com/static/img/coins/32x32/1230.png"> -->
                 <div style="margin-right: 10px;">{{activeUsernameSteem}} <div style="font-size: 9px; display: inline-block;">(Steem)</div></div>
                 <div class="left menu">
                     <div class="ui toggle checkbox steemSwitch networkSwitch">
@@ -85,6 +82,7 @@
             {{#if incompleteLogin}}
             <a href="/login" class="item">{{ translate 'USERS_ADD_ANOTHER_ACCOUNT' }}</a>
             {{/if}}
-        </div>
-    </div>
+            <a href="/settings" class="item">{{ translate 'SETTINGS' }}</a>
+        </div> -->
+    </a>
 </template>

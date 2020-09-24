@@ -4,7 +4,7 @@
         <div class="ui indicating progress initbar" data-percent="{{getPercent ipfsAddSourceVideo.progress}}">
             <div class="bar" style="width:{{ipfsAddSourceVideo.progress}}">
             </div>
-            <div class="label">
+            <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
             {{ translate 'UPLOAD_PROGRESS_ADDING_SOURCE_TO_IPFS'}}
             {{#if ipfsAddSourceVideo.positionInQueue}}
             {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{ipfsAddSourceVideo.positionInQueue}}
@@ -17,7 +17,7 @@
         <div class="ui indicating progress initbar" data-percent="{{getPercent sourceAudioCpuEncoding.progress}}">
             <div class="bar" style="width:{{sourceAudioCpuEncoding.progress}}">
             </div>
-            <div class="label">
+            <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
             {{ translate 'UPLOAD_AUDIO_ENCODING'}}
             {{#if sourceAudioCpuEncoding.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sourceAudioCpuEncoding.positionInQueue}}
@@ -30,7 +30,7 @@
         <div class="ui indicating progress initbar" data-percent="{{getPercent sourceVideoGpuEncoding.progress}}">
             <div class="bar" style="width:{{sourceVideoGpuEncoding.progress}}">
             </div>
-            <div class="label">
+            <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
             {{ translate 'UPLOAD_GPU_ENCODING'}}
             {{#if sourceVideoGpuEncoding.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sourceVideoGpuEncoding.positionInQueue}}
@@ -44,7 +44,7 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent encode.progress}}">
                 <div class="bar" style="width:{{encode.progress}}">
                 </div>
-                <div class="label">
+                <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
                 {{ translate 'UPLOAD_PROGRESS_ENCODING_TO'}} {{encode.encodeSize}}...
                 {{#if encode.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{encode.positionInQueue}}
@@ -56,7 +56,7 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent ipfsAddEncodeVideo.progress}}">
                 <div class="bar" style="width:{{ipfsAddEncodeVideo.progress}}">
                 </div>
-                <div class="label">
+                <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
                 {{ translate 'UPLOAD_PROGRESS_ADDING'}} {{ipfsAddEncodeVideo.encodeSize}} {{ translate 'UPLOAD_PROGRESS_TO_IPFS'}}
                 {{#if ipfsAddEncodeVideo.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{ipfsAddEncodeVideo.positionInQueue}}
@@ -71,7 +71,7 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent sprite.spriteCreation.progress}}">
                 <div class="bar" style="width:{{sprite.spriteCreation.progress}}">
                 </div>
-                <div class="label">
+                <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
                 {{ translate 'UPLOAD_PROGRESS_CREATING_SPRITE'}}
                 {{#if sprite.spriteCreation.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sprite.spriteCreation.positionInQueue}}
@@ -83,7 +83,7 @@
             <div class="ui indicating progress initbar" data-percent="{{getPercent sprite.ipfsAddSprite.progress}}">
                 <div class="bar" style="width:{{sprite.ipfsAddSprite.progress}}">
                 </div>
-                <div class="label">
+                <div class="label {{#if isNightMode}}nightmodetext{{/if}}">
                 {{ translate 'UPLOAD_PROGRESS_ADDING_SPRITE_TO_IPFS'}}
                 {{#if sprite.ipfsAddSprite.positionInQueue}}
                 {{ translate 'UPLOAD_PROGRESS_WAITING_IN_QUEUE'}}{{sprite.ipfsAddSprite.positionInQueue}}

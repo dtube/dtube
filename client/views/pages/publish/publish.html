@@ -61,7 +61,7 @@
                 <div class="seven wide column">
                     <form class="ui form uploadform">
                         <div class="field publishfield">
-                            <label>{{ translate 'UPLOAD_VISIBILITY'}} {{> badgenew}}</label>
+                            <label>{{ translate 'UPLOAD_VISIBILITY'}}</label>
                             <select id="visibilityDropdown" name="visibility" class="ui fluid search dropdown">
                                 <option value="0">{{ translate 'UPLOAD_VISIBILITY_PUBLIC'}}</option>
                                 <option value="1">{{ translate 'UPLOAD_VISIBILITY_UNLISTED'}}</option>
@@ -86,10 +86,35 @@
                             {{#unless isEditingVideo}}
                             <div class="field">
                                 <div class="content">
-                                    <div class="header" style='text-align: right'>
-                                    Burning <strong style='color:#f01a30'>{{displayMoney publishBurn 0 'DTC'}}</strong> for promotion
+                                    <div id="vpslider">
+                                        {{> horizontalslider color="yellow" sliderid="vp-range"}}
+                                        <center>
+                                            <label>
+                                                <i class="icon yellow lightning"></i><span style="font-weight: 600;">
+                                                    {{displayMoney publishVP 1 ' VP'}}
+                                                    {{#if publishBurnOutput}}
+                                                        <br />+ {{displayMoney publishBurnOutput 1 ''}}
+                                                    {{/if}}
+                                                </span>
+                                            </label>
+                                        </center>
                                     </div>
-                                    <div class="ui red range" id="burn-range"></div>
+                                    <div class="ui divider"></div>
+                                    <div style="width: auto;">
+                                        <div class="ui filter checkbox comment" style="width: 100%;">
+                                            <input id="promotevideo" type="checkbox" name="comment">
+                                            <label>
+                                                {{translate 'UPLOAD_PROMOTE_VIDEO'}}
+                                                <strong id="promotedtc" style='display: none;color:#f01a30'>
+                                                    {{displayMoney publishBurn 0 'DTC'}}
+                                                </strong>
+                                            </label>
+                                            <div id="promoteslider" style="display: none;margin-top: 5px;">
+                                                {{> horizontalslider color="red" sliderid="dtc-range"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             {{/unless}}
@@ -170,7 +195,7 @@
                 {{/if}}
             </div></div>
             
-            <table class="ui celled table">
+            <table class="ui celled table publishtbl">
                 <thead>
                     <th>Type</th>
                     <th>Tech</th>

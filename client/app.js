@@ -1,15 +1,17 @@
 import './buffer';
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
-import steem from 'steem';
-import hive from '@hiveio/hive-js'
+import steem from 'steem'
+//import hive from '@hiveio/hive-js'
+
+// Meteor does not support the module hot reload code used in updateOperations() for
+// HF24 transition, so a minified version will have to be used until post HF24. 
+// lib/hive.js is automatically imported by Meteor, so no manual import is needed here.
+// Minified code from https://cdn.jsdelivr.net/npm/@hiveio/hive-js@0.8.4/dist/hive.min.js
 
 console.log('Starting DTube APP')
 
 FlowRouter.wait();
 Meteor.startup(function(){
   console.log('DTube APP Started')
-  Market.getSaleProgress()
 
   window.hive = hive
   window.steem = steem
@@ -22,14 +24,25 @@ Meteor.startup(function(){
   else
     steem.api.setOptions({ url: localStorage.getItem('steemAPI'), useAppbaseApi: true }); //Set saved API.
 
+  // configure hive options
+  let hiveoptions = {
+    useAppbaseApi: true,
+    rebranded_api: true,
+    alternative_api_endpoints: Meteor.settings.public.remote.HiveAPINodes
+  }
   if (!localStorage.getItem('hiveAPI')
   || Meteor.settings.public.remote.HiveAPINodes.indexOf(localStorage.getItem('hiveAPI')) === -1)
-    hive.api.setOptions({ url: Meteor.settings.public.remote.HiveAPINodes[0], useAppbaseApi: true })
+    hiveoptions.url = Meteor.settings.public.remote.HiveAPINodes[0]
   else
-    hive.api.setOptions({ url: localStorage.getItem('hiveAPI'), useAppbaseApi: true })
+    hiveoptions.url = localStorage.getItem('hiveAPI')
+
+  hive.utils.autoDetectApiVersion().then((r) => {
+    hiveoptions.rebranded_api = r.rebranded_api
+    hive.api.setOptions(hiveoptions)
+  })
 
   Session.set('steemAPI', steem.api.options.url)
-  Session.set('hiveAPI',hive.api.options.url)
+  Session.set('hiveAPI',hiveoptions.url)
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
@@ -76,4 +89,15 @@ Meteor.startup(function(){
     // Videos.refreshBlockchain(function() {})
     clearInterval(firstLoad)
   }, 50)
+
+  // detect build javascript hash
+  var scripts = document.getElementsByTagName("script")
+  var sources = []
+  for (let i = 0; i < scripts.length; i++)
+    if (scripts[i].src.length > 0)
+      sources.push(scripts[i].src)
+  
+  if (sources.length == 1)
+    Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].substr(0, 8))
+  else Session.set('buildVersion', 'dev')
 })

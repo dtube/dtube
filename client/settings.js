@@ -13,12 +13,12 @@ Meteor.settings.public = {
     ],
     "APINodes": [
       "https://api.steemit.com",
-      "https://api.justyy.com"
+      "https://api.justyy.com",
+      "https://steem.61bts.com"
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",
       "https://avalon.oneloved.tube",
-      "https://avalon.christianknuchel.com",
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
@@ -26,8 +26,10 @@ Meteor.settings.public = {
       "https://api.hivekings.com",
       "https://rpc.esteem.app",
       "https://techcoderx.com",
-      // "https://api.hive.blog",
-      // "https://api.openhive.network",
+      "https://api.followbtcnews.com",
+      "https://hived.privex.io",
+      "https://hived.hive-engine.com",
+      "https://api.deathwing.me"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
@@ -37,7 +39,7 @@ Meteor.settings.public = {
     ],
     "localhost": false
   },
-  "app": "dtube/0.9",
+  "app": "dtube/1.0",
   "scot": null,
   "logo": "./DTube_files/images/DTube_Black.svg",
   "logonight": "./DTube_files/images/DTube_White.svg",

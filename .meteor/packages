@@ -26,7 +26,6 @@ chrismbeckett:toastr
 dynamic-import@0.5.2
 frozeman:persistent-minimongo2
 omega:meteor-desktop-bundler@=0.10.1
-fastclick
 babel-compiler@7.5.3
 juliancwirko:postcss@=1.2.0
 underscore@1.0.10
