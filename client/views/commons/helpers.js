@@ -514,9 +514,9 @@ Template.registerHelper('isPlural', function(array) {
 Template.registerHelper('censorshipLevel', function(video) {
     if (!video || !video.json)
         return -1
-    if (video.json && video.json.nsfw)
+    if (video.json && (video.json.nsfw || video.json.tag == 'nsfw'))
         return 2
-    if (video.tags && video.tags.length > 0 && video.tags[0] == 'nsfw')
+    if (video.tags && video.tags.length > 0 && (video.tags[0] == 'nsfw' || (video.tags[0].t && video.tags[0].t == 'nsfw')))
         return 2
     if (video.downs > video.ups) {
         return 1
