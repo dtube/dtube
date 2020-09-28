@@ -101,4 +101,16 @@ Meteor.startup(function(){
   if (sources.length == 1)
     Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].substr(0, 8))
   else Session.set('buildVersion', 'dev')
+
+  // airdrop eligible detection
+  Session.set('isEligibleAirdrop', false)
+  var airdropChecker = setInterval(function() {
+    if (!Session.get('activeUsername') || !Session.get('activeUsernameSteem'))
+      return
+    $.get( "http://localhost:3000/airdrop-eligible/"+Session.get('activeUsernameSteem'), function( res ) {
+      if (res && res.eligible)
+        Session.set('isEligibleAirdrop', res.eligible)
+      clearInterval(airdropChecker)
+    });
+  }, 5000)
 })

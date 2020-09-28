@@ -140,6 +140,7 @@
     "NO_BANDWIDTH_3": "With your current balance of %1, you need to wait",
     "NO_BANDWIDTH_4": "Keep more DTC in your account to have more bandwidth power. 1 DTC generates +10 bytes / hour.",
     "NOTIFICATION_NOT_VOTING_LEADERS": "You are currently not voting for leaders. Go to the election page.",
+    "NOTIFICATION_ELIGIBLE_TO_AIRDROP": "You are eligible to the DTube Coin airdrop. Click here to claim %1.",
     "SEARCH_RESULTS_FOR": "for",
     "SEARCH_RESULTS_THERE_IS": "There is",
     "SEARCH_RESULTS_THERE_ARE": "There are",

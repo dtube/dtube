@@ -1,3 +1,17 @@
+Template.notificationmenu.events({
+  "click #airdrop": function() {
+    if (typeof steem_keychain !== 'undefined') {
+      steem_keychain.requestTransfer(Session.get('activeUsernameSteem'), 'dtube', 0.001, 'dtc airdrop to '+Session.get('activeUsername'), 'STEEM', function(response) {
+        if (response.success)
+          toastr.success("Succesfully claimed airdrop. Your DTCs will arrive in a minute...")
+      }, true)
+    } else {
+      var url = "https://steemlogin.com/sign/transfer?to=dtube&amount=0.001%20STEEM&memo=dtc%20airdrop%20to%20"+Session.get('activeUsername')
+      window.open(url);
+    }
+  }
+})
+
 Template.notificationmenu.helpers({
   hasRewards: function(user) {
     if (!user || !user.reward_sbd_balance || !user.reward_steem_balance || !user.reward_vesting_balance) return false
@@ -22,5 +36,8 @@ Template.notificationmenu.helpers({
     if (user.balance >= 10000 && (!user.approves || user.approves.length == 0))
       return true
     return false
+  },
+  isEligibleAirdrop: function() {
+    return Session.get('isEligibleAirdrop')
   }
 })
