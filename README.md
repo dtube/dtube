@@ -3,7 +3,7 @@
 [![DTube channel on Discord](https://img.shields.io/discord/347020217966395393.svg?logo=discord)](https://discord.gg/dtube)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-# DTube App
+# DTube - The Video Sharing and Streaming App
 
 This is the main javascript application you can use on d.tube. This is probably the starting point for anyone wanting to contribute to d.tube.
 
