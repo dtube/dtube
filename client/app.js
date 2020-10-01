@@ -107,7 +107,7 @@ Meteor.startup(function(){
   var airdropChecker = setInterval(function() {
     if (!Session.get('activeUsername') || !Session.get('activeUsernameSteem'))
       return
-    $.get( "http://localhost:3000/airdrop-eligible/"+Session.get('activeUsernameSteem'), function( res ) {
+    $.get( "https://signup.d.tube/airdrop-eligible/"+Session.get('activeUsernameSteem'), function( res ) {
       if (res && res.eligible)
         Session.set('isEligibleAirdrop', res.eligible)
       clearInterval(airdropChecker)
