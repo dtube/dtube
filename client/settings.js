@@ -29,7 +29,8 @@ Meteor.settings.public = {
       "https://api.followbtcnews.com",
       "https://hived.privex.io",
       "https://hived.hive-engine.com",
-      "https://api.deathwing.me"
+      "https://api.deathwing.me",
+      "https://api.c0ff33a.uk"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
