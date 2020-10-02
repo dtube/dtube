@@ -47,7 +47,13 @@
     {{#if isReplying this}}
     <form class="ui reply form">
       <div class="field">
-        <textarea style='height: 5em;min-height:5em;'></textarea>
+        <textarea id="replytext" class="{{#if isNightMode}}nightmode{{/if}}" style='height: 5em;min-height:5em;'></textarea>
+      </div>
+      <div id="cancelReply" class="ui right labeled icon button grey dtube pos-rel">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'BUTTON_CANCEL' }}
+        </div>
+        <i class="icon x" style="background:white;opacity:1;"></i>
       </div>
       <div class="ui blue right labeled icon submit button dtube pos-rel" style="float:right;vertical-align: top;">
         <i class="ui blue icon remove repl dsp-non" style="background:white;opacity:1;"></i>

@@ -217,12 +217,12 @@
               </div> CANT HAVE THAT WITH 2 LOGGED IN USERS ? -->
             <form class="ui reply form wid-ful">
               <div class="field pos-rel wid-ful" style="display: inline-block;vertical-align: top;">
-                <textarea id="replytext" rows="3"></textarea>
+                <textarea id="replytext" class="{{#if isNightMode}}nightmode{{/if}}" rows="3"></textarea>
               </div>
               <div style="width: auto; min-width:460px;float: left;">
                 <div class="ui filter checkbox comment" style="width: 100%;">
                   <input id="promotereply" type="checkbox" name="comment">
-                  <label>{{translate 'VIDEO_PROMOTE_COMMENT'}}  <strong id="promotedtc" style='display: none;color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong></label>
+                  <label id="promorereplylbl">{{translate 'VIDEO_PROMOTE_COMMENT'}}  <strong id="promotedtc" style='display: none;color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong></label>
                   <div id="promoteslider" style="display: none;margin-top: 5px;">
                     {{> horizontalslider color="red" sliderid="comment-range"}}
                   </div>

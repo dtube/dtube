@@ -224,18 +224,13 @@ Template.video.events({
             replyingTo.refs = $(event.target).data('refs').split(',')
         Session.set('replyingTo', replyingTo)
     },
+    'click #cancelReply': () => {
+        Session.set('replyingTo',null)
+    },
     'click .submit': function (event) {
-        // Grammarly fix
-        let body
-        let commentbox = $(event.currentTarget).prev().prev().children()
-        for (let i = 0; i < commentbox.length; i++) {
-            if (commentbox[i].type === "textarea") {
-                body = commentbox[i].value
-            }
-        }
         let jsonMetadata = {
             app: 'dtube/0.9',
-            description: body,
+            description: $('#replytext').val(),
             title: ''
         }
         refs = []

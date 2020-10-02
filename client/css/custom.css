@@ -282,6 +282,7 @@ textarea {
 .ui.toggle.checkbox input:checked ~ label.nightmodetext,
 .ui.checkbox label.nightmode,
 .ui.checkbox + label.nightmode,
+#promorereplylbl,
 .publishfield label.nightmodetext {
   color: rgb(240,240,240)!important;
 }
@@ -317,7 +318,8 @@ textarea.nightmode,
 .nightmodemodal .actions #cancelTransfer .icon,
 .nightmodemodal .actions #cancelTransact .icon,
 .transferdtcbtn.tipbtn .gift.nightmodetext,
-.ui.tiny.icon.button .icon.nightmodetext { color: rgb(40,40,40)!important;}
+.ui.tiny.icon.button .icon.nightmodetext,
+#cancelReply .icon.nightmodetext { color: rgb(40,40,40)!important;}
 
 .ui.table.nightmodetable tr.warning, .ui.table.nightmodetable td.warning {
   background: #404400!important;
