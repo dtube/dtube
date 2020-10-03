@@ -2,7 +2,7 @@ var parallel = require('run-parallel')
 
 broadcast = {
     multi: {
-        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb) {
+        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb, publishVP) {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
             let authorAvalon = !Session.get('isDTCDisabled') ? Session.get('activeUsername') : null
@@ -39,11 +39,11 @@ broadcast = {
             if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                 if (burn)
                     transactions.push(function(callback) {
-                        broadcast.avalon.promotedComment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, burn, callback)
+                        broadcast.avalon.promotedComment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, burn, callback, null, publishVP)
                     })
                 else
                     transactions.push(function(callback) {
-                        broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, false, callback)
+                        broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, false, callback, null, publishVP)
                     })
 
             if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
@@ -516,7 +516,7 @@ broadcast = {
         }
     },
     avalon: {
-        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb, newWif) {
+        comment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, isEditing, cb, newWif, publishVP) {
             if (!permlink) {
                 permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
@@ -541,6 +541,7 @@ broadcast = {
                     vt: Math.floor(avalon.votingPower(activeuser) * weight / 10000)
                 }
             }
+            if (publishVP) tx.data.vt = publishVP
             if (isEditing) tx.data.vt = 1 // Spend only 1 VP for editing existing content
             if (tag) tx.data.tag = tag
             else tx.data.tag = ""
@@ -556,7 +557,7 @@ broadcast = {
             })
             return;
         },
-        promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb, newWif) {
+        promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb, newWif, publishVP) {
             if (!permlink) {
                 permlink = Template.publish.randomPermlink(11)
                 if (jsonMetadata.videoId)
@@ -583,6 +584,7 @@ broadcast = {
                     vt: Math.floor(avalon.votingPower(activeuser) * weight / 10000)
                 }
             }
+            if (publishVP) tx.data.vt = publishVP
             if (tag) tx.data.tag = tag
             else tx.data.tag = ""
             if (parentAuthor && parentPermlink) {

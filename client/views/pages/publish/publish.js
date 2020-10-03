@@ -146,7 +146,7 @@ Template.publish.events({
                     UserSettings.set('tmpVideo', {})
                     Session.set('addVideoStep', 'addvideoform')
                 }
-            })
+            }, Math.floor(Session.get('publishVP') / 100))
         } else {
             broadcast.multi.comment(null, null, null, null, null, null, null, json, json.tag, null, function(err, res) {
                 console.log(err, res)
@@ -162,7 +162,7 @@ Template.publish.events({
                         Session.set('addVideoStep', 'addvideoform')
                     }, 1000)
                 }
-            })
+            }, Math.floor(Session.get('publishVP') / 100))
         }
     },
     'click #trashVideo': function() {
