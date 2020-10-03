@@ -30,6 +30,9 @@ Finally, do `meteor` in the folder to start the app in development mode.
 Meteor will automatically push any change on the code to the browser while you keep the meteor dev server running.
 
 ## Going in-depth
+### Running blockchain locally
+You can run a blockchain locally on your PC to avoid sending transactions onto the live network. Follow instructions in [dtube/avalon](https://github.com/dtube/avalon), then just change API to 'localhost:3001' in the settings page to point your UI to your development chain.
+
 ### Working with Uploads
 
 For doing anything on the upload side, it is strongly recommended to run your own [dtube/ipfs-uploader](https://github.com/dtube/ipfs-uploader). Once running, simply turn the `localhost` setting to `true` in `client/settings.js` and it will upload locally instead of our production servers.
