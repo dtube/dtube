@@ -9,7 +9,7 @@ This is the main javascript application you can use on d.tube. This is probably 
 
 ## Preview
 
-![DTube Homepage Preview](https://i.imgur.com/kKeS77i.png)
+![DTube Homepage Preview](https://i.imgur.com/G6knxMI.png)
 
 ## Install
 
