@@ -80,7 +80,11 @@
         {{#if isLoggedOn}}
           {{> accountsdropdown}}
         {{else}}
-          <div class="topbarLogin">
+        <div class="topbarSignUp">
+          {{> buttonsignup}}
+        </div>  
+        
+        <div class="topbarLogin">
             {{> buttonlogin}}
           </div>
         {{/if}}
