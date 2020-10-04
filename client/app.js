@@ -56,9 +56,15 @@ Meteor.startup(function(){
   // load local storage settings (video visibility)
   if (localStorage.getItem("nsfwSetting"))
     Session.set('nsfwSetting', localStorage.getItem("nsfwSetting"))
+  
+    if (!localStorage.getItem("nsfwSetting"))
+    Session.set('nsfwSetting', 'Fully Hidden')
 
   if (localStorage.getItem("censorSetting"))
     Session.set('censorSetting', localStorage.getItem("censorSetting"))
+
+  if (!localStorage.getItem("censorSetting"))
+    Session.set('censorSetting', 'Fully Hidden')
 
   // dark mode (buggy)
   // if (!UserSettings.get('isInNightMode'))
