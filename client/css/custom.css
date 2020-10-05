@@ -282,7 +282,7 @@ textarea {
 .ui.toggle.checkbox input:checked ~ label.nightmodetext,
 .ui.checkbox label.nightmode,
 .ui.checkbox + label.nightmode,
-#promorereplylbl,
+.ui.nightmode #promorereplylbl,
 .publishfield label.nightmodetext {
   color: rgb(240,240,240)!important;
 }
