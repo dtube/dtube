@@ -14,11 +14,38 @@ Template.channelrewards.rendered = function() {
         }
         Session.set('myRewards', res)
     })
+    avalon.getRewardsPending(Session.get('activeUsername'), function(err, res) {
+        if (err) console.log(err)
+        else if (res && typeof res.total == 'number') {
+            Session.set('myPendingRewards', res.total)
+        }
+    })
+    avalon.getRewardsClaimed(Session.get('activeUsername'), function(err, res) {
+        if (err) console.log(err)
+        else if (res && typeof res.total == 'number') {
+            Session.set('myClaimedRewards', res.total)
+        }
+    })
 }
 
 Template.channelrewards.helpers({
     'rewards': function(){
         return Session.get('myRewards')
+    },
+    myPendingRewards: function() {
+        if (!Session.get('myPendingRewards'))
+            return 0
+        return Session.get('myPendingRewards')
+    },
+    myClaimedRewards: function() {
+        if (!Session.get('myClaimedRewards'))
+            return 0
+        return Session.get('myClaimedRewards')
+    },
+    myTotalRewards: function() {
+        if (!Session.get('myPendingRewards') || !Session.get('myClaimedRewards'))
+            return 0
+        return Session.get('myClaimedRewards') + Session.get('myPendingRewards')
     },
     isClaimable: function(vote){
         if (new Date().getTime() - vote.ts > time_to_claim)

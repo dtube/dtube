@@ -3,6 +3,17 @@
         <div class="sixteen wide column" style="padding-left:5px;">
             <h1>{{translate 'CHANNEL_REWARDS_TITLE'}}</h1>
             <p>{{translate 'CHANNEL_REWARDS_PARAGRAPH'}}</p>
+            <div class="ui three column centered grid">
+                <div class="column">
+                    <h3>Claimed: {{displayMoney myClaimedRewards 0 'DTC'}}</h3>
+                </div>
+                <div class="column">
+                    <h3>Pending: {{displayMoney myPendingRewards 0 'DTC'}}</h3>
+                </div>
+                <div class="right floated right aligned column">
+                    <h3>Total: {{displayMoney myTotalRewards 0 'DTC'}}</h3>
+                </div>
+            </div>
             <table class="ui celled table unstackable channelrewardtbl {{#if isNightMode}}nightmodetable{{/if}}" style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
                 <thead>
                     <tr>
