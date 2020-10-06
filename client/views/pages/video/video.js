@@ -321,7 +321,7 @@ Template.video.events({
                     broadcast.avalon.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata, '', false, handleAvalonComment)
             }
             if (refs[0].split('/')[0] == 'hive')
-                broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, '', function (err, result) {
+                broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
