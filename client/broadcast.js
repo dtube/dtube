@@ -12,6 +12,12 @@ broadcast = {
             let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
                 // Steem cannot have capital letters in permlink :,(
             let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
+            
+            // one of the parent author/permlinks should not be undefined to be a comment op
+            let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive)
+            let canPostToAvalon = authorAvalon && (!isComment || paAvalon && ppAvalon)
+            let canPostToHive = authorHive && (!isComment || paHive && ppHive)
+            let canPostToSteem = authorSteem && (!isComment || paSteem && ppSteem)
 
             let jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
             let jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
@@ -19,24 +25,24 @@ broadcast = {
             jsonSteem.refs = []
             jsonAvalon.refs = []
             jsonHive.refs = []
-            if (authorAvalon && authorHive && authorSteem) {
+            if (canPostToAvalon && canPostToHive && canPostToSteem) {
                 jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'hive/' + authorHive + '/' + permlinkSteem]
                 jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem]
-            } else if (authorAvalon && authorHive) {
+            } else if (canPostToAvalon && canPostToHive) {
                 jsonAvalon.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon]
-            } else if (authorAvalon && authorSteem) {
+            } else if (canPostToAvalon && canPostToSteem) {
                 jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem]
                 jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon]
-            } else if (authorHive && authorSteem) {
+            } else if (canPostToHive && canPostToSteem) {
                 jsonSteem.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['steem/' + authorSteem + '/' + permlinkSteem]
             }
 
             let transactions = []
 
-            if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
+            if (canPostToAvalon)
                 if (burn)
                     transactions.push(function(callback) {
                         broadcast.avalon.promotedComment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, burn, callback, null, publishVP)
@@ -46,12 +52,12 @@ broadcast = {
                         broadcast.avalon.comment(permlinkAvalon, paAvalon, ppAvalon, jsonAvalon, tag, false, callback, null, publishVP)
                     })
 
-            if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
+            if (canPostToSteem)
                 transactions.push(function(callback) {
                     broadcast.steem.comment(permlinkSteem, paSteem, ppSteem, body, jsonSteem, [tag], callback)
                 })
 
-            if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
+            if (canPostToHive)
                 transactions.push((callback) => {
                     broadcast.hive.comment(permlinkSteem, paHive, ppHive, body, jsonHive, [tag], callback)
                 })

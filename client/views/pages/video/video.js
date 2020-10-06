@@ -229,7 +229,6 @@ Template.video.events({
     },
     'click .submit': function (event) {
         let jsonMetadata = {
-            app: 'dtube/0.9',
             description: $('#replytext').val(),
             title: ''
         }
