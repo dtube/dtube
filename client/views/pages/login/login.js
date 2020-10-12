@@ -60,10 +60,19 @@ Template.login.events({
   'click .logOut' : (event) => {
     var network = $(event.currentTarget).data('network')
     if (network == 'dtc')
-      Users.remove({username: Session.get('activeUsername'), network: 'avalon'}, () => Session.set('activeUsername', null))
+      Users.remove({username: Session.get('activeUsername'), network: 'avalon'}, () => {
+        Session.set('activeUsername', null)
+        Template.settingsdropdown.nightMode()
+      })
     else if (network == 'hive')
-      Users.remove({username: Session.get('activeUsernameHive'), network: 'hive'}, () => Session.set('activeUsernameHive', null))
+      Users.remove({username: Session.get('activeUsernameHive'), network: 'hive'}, () => {
+        Session.set('activeUsernameHive', null)
+        Template.settingsdropdown.nightMode()
+      })
     else if (network == 'steem')
-      Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'}, () => Session.set('activeUsernameSteem', null))
+      Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'}, () => {
+        Session.set('activeUsernameSteem', null)
+        Template.settingsdropdown.nightMode()
+      })
   }
 })

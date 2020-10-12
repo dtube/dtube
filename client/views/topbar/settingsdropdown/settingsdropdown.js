@@ -31,9 +31,10 @@ Template.settingsdropdown.rendered = function() {
 
 
 Template.settingsdropdown.nightMode = function() {
-    if (UserSettings.get('isInNightMode')) {
+    if (UserSettings.get('isInNightMode'))
         Template.settingsdropdown.switchToNightMode();
-    }
+    else
+        Template.settingsdropdown.switchToNormalMode()
 }
 
 Template.settingsdropdown.switchToNightMode = function() {
