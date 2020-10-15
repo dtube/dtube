@@ -4,7 +4,7 @@ Template.loginsteem.helpers({
       return Users.find().fetch()
     },
     usingKeyChain: function() {
-      if (!Session.get('steem_keychain'))
+      if (!window.steem_keychain)
         return false
       if (Session.get('forcePostingKey'))
         return false

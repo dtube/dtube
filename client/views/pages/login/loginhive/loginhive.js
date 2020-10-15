@@ -4,7 +4,7 @@ Template.loginhive.helpers({
     return Users.find().fetch()
   },
   usingHiveKeychain: function() {
-    if (!Session.get('hive_keychain'))
+    if (!window.hive_keychain)
       return false
     if (Session.get('forcePostingKeyHive'))
       return false
