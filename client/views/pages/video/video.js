@@ -117,7 +117,7 @@ Template.video.helpers({
         }
     },
     isLoggedOn: function () {
-        if (Session.get('activeUsername') || Session.get('activeUsernameSteem'))
+        if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
             return true
         return false
     },
