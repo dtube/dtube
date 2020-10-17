@@ -961,9 +961,9 @@ broadcast = {
                 app: Meteor.settings.public.app
             }
 
-            let percent_steem_dollars = 10000
+            let percent_hbd = 10000
             if ($('input[name=powerup]')[0] && $('input[name=powerup]')[0].checked)
-                percent_steem_dollars = 0
+                percent_hbd = 0
 
             let operations = [
                 ['comment',
@@ -981,8 +981,8 @@ broadcast = {
                 ['comment_options', {
                     author: author,
                     permlink: permlink,
-                    max_accepted_payout: '1000000.000 SBD',
-                    percent_steem_dollars: percent_steem_dollars,
+                    max_accepted_payout: '1000000.000 HBD',
+                    percent_hbd: percent_hbd,
                     allow_votes: true,
                     allow_curation_rewards: true,
                     extensions: [
@@ -994,13 +994,7 @@ broadcast = {
                         }]
                     ]
                 }]
-            ];
-
-            if (hive.config.rebranded_api) {
-                operations[1][1].percent_hbd = percent_steem_dollars
-                delete operations[1][1].percent_steem_dollars
-                operations[1][1].max_accepted_payout = '1000000.000 HBD'
-            }
+            ]
 
             operations[0][1].parent_author = parentAuthor
             operations[0][1].parent_permlink = parentPermlink

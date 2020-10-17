@@ -35,12 +35,8 @@ Meteor.startup(function(){
     hiveoptions.url = Meteor.settings.public.remote.HiveAPINodes[0]
   else
     hiveoptions.url = localStorage.getItem('hiveAPI')
-
-  hive.utils.autoDetectApiVersion().then((r) => {
-    hiveoptions.rebranded_api = r.rebranded_api
-    hive.api.setOptions(hiveoptions)
-    hive.broadcast.updateOperations()
-  })
+  hive.api.setOptions(hiveoptions)
+  hive.broadcast.updateOperations()
 
   Session.set('steemAPI', steem.api.options.url)
   Session.set('hiveAPI',hiveoptions.url)
