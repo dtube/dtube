@@ -1,5 +1,5 @@
 // always increment this id when changing message in production
-var messageId = 2
+var messageId = 3
 
 Template.announcement.rendered = function() {
     if (!localStorage.getItem('lastAnnouncementRead') || localStorage.getItem('lastAnnouncementRead') < messageId)
