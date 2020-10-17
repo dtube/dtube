@@ -52,6 +52,8 @@ notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications')
 Notifications.getDecentralized = function () {
   if (!Session.get('activeUsername')) return
   avalon.getNotifications(Session.get('activeUsername'), function(err, notifications) {
+    if (!notifications || notifications.length === 0)
+      return
     for (let i = 0; i < notifications.length; i++) {
       var notif = notifications[i]
       if (notif.ts <= UserSettings.get('notifications_highblock'))
