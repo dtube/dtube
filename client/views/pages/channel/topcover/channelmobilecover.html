@@ -8,22 +8,22 @@
             style="background-size:cover; float: left;top: 10px;left: 20px; min-width:128px; width:128px; height: 128px; background-image:url({{userPic user.name ''}})">
         </div>
         {{#if equals activeUser user.name}}
-        <!-- <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
-            {{>buttoneditprofile}}
-        </div> -->
+            <!-- <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
+                {{>buttoneditprofile}}
+            </div> -->
         {{else}}
-        {{#if isSubscribedTo user.name}}
-        <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
-            {{>buttonunsubscribe}}
-        </div>
-        {{else}}
-        <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
-            {{>buttonsubscribe}}
-        </div>
-        {{/if}}
-        <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 50px;">
-            {{>buttontransfersmall author}}
-        </div>
+            {{#if isSubscribedTo user.name}}
+            <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
+                {{>buttonunsubscribe}}
+            </div>
+            {{else}}
+            <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 10px;">
+                {{>buttonsubscribe}}
+            </div>
+            {{/if}}
+            <div class="ui labeled small button pos-abs" tabindex="0" style="float: right;right: 10px;bottom: 50px;">
+                {{>buttontransfersmall author}}
+            </div>
         {{/if}}
         <div class="ui pos-abs" tabindex="0" style="float: right;right: 10px;top: 10px; color:white;text-shadow: 2px 2px 2px #262626;">
             <h1>{{author.name}}</h1>

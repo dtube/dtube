@@ -805,3 +805,11 @@ Template.registerHelper('contentNetwork', function(content) {
 Template.registerHelper('isNightMode',() => {
     return UserSettings.get('isInNightMode')
 })
+
+Template.registerHelper('hasMetamask',() => {
+    return Session.get('hasMetamask')
+})
+
+Template.registerHelper('metamaskAddress',() => {
+    return Session.get('metamaskAddress')
+})
