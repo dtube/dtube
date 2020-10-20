@@ -76,10 +76,13 @@ window.metamask = {
                 "type": "function"
             }
         ];
-        var contract = web3.eth.contract(minABI).at(tokenAddress)
-        var encoded = contract.transferToAvalon(amount*100, Session.get('activeUsername'), function(err, res) {
-            cb(err, res)
+        var contract = new web3.eth.Contract(minABI,tokenAddress)
+        contract.methods.transferToAvalon(amount*100, Session.get('activeUsername')).send({
+            from: Session.get('metamaskAddress')
+        }).then((res) => {
+            cb(null, res)
+        }).catch((err) => {
+            cb(err)
         })
-        // web3.eth.signTransaction()
     }
 }

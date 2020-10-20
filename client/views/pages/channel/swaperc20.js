@@ -81,7 +81,7 @@ Template.swaperc20.events({
                 $("#confirmSwap > i.check").removeClass('dsp-non')
                 if (err) Meteor.blockchainError(err)
                 else {
-                  toastr.success(translate('TRANSFER_SUCCESS_DESC', amount, receiver), translate('TRANSFER_SUCCESS_TITLE'))
+                  toastr.success(translate('TRANSFER_SUCCESS_DESC', amount/100, receiver), translate('TRANSFER_SUCCESS_TITLE'))
                   $('.swaperc20').hide()
                 }
             })
