@@ -106,7 +106,6 @@ Template.channelrewards.events({
         var currentType = Session.get('currentRewardsDisplay')
         var currentRewards = Session.get('myRewards')
         var lastRewardTime = currentRewards[currentRewards.length - 1].contentTs
-        console.log(currentType,lastRewardTime)
         if (currentType === 'pending') {
             avalon.getPendingVotesByAccount(Session.get('activeUsername'), lastRewardTime, function (err, res) {
                 $('#loadMoreRewardsBtn').prop('disabled', false);
