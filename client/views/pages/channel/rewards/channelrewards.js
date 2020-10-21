@@ -106,6 +106,7 @@ Template.channelrewards.events({
         var currentType = Session.get('currentRewardsDisplay')
         var currentRewards = Session.get('myRewards')
         var lastRewardTime = currentRewards[currentRewards.length - 1].contentTs
+        console.log(currentType,lastRewardTime)
         if (currentType === 'pending') {
             avalon.getPendingVotesByAccount(Session.get('activeUsername'), lastRewardTime, function (err, res) {
                 $('#loadMoreRewardsBtn').prop('disabled', false);
@@ -151,15 +152,31 @@ Template.channelrewards.events({
                 Session.set('myRewards', currentRewards)
             })
         }
+        else if (currentType === 'total') {
+            avalon.getVotesByAccount(Session.get('activeUsername'), lastRewardTime, function (err, res) {
+                $('#loadMoreRewardsBtn').prop('disabled', false);
+                if (err) return
+                if (res.length < max_items_per_call)
+                    Session.set('finishedLoadingRewards', true)
+                for (let i = 0; i < res.length; i++) {
+                    if (!res[i].claimed)
+                        res[i].timeToClaim = res[i].ts + time_to_claim
+                    res[i].claimable = Math.floor(res[i].claimable)
+                    currentRewards.push(res[i])
+                }
+                Session.set('myRewards', currentRewards)
+            })
+        }
     },
     'click .reward.btn': function (event) {
-        let type = event.target.name
+        var type = event.target.name
+        var currentRewards = []
         Session.set('currentRewardsDisplay', type)
         Session.set('finishedLoadingRewards', false)
         Session.set('myRewards', null)
 
         if (type === 'pending') {
-            avalon.getPendingVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
+            avalon.getVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
                 $('#loadMoreRewardsBtn').prop('disabled', false);
                 if (err) return
                 if (res.length < max_items_per_call)
@@ -190,6 +207,21 @@ Template.channelrewards.events({
         }
         else if (type === 'claimed') {
             avalon.getClaimedVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
+                $('#loadMoreRewardsBtn').prop('disabled', false);
+                if (err) return
+                if (res.length < max_items_per_call)
+                    Session.set('finishedLoadingRewards', true)
+                for (let i = 0; i < res.length; i++) {
+                    if (!res[i].claimed)
+                        res[i].timeToClaim = res[i].ts + time_to_claim
+                    res[i].claimable = Math.floor(res[i].claimable)
+                    currentRewards.push(res[i])
+                }
+                Session.set('myRewards', currentRewards)
+            })
+        }
+        else if (type === 'total') {
+            avalon.getVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
                 $('#loadMoreRewardsBtn').prop('disabled', false);
                 if (err) return
                 if (res.length < max_items_per_call)
