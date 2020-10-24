@@ -27,6 +27,26 @@ Template.swaperc20.helpers({
     },
     metamaskSwapInverse: function() {
         return Session.get('metamaskSwapInverse')
+    },
+    isValid: function() {
+        if (!Session.get('swapAmount')) return false
+        if (!Session.get('activeUsername')) return false
+        if (!Session.get('metamaskAddress')) return false
+        if (!Session.get('swapFee')) return false
+
+        var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+        if (Session.get('metamaskSwapInverse'))
+            balance = Session.get('metamaskBalance')
+        var amount = Session.get('swapAmount')
+        var decimals = countDecimals(amount)
+        if (decimals > 2 || amount*100 > balance) {
+            $('#swapAmount').parent().parent().addClass('error')
+            return false
+        } else $('#swapAmount').parent().parent().removeClass('error')
+
+        if (Session.get('swapFee') >= 100*Session.get('swapAmount'))
+            return false
+        return true
     }
 })
 
@@ -39,18 +59,7 @@ Template.swaperc20.events({
         $('.swaperc20').hide()
     },
     "input #swapAmount": function() {
-        var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
-        if (Session.get('metamaskSwapInverse'))
-            balance = Session.get('metamaskBalance')
-        var amount = parseFloat($('#swapAmount').val())
-        Session.set('swapAmount', amount)
-        var decimals = countDecimals(amount)
-
-        if (decimals > 2 || amount*100 > balance) {
-            $('#swapAmount').parent().parent().addClass('error')
-        } else {
-            $('#swapAmount').parent().parent().removeClass('error')
-        }
+        Session.set('swapAmount', parseFloat($('#swapAmount').val()))
     },
     "click #confirmSwap": function() {
         $("#confirmSwap").addClass('disabled')
