@@ -91,6 +91,7 @@ Template.settingsdropdown.switchToNightMode = function() {
     $('.item').addClass('nightmodetext');
     $('.videopayout').addClass('nightmodetext')
     $('.ui.about.segment').addClass('inverted')
+    $('.ui.celled.table').addClass('inverted')
     
 
     $('.main.menu.fixed').addClass('nightmode');
@@ -190,6 +191,7 @@ Template.settingsdropdown.switchToNormalMode = function() {
     $('.item').removeClass('nightmodetext');
     $('.videopayout').removeClass('nightmodetext')
     $('.ui.about.segment').removeClass('inverted')
+    $('.ui.celled.table').removeClass('inverted')
 
     $('.main.menu.fixed').removeClass('nightmode');
     $('.step').removeClass('nightmode');
