@@ -2,14 +2,19 @@
     <!-- Swap ERC-20 Modal -->
     <div class="ui small modal swaperc20 {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top: 50%; left:50%; transform: translate(-50%, -50%)">
         <div class="header">
-            <button id="swapInverse" class="ui icon button" style="float:right">
-                <i class="icon exchange red"></i>
-            </button>
+            <div id="swapInverse" class="ui right labeled icon button blue dtube" style="float:right; margin-top:-0.45em">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'ERC20_SWAP_BTN_REVERSE' }}
+                </div>
+                <i class="icon exchange blue" style="background:white;opacity:1;"></i>
+            </div>
+            DTUBE (DTC)
             {{#if metamaskSwapInverse}}
-                DTUBE (ERC-20) <i class="icon forward"></i> DTUBE (Avalon)
+                <i class="icon backward"></i>
             {{else}}
-                DTUBE (Avalon) <i class="icon forward"></i> DTUBE (ERC-20)
+                 <i class="icon forward"></i> 
             {{/if}}
+            DTUBE (ETH)
         </div>
         <div class="content">
             <p>{{ translate 'ERC20_SWAP_TEXT' }}</p>

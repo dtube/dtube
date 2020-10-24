@@ -112,6 +112,11 @@ Template.channel.events({
                 Meteor.blockchainError(err)
         })
     },
+    'click .editprofile': function() {
+        FlowRouter.go('/c/'+Session.get('activeUsername')+'/about')
+        Session.set('currentTab', 'about')
+        Session.set('isEditingProfile', true)
+    },
     'click .unsubscribe': function() {
         var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
         user.followersCount--

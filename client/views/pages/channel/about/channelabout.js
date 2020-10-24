@@ -33,6 +33,8 @@ Template.channelabout.helpers({
 
 Template.channelabout.events({
     'click .button.editvideo': function () {
+        Session.set('currentTab', 'about')
+        FlowRouter.go('/c/' + FlowRouter.getParam("author") + '/about')
         Session.set('isEditingProfile', !Session.get('isEditingProfile'))
     },
     'submit .form': function() {

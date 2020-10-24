@@ -42,7 +42,24 @@ Template.channeldesktopcover.helpers({
 
 Template.channeldesktopcover.events({
   "click #connectMetamask": function() {
-    metamask.enable()
+    jQuery.ajax({
+      url: 'https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js',
+      dataType: 'script',
+      success: function() {
+        metamask.enable()
+        metamask.loadGasPrice()
+        metamask.loadUniswapBalance()
+        var ethAddressChecker = setInterval(function() {
+          if (window.ethereum.selectedAddress) {
+            clearInterval(ethAddressChecker)
+            console.log('Metamask connected: '+window.ethereum.selectedAddress)
+            Session.set('metamaskAddress', window.ethereum.selectedAddress)
+            metamask.loadBalance()
+          }
+        }, 150)
+      },
+      async: true
+    });
   },
   "click #swapErc20": function() {
     Template.sidebar.empty()
