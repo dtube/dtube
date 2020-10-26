@@ -1,6 +1,7 @@
-let tokenAddress = '0xD2bE59Ad3bcCF4746587e73e1f40528762FB29e3'
-let wethAddress = '0xd0a1e359811322d97991e03f863a0c30c2cf029c'
-let uniswapPairAddress = '0xc722cd5b8e079cce5e513f1451d287f5c23298cf'
+// those can be hard-coded they shouldnt ever change
+let tokenAddress = '0xd2be3722B17b616c51ed9B8944A227D1ce579C24'
+let uniswapPairAddress = '0xf44c9fcf0491c07a7380727fd2c30cc1131ff100'
+let wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 let tokenDecimals = 2
 let minErc20ABI = [
     {

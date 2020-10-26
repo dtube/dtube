@@ -175,7 +175,7 @@ Template.channelrewards.events({
         Session.set('myRewards', null)
 
         if (type === 'pending') {
-            avalon.getVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
+            avalon.getPendingVotesByAccount(Session.get('activeUsername'), 0, function (err, res) {
                 $('#loadMoreRewardsBtn').prop('disabled', false);
                 if (err) return
                 if (res.length < max_items_per_call)

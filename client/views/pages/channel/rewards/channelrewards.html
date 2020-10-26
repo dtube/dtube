@@ -5,19 +5,20 @@
             <p>{{translate 'CHANNEL_REWARDS_PARAGRAPH'}}</p>
             <div class="ui four column centered grid">
                 <div class="column">
-                    <button class="btn reward" name="pending"> Pending:
-                        {{displayMoney myPendingRewards 0 'DTC'}}</button>
+                    <button class="ui button btn reward" name="pending">
+                        Pending: {{displayMoney myPendingRewards 0 'DTC'}}</button>
                 </div>
                 <div class="left floated left aligned column">
-                    <button class="btn reward" name="claimable">
+                    <button class="ui button btn reward" name="claimable">
                         Claimable: {{displayMoney myClaimableRewards 0 'DTC'}}</button>
                 </div>
                 <div class="right floated right aligned column">
-                    <button class="btn reward" name="claimed">
+                    <button class="ui button btn reward" name="claimed">
                         Claimed: {{displayMoney myClaimedRewards 0 'DTC'}}</button>
                 </div>
                 <div class="right aligned right floated column">
-                    <button class="btn reward" name="total"> Total: {{displayMoney myTotalRewards 0 'DTC'}}</button>
+                    <button class="ui button btn reward" name="total">
+                        Total: {{displayMoney myTotalRewards 0 'DTC'}}</button>
                 </div>
             </div>
             <br />
