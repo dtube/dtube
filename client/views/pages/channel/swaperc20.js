@@ -54,6 +54,7 @@ Template.swaperc20.events({
     "click #swapInverse": function() {
         Session.set('metamaskSwapInverse', !Session.get('metamaskSwapInverse'))
         Session.set('swapAmount', null)
+        setTimeout(()=>Template.settingsdropdown.nightMode(),1)
     },
     "click #cancelSwap": function() {
         $('.swaperc20').hide()
