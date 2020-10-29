@@ -8,6 +8,7 @@
 
   Template.buttontransfer.events({
     'click .transferdtcbtn': function () {
+      Template.sidebar.empty()
       $('.transferdtc').show()
     },
     'click #cancelTransfer': function () {
