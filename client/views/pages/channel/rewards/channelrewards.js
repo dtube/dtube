@@ -55,9 +55,14 @@ Template.channelrewards.helpers({
         return Session.get('myClaimableRewards')
     },
     myTotalRewards: function () {
-        if (!Session.get('myPendingRewards') || !Session.get('myClaimedRewards'))
-            return 0
-        return Session.get('myClaimedRewards') + Session.get('myPendingRewards')
+        var total = 0
+        if (Session.get('myPendingRewards'))
+            total += Session.get('myPendingRewards')
+        if (Session.get('myClaimedRewards'))
+            total += Session.get('myClaimedRewards')
+        if (Session.get('myClaimableRewards'))
+            total += Session.get('myClaimableRewards')
+        return total
     },
     isClaimable: function (vote) {
         if (new Date().getTime() - vote.ts > time_to_claim)
