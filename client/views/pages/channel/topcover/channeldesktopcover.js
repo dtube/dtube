@@ -64,6 +64,7 @@ Template.channeldesktopcover.events({
   "click #swapErc20": function() {
     Template.sidebar.empty()
     $('.swaperc20').show()
+    Template.settingsdropdown.nightMode()
     metamask.loadGasPrice()
   }
 })
