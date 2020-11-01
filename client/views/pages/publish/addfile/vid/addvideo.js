@@ -406,10 +406,7 @@ Template.addvideoformfileuploaded.events({
     'click #addvideofinish': function () {
         var files = Template.addvideohashes.fillHashes()
         if (files) {
-            if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
-                Template.addvideo.addFiles('ipfs', files)
-            else
-                Template.addvideo.addFiles('btfs', files)
+            Template.addvideo.addFiles('ipfs', files)
             Session.set('addVideoStep', 'addvideopublish')
         }
     }
