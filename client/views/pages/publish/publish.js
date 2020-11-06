@@ -470,7 +470,7 @@ Template.publish.helpers({
         return Session.get('publishBurn')
     },
     publishBurnOutput: function () {
-        return Session.get('publishBurn')*600
+        return Session.get('publishBurn')*4400
     },
     publishVP: function() {
         return Session.get('publishVP')
