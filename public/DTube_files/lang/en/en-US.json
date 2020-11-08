@@ -69,7 +69,7 @@
     "EDIT_ERROR_INVALID_VIDEOHASH": "Source video hash is not a valid hash",
     "EDIT_ERROR_MISSING_SNAPHASH": "Snap hash is required",
     "EDIT_VIDEO_SUCCESS": "Video edited successfully",
-    "ELECTION_PARAGRAPH": "DTube is a self-governed platform, where a limited number of leaders (currently 10) are elected and are in charge of producing new blocks and securing the infrastructure. You can vote for them on this page. You can vote for up to 5 leaders.",
+    "ELECTION_PARAGRAPH": "DTube is a self-governed platform, where a limited number of leaders (currently 13) are elected and are in charge of producing new blocks and securing the infrastructure. You can vote for them on this page. You can vote for up to 5 leaders.",
     "ELECTION_TITLE": "Elect DTube Leaders",
     "ELECTION_TOTAL_VOTES": "Votes",
     "ELECTION_UNVOTE": "Unvote",
