@@ -253,8 +253,9 @@ textarea {
 .nontopleader.nightmodeleader:nth-child(odd) { background-color: rgb(40,40,40); }
 .nontopleader.nightmodeleader:nth-child(even) { background-color: rgb(30,30,30); }
 
-.leader.disabled {
-  color: grey;
+.leader.disabled,
+.nightmodetext.leader.disabled {
+  color: grey!important;
 }
 
 .leader.disabled.nightmodeleader {
