@@ -6,10 +6,13 @@ Template.videoslider.isOnMobile = function () {
   }
 }
 
-Template.videoslider.rendered = function () {
+Template.videoslider.rendered = function (first, second) {
+  console.log(CarouselVideoSliderType)
   var random = Template.publish.randomPermlink(10)
-  this.firstNode.id = random
-  Template.videoslider.createSlider(random,this.data.length)
+  if (CarouselVideoSliderType != "feedVideos_0")
+    CarouselVideoSliderType = random
+  this.firstNode.id = CarouselVideoSliderType //random
+  Template.videoslider.createSlider(CarouselVideoSliderType,this.data.length)
   $(this.firstNode).find('.dropdown').dropdown({});
   Template.settingsdropdown.nightMode();
 }
@@ -67,8 +70,9 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
       responsiveBaseElement: document.getElementsByClassName('ui container'),
       nav: true,
       navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
-      animateOut: 'slideOutDown',
-      animateIn: 'flipInX',
+      //animateOut: 'slideOutDown',
+      //animateIn: 'flipInX',
+      //autoWidth: true,
       dots: false,
       lazyLoad: true,
       responsiveClass: true,
@@ -98,25 +102,43 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
           loop: itemCount > 4
         },
         1060: {
-          items: 5,
+          items: 4, //5,
           slideBy: 2,
           nav: true,
           loop: itemCount > 5
         },
         1272: {
-          items: 6,
+          items: 4,//6,
           slideBy: 3,
           nav: true,
           loop: itemCount > 6
         },
         1484: {
-          items: 7,
+          items: 5,//7,
           slideBy: 3,
           nav: true,
           loop: itemCount > 7
         }
       }
     });
+    if (CarouselVideoSliderType == "feedVideos_0") {
+      $("#" + elemId).owlCarousel({
+        loop: true,
+        margin: 2,
+        responsiveBaseElement: document.getElementsByClassName('ui container'),
+        nav: true,
+        navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
+        //animateOut: 'slideOutDown',
+        //animateIn: 'flipInX',
+        dots: false,
+        lazyLoad: true,
+        autoplay: true,
+        autoplayTimeout: 100000,
+        autoplayHoverPause: true,
+        autoplaySpeed: true
+      })
+      $("#" + elemId).trigger('play.owl.autoplay',[3000])
+    }
   }
 }
 
