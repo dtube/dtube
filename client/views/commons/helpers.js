@@ -694,7 +694,7 @@ Template.registerHelper('lowerThan', function(n, p) {
 
 Template.registerHelper('topTags', function() {
     // CLIENT SIDE TRENDING TAGS !?
-    var videos = Videos.find({ source: 'chainByHot' }, { limit: 50, sort: { score: -1 } }).fetch()
+    var videos = Videos.find({ source: 'chainByHot' }, { limit: 1000, sort: { score: -1 } }).fetch()
     var tags = {}
     for (let i = 0; i < videos.length; i++) {
         if (Session.get('scot')) {
@@ -730,7 +730,9 @@ Template.registerHelper('topTags', function() {
             array.push({ tag: key, vt: tags[key] })
 
     array = array.sort(function(a, b) { return b.vt - a.vt })
+    console.log(array)
     array = array.slice(0, 10)
+    console.log(array)
     return array
 })
 

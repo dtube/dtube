@@ -282,7 +282,8 @@ main {
 }
 
 #snapimg {
-    max-height: 140px;
+    /* max-height: 140px;  */
+    height: 200px;
     object-fit: cover;
 }
 

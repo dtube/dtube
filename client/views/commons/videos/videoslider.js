@@ -102,13 +102,13 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
           loop: itemCount > 4
         },
         1060: {
-          items: 4, //5,
+          items: 2, //5,
           slideBy: 2,
           nav: true,
           loop: itemCount > 5
         },
         1272: {
-          items: 4,//6,
+          items: 3,//6,
           slideBy: 3,
           nav: true,
           loop: itemCount > 6
@@ -125,6 +125,7 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
       $("#" + elemId).owlCarousel({
         loop: true,
         margin: 2,
+        items: 2,
         responsiveBaseElement: document.getElementsByClassName('ui container'),
         nav: true,
         navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
@@ -132,10 +133,18 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
         //animateIn: 'flipInX',
         dots: false,
         lazyLoad: true,
-        autoplay: true,
+        autoplay: 3000,
         autoplayTimeout: 100000,
         autoplayHoverPause: true,
-        autoplaySpeed: true
+        responsiveClass: true,
+        responsive: {
+          1272: {
+            items: 2,//6,
+            slideBy: 3,
+            nav: true,
+            loop: itemCount > 6
+          }, 
+        }
       })
       $("#" + elemId).trigger('play.owl.autoplay',[3000])
     }

@@ -62,7 +62,38 @@
         {{/if}}
     </div>
   {{else}}
+    
     <div  class="ui container">
+        <div id="btn-action" class="btn-action-layout">
+          <ul class="action-icons-unordered-list">
+            <li class="action-icons-list">
+              {{#if getLayoutID}}
+              <h3>
+                <a href='/' class="">
+                  <i class="grid layout clicked icon"></i>
+                </a>
+              </h3>
+              {{else}}
+                <a href='/' class="">
+                  <i class="grid layout icon"></i>
+                </a>
+              {{/if}}
+            </li>
+            <li class="action-icons-list">
+              {{#if getLayoutID}}
+              <h3>
+                <a href='/' class="">
+                  <i class="list ol clicked icon"></i>
+                </a>
+              </h3>
+              {{else}}
+                <a href='/' class="">
+                  <i class="list ol icon"></i>
+                </a>
+              {{/if}}
+            </li>
+          </ul>
+        </div>
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">

@@ -2,6 +2,7 @@ var moment = require('moment')
 var sliderMaxSize = 12
 
 CarouselVideoSliderType = ""
+var LayoutID = null 
 
 Template.home.helpers({
   watchAgain: function () {
@@ -24,6 +25,10 @@ Template.home.helpers({
   feedVideos: function () {
     CarouselVideoSliderType = "feedVideos_0"
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
+  },
+  getLayoutID: function() {
+    console.log(LayoutID)
+    return LayoutID;
   }
 })
 
@@ -41,6 +46,20 @@ Template.home.events({
     WatchAgain.remove({_id: removeId.substring(0, removeId.length - 1)})
     event.preventDefault()
 
+  },
+  'click .grid.layout': function(event) {
+    if (LayoutID == null)
+      LayoutID = true
+    else 
+      LayoutID = null
+    console.log("Layout id = " + LayoutID) 
+  },
+  'click .list.ol': function(event) {
+    if (LayoutID == null)
+      LayoutID = true
+    else 
+      LayoutID = null
+    console.log("Layout id = " + LayoutID) 
   }
 })
 

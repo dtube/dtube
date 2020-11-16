@@ -8,11 +8,13 @@
  */
 .owl-carousel {
   display: none;
-  width: 100%;
+  /*width: 100%;*/
   -webkit-tap-highlight-color: transparent;
   /* position relative and z-index fix webkit rendering fonts issue */
   position: relative;
-  z-index: 1; }
+  z-index: 1; 
+  height: 300px;
+}
   .owl-carousel .owl-stage {
     position: relative;
     -ms-touch-action: pan-Y; }
@@ -30,15 +32,17 @@
     -webkit-transform: translate3d(0px, 0px, 0px); }
   .owl-carousel .owl-item {
     position: relative;
+    padding:15px;
     min-height: 1px;
     float: left;
     -webkit-backface-visibility: hidden;
     -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none; }
+    -webkit-touch-callout: none; 
+  }
   .owl-carousel .owl-item img {
     display: block;
-    width: 100%;
-    -webkit-transform-style: preserve-3d; }
+    -webkit-transform-style: preserve-3d; 
+  }
   .owl-carousel .owl-nav.disabled,
   .owl-carousel .owl-dots.disabled {
     display: none; }

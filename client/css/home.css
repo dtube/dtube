@@ -5,6 +5,7 @@
   vertical-align:top;
   /* max-width: 210px; */
   color: #212121;
+  height:300px;
 }
 
 .videosnap:hover  .watchlater
@@ -156,7 +157,7 @@
   line-height: 1.40em;
   -webkit-line-clamp: 2;
   margin: 0 auto;
-  height: 36px;
+  /* height: 36px; */
   color: darkgrey;
 }
 
@@ -211,13 +212,18 @@
 
 .videosnapsnap {
   position: relative;
-  max-height:118px;
+  /*max-height:118px;*/
+  height: 200px;
   margin-bottom: 5px;
+}
+
+#snapload {
+  height: 200px;
 }
 
 .verticalvideosnapsnap {
   position: relative;
-  height:90px;
+  /* height:90px; */
   margin-bottom: 5px;
 }
 
@@ -238,7 +244,6 @@
 {
   text-align: center;
 }
-
 
 .ui.menu
 {
@@ -282,6 +287,29 @@
 .activemenu.nightmodetext
 {
   color: #F01A30 !important;
+}
+
+.btn-action-layout
+{
+  margin-bottom: 50px;
+  padding: 5px;
+}
+.action-icons-unordered-list
+{
+  list-style-type: none;
+  overflow: hidden;
+  margin: 5px 0px 0px 0px;
+  float: right;
+}
+.grid.layout.clicked {
+  width: 100px;
+}
+.list.layout.clicked {
+  width: 100px;
+}
+.action-icons-list
+{
+  float:left;
 }
 
 .ui.left.visible.sidebar, .ui.right.visible.sidebar {
