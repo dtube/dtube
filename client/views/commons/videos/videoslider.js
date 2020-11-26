@@ -76,6 +76,9 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
       dots: false,
       lazyLoad: true,
       responsiveClass: true,
+      //autoplay: 3000,
+      //autoplayTimeout: 3000,
+      //autoplayHoverPause: true,
       responsive: {
          211: {
            items: 1,
@@ -109,7 +112,7 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
         },
         1272: {
           items: 3,//6,
-          slideBy: 3,
+          slideBy: 1,
           nav: true,
           loop: itemCount > 6
         },
@@ -133,14 +136,14 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
         //animateIn: 'flipInX',
         dots: false,
         lazyLoad: true,
-        autoplay: 3000,
-        autoplayTimeout: 100000,
+        autoplay: 6000,
+        //autoplayTimeout: 100000,
         autoplayHoverPause: true,
         responsiveClass: true,
         responsive: {
           1272: {
-            items: 2,//6,
-            slideBy: 3,
+            items: 23,//6,
+            slideBy: 1,
             nav: true,
             loop: itemCount > 6
           }, 
