@@ -730,9 +730,7 @@ Template.registerHelper('topTags', function() {
             array.push({ tag: key, vt: tags[key] })
 
     array = array.sort(function(a, b) { return b.vt - a.vt })
-    console.log(array)
     array = array.slice(0, 10)
-    console.log(array)
     return array
 })
 

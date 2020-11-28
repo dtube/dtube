@@ -841,25 +841,143 @@ Videos.getOverlayUrl = function(video) {
     return ''
 }
 
-Videos.getThumbnailUrl = function(video) {
-    if (!video || !video.json)
-        return ''
-    if (video.json.thumbnailUrl)
-        return video.json.thumbnailUrl
-    if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["118"])
-        return 'https://btfs.d.tube/btfs/' + video.json.files.btfs.img["118"]
-    if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["118"])
-        return 'https://snap1.d.tube/ipfs/' + video.json.files.ipfs.img["118"]
-    if (video.json.files && video.json.files.youtube)
-        return 'https://i.ytimg.com/vi/' + video.json.files.youtube + '/mqdefault.jpg'
-
-    if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://snap1.d.tube/ipfs/' + video.json.ipfs.snaphash
-    if (video.json.info && video.json.info.snaphash) return 'https://snap1.d.tube/ipfs/' + video.json.info.snaphash
-        // console.log('Found video with no thumbnail!!', video)
-    return ''
+Videos.getGenreList = function() {
+    var genreList = ["art", "fashion", "music", "gaming", "food", "travel", "sports", 
+                  "talks", "vlog", "science", "documentary", "movies", "journalism", "activism", "how to do", "other"]
+            
+    return genreList
 }
 
-Videos.getGenres = function(video) {
+Videos.getGenres = function() {
+    genreUrlMap = Videos.getAllGenreThumbnailUrls()
+    console.log(genreUrlMap)
+
+    var genreThumbnailUrls = $.map(genreUrlMap, function(value, key) { return value });
+    var genreNames = $.map(genreUrlMap, function(value, key) { return key });
+
+    var genres = []
+    for(var g=0; g<genreNames.length; g++) {
+        var genre = {}
+        var json = {}
+        // genre["author"] = "t"
+        // genre["link"] = genreNames[g]
+        json["genreName"] = genreNames[g]
+        json["thumbnailUrl"] = genreThumbnailUrls[g]
+        genre["json"] = json
+        genres.push(genre)
+    }
+    console.log(genres)
+    return genres
+}
+
+Videos.getAllGenreImageFileNames = function() {
+    var allGenreImageFileNames = []
+    var fileNames = []
+
+    // may be possible to programmatically lsdir and find too
+    // genre_1 art
+    fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_painitings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_5_painting.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_2 food
+    fileNames = ["genre_2_fashion_1_clothings_black_blue.jpg", "genre_2_fashion_2_fashion_vlogging.jpg", "genre_2_fashion_3_girl_with_blue_dress.jpg", "genre_2_fashion_4_man_with_tshirt.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_3 music
+    fileNames = ["genre_3_music_1_instruments_empty_room.jpg", "genre_3_music_2_concert.jpg", "genre_3_music_3_singer.jpg", "genre_3_music_4_guitarist.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_4 gaming
+    fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_3_gaming_joystick.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_5 food
+    fileNames = ["genre_5_food_1_egg_avocado.jpg", "genre_5_food_2_vegetables.jpg", "genre_5_food_3_steak.jpg", "genre_5_food_4_bowl.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_6 travel
+    fileNames = ["genre_6_travel_1_aeroplane.jpg", "genre_6_travel_2_boat_river.jpg", "genre_6_travel_3_balloons.jpg", "genre_6_travel_4_mountain_lake.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_7 sports
+    fileNames = ["genre_7_sports_1_soccer_ball.jpg", "genre_7_sports_2_bikers.jpg", "genre_7_sports_3_stadium.jpg", "genre_7_sports_4_mountain_climbers.jpg", "genre_7_sports_5_runners.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_8 talks
+    fileNames = ["genre_8_talks_1_two_person.jpg", "genre_8_talks_2_interview.jpg", "genre_8_talks_3_interview_girl.jpg", "genre_8_talks_4_podcast_talk.jpg", "genre_8_talks_5_roundtable_talk.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_9 vlog
+    fileNames = ["genre_9_vlog_1_hiking.jpg", "genre_9_vlog_2_photographer.jpg", "genre_9_vlog_3_girl_near_river.jpg", "genre_9_vlog_4_vlogger_mountain.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_10 science
+    fileNames = ["genre_10_science_1_astronaut.jpg", "genre_10_science_3_experiment.jpg", "genre_10_science_5_agriculture.jpg", "genre_10_science_7_outside_earth.jpg", "genre_10_science_2_chemistry.jpg", "genre_10_science_4_antenna.jpg", "genre_10_science_6_cancer_cells.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_11 documentary
+    fileNames = ["genre_11_documentary_1_old_man_face.jpg", "genre_11_documentary_2_street.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_12 movies
+    fileNames = ["genre_12_movies_1_cinema.jpg", "genre_12_movies_2_actor_holding_actress.jpg", "genre_12_movies_3_chicago_theater.jpg", "genre_12_movies_4_movie_set.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_13 journalism
+    fileNames = ["genre_13_journalism_1_girl_rearranging_newspapers.jpg", "genre_13_journalism_2_newspapers.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_14 activism
+    fileNames = ["genre_14_activism_1_black_lives_matter.jpg", "genre_14_activism_3_change_politics_climate.jpg", "genre_14_activism_4_activism.jpg", "genre_14_activism_2_people_protesting.jpg", "genre_14_activism_3_dont_poison_our_water.jpg", "genre_14_activism_5_fashion_is_fucked.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_15 how to do
+    fileNames = ["genre_15_how_to_do_1_scissors_pens.jpg", "genre_15_how_to_do_2_green_leafed_plants.jpg", "genre_15_how_to_do_3_person_holding_black_metal.jpg", "genre_15_how_to_do_4_person_molding_vase.jpg", "genre_15_how_to_do_5_man_sewing.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    // genre_16 other 
+    fileNames = ["genre_16_other_1_passion_led_here.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+
+    return allGenreImageFileNames
+}
+
+Videos.getGenreThumbnailUrl = function(genreId) {
+    var genreList = Videos.getGenreList()
+    // get all genre image file names 2d matrix
+    allGenreImageFileNames = Videos.getAllGenreImageFileNames()
+    // get specific genre image file names
+    genreImageFileNames = allGenreImageFileNames[genreId]
+
+
+    // randomly choose a file from the directory
+    id = Math.floor(Math.random() * genreImageFileNames.length)
+    selectedFile = genreImageFileNames[id]
+
+    var rootGenreImageDir = "./DTube_files/images/genres/"
+    // get genre directory
+    var genreDir = "genre_" + (genreId + 1) + "_" + genreList[genreId]
+
+    // create genre thumbnail url
+    var genreThumbnailUrl = rootGenreImageDir + genreDir + "/" + selectedFile;
+
+    return genreThumbnailUrl 
+}
+
+Videos.getAllGenreThumbnailUrls = function() {
+    var genreList = Videos.getGenreList()
+    var allGenreThumbnailUrls = {} 
+
+    for(var i=0; i<genreList.length; i++) {
+        var genreName = genreList[i]
+        allGenreThumbnailUrls[genreName] = Videos.getGenreThumbnailUrl(i)
+    }
+
+    return allGenreThumbnailUrls
+}
+
+Videos.getThumbnailUrl = function(video) {
     if (!video || !video.json)
         return ''
     if (video.json.thumbnailUrl)

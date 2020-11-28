@@ -80,6 +80,20 @@ FlowRouter.route('/feed/:username', {
     }
 });
 
+FlowRouter.route('/genres/:username', {
+    name: "genres",
+    action: function(params, queryParams) {
+        // todo
+        Session.set("currentMenu", 15)
+        Template.sidebar.selectMenu();
+        Session.set("pageTitle", 'Video Genre List');
+        BlazeLayout.render('masterLayout', {
+            main: "feed",
+            nav: "nav",
+        });
+    }
+});
+
 FlowRouter.route('/live', {
     name: "livestreams",
     action: function(params, queryParams) {

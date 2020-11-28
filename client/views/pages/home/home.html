@@ -97,13 +97,13 @@
         {{#if genres}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
-              <h2><a href=''>{{ translate 'HOME_TITLE_GENRES'}}</a></h2>
+              <h2><a href='/genres/{{activeUsername}}'>{{ translate 'HOME_TITLE_GENRES'}}</a></h2>
             </div>
             <div class=" floated right aligned four wide column" style="padding-right:0px;margin-top:5px;">
-                <a href='' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
+                <a href='/genres/{{activeUsername}}' style="color:#666666"><h5>{{ translate 'HOME_SHOW_ALL'}}</h5></a>
             </div>
           </div>
-          {{> videoslider hotVideos}}
+          {{> genreslider genres}}
         {{/if}}
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">

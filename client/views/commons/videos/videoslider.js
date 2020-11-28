@@ -7,7 +7,6 @@ Template.videoslider.isOnMobile = function () {
 }
 
 Template.videoslider.rendered = function (first, second) {
-  console.log(CarouselVideoSliderType)
   var random = Template.publish.randomPermlink(10)
   if (CarouselVideoSliderType != "feedVideos_0")
     CarouselVideoSliderType = random
@@ -128,7 +127,7 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
       $("#" + elemId).owlCarousel({
         loop: true,
         margin: 2,
-        items: 2,
+        items: 6,
         responsiveBaseElement: document.getElementsByClassName('ui container'),
         nav: true,
         navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],

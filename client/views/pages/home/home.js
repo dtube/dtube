@@ -12,7 +12,7 @@ Template.home.helpers({
   },
   genres: function () {
     CarouselVideoSliderType = "genres"
-    return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
+    return Videos.getGenres()
   },
   newVideos: function () {
     CarouselVideoSliderType = "newVideos_3"
@@ -31,7 +31,6 @@ Template.home.helpers({
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   },
   getLayoutID: function() {
-    console.log(LayoutID)
     return LayoutID;
   }
 })
@@ -56,14 +55,12 @@ Template.home.events({
       LayoutID = true
     else 
       LayoutID = null
-    console.log("Layout id = " + LayoutID) 
   },
   'click .list.ol': function(event) {
     if (LayoutID == null)
       LayoutID = true
     else 
       LayoutID = null
-    console.log("Layout id = " + LayoutID) 
   }
 })
 
