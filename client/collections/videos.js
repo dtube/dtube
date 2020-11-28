@@ -876,7 +876,7 @@ Videos.getAllGenreImageFileNames = function() {
 
     // may be possible to programmatically lsdir and find too
     // genre_1 art
-    fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_painitings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_5_painting.jpg"]
+    fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_paintings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_5_painting.jpg"]
     allGenreImageFileNames.push(fileNames)
 
     // genre_2 food

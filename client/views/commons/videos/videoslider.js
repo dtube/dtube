@@ -134,7 +134,7 @@ Template.videoslider.createSlider = function (elemId,itemCount) {
         //animateOut: 'slideOutDown',
         //animateIn: 'flipInX',
         dots: false,
-        lazyLoad: true,
+        lazyLoad: false,
         autoplay: 6000,
         //autoplayTimeout: 100000,
         autoplayHoverPause: true,

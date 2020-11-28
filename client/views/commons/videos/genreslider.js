@@ -64,17 +64,18 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
     $("#" + elemId).owlCarousel({
       loop: true,
       margin: 2,
-      items: 2,
+      items: 6,
+      slideBy: 3,
       responsiveBaseElement: document.getElementsByClassName('ui container'),
       nav: true,
       navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
-      animateOut: 'slideOutDown',
-      animateIn: 'flipInX',
+      //animateOut: 'slideOutDown',
+      //animateIn: 'flipInX',
       dots: false,
       lazyLoad: true,
-      autoplay: 6000,
+      //autoplay: 6000,
       //autoplayTimeout: 100000,
-      autoplayHoverPause: true,
+      //autoplayHoverPause: true,
       responsiveClass: true,
       responsive: {
          211: {
@@ -109,7 +110,7 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
         },
         1272: {
           items: 6,
-          slideBy: 1,
+          slideBy: 3,
           nav: true,
           loop: itemCount > 6
         },
@@ -121,7 +122,7 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
         }
       }
     });
-    $("#" + elemId).trigger('play.owl.autoplay',[5000]);
+    //$("#" + elemId).trigger('play.owl.autoplay',[5000]);
   }
 }
 
