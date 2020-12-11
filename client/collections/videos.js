@@ -843,14 +843,13 @@ Videos.getOverlayUrl = function(video) {
 
 Videos.getGenreList = function() {
     var genreList = ["art", "fashion", "music", "gaming", "food", "travel", "sports", 
-                  "talks", "vlog", "science", "documentary", "movies", "journalism", "activism", "how to do", "other"]
+                  "talks", "vlog", "science", "documentary", "movies", "journalism", "activism", "how to do", "other", "original"]
             
     return genreList
 }
 
 Videos.getGenres = function() {
     genreUrlMap = Videos.getAllGenreThumbnailUrls()
-    console.log(genreUrlMap)
 
     var genreThumbnailUrls = $.map(genreUrlMap, function(value, key) { return value });
     var genreNames = $.map(genreUrlMap, function(value, key) { return key });
@@ -874,9 +873,11 @@ Videos.getAllGenreImageFileNames = function() {
     var allGenreImageFileNames = []
     var fileNames = []
 
+    // Free image sources: https://unsplash.com/s/photos
     // may be possible to programmatically lsdir and find too
+
     // genre_1 art
-    fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_paintings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_5_painting.jpg"]
+    fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_paintings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_4_brushes.jpg", "genre_1_art_5_painting.jpg"]
     allGenreImageFileNames.push(fileNames)
 
     // genre_2 food
@@ -888,7 +889,7 @@ Videos.getAllGenreImageFileNames = function() {
     allGenreImageFileNames.push(fileNames)
 
     // genre_4 gaming
-    fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_3_gaming_joystick.jpg"]
+    fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_4_gaming_joystick.jpg"]
     allGenreImageFileNames.push(fileNames)
 
     // genre_5 food
@@ -939,6 +940,9 @@ Videos.getAllGenreImageFileNames = function() {
     fileNames = ["genre_16_other_1_passion_led_here.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    // genre_17 original
+    fileNames = ["genre_17_original_1.jpg"]
+    allGenreImageFileNames.push(fileNames)
 
     return allGenreImageFileNames
 }
