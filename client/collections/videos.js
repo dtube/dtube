@@ -889,7 +889,7 @@ Videos.getAllGenreImageFileNames = function() {
     allGenreImageFileNames.push(fileNames)
 
     // genre_4 gaming
-    fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_4_gaming_joystick.jpg"]
+    fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_4_gaming_3_joystick.jpg"]
     allGenreImageFileNames.push(fileNames)
 
     // genre_5 food
@@ -959,7 +959,8 @@ Videos.getGenreThumbnailUrl = function(genreId) {
     id = Math.floor(Math.random() * genreImageFileNames.length)
     selectedFile = genreImageFileNames[id]
 
-    var rootGenreImageDir = "./DTube_files/images/genres/"
+    var imageServerUrl = "http://18.218.250.68:5000"
+    var rootGenreImageDir = imageServerUrl + "/DTube_files/images/genres/"
     // get genre directory
     var genreDir = "genre_" + (genreId + 1) + "_" + genreList[genreId]
 
