@@ -66,6 +66,7 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
       margin: 2,
       items: 6,
       slideBy: 3,
+      autoWidth: true,
       responsiveBaseElement: document.getElementsByClassName('ui container'),
       nav: true,
       navText: ["<i class='chevron left icon semanticui-nextprev-icon'></i>","<i class='chevron right icon semanticui-nextprev-icon'></i>"],
@@ -78,7 +79,7 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
       //autoplayHoverPause: true,
       responsiveClass: true,
       responsive: {
-         211: {
+        211: {
            items: 1,
            slideBy: 1,
            nav: false,
@@ -87,14 +88,14 @@ Template.genreslider.createSlider = function (elemId,itemCount) {
         399: {
            items: 2,
            slideBy: 2,
-          nav: false,
-          loop: itemCount > 2
+           nav: false,
+           loop: itemCount > 2
          },
-         642: {
+        642: {
           items: 3,
           slideBy: 2,
-         nav: true,
-         loop: itemCount > 3
+          nav: true,
+          loop: itemCount > 3
         },
         854: {
           items: 4,

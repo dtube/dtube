@@ -287,6 +287,13 @@ main {
     object-fit: cover;
 }
 
+#genresnapimg {
+    /* max-height: 140px;  */
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
 
 /* li {
   height: 140px;

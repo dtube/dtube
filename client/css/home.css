@@ -7,6 +7,15 @@
   color: #212121;
   height:300px;
 }
+.genresnap
+{
+  display: inline-block;
+  /* margin-bottom: 8px; */
+  vertical-align:top;
+  /* max-width: 210px; */
+  color: #212121;
+  height:200px;
+}
 
 .videosnap:hover  .watchlater
 {
@@ -174,8 +183,6 @@
   height: 32px;
 }
 
-
-
 .videosnaptitle
 {
   color: black;
@@ -217,8 +224,22 @@
   margin-bottom: 5px;
 }
 
+.genresnapsnap {
+  position: relative;
+  /*max-height:118px;*/
+  height: 110px;
+  width: 110px !important;
+  margin-bottom: 5px;
+}
+
+
 #snapload {
   height: 200px;
+}
+
+#genresnapload {
+  height: 100px;
+  width: 100px;
 }
 
 .verticalvideosnapsnap {
