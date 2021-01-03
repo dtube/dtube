@@ -1,6 +1,14 @@
 <template name='home'>
-  {{#if isOnMobile}}
+    {{#if isOnMobile}}
     <div style="margin-left:auto;margin-right:auto;margin-top:0px;max-width: 642px;padding-left:5px;padding-right:5px;" class="ui content">
+        {{#if genres}}
+        <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+          <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
+            <h2>{{ translate 'HOME_TITLE_GENRES'}}</h2>
+          </div>
+        </div>
+        {{> genreslider genres}}
+        {{/if}}
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
@@ -61,8 +69,16 @@
           {{> videoslider neighborhood}}
         {{/if}}
     </div>
-  {{else}}
+    {{else}}
     <div  class="ui container">
+        {{#if genres}}
+          <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
+            <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
+              <h2>{{ translate 'HOME_TITLE_GENRES'}}</h2>
+            </div>
+          </div>
+          {{> genreslider genres}}
+        {{/if}}
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
