@@ -25,11 +25,8 @@ Template.publish.rendered = function() {
         if (json.dur)
             $("#inputDuration")[0].value = json.dur
 
-        $('#tagDropdown').dropdown({
-            allowAdditions: true
-        })
         if (json.tag)
-            $('#tagDropdown').dropdown('set selected', json.tag)
+            $('#tagDropdown').val(json.tag)
 
         var steemData = Session.get('tmpVideo').steem
         if (!steemData) return

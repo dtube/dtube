@@ -39,12 +39,7 @@
                         <div class="two fields">
                             <div class="field publishfield">
                                 <label>{{ translate 'UPLOAD_TAGS'}}</label>
-                                <select id="tagDropdown" name="skills" class="ui fluid search dropdown">
-                                    <option value=""></option>
-                                    {{#each topTags}}
-                                    <option value="{{tag}}">{{tag}}</option>
-                                    {{/each}}
-                                </select>
+                                <input id="tagDropdown" type="text" placeholder="{{ translate 'UPLOAD_TAGS' }}">
                             </div>
 
                             <div class="field">
