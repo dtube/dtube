@@ -12,7 +12,7 @@ Template.publish.rendered = function() {
         var publishVPSlider = document.getElementById("vp-range");
         publishVPSlider.oninput = function () {
             var vpBalance = avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
-            Session.set('publishVP', Math.floor(this.value*vpBalance))
+            Session.set('publishVP', Math.max(100,Math.floor(this.value*vpBalance)))
         }
     }, 200)
     var json = Session.get('tmpVideo').json
