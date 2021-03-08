@@ -557,7 +557,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             //       var videos = []
             //       for (i = 0; i < len; i++) {
             //           var video = Videos.parseFromChain(result[i])
-            //           if (video) videos.push(video) 
+            //           if (video) videos.push(video)
             //       }
             //       for (var i = 0; i < videos.length; i++) {
             //         videos[i].source = 'chainByCreated'
@@ -637,7 +637,7 @@ Videos.parseFromChain = function(video, isComment, network) {
     video.downs = 0
     // video.allTags = []
     video._id = 'dtc/' + video._id
-    
+
     var tags = []
     if (typeof video.tags === 'string') {
         var tagsStrings = video.tags.split(' ')
@@ -649,7 +649,7 @@ Videos.parseFromChain = function(video, isComment, network) {
             tags.push({ t: key, total: video.tags[key] })
         }
     }
-        
+
     video.tags = tags
 
     if (video.votes) {
@@ -959,7 +959,7 @@ Videos.getGenreThumbnailUrl = function(genreId) {
     id = Math.floor(Math.random() * genreImageFileNames.length)
     selectedFile = genreImageFileNames[id]
 
-    var imageServerUrl = "http://18.218.250.68:5000"
+    var imageServerUrl = "." //"http://dtube.club:5000"
     var rootGenreImageDir = imageServerUrl + "/DTube_files/images/genres/"
     // get genre directory
     var genreDir = "genre_" + (genreId + 1) + "_" + genreList[genreId]
