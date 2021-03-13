@@ -101,7 +101,27 @@ Template.settings.events({
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
     },
     'change #voteWeight': function() {
-        var value = $('#voteWeight').val()
+        let value = voteWeightBounds(parseFloat($('#voteWeight').val()))
         UserSettings.set('voteWeight', value)
+        $('#voteWeight').val(value)
+    },
+    'change #voteWeightSteem': () => {
+        let value = voteWeightBounds(parseFloat($('#voteWeightSteem').val()))
+        UserSettings.set('voteWeightSteem', value)
+        $('#voteWeightSteem').val(value)
+    },
+    'change #voteWeightHive': () => {
+        let value = voteWeightBounds(parseFloat($('#voteWeightHive').val()))
+        UserSettings.set('voteWeightHive', value)
+        $('#voteWeightHive').val(value)
     }
 })
+
+function voteWeightBounds(value) {
+    let newVal = value
+    if (newVal > 100)
+        newVal = 100
+    else if (newVal <= 0)
+        newVal = 0.1
+    return newVal
+}
