@@ -54,14 +54,14 @@
                 <div class="ui button verticalslider {{voteType}}vote {{sliderclass}} upper dsp-blk">
                     <i class="thumbs {{voteType}} icon"></i></div>
             </div>
-            <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;">
+            <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;text-align: center;">
                 <div class="ui tiny button removetag">Remove</div>
                 {{#with firstTag content.tags}}
                 {{#unless equals t 'dtube'}}
                 <b>Tag:</b> <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}"
                                                               style="max-width: 80px; text-align: center;" />
                 <b>Tip(%):</b><input type="number" value="5" class="tipvalue {{sliderclass}}"
-                                                              style="max-width: 50px; text-align: center;" />
+                                                              style="max-width: 80px; text-align: center;" />
                 {{/unless}}
                 {{/with}}
                 <div class="ui button verticalslider {{voteType}}votetag {{sliderclass}} upper dsp-blk">
