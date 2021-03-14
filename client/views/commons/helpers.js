@@ -157,7 +157,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
 
 Template.registerHelper('userPic', function(username, size) {
     if (!size || typeof size != 'string') size = ''
-    return 'https://image.d.tube/u/' + username + '/avatar/' + size
+    return 'https://avalon.oneloved.tube/image/avatar/' + username + '/' + size
 });
 
 Template.registerHelper('userPicSteem', function(username, size) {
@@ -170,8 +170,8 @@ Template.registerHelper('userPicHive', (username, size) => {
     return 'https://images.hive.blog/u/' + username + '/avatar/' + size
 })
 
-Template.registerHelper('userCover', function(coverurl) {
-    return 'https://image.d.tube/2048x512/' + coverurl
+Template.registerHelper('userCover', function(username) {
+    return 'https://avalon.oneloved.tube/image/cover/' + username
 })
 
 Template.registerHelper('isReplying', function(content) {
