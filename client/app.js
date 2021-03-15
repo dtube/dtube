@@ -53,12 +53,12 @@ Meteor.startup(function(){
   if (localStorage.getItem("nsfwSetting"))
     Session.set('nsfwSetting', localStorage.getItem("nsfwSetting"))
   else
-    Session.set('nsfwSetting', 'Fully Hidden')
+    Session.set('nsfwSetting', 2)
 
   if (localStorage.getItem("censorSetting"))
     Session.set('censorSetting', localStorage.getItem("censorSetting"))
   else
-    Session.set('censorSetting', 'Fully Hidden')
+    Session.set('censorSetting', 1)
 
   // dark mode (buggy)
   // if (!UserSettings.get('isInNightMode'))

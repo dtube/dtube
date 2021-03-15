@@ -529,9 +529,9 @@ Template.registerHelper('isVideoHidden', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
     if (censor == -1)
         return true
-    if (censor == 1 && Session.get('censorSetting') == 'Fully Hidden')
+    if (censor == 1 && Session.get('censorSetting') === 2)
         return true
-    if (censor == 2 && Session.get('nsfwSetting') == 'Fully Hidden')
+    if (censor == 2 && Session.get('nsfwSetting') === 2)
         return true
 
     return false
@@ -539,9 +539,9 @@ Template.registerHelper('isVideoHidden', function(video) {
 
 Template.registerHelper('isVideoBlurred', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
-    if (censor == 1 && Session.get('censorSetting') == 'Blurred')
+    if (censor == 1 && Session.get('censorSetting') === 1)
         return true
-    if (censor == 2 && Session.get('nsfwSetting') == 'Blurred')
+    if (censor == 2 && Session.get('nsfwSetting') === 1)
         return true
 
     return false

@@ -18,13 +18,13 @@ Template.settingsdropdown.rendered = function() {
     })
     if (!Session.get('nsfwSetting')) {
         if (Meteor.settings.public.scot && Meteor.settings.public.scot.nsfw)
-            Session.set('nsfwSetting', 'Show')
+            Session.set('nsfwSetting', 0)
         else
-            Session.set('nsfwSetting', 'Fully Hidden')
+            Session.set('nsfwSetting', 2)
     }
 
     if (!Session.get('censorSetting'))
-        Session.set('censorSetting', 'Blurred')
+        Session.set('censorSetting', 1)
 
     Template.settingsdropdown.nightMode();
 }

@@ -80,12 +80,12 @@ Template.settings.events({
         localStorage.setItem('hiveAPI', value)
     },
     'change #nsfwSetting': function(event) {
-        var value = $('#nsfwSetting').val()
+        let value = $('#nsfwSetting').prop('selectedIndex')
         Session.set('nsfwSetting', value)
         localStorage.setItem("nsfwSetting", Session.get('nsfwSetting'))
     },
     'change #censorSetting': function(event) {
-        var value = $('#censorSetting').val()
+        let value = $('#censorSetting').prop('selectedIndex')
         Session.set('censorSetting', value)
         localStorage.setItem("censorSetting", Session.get('censorSetting'))
     },
