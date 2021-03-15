@@ -217,10 +217,10 @@
                 </tbody>
             </table>
 
-            {{#if activeUsernameSteem}}
+            {{#if or activeUsernameSteem activeUsernameHive}}
                 {{#unless isEditingVideo}}
                 <div class="ui divider"></div>
-                <h2>Steem Options</h2>
+                <h2>{{ translate 'UPLOAD_GRAPHENE_OPTIONS' }}</h2>
                 <form class="ui form uploadformadvanced">
                     <div class="field advancedupload">
                         <div class="field publishfield">
