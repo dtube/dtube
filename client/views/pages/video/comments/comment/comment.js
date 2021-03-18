@@ -11,7 +11,7 @@ Template.comment.helpers({
         if (id.split('/')[0] == 'steem') {
             return 'https://steemitimages.com/u/' + username + '/avatar/'
         } else if (id.split('/')[0] == 'dtc') {
-            return 'https://avalon.oneloved.tube/image/avatar/' + username
+            return javalon.config.api + '/image/avatar/' + username
         } else if (id.split('/')[0] == 'hive')
             return 'https://images.hive.blog/u/' + username + '/avatar'
     },

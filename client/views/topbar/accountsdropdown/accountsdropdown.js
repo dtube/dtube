@@ -94,10 +94,10 @@ Template.accountsdropdown.helpers({
         return Users.findOne({username: Session.get('activeUsernameHive')})
     },
     topbarAvatarUrl: () => {
-        if (Session.get('activeUsername')) return 'https://avalon.oneloved.tube/image/avatar/' + Session.get('activeUsername')
+        if (Session.get('activeUsername')) return javalon.config.api + '/image/avatar/' + Session.get('activeUsername')
         else if (Session.get('activeUsernameHive')) return 'https://images.hive.blog/u/' + Session.get('activeUsernameHive') + '/avatar'
         else if (Session.get('activeUsernameSteem')) return 'https://steemitimages.com/u/' + Session.get('activeUsernameSteem') + '/avatar'
-        else return 'https://avalon.oneloved.tube/image/avatar/null'
+        else return javalon.config.api + '/image/avatar/null'
     },
     topbarUsername: () => {
         if (Session.get('activeUsername')) return Session.get('activeUsername')

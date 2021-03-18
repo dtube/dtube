@@ -157,7 +157,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
 
 Template.registerHelper('userPic', function(username, size) {
     if (!size || typeof size != 'string') size = ''
-    return 'https://avalon.oneloved.tube/image/avatar/' + username + '/' + size
+    return javalon.config.api + '/image/avatar/' + username + '/' + size
 });
 
 Template.registerHelper('userPicSteem', function(username, size) {
@@ -171,7 +171,7 @@ Template.registerHelper('userPicHive', (username, size) => {
 })
 
 Template.registerHelper('userCover', function(username) {
-    return 'https://avalon.oneloved.tube/image/cover/' + username
+    return javalon.config.api + '/image/cover/' + username
 })
 
 Template.registerHelper('isReplying', function(content) {
