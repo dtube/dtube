@@ -47,8 +47,14 @@
             </div>
             <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
                 {{#if dtubeVotable content}}
-                    {{#if firstTag content.tags}}
-                    <div class="ui tiny button addtag {{sliderclass}} dsp-blk">Tag+Tip</div>
+                    {{#if or (not isComment) (canTipAuthor content)}}
+                    <div class="ui tiny button addtag {{sliderclass}} dsp-blk">
+                        {{#if and (not isComment) (canTipAuthor content)}}
+                            Tag+Tip
+                        {{else}}
+                            {{#if not isComment}}New Tag{{else}}Tip{{/if}}
+                        {{/if}}
+                    </div>
                     {{/if}}
                 {{/if}}
                 <div class="ui button verticalslider {{voteType}}vote {{sliderclass}} upper dsp-blk">
@@ -56,18 +62,15 @@
             </div>
             <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;text-align: center;">
                 <div class="ui tiny button removetag">Remove</div>
-                {{#with firstTag content.tags}}
-                {{#unless equals t 'dtube'}}
-                <b>Tag:</b> <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}"
-                                                              style="max-width: 80px; text-align: center;" />
-                <b>Tip(%):</b><input type="number" value="5" class="tipvalue {{sliderclass}}"
-                                                              style="max-width: 80px; text-align: center;" />
-                {{/unless}}
-                {{/with}}
+                {{#if not isComment}}
+                <b>Tag:</b> <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
+                {{/if}}
+                {{#if canTipAuthor content}}
+                <b>Tip(%):</b><input type="number" value="5" class="tipvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
+                {{/if}}
                 <div class="ui button verticalslider {{voteType}}votetag {{sliderclass}} upper dsp-blk">
                     <i class="thumbs {{voteType}} icon"></i><span>+</span></div>
             </div>
-
         </div>
     </div>
 </template>

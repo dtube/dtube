@@ -203,8 +203,7 @@ Template.verticalvoteslider.events({
     },
 
     'click .button.upvotetag': function(event) {
-        var newTag = $('.tagvote.up .tagvalue').val()
-        if (!newTag) return
+        let newTag = $('.tagvote.up .tagvalue').val()
         let author = this.content.author
         let permlink = this.sliderclass
         let weight = 100
@@ -247,8 +246,7 @@ Template.verticalvoteslider.events({
         });
     },
     'click .button.downvotetag': function(event) {
-        var newTag = $('.tagvote.down .tagvalue').val()
-        if (!newTag) return
+        let newTag = $('.tagvote.down .tagvalue').val()
         let author = this.content.author
         let permlink = this.sliderclass
         let weight = 100
@@ -307,4 +305,10 @@ Template.verticalvoteslider.helpers({
         if (one || two) return true;
         return false;
     },
+    canTipAuthor: function (content) {
+        for (let v in content.votes)
+            if (content.votes[v].u === content.author && !content.votes[v].claimed)
+                return true
+        return false
+    }
 });

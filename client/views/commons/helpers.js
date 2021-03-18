@@ -19,6 +19,14 @@ Template.registerHelper('or', function(one, two) {
     return false;
 });
 
+Template.registerHelper('and', function(one,two) {
+    return one && two
+})
+
+Template.registerHelper('not', function(itm) {
+    return !itm
+})
+
 Template.registerHelper('count', function(array) {
     if (!array) return 0;
     return array.length;
