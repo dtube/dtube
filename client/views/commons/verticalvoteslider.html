@@ -34,7 +34,7 @@
                 </div>
             </div>
             {{/if}}
-            <div class="pos-rel">
+            <div class="pos-rel" style="width: 60px; height: 210px;">
                 <div class="vertical-slider-bubble" id="sliderBubble{{voteType}}{{sliderclass}}">
                     <span>{{displayPayout voteVt}}</span></div>
                 <input type="range" min="0.1" max="100" step="0.1" class="vslider vertical" orient="vertical"
@@ -42,8 +42,8 @@
                 <div id="vsliderbackholder" class="vsliderbackholder {{color}}"></div>
                 <div id="vsliderholder{{voteType}}{{sliderclass}}" class="vsliderholder"></div>
                 <div id="bubblevsliderholder{{voteType}}{{sliderclass}}" class="bubblevsliderholder">
-                    <img style="width: 20px;" src="./DTube_files/images/logos/{{contentNetwork content}}_round.png">
-                </div>
+                    <img style="width: 30px;" src="./DTube_files/images/logos/{{contentNetwork content}}_round.png">
+                </div> 
             </div>
             <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
                 {{#if dtubeVotable content}}
@@ -52,7 +52,7 @@
                         {{#if and (not isComment) (canTipAuthor content)}}
                             Tag+Tip
                         {{else}}
-                            {{#if not isComment}}New Tag{{else}}Tip{{/if}}
+                            {{#if not isComment}}Add Tag{{else}}Tip{{/if}}
                         {{/if}}
                     </div>
                     {{/if}}

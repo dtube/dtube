@@ -34,18 +34,18 @@ Template.verticalvoteslider.rendered = function() {
     function setBubble() {
         const
             newValue = Number((slider.value - slider.min) * 100 / (slider.max - slider.min)),
-            newPosition = (newValue * 0.88);
+            newPosition = (newValue * 0.815);
         if (voteType === 'up')
             bubble.innerHTML = `<span>${slider.value}%</span>`;
         else bubble.innerHTML = `<span>-${slider.value}%</span>`;
-        bubble.style.bottom = `calc(${newPosition}% + 26px)`;
+        bubble.style.bottom = `calc(${newPosition}% + 29.5px)`;
         bubble.style.left = `9px`;
         if (Session.get('activeUsername') && network === 'dtube') {
             var vt = (avalon.votingPower(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' })) / 100 * slider.value).toFixed(2)
             value.innerHTML = cuteNumber(vt)
         }
         holder.style.height = `calc(${100 - newPosition}% - 15px)`;
-        bubbleholder.style.bottom = `calc(${newPosition}% + 5px)`;
+        bubbleholder.style.bottom = `calc(${newPosition}% + 6px)`;
     }
 
     function cuteNumber(num, digits) {
@@ -201,7 +201,6 @@ Template.verticalvoteslider.events({
             Template.video.loadState()
         });
     },
-
     'click .button.upvotetag': function(event) {
         let newTag = $('.tagvote.up .tagvalue').val()
         let author = this.content.author

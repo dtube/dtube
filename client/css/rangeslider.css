@@ -85,27 +85,10 @@
     pointer-events: none;
 }
 
-.vslider.vertical {
-    appearance: none;
-    min-width: 60px!important;
-    min-height: 200px;
-    width: 60px!important;
-    height: 200px;
-    background: transparent;
-    outline: none;
-    opacity: 0.7;
-    border-radius: 5px;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-    writing-mode: bt-lr;
-    -webkit-appearance: slider-vertical;
-    appearance: slider-vertical;
-}
-
 .vsliderbackholder.yellow {
-    left: calc(50% - 20px);
+    left: calc(50% - 7px);
     top: -3px;
-    height: 210px;
+    height: 216px;
     border: 14px solid white;
     position: absolute;
     min-width: 40px!important;
@@ -166,7 +149,7 @@
 }
 
 .vsliderholder {
-    left: calc(50% - 6px);
+    left: calc(50% + 7px);
     top: 7px;
     position: absolute;
     min-width: 12px!important;
@@ -189,10 +172,10 @@
 }
 
 .bubblevsliderholder {
-    left: calc(50% - 10px);
+    left: calc(50% - 2px);
     position: absolute;
-    width: 20px!important;
-    height: 20px!important;
+    width: 30px!important;
+    height: 30px!important;
     background: #3b5998;
     border-radius: 50%;
     -webkit-transition: .2s;
@@ -200,13 +183,36 @@
     pointer-events: none;
 }
 
+.vslider.vertical {
+    appearance: none;
+    min-width: 200px!important;
+    min-height: 10px;
+    width: 200px!important;
+    height: 50px;
+    background: white;
+    outline: none;
+    opacity: 0.7;
+    border-radius: 5px;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    writing-mode: bt-lr;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-transform: rotate(-90deg) translate(-77px,-57px);
+    transform: rotate(-90deg) translate(-77px,-57px);
+}
+
+.vslider.vertical.nightmode { background: rgb(40, 40, 40)!important; }
+
 .vslider:hover {
     opacity: 1;
 }
 
 .vslider.vertical::-webkit-slider-thumb {
-    width: 15px;
-    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: red;
     cursor: pointer;
@@ -218,27 +224,11 @@
     outline-offset: -1px;
 }
 
-::-webkit-scrollbar-thumb {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: red;
-    cursor: pointer;
-    z-index: 9999;
-}
-
 .vslider.vertical::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: red;
-    cursor: pointer;
-    z-index: 9999;
-}
-
-.vslider.vertical::-ms-thumb {
-    width: 15px;
-    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: red;
     cursor: pointer;

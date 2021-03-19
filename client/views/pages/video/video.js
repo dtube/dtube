@@ -161,50 +161,6 @@ Template.video.events({
     //     var permlink = FlowRouter.getParam("permlink")
     //     FlowRouter.go('/'+author+'/'+permlink+'/votes')
     // },
-    'click .voteATag': function (event) {
-        var newTag = event.target.dataset.value
-        if (!newTag) return
-        var author = FlowRouter.getParam("author")
-        var permlink = FlowRouter.getParam("permlink")
-        var weight = UserSettings.get('voteWeight') * 100
-        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-            else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-            Template.video.loadState()
-        });
-    },
-    'click .voteCustomTag': function (event) {
-        var author = FlowRouter.getParam("author")
-        var permlink = FlowRouter.getParam("permlink")
-        var weight = UserSettings.get('voteWeight') * 100
-        var newTag = prompt('Enter a new tag')
-        newTag = newTag.trim().toLowerCase()
-        if (newTag.indexOf(' ') > -1) {
-            toastr.warning('Only a single tag is allowed')
-            return
-        }
-        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-            else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-            Template.video.loadState()
-        });
-    },
-    'click .downvoteCustomTag': function (event) {
-        var author = FlowRouter.getParam("author")
-        var permlink = FlowRouter.getParam("permlink")
-        var weight = UserSettings.get('voteWeight') * -100
-        var newTag = prompt('Enter a new tag')
-        newTag = newTag.trim().toLowerCase()
-        if (newTag.indexOf(' ') > -1) {
-            toastr.warning('Only a single tag is allowed')
-            return
-        }
-        broadcast.avalon.vote(author, permlink, weight, newTag, function (err, result) {
-            if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
-            else toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
-            Template.video.loadState()
-        });
-    },
     'click #promotereply': function (event) {
         if (event.target.checked) {
             $('#promoteslider').show()
