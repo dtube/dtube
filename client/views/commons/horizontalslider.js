@@ -10,7 +10,7 @@ Template.horizontalslider.rendered = function() {
     function setBubble() {
         const
             newValue = Number((slider.value - slider.min) * 100 / (slider.max - slider.min)),
-            newPosition = (newValue * .97);
+            newPosition = (newValue * .932);
         holder.style.width = `calc(${100 - newPosition}% - 15px)`;
         bubbleholder.style.left = `calc(${newPosition}%)`;
     }

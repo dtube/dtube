@@ -300,7 +300,7 @@ textarea {
 .ui.nightsegment .ui.slider.checkbox input:checked ~ .box,
 .ui.nightsegment .ui.slider.checkbox input:checked ~ label { color: #ffffff!important; }
 
-input.nightmode,
+input.nightmode:not(.hslider),
 textarea.nightmode,
 .dropdown.nightmode:not(.dropdownnotification):not(.dropdownvideoshare):not(.dropdownvideosettings):not(.dropdownsettings),
 .nightmode .settingspage select,

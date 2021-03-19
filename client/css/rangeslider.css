@@ -17,6 +17,28 @@
     transition: opacity .2s;
 }
 
+.hslider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: red;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.hslider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: red;
+    cursor: pointer;
+    z-index: 9999;
+}
+
 .hsliderbackholder.yellow {
     top: -2px;
     width: 100%;
@@ -74,10 +96,10 @@
 }
 
 .bubblehsliderholder {
-    top: calc(50% - 11px);
+    top: calc(50% - 17.5px);
     position: absolute;
-    width: 20px!important;
-    height: 20px!important;
+    width: 30px!important;
+    height: 30px!important;
     background: #3b5998;
     border-radius: 50%;
     -webkit-transition: .2s;
