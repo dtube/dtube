@@ -843,7 +843,7 @@ Videos.getOverlayUrl = function(video) {
 
 Videos.getGenreList = function() {
     var genreList = ["art", "fashion", "music", "gaming", "food", "travel", "sports",
-                  "talks", "vlog", "science", "documentary", "movies", "journalism", "activism", "diyhub", "other", "original"]
+                  "talks", "vlog", "science", "documentary", "movies", "journalism", "activism", "diyhub", "other", "original", "news", "animation"]
 
     return genreList
 }
@@ -871,6 +871,7 @@ Videos.getGenres = function() {
 
 Videos.getAllGenreImageFileNames = function() {
     var allGenreImageFileNames = []
+    var allGenreImageFileHashes = []
     var fileNames = []
 
     // Free image sources: https://unsplash.com/s/photos
@@ -880,71 +881,138 @@ Videos.getAllGenreImageFileNames = function() {
     fileNames = ["genre_1_art_1.jpg", "genre_1_art_2_paintings.jpg", "genre_1_art_3_colors.jpg", "genre_1_art_4_brushes.jpg", "genre_1_art_5_painting.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmXujXvqXe9acV68gk3fQbGzZ2zSoYYeNpUkW6gdEUxKen", "QmceCB8RFWsHgGVcy33gJ2F5RXEafsYt6ncgRvJQBhkSy3" , "QmPRvLiTF6ZRgUVGg36tQs6jdHAuEKjN5RbkhxjfeVmJsa", "QmZSjvtsih4NkQXfsswAgo6aPxeRnCfgS2QMSfpXQuD5B1", "QmbKLxFsf69sS2YUN22mxXmcXdKCoUzRMrSjgenKoxbqto"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_2 food
     fileNames = ["genre_2_fashion_1_clothings_black_blue.jpg", "genre_2_fashion_2_fashion_vlogging.jpg", "genre_2_fashion_3_girl_with_blue_dress.jpg", "genre_2_fashion_4_man_with_tshirt.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmRDzK2Vpq8G6gKrm6idDZoVrZxpm2XzD3UWcoiZCqHbuu", "QmboGMuvCELg1ybHnXWespY6HvViUfRhtmk3JPuKezVpY5", "QmVdKbsozXjCrYUgAowwAyNKdGtgDmTRUhNpZNsn5S8nZh", "QmXPgbHPJaSW2BrAYQzFMFGpbpqzwgyenVSHjKbNtYnn7x"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_3 music
     fileNames = ["genre_3_music_1_instruments_empty_room.jpg", "genre_3_music_2_concert.jpg", "genre_3_music_3_singer.jpg", "genre_3_music_4_guitarist.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmW8KuSCigybpxoQuUPwD1CrEqpgtyibW54aGmcTonx2pA", "QmdZS96nSyEUcv2KjASg51aUG5KmYkUbEZCgfuUKRVf7SL", "QmZ8xkkDHVQykFNXNNic7ygrBTjb1QVnF1bWsKeDukVP3j", "QmUJBU53ZsRRthDcozxAbwNrXvqcsEGGxAW4iKgDKCqFRh"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_4 gaming
     fileNames = ["genre_4_gaming_1_gamer_lightings.jpg", "genre_4_gaming_2_gamer_girl.jpg", "genre_4_gaming_3_joystick.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmWLhxh3695FfcTj7pzqhmzrSySZEPFK1FL6NWenUF4HLm", "QmVTanrU2p5cTodjHE97VCs6KyemRu7JVt7mwwK2BPugmK", "QmcyWMgZ3zaPB5vyXhxidBNQgchrDjYY6jy8X3w3pHB8xd"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_5 food
     fileNames = ["genre_5_food_1_egg_avocado.jpg", "genre_5_food_2_vegetables.jpg", "genre_5_food_3_steak.jpg", "genre_5_food_4_bowl.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmXgSAij3wYnfLJgYtKiTieJHByvKiMZjfK6ou1MQ8kcP6", "QmXrUx8pQRWxcDs7LRmSAk62yBU5WGiyo4CoceoqvtT7QR", "QmPvZUDbhnUqpCkHSPaCdjGBwiLw4Q1jcTqvUU3vE342xy", "QmRJCEzRQkEHyFPkS8HEzParcRGFiN7GRuTFwAPXXmoAAJ"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_6 travel
     fileNames = ["genre_6_travel_1_aeroplane.jpg", "genre_6_travel_2_boat_river.jpg", "genre_6_travel_3_balloons.jpg", "genre_6_travel_4_mountain_lake.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmcDT91ZSNHft1h4XTv7WnQm89B7zjf9fxEeHT8ic8JgVS", "QmWaiq8N3qYj8rC3jC6sL8VxGApNQnmMaehrYa9CpvvY3r", "QmeBMCCX1UragRfmp6D4LhrTe71sCRgtBJyYksZCESA9X8", "QmSSf1kKemLfQ8LkTUJ5CGmPeXGJNvyddKdQ2UxmUoEMpC"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_7 sports
     fileNames = ["genre_7_sports_1_soccer_ball.jpg", "genre_7_sports_2_bikers.jpg", "genre_7_sports_3_stadium.jpg", "genre_7_sports_4_mountain_climbers.jpg", "genre_7_sports_5_runners.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmUtemAEdz9BYY8mn7aDT7fnY9U1DW1tMwF8oERg1WPusm", "QmP64uP6mSJXo6CiVWm6P3HFmreaUea4guSHJzL3XNF2Wi", "QmYU3Jwt2sLW8mqDE9NazoK7guXoRwf2tX8fg87dcLN82J", "QmWRj5gK2aEnYCKSDMVBM7K7zXxfLBxPARuzoyj3xupfga", "QmUbxu3VV2A2cZPRAam4WMwJV2Wyg5zHyUnfJvovZxmvsV"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_8 talks
     fileNames = ["genre_8_talks_1_two_person.jpg", "genre_8_talks_2_interview.jpg", "genre_8_talks_3_interview_girl.jpg", "genre_8_talks_4_podcast_talk.jpg", "genre_8_talks_5_roundtable_talk.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmRoM2w2kn5bAbWKpTVoTRTVett127nPNbebBXZMwB1AyX", "QmdvdFiCeQwGy6KFrxgEnrqsQagaLPkj5avT7evsZYrG8p", "QmTUduAkeGy3JZ9YetB3eoPFsKbwo44spedP5st3wpesYL", "QmWVZNo2En5J59tnL88kdXv6j78Cx4o3gz45DZsH4ejCuj", "QmWX4tRSEnpHn51j2WnirsrtCAapnLmSo8ffcFuqJxx1sJ"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_9 vlog
     fileNames = ["genre_9_vlog_1_hiking.jpg", "genre_9_vlog_2_photographer.jpg", "genre_9_vlog_3_girl_near_river.jpg", "genre_9_vlog_4_vlogger_mountain.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmeyNeqPUzA66dWBy6Nu94DhTGmTdMfJdWxaG2M7R6VEoj", "QmXhZU7Y7Eqm9RmbRLAS2hHcFLL41smuNG3KueB6B5KysK", "QmRzugG5ZPcdgMtq6kRjG4e7CxATnkLgqfsT5U9HGHGkcd", "QmRu98yWX8aHWAjh1ztyqMegM2cTUeXfYgHE86Vr6B9fm2"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_10 science
     fileNames = ["genre_10_science_1_astronaut.jpg", "genre_10_science_3_experiment.jpg", "genre_10_science_5_agriculture.jpg", "genre_10_science_7_outside_earth.jpg", "genre_10_science_2_chemistry.jpg", "genre_10_science_4_antenna.jpg", "genre_10_science_6_cancer_cells.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmRcJwwbi5APtBG9Um6YuyApLVPgVFhJrpWDiy8vQo6juf", "QmZBow3zeEyWpwbQ9DqW9peSMubqfoQ5zpTJxvPF7daV9P", "QmdYXMDyqucoRnMjJgu76Ux49hUmj7R7VLeAkQWbNoZq5u", "QmU881CSnvgSv8f6ajXuqgnnrUC8AP3DtFCWw6VqrnWfth", "QmRnaLuA7D6ieXPM8g74NDkfGB5j5b37oZ8uCydos19jTM", "Qmb6fePfRaqBfyNQdC4Ej99SH6XVTBZpur5W5HEX2Pf7oU", "QmSKZkf2MBQGX6SAKL6W7rkzFMZztCX66qrS9feW8eG6hW"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_11 documentary
     fileNames = ["genre_11_documentary_1_old_man_face.jpg", "genre_11_documentary_2_street.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmNxSzLHUxStT4EkwQ2fbDyey99acqfohnjWH84eb9mgJu", "QmfZAte2HNK9ncdLNKC6mU43GueUzBSCHutjyYz11sKAHn"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_12 movies
     fileNames = ["genre_12_movies_1_cinema.jpg", "genre_12_movies_2_actor_holding_actress.jpg", "genre_12_movies_3_chicago_theater.jpg", "genre_12_movies_4_movie_set.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmWWMke4syLALNmRp7PyoZVJXgn775JUyCV6owWymJG6QR", "QmPD2P5m6qKtk8W672nMT5jhPAwLyDxz1TrSzS3Tu4pMbN", "QmR3YH9QskCKRQqPqPaJ4xeua6SAP8PQgTNpxp9HDJGz6X", "QmQWTgfXKXFR6KchyZ2TJt4qJgPNBeoxfTmdTztBWhdW2p"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_13 journalism
     fileNames = ["genre_13_journalism_1_girl_rearranging_newspapers.jpg", "genre_13_journalism_2_newspapers.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmWWMke4syLALNmRp7PyoZVJXgn775JUyCV6owWymJG6QR", "QmPD2P5m6qKtk8W672nMT5jhPAwLyDxz1TrSzS3Tu4pMbN", "QmR3YH9QskCKRQqPqPaJ4xeua6SAP8PQgTNpxp9HDJGz6X", "QmQWTgfXKXFR6KchyZ2TJt4qJgPNBeoxfTmdTztBWhdW2p"]
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_14 activism
     fileNames = ["genre_14_activism_1_black_lives_matter.jpg", "genre_14_activism_3_change_politics_climate.jpg", "genre_14_activism_4_activism.jpg", "genre_14_activism_2_people_protesting.jpg", "genre_14_activism_3_dont_poison_our_water.jpg", "genre_14_activism_5_fashion_is_fucked.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmYGkx2eX7FvkbXBiSKY9QaiYRfMpVS9f7kVABQS4MGhJB", "QmUnXp8FK2B4kw5YxSWbckSoC58m7TnqCafLPMmNVf6rNR", "QmNcxco26xHkASzAkEjFxWwH6Tigz879AXcNe18QM32agH" ,"QmXCXWNrTExPHYH5FA6R1SSWK8jbCw7HChFhRfBsjKVFpM", "QmYZMrmMPdRLGhmfKKWwtTy34owFFoEnGfxsy5ZeaxwMqC" , "QmNxRTSdQFdmErDh44q9qV8tbRzcSthm2jrLSGMbZtoAsY"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_15 how to do
     fileNames = ["genre_15_diyhub_1_scissors_pens.jpg", "genre_15_diyhub_2_green_leafed_plants.jpg", "genre_15_diyhub_3_person_holding_black_metal.jpg", "genre_15_diyhub_4_person_molding_vase.jpg", "genre_15_diyhub_5_man_sewing.jpg"]
     allGenreImageFileNames.push(fileNames)
 
+    fileHashes = ["QmNuehKtRYA4uwF5vQAZF8bQijmqU8oKb4x15RL9bhNGqg", "QmYMTPWaUaUX4VsPF5tHqXEtueek9KZZCW8nzugntTsS2e", "Qmbc5q5qCyq1fZtycrAX15ZXEG16qPShod2QoWYVPeE9U3", "Qmekn1yCmWMi9ahMpiyzAYEEDuj2SPqfXTx6Y1g3DiTk1k", "QmUSLivSkVrgNk1UCfTD3J1g51WdedcTrM95AgGewkZkda"]
+
+    allGenreImageFileHashes.push(fileHashes)
+
     // genre_16 other
     fileNames = ["genre_16_other_1_passion_led_here.jpg"]
     allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmRYTKbhPfWrdksW5SWeHZmCuyJjmDJAVttATyxNNi4xdd"]
+    allGenreImageFileHashes.push(fileHashes)
 
     // genre_17 original
     fileNames = ["genre_17_original_1.jpg"]
     allGenreImageFileNames.push(fileNames)
 
-    return allGenreImageFileNames
+    fileHashes = ["QmNSV8CuV37T7WhQeQQEbCyfKskpPLZnTYWaYisxihea3S"]
+    allGenreImageFileHashes.push(fileHashes)
+
+    // genre_18 news
+    fileNames = ["genre_18_news_1.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmRjb1HABkgjZYbegPpg2MnSEnLSNtwTGxCg3ZxtwcMycs"]
+    allGenreImageFileHashes.push(fileHashes)
+
+    // genre_19 animation
+    fileNames = ["genre_19_animation_1.jpg"]
+    allGenreImageFileNames.push(fileNames)
+
+    fileHashes = ["QmXeQEfpyvdzzR9VXQrATe1vGMhBSiyszam3TR4Ytfuyee"]
+    allGenreImageFileHashes.push(fileHashes)
+
+    //return allGenreImageFileNames
+    return allGenreImageFileHashes
 }
 
 Videos.getGenreThumbnailUrl = function(genreId) {
@@ -959,13 +1027,14 @@ Videos.getGenreThumbnailUrl = function(genreId) {
     id = Math.floor(Math.random() * genreImageFileNames.length)
     selectedFile = genreImageFileNames[id]
 
-    var imageServerUrl = "." //"http://dtube.club:5000"
-    var rootGenreImageDir = imageServerUrl + "/DTube_files/images/genres/"
+    var imageServerUrl = "https://ipfs.io/ipfs" //"http://dtube.club:5000"
+    var rootGenreImageDir = imageServerUrl //+ "/DTube_files/images/genres/"
     // get genre directory
-    var genreDir = "genre_" + (genreId + 1) + "_" + genreList[genreId]
+    //var genreDir = "genre_" + (genreId + 1) + "_" + genreList[genreId]
 
     // create genre thumbnail url
-    var genreThumbnailUrl = rootGenreImageDir + genreDir + "/" + selectedFile;
+    //var genreThumbnailUrl = rootGenreImageDir + genreDir + "/" + selectedFile;
+    var genreThumbnailUrl = rootGenreImageDir + "/" + selectedFile;
 
     return genreThumbnailUrl
 }
