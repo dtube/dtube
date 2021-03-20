@@ -469,8 +469,10 @@ Template.video.handleVideo = function (result, id, isRef) {
     video.source = 'chainDirect'
     video._id += 'd'
     Videos.upsert({ _id: video._id }, video)
-    if (network == 'dtc')
+    if (network == 'dtc') {
+        video.last_viewed = new Date().getTime()
         WatchAgain.upsert({ _id: video._id }, video)
+    }
 
     // load cross ref data if isRef == true
     if (isRef && video.json.refs) {
