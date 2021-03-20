@@ -761,10 +761,9 @@ Template.registerHelper('steemVotable', function(content) {
         if (content._id.startsWith('steem'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('steem'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('steem'))
                 return true
-        });
         return false
     } else return false
 })
@@ -774,10 +773,9 @@ Template.registerHelper('hiveVotable', function(content) {
         if (content._id.startsWith('hive'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('hive'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('hive'))
                 return true
-        });
         return false
     } else return false
 })
@@ -787,14 +785,12 @@ Template.registerHelper('dtubeVotable', function(content) {
         if (content && content._id.startsWith('dtc'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('dtc'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('dtc'))
                 return true
-        });
         return false
     } else return false
 })
-
 
 Template.registerHelper('contentNetwork', function(content) {
     if (!content)
