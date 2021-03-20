@@ -7,15 +7,16 @@ Template.video.rendered = function () {
     Template.video.setScreenMode();
     $(window).on('resize', Template.video.setScreenMode)
     Template.sidebar.resetActiveMenu()
-    Template.settingsdropdown.nightMode();
     Session.set('commentBurn', null)
     setTimeout(function () {
+        Template.settingsdropdown.nightMode()
+        Template.video.setScreenMode()
         $('.ui.newtag').dropdown({})
-        var commentSlider = document.getElementById("comment-range");
-        commentSlider.oninput = function () {
+        $('#comment-range').on('input', function () {
             let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
             Session.set('commentBurn', Template.publish.logSlider(this.value,balance))
-        }
+        })
+        
         $('.videopayout')
             .popup({
                 inline: true,
