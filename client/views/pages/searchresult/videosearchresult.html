@@ -3,10 +3,12 @@
   <a href='/v/{{author}}/{{link}}' title='{{json.title}}'><div class='verticalvideosnap wid-ful {{#if isVideoBlurred this}}blur{{/if}}' style="display:-webkit-box;">
     <div style="height:100%px;">
       <div class='verticalvideosnapsnap' style="height:118px;width:210px;">
-          <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
-        {{#if json.duration}} 
-          <span class="videosnapduration">{{durationDisplay json.duration}}</span>
-        {{/if}}
+          <span class="videoscore"><i class="bolt icon"></i>{{displayPayout ups downs}}</span>
+          {{#if json.duration}} 
+            <span class="videosnapduration">{{durationDisplay json.duration}}</span>
+          {{else}}{{#if json.dur}}
+            <span class="videosnapduration">{{durationDisplay json.dur}}</span>
+          {{/if}}{{/if}}
         <div id="snapload" class="ui active dimmer pos-abs" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);
                                                           width:210px;height:118px;">
           <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>

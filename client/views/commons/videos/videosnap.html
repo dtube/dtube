@@ -5,10 +5,12 @@
       <div id='snaphover wid-ful' class='videosnapsnap' style="height:118px;">
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">
         <span class="videoscore"><i class="thumbs up icon"></i>{{votesLength}}</span>
-        <span class="videopower">{{displayPayout ups downs}}<i class="bolt icon"></i></span>
+        <!-- <span class="videopower">{{displayPayout ups downs}}<i class="bolt icon"></i></span> -->
         {{#if json.duration}} 
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
-        {{/if}}
+        {{else}}{{#if json.dur}}
+          <span class="videosnapduration">{{durationDisplay json.dur}}</span>
+        {{/if}}{{/if}}
         {{#if viewers}} 
           <span class="livestreamviewcount">{{viewers}} viewer{{#unless equals viewers '1'}}s{{/unless}}</span>
         {{/if}}

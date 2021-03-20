@@ -4,10 +4,12 @@
     <a href='/v/{{author}}/{{link}}' title='{{json.title}}'>
       <div id='snaphover' class='videosnapsnap wid-ful' style="height:118px;">
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">
-        <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
+        <span class="videoscore"><i class="bolt icon"></i>{{displayPayout ups downs}}</span>
         {{#if json.duration}} 
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
-        {{/if}}
+        {{else}}{{#if json.dur}}
+          <span class="videosnapduration">{{durationDisplay json.dur}}</span>
+        {{/if}}{{/if}}
         {{#if isOnWatchAgain}}
         <div id="remove" class="remove snapbutton pos-abs" title='Stop sharing {{json.title}}' style="float: right;right: 5px;background: black;top: 5px;border-radius: 4px;opacity: 0.9;">
           <i class="remove icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">

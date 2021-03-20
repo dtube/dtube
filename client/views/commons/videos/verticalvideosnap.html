@@ -12,10 +12,12 @@
           <i class="icon photo nosnap" style="font-size:28px;margin-top:15%;"></i>
           <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
         </div>
-        <span class="videoscore"><i class="thumbs up icon"></i>{{displayPayout ups downs}}</span>
-        {{#if json.duration}}
+        <span class="videoscore"><i class="bolt icon"></i>{{displayPayout ups downs}}</span>
+        {{#if json.duration}} 
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
-        {{/if}}
+        {{else}}{{#if json.dur}}
+          <span class="videosnapduration">{{durationDisplay json.dur}}</span>
+        {{/if}}{{/if}}
         <img id="snapimg" height="90" width="160" alt="" data-src="{{json.thumbnailUrl}}">
         <br /> 
       </div>
