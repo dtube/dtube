@@ -820,7 +820,7 @@ Template.registerHelper('metamaskAddress',() => {
 
 Template.registerHelper('fallbackThumbnailUrl',(url) => {
     // no fallback for 3rd party thumbnails
-    if (!url.includes('/ipfs/') && !url.includes('/btfs/')) return url
+    if (!url.includes('/ipfs/') && !url.includes('/btfs/')) return ''
 
     // Return next gateway in the list
     for (let g in Meteor.settings.public.remote.displayNodes) {
