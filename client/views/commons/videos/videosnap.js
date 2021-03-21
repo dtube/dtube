@@ -34,4 +34,10 @@ Template.videosnap.rendered = function () {
   $(this.firstNode.nextSibling).find('#snapload').addClass('loaded');
 }
 
-
+Template.videosnap.fallback = (elem) => {
+  let newsrc = UI._globalHelpers.fallbackThumbnailUrl(elem.src)
+  if (newsrc)
+    elem.src = newsrc
+  else
+    elem.onerror = null
+}

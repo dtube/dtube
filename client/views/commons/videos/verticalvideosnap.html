@@ -18,7 +18,7 @@
         {{else}}{{#if json.dur}}
           <span class="videosnapduration">{{durationDisplay json.dur}}</span>
         {{/if}}{{/if}}
-        <img id="snapimg" height="90" width="160" alt="" data-src="{{json.thumbnailUrl}}">
+        <img id="snapimg" height="90" width="160" alt="" src="{{json.thumbnailUrl}}" onerror="Template.videosnap.fallback(this)">
         <br /> 
       </div>
     </div>

@@ -817,3 +817,24 @@ Template.registerHelper('hasMetamask',() => {
 Template.registerHelper('metamaskAddress',() => {
     return Session.get('metamaskAddress')
 })
+
+Template.registerHelper('fallbackThumbnailUrl',(url) => {
+    // no fallback for 3rd party thumbnails
+    if (!url.includes('/ipfs/') && !url.includes('/btfs/')) return url
+
+    // Return next gateway in the list
+    for (let g in Meteor.settings.public.remote.displayNodes) {
+        if (url.startsWith(Meteor.settings.public.remote.displayNodes[g])) {
+            if (g < Meteor.settings.public.remote.displayNodes.length)
+                return url.replace(Meteor.settings.public.remote.displayNodes[g],Meteor.settings.public.remote.displayNodes[g+1])
+            else
+                return '' // no more gateways
+        }
+    }
+    
+    // Return default gateway if not in the list
+    let ipfsOrBtfs = url.includes('/ipfs/') ? '/ipfs/' : '/btfs/'
+    let splitUrl = url.split(ipfsOrBtfs)
+    splitUrl[0] = Meteor.settings.public.remote.displayNodes[1]
+    return splitUrl.join(ipfsOrBtfs)
+})
