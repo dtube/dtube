@@ -458,7 +458,7 @@ Template.addvideoformfile.rendered = function() {
             $('#uploadEndpointSelection').parent().addClass('loading')
             let net = Session.get('activeUsernameHive') ? 'hive' : 'dtc'
             $.ajax({
-              url: 'https://' + value + '/login?user=' + Session.get('activeUsernameHive') + '&needscredits=true&network=' + net,
+              url: 'https://' + value + '/login?user=' + (Session.get('activeUsernameHive') || Session.get('activeUsername')) + '&needscredits=true&network=' + net,
               method: 'GET',
               success: (result) => {
                 if (net == 'hive')
