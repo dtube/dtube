@@ -800,9 +800,17 @@ Template.registerHelper('contentNetwork', function(content) {
         network = content._id.split('/')[0]
     if (network === 'dtc' && Session.get('activeUsername'))
         return 'dtube'
-    else content.json.refs.forEach(ref => {
-        network = ref.split('/')[0]
-    });
+    else {
+        let networkFound = false
+        for (let r in content.json.refs) {
+            let refNetwork = content.json.refs[r].split('/')[0]
+            if (!networkFound && refNetwork !== 'dtc') {
+                network = refNetwork
+                networkFound = true
+            } else if (refNetwork === 'dtc' && Session.get('activeUsername'))
+                return 'dtube'
+        }
+    }
     return network
 })
 

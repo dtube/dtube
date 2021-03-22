@@ -149,7 +149,7 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.up.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up.' + this.sliderclass).addClass('dsp-non');
-        broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', 25, function(err, result) {
+        broadcast.multi.vote(refs, weight, weightSteem, weightHive, '', canTipAuthor(this.content) ? 25 : -1, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -208,10 +208,9 @@ Template.verticalvoteslider.events({
         let weight = 100
         let weightSteem = 100
         let weightHive = 100
+        let tip = canTipAuthor(this.content) ? parseInt($('.tagvote.up .tipvalue').val()) : 0
         if (this.network === 'dtube') {
             weight = document.getElementById("voterangeup" + this.sliderclass).value * 100
-            tipVal = $('.tagvote.up .tipvalue').val()
-            tip = parseInt(tipVal)
             weightSteem = UserSettings.get('voteWeightSteem') * 100
             weightHive = UserSettings.get('voteWeightHive') * 100
         } else {
@@ -251,6 +250,7 @@ Template.verticalvoteslider.events({
         let weight = 100
         let weightSteem = 100
         let weightHive = 100
+        let tip = canTipAuthor(this.content) ? parseInt($('.tagvote.down .tipvalue').val()) : 0
         if (this.network === 'dtube') {
             weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
             weightSteem = UserSettings.get('voteWeightSteem') * -100
@@ -273,7 +273,7 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
-        broadcast.multi.vote(refs, weight, weightSteem, weightHive, newTag, -1, function(err, result) {
+        broadcast.multi.vote(refs, weight, weightSteem, weightHive, newTag, tip, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -305,9 +305,13 @@ Template.verticalvoteslider.helpers({
         return false;
     },
     canTipAuthor: function (content) {
-        for (let v in content.votes)
-            if (content.votes[v].u === content.author && !content.votes[v].claimed)
-                return true
-        return false
+        return canTipAuthor(content)
     }
 });
+
+function canTipAuthor(content) {
+    for (let v in content.votes)
+        if (content.votes[v].u === content.author && !content.votes[v].claimed)
+            return true
+    return false
+}
