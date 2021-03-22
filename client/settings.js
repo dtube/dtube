@@ -20,8 +20,7 @@ Meteor.settings.public = {
       "https://avalon.d.tube",
       "https://avalon.oneloved.tube",
       "https://avalon.tibfox.com",
-      "https://testnet-api.oneloved.tube",  // testnet
-      "https://dtube.club/api",             // testnet
+      "https://dtube.fso.ovh",
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
@@ -33,7 +32,8 @@ Meteor.settings.public = {
       "https://hived.privex.io",
       "https://hived.hive-engine.com",
       "https://api.deathwing.me",
-      "https://api.c0ff33a.uk"
+      "https://api.c0ff33a.uk",
+      "https://hived.emre.sh"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
