@@ -66,7 +66,7 @@
                 <b>Tag:</b> <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
                 {{/if}}
                 {{#if canTipAuthor content}}
-                <b>Tip(%):</b><input type="number" value="5" class="tipvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
+                <b>Tip(%):</b><input type="number" value="{{#if equals voteType 'up'}}25{{else}}0{{/if}}" class="tipvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
                 {{/if}}
                 <div class="ui button verticalslider {{voteType}}votetag {{sliderclass}} upper dsp-blk">
                     <i class="thumbs {{voteType}} icon"></i><span>+</span></div>
