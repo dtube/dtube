@@ -50,12 +50,12 @@ Meteor.startup(function(){
   Session.set('scot', Meteor.settings.public.scot)
 
   // load local storage settings (video visibility)
-  if (localStorage.getItem("nsfwSetting"))
+  if (localStorage.getItem("nsfwSetting") && typeof localStorage.getItem("nsfwSetting") === 'number')
     Session.set('nsfwSetting', localStorage.getItem("nsfwSetting"))
   else
     Session.set('nsfwSetting', 2)
 
-  if (localStorage.getItem("censorSetting"))
+  if (localStorage.getItem("censorSetting") && typeof localStorage.getItem("censorSetting") === 'number')
     Session.set('censorSetting', localStorage.getItem("censorSetting"))
   else
     Session.set('censorSetting', 1)

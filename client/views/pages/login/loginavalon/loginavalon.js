@@ -31,7 +31,7 @@ Template.loginavalon.helpers({
           position : 'bottom center',
         })
         if (!UserSettings.get('voteWeight')) {
-          UserSettings.set('voteWeight', 5)
+          UserSettings.set('voteWeight', 1)
         }
       }, 200)
     })
