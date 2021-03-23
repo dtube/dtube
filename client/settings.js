@@ -21,6 +21,7 @@ Meteor.settings.public = {
       "https://avalon.oneloved.tube",
       "https://avalon.tibfox.com",
       "https://dtube.fso.ovh",
+      "https://testnet-api.oneloved.tube", // TESTNET
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
