@@ -609,10 +609,14 @@ broadcast = {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross vote possible
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
+            if (!newWif && tip <= 0 && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
                 return missingPermission.handler('VOTE',
                     (newWif)=>broadcast.avalon.vote(author,permlink,weight,tag,tip,cb,newWif),
                     ()=>cb('missing required permission VOTE'))
+            else if (!newWif && tip > 0 && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(19) == -1)
+                return missingPermission.handler('TIPPED_VOTE',
+                        (newWif)=>broadcast.avalon.vote(author,permlink,weight,tag,tip,cb,newWif),
+                        ()=>cb('missing required permission TIPPED_VOTE'))
             let voter = activeuser.username
             if (!voter) return;
             let wif = activeuser.privatekey
