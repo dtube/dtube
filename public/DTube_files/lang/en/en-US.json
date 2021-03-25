@@ -66,6 +66,7 @@
     "DEFAULT_GATEWAY_OVERWRITE": "Default Gateway",
     "DEFAULT_GATEWAY_OVERWRITE_INFO": "Define a gateway to be used on initial video load. Defaults to player.d.tube if left blank.",
     "EDIT_ERROR_MISSING_VIDEOHASH": "Source video hash is required",
+    "EDIT_ERROR_INVALID_GATEWAY": "Gateway must be a valid URL",
     "EDIT_ERROR_INVALID_VIDEOHASH": "Source video hash is not a valid hash",
     "EDIT_ERROR_MISSING_SNAPHASH": "Snap hash is required",
     "EDIT_VIDEO_SUCCESS": "Video edited successfully",

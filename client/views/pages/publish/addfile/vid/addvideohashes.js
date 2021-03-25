@@ -26,6 +26,10 @@ Template.addvideohashes.fillHashes = function() {
         toastr.error(translate('EDIT_ERROR_INVALID_VIDEOHASH'), translate('ERROR_TITLE'))
         return 
     }
+    if (!Template.addvideohashes.isValidGateway($('input[name="gw"]')[0].value)) {
+        toastr.error(translate('EDIT_ERROR_INVALID_GATEWAY'), translate('ERROR_TITLE'))
+        return
+    }
     
     var fields = [
         'vid.src', 'vid.240', 'vid.480',
@@ -98,5 +102,11 @@ Template.addvideohashes.isValidSkylink = function(skylink) {
     for (let i = 0; i < skylink.length; i++)
         if (alphabet.indexOf(skylink[i]) == -1)
             return false
+    return true
+}
+
+Template.addvideohashes.isValidGateway = (gw = '') => {
+    if (gw && !gw.startsWith('http://') && !gw.startsWith('https://'))
+        return false
     return true
 }
