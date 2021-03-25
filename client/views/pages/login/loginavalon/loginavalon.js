@@ -30,11 +30,11 @@ Template.loginavalon.helpers({
         $('#dispVT').popup({
           position : 'bottom center',
         })
+        if (!UserSettings.get('voteWeight')) {
+          UserSettings.set('voteWeight', 1)
+        }
       }, 200)
     })
-    if (!UserSettings.get('voteWeight')) {
-      UserSettings.set('voteWeight', 5)
-    }
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')

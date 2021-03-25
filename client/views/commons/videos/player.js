@@ -70,6 +70,7 @@ Template.player.reset = function(data) {
 }
 
 Template.player.init = function(author, link, json) {
+  json = JSON.parse(JSON.stringify(json))
   var options = ["true", "true"]
   if (UserSettings.get('defaultProvider') && Providers.available(json).indexOf(UserSettings.get('defaultProvider')) > -1) {
     options.push(UserSettings.get('defaultProvider'))

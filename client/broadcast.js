@@ -12,7 +12,7 @@ broadcast = {
             let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
                 // Steem cannot have capital letters in permlink :,(
             let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
-            
+
             // one of the parent author/permlinks should not be undefined to be a comment op
             let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive)
             let canPostToAvalon = authorAvalon && (!isComment || paAvalon && ppAvalon)
@@ -176,7 +176,7 @@ broadcast = {
                 })
             })
         },
-        vote: function(refs, wAvalon, wSteem, wHive, tagAvalon, cb) {
+        vote: function(refs, wAvalon, wSteem, wHive, tagAvalon, tipAvalon, cb) {
             var transactions = []
 
             for (let i = 0; i < refs.length; i++) {
@@ -184,7 +184,7 @@ broadcast = {
                 if (ref[0] == 'dtc')
                     if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
                         transactions.push(function(callback) {
-                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, callback)
+                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, tipAvalon, callback)
                         })
 
                 if (ref[0] == 'steem')
@@ -605,13 +605,13 @@ broadcast = {
             })
             return;
         },
-        vote: function(author, permlink, weight, tag, cb, newWif) {
+        vote: function(author, permlink, weight, tag, tip, cb, newWif) {
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // cross vote possible
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
             if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(5) == -1)
                 return missingPermission.handler('VOTE',
-                    (newWif)=>broadcast.avalon.vote(author,permlink,weight,tag,cb,newWif),
+                    (newWif)=>broadcast.avalon.vote(author,permlink,weight,tag,tip,cb,newWif),
                     ()=>cb('missing required permission VOTE'))
             let voter = activeuser.username
             if (!voter) return;
@@ -626,6 +626,18 @@ broadcast = {
                         link: permlink,
                         vt: vt,
                         tag: tag
+                    }
+                }
+                if (tip > 0) {
+                    tx = {
+                       type: 19,
+                        data: {
+                            author: author,
+                            link: permlink,
+                            vt: vt,
+                            tag: tag,
+                            tip: tip
+                        }
                     }
                 }
                 tx = avalon.sign(wif, voter, tx)

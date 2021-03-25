@@ -692,12 +692,24 @@ Videos.parseFromChain = function(video, isComment, network) {
 
 Videos.parseFromSteem = function(video, isComment, network) {
     let newVideo
-    if (isComment) {
+    if (isComment || (video.parent_author && video.parent_permlink)) {
+        let commentRefs = []
+        let commentBody = video.body
+        let commentTitle = video.title
+        try {
+            let commentJsonMetadata = JSON.parse(video.json_metadata).video
+            if (commentJsonMetadata.title)
+                commentTitle = commentJsonMetadata.title
+            if (commentJsonMetadata.description)
+                commentBody = commentJsonMetadata.description
+            if (commentJsonMetadata.refs && Array.isArray(commentJsonMetadata.refs) && commentJsonMetadata.refs.length > 0)
+                commentRefs = commentJsonMetadata.refs
+        } catch {}
         newVideo = {
             json: {
-                refs: [],
-                description: video.body,
-                title: video.title
+                refs: commentRefs,
+                description: commentBody,
+                title: commentTitle
             }
         }
     } else try {

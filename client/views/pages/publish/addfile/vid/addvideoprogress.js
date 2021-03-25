@@ -73,7 +73,7 @@ Template.addvideoprogress.update = function() {
               }
             }
           }
-          
+          $('input[name="gw"]').val('https://player.d.tube')
     
           if (data.sprite)
             $('input[name="img.spr"]').val(data.sprite.ipfsAddSprite.hash)

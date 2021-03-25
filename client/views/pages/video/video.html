@@ -8,7 +8,7 @@
       {{/if}}
       <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
         <!-- Title, Vote - Share - More  -->
-        <div class="ui segment" style="padding-right: 0px !important;padding-bottom: 0px !important;">
+        <div class="ui segment {{#if isNightMode}}nightmode{{/if}}" style="padding-right: 0px !important;padding-bottom: 0px !important;">
           <div class="ui info" style="display: inline-grid;width: 100%;">
             {{#if json.title}}
             <div class="videotitlecontainer">
@@ -24,21 +24,6 @@
                 </a>
                 {{/unless}}
                 {{/each}}
-                <!-- {{#if activeUsername}}
-                <a class="ui small label newtag scrolling dropdown dropdownTags">
-                  <i class="thumbs up icon"></i> {{translate 'VIDEO_VOTE_TAG'}}
-                  <div class="menu">
-                    {{#each tags}}
-                    {{#unless equals t 'dtube'}}
-                    <div class="item voteATag" data-value="{{convertTag t}}">{{convertTag t}}</div>
-                    {{/unless}}
-                    {{/each}}
-                    <div class="divider"></div>
-                    <div class="item voteCustomTag"><i class="thumbs up icon"></i> Upvote new tag</div>
-                    <div class="item downvoteCustomTag"><i class="thumbs down icon"></i> Downvote a tag</div>
-                  </div>
-                </a>
-                {{/if}} -->
               </div>
               <div class="ui videovotecontainer right floated" style="bottom: 0px;height: 38px;">
                 {{> videosettingsdropdown video}}
@@ -80,7 +65,7 @@
           </div>
         </div>
         <!-- Author Info (image and name) - Suscribe - Edit - Payout   -->
-        <div class="ui segment" style="padding:0px!important;">
+        <div class="ui segment {{#if isNightMode}}nightmode{{/if}}" style="padding:0px!important;">
           <div class="details wid-ful">
             <div class="videoleftdetails wid-ful" style="padding: 10px;z-index: 1;">
               <div class="videorightdetails">
@@ -132,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div id='editvideosegment' class="ui segment" style="display: none">
+        <div id='editvideosegment' class="ui segment {{#if isNightMode}}nightmode{{/if}}" style="display: none">
           {{#if isIPFSOrBTFSUpload}}
           {{> uploadfileform}}
           {{else}}
@@ -145,7 +130,7 @@
         </div>
 
         <!-- Syntaxed video description - Show More -->
-        <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful"
+        <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful {{#if isNightMode}}nightmode{{/if}}"
           style="display:grid;overflow: hidden;">
           <div class='allNetworks'>
             {{#each allNetworks}}
@@ -168,7 +153,7 @@
           </div>
         </div>
         {{#if hasMoreThan4Lines}}
-        <div class="ui segment description" style="text-align: center; padding:0px;margin:0px;">
+        <div class="ui segment description {{#if isNightMode}}nightmode{{/if}}" style="text-align: center; padding:0px;margin:0px;">
           <div id="showmore" style="text-align: center;">
             <button class="ui button videoshowmore">
               {{ translate 'VIDEO_DESCRIPTION_SHOW_MORE'}}
@@ -194,7 +179,7 @@
         {{/if}}
         {{/if}}
         <!-- Comments - Reply -->
-        <div class="ui secondary segment" style="background: #f5f5f5;">
+        <div class="ui secondary segment {{#if isNightMode}}nightsegment nightmode nightmodegray{{/if}}" style="background: #f5f5f5;">
           <h3 class="ui header">
             {{#if isSingleComment}}
             {{mergedCommentsLength comments commentsSteem}} {{ translate 'COMMENT_REPLY'}}
@@ -223,7 +208,7 @@
                 <div class="ui filter checkbox comment" style="width: 100%;">
                   <input id="promotereply" type="checkbox" name="comment">
                   <label id="promorereplylbl">{{translate 'VIDEO_PROMOTE_COMMENT'}}  <strong id="promotedtc" style='display: none;color:#f01a30'> {{displayMoney commentBurn 0 'DTC'}}</strong></label>
-                  <div id="promoteslider" style="display: none;margin-top: 5px;">
+                  <div id="promoteslider" style="display: none;margin-top: 15px;">
                     {{> horizontalslider color="red" sliderid="comment-range"}}
                   </div>
                 </div>

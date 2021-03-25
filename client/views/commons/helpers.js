@@ -19,6 +19,14 @@ Template.registerHelper('or', function(one, two) {
     return false;
 });
 
+Template.registerHelper('and', function(one,two) {
+    return one && two
+})
+
+Template.registerHelper('not', function(itm) {
+    return !itm
+})
+
 Template.registerHelper('count', function(array) {
     if (!array) return 0;
     return array.length;
@@ -157,7 +165,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
 
 Template.registerHelper('userPic', function(username, size) {
     if (!size || typeof size != 'string') size = ''
-    return 'https://image.d.tube/u/' + username + '/avatar/' + size
+    return javalon.config.api + '/image/avatar/' + username + '/' + size
 });
 
 Template.registerHelper('userPicSteem', function(username, size) {
@@ -170,8 +178,8 @@ Template.registerHelper('userPicHive', (username, size) => {
     return 'https://images.hive.blog/u/' + username + '/avatar/' + size
 })
 
-Template.registerHelper('userCover', function(coverurl) {
-    return 'https://image.d.tube/2048x512/' + coverurl
+Template.registerHelper('userCover', function(username) {
+    return javalon.config.api + '/image/cover/' + username
 })
 
 Template.registerHelper('isReplying', function(content) {
@@ -529,9 +537,9 @@ Template.registerHelper('isVideoHidden', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
     if (censor == -1)
         return true
-    if (censor == 1 && Session.get('censorSetting') == 'Fully Hidden')
+    if (censor == 1 && parseInt(Session.get('censorSetting')) === 2)
         return true
-    if (censor == 2 && Session.get('nsfwSetting') == 'Fully Hidden')
+    if (censor == 2 && parseInt(Session.get('nsfwSetting')) === 2)
         return true
 
     return false
@@ -539,9 +547,9 @@ Template.registerHelper('isVideoHidden', function(video) {
 
 Template.registerHelper('isVideoBlurred', function(video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
-    if (censor == 1 && Session.get('censorSetting') == 'Blurred')
+    if (censor == 1 && parseInt(Session.get('censorSetting')) === 1)
         return true
-    if (censor == 2 && Session.get('nsfwSetting') == 'Blurred')
+    if (censor == 2 && parseInt(Session.get('nsfwSetting')) === 1)
         return true
 
     return false
@@ -753,10 +761,9 @@ Template.registerHelper('steemVotable', function(content) {
         if (content._id.startsWith('steem'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('steem'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('steem'))
                 return true
-        });
         return false
     } else return false
 })
@@ -766,10 +773,9 @@ Template.registerHelper('hiveVotable', function(content) {
         if (content._id.startsWith('hive'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('hive'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('hive'))
                 return true
-        });
         return false
     } else return false
 })
@@ -779,14 +785,12 @@ Template.registerHelper('dtubeVotable', function(content) {
         if (content && content._id.startsWith('dtc'))
             return true
         if (!content.json.refs) return false
-        content.json.refs.forEach(ref => {
-            if (ref.includes('dtc'))
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('dtc'))
                 return true
-        });
         return false
     } else return false
 })
-
 
 Template.registerHelper('contentNetwork', function(content) {
     if (!content)
@@ -796,9 +800,17 @@ Template.registerHelper('contentNetwork', function(content) {
         network = content._id.split('/')[0]
     if (network === 'dtc' && Session.get('activeUsername'))
         return 'dtube'
-    else content.json.refs.forEach(ref => {
-        network = ref.split('/')[0]
-    });
+    else {
+        let networkFound = false
+        for (let r in content.json.refs) {
+            let refNetwork = content.json.refs[r].split('/')[0]
+            if (!networkFound && refNetwork !== 'dtc') {
+                network = refNetwork
+                networkFound = true
+            } else if (refNetwork === 'dtc' && Session.get('activeUsername'))
+                return 'dtube'
+        }
+    }
     return network
 })
 
@@ -812,4 +824,25 @@ Template.registerHelper('hasMetamask',() => {
 
 Template.registerHelper('metamaskAddress',() => {
     return Session.get('metamaskAddress')
+})
+
+Template.registerHelper('fallbackThumbnailUrl',(url) => {
+    // no fallback for 3rd party thumbnails
+    if (!url.includes('/ipfs/') && !url.includes('/btfs/')) return ''
+
+    // Return next gateway in the list
+    for (let g in Meteor.settings.public.remote.displayNodes) {
+        if (url.startsWith(Meteor.settings.public.remote.displayNodes[g])) {
+            if (g < Meteor.settings.public.remote.displayNodes.length)
+                return url.replace(Meteor.settings.public.remote.displayNodes[g],Meteor.settings.public.remote.displayNodes[g+1])
+            else
+                return '' // no more gateways
+        }
+    }
+    
+    // Return default gateway if not in the list
+    let ipfsOrBtfs = url.includes('/ipfs/') ? '/ipfs/' : '/btfs/'
+    let splitUrl = url.split(ipfsOrBtfs)
+    splitUrl[0] = Meteor.settings.public.remote.displayNodes[1]
+    return splitUrl.join(ipfsOrBtfs)
 })

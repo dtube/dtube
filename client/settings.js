@@ -5,10 +5,10 @@ Meteor.settings.public = {
     "loadLimit": 50,
     "displayNodes": [
       "https://snap1.d.tube",
+      "https://video.oneloveipfs.com",
       "https://ipfs.io",
-      // "https://siderus.io",
-      // "https://cloudflare-ipfs.com",
-      // "https://ipfs.busy.org",
+      "https://ipfs.infura.io",
+      "https://gateway.pinata.cloud",
       "http://127.0.0.1:8080"
     ],
     "APINodes": [
@@ -20,6 +20,8 @@ Meteor.settings.public = {
       "https://avalon.d.tube",
       "https://avalon.oneloved.tube",
       "https://avalon.tibfox.com",
+      "https://dtube.fso.ovh",
+      "https://testnet-api.oneloved.tube", // TESTNET
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
@@ -31,7 +33,8 @@ Meteor.settings.public = {
       "https://hived.privex.io",
       "https://hived.hive-engine.com",
       "https://api.deathwing.me",
-      "https://api.c0ff33a.uk"
+      "https://api.c0ff33a.uk",
+      "https://hived.emre.sh"
     ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
@@ -41,7 +44,7 @@ Meteor.settings.public = {
     ],
     "localhost": false
   },
-  "app": "dtube/1.0",
+  "app": "dtube/1.1",
   "scot": null,
   "logo": "./DTube_files/images/DTube_Black.svg",
   "logonight": "./DTube_files/images/DTube_White.svg",

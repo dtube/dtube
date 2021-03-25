@@ -4,7 +4,7 @@ var sliderMaxSize = 12
 Template.home.helpers({
   watchAgain: function () {
     if (!Session.get('watchAgainLoaded')) return []
-    return WatchAgain.find({}, {limit: sliderMaxSize}).fetch()
+    return WatchAgain.find({}, {limit: sliderMaxSize, sort: {last_viewed: -1}}).fetch()
   },
   newVideos: function () {
     return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()

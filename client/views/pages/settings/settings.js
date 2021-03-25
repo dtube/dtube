@@ -80,12 +80,12 @@ Template.settings.events({
         localStorage.setItem('hiveAPI', value)
     },
     'change #nsfwSetting': function(event) {
-        var value = $('#nsfwSetting').val()
+        let value = $('#nsfwSetting').prop('selectedIndex')
         Session.set('nsfwSetting', value)
         localStorage.setItem("nsfwSetting", Session.get('nsfwSetting'))
     },
     'change #censorSetting': function(event) {
-        var value = $('#censorSetting').val()
+        let value = $('#censorSetting').prop('selectedIndex')
         Session.set('censorSetting', value)
         localStorage.setItem("censorSetting", Session.get('censorSetting'))
     },
@@ -101,7 +101,27 @@ Template.settings.events({
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
     },
     'change #voteWeight': function() {
-        var value = $('#voteWeight').val()
+        let value = voteWeightBounds(parseFloat($('#voteWeight').val()))
         UserSettings.set('voteWeight', value)
+        $('#voteWeight').val(value)
+    },
+    'change #voteWeightSteem': () => {
+        let value = voteWeightBounds(parseFloat($('#voteWeightSteem').val()))
+        UserSettings.set('voteWeightSteem', value)
+        $('#voteWeightSteem').val(value)
+    },
+    'change #voteWeightHive': () => {
+        let value = voteWeightBounds(parseFloat($('#voteWeightHive').val()))
+        UserSettings.set('voteWeightHive', value)
+        $('#voteWeightHive').val(value)
     }
 })
+
+function voteWeightBounds(value) {
+    let newVal = value
+    if (newVal > 100)
+        newVal = 100
+    else if (newVal <= 0)
+        newVal = 0.1
+    return newVal
+}
