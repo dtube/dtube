@@ -26,7 +26,7 @@ Template.addvideohashes.fillHashes = function() {
         toastr.error(translate('EDIT_ERROR_INVALID_VIDEOHASH'), translate('ERROR_TITLE'))
         return 
     }
-    if (!Template.addvideohashes.isValidGateway($('input[name="gw"]')[0].value)) {
+    if (Session.get('addVideoStep') !== 'addvideoformp2psia' && !Template.addvideohashes.isValidGateway($('input[name="gw"]')[0].value)) {
         toastr.error(translate('EDIT_ERROR_INVALID_GATEWAY'), translate('ERROR_TITLE'))
         return
     }
