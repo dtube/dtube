@@ -66,6 +66,11 @@ Template.channel.helpers({
     isLoggedOn: function() {
         return Session.get('activeUsername')
     },
+    isLoggedOnFromAnyBlockchain: function() {
+      if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
+        return true
+      return false
+    },
     activeUser: function() {
         return Session.get('activeUsername')
     },
@@ -161,7 +166,26 @@ Template.channel.events({
     },
     'click .item.videos': function() {
         Session.set('currentTab', 'videos')
-        Template.channel.rendered()
         FlowRouter.go('/c/' + FlowRouter.getParam("author"))
+    },
+    'click #logintopbarmenu': function() {
+        Session.set('currentTab', 'login')
+        if (!reclick) {
+            reclick = true
+            $('.menu .item').tab();
+            $('.menu .item.videos').addClass('active')
+        }
+        if(Session.get('activeUsername')) {
+          FlowRouter.go('/c/' + Session.get('activeUsername'))
+        }
+    },
+    'click .item.login': function() {
+        Session.set('currentTab', 'login')
+        if (!reclick) {
+            reclick = true
+            $('.menu .item').tab();
+            $('.menu .item.login').addClass('active')
+        }
+        FlowRouter.go('/c/' + Session.get("activeUsername") + '/login')
     },
 })
