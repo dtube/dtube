@@ -53,7 +53,7 @@
                     <div class="ui segments" id="avalonToErc20">
                         <div class="ui segment" style="padding: 20px; padding-top: 5px;">
                             <div class="field">
-                                <label>{{ translate 'TRANSFER_AMOUNT'}} (Max: {{displayMoney balanceAvalon 0 'DTC'}})</label>
+                                <label>{{ translate 'TRANSFER_AMOUNT'}} ({{ translate 'BALANCE' }}: {{displayMoney balanceAvalon 0 'DTC'}}, {{ translate 'ERC20_SWAP_AVAILABLE_DEPOSIT_LIQUIDITY' }}: {{displayMoney depositAddressBalance 0 'DTC'}})</label>
                                 <div class="ui left icon input">
                                 <i class="calculator icon"></i>
                                 <input id="swapAmount" type="number" min="0.01" step="0.01">

@@ -1,5 +1,6 @@
 // those can be hard-coded they shouldnt ever change
 let tokenAddress = '0xd2be3722B17b616c51ed9B8944A227D1ce579C24'
+let depositAddress = '0xd2be0fb21eeced4ce59a39f190e61291ca8c33cc'
 let uniswapPairAddress = '0xf44c9fcf0491c07a7380727fd2c30cc1131ff100'
 let wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 let tokenDecimals = 2
@@ -22,6 +23,7 @@ window.metamask = {
                 console.log(accounts, window.ethereum.selectedAddress)
                 Session.set('metamaskAddress', window.ethereum.selectedAddress)
                 metamask.loadBalance()
+                metamask.loadDepositAddressBalance()
             })
             window.ethereum.enable()
             if (cb) cb(null)
@@ -50,6 +52,11 @@ window.metamask = {
                 })
             });
         });
+    },
+    loadDepositAddressBalance: async () => {
+        // load available liquidity for deposits
+        let balance = await new web3.eth.Contract(minErc20ABI,tokenAddress).methods.balanceOf(depositAddress).call()
+        Session.set('depositAddressBalance',balance)
     },
     loadGasPrice: () => {
         web3.eth.getGasPrice(function(err, res) {

@@ -55,6 +55,7 @@ Template.channeldesktopcover.events({
             console.log('Metamask connected: '+window.ethereum.selectedAddress)
             Session.set('metamaskAddress', window.ethereum.selectedAddress)
             metamask.loadBalance()
+            metamask.loadDepositAddressBalance()
           }
         }, 150)
       },
