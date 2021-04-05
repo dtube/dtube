@@ -309,6 +309,11 @@ textarea.nightmode,
   background-color: rgb(30,30,30)!important;
 }
 
+#newkey-id.nightmode {
+  color: #ffffff!important;
+  background-color: rgb(0,0,0)!important;
+}
+
 #replytext.nightmode {
   background-color: rgb(0,0,0)!important;
 }

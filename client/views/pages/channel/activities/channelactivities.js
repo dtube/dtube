@@ -36,12 +36,9 @@ Template.channelactivities.helpers({
             (Session.set('activityTypeFilter'), [])
             return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
         }
-    }
-})
-
-Template.channelactivities.events({
-    'click .checkbox.liked': function() {
-
+    },
+    explorerUsername: () => {
+        return FlowRouter.getParam("author")
     }
 })
 
