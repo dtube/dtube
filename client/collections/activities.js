@@ -47,6 +47,7 @@ Activities.filterOperations = function (username, tx, blockId) {
                 Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'publish', tx: tx, date: tx.ts, n: blockId })
             break;
         case 5:
+        case 19:
             if (tx.data.vt > 0) {
                 Activities.upsert({ _id: tx.signature }, { _id: tx.signature, username: username, type: 'vote', tx: tx, date: tx.ts, n: blockId })
             }

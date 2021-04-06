@@ -25,6 +25,7 @@
                                 <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{tx.data.author}}/{{tx.data.link}}</a>
                             </div>
                             <a href="/v/{{tx.data.author}}/{{tx.data.link}}" style="font-size:13px;color:rgb(105, 105, 105);">{{getTitle tx.data.author tx.data.link}}</a>
+                            {{#if equals tx.type 19}}({{tx.data.tip}}% author tip){{/if}}
                             <div>
                                 <span class="crd-spa-lab">{{timeAgo date}}</span>
                             </div>
