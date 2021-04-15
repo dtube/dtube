@@ -24,7 +24,6 @@ Template.loginavalon.helpers({
   })
   
   Template.loginavalon.success = function(activeUsername, noreroute, isSecurityKey) {
-    Session.set('activeUsername', activeUsername)
     Subs.loadFollowing(activeUsername, null, true, function(user, count) {
       console.log('Loaded '+count+' following for '+user)
     })
@@ -49,10 +48,11 @@ Template.loginavalon.helpers({
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')
-    if (isSecurityKey)
+    if (isSecurityKey && typeof Session.get('activeUsername') == 'undefined')
       toastr.warning(translate('WARNING_SECURITY_KEY_LOGIN'),translate('WARNING_TITLE'))
-    else if (!isSecurityKey && !noreroute)
+    else if (!isSecurityKey && !noreroute && typeof Session.get('activeUsername') == 'undefined')
       toastr.success(translate('LOGIN_SUCCESS_CUSTOM_KEY'),translate('USERS_SUCCESS'))
+    Session.set('activeUsername', activeUsername)
     Template.accountsdropdown.refreshNetworkSwitch()
   }
   
