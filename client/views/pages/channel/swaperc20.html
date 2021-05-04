@@ -14,10 +14,10 @@
             {{else}}
                  <i class="icon forward"></i> 
             {{/if}}
-            DTUBE (ETH)
+            DTUBE ({{metamaskNetwork}})
         </div>
         <div class="content">
-            <p>{{ translate 'ERC20_SWAP_TEXT' }}</p>
+            <p>{{ translate 'ERC20_SWAP_TEXT' metamaskNetworkName }}</p>
             <form class="ui large form wid-ful">
                 {{#if metamaskSwapInverse}}
                     <div class="ui segments" id="avalonToErc20">

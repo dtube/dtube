@@ -22,13 +22,22 @@ window.metamask = {
             window.ethereum.on('accountsChanged', function (accounts) {
                 console.log(accounts, window.ethereum.selectedAddress)
                 Session.set('metamaskAddress', window.ethereum.selectedAddress)
-                metamask.loadBalance()
-                metamask.loadDepositAddressBalance()
+                metamask.update()
+            })
+            window.ethereum.on('networkChanged', () => {
+                Session.set('metamaskNetwork',window.ethereum.chainId)
+                metamask.update()
             })
             window.ethereum.enable()
             if (cb) cb(null)
         } else if (cb)
             cb('Metamask not installed')
+    },
+    update: () => {
+        metamask.loadBalance()
+        metamask.loadDepositAddressBalance()
+        metamask.loadGasPrice()
+        metamask.loadUniswapBalance()
     },
     loadBalance: () => {
         // this loads the balance of DTC in Ethereum for the active user
@@ -92,5 +101,9 @@ window.metamask = {
         }).catch((err) => {
             cb(err)
         })
+    },
+    networks: {
+        1: 'ETH',
+        56: 'BSC'
     }
 }

@@ -46,6 +46,9 @@ Template.channeldesktopcover.events({
       url: 'https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js',
       dataType: 'script',
       success: function() {
+        let networkId = parseInt(window.ethereum.chainId)
+        if (!window.metamask.networks[networkId])
+          return toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
         metamask.enable()
         metamask.loadGasPrice()
         metamask.loadUniswapBalance()
@@ -54,6 +57,7 @@ Template.channeldesktopcover.events({
             clearInterval(ethAddressChecker)
             console.log('Metamask connected: '+window.ethereum.selectedAddress)
             Session.set('metamaskAddress', window.ethereum.selectedAddress)
+            Session.set('metamaskNetwork',window.ethereum.chainId)
             metamask.loadBalance()
             metamask.loadDepositAddressBalance()
           }
@@ -63,9 +67,13 @@ Template.channeldesktopcover.events({
     });
   },
   "click #swapErc20": function() {
-    Template.sidebar.empty()
-    $('.swaperc20').show()
-    Template.settingsdropdown.nightMode()
-    metamask.loadGasPrice()
+    let networkId = parseInt(window.ethereum.chainId)
+    if (window.metamask.networks[networkId]) {
+      Template.sidebar.empty()
+      $('.swaperc20').show()
+      Template.settingsdropdown.nightMode()
+      metamask.loadGasPrice()
+    } else
+      toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
   }
 })

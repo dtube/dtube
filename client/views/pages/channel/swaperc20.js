@@ -31,11 +31,30 @@ Template.swaperc20.helpers({
     metamaskSwapInverse: function() {
         return Session.get('metamaskSwapInverse')
     },
+    metamaskNetwork: () => {
+        let networkId = parseInt(Session.get('metamaskNetwork'))
+        if (window.metamask.networks[networkId])
+            return window.metamask.networks[networkId]
+        else
+            return 'UNKNOWN NETWORK'
+    },
+    metamaskNetworkName: () => {
+        let networkId = parseInt(Session.get('metamaskNetwork'))
+        switch (networkId) {
+            case 1:
+                return 'Ethereum'
+            case 56:
+                return 'Binance Smart Chain'
+            default:
+                return 'Unknown Network'
+        }
+    },
     isValid: function() {
         if (!Session.get('swapAmount')) return false
         if (!Session.get('activeUsername')) return false
         if (!Session.get('metamaskAddress')) return false
         if (!Session.get('swapFee')) return false
+        if (!Session.get('metamaskNetwork') || !metamask.networks[parseInt(window.ethereum.chainId)]) return false
 
         var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
         if (Session.get('metamaskSwapInverse'))
@@ -87,7 +106,15 @@ Template.swaperc20.events({
         } else {
             // avalon -> erc20
             var amount = Math.floor(Session.get('swapAmount')*100)
-            var memo = Session.get('metamaskAddress') + '@eth'
+            var memo = Session.get('metamaskAddress')
+            switch (parseInt(Session.get('metamaskNetwork'))) {
+                case 1:
+                    memo += '@eth'
+                    break
+                case 56:
+                    memo += '@bsc'
+                    break
+            }
             var receiver = 'dtube.swap'
             broadcast.avalon.transfer(receiver, amount, memo, function(err, res) {
                 $("#confirmSwap").removeClass('disabled')
