@@ -1,10 +1,15 @@
 // those can be hard-coded they shouldnt ever change
-let tokenAddress = '0xd2be3722B17b616c51ed9B8944A227D1ce579C24'
-let depositAddress = '0xd2be0fb21eeced4ce59a39f190e61291ca8c33cc'
-let uniswapPairAddress = '0xf44c9fcf0491c07a7380727fd2c30cc1131ff100'
-let wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-let tokenDecimals = 2
-let minErc20ABI = [
+const tokenAddress = '0xd2be3722B17b616c51ed9B8944A227D1ce579C24'
+const depositAddress = '0xd2be0fb21eeced4ce59a39f190e61291ca8c33cc'
+const uniswapPairAddress = '0xf44c9fcf0491c07a7380727fd2c30cc1131ff100'
+const wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+
+const tokenAddressBSC = '0xd3cceb42b544e91eee02eb585cc9a7b47247bfde'
+const pancakeswapPairAddress = '0xe9ee2d9e1e6eddbce9e5c1c1fc6c6f1e5051b9c6'
+const wbnbAddress = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c'
+
+const tokenDecimals = 2
+const minErc20ABI = [
     {
     "constant":true,
     "inputs":[{"name":"_owner","type":"address"}],
@@ -12,7 +17,7 @@ let minErc20ABI = [
     "outputs":[{"name":"balance","type":"uint256"}],
     "type":"function"
     }
-];
+]
 
 window.metamask = {
     enable: (cb) => {
@@ -42,7 +47,7 @@ window.metamask = {
     loadBalance: () => {
         // this loads the balance of DTC in Ethereum for the active user
         let walletAddress = Session.get('metamaskAddress')
-        let contract = new web3.eth.Contract(minErc20ABI,tokenAddress);
+        let contract = new web3.eth.Contract(minErc20ABI,metamask.tokenAddress());
         contract.methods.balanceOf(walletAddress).call().then(function(res) {
             Session.set('metamaskBalance', res)
         })
@@ -50,10 +55,10 @@ window.metamask = {
     loadUniswapBalance: () => {
         // this loads the pooled liquidities on uniswap
         // and allows calculating DTC / ETH price
-        let walletAddress = uniswapPairAddress
-        let contract = new web3.eth.Contract(minErc20ABI,tokenAddress);
+        let walletAddress = metamask.lpAddress()
+        let contract = new web3.eth.Contract(minErc20ABI,metamask.tokenAddress());
         contract.methods.balanceOf(walletAddress).call().then((balance) => {
-            let contract = new web3.eth.Contract(minErc20ABI,wethAddress);
+            let contract = new web3.eth.Contract(minErc20ABI,metamask.wAddress());
             contract.methods.balanceOf(walletAddress).call().then((balanceWeth) => {
                 Session.set('metamaskUniswapLiquidities',{
                     dtc: balance/Math.pow(10,2),
@@ -64,7 +69,7 @@ window.metamask = {
     },
     loadDepositAddressBalance: async () => {
         // load available liquidity for deposits
-        let balance = await new web3.eth.Contract(minErc20ABI,tokenAddress).methods.balanceOf(depositAddress).call()
+        let balance = await new web3.eth.Contract(minErc20ABI,metamask.tokenAddress()).methods.balanceOf(depositAddress).call()
         Session.set('depositAddressBalance',balance)
     },
     loadGasPrice: () => {
@@ -93,7 +98,7 @@ window.metamask = {
                 "type": "function"
             }
         ];
-        var contract = new web3.eth.Contract(minABI,tokenAddress)
+        let contract = new web3.eth.Contract(minABI,metamask.tokenAddress())
         contract.methods.transferToAvalon(amount*100, Session.get('activeUsername')).send({
             from: Session.get('metamaskAddress')
         }).then((res) => {
@@ -105,5 +110,32 @@ window.metamask = {
     networks: {
         1: 'ETH',
         56: 'BSC'
+    },
+    tokenAddress: () => {
+        switch (parseInt(window.ethereum.chainId)) {
+            case 1:
+                return tokenAddress
+            case 56:
+                return tokenAddressBSC
+            // todo more evm networks?
+        }
+    },
+    lpAddress: () => {
+        switch (parseInt(window.ethereum.chainId)) {
+            case 1:
+                return uniswapPairAddress
+            case 56:
+                return pancakeswapPairAddress
+            // todo more evm networks?
+        }
+    },
+    wAddress: () => {
+        switch (parseInt(window.ethereum.chainId)) {
+            case 1:
+                return wethAddress
+            case 56:
+                return wbnbAddress
+            // todo more evm networks?
+        }
     }
 }
