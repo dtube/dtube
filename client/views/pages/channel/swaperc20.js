@@ -12,7 +12,7 @@ Template.swaperc20.helpers({
         var liquid = Session.get('metamaskUniswapLiquidities')
         if (!liquid) return ''
         var dtcEther = liquid.weth / liquid.dtc
-        var avgGasUsedPerTx = 38074
+        var avgGasUsedPerTx = 51258
         var gasPrice = Session.get('metamaskGasPrice')
         var txFeeEth = avgGasUsedPerTx * gasPrice
         var txFeeDtc = Math.ceil(100 * txFeeEth / dtcEther)
