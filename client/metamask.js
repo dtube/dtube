@@ -99,7 +99,7 @@ window.metamask = {
             }
         ];
         let contract = new web3.eth.Contract(minABI,metamask.tokenAddress())
-        contract.methods.transferToAvalon(amount*100, Session.get('activeUsername')).send({
+        contract.methods.transferToAvalon(Math.round(amount*100), Session.get('activeUsername')).send({
             from: Session.get('metamaskAddress')
         }).then((res) => {
             cb(null, res)
