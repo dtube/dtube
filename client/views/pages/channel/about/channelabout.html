@@ -103,13 +103,13 @@
         <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_VT_UPDATE'}}
           <div>
-            <span class="crd-spa-lab">{{author.vt.v}} VP {{timeAgo author.vt.t}}</span>
+            <span class="crd-spa-lab">{{author.vt.v}} VP {{#if isNonZeroTs author.vt.t}}{{timeAgo author.vt.t}}{{/if}}</span>
           </div>
         </div>
         <div class="crd-lab">
           {{ translate 'CHANNEL_ACTIVITIES_BW_UPDATE'}}
           <div>
-            <span class="crd-spa-lab">{{author.bw.v}} bytes {{timeAgo author.bw.t}}</span>
+            <span class="crd-spa-lab">{{author.bw.v}} bytes {{#if isNonZeroTs author.vt.t}}{{timeAgo author.bw.t}}{{/if}}</span>
           </div>
         </div>
         <div class="crd-lab">

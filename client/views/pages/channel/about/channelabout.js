@@ -27,7 +27,8 @@ Template.channelabout.helpers({
     },
     isEditingProfile: function() {
         return Session.get('isEditingProfile')
-    }
+    },
+    isNonZeroTs: ts => ts > 0
 })
 
 
