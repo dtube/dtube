@@ -74,4 +74,7 @@ Template.videosharedropdown.helpers({
     if (videos && videos[0]) return videos[0];
     return;
   },
+  jsoun: (json) => {
+    return Template.player.toJsoun(json)
+  }
 })

@@ -78,21 +78,7 @@ Template.player.init = function(author, link, json) {
     
   if (author && link) {
     if (json) {
-      delete json.desc
-      delete json.description
-      delete json.title
-      delete json.tag
-      delete json.hide
-      delete json.refs
-      delete json.genre
-      delete json.datePublished
-      delete json.channelThumbnailUrl
-      delete json.channelId
-      delete json.app
-      delete json.owner
-      delete json.isFamilyFriendly
-      delete json.url
-      jsoun = JSOUN.encode(json)
+      jsoun = Template.player.toJsoun(json)
       $('.ui.embed.player').embed({
         url: "https://emb.d.tube/#!//" + jsoun
         + "/" + options.join('/')
@@ -131,6 +117,24 @@ Template.player.init = function(author, link, json) {
       }
     });
   }
+}
+
+Template.player.toJsoun = (json) => {
+  delete json.desc
+  delete json.description
+  delete json.title
+  delete json.tag
+  delete json.hide
+  delete json.refs
+  delete json.genre
+  delete json.datePublished
+  delete json.channelThumbnailUrl
+  delete json.channelId
+  delete json.app
+  delete json.owner
+  delete json.isFamilyFriendly
+  delete json.url
+  return JSOUN.encode(json)
 }
 
 Template.player.changeProvider = function(provider) {
