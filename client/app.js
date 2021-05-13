@@ -102,18 +102,6 @@ Meteor.startup(function(){
     Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].substr(0, 8))
   else Session.set('buildVersion', 'dev')
 
-  // airdrop eligible detection
-  Session.set('isEligibleAirdrop', false)
-  var airdropChecker = setInterval(function() {
-    if (!Session.get('activeUsername') || !Session.get('activeUsernameSteem'))
-      return
-    $.get( "https://signup.d.tube/airdrop-eligible/"+Session.get('activeUsernameSteem'), function( res ) {
-      if (res && res.eligible)
-        Session.set('isEligibleAirdrop', res.eligible)
-      clearInterval(airdropChecker)
-    });
-  }, 5000)
-
   // ethereum metamask
   if (window.ethereum)
     Session.set('hasMetamask', true)
