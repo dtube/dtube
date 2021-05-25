@@ -123,7 +123,7 @@ Template.uploadformsubmit.events({
     $(".editsubmit > i.loading").removeClass('dsp-non')
 
     broadcast.multi.editComment(Session.get('currentRefs'),video.json,steembody,(err) => {
-      if (err) toastr.error("Error while broadcasting comment edit")
+      if (err) Meteor.blockchainError(err)
       else {
         $(".editsubmit").removeClass('disabled')
         $(".editsubmit > i.loading").addClass('dsp-non')

@@ -62,7 +62,7 @@ Template.swaperc20.helpers({
         var amount = Session.get('swapAmount')
         let depositLiquidity = parseInt(Session.get('depositAddressBalance'))
         var decimals = countDecimals(amount)
-        if (decimals > 2 || amount*100 > balance || amount*100 > depositLiquidity) {
+        if (decimals > 2 || Math.round(amount*100) > balance || Math.round(amount*100) > depositLiquidity) {
             $('#swapAmount').parent().parent().addClass('error')
             return false
         } else $('#swapAmount').parent().parent().removeClass('error')

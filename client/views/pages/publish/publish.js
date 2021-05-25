@@ -82,7 +82,7 @@ Template.publish.events({
             $("#editVideo").removeClass('disabled')
             $("#editVideo i.loading").addClass('dsp-non')
             $("#editVideo i.podcast").removeClass('dsp-non')
-            if (err) toastr.error("Error while broadcasting comment edit")
+            if (err) Meteor.blockchainError(err)
             else {
                 toastr.success(translate('EDIT_VIDEO_SUCCESS'))
                 var permlink = res[0]
