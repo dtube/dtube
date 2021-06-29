@@ -20,11 +20,20 @@
     </div>
 </template>
 
-<template name='buttonlogin'>
-    <a href="/login">
+<template name='buttoneditprofile'>
+    <div class="ui right labeled icon button blue dtube editprofile" style="float:right;margin-right: 10px !important;">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'CHANNEL_EDIT_MY_PROFIL'}}
+        </div>
+        <i class="icon edit blue" style="background:white;opacity:1;"></i>
+    </div>
+</template>
+
+<template name='buttonaccounts'>
+    <a id="logintopbarmenu">
         <div class="ui right labeled icon button red dtube pos-rel">
             <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate "TOPBAR_LOGIN"}}
+                {{ translate "CHANNEL_LOGIN"}}
             </div>
             <i class="icon sign in red" style="background:white;opacity:1;"></i>
         </div>
@@ -35,7 +44,7 @@
     <a href="/login/dtube">
         <div class="ui right labeled icon button red dtube pos-rel">
             <div style="display:inline-block;padding: 0.8em 1em;">
-                {{ translate "TOPBAR_LOGIN"}}
+                {{ translate "CHANNEL_LOGIN"}}
             </div>
             <i class="icon sign in red" style="background:white;opacity:1;"></i>
         </div>
@@ -66,15 +75,4 @@
         <i class="icon gift" style="color: black;"></i>
     </button>
     {{>senddtcmodal}}
-</template>
-
-<template name='buttonblockexplorer'>
-    <a href="https://blocks.oneloved.tube/#/@{{explorerUsername}}" target="_blank">
-        <div class="ui right labeled icon button blue dtube pos-rel blockexploreraccount">
-            <div style="display:inline-block;padding: 0.8em 1em;">
-                {{translate 'BLOCK_EXPLORER'}}
-            </div>
-            <i class="icon cubes blue" style="background:white;opacity:1;"></i>
-        </div>
-    </a>
 </template>

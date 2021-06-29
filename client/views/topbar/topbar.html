@@ -54,7 +54,7 @@
         <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
           <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
         </a>
-        {{#if isLoggedOn}}
+        {{#if activeUsername}}
           {{#if mainUser.balance}}
             <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
                 <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
@@ -76,14 +76,8 @@
           <!--<a href='/golive' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_GO_LIVE"}}'>-->
             <!--<i class="podcast icon" style='font-size:1.3em; margin:0;'></i>-->
           <!--</a>-->
-        {{/if}}
-        {{#if isLoggedOn}}
+          {{/if}}
           {{> accountsdropdown}}
-        {{else}}
-          <div class="topbarLogin">
-            {{> buttonlogin}}
-          </div>
-        {{/if}}
       </div>
     </div>
   {{/if}}

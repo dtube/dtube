@@ -15,7 +15,19 @@ Template.topbar.helpers({
     return Session.get('isSearchingMobile')
   }, mainUser: function() {
     return Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
-  }
+  },
+  topbarAvatarUrl: () => {
+    if (Session.get('activeUsername')) return javalon.config.api + '/image/avatar/' + Session.get('activeUsername')
+    else if (Session.get('activeUsernameHive')) return 'https://images.hive.blog/u/' + Session.get('activeUsernameHive') + '/avatar'
+    else if (Session.get('activeUsernameSteem')) return 'https://steemitimages.com/u/' + Session.get('activeUsernameSteem') + '/avatar'
+    else return javalon.config.api + '/image/avatar/null'
+  },
+  topbarUsername: () => {
+    if (Session.get('activeUsername')) return Session.get('activeUsername')
+    else if (Session.get('activeUsernameHive')) return Session.get('activeUsernameHive')
+    else if (Session.get('activeUsernameSteem')) return Session.get('activeUsernameSteem')
+    else return ''
+  },
 });
 
 Template.topbar.events({
@@ -91,6 +103,18 @@ Template.topbar.events({
       // $('.dtube').removeClass('loading')
     })
   },
+  'click #logintopbarmenu': function() {
+      if(Session.get('activeUsername')) {
+        $('.menu .item.'+Session.get('currentTab')).removeClass('active');
+        $('.ui.bottom.attached.tab.'+Session.get('currentTab')).removeClass('active');
+        Session.set('currentTab', 'videos')
+        $('.menu .item.videos').addClass('active');
+        $('.ui.bottom.attached.tab.videos').addClass('active');
+        FlowRouter.go('/c/' + Session.get('activeUsername'))
+      } else {
+        FlowRouter.go('/login')
+      }
+   },
   'click #textlogo': function () {
     FlowRouter.go('/')
   },
