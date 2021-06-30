@@ -11,8 +11,8 @@ Template.loginavalon.helpers({
       if(Session.get('activeUsername')!==null) {
         return Session.get('activeUsername')
       }
-      if(Session.get('activeUsernamHive')!==null) {
-        return Session.get('activeUsernamHive')
+      if(Session.get('activeUsernameHive')!==null) {
+        return Session.get('activeUsernameHive')
       }
       if(Session.get('activeUsernameSteem')!==null) {
         return Session.get('activeUsernameSteem')
@@ -24,6 +24,7 @@ Template.loginavalon.helpers({
   })
   
   Template.loginavalon.success = function(activeUsername, noreroute, isSecurityKey) {
+	Session.set('loginInProgress', true)
     Subs.loadFollowing(activeUsername, null, true, function(user, count) {
       console.log('Loaded '+count+' following for '+user)
     })
@@ -48,10 +49,16 @@ Template.loginavalon.helpers({
     Videos.loadFeed(activeUsername)
     if (!noreroute)
       FlowRouter.go('#!/')
-    if (isSecurityKey && typeof Session.get('activeUsername') == 'undefined')
+    if (isSecurityKey && typeof Session.get('activeUsername') == 'undefined' && Session.get('loginInProgress'))
+	{
       toastr.warning(translate('WARNING_SECURITY_KEY_LOGIN'),translate('WARNING_TITLE'))
-    else if (!isSecurityKey && !noreroute && typeof Session.get('activeUsername') == 'undefined')
+	  Session.set('loginInProgress', null)
+	}
+    else if (!isSecurityKey && !noreroute && typeof Session.get('activeUsername') == 'undefined' && Session.get('loginInProgress'))
+	{
       toastr.success(translate('LOGIN_SUCCESS_CUSTOM_KEY'),translate('USERS_SUCCESS'))
+	  Session.set('loginInProgress', null)
+	}
     Session.set('activeUsername', activeUsername)
     Template.accountsdropdown.refreshNetworkSwitch()
   }
@@ -61,18 +68,19 @@ Template.loginavalon.helpers({
       event.preventDefault()
       var currentUser = Session.get('activeUsername')
       var username = event.target.username.value.toLowerCase().replace('@','');
-      if (currentUser == username)
-      {
-        toastr.error(translate('LOGIN_ERROR_ALREADY_LOGGED'), translate('ERROR_TITLE'))
-        return
-      }
-      var username = event.target.username.value.toLowerCase().replace('@','');
-      var privatekey = event.target.privatekey.value;
-      if (!username || !privatekey) {
-        toastr.error(translate('LOGIN_ERROR_EMPTY_USERNAME_POSTING_KEY'), translate('ERROR_TITLE'))
-        return
-      }
-      avalon.getAccount(username, function(err, chainuser) {
+      if (Session.get('loginInProgress')) {
+    	if (currentUser == username)
+    	{
+          toastr.error(translate('LOGIN_ERROR_ALREADY_LOGGED'), translate('ERROR_TITLE'))
+    	  return
+    	}
+    	var username = event.target.username.value.toLowerCase().replace('@','');
+    	var privatekey = event.target.privatekey.value;
+        if (!username || !privatekey) {
+          toastr.error(translate('LOGIN_ERROR_EMPTY_USERNAME_POSTING_KEY'), translate('ERROR_TITLE'))
+    	  return
+		}
+        avalon.getAccount(username, function(err, chainuser) {
         if (err) console.log(err)
         if (!chainuser) {
           toastr.error(translate('LOGIN_ERROR_UNKNOWN_USERNAME'), translate('ERROR_TITLE'))
@@ -88,32 +96,32 @@ Template.loginavalon.helpers({
           toastr.error(translate('LOGIN_ERROR_WRONG_POSTING_KEY'), translate('ERROR_TITLE'))
           return
         }
-
         let isSecurityKey = false
         var allowedTxTypes = []
-        if (chainuser.pub == user.publickey) {
-          allowedTxTypes = Array.from(Array(20).keys())
-          isSecurityKey = true
-        }
-        for (let i = 0; i < chainuser.keys.length; i++)
-          if (chainuser.keys[i].pub == user.publickey)
-            allowedTxTypes = chainuser.keys[i].types
-  
-        if (allowedTxTypes.length > 0) {
-          // correct key for the user, loggin in
-          user.username = username
-          user._id = user.network+'/'+user.username
-          user.allowedTxTypes = allowedTxTypes
-          if (event.target.rememberme.checked === false)
-            user.temporary = true
-
-          Users.upsert({_id: user._id}, user, function() {
-            Template.loginavalon.success(user.username,false,isSecurityKey)
-          })
-        } else {
-          toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
-        }
-      });
+          if (chainuser.pub == user.publickey) {
+            allowedTxTypes = Array.from(Array(20).keys())
+            isSecurityKey = true
+          }
+          for (let i = 0; i < chainuser.keys.length; i++)
+            if (chainuser.keys[i].pub == user.publickey)
+              allowedTxTypes = chainuser.keys[i].types
+            if (allowedTxTypes.length > 0) {
+              // correct key for the user, loggin in
+              user.username = username
+              user._id = user.network+'/'+user.username
+              user.allowedTxTypes = allowedTxTypes
+              if (event.target.rememberme.checked === false)
+                user.temporary = true
+                
+				Users.upsert({_id: user._id}, user, function() {
+                  Template.loginavalon.success(user.username,false,isSecurityKey)
+                })
+            } else {
+              toastr.error(translate('LOGIN_ERROR_AUTHENTIFICATION_FAILED'), translate('ERROR_TITLE'))
+            }
+          });
+        Session.set('loginInProgress', null)
+	  }
     }
   })
   
