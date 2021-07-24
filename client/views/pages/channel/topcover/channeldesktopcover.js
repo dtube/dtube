@@ -50,16 +50,13 @@ Template.channeldesktopcover.events({
         if (!window.metamask.networks[networkId])
           return toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
         metamask.enable()
-        metamask.loadGasPrice()
-        metamask.loadUniswapBalance()
         var ethAddressChecker = setInterval(function() {
           if (window.ethereum.selectedAddress) {
             clearInterval(ethAddressChecker)
             console.log('Metamask connected: '+window.ethereum.selectedAddress)
             Session.set('metamaskAddress', window.ethereum.selectedAddress)
             Session.set('metamaskNetwork',window.ethereum.chainId)
-            metamask.loadBalance()
-            metamask.loadDepositAddressBalance()
+            metamask.update()
           }
         }, 150)
       },

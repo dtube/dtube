@@ -351,6 +351,21 @@ FlowRouter.route('/wiki/:folder/:page', {
   }
 });
 
+FlowRouter.route('/farm', {
+    name: "farm",
+    action: function(params, queryParams) {
+        BlazeLayout.render('masterLayout', {
+          main: "farm",
+          nav: "nav"
+        })
+        let autoUpdater = setInterval(function() {
+            if (FlowRouter.current().route.name != 'farm')
+              clearInterval(autoUpdater)
+            metamask.update()
+        }, 10000)
+    }
+})
+
 FlowRouter.notFound = {
     action: function() {
         BlazeLayout.render('masterLayout', {

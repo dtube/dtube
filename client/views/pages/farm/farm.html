@@ -1,0 +1,70 @@
+<template name='farm'>
+    <div class="ui container" style="">
+        {{#if hasMetamask}}
+            {{#if metamaskAddress}}
+                <h1>DTube Coin Farming</h1>
+                <h2>1 DTC = ${{dtcPrice}}</h2>
+                <span style="font-size: 16px; font-weight: 500">Total Value Locked: {{totalValueLocked}}</span>
+                <br />({{dtcLiq.dtc}} DTC + {{dtcLiq.weth}} BNB)
+                <br /><br />
+                <div id="buydtc" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui red right labeled dtube icon submit button">
+                    <i class="shopping cart icon red" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Buy DTC</div>
+                    </button>
+                </div>
+                <div id="addliquidity" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
+                    <i class="external icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Get DTC/BNB LP</div>
+                    </button>
+                </div>
+
+                <br /><br />
+                LPs Available: {{lpBalance}}
+                <br />
+                LPs Farming: {{lpFarming}}
+                <br /><br />
+                {{#if allowance}}
+                <div id="depositlp" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
+                    <i class="plus icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Deposit LP</div>
+                    </button>
+                </div>
+                <div id="withdrawlp" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
+                    <i class="minus icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Withdraw LP</div>
+                    </button>
+                </div>
+                {{else}}
+                <div id="enablefarm" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
+                    <i class="check icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Enable Farm</div>
+                    </button>
+                </div>
+                {{/if}}
+                
+                <br /><br />
+                <strong>Pending Reward: {{pendingReward}} DTC</strong>
+                <br /><br />
+                <div id="harvest" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui red right labeled dtube icon submit button">
+                    <i class="hand peace icon red" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">Harvest Reward</div>
+                    </button>
+                </div>
+            {{else}}
+                <div id="connectMetamask" class="ui right labeled icon button red dtube" style="">
+                    <div style="display:inline-block;padding: 0.8em 1em;">
+                        {{ translate 'CHANNEL_CONNECT_METAMASK'}}
+                    </div>
+                    <i class="icon plug red" style="background:white;opacity:1;"></i>
+                </div>
+            {{/if}}
+        {{/if}}
+    </div>
+</template>
+  
