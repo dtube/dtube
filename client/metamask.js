@@ -1,4 +1,5 @@
-const Web3 = require('web3')
+// huge library, only fetch on demand
+// const Web3 = require('web3')
 
 // those can be hard-coded they shouldnt ever change
 const tokenAddress = '0xd2be3722B17b616c51ed9B8944A227D1ce579C24'
@@ -43,19 +44,29 @@ const smartChefAbi = [{"inputs":[{"internalType":"contract IBEP20","name":"_syru
 
 window.metamask = {
     connect: () => {
-        let networkId = parseInt(window.ethereum.chainId)
-        if (!window.metamask.networks[networkId])
-            return toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
-        metamask.enable()
-        var ethAddressChecker = setInterval(function() {
-            if (window.ethereum.selectedAddress) {
-                clearInterval(ethAddressChecker)
-                console.log('Metamask connected: '+window.ethereum.selectedAddress)
-                Session.set('metamaskAddress', window.ethereum.selectedAddress)
-                Session.set('metamaskNetwork',window.ethereum.chainId)
-                metamask.update()
-            }
-        }, 150)
+        jQuery.ajax({
+            url: 'https://cdnjs.cloudflare.com/ajax/libs/web3/1.4.0/web3.min.js',
+            dataType: 'script',
+            success: function() {
+                let networkId = parseInt(window.ethereum.chainId)
+                if (!window.metamask.networks[networkId])
+                    return toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
+                metamask.enable()
+                var ethAddressChecker = setInterval(function() {
+                    if (window.ethereum.selectedAddress) {
+                        clearInterval(ethAddressChecker)
+                        console.log('Metamask connected: '+window.ethereum.selectedAddress)
+                        Session.set('metamaskAddress', window.ethereum.selectedAddress)
+                        Session.set('metamaskNetwork',window.ethereum.chainId)
+                        metamask.update()
+                    }
+                }, 150)
+            },
+            error: () => {
+                toastr.error(translate('ERROR_METAMASK_WEB3_SCRIPT'),translate('ERROR_TITLE'))
+            },
+            async: true
+        })
     },
     enable: (cb) => {
         if (window.ethereum) {

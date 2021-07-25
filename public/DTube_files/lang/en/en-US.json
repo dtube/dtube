@@ -84,6 +84,7 @@
     "ERC20_SWAP_AVAILABLE_DEPOSIT_LIQUIDITY": "Available deposit liquidity",
     "ERROR_UNKNOWN": "Unknown error",
     "ERROR_TITLE": "Error",
+    "ERROR_METAMASK_WEB3_SCRIPT": "Failed to fetch web3.js library",
     "ERROR_METAMASK_NOT_INSTALLED": "Metamask is not installed",
     "ERROR_MISSING_PERMISSION": "Missing required permission %1",
     "ERROR_PAGE_NOT_FOUND": "Page Not Found",
