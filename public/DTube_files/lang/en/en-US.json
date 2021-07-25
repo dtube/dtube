@@ -87,6 +87,7 @@
     "ERROR_METAMASK_NOT_INSTALLED": "Metamask is not installed",
     "ERROR_MISSING_PERMISSION": "Missing required permission %1",
     "ERROR_PAGE_NOT_FOUND": "Page Not Found",
+    "FARM": "Farm",
     "FARM_APR": "Farm APR",
     "FARM_BUY_DTUBE": "Buy DTC",
     "FARM_ENABLE": "Enable Farm",

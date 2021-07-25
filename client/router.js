@@ -359,6 +359,7 @@ FlowRouter.route('/farm', {
           nav: "nav"
         })
         Session.set("pageTitle", 'Farm')
+        Session.set("currentMenu", 0)
         let autoUpdater = setInterval(function() {
             if (FlowRouter.current().route.name != 'farm')
               clearInterval(autoUpdater)
