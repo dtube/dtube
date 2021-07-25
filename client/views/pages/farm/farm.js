@@ -34,7 +34,12 @@ Template.farm.helpers({
         }
     },
     apr: () => {
-      return Math.round(metamask.farmRewardPerBlock() / Session.get('metamaskUniswapLiquidities').dtc * 52560000000) / 100
+      const liquidities = Session.get('metamaskUniswapLiquidities').dtc * 2
+      const oneYearReward = metamask.farmRewardPerBlock() * 28800 * 365
+      const apr = oneYearReward / liquidities
+      const aprd = apr / 365
+      const apy = Math.pow(1+aprd, 365) - 1
+      return (100*apy).toFixed(1)
     },
     allowance: function() {
         return Session.get('metamaskFarmAllowance')
