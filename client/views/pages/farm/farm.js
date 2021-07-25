@@ -43,26 +43,7 @@ Template.farm.helpers({
 
 Template.farm.events({
     "click #connectMetamask": function() {
-      jQuery.ajax({
-        url: 'https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js',
-        dataType: 'script',
-        success: function() {
-          let networkId = parseInt(window.ethereum.chainId)
-          if (!window.metamask.networks[networkId])
-            return toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
-          metamask.enable()
-          var ethAddressChecker = setInterval(function() {
-            if (window.ethereum.selectedAddress) {
-              clearInterval(ethAddressChecker)
-              console.log('Metamask connected: '+window.ethereum.selectedAddress)
-              Session.set('metamaskAddress', window.ethereum.selectedAddress)
-              Session.set('metamaskNetwork',window.ethereum.chainId)
-              metamask.update()
-            }
-          }, 150)
-        },
-        async: true
-      });
+      metamask.connect()
     },
     "click #addliquidity": function() {
       window.open("https://pancakeswap.finance/add/BNB/0xd3Cceb42B544e91eee02EB585cc9a7b47247BfDE")
