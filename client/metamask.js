@@ -123,6 +123,9 @@ window.metamask = {
             console.log(err)
         })
     },
+    farmRewardPerBlock: () => {
+        return 0.01
+    },
     loadLiquidities: () => {
         // this loads the pooled liquidities on uniswap
         // and allows calculating DTC / ETH price

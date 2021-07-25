@@ -1,69 +1,73 @@
 <template name='farm'>
-    <div class="ui container" style="">
+    <div class="ui container">
         {{#if hasMetamask}}
             {{#if metamaskAddress}}
-                <h1>DTube Coin Farming</h1>
+                <h1>{{ translate 'FARM_TITLE' }}</h1>
                 <h2>1 DTC = ${{dtcPrice}}</h2>
-                <span style="font-size: 16px; font-weight: 500">Total Value Locked: {{totalValueLocked}}</span>
+                <span style="font-size: 16px; font-weight: 500">{{ translate 'FARM_TVL' }}: {{totalValueLocked}}</span>
                 <br />({{dtcLiq.dtc}} DTC + {{dtcLiq.weth}} BNB)
+                <br /><br />
+                <span style="font-size: 16px; font-weight: 500">{{ translate 'FARM_APR' }}: {{apr}}%</span>
                 <br /><br />
                 <div id="buydtc" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui red right labeled dtube icon submit button">
                     <i class="shopping cart icon red" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Buy DTC</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_BUY_DTUBE' }}</div>
                     </button>
                 </div>
                 <div id="addliquidity" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
                     <i class="external icon blue" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Get DTC/BNB LP</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_GET_DTUBE_BNB_LP' }}</div>
                     </button>
                 </div>
 
                 <br /><br />
-                LPs Available: {{lpBalance}}
+                {{ translate 'FARM_LP_AVAILABLE' }}: {{lpBalance}}
                 <br />
-                LPs Farming: {{lpFarming}}
+                {{ translate 'FARM_LP_FARMING' }}: {{lpFarming}}
                 <br /><br />
                 {{#if allowance}}
                 <div id="depositlp" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
                     <i class="plus icon blue" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Deposit LP</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_LP_DEPOSIT' }}</div>
                     </button>
                 </div>
                 <div id="withdrawlp" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
                     <i class="minus icon blue" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Withdraw LP</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_LP_WITHDRAW' }}</div>
                     </button>
                 </div>
                 {{else}}
                 <div id="enablefarm" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
                     <i class="check icon blue" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Enable Farm</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_ENABLE' }}</div>
                     </button>
                 </div>
                 {{/if}}
                 
                 <br /><br />
-                <strong>Pending Reward: {{pendingReward}} DTC</strong>
+                <strong>{{ translate 'FARM_PENDING_REWARD' }}: {{pendingReward}} DTC</strong>
                 <br /><br />
                 <div id="harvest" class="ui labeled small button" tabindex="0">
                     <button type="submit" name="button" class="ui red right labeled dtube icon submit button">
                     <i class="hand peace icon red" style="background:white;opacity:1;"></i>
-                    <div  style="display:inline-block;padding: 0.8em 1em;">Harvest Reward</div>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_HARVEST_REWARD' }}</div>
                     </button>
                 </div>
             {{else}}
-                <div id="connectMetamask" class="ui right labeled icon button red dtube" style="">
+                <div id="connectMetamask" class="ui right labeled icon button red dtube">
                     <div style="display:inline-block;padding: 0.8em 1em;">
                         {{ translate 'CHANNEL_CONNECT_METAMASK'}}
                     </div>
                     <i class="icon plug red" style="background:white;opacity:1;"></i>
                 </div>
             {{/if}}
+        {{else}}
+            <p>{{ translate 'ERROR_TITLE' }}: {{ translate 'ERROR_METAMASK_NOT_INSTALLED' }}</p>
         {{/if}}
     </div>
 </template>

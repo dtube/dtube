@@ -32,7 +32,9 @@ Template.farm.helpers({
         } else {
           return price
         }
-        
+    },
+    apr: () => {
+      return Math.round(metamask.farmRewardPerBlock() / Session.get('metamaskUniswapLiquidities').dtc * 52560000000) / 100
     },
     allowance: function() {
         return Session.get('metamaskFarmAllowance')
