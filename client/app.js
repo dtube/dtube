@@ -1,11 +1,6 @@
 import './buffer';
 import steem from 'steem'
-//import hive from '@hiveio/hive-js'
-
-// Meteor does not support the module hot reload code used in updateOperations() for
-// HF24 transition, so a minified version will have to be used until post HF24. 
-// lib/hive.js is automatically imported by Meteor, so no manual import is needed here.
-// Minified code from https://cdn.jsdelivr.net/npm/@hiveio/hive-js@0.8.4/dist/hive.min.js
+import hive from '@hiveio/hive-js'
 
 console.log('Starting DTube APP')
 
@@ -27,7 +22,6 @@ Meteor.startup(function(){
   // configure hive options
   let hiveoptions = {
     useAppbaseApi: true,
-    rebranded_api: true,
     alternative_api_endpoints: Meteor.settings.public.remote.HiveAPINodes
   }
   if (!localStorage.getItem('hiveAPI')
@@ -36,7 +30,6 @@ Meteor.startup(function(){
   else
     hiveoptions.url = localStorage.getItem('hiveAPI')
   hive.api.setOptions(hiveoptions)
-  hive.broadcast.updateOperations()
 
   Session.set('steemAPI', steem.api.options.url)
   Session.set('hiveAPI',hiveoptions.url)

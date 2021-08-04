@@ -1040,7 +1040,7 @@ broadcast = {
 
             let wif = voter.privatekey
             if (wif) {
-                hive.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+                hive.broadcast.vote(wif, voter.username, author, permlink, weight, function(err, result) {
                     cb(err, result)
                 })
                 return
