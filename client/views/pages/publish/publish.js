@@ -168,13 +168,17 @@ Template.publish.events({
         Session.set('tmpVideo', {})
         UserSettings.set('tmpVideo', {})
     },
-    'change #uploadTitle, change #uploadDescription, change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputOC, change #inputDuration': function() {
+    'change #uploadTitle, change #uploadDescription, change #thumbnailUrlExternal,change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputOC, change #inputDuration': function() {
         var tmpVideo = Session.get('tmpVideo')
         tmpVideo.json.title = $('#uploadTitle')[0].value
         tmpVideo.json.desc = $('#uploadDescription')[0].value
         if (!Session.get('tmpVideoEdit')) {
             tmpVideo.json.tag = $('#tagDropdown')[0].value
             tmpVideo.json.dur = $('#inputDuration')[0].value
+        }
+        if ($('#thumbnailUrlExternal')[0]) {
+            tmpVideo.json.thumbnailUrlExternal = $('#thumbnailUrlExternal')[0].value
+            tmpVideo.json.thumbnailUrl = tmpVideo.json.thumbnailUrlExternal
         }
 
         tmpVideo.json.hide = parseInt($('#visibilityDropdown')[0].value)
@@ -188,6 +192,7 @@ Template.publish.events({
             tmpVideo.json.oc = 0
         Session.set('tmpVideo', tmpVideo)
         UserSettings.set('tmpVideo', tmpVideo)
+        Template.player.reset()
     },
     'change #inputSteemMarkdown, change #inputSteemPowerup': function() {
         var tmpVideo = Session.get('tmpVideo')

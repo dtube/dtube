@@ -239,6 +239,8 @@
     "TAGS_VERY_SHORT": "Very Short ( < 5 minutes)",
     "TAGS_SHORT_SELECTED": "Short",
     "TAGS_VERY_SHORT_SELECTED": "Very Short",
+    "THUMBNAIL_URL_EXTERNAL": "Thumbnail URL (3rd Party)",
+    "THUMBNAIL_URL_EXTERNAL_PLACEHOLDER": "Add external 3rd Party thumbnail URL instead of adding thumbnail below",
     "TOPBAR_LOGIN": "Login",
     "TOPBAR_PLACEHOLDER_SEARCH_VIDEOS": "Search",
     "TOPBAR_DTC_EXPLAIN": "DTUBE Coins - Hold more of it to generate more Voting Power. You can burn it to promote your videos and comments.",

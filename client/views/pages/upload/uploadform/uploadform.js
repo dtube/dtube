@@ -107,7 +107,11 @@ Template.uploadformsubmit.events({
       video.json.ipfs.videohash = $('input[name=videohash]')[0].value
       video.json.ipfs.spritehash = $('input[name=spritehash]')[0].value
       video.json.ipfs.snaphash = $('input[name=snaphash]')[0].value
-      video.json.thumbnailUrl = 'https://snap1.d.tube/ipfs/' + $('input[name=snaphash]')[0].value
+      if (!$('input[name=thumbnailUrlExternal]')[0].value) {
+        video.json.thumbnailUrl = $('input[name=thumbnailUrlExternal]')[0].value 
+      } else {
+        video.json.thumbnailUrl = 'https://snap1.d.tube/ipfs/' + $('input[name=snaphash]')[0].value
+      }
 
       if ($('input[name=video240hash]')[0].value) video.json.ipfs.video240hash = $('input[name=video240hash]')[0].value
       if ($('input[name=video480hash]')[0].value) video.json.ipfs.video480hash = $('input[name=video480hash]')[0].value
