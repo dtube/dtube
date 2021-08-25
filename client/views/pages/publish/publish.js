@@ -168,7 +168,7 @@ Template.publish.events({
         Session.set('tmpVideo', {})
         UserSettings.set('tmpVideo', {})
     },
-    'change #uploadTitle, change #uploadDescription, change #thumbnailUrlExternal,change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputOC, change #inputDuration': function() {
+    'change #uploadTitle, change #uploadDescription, change #thumbnailUrlExternal, change #tagDropdown, change #visibilityDropdown, change #inputNsfw, change #inputOC, change #inputDuration': function() {
         var tmpVideo = Session.get('tmpVideo')
         tmpVideo.json.title = $('#uploadTitle')[0].value
         tmpVideo.json.desc = $('#uploadDescription')[0].value
