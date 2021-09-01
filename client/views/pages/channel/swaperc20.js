@@ -40,14 +40,10 @@ Template.swaperc20.helpers({
     },
     metamaskNetworkName: () => {
         let networkId = parseInt(Session.get('metamaskNetwork'))
-        switch (networkId) {
-            case 1:
-                return 'Ethereum'
-            case 56:
-                return 'Binance Smart Chain'
-            default:
-                return 'Unknown Network'
-        }
+        if (window.metamask.networkFullNames[networkId])
+            return window.metamask.networkFullNames[networkId]
+        else
+            return 'Unknown Network'
     },
     isValid: function() {
         if (!Session.get('swapAmount')) return false
@@ -62,7 +58,7 @@ Template.swaperc20.helpers({
         var amount = Session.get('swapAmount')
         let depositLiquidity = parseInt(Session.get('depositAddressBalance'))
         var decimals = countDecimals(amount)
-        if (decimals > 2 || Math.round(amount*100) > balance || Math.round(amount*100) > depositLiquidity) {
+        if (decimals > 2 || Math.round(amount*100) > balance || (Math.round(amount*100) > depositLiquidity && !Session.get('metamaskSwapInverse'))) {
             $('#swapAmount').parent().parent().addClass('error')
             return false
         } else $('#swapAmount').parent().parent().removeClass('error')
@@ -98,8 +94,8 @@ Template.swaperc20.events({
                 $("#confirmSwap > i.check").removeClass('dsp-non')
                 if (err) toastr.error(err.message)
                 else {
-                    console.log('Sent Ethereum transaction: '+res)
-                    toastr.success(res, 'Ethereum Transaction Sent')
+                    console.log('Sent ERC20 transaction: '+res)
+                    toastr.success(translate('ERC20_TX_SENT',window.metamask.networkFullNames[parseInt(Session.get('metamaskNetwork'))]),translate('TRANSFER_SUCCESS_TITLE'))
                     $('.swaperc20').hide()
                 }
             })

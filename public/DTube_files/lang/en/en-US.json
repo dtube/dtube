@@ -79,6 +79,7 @@
     "ELECTION_UNVOTE": "Unvote",
     "ELECTION_USERNAME": "Leader",
     "ELECTION_VOTE": "Vote",
+    "ERC20_TX_SENT": "%1 Transaction Sent",
     "ERC20_SWAP_TEXT": "Moving DTube Coins to/from %1 might take a few minutes. Transactions are irreversible, please make sure the sender and receiver are correct before confirming.",
     "ERC20_SWAP_BTN_REVERSE": "Reverse",
     "ERC20_SWAP_AVAILABLE_DEPOSIT_LIQUIDITY": "Available deposit liquidity",

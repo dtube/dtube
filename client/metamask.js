@@ -248,6 +248,10 @@ window.metamask = {
         1: 'ETH',
         56: 'BSC'
     },
+    networkFullNames: {
+        1: 'Ethereum',
+        56: 'Binance Smart Chain'
+    },
     tokenAddress: () => {
         switch (parseInt(window.ethereum.chainId)) {
             case 1:
