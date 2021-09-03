@@ -1,19 +1,21 @@
-Template.login.rendered = () => {
+Template.channellogin.rendered = () => {
   Session.set('loginSelectionStep',true)
   Session.set('loginAvalonStep',false)
   Session.set('loginHiveStep',false)
   Session.set('loginSteemStep',false)
   Session.set('forcePostingKeyHive',false)
   Session.get('forcePostingKey',false)
-  if (!Session.get('activeUsername') && !Session.get('activeUsernameHive') && !Session.get('activeUsernameSteem')) {
-    Session.set('loginSelectionStep',false)
-    Session.set('loginAvalonStep',true)
-  }
-  if (!Session.get('currentNonLoginPath') || Session.get('currentNonLoginPath').startsWith('/login'))
-    Session.set('currentNonLoginPath','/')
 }
 
-Template.login.helpers({
+Template.channellogin.helpers({
+  isLoggedOnFromAnyBlockchain: () => {
+    if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
+      return true
+    return false
+  },
+  noAvalonLogin: () => {
+    return !Session.get('activeUsername')
+  },
   noAvalonLogin: () => {
     return !Session.get('activeUsername')
   },
@@ -45,7 +47,7 @@ Template.login.helpers({
   }
 })
 
-Template.login.events({
+Template.channellogin.events({
   'click .loginOption': (event) => {
     var selected = $(event.currentTarget).data('network')
     Session.set('loginSelectionStep',false)

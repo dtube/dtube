@@ -1,7 +1,8 @@
 <template name="accountsdropdown">
-    <a href="/login" class="ui item top inline right floated" style="float: right;">
+    {{#if activeUsername}}
+    <a id="logintopbarmenu" class="ui item top inline right floated login" style="float: right;">
         <img class="ui avatar image" src="{{topbarAvatarUrl}}" style="height: 35px; width: auto; border-radius: 50%; vertical-align: middle;">
-        <div style="margin-left: 5px; vertical-align: middle;">{{topbarUsername}}</div>
+        <div style="margin-left: 5px; vertical-align: middle;">{{activeUsername}}</div>
         <!-- <i class="dropdown icon"></i>
         <div class="menu">
             {{#if activeUsername}}
@@ -85,4 +86,16 @@
             <a href="/settings" class="item">{{ translate 'SETTINGS' }}</a>
         </div> -->
     </a>
+    {{else}}
+    {{#if activeUsernameHive or activeUsernameSteem}}
+    <a href="/login" class="ui item top inline right floated login" style="float: right;">
+      <img class="ui avatar image" src="{{topbarAvatarUrl}}" style="height: 35px; width: auto; border-radius: 50%; vertical-align: middle;">
+      <div style="margin-left: 5px; vertical-align: middle;">{{topbarUsername}}</div>
+    </a>
+    {{else}}
+    <div class="topbarLogin">
+      {{> buttonaccounts}}
+    </div>
+    {{/if}}
+    {{/if}}
 </template>

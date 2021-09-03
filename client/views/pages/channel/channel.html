@@ -11,6 +11,9 @@
         <a class="item keys" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
         <a class="item rewards" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
         {{/if}}
+        {{#if equals author.name activeUsername}}
+        <a class="item login" data-tab="sixth">{{ translate 'CHANNEL_LOGIN'}}</a>
+        {{/if}}
       </div>
     </div>
     <div class="ui infinite bottom attached tab segment active videos" data-tab="first"
@@ -62,6 +65,9 @@
         <a class="item rewards" style="display:inline-block;" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
         {{/if}}
         <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+        {{#if equals author.name activeUsername}}
+        <a class="item login" style="display:inline-block;" data-tab="sixth">{{ translate 'CHANNEL_LOGIN'}}</a>
+        {{/if}}
       </div>
       <div class="ui bottom attached tab segment videos active" data-tab="first"
         style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -100,6 +106,14 @@
         {{> channelabout}}
         {{/if}}
       </div>
+      {{#if equals author.name activeUsername}}
+      <div class="ui bottom attached tab segment login" data-tab="sixth"
+        style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
+        {{#if equals currentTab 'login'}}
+          {{> channellogin}}
+        {{/if}}
+      </div>
+      {{/if}}
     </div>
   </div>
   {{/if}}
