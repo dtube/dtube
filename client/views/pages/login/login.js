@@ -9,6 +9,8 @@ Template.login.rendered = () => {
     Session.set('loginSelectionStep',false)
     Session.set('loginAvalonStep',true)
   }
+  if (!Session.get('currentNonLoginPath') || Session.get('currentNonLoginPath').startsWith('/login'))
+    Session.set('currentNonLoginPath','/')
 }
 
 Template.login.helpers({

@@ -1,4 +1,8 @@
-Template.loginhive.rendered = () => Template.settingsdropdown.nightMode()
+Template.loginhive.rendered = () => {
+  if (!Session.get('currentNonLoginPath') || Session.get('currentNonLoginPath').startsWith('/login'))
+    Session.set('currentNonLoginPath','/')
+  Template.settingsdropdown.nightMode()
+}
 Template.loginhive.helpers({
   users: function() {
     return Users.find().fetch()
@@ -105,7 +109,7 @@ Template.loginhive.success = function(activeUsername, noreroute) {
   if (!UserSettings.get('voteWeightHive')) UserSettings.set('voteWeightHive', 100)
   Videos.loadFeed(activeUsername)
   if (!noreroute)
-    FlowRouter.go('#!/')
+    FlowRouter.go('#!'+Session.get('currentNonLoginPath'))
 
   // check if subscribed to dtube hive
   hive.api.call('bridge.list_all_subscriptions', {account: Session.get('activeUsernameHive')}, function(e,hives) {

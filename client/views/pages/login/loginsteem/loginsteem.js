@@ -1,4 +1,9 @@
-Template.loginsteem.rendered = () => Template.settingsdropdown.nightMode()
+Template.loginsteem.rendered = () => {
+  if (!Session.get('currentNonLoginPath') || Session.get('currentNonLoginPath').startsWith('/login'))
+    Session.set('currentNonLoginPath','/')
+  Template.settingsdropdown.nightMode()
+}
+
 Template.loginsteem.helpers({
     users: function() {
       return Users.find().fetch()
@@ -17,7 +22,7 @@ Template.loginsteem.helpers({
     if (!UserSettings.get('voteWeightSteem')) UserSettings.set('voteWeightSteem', 100)
     Videos.loadFeed(activeUsername)
     if (!noreroute)
-      FlowRouter.go('#!/')
+      FlowRouter.go('#!'+Session.get('currentNonLoginPath'))
 
     // check if subscribed to dtube hive
     steem.api.call('bridge.list_all_subscriptions', {account: Session.get('activeUsernameSteem')}, function(e,hives) {

@@ -5,6 +5,7 @@ FlowRouter.route('/', {
     action: function(params, queryParams) {
         Session.set("pageTitle", '')
         Session.set("currentMenu", 1)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
         BlazeLayout.render('masterLayout', {
             main: "home",
@@ -17,8 +18,8 @@ FlowRouter.route('/publish', {
     name: "addvideo",
     action: function(params, queryParams) {
         Session.set("currentMenu", 3)
-        Template.sidebar.selectMenu();
         Session.set("pageTitle", 'Add a video')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
         BlazeLayout.render('masterLayout', {
             main: "addvideo",
@@ -33,6 +34,7 @@ FlowRouter.route('/hotvideos', {
         Session.set("currentMenu", 4)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'Hot Videos')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "hotvideos",
             nav: "nav",
@@ -46,6 +48,7 @@ FlowRouter.route('/trendingvideos', {
         Session.set("currentMenu", 5)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'Trending Videos')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "trendingvideos",
             nav: "nav",
@@ -59,6 +62,7 @@ FlowRouter.route('/newvideos', {
         Session.set("currentMenu", 6)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'New Videos')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "newvideos",
             nav: "nav",
@@ -73,21 +77,9 @@ FlowRouter.route('/feed/:username', {
         Session.set("currentMenu", 15)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'Feed for @'+FlowRouter.getParam('username'))
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "feed",
-            nav: "nav",
-        });
-    }
-});
-
-FlowRouter.route('/live', {
-    name: "livestreams",
-    action: function(params, queryParams) {
-        Session.set("currentMenu", 10)
-        Template.sidebar.selectMenu();
-        Session.set("pageTitle", 'Live Streams')
-        BlazeLayout.render('masterLayout', {
-            main: "livestreams",
             nav: "nav",
         });
     }
@@ -99,6 +91,7 @@ FlowRouter.route('/watchlater', {
         Session.set("currentMenu", 7)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'Watch Later')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "watchlater",
             nav: "nav",
@@ -112,6 +105,7 @@ FlowRouter.route('/history', {
         Session.set("currentMenu", 8)
         Template.sidebar.selectMenu();
         Session.set("pageTitle", 'History')
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         BlazeLayout.render('masterLayout', {
             main: "history",
             nav: "nav",
@@ -137,6 +131,7 @@ FlowRouter.route('/login/:network', {
     action: function(params, queryParams) {
         Session.set("pageTitle", 'Login')
         Session.set("currentMenu", 0)
+        console.log(FlowRouter._current.path)
         Template.sidebar.selectMenu();
         if (FlowRouter.getParam('network') == 'dtube')
             $("#dtube-tab").click()
@@ -144,17 +139,6 @@ FlowRouter.route('/login/:network', {
             $("#steem-tab").click()
         BlazeLayout.render('masterLayout', {
             main: "login",
-            nav: "nav",
-        });
-    }
-});
-
-FlowRouter.route('/newaccount', {
-    name: "newaccount",
-    action: function(params, queryParams) {
-        Session.set("pageTitle", 'Refer a friend')
-        BlazeLayout.render('masterLayout', {
-            main: "newaccount",
             nav: "nav",
         });
     }
@@ -168,6 +152,7 @@ FlowRouter.route('/election', {
         })
         Session.set("pageTitle", 'Vote for DTube Leaders')
         Session.set("currentMenu", 12)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
         BlazeLayout.render('masterLayout', {
             main: "election",
@@ -181,6 +166,7 @@ FlowRouter.route('/newaccount', {
     action: function(params, queryParams) {
         Session.set("pageTitle", 'New Account')
         Session.set("currentMenu", 0)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
         BlazeLayout.render('masterLayout', {
             main: "newaccount",
@@ -215,6 +201,7 @@ FlowRouter.route('/v/:author/:permlink', {
         })
         Session.set("currentMenu", 0)
         Session.set('isReplying', null)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
     }
 });
@@ -235,6 +222,7 @@ FlowRouter.route('/v/:author/:permlink/votes', {
         if (!videos || videos.length == 0)
             Template.video.loadState()
         Session.set("currentMenu", 0)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
     }
 });
 
@@ -242,7 +230,7 @@ FlowRouter.route('/c/:author', {
     name: "channel",
     action: function(params, queryParams) {
         Session.set("pageTitle", params.author + '\'s channel')
-
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Session.set('currentTab', 'videos');
         if (Session.get('activeUsername') == params.author) {
             Session.set("currentMenu", 2)
@@ -266,6 +254,7 @@ FlowRouter.route('/c/:author/:tab', {
     action: function(params, queryParams) {
         Session.set("pageTitle", params.author + '\'s channel')
         Session.set('currentTab', params.tab);
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         if (Session.get('activeUsername') == params.author) {
             Session.set("currentMenu", 2)
             Template.sidebar.selectMenu();
@@ -296,6 +285,7 @@ FlowRouter.route('/t/:tag', {
         Session.set("currentMenu", 0)
         Template.sidebar.selectMenu();
         Session.set('askSteemCurrentPage', 3)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
     }
 });
 
@@ -307,6 +297,7 @@ FlowRouter.route('/s/:query', {
             nav: "nav"
         });
         Session.set("currentMenu", 0)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu();
     }
 });
@@ -320,6 +311,7 @@ FlowRouter.route('/wiki/:page', {
             nav: "nav"
         })
         Session.set("currentMenu", 14)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         Template.sidebar.selectMenu()
         Template.wiki.load()
     }
@@ -333,6 +325,7 @@ FlowRouter.route('/settings', {
       nav: "nav"
     })
     Session.set("currentMenu", 13)
+    Session.set('currentNonLoginPath', FlowRouter._current.path)
     Template.sidebar.selectMenu()
   }
 });
@@ -341,6 +334,7 @@ FlowRouter.route('/wiki/:folder/:page', {
   name: "wiki",
   action: function(params, queryParams) {
     Session.set('wikiContent', '# Loading wiki page...')
+    Session.set('currentNonLoginPath', FlowRouter._current.path)
     BlazeLayout.render('masterLayout', {
       main: "wiki",
       nav: "nav"
@@ -360,6 +354,7 @@ FlowRouter.route('/farm', {
         })
         Session.set("pageTitle", 'Farm')
         Session.set("currentMenu", 0)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
         let autoUpdater = setInterval(function() {
             if (FlowRouter.current().route.name != 'farm')
               clearInterval(autoUpdater)

@@ -1,14 +1,12 @@
 Template.loginavalon.rendered = function() {
-    Session.set("tmpKey", avalon.keypair())
+    if (!Session.get('currentNonLoginPath') || Session.get('currentNonLoginPath').startsWith('/login'))
+      Session.set('currentNonLoginPath','/')
     Template.settingsdropdown.nightMode()
 }
 
 Template.loginavalon.helpers({
     users: function() {
       return Users.find().fetch()
-    },
-    tmpKey: function() {
-      return Session.get('tmpKey')
     }
   })
   
@@ -37,7 +35,7 @@ Template.loginavalon.helpers({
     })
     Videos.loadFeed(activeUsername)
     if (!noreroute)
-      FlowRouter.go('#!/')
+      FlowRouter.go('#!'+Session.get('currentNonLoginPath'))
     if (isSecurityKey)
       toastr.warning(translate('WARNING_SECURITY_KEY_LOGIN'),translate('WARNING_TITLE'))
     else if (!isSecurityKey && !noreroute)
