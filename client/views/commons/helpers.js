@@ -792,22 +792,26 @@ Template.registerHelper('dtubeVotable', function(content) {
     } else return false
 })
 
-Template.registerHelper('contentNetwork', function(content) {
+Template.registerHelper('contentNetwork', function(content, ignoreVotable) {
     if (!content)
         return
     let network = 'dtube'
     if (content._id)
         network = content._id.split('/')[0]
-    if (network === 'dtc' && Session.get('activeUsername'))
+    if (network === 'dtc' && (ignoreVotable || Session.get('activeUsername')))
         return 'dtube'
     else {
         let networkFound = false
         for (let r in content.json.refs) {
             let refNetwork = content.json.refs[r].split('/')[0]
-            if (!networkFound && refNetwork !== 'dtc') {
+            if (!networkFound && refNetwork !== 'dtc' && (
+                ignoreVotable ||
+                (refNetwork === 'steem' && Session.get('activeUsernameSteem')) ||
+                (refNetwork === 'hive' && Session.get('activeUsernameHive'))
+            )) {
                 network = refNetwork
                 networkFound = true
-            } else if (refNetwork === 'dtc' && Session.get('activeUsername'))
+            } else if (refNetwork === 'dtc' && (ignoreVotable || Session.get('activeUsername')))
                 return 'dtube'
         }
     }

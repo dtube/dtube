@@ -24,9 +24,9 @@
           <i class="thumbs up icon red"></i> {{uniques this.votes this.votesSteem this.votesHive 'up'}}</a>
         {{else}}
         {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
-        {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=link content=this voteType="up" isComment=true downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }}
+        {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=link content=this voteType="up" isComment=true downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }}
         {{else}}
-        <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this}} account">
+        <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this true}} account">
           <i class="thumbs up icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
         {{/if}}
         {{/if}}
@@ -35,9 +35,9 @@
           <i class="thumbs down icon red"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</a>
         {{else}}
         {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
-        {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=link content=this voteType="down" isComment=true downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }}
+        {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=link content=this voteType="down" isComment=true downvoted=(hasDownvoted this) upvoted=(hasUpvoted this) }}
         {{else}}
-        <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this}} account">
+        <button class="ui icon button votebutton" data-tooltip="Please login with {{contentNetwork this true}} account">
           <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
         {{/if}}
         {{/if}}

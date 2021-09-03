@@ -49,14 +49,14 @@
                 </div>
                 {{else}}
                 {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
-                {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
-                {{> verticalvoteslider color="yellow" network=(contentNetwork video) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
+                {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{else}}
                 <button class="ui icon button votebutton"
-                  data-tooltip="Please login with {{contentNetwork this}} account">
+                  data-tooltip="Please login with {{contentNetwork this true}} account">
                   <i class="thumbs up icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'up'}}</button>
                 <button class="ui icon button votebutton"
-                  data-tooltip="Please login with {{contentNetwork this}} account">
+                  data-tooltip="Please login with {{contentNetwork this true}} account">
                   <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
                 {{/if}}
                 {{/if}}
