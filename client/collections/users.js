@@ -6,13 +6,15 @@ usersObserver = new PersistentMinimongo2(Users, 'users', function() {
       Users.remove({_id: users[o]._id})
       return
     }
-      
+
     if (users[o].network == 'steem')
       Template.loginsteem.success(users[o].username, true)
     if (users[o].network == 'avalon')
       Template.loginavalon.success(users[o].username, true)
     if (users[o].network == 'hive')
       Template.loginhive.success(users[o].username, true)
+    if (users[o].network == 'blurt')
+      Template.loginblurt.success(users[o].username, true)
   }
 });
 

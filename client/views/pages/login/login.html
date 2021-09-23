@@ -61,6 +61,21 @@
     </div>
     {{/if}}
     {{/if}}
+    {{#if equals this 'blurt'}}
+    {{#if noBlurtLogin}}
+    <div class="column loginOption" data-network="Blurt">
+      <img src="./DTube_files/images/logos/blurt.png">
+      <span>Blurt</span>
+    </div>
+    {{else}}
+    <div class="column loginOptionDisabled" data-network="Blurt">
+      <img src="./DTube_files/images/logos/blurt.png">
+      <span>{{translate 'LOGIN_LOGGED_IN'}} <strong>{{activeUsernameBlurt}}</strong></span>
+      <br /><br />
+      <button class="ui red button logOut" data-network='{{this}}'>Log-out</button>
+    </div>
+    {{/if}}
+    {{/if}}
     {{/each}}
     {{/if}}
 
@@ -70,6 +85,10 @@
 
     {{#if isHiveAuth}}
     {{>loginhive}}
+    {{/if}}
+
+    {{#if isBlurtAuth}}
+    {{>loginblurt}}
     {{/if}}
 
     {{#if isSteemAuth}}

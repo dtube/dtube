@@ -91,15 +91,17 @@ Template.registerHelper('downvotes', function(active_votes) {
     return count;
 });
 
-Template.registerHelper('mergeComments', function(dtc, steem, hive) {
-    function mergeTree(dtc, steem, hive) {
-        if (!steem && !dtc && !hive) return []
-        if (!steem && !hive) return dtc
-        if (!dtc && !hive) return steem
-        if (!dtc && !steem) return hive
+Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
+    function mergeTree(dtc, steem, hive, blurt) {
+        if (!steem && !dtc && !hive && !blurt) return []
+        if (!steem && !hive && !blurt) return dtc
+        if (!dtc && !hive && !blurt) return steem
+        if (!dtc && !steem && !blurt) return hive
+        if (!dtc && !steem && !hive) return blurt
         var length = dtc.length
         if (steem && steem.length > length) length = steem.length
         if (hive && hive.length > length) length = hive.length
+        if (blurt && blurt.length > length) length = blurt.length
             // console.log('comment length',length)
         var tree = []
         for (let i = 0; i < length; i++) {
@@ -157,6 +159,24 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive) {
                     if (!exists) tree.push(JSON.parse(JSON.stringify(hive[i])))
                 }
             }
+            if (blurt && blurt[i]) {
+              if (tree.length == 0) {
+                  tree.push(JSON.parse(JSON.stringify(blurt[i])))
+              } else {
+                  var exists = false
+                  for (let y = 0; y < tree.length; y++) {
+                      if (tree[y].json.refs && tree[y].json.refs.indexOf(blurt[i]._id) > -1) {
+                          exists = true
+                          tree[y].comments = mergeTree(tree[y].comments, blurt[i].comments)
+                          tree[y].distSteem = blurt[i].distSteem
+                          tree[y].votesSteem = blurt[i].votesSteem
+                          tree[y].ups += blurt[i].votes
+                          tree[y].downs += blurt[i].votes
+                      }
+                  }
+                  if (!exists) tree.push(JSON.parse(JSON.stringify(blurt[i])))
+              }
+          }
         }
         return tree
     }
@@ -176,6 +196,11 @@ Template.registerHelper('userPicSteem', function(username, size) {
 Template.registerHelper('userPicHive', (username, size) => {
     if (!size || typeof size != 'string') size = ''
     return 'https://images.hive.blog/u/' + username + '/avatar/' + size
+})
+
+Template.registerHelper('userPicBlurt', (username, size) => {
+  if (!size || typeof size != 'string') size = ''
+  return 'https://imgp.blurt.world/u/' + username + '/avatar/' + size
 })
 
 Template.registerHelper('userCover', function(username) {
@@ -230,7 +255,7 @@ Template.registerHelper('displayPayout', function(ups, downs) {
     return cuteNumber(ups - downs)
 })
 
-Template.registerHelper('displayRewards', function(dtc, steem, scot, hive) {
+Template.registerHelper('displayRewards', function(dtc, steem, scot, hive, blurt) {
     var rewards = []
     if (Session.get('scot') && scot) {
         return Scot.formatCurrency(scot, Session.get('scot'))
@@ -843,7 +868,7 @@ Template.registerHelper('fallbackThumbnailUrl',(url) => {
                 return '' // no more gateways
         }
     }
-    
+
     // Return default gateway if not in the list
     let ipfsOrBtfs = url.includes('/ipfs/') ? '/ipfs/' : '/btfs/'
     let splitUrl = url.split(ipfsOrBtfs)

@@ -1113,6 +1113,138 @@ broadcast = {
             let decoded = hive.memo.decode(wif, memo).substr(1)
             cb(null, decoded)
         }
+    },
+    blurt: {
+      comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
+          if (!permlink) permlink = Template.publish.randomPermlink(11)
+          if (!parentAuthor) parentAuthor = ''
+          if (!parentPermlink) parentPermlink = 'hive-196037'
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
+          if (!voter) return;
+          let author = Session.get('activeUsernameBlurt')
+          let title = jsonMetadata.title
+          finalTags = ['dtube']
+
+          for (let i = 0; i < tags.length; i++)
+              if (finalTags.indexOf(tags[i]) == -1)
+                  finalTags.push(tags[i])
+
+          if (!body)
+              body = genSteemBody(author, permlink, jsonMetadata)
+
+          var jsonMetadata = {
+              video: jsonMetadata,
+              tags: finalTags,
+              app: Meteor.settings.public.app
+          }
+
+          let operations = [
+              ['comment',
+                  {
+                      parent_author: '',
+                      parent_permlink: 'dtube',
+                      author: author,
+                      // TODO: Blurt Communities
+                      // category: 'hive-196037',
+                      permlink: permlink,
+                      title: title,
+                      body: body,
+                      json_metadata: JSON.stringify(jsonMetadata)
+                  }
+              ],
+              ['comment_options', {
+                  author: author,
+                  permlink: permlink,
+                  max_accepted_payout: '1000000.000 BLURT',
+                  allow_votes: true,
+                  allow_curation_rewards: true,
+                  extensions: [
+                      [0, {
+                          beneficiaries: [{
+                              account: Meteor.settings.public.beneficiary,
+                              weight: Session.get('remoteSettings').dfees
+                          }]
+                      }]
+                  ]
+              }]
+          ]
+
+          operations[0][1].parent_author = parentAuthor
+          operations[0][1].parent_permlink = parentPermlink
+          broadcast.blurt.send(operations, function(err, res) {
+              if (!err && res && res.operations)
+                  res = res.operations[0][1].author + '/' + res.operations[0][1].permlink
+              if (!err && res && res.data && res.data.operations)
+                  res = res.data.operations[0][1].author + '/' + res.data.operations[0][1].permlink
+              cb(err, res)
+          })
+      },
+      vote: function(author, permlink, weight, cb) {
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' })
+          if (!voter.username) return;
+
+          if (voter.type == "keychain") {
+              if (!blurt_keychain) {
+                  return cb('LOGIN_ERROR_WHALEVAULT_NOT_INSTALLED')
+              }
+              blurt_keychain.requestVote(Session.get('activeUsernamBlurt'), permlink, author, weight, function(response) {
+                  console.log(response);
+                  cb(response.error, response)
+              })
+              return
+          }
+
+          let wif = voter.privatekey
+          if (wif) {
+              blurt.broadcast.vote(wif, voter.username, author, permlink, weight, function(err, result) {
+                  cb(err, result)
+              })
+              return
+          }
+      },
+      /* TODO: Blurt Communities
+      subBlurt: () => { ... },
+      */
+      send: (operations, cb) => {
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
+          if (!voter) return;
+
+          if (Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).type == "keychain") {
+              if (!blurt_keychain) return cb('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED')
+
+              blurt_keychain.requestBroadcast(voter, operations, "Posting", (response) => {
+                  console.log(response);
+                  cb(response.error, response)
+              })
+              return
+          }
+
+          let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
+          if (wif) {
+              hive.broadcast.send({ operations: operations, extensions: [] }, { posting: wif },
+                  function(err, result) {
+                      cb(err, result)
+                  }
+              )
+              return
+          }
+      },
+      decrypt_memo: (memo, cb) => {
+          if (!Session.get('activeUsernameBlurt')) return
+          if (Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).type == 'keychain') {
+              if (!blurt_keychain) return cb(translate('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED'))
+              blurt_keychain.requestVerifyKey(Session.get('activeUsernameBlurt'), memo, 'Posting', (response) => {
+                  cb(response.error, response.result.substr(1))
+              })
+              return
+          }
+          let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
+          let decoded = hive.memo.decode(wif, memo).substr(1)
+          cb(null, decoded)
+      }
     }
 }
 

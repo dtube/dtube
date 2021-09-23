@@ -115,6 +115,11 @@ Videos.getVideosByBlog = function(author, limit, cb) {
                 cb(err, finished)
             })
         }
+        if (user.json && user.json.profile && (user.json.profile.blurt)) {
+          Videos.getVideosByBlogBlurt(user.json.profile.blurt, (err, finished) => {
+              cb(err, finished)
+          })
+        }
     } else {
         Videos.getVideosByBlogHive(author, function(err, finished) {
             cb(err, finished)
@@ -122,6 +127,9 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         Videos.getVideosByBlogSteem(author, function(err, finished) {
             cb(err, finished)
         })
+        Videos.getVideosByBlogBlurt(author, function(err, finished) {
+          cb(err, finished)
+      })
     }
 }
 
@@ -557,7 +565,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             //       var videos = []
             //       for (i = 0; i < len; i++) {
             //           var video = Videos.parseFromChain(result[i])
-            //           if (video) videos.push(video) 
+            //           if (video) videos.push(video)
             //       }
             //       for (var i = 0; i < videos.length; i++) {
             //         videos[i].source = 'chainByCreated'
@@ -637,7 +645,7 @@ Videos.parseFromChain = function(video, isComment, network) {
     video.downs = 0
     // video.allTags = []
     video._id = 'dtc/' + video._id
-    
+
     var tags = []
     if (typeof video.tags === 'string') {
         var tagsStrings = video.tags.split(' ')
@@ -649,7 +657,7 @@ Videos.parseFromChain = function(video, isComment, network) {
             tags.push({ t: key, total: video.tags[key] })
         }
     }
-        
+
     video.tags = tags
 
     if (video.votes) {
