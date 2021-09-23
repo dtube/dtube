@@ -3,7 +3,7 @@ const socketio = require('socket.io-client')
 refreshUploadStatus = null
 
 Template.addvideo.rendered = function () {
-    if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem') && !Session.get('activeUsernameHive')) {
+    if (!Session.get('activeUsername') && !Session.get('activeUsernameSteem') && !Session.get('activeUsernameHive')  && !Session.get('activeUsernameBlurt')) {
         FlowRouter.go('/login')
         return
     }
@@ -19,7 +19,7 @@ Template.addvideo.rendered = function () {
                 Session.set('addVideoStep', 'addvideoform')
             else
                 Session.set('addVideoStep', 'addvideopublish')
-        } 
+        }
 }
 
 Template.addvideo.tmpVid = function(data) {
@@ -120,12 +120,12 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
           totalQueueSize += response.currentWaitingInQueue.spriteToCreate
           totalQueueSize += response.currentWaitingInQueue.ipfsToAdd
         }
-  
+
         results.push({
           upldr: upldr,
           totalQueueSize: totalQueueSize
         })
-  
+
         if (totalQueueSize < queuethreshold && !finished) {
           Session.set('upldr', upldr)
           console.log('upldr' + upldr + ' ' + ' ---  totalQueueSize: ' + totalQueueSize)
@@ -145,16 +145,16 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       });
     }
   }
-  
+
   Template.addvideoformfile.uploadVideo = function (file, progressid, cb) {
     var postUrl = (Session.get('remoteSettings').localhost == true)
       ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
       : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     let formData = new FormData()
-  
+
     if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube')
       formData.append('files',file)
-  
+
     if ($(progressid).length) {
       $(progressid).progress({ value: 0, total: 1 })
       $(progressid).show();
@@ -164,7 +164,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
         $(progressid).show();
       }, 150)
     }
-  
+
     // Use resumable upload API for OneLoveIPFS service
     if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
       let uplStat = socketio.connect('https://uploader.oneloved.tube/uploadStat')
@@ -179,7 +179,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
           cb(null, result)
         }, 200)
       })
-  
+
       let tusVideoUpload = new tus.Upload(file,{
         endpoint: 'https://tusd.oneloved.tube/files',
         retryDelays: [0,3000,5000,10000,20000],
@@ -206,7 +206,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
           })
         }
       })
-  
+
       tusVideoUpload.findPreviousUploads().then((p) => {
         if (p.length > 0)
           tusVideoUpload.resumeFromPreviousUpload(p[0])
@@ -214,7 +214,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       })
       return
     }
-    
+
     // Default BTFS upload clusters
     var credentials = Session.get('upldr') == 'cluster' ? true : false
     let ajaxVideoUpload = {
@@ -243,7 +243,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       success: function (result) {
         if (typeof result === 'string')
           result = JSON.parse(result)
-  
+
         $(progressid).hide()
         Session.set('uploadToken', result.token)
         refreshUploadStatus = setInterval(function () {
@@ -256,7 +256,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
         cb(error)
       }
     }
-  
+
     $.ajax(ajaxVideoUpload)
 }
 
@@ -275,7 +275,7 @@ Template.addvideoform.events({
     //             checked = options[i].value
     //     if (checked)
     //         Session.set('addVideoStep', 'addvideoform'+checked)
-        
+
     // },
     'click #addvideoback': function() {
         Session.set('addVideoStep', 'addvideopublish')
@@ -381,7 +381,7 @@ Template.addvideoformp2pbtfs.events({
             Template.addvideo.addFiles('btfs', files)
             Session.set('addVideoStep', 'addvideopublish')
         }
-        
+
     }
 })
 Template.addvideoformp2pipfs.events({
@@ -451,7 +451,7 @@ Template.addvideoformfile.rendered = function() {
           $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
           // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
           if (value === 'uploader.oneloved.tube') {
-            if (!Session.get('activeUsernameHive') && !Session.get('activeUsername')) { 
+            if (!Session.get('activeUsernameHive') && !Session.get('activeUsername')) {
               $('#uploadEndpointSelection').dropdown('restore defaults')
               return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_USERNAME'), translate('ERROR_TITLE'))
             }

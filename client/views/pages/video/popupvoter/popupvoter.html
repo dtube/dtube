@@ -1,6 +1,6 @@
 <template name="popupvoter">
     <div id="popupupvote" class="ui flowing bottom right inverted popup popupupvotes" style="padding: 0px;">
-        {{#if or distSteem distHive}}
+        {{#if or distSteem distHive distBlurt}}
         <div class="ui top attached tabular menu inverted">
             <a class="active item votenetwork first" data-tab="first">Dtube</a>
             <a class="item votenetwork second" data-tab="second">Others</a>
@@ -8,7 +8,7 @@
         {{/if}}
         <div class="ui bottom active attached votenetwork tab first inverted" style="padding: 10px;max-height: 600px; overflow: auto;">
             <div class="ui mini middle aligned divided list">
-                {{#each topVoters votes votesSteem votesHive 15}}
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
                 {{#if equals network 'dtc'}}
                 {{#if downvote}}
                 <div class="ui item">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                {{#each topVoters votes votesSteem votesHive 15}}
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
                 {{#if equals network 'steem'}}
                 {{#if downvote}}
                 <div class="ui item">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                {{#each topVoters votes votesSteem votesHive 15}}
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
                 {{#if equals network 'hive'}}
                 {{#if downvote}}
                 <div class="ui item">

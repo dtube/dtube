@@ -180,7 +180,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
         }
         return tree
     }
-    return mergeTree(dtc, steem, hive)
+    return mergeTree(dtc, steem, hive, blurt)
 })
 
 Template.registerHelper('userPic', function(username, size) {
@@ -200,7 +200,7 @@ Template.registerHelper('userPicHive', (username, size) => {
 
 Template.registerHelper('userPicBlurt', (username, size) => {
   if (!size || typeof size != 'string') size = ''
-  return 'https://imgp.blurt.world/u/' + username + '/avatar/' + size
+  return 'https://imgp.blurt.world/profileimage/' + username + '/' + size
 })
 
 Template.registerHelper('userCover', function(username) {
@@ -476,6 +476,12 @@ Template.registerHelper('hasUpvoted', function(video) {
                 parseInt(video.votesHive[i].rshares) > 0)
                 return true
         }
+    if (video.votesBlurt && Session.get('activeUsernameBlurt'))
+        for (let i = 0; i < video.votesBlurt.length; i++) {
+            if (video.votesBlurt[i].voter == Session.get('activeUsernameBlurt') &&
+                parseInt(video.votesBlurt[i].rshares) > 0)
+                return true
+        }
     return false
 })
 
@@ -706,6 +712,10 @@ Template.registerHelper('activeUsernameHive', () => {
     return Session.get('activeUsernameHive')
 })
 
+Template.registerHelper('activeUsernameBlurt', () => {
+  return Session.get('activeUsernameBlurt')
+})
+
 Template.registerHelper('getVideoDesc', (video) => {
     return video.desc || video.description
 })
@@ -803,6 +813,18 @@ Template.registerHelper('hiveVotable', function(content) {
                 return true
         return false
     } else return false
+})
+
+Template.registerHelper('blurtVotable', function(content) {
+  if (Session.get('activeUsernameBlurt')) {
+      if (content._id.startsWith('blurt'))
+          return true
+      if (!content.json.refs) return false
+      for (let r in content.json.refs)
+          if (content.json.refs[r].startsWith('blurt'))
+              return true
+      return false
+  } else return false
 })
 
 Template.registerHelper('dtubeVotable', function(content) {

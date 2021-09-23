@@ -16,7 +16,7 @@ Template.video.rendered = function () {
             let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
             Session.set('commentBurn', Template.publish.logSlider(this.value,balance))
         })
-        
+
         $('.videopayout')
             .popup({
                 inline: true,
@@ -118,7 +118,7 @@ Template.video.helpers({
         }
     },
     isLoggedOn: function () {
-        if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
+        if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive') || Session.get('activeUsernameBlurt'))
             return true
         return false
     },
@@ -442,7 +442,7 @@ Template.video.handleVideo = function (result, id, isRef) {
 
     // non dtube videos can only load from State
     if (!video) return
-    
+
     var description = ''
     if (video.json) description = video.json.description
     else description = video.description
