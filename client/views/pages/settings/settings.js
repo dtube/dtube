@@ -55,6 +55,9 @@ Template.settings.helpers({
     voteWeightHive: function() {
         return UserSettings.get('voteWeightHive')
     },
+    voteWeightBlurt: function() {
+      return UserSettings.get('voteWeightBlurt')
+    },
     buildVersion: function() {
         return Session.get('buildVersion')
     }
@@ -94,9 +97,9 @@ Template.settings.events({
         Template.mobileselector.revealMenu('bottom')
     },
     'click #nightmodeSwitch': function() {
-        if (!UserSettings.get('isInNightMode')) 
+        if (!UserSettings.get('isInNightMode'))
             Template.settingsdropdown.switchToNightMode()
-        else 
+        else
             Template.settingsdropdown.switchToNormalMode()
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
     },
@@ -114,6 +117,11 @@ Template.settings.events({
         let value = voteWeightBounds(parseFloat($('#voteWeightHive').val()))
         UserSettings.set('voteWeightHive', value)
         $('#voteWeightHive').val(value)
+    },
+    'change #voteWeightBlurt': () => {
+      let value = voteWeightBounds(parseFloat($('#voteWeightBlurt').val()))
+      UserSettings.set('voteWeightBlurt', value)
+      $('#voteWeightBlurt').val(value)
     }
 })
 

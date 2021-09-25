@@ -116,9 +116,9 @@ Videos.getVideosByBlog = function(author, limit, cb) {
             })
         }
         if (user.json && user.json.profile && (user.json.profile.blurt)) {
-          Videos.getVideosByBlogBlurt(user.json.profile.blurt, (err, finished) => {
-              cb(err, finished)
-          })
+            Videos.getVideosByBlogBlurt(user.json.profile.blurt, (err, finished) => {
+                cb(err, finished)
+            })
         }
     } else {
         Videos.getVideosByBlogHive(author, function(err, finished) {
@@ -298,6 +298,75 @@ Videos.getVideosByBlogHive = function(author, cb) {
             } else {
                 try {
                     if (!Videos.findOne({ _id: videos[i]._id.replace('hive/', 'steem/') }))
+                        Videos.upsert({ _id: videos[i]._id }, videos[i])
+                } catch (err) {
+                    cb(err)
+                }
+            }
+        }
+        if (result.length == Session.get('remoteSettings').loadLimit)
+            cb(null, false)
+        else
+            cb(null, true)
+    })
+}
+
+Videos.getVideosByBlogBlurt = function(author, cb) {
+    var query = {
+        tag: author,
+        limit: Session.get('remoteSettings').loadLimit,
+        truncate_body: 1
+    };
+    if (Session.get('lastBlogs')['blurt/' + author]) {
+        query.start_author = Session.get('lastBlogs')['blurt/' + author].author
+        query.start_permlink = Session.get('lastBlogs')['blurt/' + author].permlink
+    }
+    blurt.api.getDiscussionsByBlog(query, function(err, result) {
+        if (err) {
+            cb(err);
+            return
+        }
+        if (!result || result.length == 0) {
+            cb(null, true)
+            return
+        }
+        Videos.setLastBlog('blurt/' + author, result[result.length - 1])
+        var i, len = result.length;
+        var videos = []
+        for (i = 0; i < len; i++) {
+            var video = Videos.parseFromChain(result[i], false, 'blurt')
+            if (video) videos.push(video)
+        }
+        for (var i = 0; i < videos.length; i++) {
+            videos[i].source = 'chainByBlog'
+            videos[i]._id += 'b'
+            videos[i].fromBlog = FlowRouter.getParam("author")
+            var existingVideo = null
+            if (videos[i].json && videos[i].json.refs) {
+                for (let y = 0; y < videos[i].json.refs.length; y++) {
+                    var existingVideo = Videos.findOne({ _id: videos[i].json.refs[y] + 'b' })
+                    if (existingVideo) break
+                }
+            }
+            if (existingVideo) {
+                try {
+                    Videos.update({ _id: existingVideo._id }, {
+                        $set: {
+                            distBlurt: videos[i].distSteem,
+                            votesBlurt: videos[i].votesSteem,
+                            commentsBlurt: videos[i].commentsSteem
+                        },
+                        $inc: {
+                            ups: videos[i].ups,
+                            downs: videos[i].downs
+                        }
+                    })
+                } catch (err) {
+                    cb(err)
+                }
+            } else {
+                try {
+                    if (!Videos.findOne({ _id: videos[i]._id.replace('blurt/', 'steem/') }))
                         Videos.upsert({ _id: videos[i]._id }, videos[i])
                 } catch (err) {
                     cb(err)

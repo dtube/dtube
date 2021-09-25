@@ -22,7 +22,7 @@ Template.videosearchresult.helpers({
       }).fetch()
   },
   convertTag:function(tag){
-    var tagWithoutDtube= tag.replace("dtube-", "")
+    var tagWithoutDtube = tag ? tag.replace("dtube-", "") : ""
     return tagWithoutDtube
   }
 })

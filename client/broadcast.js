@@ -2,7 +2,7 @@ var parallel = require('run-parallel')
 
 broadcast = {
     multi: {
-        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb, publishVP) {
+        comment: function(paSteem, ppSteem, paHive, ppHive, paBlurt, ppBlurt, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb, publishVP) {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
             let authorAvalon = !Session.get('isDTCDisabled') ? Session.get('activeUsername') : null
@@ -10,25 +10,60 @@ broadcast = {
 
             let authorHive = !Session.get('isHiveDisabled') ? Session.get('activeUsernameHive') : null
             let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
-                // Steem cannot have capital letters in permlink :,(
+            let authorBlurt = !Session.get('isBlurtDisabled') ? Session.get('activeUsernameBlurt') : null
+            // Steem cannot have capital letters in permlink :,(
             let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
 
             // one of the parent author/permlinks should not be undefined to be a comment op
-            let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive)
+            let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive) || (paBlurt && ppBlurt)
             let canPostToAvalon = authorAvalon && (!isComment || paAvalon && ppAvalon)
             let canPostToHive = authorHive && (!isComment || paHive && ppHive)
             let canPostToSteem = authorSteem && (!isComment || paSteem && ppSteem)
+            let canPostToBlurt = authorBlurt && (!isComment || paBlurt && ppBlurt)
 
             let jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
             let jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
             let jsonHive = JSON.parse(JSON.stringify(jsonMetadata))
+            let jsonBlurt = JSON.parse(JSON.stringify(jsonMetadata))
+
+            let refs = {
+              'dtc': 'dtc/' + authorAvalon + '/' + permlinkAvalon,
+              'hive': 'hive/' + authorHive + '/' + permlinkSteem,
+              'steem': 'steem/' + authorSteem + '/' + permlinkSteem,
+              'blurt': 'blurt/' + authorAvalon + '/' + permlinkAvalon
+            }
+            if (!canPostToAvalon) delete refs.dtc;
+            if (!canPostToHive) delete refs.hive;
+            if (!canPostToSteem) delete refs.steem;
+            if (!canPostToBlurt) delete refs.blurt;
+            let chainIds = Object.keys(refs);
+
             jsonSteem.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "steem") jsonSteem.refs.push(refs[chainId])
+            })
+
             jsonAvalon.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "dtc") jsonSteem.refs.push(refs[chainId])
+            })
+
             jsonHive.refs = []
-            if (canPostToAvalon && canPostToHive && canPostToSteem) {
-                jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'hive/' + authorHive + '/' + permlinkSteem]
-                jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorHive + '/' + permlinkSteem]
-                jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem]
+            chainIds.forEach(chainId => {
+              if( chainId != "hive") jsonSteem.refs.push(refs[chainId])
+            })
+
+            jsonBlurt.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "blurt") jsonSteem.refs.push(refs[chainId])
+            })
+
+            /*
+            if (canPostToAvalon && canPostToHive && canPostToSteem && canPostToBlurt) {
+                jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'hive/' + authorHive + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorHive + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonBlurt.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorBlurt + '/' + permlinkSteem]
             } else if (canPostToAvalon && canPostToHive) {
                 jsonAvalon.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon]
@@ -39,6 +74,7 @@ broadcast = {
                 jsonSteem.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['steem/' + authorSteem + '/' + permlinkSteem]
             }
+            */
 
             let transactions = []
 
@@ -60,6 +96,11 @@ broadcast = {
             if (canPostToHive)
                 transactions.push((callback) => {
                     broadcast.hive.comment(permlinkSteem, paHive, ppHive, body, jsonHive, [tag], callback)
+                })
+
+            if (canPostToBlurt)
+                transactions.push((callback) => {
+                    broadcast.blurt.comment(permlinkSteem, paBlurt, ppBlurt, body, jsonBlurt, [tag], callback)
                 })
 
             parallel(transactions, function(err, results) {
@@ -176,7 +217,7 @@ broadcast = {
                 })
             })
         },
-        vote: function(refs, wAvalon, wSteem, wHive, tagAvalon, tipAvalon, cb) {
+        vote: function(refs, wAvalon, wSteem, wHive, wBlurt, tagAvalon, tipAvalon, cb) {
             var transactions = []
 
             for (let i = 0; i < refs.length; i++) {
@@ -196,6 +237,11 @@ broadcast = {
                     if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
                         transactions.push((callback) => {
                             broadcast.hive.vote(ref[1], ref[2], wHive, callback)
+                        })
+                if (ref[0] == 'blurt')
+                    if (Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled'))
+                        transactions.push((callback) => {
+                            broadcast.blurt.vote(ref[1], ref[2], wBlurt, callback)
                         })
             }
 
@@ -1118,7 +1164,7 @@ broadcast = {
       comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
           if (!permlink) permlink = Template.publish.randomPermlink(11)
           if (!parentAuthor) parentAuthor = ''
-          if (!parentPermlink) parentPermlink = 'hive-196037'
+          //if (!parentPermlink) parentPermlink = 'hive-196037'
           if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
           let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
           if (!voter) return;
@@ -1184,6 +1230,7 @@ broadcast = {
           if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
           let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' })
           if (!voter.username) return;
+          if (weight < 0) return;
 
           if (voter.type == "keychain") {
               if (!blurt_keychain) {
