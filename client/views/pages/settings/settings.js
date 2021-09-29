@@ -21,6 +21,9 @@ Template.settings.helpers({
     HiveAPIs: () => {
       return Session.get('remoteSettings').HiveAPINodes
     },
+    BlurtAPIs: () => {
+      return Session.get('remoteSettings').BlurtAPINodes
+    },
     CurrentAPI: function() {
       return Session.get('steemAPI');
     },
@@ -29,6 +32,9 @@ Template.settings.helpers({
     },
     CurrentHiveAPI: () => {
         return Session.get('hiveAPI')
+    },
+    CurrentBlurtAPI: () => {
+      return Session.get('blurtAPI')
     },
     CurrentSteemAPI: () => {
         return Session.get('steemAPI')
@@ -56,7 +62,7 @@ Template.settings.helpers({
         return UserSettings.get('voteWeightHive')
     },
     voteWeightBlurt: function() {
-      return UserSettings.get('voteWeightBlurt')
+        return UserSettings.get('voteWeightBlurt')
     },
     buildVersion: function() {
         return Session.get('buildVersion')
@@ -81,6 +87,12 @@ Template.settings.events({
         hive.api.setOptions({ url: value, useAppbaseApi: true })
         Session.set('hiveAPI', value)
         localStorage.setItem('hiveAPI', value)
+    },
+    'change #blurtApi': function(event) {
+      var value = $('#blurtApi').val()
+      blurt.api.setOptions({ url: value, useAppbaseApi: true })
+      Session.set('blurtAPI', value)
+      localStorage.setItem('blurtAPI', value)
     },
     'change #nsfwSetting': function(event) {
         let value = $('#nsfwSetting').prop('selectedIndex')

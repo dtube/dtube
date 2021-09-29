@@ -6,7 +6,7 @@
         {{else}}
         <i class="thumbs down icon"></i>
         {{/if}}
-        <span>{{uniques content.votes content.votesSteem content.votesHive 'down'}}</span>
+        <span>{{uniques content.votes content.votesSteem content.votesHive content.votesBlurt 'down'}}</span>
     </button>
     <button class="ui icon button votebutton down votesliderloader dsp-non {{sliderclass}}">
         <div class="ui mini red active centered inline loader"></div>
@@ -18,7 +18,7 @@
         {{else}}
         <i class="thumbs up icon"></i>
         {{/if}}
-        <span>{{uniques content.votes content.votesSteem content.votesHive 'up'}}</span>
+        <span>{{uniques content.votes content.votesSteem content.votesHive content.votesBlurt 'up'}}</span>
     </button>
     <button class="ui icon button votebutton up votesliderloader dsp-non {{sliderclass}}">
         <div class="ui mini red active centered inline loader"></div>
@@ -42,7 +42,7 @@
                 <div id="vsliderholder{{voteType}}{{sliderclass}}" class="vsliderholder"></div>
                 <div id="bubblevsliderholder{{voteType}}{{sliderclass}}" class="bubblevsliderholder">
                     <img style="width: 30px;" src="./DTube_files/images/logos/{{contentNetwork content false}}_round.png">
-                </div> 
+                </div>
             </div>
             <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
                 {{#if dtubeVotable content}}

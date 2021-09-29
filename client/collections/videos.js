@@ -697,7 +697,8 @@ Videos.loadFeed = function(username, loadNotifs = true, cb) {
 }
 
 Videos.parseFromChain = function(video, isComment, network) {
-    if (network == 'steem' || network === 'hive' || network === 'blurt') return Videos.parseFromSteem(video, isComment, network)
+    if (network == 'steem' || network == 'hive') return Videos.parseFromSteem(video, isComment, network)
+    if (network == 'blurt') return Videos.parseFromBlurt(video, isComment, network)
     if (!video || !video.json) return
     video.comments = avalon.generateCommentTree(video, video.author, video.link)
     video.comments = cleanTree(video.comments)
@@ -793,7 +794,7 @@ Videos.parseFromSteem = function(video, isComment, network) {
         newVideo = {
             json: JSON.parse(video.json_metadata).video
         }
-        if (newVideo.json.info && newVideo.json.content)
+        if (newVideo.json && newVideo.json.info && newVideo.json.content)
             newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
         newVideo.json.app = JSON.parse(video.json_metadata).app
         newVideo.json.tags = JSON.parse(video.json_metadata).tags
@@ -914,6 +915,129 @@ Videos.parseFromSteem = function(video, isComment, network) {
     if (newVideo.json.ipfs && newVideo.json.ipfs.snaphash == "QmSi8pbdzgESJEuaeFMUtEv8NRTCA1gipRMvS9WHfo7HVz")
         return
     return newVideo;
+}
+
+Videos.parseFromBlurt = function(video, isComment, network) {
+  let newVideo
+  if (isComment || (video.parent_author && video.parent_permlink)) {
+      let commentRefs = []
+      let commentBody = video.body
+      let commentTitle = video.title
+      try {
+          let commentJsonMetadata = JSON.parse(video.json_metadata).video
+          if (commentJsonMetadata.title)
+              commentTitle = commentJsonMetadata.title
+          if (commentJsonMetadata.description)
+              commentBody = commentJsonMetadata.description
+          if (commentJsonMetadata.refs && Array.isArray(commentJsonMetadata.refs) && commentJsonMetadata.refs.length > 0)
+              commentRefs = commentJsonMetadata.refs
+      } catch {}
+      newVideo = {
+          json: {
+              refs: commentRefs,
+              description: commentBody,
+              title: commentTitle
+          }
+      }
+  } else try {
+      if (!video.json_metadata) return
+      newVideo = {
+          json: JSON.parse(video.json_metadata).video
+      }
+      if (!newVideo.json) return
+      if (newVideo.json.info && newVideo.json.content)
+          newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
+      newVideo.json.app = JSON.parse(video.json_metadata).app
+      newVideo.json.tags = JSON.parse(video.json_metadata).tags
+      if (!newVideo.json.videoId && !newVideo.json.files && !newVideo.json.ipfs.snaphash)
+          return
+  } catch (e) {
+      return
+  }
+  if (!isComment && !newVideo) return
+  if (!newVideo) newVideo = {}
+  newVideo.author = video.author
+  newVideo.body = video.body
+  newVideo.total_payout_value = video.total_payout_value
+  newVideo.curator_payout_value = video.curator_payout_value
+  newVideo.pending_payout_value = video.pending_payout_value
+  if (video.authorperm) video.permlink = video.authorperm.split('/')[1]
+  newVideo.permlink = video.permlink
+  newVideo.created = video.created
+  newVideo.net_rshares = video.net_rshares
+  newVideo.reblogged_by = video.reblogged_by
+  newVideo.link = newVideo.permlink
+  newVideo.votesSteem = video.active_votes
+  newVideo.comments = []
+  if (!isComment) {
+      if (!newVideo.json) {
+          newVideo.json = {
+              refs: [],
+              description: video.body,
+              title: video.title
+          }
+      }
+      newVideo.commentsSteem = Videos.commentsTree(video.content, video.author, video.permlink, network)
+  }
+
+  newVideo.votes = []
+  newVideo.ts = new Date(video.created + 'Z').getTime()
+  if (video.pending_payout_value)
+      newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', '')) / 1000
+  if (video.total_payout_value.split(' ')[0] > 0) {
+      newVideo.distSteem = parseInt(video.total_payout_value.split(' ')[0].replace('.', '')) + parseInt(video.curator_payout_value.split(' ')[0].replace('.', ''))
+      newVideo.distSteem /= 1000
+  }
+
+  newVideo.ups = 0
+  newVideo.downs = 0
+
+  if (newVideo.votesSteem) {
+      for (let i = 0; i < newVideo.votesSteem.length; i++) {
+          if (parseInt(newVideo.votesSteem[i].weight) > 0)
+              newVideo.ups += parseInt(newVideo.votesSteem[i].weight)
+      }
+  }
+  video.totals = video.ups - video.downs
+
+  // xss attack fix
+  if (video.tags && !newVideo.tags) {
+      var xssTags = []
+      video.tags = video.tags.split(',')
+      for (let i = 0; i < video.tags.length; i++) {
+          xssTags.push({
+              t: xss(video.tags[i], {
+                  whiteList: [],
+                  stripIgnoreTag: true,
+                  stripIgnoreTagBody: ['script']
+              }),
+              vt: 1
+          })
+      }
+      newVideo.tags = xssTags
+  }
+
+  if (newVideo.json.tags && !newVideo.tags) {
+      var xssTags = []
+      for (let i = 0; i < newVideo.json.tags.length; i++) {
+          xssTags.push({
+              t: xss(newVideo.json.tags[i], {
+                  whiteList: [],
+                  stripIgnoreTag: true,
+                  stripIgnoreTagBody: ['script']
+              }),
+              vt: 1
+          })
+      }
+      newVideo.tags = xssTags
+  }
+
+  if (!newVideo._id) newVideo._id = network + '/' + newVideo.author + '/' + newVideo.permlink
+  if (!newVideo.json.thumbnailUrl)
+      newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(newVideo)
+  if (newVideo.json.ipfs && newVideo.json.ipfs.snaphash == "QmSi8pbdzgESJEuaeFMUtEv8NRTCA1gipRMvS9WHfo7HVz")
+      return
+  return newVideo;
 }
 
 Videos.getOverlayUrl = function(video) {

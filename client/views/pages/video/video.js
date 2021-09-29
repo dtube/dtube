@@ -46,17 +46,17 @@ Template.video.helpers({
         return a
     },
     mergedCommentsLength: function (dtc, steem) {
-        var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive)
+        var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive, blurt)
         return merged.length
     },
     isNoComment: function () {
         var vid = Template.video.__helpers[" video"]()
-        if (!vid.comments && !vid.commentsSteem && !vid.commentsHive) return true
+        if (!vid.comments && !vid.commentsSteem && !vid.commentsHive && !vid.commentsBlurt) return true
         return false
     },
     isSingleComment: function () {
         var vid = Template.video.__helpers[" video"]()
-        var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive)
+        var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive,  vid.commentsBlurt)
         if (merged.length != 1) return false
         return true
     },
@@ -76,6 +76,7 @@ Template.video.helpers({
         var user = Session.get('activeUsername')
         if (!user) user = Session.get('activeUsernameSteem')
         if (!user) user = Session.get('activeUsernameHive')
+        if (!user) user = Session.get('activeUsernameBlurt')
         return user
     },
     userVideosAndResteems: function () {
@@ -130,8 +131,8 @@ Template.video.helpers({
         if (one || two) return true;
         return false;
     },
-    votable: function (dtube, steem, hive) {
-        if (dtube || steem || hive)
+    votable: function (dtube, steem, hive, blurt) {
+        if (dtube || steem || hive || blurt)
             return true
         else return false
     },
@@ -459,7 +460,9 @@ Template.video.handleVideo = function (result, id, isRef) {
     var network = id[0]
     // console.log('network: ',network)
     if (network == 'steem' || network == 'hive' || network == 'blurt') {
-        if (Object.keys(result.content).length == 0) return
+        if (!result.content || Object.keys(result.content).length == 0) return
+        if (!result.content[id[1] + '/' + id[2]])
+            result.content[id[1] + '/' + id[2]] = { content: result.content }
         result.content[id[1] + '/' + id[2]].content = result.content
         result = result.content[id[1] + '/' + id[2]]
         if ($('textarea[name=body]').length !== 0) $('textarea[name=body]')[0].value = result.body

@@ -36,7 +36,7 @@
                     {{else}}
                     <i class="thumbs up icon"></i>
                     {{/if}}
-                    <span>{{uniques video.votes video.votesSteem video.votesHive 'up'}}</span>
+                    <span>{{uniques video.votes video.votesSteem video.votesHive video.votesBlurt 'up'}}</span>
                   </button>
                   <button class="ui icon button votebutton {{#if isNightMode}}nightmodetext{{/if}}" data-tooltip="Already voted">
                     {{#if (hasDownvoted video)}}
@@ -44,20 +44,20 @@
                     {{else}}
                     <i class="thumbs down icon"></i>
                     {{/if}}
-                    <span>{{uniques video.votes video.votesSteem video.votesHive 'down'}}</span>
+                    <span>{{uniques video.votes video.votesSteem video.votesHive video.votesBlurt 'down'}}</span>
                   </button>
                 </div>
                 {{else}}
-                {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this)}}
+                {{#if votable (dtubeVotable this) (steemVotable this) (hiveVotable this) (blurtVotable this)}}
                 {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=video.link content=video isComment=false voteType="up" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{> verticalvoteslider color="yellow" network=(contentNetwork video false) sliderclass=video.link content=video isComment=false voteType="down" downvoted=(hasDownvoted video) upvoted=(hasUpvoted video) }}
                 {{else}}
                 <button class="ui icon button votebutton"
                   data-tooltip="Please login with {{contentNetwork this true}} account">
-                  <i class="thumbs up icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'up'}}</button>
+                  <i class="thumbs up icon"></i> {{uniques this.votes this.votesSteem this.votesHive this.votesBlurt 'up'}}</button>
                 <button class="ui icon button votebutton"
                   data-tooltip="Please login with {{contentNetwork this true}} account">
-                  <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive 'down'}}</button>
+                  <i class="thumbs down icon"></i> {{uniques this.votes this.votesSteem this.votesHive this.votesBlurt 'down'}}</button>
                 {{/if}}
                 {{/if}}
               </div>
@@ -76,7 +76,7 @@
                   {{#if scot}}
                   {{displayScot distScot scot}}
                   {{else}}
-                  {{displayRewards dist distSteem distScot distHive}}
+                  {{displayRewards dist distSteem distScot distHive distBlurt}}
                   {{/if}}
                 </a>
                   {{> popupvoter}}

@@ -26,6 +26,6 @@ Template.senddtcmodal.events({
 })
 
 function countDecimals (amount) {
-    if (amount.toString().indexOf('.') === -1) return 0
-    return amount.toString().split(".")[1].length || 0; 
+    if (!amount || amount.toString().indexOf('.') === -1) return 0
+    return amount.toString().split(".")[1].length || 0;
 }

@@ -321,8 +321,17 @@ Template.publish.helpers({
             return true
         return false
     },
+    activeGrapheneUsername: function() {
+      return Session.get('activeUsernameSteem') || Session.get('activeUsernameHive') || Session.get('activeUsernameBlurt')
+    },
     activeUsernameSteem: function() {
         return Session.get('activeUsernameSteem')
+    },
+    activeUsernameHive: function() {
+        return Session.get('activeUsernameHive')
+    },
+    activeUsernameBlurt: function() {
+        return Session.get('activeUsernameBlurt')
     },
     hasThumbnail: function() {
         var json = Session.get('tmpVideo').json
