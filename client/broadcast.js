@@ -12,7 +12,7 @@ broadcast = {
             let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
             let authorBlurt = !Session.get('isBlurtDisabled') ? Session.get('activeUsernameBlurt') : null
             // Steem cannot have capital letters in permlink :,(
-            let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
+            let permlinkSteem = Template.publish.randomPermlink(11) // Hive, Blurt permlink is the same as Steem
 
             // one of the parent author/permlinks should not be undefined to be a comment op
             let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive) || (paBlurt && ppBlurt)
@@ -30,7 +30,7 @@ broadcast = {
               'dtc': 'dtc/' + authorAvalon + '/' + permlinkAvalon,
               'hive': 'hive/' + authorHive + '/' + permlinkSteem,
               'steem': 'steem/' + authorSteem + '/' + permlinkSteem,
-              'blurt': 'blurt/' + authorAvalon + '/' + permlinkAvalon
+              'blurt': 'blurt/' + authorBlurt + '/' + permlinkSteem
             }
             if (!canPostToAvalon) delete refs.dtc;
             if (!canPostToHive) delete refs.hive;
@@ -45,17 +45,17 @@ broadcast = {
 
             jsonAvalon.refs = []
             chainIds.forEach(chainId => {
-              if( chainId != "dtc") jsonSteem.refs.push(refs[chainId])
+              if( chainId != "dtc") jsonAvalon.refs.push(refs[chainId])
             })
 
             jsonHive.refs = []
             chainIds.forEach(chainId => {
-              if( chainId != "hive") jsonSteem.refs.push(refs[chainId])
+              if( chainId != "hive") jsonHive.refs.push(refs[chainId])
             })
 
             jsonBlurt.refs = []
             chainIds.forEach(chainId => {
-              if( chainId != "blurt") jsonSteem.refs.push(refs[chainId])
+              if( chainId != "blurt") jsonBlurt.refs.push(refs[chainId])
             })
 
             /*
@@ -120,6 +120,8 @@ broadcast = {
             let jsonAvalon = Object.assign({}, json)
             let jsonSteem = Object.assign({}, json)
             let jsonHive = Object.assign({}, json)
+            let jsonBlurt = Object.assign({}, json)
+
             if (networks.includes('dtc') && networks.includes('steem') && networks.includes('hive')) {
                 jsonAvalon.refs = [refs[networks.indexOf('steem')], refs[networks.indexOf('hive')]]
                 jsonSteem.refs = [refs[networks.indexOf('dtc')], refs[networks.indexOf('hive')]]
@@ -156,6 +158,13 @@ broadcast = {
                 let hiveref = refs[networks.indexOf('hive')].split('/')
                 getops.hive = (callback) => {
                     hive.api.getContent(hiveref[1], hiveref[2], callback)
+                }
+            }
+
+            if (networks.includes('blurt') && Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled')) {
+                let blurtref = refs[networks.indexOf('blurt')].split('/')
+                getops.blurt = (callback) => {
+                    blurt.api.getContent(blurtref[1], blurtref[2], callback)
                 }
             }
 
@@ -203,6 +212,25 @@ broadcast = {
                     broadcastops.push((callback) => {
                         broadcast.hive.send(hivetx, callback)
                     })
+                }
+
+                if (originalposts.blurt) {
+                  let newBlurtJsonMeta = JSON.parse(originalposts.blurt.json_metadata)
+                  newBlurtJsonMeta.video = jsonBlurt
+                  let blurttx = [
+                      ['comment', {
+                          parent_author: originalposts.blurt.parent_author,
+                          parent_permlink: originalposts.blurt.parent_permlink,
+                          author: originalposts.blurt.author,
+                          permlink: originalposts.blurt.permlink,
+                          title: jsonBlurt.title,
+                          body: body || originalposts.blurt.body,
+                          json_metadata: JSON.stringify(newBlurtJsonMeta)
+                      }]
+                  ]
+                  broadcastops.push((callback) => {
+                      broadcast.blurt.send(blurttx, callback)
+                  })
                 }
 
                 if (originalposts.dtc) {
@@ -1164,7 +1192,7 @@ broadcast = {
       comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
           if (!permlink) permlink = Template.publish.randomPermlink(11)
           if (!parentAuthor) parentAuthor = ''
-          //if (!parentPermlink) parentPermlink = 'hive-196037'
+          if (!parentPermlink) parentPermlink = 'hive-196037'
           if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
           let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
           if (!voter) return;
@@ -1271,7 +1299,7 @@ broadcast = {
 
           let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
           if (wif) {
-              hive.broadcast.send({ operations: operations, extensions: [] }, { posting: wif },
+              blurt.broadcast.send({ operations: operations, extensions: [] }, { posting: wif },
                   function(err, result) {
                       cb(err, result)
                   }

@@ -12,8 +12,10 @@ Template.comment.helpers({
             return 'https://steemitimages.com/u/' + username + '/avatar/'
         } else if (id.split('/')[0] == 'dtc') {
             return javalon.config.api + '/image/avatar/' + username
-        } else if (id.split('/')[0] == 'hive')
+        } else if (id.split('/')[0] == 'hive') {
             return 'https://images.hive.blog/u/' + username + '/avatar'
+        } else if (id.split('/')[0] == 'blurt')
+            return 'https://imgp.blurt.world/profileimage/' + username
     },
     hasVoted: function(one, two) {
         if (one || two) return true;

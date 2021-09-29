@@ -19,6 +19,11 @@ Template.registerHelper('or', function(one, two) {
     return false;
 });
 
+Template.registerHelper('or3', function(one, two, three) {
+  if (one || two || three) return true;
+  return false;
+});
+
 Template.registerHelper('and', function(one,two) {
     return one && two
 })
@@ -265,6 +270,7 @@ Template.registerHelper('displayRewards', function(dtc, steem, scot, hive, blurt
         rewards.push('$' + HBDPlusSBD.toFixed(3))
     } else if (steem || steem === 0) rewards.push('$' + steem)
     else if (hive || hive == 0) rewards.push('$' + hive)
+    else if (blurt || blurt == 0) rewards.push('BLURT' + blurt)
     if (dtc || dtc === 0) rewards.push(Blaze._globalHelpers['displayMoney'](dtc, 0, 'DTC'))
     if (!rewards || rewards.length == 0) return '0 DTC'
     return rewards.join(' + ')
@@ -508,10 +514,11 @@ Template.registerHelper('hasDownvoted', function(video) {
     return false
 })
 
-Template.registerHelper('uniques', function(votes, votesSteem, votesHive, type) {
+Template.registerHelper('uniques', function(votes, votesSteem, votesHive, votesBlurt, type) {
     if (!votes) votes = []
     if (!votesSteem) votesSteem = []
     if (!votesHive) votesHive = []
+    if (!votesBlurt) votesBlurt = []
     var counter = 0
     for (let i = 0; i < votes.length; i++) {
         if (votes[i].vt > 0 && type == 'up')
@@ -530,6 +537,11 @@ Template.registerHelper('uniques', function(votes, votesSteem, votesHive, type) 
             counter++
             if (votesHive[i].percent < 0 && type == 'down')
                 counter++
+    }
+    // no downvotes in Blurt
+    for (let i = 0; i < votesBlurt.length; i++) {
+      if (votesBlurt[i].percent > 0 && type == 'up')
+          counter++
     }
     return counter
 })
