@@ -114,6 +114,31 @@
                 {{/each}}
             </div>
             {{/if}}
+            {{#if distBlurt}}
+            <div class="ui mini middle aligned divided list" >
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            HIVE
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
+                {{#if equals network 'blurt'}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
         </div>
         <a href="/v/{{author}}/{{link}}/votes" class="ui button red dtube fluid" style="padding: 5px;">
             View All

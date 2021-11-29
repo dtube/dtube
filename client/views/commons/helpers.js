@@ -353,13 +353,15 @@ Template.registerHelper('displayVoters', function(votes, isDownvote) {
     return top20
 })
 
-Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
+Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, votesBlurt, x) {
     if (!votes || votes.length == 0) votes = []
     if (!votesSteem || votesSteem.length == 0) votesSteem = []
     if (!votesHive || votesHive.length == 0) votesHive = []
+    if (!votesBlurt || votesBlurt.length == 0) votesBlurt = []
     var votes = JSON.parse(JSON.stringify(votes))
     var votesSteem = JSON.parse(JSON.stringify(votesSteem))
     var votesHive = JSON.parse(JSON.stringify(votesHive))
+    var votesBlurt = JSON.parse(JSON.stringify(votesBlurt))
     votes.sort(function(a, b) {
         return Math.abs(b.vt) - Math.abs(a.vt)
     })
@@ -368,6 +370,9 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
     })
     votesHive.sort((a, b) => {
         return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
+    })
+    votesBlurt.sort((a, b) => {
+      return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
     })
 
     var top = []
@@ -385,9 +390,14 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
         topHive.push(votesHive[i])
     }
 
+    let topBlurt = []
+    for (let i = 0; i < votesBlurt.length; i++) {
+        topBlurt.push(votesBlurt[i])
+    }
+
     var realTop = []
     if (!x) {
-        x = top.length + topSteem.length + topHive.length
+        x = top.length + topSteem.length + topHive.length + topBlurt.length
     }
     for (let i = 0; i < x; i++) {
         if (top[i]) {
@@ -410,6 +420,11 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
                 topHive[i].downvote = true
             realTop.push(topHive[i])
         }
+
+        if (topBlurt[i]) {
+          topBlurt[i].network = 'blurt'
+          realTop.push(topBlurt[i])
+        }
     }
     var zi = 800
     for (let i = 0; i < realTop.length; i++) {
@@ -419,7 +434,7 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, x) {
     return realTop
 })
 
-Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHive, x) {
+Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHive, votesBlurt, x) {
     var total = 0
     if (votes)
         if (votes.length >= x)
@@ -430,6 +445,9 @@ Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHiv
     if (votesHive)
         if (votesHive.length >= x)
             total += votesHive.length - x
+    if (votesBlurt)
+        if (votesBlurt.length >= x)
+            total += votesBlurt.length - x
     if (total == 0) return
     return total
 })

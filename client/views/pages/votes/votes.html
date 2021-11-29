@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'dtc'}}
                     <tr>
                         <td style="overflow: hidden;">
@@ -150,7 +150,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each topVoters votes votesSteem votesHive 0}}
+                        {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                         {{#if equals network 'dtc'}}
                         <tr>
                             <td style="overflow: hidden;">
@@ -202,7 +202,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'steem'}}
                     {{#if downvote}}
                     <div class="ui item">
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'hive'}}
                     {{#if downvote}}
                     <div class="ui item">
