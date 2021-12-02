@@ -16,7 +16,7 @@ Template.video.rendered = function () {
             let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
             Session.set('commentBurn', Template.publish.logSlider(this.value,balance))
         })
-        
+
         $('.videopayout')
             .popup({
                 inline: true,
@@ -46,17 +46,17 @@ Template.video.helpers({
         return a
     },
     mergedCommentsLength: function (dtc, steem) {
-        var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive)
+        var merged = UI._globalHelpers['mergeComments'](dtc, steem, hive, blurt)
         return merged.length
     },
     isNoComment: function () {
         var vid = Template.video.__helpers[" video"]()
-        if (!vid.comments && !vid.commentsSteem && !vid.commentsHive) return true
+        if (!vid.comments && !vid.commentsSteem && !vid.commentsHive && !vid.commentsBlurt) return true
         return false
     },
     isSingleComment: function () {
         var vid = Template.video.__helpers[" video"]()
-        var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive)
+        var merged = UI._globalHelpers['mergeComments'](vid.comments, vid.commentsSteem, vid.commentsHive,  vid.commentsBlurt)
         if (merged.length != 1) return false
         return true
     },
@@ -76,6 +76,7 @@ Template.video.helpers({
         var user = Session.get('activeUsername')
         if (!user) user = Session.get('activeUsernameSteem')
         if (!user) user = Session.get('activeUsernameHive')
+        if (!user) user = Session.get('activeUsernameBlurt')
         return user
     },
     userVideosAndResteems: function () {
@@ -118,20 +119,20 @@ Template.video.helpers({
         }
     },
     isLoggedOn: function () {
-        if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
+        if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive') || Session.get('activeUsernameBlurt'))
             return true
         return false
     },
     convertTag: function (tag) {
-        var tagWithoutDtube = tag.replace("dtube-", "")
+        var tagWithoutDtube = tag ? tag.replace("dtube-", "") : ""
         return tagWithoutDtube
     },
     hasVoted: function (one, two) {
         if (one || two) return true;
         return false;
     },
-    votable: function (dtube, steem, hive) {
-        if (dtube || steem || hive)
+    votable: function (dtube, steem, hive, blurt) {
+        if (dtube || steem || hive || blurt)
             return true
         else return false
     },
@@ -208,7 +209,7 @@ Template.video.events({
         if (!burn) burn = 0
 
         if (refs.length > 1) {
-            let parentAuthor, parentPermlink, paSteem, ppSteem, paHive, ppHive
+            let parentAuthor, parentPermlink, paSteem, ppSteem, paHive, ppHive, paBlurt, ppBlurt
             for (let i = 0; i < refs.length; i++) {
                 const ref = refs[i];
                 if (ref.split('/')[0] == 'dtc') {
@@ -223,8 +224,12 @@ Template.video.events({
                     paHive = ref.split('/')[1]
                     ppHive = ref.split('/')[2]
                 }
+                if (ref.split('/')[0] == 'blurt') {
+                    paBlurt = ref.split('/')[1]
+                    ppBlurt = ref.split('/')[2]
+                }
             }
-            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function (err, result) {
+            broadcast.multi.comment(paSteem, ppSteem, paHive, ppHive, paBlurt, ppBlurt, parentAuthor, parentPermlink, jsonMetadata.description, jsonMetadata, '', burn, function (err, result) {
                 if (err) {
                     $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                     $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
@@ -279,6 +284,20 @@ Template.video.events({
             }
             if (refs[0].split('/')[0] == 'hive')
                 broadcast.hive.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
+                    if (err) {
+                        $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
+                        $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
+                        toastr.error(err.payload.error.data.stack[0].format, translate('ERROR_TITLE'))
+                        return
+                    }
+                    $('.ui.button > .ui.icon.load.repl').addClass('dsp-non');
+                    Template.video.loadState()
+                    Session.set('replyingTo', null)
+                    document.getElementById('replytext').value = "";
+                    $('.ui.button > .ui.icon.talk.repl').removeClass('dsp-non');
+                });
+            if (refs[0].split('/')[0] == 'blurt')
+                broadcast.blurt.comment(null, refs[0].split('/')[1], refs[0].split('/')[2], jsonMetadata.description, jsonMetadata, ['dtube'], function (err, result) {
                     if (err) {
                         $('.ui.button > .ui.icon.load.repl').removeClass('dsp-non');
                         $('.ui.button > .ui.icon.remove.repl').removeClass('dsp-non');
@@ -367,6 +386,7 @@ Template.video.loadState = function () {
     isLoadingState = true
     Session.set('isSteemRefLoaded', false)
     Session.set('isHiveRefLoaded', false)
+    Session.set('isBlurtRefLoaded', false)
     Session.set('isDTCRefLoaded', false)
     // maybe move this to parallel calls instead of series
     // especially if we keep adding more networks
@@ -377,7 +397,15 @@ Template.video.loadState = function () {
                 if (err || Object.keys(result.content).length == 0) {
                     // content is not available on avalon nor steem
                     hive.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (hiveerror, hiveresult) => {
-                        if (hiveerror) throw hiveerror
+                        // content is not available on avalon, steem, or hive
+                        if (hiveerror || Object.keys(hiveresult.content).length == 0) {
+                            blurt.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (blurterror, blurtresult) => {
+                                if (blurterror) throw blurterror
+                                isLoadingState = false
+                                Session.set('urlNet', 'blurt')
+                                Template.video.handleVideo(blurtresult, 'blurt/' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam('permlink'), false)
+                            })
+                        }
                         isLoadingState = false
                         Session.set('urlNet', 'hive')
                         Template.video.handleVideo(hiveresult, 'hive/' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam('permlink'), false)
@@ -430,9 +458,10 @@ Template.video.handleVideo = function (result, id, isRef) {
     if (!result) return
     id = id.split('/')
     var network = id[0]
-    // console.log('network: ',network)
-    if (network == 'steem' || network == 'hive') {
-        if (Object.keys(result.content).length == 0) return
+    if (network == 'steem' || network == 'hive' || network == 'blurt') {
+        if (!result.content || Object.keys(result.content).length == 0) return
+        if (!result.content[id[1] + '/' + id[2]])
+            result.content[id[1] + '/' + id[2]] = { content: result.content }
         result.content[id[1] + '/' + id[2]].content = result.content
         result = result.content[id[1] + '/' + id[2]]
         if ($('textarea[name=body]').length !== 0) $('textarea[name=body]')[0].value = result.body
@@ -442,7 +471,7 @@ Template.video.handleVideo = function (result, id, isRef) {
 
     // non dtube videos can only load from State
     if (!video) return
-    
+
     var description = ''
     if (video.json) description = video.json.description
     else description = video.description
@@ -476,21 +505,27 @@ Template.video.handleVideo = function (result, id, isRef) {
 
     // load cross ref data if isRef == true
     if (isRef && video.json.refs) {
-        // console.log("Referenced",video.json.refs)
         for (let i = 0; i < video.json.refs.length; i++) {
             var netw = video.json.refs[i].split('/')[0]
-            // console.log('netw is ' + netw)
             if (netw == 'dtc') {
                 updateSteem(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
                 updateHive(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
+                updateBlurt(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
             }
             if (netw == 'steem') {
                 updateDtc(video.json.refs[i] + 'd', video.dist, video.votes, video.comments, video.ups, video.downs, network)
                 updateHive(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
+                updateBlurt(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
             }
             if (netw == 'hive') {
                 updateDtc(video.json.refs[i] + 'd', video.dist, video.votes, video.comments, video.ups, video.downs, network)
                 updateSteem(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
+                updateBlurt(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
+            }
+            if (netw == 'blurt') {
+                updateDtc(video.json.refs[i] + 'd', video.dist, video.votes, video.comments, video.ups, video.downs, network)
+                updateSteem(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
+                updateHive(video.json.refs[i] + 'd', video.distSteem, video.votesSteem, video.commentsSteem, video.ups, video.downs, network)
             }
         }
     } else if (video.json && video.json.refs) {
@@ -512,6 +547,12 @@ Template.video.handleVideo = function (result, id, isRef) {
                 hive.api.getState('/dtube/@' + ref[1] + '/' + ref[2], (hiveerror, hiveresult) => {
                     if (hiveerror) throw hiveerror
                     Template.video.handleVideo(hiveresult, 'hive/' + ref[1] + '/' + ref[2], true)
+                })
+            }
+            if (ref[0] == 'blurt') {
+                blurt.api.getState('/dtube/@' + ref[1] + '/' + ref[2], (err, result) => {
+                    if (err) throw err
+                    Template.video.handleVideo(result, 'blurt/' + ref[1] + '/' + ref[2], true)
                 })
             }
         }
@@ -557,6 +598,26 @@ function updateHive(id, dist, votes, comments, ups, downs, currentNet) {
             distHive: dist,
             votesHive: votes,
             commentsHive: comments
+        },
+        $inc: {
+            ups: ups,
+            downs: downs
+        }
+    })
+}
+
+function updateBlurt(id, dist, votes, comments, ups, downs, currentNet) {
+    if (Session.get('isBlurtRefLoaded')) return
+    if (Session.get('urlNet') == 'blurt') return
+    if (!Session.get('allNet').includes('blurt')) return
+    if (currentNet != 'blurt') return
+    Session.set('isBlurtRefLoaded', true)
+
+    Videos.update({ _id: id }, {
+        $set: {
+            distBlurt: dist,
+            votesBlurt: votes,
+            commentsBlurt: comments
         },
         $inc: {
             ups: ups,

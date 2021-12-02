@@ -1,5 +1,5 @@
 Template.topbar.rendered = function(){
-  
+
 }
 
 Template.topbar.helpers({
@@ -7,7 +7,7 @@ Template.topbar.helpers({
     return Session.get('searchSuggestions')
   },
   isLoggedOn: function () {
-    if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive'))
+    if (Session.get('activeUsername') || Session.get('activeUsernameSteem') || Session.get('activeUsernameHive') || Session.get('activeUsernameBlurt'))
       return true
     return false
   },
@@ -29,7 +29,7 @@ Template.topbar.events({
       } else {
         Template.sidebar.half()
       }
-        
+
     }
   },
   'touchend .sidebartoggleicon': function (event, instance) {
@@ -42,7 +42,7 @@ Template.topbar.events({
       } else {
         Template.sidebar.half()
       }
-        
+
     }
   },
   'keyup #dsearch': function (evt) {

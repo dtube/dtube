@@ -74,8 +74,6 @@ Template.addvideohashes.fillHashes = function() {
 
     if (Object.keys(files.sub).length == 0) delete files.sub
     if (Object.keys(files.img).length == 0) delete files.img
-
-    // console.log(files)
     return files
 }
 

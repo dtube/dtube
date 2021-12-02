@@ -6,12 +6,12 @@
         <div class="pos-abs wid-ful" style="z-index:1;height:118px;">
         <span class="videoscore"><i class="thumbs up icon"></i>{{votesLength}}</span>
         <!-- <span class="videopower">{{displayPayout ups downs}}<i class="bolt icon"></i></span> -->
-        {{#if json.duration}} 
+        {{#if json.duration}}
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
         {{else}}{{#if json.dur}}
           <span class="videosnapduration">{{durationDisplay json.dur}}</span>
         {{/if}}{{/if}}
-        {{#if viewers}} 
+        {{#if viewers}}
           <span class="livestreamviewcount">{{viewers}} viewer{{#unless equals viewers '1'}}s{{/unless}}</span>
         {{/if}}
         {{#if isOnWatchAgain}}
@@ -21,7 +21,7 @@
             </i>
           </div>
         {{else}}
-          {{#if isInWatchLater}} 
+          {{#if isInWatchLater}}
           <div id="watchlater" class="watchlater snapbutton right floated pos-abs dsp-non" title='Remove from Watch later' style="float: right;right: 5px;background: black;top: 5px;border-radius: 4px;opacity: 0.9;">
             <i class="checkmark icon" style="padding: 0px;color:white;margin: 8px;font-size: 1.2em;">
               <span style="z-index:9000;"></span>
@@ -38,8 +38,8 @@
         <div id="snapload" class="ui snaploader pos-abs wid-ful" style="z-index:-1;background-color: rgba(167, 167, 167, 0.85);height:118px;display: block;text-align: center;">
             <i class="icon photo nosnap" style="font-size:28px;margin-top:40px;"></i>
             <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
-          </div> 
-          <img id="snapimg" class="sprite" src="{{json.thumbnailUrl}}" width="100%" height="100%" style="height:118px;width:210px;" alt="" onerror="Template.videosnap.fallback(this)">            
+          </div>
+          <img id="snapimg" class="sprite" src="{{json.thumbnailUrl}}" width="100%" height="100%" style="height:118px;width:210px;" alt="" onerror="Template.videosnap.fallback(this)">
         </div>
         <br />
       </div>
@@ -62,7 +62,7 @@
     </div>
     <div class='videosnapdetails'>
         <div class='videosnaprest'>
-          {{displayRewards dist distSteem distScot distHive}}
+          {{displayRewards dist distSteem distScot distHive distBlurt}}
         </div>
         <div class='videosnaptime'>
         {{timeAgo ts}}

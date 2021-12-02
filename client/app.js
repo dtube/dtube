@@ -1,6 +1,7 @@
 import './buffer';
 import steem from 'steem'
 import hive from '@hiveio/hive-js'
+import blurt from '@blurtfoundation/blurtjs'
 
 console.log('Starting DTube APP')
 
@@ -10,6 +11,7 @@ Meteor.startup(function(){
 
   window.hive = hive
   window.steem = steem
+  window.blurt = blurt
   Session.set('remoteSettings', Meteor.settings.public.remote)
 
   // choose steem api on startup
@@ -31,8 +33,21 @@ Meteor.startup(function(){
     hiveoptions.url = localStorage.getItem('hiveAPI')
   hive.api.setOptions(hiveoptions)
 
+  // choose blurt api on startup
+  let blurtoptions = {
+    useAppbaseApi: true,
+    alternative_api_endpoints: Meteor.settings.public.remote.BlurtAPINodes
+  }
+  if (!localStorage.getItem('blurtAPI')
+  || Meteor.settings.public.remote.BlurtAPINodes.indexOf(localStorage.getItem('blurtAPI')) === -1)
+    blurtoptions.url = Meteor.settings.public.remote.BlurtAPINodes[0]
+  else
+    blurtoptions.url = localStorage.getItem('blurtAPI')
+  blurt.api.setOptions(blurtoptions)
+
   Session.set('steemAPI', steem.api.options.url)
   Session.set('hiveAPI',hiveoptions.url)
+  Session.set('blurtAPI',blurtoptions.url)
   Session.set('lastHot', null)
   Session.set('lastTrending', null)
   Session.set('lastCreated', null)
@@ -90,7 +105,7 @@ Meteor.startup(function(){
   for (let i = 0; i < scripts.length; i++)
     if (scripts[i].src.length > 0)
       sources.push(scripts[i].src)
-  
+
   if (sources.length == 1)
     Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].substr(0, 8))
   else Session.set('buildVersion', 'dev')

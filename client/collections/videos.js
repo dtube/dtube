@@ -115,6 +115,11 @@ Videos.getVideosByBlog = function(author, limit, cb) {
                 cb(err, finished)
             })
         }
+        if (user.json && user.json.profile && (user.json.profile.blurt)) {
+            Videos.getVideosByBlogBlurt(user.json.profile.blurt, (err, finished) => {
+                cb(err, finished)
+            })
+        }
     } else {
         Videos.getVideosByBlogHive(author, function(err, finished) {
             cb(err, finished)
@@ -122,6 +127,9 @@ Videos.getVideosByBlog = function(author, limit, cb) {
         Videos.getVideosByBlogSteem(author, function(err, finished) {
             cb(err, finished)
         })
+        Videos.getVideosByBlogBlurt(author, function(err, finished) {
+          cb(err, finished)
+      })
     }
 }
 
@@ -290,6 +298,75 @@ Videos.getVideosByBlogHive = function(author, cb) {
             } else {
                 try {
                     if (!Videos.findOne({ _id: videos[i]._id.replace('hive/', 'steem/') }))
+                        Videos.upsert({ _id: videos[i]._id }, videos[i])
+                } catch (err) {
+                    cb(err)
+                }
+            }
+        }
+        if (result.length == Session.get('remoteSettings').loadLimit)
+            cb(null, false)
+        else
+            cb(null, true)
+    })
+}
+
+Videos.getVideosByBlogBlurt = function(author, cb) {
+    var query = {
+        tag: author,
+        limit: Session.get('remoteSettings').loadLimit,
+        truncate_body: 1
+    };
+    if (Session.get('lastBlogs')['blurt/' + author]) {
+        query.start_author = Session.get('lastBlogs')['blurt/' + author].author
+        query.start_permlink = Session.get('lastBlogs')['blurt/' + author].permlink
+    }
+    blurt.api.getDiscussionsByBlog(query, function(err, result) {
+        if (err) {
+            cb(err);
+            return
+        }
+        if (!result || result.length == 0) {
+            cb(null, true)
+            return
+        }
+        Videos.setLastBlog('blurt/' + author, result[result.length - 1])
+        var i, len = result.length;
+        var videos = []
+        for (i = 0; i < len; i++) {
+            var video = Videos.parseFromChain(result[i], false, 'blurt')
+            if (video) videos.push(video)
+        }
+        for (var i = 0; i < videos.length; i++) {
+            videos[i].source = 'chainByBlog'
+            videos[i]._id += 'b'
+            videos[i].fromBlog = FlowRouter.getParam("author")
+            var existingVideo = null
+            if (videos[i].json && videos[i].json.refs) {
+                for (let y = 0; y < videos[i].json.refs.length; y++) {
+                    var existingVideo = Videos.findOne({ _id: videos[i].json.refs[y] + 'b' })
+                    if (existingVideo) break
+                }
+            }
+            if (existingVideo) {
+                try {
+                    Videos.update({ _id: existingVideo._id }, {
+                        $set: {
+                            distBlurt: videos[i].distSteem,
+                            votesBlurt: videos[i].votesSteem,
+                            commentsBlurt: videos[i].commentsSteem
+                        },
+                        $inc: {
+                            ups: videos[i].ups,
+                            downs: videos[i].downs
+                        }
+                    })
+                } catch (err) {
+                    cb(err)
+                }
+            } else {
+                try {
+                    if (!Videos.findOne({ _id: videos[i]._id.replace('blurt/', 'steem/') }))
                         Videos.upsert({ _id: videos[i]._id }, videos[i])
                 } catch (err) {
                     cb(err)
@@ -557,7 +634,7 @@ Videos.getVideosBy = function(type, limit, cb) {
             //       var videos = []
             //       for (i = 0; i < len; i++) {
             //           var video = Videos.parseFromChain(result[i])
-            //           if (video) videos.push(video) 
+            //           if (video) videos.push(video)
             //       }
             //       for (var i = 0; i < videos.length; i++) {
             //         videos[i].source = 'chainByCreated'
@@ -620,7 +697,8 @@ Videos.loadFeed = function(username, loadNotifs = true, cb) {
 }
 
 Videos.parseFromChain = function(video, isComment, network) {
-    if (network == 'steem' || network === 'hive') return Videos.parseFromSteem(video, isComment, network)
+    if (network == 'steem' || network == 'hive') return Videos.parseFromSteem(video, isComment, network)
+    if (network == 'blurt') return Videos.parseFromBlurt(video, isComment, network)
     if (!video || !video.json) return
     video.comments = avalon.generateCommentTree(video, video.author, video.link)
     video.comments = cleanTree(video.comments)
@@ -637,7 +715,7 @@ Videos.parseFromChain = function(video, isComment, network) {
     video.downs = 0
     // video.allTags = []
     video._id = 'dtc/' + video._id
-    
+
     var tags = []
     if (typeof video.tags === 'string') {
         var tagsStrings = video.tags.split(' ')
@@ -649,7 +727,7 @@ Videos.parseFromChain = function(video, isComment, network) {
             tags.push({ t: key, total: video.tags[key] })
         }
     }
-        
+
     video.tags = tags
 
     if (video.votes) {
@@ -716,7 +794,7 @@ Videos.parseFromSteem = function(video, isComment, network) {
         newVideo = {
             json: JSON.parse(video.json_metadata).video
         }
-        if (newVideo.json.info && newVideo.json.content)
+        if (newVideo.json && newVideo.json.info && newVideo.json.content)
             newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
         newVideo.json.app = JSON.parse(video.json_metadata).app
         newVideo.json.tags = JSON.parse(video.json_metadata).tags
@@ -829,6 +907,129 @@ Videos.parseFromSteem = function(video, isComment, network) {
                 }
             }
         if (!hasTheTag) return
+    }
+
+    if (!newVideo._id) newVideo._id = network + '/' + newVideo.author + '/' + newVideo.permlink
+    if (!newVideo.json.thumbnailUrl)
+        newVideo.json.thumbnailUrl = Videos.getThumbnailUrl(newVideo)
+    if (newVideo.json.ipfs && newVideo.json.ipfs.snaphash == "QmSi8pbdzgESJEuaeFMUtEv8NRTCA1gipRMvS9WHfo7HVz")
+        return
+    return newVideo;
+}
+
+Videos.parseFromBlurt = function(video, isComment, network) {
+    let newVideo
+    if (isComment || (video.parent_author && video.parent_permlink)) {
+        let commentRefs = []
+        let commentBody = video.body
+        let commentTitle = video.title
+        try {
+            let commentJsonMetadata = JSON.parse(video.json_metadata).video
+            if (commentJsonMetadata.title)
+                commentTitle = commentJsonMetadata.title
+            if (commentJsonMetadata.description)
+                commentBody = commentJsonMetadata.description
+            if (commentJsonMetadata.refs && Array.isArray(commentJsonMetadata.refs) && commentJsonMetadata.refs.length > 0)
+                commentRefs = commentJsonMetadata.refs
+        } catch {}
+        newVideo = {
+            json: {
+                refs: commentRefs,
+                description: commentBody,
+                title: commentTitle
+            }
+        }
+    } else try {
+        if (!video.json_metadata) return
+        newVideo = {
+            json: JSON.parse(video.json_metadata).video
+        }
+        if (!newVideo.json) return
+        if (newVideo.json.info && newVideo.json.content)
+            newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
+        newVideo.json.app = JSON.parse(video.json_metadata).app
+        newVideo.json.tags = JSON.parse(video.json_metadata).tags
+        if (!newVideo.json.videoId && !newVideo.json.files && !newVideo.json.ipfs.snaphash)
+            return
+    } catch (e) {
+        return
+    }
+    if (!isComment && !newVideo) return
+    if (!newVideo) newVideo = {}
+    newVideo.author = video.author
+    newVideo.body = video.body
+    newVideo.total_payout_value = video.total_payout_value
+    newVideo.curator_payout_value = video.curator_payout_value
+    newVideo.pending_payout_value = video.pending_payout_value
+    if (video.authorperm) video.permlink = video.authorperm.split('/')[1]
+    newVideo.permlink = video.permlink
+    newVideo.created = video.created
+    newVideo.net_rshares = video.net_rshares
+    newVideo.reblogged_by = video.reblogged_by
+    newVideo.link = newVideo.permlink
+    newVideo.votesSteem = video.active_votes
+    newVideo.comments = []
+    if (!isComment) {
+        if (!newVideo.json) {
+            newVideo.json = {
+                refs: [],
+                description: video.body,
+                title: video.title
+            }
+        }
+        newVideo.commentsSteem = Videos.commentsTree(video.content, video.author, video.permlink, network)
+    }
+
+    newVideo.votes = []
+    newVideo.ts = new Date(video.created + 'Z').getTime()
+    if (video.pending_payout_value)
+        newVideo.distSteem = parseInt(video.pending_payout_value.split(' ')[0].replace('.', '')) / 1000
+    if (video.total_payout_value.split(' ')[0] > 0) {
+        newVideo.distSteem = parseInt(video.total_payout_value.split(' ')[0].replace('.', '')) + parseInt(video.curator_payout_value.split(' ')[0].replace('.', ''))
+        newVideo.distSteem /= 1000
+    }
+
+    newVideo.ups = 0
+    newVideo.downs = 0
+
+    if (newVideo.votesSteem) {
+        for (let i = 0; i < newVideo.votesSteem.length; i++) {
+            if (parseInt(newVideo.votesSteem[i].weight) > 0)
+                newVideo.ups += parseInt(newVideo.votesSteem[i].weight)
+        }
+    }
+    video.totals = video.ups - video.downs
+
+    // xss attack fix
+    if (video.tags && !newVideo.tags) {
+        var xssTags = []
+        video.tags = video.tags.split(',')
+        for (let i = 0; i < video.tags.length; i++) {
+            xssTags.push({
+                t: xss(video.tags[i], {
+                    whiteList: [],
+                    stripIgnoreTag: true,
+                    stripIgnoreTagBody: ['script']
+                }),
+                vt: 1
+            })
+        }
+        newVideo.tags = xssTags
+    }
+
+    if (newVideo.json.tags && !newVideo.tags) {
+        var xssTags = []
+        for (let i = 0; i < newVideo.json.tags.length; i++) {
+            xssTags.push({
+                t: xss(newVideo.json.tags[i], {
+                    whiteList: [],
+                    stripIgnoreTag: true,
+                    stripIgnoreTagBody: ['script']
+                }),
+                vt: 1
+            })
+        }
+        newVideo.tags = xssTags
     }
 
     if (!newVideo._id) newVideo._id = network + '/' + newVideo.author + '/' + newVideo.permlink

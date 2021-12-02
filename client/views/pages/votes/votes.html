@@ -27,6 +27,13 @@
                             <br /><strong>{{video.distHive}} HBD</strong>
                         </div>
                         {{/if}}
+                        {{#if equals this 'blurt'}}
+                        <div class="four wide column" style="text-align: center">
+                            <img width="32" src="./DTube_files/images/logos/blurt.png">
+                            <br />{{lengthOf video.votesBlurt}} vote{{#unless equals (lengthOf video.votesBlurt) 1}}s{{/unless}}
+                            <br /><strong>{{video.distBlurt}} BLURT</strong>
+                        </div>
+                        {{/if}}
                     {{/each}}
                 </div>
             </div>
@@ -34,7 +41,7 @@
         <div class="ui four wide right floated column">
             {{>videosnap video}}
         </div>
-        
+
         <div class="ui bottom active attached votenetwork tab first pdg-non">
             <table class="ui celled table unstackable"
                 style="table-layout: fixed; white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
@@ -49,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'dtc'}}
                     <tr>
                         <td style="overflow: hidden;">
@@ -118,6 +125,13 @@
                         <br /><strong>{{video.distHive}} HBD</strong>
                     </div>
                     {{/if}}
+                    {{#if equals this 'blurt'}}
+                    <div class="four wide column" style="text-align: center">
+                        <img width="32" src="./DTube_files/images/logos/blurt.png">
+                        <br />{{lengthOf video.votesBlurt}} votes
+                        <br /><strong>{{video.distBlurt}} BLURT</strong>
+                    </div>
+                    {{/if}}
                 {{/each}}
             </div>
             <div class='ui divider'></div>
@@ -136,7 +150,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each topVoters votes votesSteem votesHive 0}}
+                        {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                         {{#if equals network 'dtc'}}
                         <tr>
                             <td style="overflow: hidden;">
@@ -188,7 +202,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'steem'}}
                     {{#if downvote}}
                     <div class="ui item">
@@ -226,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#each topVoters votes votesSteem votesHive 0}}
+                    {{#each topVoters votes votesSteem votesHive votesBlurt 0}}
                     {{#if equals network 'hive'}}
                     {{#if downvote}}
                     <div class="ui item">

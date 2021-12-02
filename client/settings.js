@@ -36,6 +36,13 @@ Meteor.settings.public = {
       "https://api.c0ff33a.uk",
       "https://hived.emre.sh"
     ],
+    "BlurtAPINodes": [
+      "https://rpc.blurt.world",
+      "https://blurt-rpc.saboin.com",
+      "https://kentzz.blurt.world",
+      "https://rpc.nerdtopia.de",
+      "https://rpc.blurtlatam.com"
+    ],
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
     "thirdPartyUploadEndpoints": [
@@ -88,7 +95,7 @@ Meteor.settings.public = {
     "sl": {"name": "Slovenščina", "path": "sl/sl-SI.json"},
     "sr": {"name": "српски", "path": "sr/sr-SP.json"},
     "sv-SE": {"name": "Svenska", "path": "sv-SE/sv-SE.json"},
-    "ta": {"name": "தமிழ்", "path": "ta/ta-IN.json"},      
+    "ta": {"name": "தமிழ்", "path": "ta/ta-IN.json"},
     "th": {"name": "ภาษาไทย", "path": "th/th-TH.json"},
     "tr": {"name": "Türkçe", "path": "tr/tr-TR.json"},
     "uk": {"name": "Українська", "path": "uk/uk-UA.json"},

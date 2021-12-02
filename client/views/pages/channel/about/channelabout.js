@@ -50,6 +50,7 @@ Template.channelabout.events({
         json.profile.website = event.target.profile_website.value.trim()
         json.profile.steem = event.target.profile_steem.value.trim().replace('@','')
         json.profile.hive = event.target.profile_hive.value.trim().replace('@','')
+        json.profile.blurt = event.target.profile_blurt.value.trim().replace('@','')
         broadcast.avalon.editProfile(json, function(err, res) {
             if (err) Meteor.blockchainError(err)
             else {

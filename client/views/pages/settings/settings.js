@@ -21,6 +21,9 @@ Template.settings.helpers({
     HiveAPIs: () => {
       return Session.get('remoteSettings').HiveAPINodes
     },
+    BlurtAPIs: () => {
+      return Session.get('remoteSettings').BlurtAPINodes
+    },
     CurrentAPI: function() {
       return Session.get('steemAPI');
     },
@@ -29,6 +32,9 @@ Template.settings.helpers({
     },
     CurrentHiveAPI: () => {
         return Session.get('hiveAPI')
+    },
+    CurrentBlurtAPI: () => {
+      return Session.get('blurtAPI')
     },
     CurrentSteemAPI: () => {
         return Session.get('steemAPI')
@@ -55,6 +61,9 @@ Template.settings.helpers({
     voteWeightHive: function() {
         return UserSettings.get('voteWeightHive')
     },
+    voteWeightBlurt: function() {
+        return UserSettings.get('voteWeightBlurt')
+    },
     buildVersion: function() {
         return Session.get('buildVersion')
     }
@@ -79,6 +88,12 @@ Template.settings.events({
         Session.set('hiveAPI', value)
         localStorage.setItem('hiveAPI', value)
     },
+    'change #blurtApi': function(event) {
+      var value = $('#blurtApi').val()
+      blurt.api.setOptions({ url: value, useAppbaseApi: true })
+      Session.set('blurtAPI', value)
+      localStorage.setItem('blurtAPI', value)
+    },
     'change #nsfwSetting': function(event) {
         let value = $('#nsfwSetting').prop('selectedIndex')
         Session.set('nsfwSetting', value)
@@ -94,9 +109,9 @@ Template.settings.events({
         Template.mobileselector.revealMenu('bottom')
     },
     'click #nightmodeSwitch': function() {
-        if (!UserSettings.get('isInNightMode')) 
+        if (!UserSettings.get('isInNightMode'))
             Template.settingsdropdown.switchToNightMode()
-        else 
+        else
             Template.settingsdropdown.switchToNormalMode()
         UserSettings.set('isInNightMode', !UserSettings.get('isInNightMode'))
     },
@@ -114,6 +129,11 @@ Template.settings.events({
         let value = voteWeightBounds(parseFloat($('#voteWeightHive').val()))
         UserSettings.set('voteWeightHive', value)
         $('#voteWeightHive').val(value)
+    },
+    'change #voteWeightBlurt': () => {
+      let value = voteWeightBounds(parseFloat($('#voteWeightBlurt').val()))
+      UserSettings.set('voteWeightBlurt', value)
+      $('#voteWeightBlurt').val(value)
     }
 })
 

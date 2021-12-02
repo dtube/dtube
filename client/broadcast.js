@@ -2,7 +2,7 @@ var parallel = require('run-parallel')
 
 broadcast = {
     multi: {
-        comment: function(paSteem, ppSteem, paHive, ppHive, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb, publishVP) {
+        comment: function(paSteem, ppSteem, paHive, ppHive, paBlurt, ppBlurt, paAvalon, ppAvalon, body, jsonMetadata, tag, burn, cb, publishVP) {
             if (!tag) tag = ''
             tag = tag.toLowerCase().trim()
             let authorAvalon = !Session.get('isDTCDisabled') ? Session.get('activeUsername') : null
@@ -10,25 +10,60 @@ broadcast = {
 
             let authorHive = !Session.get('isHiveDisabled') ? Session.get('activeUsernameHive') : null
             let authorSteem = !Session.get('isSteemDisabled') ? Session.get('activeUsernameSteem') : null
-                // Steem cannot have capital letters in permlink :,(
-            let permlinkSteem = Template.publish.randomPermlink(11) // Hive permlink is the same as Steem
+            let authorBlurt = !Session.get('isBlurtDisabled') ? Session.get('activeUsernameBlurt') : null
+            // Steem cannot have capital letters in permlink :,(
+            let permlinkSteem = Template.publish.randomPermlink(11) // Hive, Blurt permlink is the same as Steem
 
             // one of the parent author/permlinks should not be undefined to be a comment op
-            let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive)
+            let isComment = (paAvalon && ppAvalon) || (paSteem && ppSteem) || (paHive && ppHive) || (paBlurt && ppBlurt)
             let canPostToAvalon = authorAvalon && (!isComment || paAvalon && ppAvalon)
             let canPostToHive = authorHive && (!isComment || paHive && ppHive)
             let canPostToSteem = authorSteem && (!isComment || paSteem && ppSteem)
+            let canPostToBlurt = authorBlurt && (!isComment || paBlurt && ppBlurt)
 
             let jsonSteem = JSON.parse(JSON.stringify(jsonMetadata))
             let jsonAvalon = JSON.parse(JSON.stringify(jsonMetadata))
             let jsonHive = JSON.parse(JSON.stringify(jsonMetadata))
+            let jsonBlurt = JSON.parse(JSON.stringify(jsonMetadata))
+
+            let refs = {
+              'dtc': 'dtc/' + authorAvalon + '/' + permlinkAvalon,
+              'hive': 'hive/' + authorHive + '/' + permlinkSteem,
+              'steem': 'steem/' + authorSteem + '/' + permlinkSteem,
+              'blurt': 'blurt/' + authorBlurt + '/' + permlinkSteem
+            }
+            if (!canPostToAvalon) delete refs.dtc;
+            if (!canPostToHive) delete refs.hive;
+            if (!canPostToSteem) delete refs.steem;
+            if (!canPostToBlurt) delete refs.blurt;
+            let chainIds = Object.keys(refs);
+
             jsonSteem.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "steem") jsonSteem.refs.push(refs[chainId])
+            })
+
             jsonAvalon.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "dtc") jsonAvalon.refs.push(refs[chainId])
+            })
+
             jsonHive.refs = []
-            if (canPostToAvalon && canPostToHive && canPostToSteem) {
-                jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'hive/' + authorHive + '/' + permlinkSteem]
-                jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorHive + '/' + permlinkSteem]
-                jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem]
+            chainIds.forEach(chainId => {
+              if( chainId != "hive") jsonHive.refs.push(refs[chainId])
+            })
+
+            jsonBlurt.refs = []
+            chainIds.forEach(chainId => {
+              if( chainId != "blurt") jsonBlurt.refs.push(refs[chainId])
+            })
+
+            /*
+            if (canPostToAvalon && canPostToHive && canPostToSteem && canPostToBlurt) {
+                jsonSteem.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'hive/' + authorHive + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonAvalon.refs = ['steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorHive + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem, 'blurt/' + authorBlurt + '/' + permlinkSteem]
+                jsonBlurt.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon, 'steem/' + authorSteem + '/' + permlinkSteem, 'hive/' + authorBlurt + '/' + permlinkSteem]
             } else if (canPostToAvalon && canPostToHive) {
                 jsonAvalon.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['dtc/' + authorAvalon + '/' + permlinkAvalon]
@@ -39,6 +74,7 @@ broadcast = {
                 jsonSteem.refs = ['hive/' + authorHive + '/' + permlinkSteem]
                 jsonHive.refs = ['steem/' + authorSteem + '/' + permlinkSteem]
             }
+            */
 
             let transactions = []
 
@@ -62,6 +98,11 @@ broadcast = {
                     broadcast.hive.comment(permlinkSteem, paHive, ppHive, body, jsonHive, [tag], callback)
                 })
 
+            if (canPostToBlurt)
+                transactions.push((callback) => {
+                    broadcast.blurt.comment(permlinkSteem, paBlurt, ppBlurt, body, jsonBlurt, [tag], callback)
+                })
+
             parallel(transactions, function(err, results) {
                 cb(err, results)
             })
@@ -79,6 +120,8 @@ broadcast = {
             let jsonAvalon = Object.assign({}, json)
             let jsonSteem = Object.assign({}, json)
             let jsonHive = Object.assign({}, json)
+            let jsonBlurt = Object.assign({}, json)
+
             if (networks.includes('dtc') && networks.includes('steem') && networks.includes('hive')) {
                 jsonAvalon.refs = [refs[networks.indexOf('steem')], refs[networks.indexOf('hive')]]
                 jsonSteem.refs = [refs[networks.indexOf('dtc')], refs[networks.indexOf('hive')]]
@@ -115,6 +158,13 @@ broadcast = {
                 let hiveref = refs[networks.indexOf('hive')].split('/')
                 getops.hive = (callback) => {
                     hive.api.getContent(hiveref[1], hiveref[2], callback)
+                }
+            }
+
+            if (networks.includes('blurt') && Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled')) {
+                let blurtref = refs[networks.indexOf('blurt')].split('/')
+                getops.blurt = (callback) => {
+                    blurt.api.getContent(blurtref[1], blurtref[2], callback)
                 }
             }
 
@@ -164,6 +214,25 @@ broadcast = {
                     })
                 }
 
+                if (originalposts.blurt) {
+                  let newBlurtJsonMeta = JSON.parse(originalposts.blurt.json_metadata)
+                  newBlurtJsonMeta.video = jsonBlurt
+                  let blurttx = [
+                      ['comment', {
+                          parent_author: originalposts.blurt.parent_author,
+                          parent_permlink: originalposts.blurt.parent_permlink,
+                          author: originalposts.blurt.author,
+                          permlink: originalposts.blurt.permlink,
+                          title: jsonBlurt.title,
+                          body: body || originalposts.blurt.body,
+                          json_metadata: JSON.stringify(newBlurtJsonMeta)
+                      }]
+                  ]
+                  broadcastops.push((callback) => {
+                      broadcast.blurt.send(blurttx, callback)
+                  })
+                }
+
                 if (originalposts.dtc) {
                     broadcastops.push((callback) => {
                         broadcast.avalon.comment(originalposts.dtc.link, originalposts.dtc.pa, originalposts.dtc.pp, jsonAvalon, '', true, callback)
@@ -176,27 +245,38 @@ broadcast = {
                 })
             })
         },
-        vote: function(refs, wAvalon, wSteem, wHive, tagAvalon, tipAvalon, cb) {
-            var transactions = []
+        vote: function(refs, wAvalon, wSteem, wHive, wBlurt, tagAvalon, tipAvalon, cb) {
+            let transactions = []
+            let canDownvote = false
 
             for (let i = 0; i < refs.length; i++) {
                 const ref = refs[i].split('/')
-                if (ref[0] == 'dtc')
-                    if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
-                        transactions.push(function(callback) {
-                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, tipAvalon, callback)
-                        })
-
-                if (ref[0] == 'steem')
-                    if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
-                        transactions.push(function(callback) {
-                            broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
-                        })
-                if (ref[0] == 'hive')
-                    if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
-                        transactions.push((callback) => {
-                            broadcast.hive.vote(ref[1], ref[2], wHive, callback)
-                        })
+                // Important integration note: Networks with downvotes must come first
+                if (ref[0] == 'dtc' && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
+                    canDownvote = true
+                    transactions.push(function(callback) {
+                        broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, tipAvalon, callback)
+                    })
+                }
+                if (ref[0] == 'steem' && Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled')) {
+                    canDownvote = true
+                    transactions.push(function(callback) {
+                        broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
+                    })
+                }
+                if (ref[0] == 'hive' && Session.get('activeUsernameHive') && !Session.get('isHiveDisabled')) {
+                    canDownvote = true
+                    transactions.push((callback) => {
+                        broadcast.hive.vote(ref[1], ref[2], wHive, callback)
+                    })
+                }
+                if (ref[0] == 'blurt' && Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled')) {
+                    if (wBlurt < 0 && !canDownvote)
+                        return cb({ error: translate('GLOBAL_ERROR_NO_DOWNVOTE_BLURT') })
+                    transactions.push((callback) => {
+                        broadcast.blurt.vote(ref[1], ref[2], wBlurt, callback)
+                    })
+                }
             }
 
             parallel(transactions, function(err, results) {
@@ -232,7 +312,6 @@ broadcast = {
             if (!body)
                 body = genSteemBody(author, permlink, jsonMetadata)
 
-            // console.log(body)
             var jsonMetadata = {
                 video: jsonMetadata,
                 tags: finalTags,
@@ -295,7 +374,6 @@ broadcast = {
                     return;
                 }
                 steem_keychain.requestVote(Session.get('activeUsernameSteem'), permlink, author, weight, function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -316,7 +394,6 @@ broadcast = {
             //Steem keychain support.
             //Tested working
             if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
-                console.log("");
                 if (!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -327,7 +404,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "community", "Posting", operations, "community", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -356,7 +432,6 @@ broadcast = {
             //Steem keychain support.
             //Tested working
             if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
-                console.log("");
                 if (!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -369,7 +444,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "follow", "Posting", operations, "follow", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -412,7 +486,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "follow", "Posting", operations, "unfollow", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -456,7 +529,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(reblogger, "follow", "Posting", operations, "resteem", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -492,7 +564,6 @@ broadcast = {
                     return;
                 }
                 steem_keychain.requestBroadcast(voter, operations, "Posting", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -1032,7 +1103,6 @@ broadcast = {
                     return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                 }
                 hive_keychain.requestVote(Session.get('activeUsernameHive'), permlink, author, weight, function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 })
                 return
@@ -1084,7 +1154,6 @@ broadcast = {
                 if (!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
 
                 hive_keychain.requestBroadcast(voter, operations, "Posting", (response) => {
-                    console.log(response);
                     cb(response.error, response)
                 })
                 return
@@ -1113,6 +1182,137 @@ broadcast = {
             let decoded = hive.memo.decode(wif, memo).substr(1)
             cb(null, decoded)
         }
+    },
+    blurt: {
+      comment: function(permlink, parentAuthor, parentPermlink, body, jsonMetadata, tags, cb) {
+          if (!permlink) permlink = Template.publish.randomPermlink(11)
+          if (!parentAuthor) parentAuthor = ''
+          if (!parentPermlink) parentPermlink = 'hive-196037'
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
+          if (!voter) return;
+          let author = Session.get('activeUsernameBlurt')
+          let title = jsonMetadata.title
+          finalTags = ['dtube']
+
+          for (let i = 0; i < tags.length; i++)
+              if (finalTags.indexOf(tags[i]) == -1)
+                  finalTags.push(tags[i])
+
+          if (!body)
+              body = genSteemBody(author, permlink, jsonMetadata)
+
+          var jsonMetadata = {
+              video: jsonMetadata,
+              tags: finalTags,
+              app: Meteor.settings.public.app
+          }
+
+          let operations = [
+              ['comment',
+                  {
+                      parent_author: '',
+                      parent_permlink: 'dtube',
+                      author: author,
+                      // TODO: Blurt Communities
+                      // category: 'hive-196037',
+                      permlink: permlink,
+                      title: title,
+                      body: body,
+                      json_metadata: JSON.stringify(jsonMetadata)
+                  }
+              ],
+              ['comment_options', {
+                  author: author,
+                  permlink: permlink,
+                  max_accepted_payout: '1000000.000 BLURT',
+                  allow_votes: true,
+                  allow_curation_rewards: true,
+                  extensions: [
+                      [0, {
+                          beneficiaries: [{
+                              account: Meteor.settings.public.beneficiary,
+                              weight: Session.get('remoteSettings').dfees
+                          }]
+                      }]
+                  ]
+              }]
+          ]
+
+          operations[0][1].parent_author = parentAuthor
+          operations[0][1].parent_permlink = parentPermlink
+          broadcast.blurt.send(operations, function(err, res) {
+              if (!err && res && res.operations)
+                  res = res.operations[0][1].author + '/' + res.operations[0][1].permlink
+              if (!err && res && res.data && res.data.operations)
+                  res = res.data.operations[0][1].author + '/' + res.data.operations[0][1].permlink
+              cb(err, res)
+          })
+      },
+      vote: function(author, permlink, weight, cb) {
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' })
+          if (!voter.username) return;
+          if (weight < 0) return;
+
+          if (voter.type == "keychain") {
+              if (!blurt_keychain) {
+                  return cb('LOGIN_ERROR_WHALEVAULT_NOT_INSTALLED')
+              }
+              blurt_keychain.requestVote(Session.get('activeUsernameBlurt'), permlink, author, weight, function(response) {
+                  cb(response.error, response)
+              })
+              return
+          }
+
+          let wif = voter.privatekey
+          if (wif) {
+              blurt.broadcast.vote(wif, voter.username, author, permlink, weight, function(err, result) {
+                  cb(err, result)
+              })
+              return
+          }
+      },
+      /* TODO: Blurt Communities
+      subBlurt: () => { ... },
+      */
+      send: (operations, cb) => {
+          if (!Session.get('activeUsernameBlurt') || Session.get('isBlurtDisabled')) return
+          let voter = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).username
+          if (!voter) return;
+
+          if (Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).type == "keychain") {
+              if (!blurt_keychain) return cb('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED')
+
+              blurt_keychain.requestBroadcast(voter, operations, "Posting", (response) => {
+                  cb(response.error, response)
+              })
+              return
+          }
+
+          let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
+          if (wif) {
+              blurt.broadcast.send({ operations: operations, extensions: [] }, { posting: wif },
+                  function(err, result) {
+                      cb(err, result)
+                  }
+              )
+              return
+          }
+      },
+      decrypt_memo: (memo, cb) => {
+          if (!Session.get('activeUsernameBlurt')) return
+          if (Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).type == 'keychain') {
+              if (!blurt_keychain) return cb(translate('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED'))
+              blurt_keychain.requestVerifyKey(Session.get('activeUsernameBlurt'), memo, 'Posting', (response) => {
+                  cb(response.error, response.result.substr(1))
+              })
+              return
+          }
+          let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
+          let decoded = hive.memo.decode(wif, memo).substr(1)
+          cb(null, decoded)
+      }
     }
 }
 

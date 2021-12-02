@@ -2,7 +2,7 @@
     <div style="{{#if isOnMobile}}max-width:95%;margin:auto;padding-left: 2px;padding-right:2px;text-align: center;{{else}}max-width:1080px;margin:auto;padding-left: 25px;padding-right:25px;text-align: center;{{/if}}">
         <div id="infozone">
             <h1>Publish video to blockchain</h1>
-            
+
             <div class="ui centered stackable grid">
                 <div class="nine wide column">
                     <p>
@@ -15,7 +15,7 @@
                         {{/if}}
 
                         <br /><br />You can add more video mirrors by clicking on <strong>Add Video</strong>. This is a good option if you are afraid of your video getting deleted on 3rd party providers.
-                        
+
                         {{#if hasDecentralizedVideo}}
                             <br /><br />Optionally, you can add subtitles (VTT format) to your video with the <strong>Add Subtitle</strong> button.
                         {{/if}}
@@ -56,7 +56,7 @@
                         </div>
                     </form>
                 </div>
-                
+
                 <div class="seven wide column">
                     <form class="ui form uploadform">
                         <div class="field publishfield">
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         {{#if activeUsername}}
                             {{#unless isEditingVideo}}
                             <div class="field">
@@ -113,7 +113,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             {{/unless}}
@@ -121,12 +121,12 @@
                     </form>
 
                     <br /><br />
-                    
+
                     {{#if isEditingVideo}}
                         <div id="editVideo" class="ui right floated labeled button" style='margin-bottom: 10px;' tabindex="0">
                             <button name="button" class="ui red right labeled dtube icon button">
                                 <i class="podcast icon red" style="background:white;opacity:1;"></i>
-                                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>                                
+                                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
                                 <div style="display:inline-block;padding: 0.8em 1em;">Confirm</div>
                             </button>
                         </div>
@@ -138,7 +138,7 @@
                                 <div style="display:inline-block;padding: 0.8em 1em;">Publish Video</div>
                             </button>
                         </div>
-    
+
                         <div id="trashVideo" class="ui right floated labeled button" tabindex="0">
                             <button name="button" class="ui blue right labeled dtube icon button">
                                 <i class="trash icon blue" style="background:white;opacity:1;"></i>
@@ -148,7 +148,7 @@
                     {{/if}}
                 </div>
             </div>
-            
+
             <div class="ui divider"></div>
             <h2>Files</h2>
             <div class="ui three column stackable grid"><div class="row">
@@ -164,7 +164,7 @@
                         </label>
                         <input type="file" id="snapFile" style="display: none;">
                     </div>
-                    
+
                 {{/unless}}
                 <div class="column">
                     <div id="addVideo" class="ui labeled button" tabindex="0" style='margin-bottom: 10px;'>
@@ -193,7 +193,7 @@
                     </div>
                 {{/if}}
             </div></div>
-            
+
             <table class="ui celled table publishtbl">
                 <thead>
                     <th>Type</th>
@@ -221,7 +221,7 @@
                 </tbody>
             </table>
 
-            {{#if or activeUsernameSteem activeUsernameHive}}
+            {{#if activeGrapheneUsername}}
                 {{#unless isEditingVideo}}
                 <div class="ui divider"></div>
                 <h2>{{ translate 'UPLOAD_GRAPHENE_OPTIONS' }}</h2>

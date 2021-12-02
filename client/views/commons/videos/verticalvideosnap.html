@@ -13,13 +13,13 @@
           <div class="ui text nosnap" style="margin-top:10px;">{{translate 'SNAP_MISSING_IMAGE'}}</div>
         </div>
         <span class="videoscore"><i class="bolt icon"></i>{{displayPayout ups downs}}</span>
-        {{#if json.duration}} 
+        {{#if json.duration}}
           <span class="videosnapduration">{{durationDisplay json.duration}}</span>
         {{else}}{{#if json.dur}}
           <span class="videosnapduration">{{durationDisplay json.dur}}</span>
         {{/if}}{{/if}}
         <img id="snapimg" height="90" width="160" alt="" src="{{json.thumbnailUrl}}" onerror="Template.videosnap.fallback(this)">
-        <br /> 
+        <br />
       </div>
     </div>
     <div class="pos-rel" style="text-align:left;margin-left:8px;">
@@ -37,7 +37,7 @@
       </div>
       <div class='videosnapdetails'>
           <div class='videosnaprest'>
-            {{displayRewards dist distSteem distScot distHive}}
+            {{displayRewards dist distSteem distScot distHive distBlurt}}
           </div>
          <div class='videosnaptime'>
           {{timeAgo ts}}

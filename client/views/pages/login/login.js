@@ -3,8 +3,11 @@ Template.login.rendered = () => {
   Session.set('loginAvalonStep',false)
   Session.set('loginHiveStep',false)
   Session.set('loginSteemStep',false)
+  Session.set('loginBlurtStep',false)
   Session.set('forcePostingKeyHive',false)
+  Session.set('forcePostingKeyBlurt',false)
   Session.get('forcePostingKey',false)
+
   if (!Session.get('activeUsername')) {
     Session.set('loginSelectionStep',false)
     Session.set('loginAvalonStep',true)
@@ -23,6 +26,9 @@ Template.login.helpers({
   noSteemLogin: () => {
     return !Session.get('activeUsernameSteem')
   },
+  noBlurtLogin: () => {
+    return !Session.get('activeUsernameBlurt')
+  },
   isSelectingNetwork: () => {
     return Session.get('loginSelectionStep')
   },
@@ -35,8 +41,11 @@ Template.login.helpers({
   isSteemAuth: () => {
     return Session.get('loginSteemStep')
   },
+  isBlurtAuth: () => {
+    return Session.get('loginBlurtStep')
+  },
   randomOrder: () => {
-    var a = ['steem', 'hive']
+    var a = ['steem', 'hive', 'blurt']
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
@@ -56,7 +65,9 @@ Template.login.events({
     Session.set('loginAvalonStep',false)
     Session.set('loginHiveStep',false)
     Session.set('loginSteemStep',false)
+    Session.set('loginBlurtStep',false)
     Session.set('forcePostingKeyHive',false)
+    Session.get('forcePostingKeyBlurt',false)
     Session.get('forcePostingKey',false)
   },
   'click .logOut' : (event) => {
@@ -74,6 +85,11 @@ Template.login.events({
     else if (network == 'steem')
       Users.remove({username: Session.get('activeUsernameSteem'), network: 'steem'}, () => {
         Session.set('activeUsernameSteem', null)
+        Template.settingsdropdown.nightMode()
+      })
+    else if (network == 'blurt')
+      Users.remove({username: Session.get('activeUsernameBlurt'), network: 'blurt'}, () => {
+        Session.set('activeUsernameBlurt', null)
         Template.settingsdropdown.nightMode()
       })
   }

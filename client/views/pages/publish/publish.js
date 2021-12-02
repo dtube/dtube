@@ -132,7 +132,7 @@ Template.publish.events({
         $("#publishVideo i.loading").removeClass('dsp-non')
 
         if (burn > 0) {
-            broadcast.multi.comment(null, null, null, null, null, null, body, json, json.tag, burn, function(err, res) {
+            broadcast.multi.comment(null, null, null, null, null, null, null, null, body, json, json.tag, burn, function(err, res) {
                 console.log(err, res)
                 $("#publishVideo").removeClass('disabled')
                 $("#publishVideo i.loading").addClass('dsp-non')
@@ -146,7 +146,7 @@ Template.publish.events({
                 }
             }, Math.floor(Session.get('publishVP') / 100))
         } else {
-            broadcast.multi.comment(null, null, null, null, null, null, null, json, json.tag, null, function(err, res) {
+            broadcast.multi.comment(null, null, null, null, null, null, null, null, null, json, json.tag, null, function(err, res) {
                 console.log(err, res)
                 $("#publishVideo").removeClass('disabled')
                 $("#publishVideo i.loading").addClass('dsp-non')
@@ -260,7 +260,7 @@ Template.publish.events({
 
         // Cleanup thumbnail URLs
         let files = tmpVideo.json.files
-        if (tmpVideo.json.thumbnailUrl && 
+        if (tmpVideo.json.thumbnailUrl &&
           !(files.btfs && files.btfs.img && files.btfs.img["118"] ||
             files.btfs && files.btfs.img && files.btfs.img["360"] ||
             files.ipfs && files.ipfs.img && files.ipfs.img["118"] ||
@@ -321,8 +321,17 @@ Template.publish.helpers({
             return true
         return false
     },
+    activeGrapheneUsername: function() {
+      return Session.get('activeUsernameSteem') || Session.get('activeUsernameHive') || Session.get('activeUsernameBlurt')
+    },
     activeUsernameSteem: function() {
         return Session.get('activeUsernameSteem')
+    },
+    activeUsernameHive: function() {
+        return Session.get('activeUsernameHive')
+    },
+    activeUsernameBlurt: function() {
+        return Session.get('activeUsernameBlurt')
     },
     hasThumbnail: function() {
         var json = Session.get('tmpVideo').json
@@ -567,7 +576,7 @@ Template.publish.uploadImage = function (file, progressid, cb) {
       ? 'http://localhost:5000/uploadImage'
       : 'https://snap1.d.tube/uploadImage'
     var formData = new FormData();
-    
+
     if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
       postUrl = 'https://uploader.oneloved.tube/uploadImage?type=thumbnails&access_token=' + Session.get('Upload token for uploader.oneloved.tube')
       formData.append('image',file)
@@ -599,7 +608,7 @@ Template.publish.uploadImage = function (file, progressid, cb) {
         if (typeof result === 'string')
           result = JSON.parse(result)
         $(progressid).hide()
-  
+
         if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
           $('input[name="snaphash"]').val(result.imghash)
           Session.set('overlayHash',result.imghash)
@@ -609,7 +618,7 @@ Template.publish.uploadImage = function (file, progressid, cb) {
           $('#uploadSnap > i').css('background', 'white')
           return cb(null,result.imghash)
         }
-  
+
         refreshUploadSnapStatus = setInterval(function () {
           var url = 'https://snap1.d.tube/getProgressByToken/' + result.token
           $.getJSON(url, function (data) {
