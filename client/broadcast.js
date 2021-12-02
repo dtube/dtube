@@ -246,31 +246,37 @@ broadcast = {
             })
         },
         vote: function(refs, wAvalon, wSteem, wHive, wBlurt, tagAvalon, tipAvalon, cb) {
-            var transactions = []
+            let transactions = []
+            let canDownvote = false
 
             for (let i = 0; i < refs.length; i++) {
                 const ref = refs[i].split('/')
-                if (ref[0] == 'dtc')
-                    if (Session.get('activeUsername') && !Session.get('isDTCDisabled'))
-                        transactions.push(function(callback) {
-                            broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, tipAvalon, callback)
-                        })
-
-                if (ref[0] == 'steem')
-                    if (Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled'))
-                        transactions.push(function(callback) {
-                            broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
-                        })
-                if (ref[0] == 'hive')
-                    if (Session.get('activeUsernameHive') && !Session.get('isHiveDisabled'))
-                        transactions.push((callback) => {
-                            broadcast.hive.vote(ref[1], ref[2], wHive, callback)
-                        })
-                if (ref[0] == 'blurt')
-                    if (Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled'))
-                        transactions.push((callback) => {
-                            broadcast.blurt.vote(ref[1], ref[2], wBlurt, callback)
-                        })
+                // Important integration note: Networks with downvotes must come first
+                if (ref[0] == 'dtc' && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
+                    canDownvote = true
+                    transactions.push(function(callback) {
+                        broadcast.avalon.vote(ref[1], ref[2], wAvalon, tagAvalon, tipAvalon, callback)
+                    })
+                }
+                if (ref[0] == 'steem' && Session.get('activeUsernameSteem') && !Session.get('isSteemDisabled')) {
+                    canDownvote = true
+                    transactions.push(function(callback) {
+                        broadcast.steem.vote(ref[1], ref[2], wSteem, callback)
+                    })
+                }
+                if (ref[0] == 'hive' && Session.get('activeUsernameHive') && !Session.get('isHiveDisabled')) {
+                    canDownvote = true
+                    transactions.push((callback) => {
+                        broadcast.hive.vote(ref[1], ref[2], wHive, callback)
+                    })
+                }
+                if (ref[0] == 'blurt' && Session.get('activeUsernameBlurt') && !Session.get('isBlurtDisabled')) {
+                    if (wBlurt < 0 && !canDownvote)
+                        return cb({ error: translate('GLOBAL_ERROR_NO_DOWNVOTE_BLURT') })
+                    transactions.push((callback) => {
+                        broadcast.blurt.vote(ref[1], ref[2], wBlurt, callback)
+                    })
+                }
             }
 
             parallel(transactions, function(err, results) {

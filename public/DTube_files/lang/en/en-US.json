@@ -109,7 +109,7 @@
     "GLOBAL_ERROR_COULD_NOT_VOTE": "Could not vote",
     "GLOBAL_ERROR_DOWNVOTE_FOR": "%1 downvote for %2",
     "GLOBAL_ERROR_VOTE_FOR": "%1 vote for %2",
-    "GLOBAL_ERROR_RESTEEMED": "You have resteemed %1",
+    "GLOBAL_ERROR_NO_DOWNVOTE_BLURT": "Cannot downvote on Blurt network",
     "GLOBAL_VOTE_LEADER": "Now voting for %1 as leader",
     "GLOBAL_UNVOTE_LEADER": "No longer voting %1 as leader",
     "GLOBAL_EDIT_PROFILE": "Profile edited successfully",
