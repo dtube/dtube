@@ -884,7 +884,8 @@ Template.registerHelper('contentNetwork', function(content, ignoreVotable) {
             if (!networkFound && refNetwork !== 'dtc' && (
                 ignoreVotable ||
                 (refNetwork === 'steem' && Session.get('activeUsernameSteem')) ||
-                (refNetwork === 'hive' && Session.get('activeUsernameHive'))
+                (refNetwork === 'hive' && Session.get('activeUsernameHive')) ||
+                (refNetwork === 'blurt' && Session.get('activeUsernameBlurt'))
             )) {
                 network = refNetwork
                 networkFound = true

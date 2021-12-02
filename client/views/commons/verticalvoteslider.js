@@ -159,8 +159,8 @@ Template.verticalvoteslider.events({
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
                     // audio.play();
             }
-            $('.ui.up.votesliderloader.' + this.sliderclass).addClass('dsp-non');
-            $('.ui.votebutton.voteslider.up.' + this.sliderclass).removeClass('dsp-non');
+            $('.ui.up.votesliderloader.' + permlink).addClass('dsp-non');
+            $('.ui.votebutton.voteslider.up.' + permlink).removeClass('dsp-non');
             Template.video.loadState()
         });
     },
@@ -171,13 +171,13 @@ Template.verticalvoteslider.events({
         let weightSteem = 100
         let weightHive = 100
         if (this.network === 'dtube') {
-            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + permlink).value * -100
             weightSteem = UserSettings.get('voteWeightSteem') * -100
             weightHive = UserSettings.get('voteWeightHive') * -100
         } else {
-            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
-            weightSteem = document.getElementById("voterangedown" + this.sliderclass).value * -100
-            weightHive = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + permlink).value * -100
+            weightSteem = document.getElementById("voterangedown" + permlink).value * -100
+            weightHive = document.getElementById("voterangedown" + permlink).value * -100
         }
         let refs = [];
         if (this.isComment)
@@ -190,8 +190,8 @@ Template.verticalvoteslider.events({
         else
             refs = Session.get('currentRefs')
         $('.ui.popup').popup('hide all');
-        $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
-        $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
+        $('.ui.down.votesliderloader.' + permlink).removeClass('dsp-non');
+        $('.ui.votebutton.voteslider.down.' + permlink).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, -1, '', -1, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
@@ -199,8 +199,8 @@ Template.verticalvoteslider.events({
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
                     // audio.play();
             }
-            $('.ui.down.votesliderloader.' + this.sliderclass).addClass('dsp-non');
-            $('.ui.votebutton.voteslider.down.' + this.sliderclass).removeClass('dsp-non');
+            $('.ui.down.votesliderloader.' + permlink).addClass('dsp-non');
+            $('.ui.votebutton.voteslider.down.' + permlink).removeClass('dsp-non');
             Template.video.loadState()
         });
     },
@@ -214,15 +214,15 @@ Template.verticalvoteslider.events({
         let weightBlurt = 100
         let tip = canTipAuthor(this.content) ? parseInt($('.tagvote.up .tipvalue').val()) : 0
         if (this.network === 'dtube') {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * 100
+            weight = document.getElementById("voterangeup" + permlink).value * 100
             weightSteem = UserSettings.get('voteWeightSteem') * 100
             weightHive = UserSettings.get('voteWeightHive') * 100
             weightBlurt = UserSettings.get('voteWeightBlurt') * 100
         } else {
-            weight = document.getElementById("voterangeup" + this.sliderclass).value * 100
-            weightSteem = document.getElementById("voterangeup" + this.sliderclass).value * 100
-            weightHive = document.getElementById("voterangeup" + this.sliderclass).value * 100
-            weightBlurt = document.getElementById("voterangeup" + this.sliderclass).value * 100
+            weight = document.getElementById("voterangeup" + permlink).value * 100
+            weightSteem = document.getElementById("voterangeup" + permlink).value * 100
+            weightHive = document.getElementById("voterangeup" + permlink).value * 100
+            weightBlurt = document.getElementById("voterangeup" + permlink).value * 100
         }
         let refs = [];
         if (this.isComment)
@@ -235,8 +235,8 @@ Template.verticalvoteslider.events({
         else
             refs = Session.get('currentRefs')
         $('.ui.popup').popup('hide all');
-        $('.ui.up.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
-        $('.ui.votebutton.voteslider.up.' + this.sliderclass).addClass('dsp-non');
+        $('.ui.up.votesliderloader.' + permlink).removeClass('dsp-non');
+        $('.ui.votebutton.voteslider.up.' + permlink).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, weightBlurt, newTag || '', tip, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
@@ -244,8 +244,8 @@ Template.verticalvoteslider.events({
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
                     // audio.play();
             }
-            $('.ui.up.votesliderloader.' + this.sliderclass).addClass('dsp-non');
-            $('.ui.votebutton.voteslider.up.' + this.sliderclass).removeClass('dsp-non');
+            $('.ui.up.votesliderloader.' + permlink).addClass('dsp-non');
+            $('.ui.votebutton.voteslider.up.' + permlink).removeClass('dsp-non');
             Template.video.loadState()
         });
     },
@@ -258,13 +258,13 @@ Template.verticalvoteslider.events({
         let weightHive = 100
         let tip = canTipAuthor(this.content) ? parseInt($('.tagvote.down .tipvalue').val()) : 0
         if (this.network === 'dtube') {
-            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + permlink).value * -100
             weightSteem = UserSettings.get('voteWeightSteem') * -100
             weightHive = UserSettings.get('voteWeightHive') * -100
         } else {
-            weight = document.getElementById("voterangedown" + this.sliderclass).value * -100
-            weightSteem = document.getElementById("voterangedown" + this.sliderclass).value * -100
-            weightHive = document.getElementById("voterangedown" + this.sliderclass).value * -100
+            weight = document.getElementById("voterangedown" + permlink).value * -100
+            weightSteem = document.getElementById("voterangedown" + permlink).value * -100
+            weightHive = document.getElementById("voterangedown" + permlink).value * -100
         }
         let refs = [];
         if (this.isComment)
@@ -277,8 +277,8 @@ Template.verticalvoteslider.events({
         else
             refs = Session.get('currentRefs')
         $('.ui.popup').popup('hide all');
-        $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
-        $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
+        $('.ui.down.votesliderloader.' + permlink).removeClass('dsp-non');
+        $('.ui.votebutton.voteslider.down.' + permlink).addClass('dsp-non');
         broadcast.multi.vote(refs, weight, weightSteem, weightHive, -1, newTag || '', tip, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
@@ -286,8 +286,8 @@ Template.verticalvoteslider.events({
                     // var audio = new Audio('http://localhost:3000/DTube_files/sounds/coin-drop-1.mp3');
                     // audio.play();
             }
-            $('.ui.down.votesliderloader.' + this.sliderclass).addClass('dsp-non');
-            $('.ui.votebutton.voteslider.down.' + this.sliderclass).removeClass('dsp-non');
+            $('.ui.down.votesliderloader.' + permlink).addClass('dsp-non');
+            $('.ui.votebutton.voteslider.down.' + permlink).removeClass('dsp-non');
             Template.video.loadState()
         });
     },

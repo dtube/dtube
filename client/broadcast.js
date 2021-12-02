@@ -306,7 +306,6 @@ broadcast = {
             if (!body)
                 body = genSteemBody(author, permlink, jsonMetadata)
 
-            // console.log(body)
             var jsonMetadata = {
                 video: jsonMetadata,
                 tags: finalTags,
@@ -369,7 +368,6 @@ broadcast = {
                     return;
                 }
                 steem_keychain.requestVote(Session.get('activeUsernameSteem'), permlink, author, weight, function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -390,7 +388,6 @@ broadcast = {
             //Steem keychain support.
             //Tested working
             if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
-                console.log("");
                 if (!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -401,7 +398,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "community", "Posting", operations, "community", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -430,7 +426,6 @@ broadcast = {
             //Steem keychain support.
             //Tested working
             if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == "keychain") {
-                console.log("");
                 if (!steem_keychain) {
                     cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                     return;
@@ -443,7 +438,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "follow", "Posting", operations, "follow", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -486,7 +480,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(voter, "follow", "Posting", operations, "unfollow", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -530,7 +523,6 @@ broadcast = {
                     }]
                 );
                 steem_keychain.requestCustomJson(reblogger, "follow", "Posting", operations, "resteem", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -566,7 +558,6 @@ broadcast = {
                     return;
                 }
                 steem_keychain.requestBroadcast(voter, operations, "Posting", function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 });
                 return;
@@ -1106,7 +1097,6 @@ broadcast = {
                     return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                 }
                 hive_keychain.requestVote(Session.get('activeUsernameHive'), permlink, author, weight, function(response) {
-                    console.log(response);
                     cb(response.error, response)
                 })
                 return
@@ -1158,7 +1148,6 @@ broadcast = {
                 if (!hive_keychain) return cb('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED')
 
                 hive_keychain.requestBroadcast(voter, operations, "Posting", (response) => {
-                    console.log(response);
                     cb(response.error, response)
                 })
                 return
@@ -1264,8 +1253,7 @@ broadcast = {
               if (!blurt_keychain) {
                   return cb('LOGIN_ERROR_WHALEVAULT_NOT_INSTALLED')
               }
-              blurt_keychain.requestVote(Session.get('activeUsernamBlurt'), permlink, author, weight, function(response) {
-                  console.log(response);
+              blurt_keychain.requestVote(Session.get('activeUsernameBlurt'), permlink, author, weight, function(response) {
                   cb(response.error, response)
               })
               return
@@ -1291,7 +1279,6 @@ broadcast = {
               if (!blurt_keychain) return cb('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED')
 
               blurt_keychain.requestBroadcast(voter, operations, "Posting", (response) => {
-                  console.log(response);
                   cb(response.error, response)
               })
               return
