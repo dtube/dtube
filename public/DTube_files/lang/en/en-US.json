@@ -101,6 +101,7 @@
     "FARM_LP_FARMING": "LPs Farming",
     "FARM_LP_DEPOSIT": "Deposit LP",
     "FARM_LP_WITHDRAW": "Withdraw LP",
+    "FARM_LP_WITHDRAW_LEGACY": "Withdraw LP from legacy farm",
     "FARM_PENDING_REWARD": "Pending Reward",
     "FARM_TITLE": "DTube Coin Farming",
     "FARM_TVL": "Total Value Locked",

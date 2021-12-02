@@ -50,6 +50,9 @@ Template.farm.helpers({
     },
     allowance: function() {
         return Session.get('metamaskFarmAllowance')
+    },
+    legacyFarmBalance: function() {
+      return Session.get('metamaskLpFarmingLegacy') / Math.pow(10,18)
     }
   })
 
@@ -82,6 +85,9 @@ Template.farm.events({
     },
     "click #enablefarm": function() {
         metamask.farmEnable()
+    },
+    "click #withdrawlpLegacy": function() {
+      metamask.withdrawLPLegacy()
     }
   })
 

@@ -27,6 +27,10 @@
                 {{ translate 'FARM_LP_AVAILABLE' }}: {{lpBalance}}
                 <br />
                 {{ translate 'FARM_LP_FARMING' }}: {{lpFarming}}
+                {{#if legacyFarmBalance}}
+                <br />
+                LPs in legacy farm: {{legacyFarmBalance}}
+                {{/if}}
                 <br /><br />
                 {{#if allowance}}
                 <div id="depositlp" class="ui labeled small button" tabindex="0">
@@ -49,7 +53,14 @@
                     </button>
                 </div>
                 {{/if}}
-                
+                {{#if legacyFarmBalance}}
+                <div id="withdrawlpLegacy" class="ui labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui blue right labeled dtube icon submit button">
+                    <i class="minus icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'FARM_LP_WITHDRAW_LEGACY' }}</div>
+                    </button>
+                </div>
+                {{/if}}
                 <br /><br />
                 <strong>{{ translate 'FARM_PENDING_REWARD' }}: {{pendingReward}} DTC</strong>
                 <br /><br />
