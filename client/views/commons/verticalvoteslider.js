@@ -237,7 +237,7 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.up.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.up.' + this.sliderclass).addClass('dsp-non');
-        broadcast.multi.vote(refs, weight, weightSteem, weightHive, weightBlurt, newTag, tip, function(err, result) {
+        broadcast.multi.vote(refs, weight, weightSteem, weightHive, weightBlurt, newTag || '', tip, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_VOTE_FOR', weight / 100 + '%', author + '/' + permlink))
@@ -279,7 +279,7 @@ Template.verticalvoteslider.events({
         $('.ui.popup').popup('hide all');
         $('.ui.down.votesliderloader.' + this.sliderclass).removeClass('dsp-non');
         $('.ui.votebutton.voteslider.down.' + this.sliderclass).addClass('dsp-non');
-        broadcast.multi.vote(refs, weight, weightSteem, weightHive, -1, newTag, tip, function(err, result) {
+        broadcast.multi.vote(refs, weight, weightSteem, weightHive, -1, newTag || '', tip, function(err, result) {
             if (err) Meteor.blockchainError(err, translate('GLOBAL_ERROR_COULD_NOT_VOTE'))
             else {
                 toastr.success(translate('GLOBAL_ERROR_DOWNVOTE_FOR', weight / 100 + '%', author + '/' + permlink))
