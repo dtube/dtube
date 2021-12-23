@@ -14,6 +14,7 @@
     "dtube-autolinker": "1.4.3",
     "file-saver": "^2.0.1",
     "imagesloaded": "^4.1.4",
+    "is-ipfs": "^6.0.2",
     "javalon": "^1.0.32",
     "jsoun": "^0.1.4",
     "languages": "^0.1.3",

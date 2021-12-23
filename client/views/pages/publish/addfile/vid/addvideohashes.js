@@ -1,3 +1,5 @@
+const isIPFS = require('is-ipfs')
+
 Template.addvideohashes.rendered = () => Template.settingsdropdown.nightMode()
 Template.addvideohashes.helpers({
     translateHash: function(string, prov) {
@@ -78,17 +80,7 @@ Template.addvideohashes.fillHashes = function() {
 }
 
 Template.addvideohashes.isValidHash = function(hash) {
-    // ex1: QmVsb6fZNhe5JNgTnjriNcv7a8vPhvS9f27eu5U7UnLTPk
-    // start Qm
-    if (hash[0] !== 'Q' || hash[1] !== 'm') return false
-    // 46 chars
-    if (hash.length !== 46) return false
-    // base58
-    var alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-    for (let i = 0; i < hash.length; i++)
-        if (alphabet.indexOf(hash[i]) == -1)
-            return false
-    return true
+    return isIPFS.cid(hash)
 }
 
 Template.addvideohashes.isValidSkylink = function(skylink) {
