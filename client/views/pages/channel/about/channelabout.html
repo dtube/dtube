@@ -136,6 +136,9 @@
     <div class="four wide column" style="padding-left:5px;">
       {{#if equals author.name activeUsername}}
         {{> buttonedit}}
+        <div style="margin-top: 12px;">{{>buttonblockexplorer explorerUsername=user.name}}</div>
+      {{else}}
+        {{>buttonblockexplorer explorerUsername=user.name}}
       {{/if}}
       <div class="ui card wid-ful brd-rad-non" style="white-space: inherit;background: #ffffff;">
         <div class="crd-lab">

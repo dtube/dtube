@@ -5,7 +5,6 @@
     <div class="channelmenu parent">
       <div class="ui top attached tabular menu channelmenu mobile" style="margin-top: 0rem;">
         <a class="item videos active" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
-        <a class="item activities" data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
         <a class="item about" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
         {{#if equals author.name activeUsername}}
         <a class="item keys" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
@@ -21,12 +20,6 @@
       </div>
       {{/if}}
       <div class="ui large centered inline text loader"></div>
-    </div>
-    <div class="ui bottom attached tab segment activites" data-tab="second"
-      style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-      {{#if equals currentTab 'activities'}}
-      {{> channelactivities}}
-      {{/if}}
     </div>
     {{#if equals author.name activeUsername}}
     <div class="ui bottom attached tab segment keys" data-tab="fourth"
@@ -55,8 +48,6 @@
     <div class="ui container">
       <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
         <a class="item videos active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
-        <a class="item activities" style="display:inline-block;"
-          data-tab="second">{{ translate 'CHANNEL_ACTIVITIES'}}</a>
         {{#if equals author.name activeUsername}}
         <a class="item keys" style="display:inline-block;" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
         <a class="item rewards" style="display:inline-block;" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
@@ -73,12 +64,6 @@
           {{/if}}
           <div class="ui large centered inline text loader"></div>
         </div>
-      </div>
-      <div class="ui bottom attached tab segment activities" data-tab="second"
-        style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
-        {{#if equals currentTab 'activities'}}
-        {{> channelactivities}}
-        {{/if}}
       </div>
       {{#if equals author.name activeUsername}}
       <div class="ui bottom attached tab segment keys" data-tab="fourth"

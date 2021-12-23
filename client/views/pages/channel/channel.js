@@ -84,9 +84,6 @@ Template.channel.helpers({
     followingCount: function() {
         return ChainUsers.findOne({ name: FlowRouter.getParam("author") }).followsCount || 0
     },
-    activities: function() {
-        return Activities.find({ username: FlowRouter.getParam("author") }, { sort: { date: -1 } }).fetch()
-    },
     currentTab: function() {
         return Session.get('currentTab')
     }
@@ -130,10 +127,6 @@ Template.channel.events({
             if (err)
                 Meteor.blockchainError(err)
         })
-    },
-    'click .item.activities': function() {
-        Session.set('currentTab', 'activities')
-        FlowRouter.go('/c/' + FlowRouter.getParam("author") + '/activities')
     },
     'click .item.about': function() {
         Session.set('currentTab', 'about')

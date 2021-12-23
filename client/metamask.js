@@ -143,7 +143,6 @@ window.metamask = {
         })
     },
     farmEnable: () => {
-        let walletAddress = Session.get('metamaskAddress')
         let contract = new w3.eth.Contract(minErc20ABI,metamask.lpAddress());
         contract.methods.approve(smartChefAddress,"115792089237316195423570985008687907853269984665640564039457584007913129639935").send({
             from: Session.get('metamaskAddress')
