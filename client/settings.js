@@ -21,20 +21,23 @@ Meteor.settings.public = {
       "https://avalon.oneloved.tube",
       "https://avalon.tibfox.com",
       "https://dtube.fso.ovh",
+      "https://dtube.club/mainnetapi",
       "https://testnet-api.oneloved.tube", // TESTNET
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
       "https://anyx.io",
-      "https://api.hivekings.com",
-      "https://rpc.esteem.app",
       "https://techcoderx.com",
       "https://api.followbtcnews.com",
       "https://hived.privex.io",
       "https://hived.hive-engine.com",
       "https://api.deathwing.me",
       "https://api.c0ff33a.uk",
-      "https://hived.emre.sh"
+      "https://hived.emre.sh",
+      "https://rpc.ecency.com",
+      "https://rpc.ausbit.dev",
+      "https://hive-api.arcange.eu",
+      "https://hive.roelandp.nl"
     ],
     "BlurtAPINodes": [
       "https://rpc.blurt.world",
@@ -46,8 +49,7 @@ Meteor.settings.public = {
     "snapMaxFileSizeKB": 2048,
     "upldr": ["1.btfsu","2.btfsu","3.btfsu","4.btfsu"],
     "thirdPartyUploadEndpoints": [
-      "uploader.oneloved.tube",
-      // "uploader.dtube.network"
+      "uploader.oneloved.tube"
     ],
     "localhost": false
   },
