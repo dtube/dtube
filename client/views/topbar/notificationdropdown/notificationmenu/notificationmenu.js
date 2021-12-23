@@ -17,3 +17,9 @@ Template.notificationmenu.helpers({
     return false
   }
 })
+
+Template.notificationmenu.events({
+  'click #notificationclear': () => {
+    Notifications.remove({})
+  }
+})
