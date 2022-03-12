@@ -916,7 +916,7 @@ Template.registerHelper('fallbackThumbnailUrl',(url) => {
     for (let g in Meteor.settings.public.remote.displayNodes) {
         if (url.startsWith(Meteor.settings.public.remote.displayNodes[g])) {
             if (g < Meteor.settings.public.remote.displayNodes.length)
-                return url.replace(Meteor.settings.public.remote.displayNodes[g],Meteor.settings.public.remote.displayNodes[g+1])
+                return url.replace(Meteor.settings.public.remote.displayNodes[g],Meteor.settings.public.remote.displayNodes[parseInt(g)+1])
             else
                 return '' // no more gateways
         }
