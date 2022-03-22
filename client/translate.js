@@ -20,7 +20,7 @@ window.loadLangAuto = function(cb) {
   });
 }
 window.loadJsonTranslate = function(culture, cb = function(){}){
-  if (culture.substr(0,2) == 'en') {
+  if (culture.slice(0,2) == 'en') {
     Session.set('jsonTranslate', null)
     UserSettings.set('language', null)
     cb()
@@ -54,7 +54,7 @@ function translate(code){
   }
 
   if(!found){
-    if (culture.substr(0,2) != 'en')
+    if (culture.slice(0,2) != 'en')
       console.log('have not found translation in ' + culture + ' :'+code);
     if (jsonTranslateDef) {
       for(var key in jsonTranslateDef){
@@ -105,7 +105,7 @@ function getCultureAuto(){
       if (key === cult) return key
 
     for(var key in Meteor.settings.public.lang)
-      if (cult.substr(0,2) === key.substr(0,2)) return key;
+      if (cult.slice(0,2) === key.slice(0,2)) return key;
 
   }
   return culture;

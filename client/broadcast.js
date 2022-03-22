@@ -583,12 +583,12 @@ broadcast = {
             if (Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).type == 'keychain') {
                 if (!steem_keychain) return cb('LOGIN_ERROR_KEYCHAIN_NOT_INSTALLED')
                 steem_keychain.requestVerifyKey(Session.get('activeUsernameSteem'), memo, 'Posting', (response) => {
-                    cb(response.error, response.result.substr(1))
+                    cb(response.error, response.result.slice(1))
                 })
                 return
             }
             let wif = Users.findOne({ username: Session.get('activeUsernameSteem'), network: 'steem' }).privatekey
-            let decoded = steem.memo.decode(wif, memo).substr(1)
+            let decoded = steem.memo.decode(wif, memo).slice(1)
             cb(null, decoded)
         }
     },
@@ -1174,12 +1174,12 @@ broadcast = {
             if (Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).type == 'keychain') {
                 if (!hive_keychain) return cb(translate('LOGIN_ERROR_HIVE_KEYCHAIN_NOT_INSTALLED'))
                 hive_keychain.requestVerifyKey(Session.get('activeUsernameHive'), memo, 'Posting', (response) => {
-                    cb(response.error, response.result.substr(1))
+                    cb(response.error, response.result.slice(1))
                 })
                 return
             }
             let wif = Users.findOne({ username: Session.get('activeUsernameHive'), network: 'hive' }).privatekey
-            let decoded = hive.memo.decode(wif, memo).substr(1)
+            let decoded = hive.memo.decode(wif, memo).slice(1)
             cb(null, decoded)
         }
     },
@@ -1305,12 +1305,12 @@ broadcast = {
           if (Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).type == 'keychain') {
               if (!blurt_keychain) return cb(translate('LOGIN_ERROR_BLURT_KEYCHAIN_NOT_INSTALLED'))
               blurt_keychain.requestVerifyKey(Session.get('activeUsernameBlurt'), memo, 'Posting', (response) => {
-                  cb(response.error, response.result.substr(1))
+                  cb(response.error, response.result.slice(1))
               })
               return
           }
           let wif = Users.findOne({ username: Session.get('activeUsernameBlurt'), network: 'blurt' }).privatekey
-          let decoded = hive.memo.decode(wif, memo).substr(1)
+          let decoded = hive.memo.decode(wif, memo).slice(1)
           cb(null, decoded)
       }
     }

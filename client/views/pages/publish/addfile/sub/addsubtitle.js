@@ -47,7 +47,7 @@ Template.addsubtitle.events({
         var reader = new FileReader();
         reader.onload = function(){
           console.log(reader.result);
-          if (reader.result.substr(0,6) != 'WEBVTT')
+          if (reader.result.slice(0,6) != 'WEBVTT')
             $('#subtitleText')[0].innerHTML = srt2webvtt(reader.result)
           else
           $('#subtitleText')[0].innerHTML = reader.result
