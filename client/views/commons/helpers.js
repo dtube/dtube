@@ -581,11 +581,12 @@ Template.registerHelper('isPlural', function(array) {
 // returns 1 if video is negative (vp upvotes < vp downvotes)
 // returns 2 if video has the nsfw tag
 Template.registerHelper('censorshipLevel', function(video) {
+    let nsfwTags = ['nsfw', 'porn']
     if (!video || !video.json)
         return -1
-    if (video.json && (video.json.nsfw || video.json.tag == 'nsfw'))
+    if (video.json && (video.json.nsfw || nsfwTags.includes(video.json.tag.toLowerCase())))
         return 2
-    if (video.tags && video.tags.length > 0 && (video.tags[0] == 'nsfw' || (video.tags[0].t && video.tags[0].t == 'nsfw')))
+    if (video.tags && video.tags.length > 0 && (nsfwTags.includes(video.tags[0].toLowerCase()) || (video.tags[0].t && nsfwTags.includes(video.tags[0].t.toLowerCase()))))
         return 2
     if (video.downs > video.ups) {
         return 1
