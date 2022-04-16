@@ -586,7 +586,7 @@ Template.registerHelper('censorshipLevel', function(video) {
         return -1
     if (video.json && (video.json.nsfw || nsfwTags.includes(video.json.tag.toLowerCase())))
         return 2
-    if (video.tags && video.tags.length > 0 && (nsfwTags.includes(video.tags[0].toLowerCase()) || (video.tags[0].t && nsfwTags.includes(video.tags[0].t.toLowerCase()))))
+    if (video.tags && video.tags.length > 0 && ((video.tags[0].t && nsfwTags.includes(video.tags[0].t.toLowerCase())) || (video.tags[0] && nsfwTags.includes(video.tags[0].toLowerCase())))
         return 2
     if (video.downs > video.ups) {
         return 1
