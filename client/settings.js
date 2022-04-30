@@ -19,11 +19,10 @@ Meteor.settings.public = {
     ],
     "AvalonAPINodes": [
       "https://avalon.d.tube",
-      "https://avalon.oneloved.tube",
+      "https://api.avalonblocks.com",
       "https://avalon.tibfox.com",
       "https://dtube.fso.ovh",
       "https://dtube.club/mainnetapi",
-      "https://testnet-api.oneloved.tube", // TESTNET
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
