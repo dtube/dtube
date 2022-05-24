@@ -1,6 +1,6 @@
 <template name="swaperc20">
     <!-- Swap ERC-20 Modal -->
-    <div class="ui small modal swaperc20 {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top: 50%; left:50%; transform: translate(-50%, -50%)">
+    <div class="ui small modal swaperc20 {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top: 50%; left:50%; transform: translate(-50%, -50%); margin-top: 30px;">
         <div class="header">
             <div id="swapInverse" class="ui right labeled icon button blue dtube" style="float:right; margin-top:-0.45em">
                 <div style="display:inline-block;padding: 0.8em 1em;">
@@ -16,7 +16,7 @@
             {{/if}}
             DTUBE ({{metamaskNetwork}})
         </div>
-        <div class="content">
+        <div class="scrolling content">
             <p>{{ translate 'ERC20_SWAP_TEXT' metamaskNetworkName }}</p>
             <form class="ui large form wid-ful">
                 {{#if metamaskSwapInverse}}

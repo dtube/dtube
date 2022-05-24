@@ -51,6 +51,7 @@ Template.channeldesktopcover.events({
       $('.swaperc20').show()
       Template.settingsdropdown.nightMode()
       metamask.loadGasPrice()
+      setTimeout(() => $('.swaperc20').modal('refresh'),500)
     } else
       toastr.error('Unsupported network selected',translate('ERROR_TITLE'))
   }
