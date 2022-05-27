@@ -584,9 +584,9 @@ Template.registerHelper('censorshipLevel', function(video) {
     let nsfwTags = ['nsfw', 'porn']
     if (!video || !video.json)
         return -1
-    if (video.json && (video.json.nsfw || nsfwTags.includes(video.json.tag.toLowerCase())))
+    if (video.json && (video.json.nsfw || (typeof video.json.tag === 'string' && nsfwTags.includes(video.json.tag.toLowerCase()))))
         return 2
-    if (video.tags && video.tags.length > 0 && ((video.tags[0].t && nsfwTags.includes(video.tags[0].t.toLowerCase())) || (video.tags[0] && nsfwTags.includes(video.tags[0].toLowerCase()))))
+    if (video.tags && video.tags.length > 0 && ((video.tags[0].t && nsfwTags.includes(video.tags[0].t.toLowerCase())) || (typeof video.tags[0] === 'string' && video.tags[0] && nsfwTags.includes(video.tags[0].toLowerCase()))))
         return 2
     if (video.downs > video.ups) {
         return 1
