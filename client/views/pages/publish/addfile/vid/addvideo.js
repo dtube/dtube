@@ -88,7 +88,7 @@ Template.addvideoformfile.inputVideo = function(dt) {
           return
         } else {
           console.log('Uploaded video', result);
-          if (result.skylink && Session.get('uploadEndpoint') === 'uploader.oneloved.tube')
+          if (result.skylink && Session.get('uploadEndpoint') === 'uploader.oneloveipfs.com')
               Template.addvideo.addFiles('sia',{ vid: { src: result.skylink }})
         }
       })
@@ -96,7 +96,7 @@ Template.addvideoformfile.inputVideo = function(dt) {
 }
 
 Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
-    if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') return cb()
+    if (Session.get('uploadEndpoint') === 'uploader.oneloveipfs.com') return cb()
     if (Session.get('remoteSettings').localhost == true) {cb(); return}
     if (Session.get('upldr')) {cb();return}
     var uploaders = Session.get('remoteSettings').upldr
@@ -152,7 +152,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     let formData = new FormData()
 
-    if (Session.get('uploadEndpoint') !== 'uploader.oneloved.tube')
+    if (Session.get('uploadEndpoint') !== 'uploader.oneloveipfs.com')
       formData.append('files',file)
 
     if ($(progressid).length) {
@@ -166,8 +166,8 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
     }
 
     // Use resumable upload API for OneLoveIPFS service
-    if (Session.get('uploadEndpoint') === 'uploader.oneloved.tube') {
-      let uplStat = socketio.connect('https://uploader.oneloved.tube/uploadStat')
+    if (Session.get('uploadEndpoint') === 'uploader.oneloveipfs.com') {
+      let uplStat = socketio.connect('https://uploader.oneloveipfs.com/uploadStat')
       uplStat.on('result',(result) => {
         Session.set('addVideoStep', 'addvideoformfileuploaded')
         setTimeout(() => {
@@ -181,11 +181,11 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       })
 
       let tusVideoUpload = new tus.Upload(file,{
-        endpoint: 'https://tusd.oneloved.tube/files',
+        endpoint: 'https://tusd.oneloveipfs.com/files',
         retryDelays: [0,3000,5000,10000,20000],
         parallelUploads: 10,
         metadata: {
-          access_token: Session.get('Upload token for uploader.oneloved.tube'),
+          access_token: Session.get('Upload token for uploader.oneloveipfs.com'),
           keychain: true,
           type: 'videos'
         },
@@ -201,7 +201,7 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
           uplStat.emit('registerid',{
             id: idurl[idurl.length - 1],
             type: 'videos',
-            access_token: Session.get('Upload token for uploader.oneloved.tube'),
+            access_token: Session.get('Upload token for uploader.oneloveipfs.com'),
             keychain: 'true'
           })
         }
@@ -449,8 +449,8 @@ Template.addvideoformfile.rendered = function() {
         action: 'activate',
         onChange: (value,text) => {
           $('#uploadEndpointSelection').parent().children('.icon').removeClass('check').addClass('dropdown')
-          // If uploader.oneloved.tube endpoint selected, check if user is in uploader whitelist
-          if (value === 'uploader.oneloved.tube') {
+          // If uploader.oneloveipfs.com endpoint selected, check if user is in uploader whitelist
+          if (value === 'uploader.oneloveipfs.com') {
             if (!Session.get('activeUsernameHive') && !Session.get('activeUsername')) {
               $('#uploadEndpointSelection').dropdown('restore defaults')
               return toastr.error(translate('UPLOAD_ENDPOINT_ERROR_NO_USERNAME'), translate('ERROR_TITLE'))
