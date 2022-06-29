@@ -34,6 +34,16 @@ Template.video.rendered = function () {
                 position: 'bottom right',
             });
     }, 1000)
+
+    if (typeof showdown === 'undefined')
+        jQuery.ajax({
+            url: 'https://cdn.rawgit.com/showdownjs/showdown/1.9.1/dist/showdown.min.js',
+            dataType: 'script',
+            success: function() {
+                Session.set('mdlibLoaded',true)
+            },
+            async: true
+        })
 }
 
 Template.video.helpers({
@@ -138,6 +148,21 @@ Template.video.helpers({
     },
     commentBurn: function () {
         return Session.get('commentBurn')
+    },
+    markdown: function() {
+        let content = this.json.desc
+        if (typeof showdown === 'undefined' && !Session.get('mdlibLoaded'))
+            return null
+        let converter = new showdown.Converter({
+            tables: true,
+            strikethrough: true,
+            tasklists: true,
+            ghCodeBlocks: true,
+            openLinksInNewWindow: true
+        })
+        let html = converter.makeHtml(content)
+        html = html.replace(/<table>/g, '<table class="ui table">')
+        return html
     }
 })
 

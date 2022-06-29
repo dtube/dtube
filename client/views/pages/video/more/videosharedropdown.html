@@ -30,12 +30,14 @@
           <img src="./DTube_files/images/share/email.png" style="width:30px;">
         </a>
       </div>
+      {{#if and json.title (not (equals json.type 'article'))}}
       <div class="item copyembed">
         <span class="customlink">
           <i class="angle left icon"><i class="angle right icon" style="height:20px"></i></i> {{ translate 'VIDEO_SETTINGS_COPY_EMBED_LINK'}}
         </span>
         <input id="embedlink" type="hidden" placeholder="Embedlink" value="<iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://emb.d.tube/#!//{{jsoun json}}&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen></iframe>" readonly>
       </div>
+      {{/if}}
       <div class="item copylink">
         <span class="customlink">
           <i class="share icon"></i> {{ translate 'VIDEO_SETTINGS_COPY_PERMA_LINK'}}

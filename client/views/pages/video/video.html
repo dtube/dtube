@@ -3,14 +3,20 @@
   <div class="ui videocontainer stackable two column grid computergrid">
     <!-- Player on page -->
     <div class="videocol eleven wide column" style="padding:0px!important;z-index: 999;">
+      {{#if equals json.type 'article'}}
+      <h1 style="margin-block-end: 0.2em;">{{json.title}}</h1>
+      <h4 style="margin-block-start: 0em;">by <a href="/c/{{video.author}}">{{video.author}}</a> • {{timeDisplay ts}}</h4>
+      {{{markdown}}}
+      {{else}}
       {{#if json.title}}
       {{> player}}
+      {{/if}}
       {{/if}}
       <div class="ui segments" style="display:flow-root;padding: 0px;margin: 0px;">
         <!-- Title, Vote - Share - More  -->
         <div class="ui segment {{#if isNightMode}}nightmode{{/if}}" style="padding-right: 0px !important;padding-bottom: 0px !important;">
           <div class="ui info" style="display: inline-grid;width: 100%;">
-            {{#if json.title}}
+            {{#if and json.title (not (equals json.type 'article'))}}
             <div class="videotitlecontainer">
               <h1 class="videotitle">{{json.title}}</h1>
             </div>
@@ -130,6 +136,7 @@
         </div>
 
         <!-- Syntaxed video description - Show More -->
+        {{#if not (equals json.type 'article')}}
         <div id="descriptionsegment" class="ui segment closed descriptionsegment wid-ful {{#if isNightMode}}nightmode{{/if}}"
           style="display:grid;overflow: hidden;">
           <div class='allNetworks'>
@@ -170,6 +177,7 @@
             <i class="ui icon angle up"></i>
           </div>
         </div>
+        {{/if}}
         {{/if}}
 
         <!-- Related Videos Mobile -->
