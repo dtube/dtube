@@ -2,6 +2,14 @@ Template.election.rendered = () => {
     setTimeout(() => {
         Template.settingsdropdown.nightMode()
     },200)
+    $('.ui.checkbox').checkbox({
+        onChecked: () => $('.hidedisabledleaders').prop('checked') ? Session.set('hideDisabledLeaders',true) : null,
+        onUnchecked: () => !$('.hidedisabledleaders').prop('checked') ? Session.set('hideDisabledLeaders',false): null
+    })
+    avalon.getBlockchainHeight((e,height) => {
+        if (!e)
+            Session.set('avalonLastBlock',height.count)
+    })
 }
 
 Template.election.helpers({
@@ -30,6 +38,24 @@ Template.election.helpers({
                     approves.splice(approves.indexOf(leaders[i].name), 1)
         
         return approves
+    },
+    isInSchedule: (leaderIndex) => {
+        let leaders = Session.get('leaders')
+        let maxIndex = -1
+        let maxLeaders = 15
+        while (maxLeaders > 0 && maxIndex < leaders.length - 1) {
+            maxIndex++
+            if (leaders[maxIndex].pub_leader)
+                maxLeaders--
+        }
+        return leaderIndex <= maxIndex && leaders[leaderIndex].pub_leader
+    },
+    isActive: (leaderIndex) => {
+        let leaders = Session.get('leaders')
+        return leaders[leaderIndex].pub_leader && leaders[leaderIndex].leaderStat && leaders[leaderIndex].leaderStat.last > Session.get('avalonLastBlock') - 28800
+    },
+    isDisabledShown: () => {
+        return !Session.get('hideDisabledLeaders')
     }
 })
 

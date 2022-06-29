@@ -8,6 +8,10 @@
             {{>badgehelp 'leaders'}}
         </h2>
         <p>{{translate 'ELECTION_PARAGRAPH'}}</p>
+        <div class="ui toggle checkbox" style="margin-bottom: 1em;">
+            <input type="checkbox" tabindex="0" class="hidden hidedisabledleaders">
+            <label>{{translate 'ELECTION_HIDE_DISABLED'}}</label>
+        </div>
         <table class="ui basic compact table">
             <thead>
                 <tr>
@@ -17,10 +21,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each leaders}}
-                    <tr class="{{#if lowerThan 16 position}}topleader {{#if isNightMode}}nightmodetopleader{{/if}}{{else}}nontopleader {{#if isNightMode}}nightmodeleader{{/if}}{{/if}}">
+                {{#each leaders}}{{#if or pub_leader isDisabledShown}}
+                    <tr class="{{#if isInSchedule @index}}topleader {{#if isNightMode}}nightmodetopleader{{/if}}{{else}}nontopleader {{#if isNightMode}}nightmodeleader{{/if}}{{/if}}">
                         <td>
-                            {{#if lowerThan 16 position}}
+                            {{#if isInSchedule @index}}
                                 <strong>{{position}}</strong>
                             {{else}}
                                 {{position}}
@@ -56,9 +60,17 @@
                                     </div>
                                 </div>
                             {{else}}
-                                <div class="ui blue dtube button vote votetop" data-username="{{name}}" tabindex="0">
+                                <div class="ui blue dtube button vote votetop {{#if or (not pub_leader) (and (isInSchedule @index) (not (isActive @index)))}}disabled{{/if}}" data-username="{{name}}" tabindex="0" data-content="Vote">
                                     <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{#if not pub_leader}}
+                                        {{ translate 'GLOBAL_DISABLED' }}
+                                        {{else}}
+                                        {{#if and (isInSchedule @index) (not (isActive @index))}}
+                                        {{ translate 'GLOBAL_STALE' }}
+                                        {{else}}
                                         {{ translate 'ELECTION_VOTE'}}
+                                        {{/if}}
+                                        {{/if}}
                                     </div>
                                     <div class="ui label btnlabel">
                                         {{displayPayout node_appr 0}}
@@ -67,7 +79,7 @@
                             {{/if}}
                         </td>
                     </tr>
-                {{/each}}
+                {{/if}}{{/each}}
                 {{#each myOtherVotes}}
                     <tr>
                         <td></td>
