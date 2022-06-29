@@ -162,6 +162,7 @@ Template.video.helpers({
         })
         let html = converter.makeHtml(content)
         html = html.replace(/<table>/g, '<table class="ui table">')
+        html = html.replace(/<img/g, '<img style="width: 100%;"')
         return html
     }
 })
