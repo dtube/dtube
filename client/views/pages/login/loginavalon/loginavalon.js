@@ -79,7 +79,7 @@ Template.loginavalon.helpers({
         let isSecurityKey = false
         var allowedTxTypes = []
         if (chainuser.pub == user.publickey) {
-          allowedTxTypes = Array.from(Array(20).keys())
+          allowedTxTypes = Array.from(Array(40).keys())
           isSecurityKey = true
         }
         for (let i = 0; i < chainuser.keys.length; i++)

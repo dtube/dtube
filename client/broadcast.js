@@ -147,6 +147,7 @@ broadcast = {
                 }
             }
 
+            // TODO: Delete this snippet after HF6 activation
             if (networks.includes('dtc') && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
                 let avalonref = refs[networks.indexOf('dtc')].split('/')
                 getops.dtc = (callback) => {
@@ -238,6 +239,15 @@ broadcast = {
                         broadcast.avalon.comment(originalposts.dtc.link, originalposts.dtc.pa, originalposts.dtc.pp, jsonAvalon, '', true, callback)
                     })
                 }
+
+                // TODO: Replace with this snippet after HF6 activation
+                /*
+                if (networks.includes('dtc') && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
+                    broadcastops.push((callback) => {
+                        broadcast.avalon.commentEdit(refs[networks.indexOf('dtc')].split('/')[2], jsonAvalon, callback)
+                    })
+                }
+                */
 
                 parallel(broadcastops, (errors, results) => {
                     if (errors) return cb('Error tx broadcast')
@@ -633,6 +643,34 @@ broadcast = {
                 Users.refreshUsers([Session.get('activeUsername')])
             })
             return;
+        },
+        commentEdit: (permlink, json, cb, newWif) => {
+            if (!permlink || !json)
+                return cb({ error: 'missing permlink or json' })
+            if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            if (!newWif && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(28) == -1)
+                return missingPermission.handler('COMMENT_EDIT',
+                    (newWif)=>broadcast.avalon.commentEdit(permlink,json,cb,newWif),
+                    ()=>cb('missing required permission COMMENT_EDIT'))
+            let sender = activeuser.username
+            if (!sender) return
+            let wif = activeuser.privatekey
+            if (newWif) wif = newWif
+            let tx = {
+                type: 28,
+                data: {
+                    link: permlink,
+                    json: json
+                }
+            }
+            tx = avalon.sign(wif, sender, tx)
+            avalon.sendTransaction(tx, (err, res) => {
+                if (!err)
+                    res = tx.sender + '/' + tx.data.link
+                cb(err, res)
+                Users.refreshUsers([Session.get('activeUsername')])
+            })
         },
         promotedComment: function(permlink, parentAuthor, parentPermlink, jsonMetadata, tag, burn, cb, newWif, publishVP) {
             if (!permlink) {
