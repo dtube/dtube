@@ -4,19 +4,19 @@
             <h1>{{translate 'CHANNEL_REWARDS_TITLE'}}</h1>
             <p>{{translate 'CHANNEL_REWARDS_PARAGRAPH'}}</p>
             <div class="ui four column centered grid">
-                <div class="column">
+                <div class="{{#if isOnMobile}}row{{else}}column{{/if}}">
                     <button class="ui button btn reward" name="pending">
                         Pending: {{displayMoney myPendingRewards 0 'DTC'}}</button>
                 </div>
-                <div class="left floated left aligned column">
+                <div class="{{#if isOnMobile}}row{{else}}left floated left aligned column{{/if}}">
                     <button class="ui button btn reward" name="claimable">
                         Claimable: {{displayMoney myClaimableRewards 0 'DTC'}}</button>
                 </div>
-                <div class="right floated right aligned column">
+                <div class="{{#if isOnMobile}}row{{else}}right floated right aligned column{{/if}}">
                     <button class="ui button btn reward" name="claimed">
                         Claimed: {{displayMoney myClaimedRewards 0 'DTC'}}</button>
                 </div>
-                <div class="right aligned right floated column">
+                <div class="{{#if isOnMobile}}row{{else}}right aligned right floated column{{/if}}">
                     <button class="ui button btn reward" name="total">
                         Total: {{displayMoney myTotalRewards 0 'DTC'}}</button>
                 </div>

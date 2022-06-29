@@ -5,10 +5,10 @@
     <div class="channelmenu parent">
       <div class="ui top attached tabular menu channelmenu mobile" style="margin-top: 0rem;">
         <a class="item videos active" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
-        <a class="item about" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+        <a class="item about" data-tab="second">{{ translate 'CHANNEL_ABOUT'}}</a>
         {{#if equals author.name activeUsername}}
-        <a class="item keys" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
-        <a class="item rewards" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
+        <a class="item keys" data-tab="third">{{ translate 'CHANNEL_KEYS'}}</a>
+        <a class="item rewards" data-tab="fourth">{{ translate 'CHANNEL_REWARDS'}}</a>
         {{/if}}
       </div>
     </div>
@@ -22,20 +22,20 @@
       <div class="ui large centered inline text loader"></div>
     </div>
     {{#if equals author.name activeUsername}}
-    <div class="ui bottom attached tab segment keys" data-tab="fourth"
+    <div class="ui bottom attached tab segment keys" data-tab="third"
       style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'keys'}}
       {{> channelkeys}}
       {{/if}}
     </div>
-    <div class="ui bottom attached tab segment rewards" data-tab="fifth"
+    <div class="ui bottom attached tab segment rewards" data-tab="fourth"
       style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'rewards'}}
       {{> channelrewards}}
       {{/if}}
     </div>
     {{/if}}
-    <div class="ui bottom attached tab segment about" data-tab="third"
+    <div class="ui bottom attached tab segment about" data-tab="second"
       style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
       {{#if equals currentTab 'about'}}
       {{> channelabout}}
@@ -49,10 +49,10 @@
       <div class="ui top attached tabular menu" style="margin-top: 0rem;display:inline-block;">
         <a class="item videos active" style="display:inline-block;" data-tab="first">{{ translate 'CHANNEL_VIDEOS'}}</a>
         {{#if equals author.name activeUsername}}
-        <a class="item keys" style="display:inline-block;" data-tab="fourth">{{ translate 'CHANNEL_KEYS'}}</a>
-        <a class="item rewards" style="display:inline-block;" data-tab="fifth">{{ translate 'CHANNEL_REWARDS'}}</a>
+        <a class="item keys" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_KEYS'}}</a>
+        <a class="item rewards" style="display:inline-block;" data-tab="fourth">{{ translate 'CHANNEL_REWARDS'}}</a>
         {{/if}}
-        <a class="item about" style="display:inline-block;" data-tab="third">{{ translate 'CHANNEL_ABOUT'}}</a>
+        <a class="item about" style="display:inline-block;" data-tab="second">{{ translate 'CHANNEL_ABOUT'}}</a>
       </div>
       <div class="ui bottom attached tab segment videos active" data-tab="first"
         style="margin:auto;padding-left: 1px;padding-right:1px;border-width: 0px;background: transparent;">
@@ -66,20 +66,20 @@
         </div>
       </div>
       {{#if equals author.name activeUsername}}
-      <div class="ui bottom attached tab segment keys" data-tab="fourth"
+      <div class="ui bottom attached tab segment keys" data-tab="third"
         style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'keys'}}
         {{> channelkeys}}
         {{/if}}
       </div>
-      <div class="ui bottom attached tab segment rewards" data-tab="fifth"
+      <div class="ui bottom attached tab segment rewards" data-tab="fourth"
         style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'rewards'}}
         {{> channelrewards}}
         {{/if}}
       </div>
       {{/if}}
-      <div class="ui bottom attached tab segment about" data-tab="third"
+      <div class="ui bottom attached tab segment about" data-tab="second"
         style="padding-left:10px;padding-right:10px;border-width: 0px;background: transparent;">
         {{#if equals currentTab 'about'}}
         {{> channelabout}}
