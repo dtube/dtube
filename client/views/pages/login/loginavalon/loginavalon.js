@@ -91,6 +91,7 @@ Template.loginavalon.helpers({
           user.username = username
           user._id = user.network+'/'+user.username
           user.allowedTxTypes = allowedTxTypes
+          user.isMasterKey = isSecurityKey
           if (event.target.rememberme.checked === false)
             user.temporary = true
 
