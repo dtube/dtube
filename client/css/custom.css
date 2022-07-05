@@ -336,3 +336,36 @@ textarea.nightmode,
   background: unset!important;
   color: #ffffff!important;
 }
+
+/* To center leaders column in leader table for mobile */
+@media only screen and (max-width: 429px){
+  .ui,table,thead,tr td.align-center-mobile {
+    text-align: center;
+  }
+  .ui,table,tbody,tr th.align-center-mobile {
+    text-align: center;
+  }
+
+  .ui,table,thead,tr td.right.aligned.align-center-mobile-votes {
+    text-align: center;
+    padding-bottom: 12px;
+  }
+  .ui,table,tbody,tr th.right.aligned.align-center-mobile-votes {
+    text-align: center;
+    padding-bottom: 12px;
+  }
+  .ui.table, thead,tr.topleader {
+    padding-bottom: 12px;
+  }
+  .ui.table, tbody,tr.topleader {
+    padding-bottom: 12px;
+  }
+
+  .ui.table, tbody,tr td .ui.image.header.content.sub-header {
+    overflow-wrap: anywhere;
+  }
+
+  .ui.table, thead,tr td .ui.image.header.content.sub-header {
+    overflow-wrap: anywhere;
+  }
+}

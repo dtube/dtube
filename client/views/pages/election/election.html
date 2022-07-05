@@ -12,12 +12,12 @@
             <input type="checkbox" tabindex="0" class="hidden hidedisabledleaders">
             <label>{{translate 'ELECTION_HIDE_DISABLED'}}</label>
         </div>
-        <table class="ui basic compact table">
+        <table class="ui basic compact table align-center-mobile">
             <thead>
                 <tr>
                     <th class='collapsing'>#</th>
                     <th>{{translate 'ELECTION_USERNAME'}}</th>
-                    <th class='right aligned' style="min-width: 150px;">{{translate 'ELECTION_TOTAL_VOTES'}}</th>
+                    <th class='right aligned align-center-mobile-votes' style="min-width: 150px;">{{translate 'ELECTION_TOTAL_VOTES'}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class='right aligned'>
+                        <td class='right aligned align-center-mobile-votes'>
                             {{#if isVotingFor name}}
                                 <div class="ui red dtube button vote unvotetop" data-username="{{name}}" tabindex="0">
                                     <div style="display:inline-block;padding: 0.8em 1em;">
