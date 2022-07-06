@@ -81,6 +81,7 @@
 
 .crd-spa-lab.nightmode {
   color: aliceblue;
+  background: unset!important;
 }
 
 .ui.card.card-notification{
