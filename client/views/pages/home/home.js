@@ -6,6 +6,10 @@ Template.home.helpers({
     if (!Session.get('watchAgainLoaded')) return []
     return WatchAgain.find({}, {limit: sliderMaxSize, sort: {last_viewed: -1}}).fetch()
   },
+  genres: function () {
+    CarouselVideoSliderType = "genres"
+    return Videos.getGenres()
+  },
   newVideos: function () {
     return Videos.find({ source: 'chainByCreated', "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
   },

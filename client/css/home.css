@@ -215,6 +215,13 @@
   margin-bottom: 5px;
 }
 
+.genresnapsnap {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  margin: 10px;
+}
+
 .verticalvideosnapsnap {
   position: relative;
   height:90px;
