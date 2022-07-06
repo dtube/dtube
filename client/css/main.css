@@ -85,11 +85,15 @@ body.nightmode .pusher .ui.divider.noborder {
 
 #textlogo {
     padding: 0 !important;
-    margin: 0 22px 0 10px !important;
+    margin: 0 18px 0 10px !important;
 }
 
 #textlogo:hover {
     background-color: transparent;
+}
+
+#coinprice {
+    font-size: 18px;
 }
 
 .sidebartoggleicon {

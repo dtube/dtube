@@ -363,6 +363,22 @@ FlowRouter.route('/farm', {
     }
 })
 
+FlowRouter.route('/coin', {
+    name: "coin",
+    action: function(params, queryParams) {
+        BlazeLayout.render('masterLayout', {
+          main: "coin",
+          nav: "nav"
+        })
+        Session.set("pageTitle", 'DTube Coin')
+        Session.set("currentMenu", 0)
+        Session.set('currentNonLoginPath', FlowRouter._current.path)
+        javalon.getSupply(function(err, res) {
+            Session.set('coinSupply', res.total)
+        })
+    }
+})
+
 FlowRouter.notFound = {
     action: function() {
         BlazeLayout.render('masterLayout', {

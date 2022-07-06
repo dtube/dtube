@@ -110,6 +110,12 @@ Meteor.startup(function(){
     Session.set('buildVersion', sources[0].split('/')[sources[0].split('/').length-1].slice(0, 8))
   else Session.set('buildVersion', 'dev')
 
+  // get DTUBE price from coingecko
+  let url = "https://api.coingecko.com/api/v3/simple/price?ids=dtube-coin&vs_currencies=usd"
+  $.get(url, function( data ) {
+    Session.set('coinPrice', data["dtube-coin"]["usd"])
+  });
+
   // ethereum metamask
   if (window.ethereum)
     Session.set('hasMetamask', true)

@@ -929,3 +929,11 @@ Template.registerHelper('fallbackThumbnailUrl',(url) => {
     splitUrl[0] = Meteor.settings.public.remote.displayNodes[1]
     return splitUrl.join(ipfsOrBtfs)
 })
+
+Template.registerHelper('coinPrice',() => {
+    return Session.get('coinPrice')
+})
+
+Template.registerHelper('coinPriceFormatted',() => {
+    return Math.round(Session.get('coinPrice')*1000)/1000;
+})
