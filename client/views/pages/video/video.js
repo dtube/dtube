@@ -234,6 +234,16 @@ Template.video.events({
         let burn = Session.get('commentBurn')
         if (!burn) burn = 0
 
+        if (Session.get('activeUsername')) {
+            let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
+            let weight = UserSettings.get('voteWeight') * 100
+            let publishVP = Math.floor(avalon.votingPower(activeuser) * weight / 10000)
+            if (publishVP == 0) {
+                toastr.error(translate('UPLOAD_NOT_ENOUGH_VP'), translate('ERROR_TITLE'))
+                return
+            }
+        }
+
         if (refs.length > 1) {
             let parentAuthor, parentPermlink, paSteem, ppSteem, paHive, ppHive, paBlurt, ppBlurt
             for (let i = 0; i < refs.length; i++) {

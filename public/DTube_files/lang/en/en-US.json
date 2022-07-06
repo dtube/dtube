@@ -347,6 +347,7 @@
     "UPLOAD_MAGNET_PLACEHOLDER": "magnet:? link",
     "UPLOAD_SPRITE": "Sprite",
     "UPLOAD_VP": "Voting Power",
+    "UPLOAD_NOT_ENOUGH_VP": "You need at least 1 Voting Power (VP) to publish a video.",
     "UPLOAD_PROMOTE_VIDEO": "Promote this video",
     "USERS_USE": "Use",
     "USERS_CHANNEL": "Channel",

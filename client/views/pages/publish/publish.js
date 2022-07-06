@@ -112,6 +112,10 @@ Template.publish.events({
             toastr.error(translate('UPLOAD_ERROR_TITLE_TOO_LONG'), translate('ERROR_TITLE'))
             return
         }
+        if (Session.get('publishVP') == 0) {
+            toastr.error(translate('UPLOAD_NOT_ENOUGH_VP'), translate('ERROR_TITLE'))
+            return
+        }
         if (!json.tag || json.tag.indexOf(' ') > -1 || json.tag.indexOf(',') > -1) {
             toastr.error('Only a single tag is allowed', translate('ERROR_TITLE'))
             return
