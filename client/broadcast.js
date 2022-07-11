@@ -147,14 +147,6 @@ broadcast = {
                 }
             }
 
-            // TODO: Delete this snippet after HF6 activation
-            if (networks.includes('dtc') && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
-                let avalonref = refs[networks.indexOf('dtc')].split('/')
-                getops.dtc = (callback) => {
-                    avalon.getContent(avalonref[1], avalonref[2], callback)
-                }
-            }
-
             if (networks.includes('hive') && Session.get('activeUsernameHive') && !Session.get('isHiveDisabled')) {
                 let hiveref = refs[networks.indexOf('hive')].split('/')
                 getops.hive = (callback) => {
@@ -234,20 +226,11 @@ broadcast = {
                   })
                 }
 
-                if (originalposts.dtc) {
-                    broadcastops.push((callback) => {
-                        broadcast.avalon.comment(originalposts.dtc.link, originalposts.dtc.pa, originalposts.dtc.pp, jsonAvalon, '', true, callback)
-                    })
-                }
-
-                // TODO: Replace with this snippet after HF6 activation
-                /*
                 if (networks.includes('dtc') && Session.get('activeUsername') && !Session.get('isDTCDisabled')) {
                     broadcastops.push((callback) => {
                         broadcast.avalon.commentEdit(refs[networks.indexOf('dtc')].split('/')[2], jsonAvalon, callback)
                     })
                 }
-                */
 
                 parallel(broadcastops, (errors, results) => {
                     if (errors) return cb('Error tx broadcast')
