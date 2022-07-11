@@ -13,7 +13,7 @@ Template.video.rendered = function () {
         Template.video.setScreenMode()
         $('.ui.newtag').dropdown({})
         $('#comment-range').on('input', function () {
-            let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            let balance = avalon.availableBalance(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
             Session.set('commentBurn', Template.publish.logSlider(this.value,balance))
         })
 

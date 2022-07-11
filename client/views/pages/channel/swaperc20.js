@@ -1,6 +1,6 @@
 Template.swaperc20.helpers({
     balanceAvalon: function() {
-        return Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+        return avalon.availableBalance(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
     },
     balanceErc20: function() {
         return Session.get('metamaskBalance')
@@ -52,7 +52,7 @@ Template.swaperc20.helpers({
         if (!Session.get('swapFee')) return false
         if (!Session.get('metamaskNetwork') || !metamask.networks[parseInt(window.ethereum.chainId)]) return false
 
-        var balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+        var balance = avalon.availableBalance(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
         if (Session.get('metamaskSwapInverse'))
             balance = Session.get('metamaskBalance')
         var amount = Session.get('swapAmount')

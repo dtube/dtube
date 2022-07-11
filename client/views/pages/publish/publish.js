@@ -6,7 +6,7 @@ Template.publish.rendered = function() {
         Template.settingsdropdown.nightMode()
         let publishBurnSlider = document.getElementById("dtc-range");
         publishBurnSlider.oninput = function () {
-            let balance = Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }).balance
+            let balance = avalon.availableBalance(Users.findOne({ username: Session.get('activeUsername'), network: 'avalon' }))
             Session.set('publishBurn', Template.publish.logSlider(this.value, balance))
         }
 
