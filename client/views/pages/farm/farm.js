@@ -16,10 +16,10 @@ Template.farm.helpers({
         return Session.get('metamaskLpBalance')
     },
     lpFarming: function() {
-        return Session.get('metamaskLpFarming')
+        return Session.get('metamaskLpFarming') || 0
     },
     pendingReward: function() {
-        return Session.get('metamaskFarmReward')
+        return Session.get('metamaskFarmReward') || 0
     },
     totalValueLocked: function() {
         let price = 0
@@ -34,6 +34,8 @@ Template.farm.helpers({
         }
     },
     apy: () => {
+      if (!window.metamask.activeFarm())
+        return 0
       const liquidities = Session.get('metamaskUniswapLiquidities').dtc * 2
       const oneYearReward = metamask.farmRewardPerBlock() * 28800 * 365
       const apr = oneYearReward / liquidities
@@ -42,6 +44,8 @@ Template.farm.helpers({
       return (100*apy).toFixed(1)
     },
     aprd: () => {
+      if (!window.metamask.activeFarm())
+        return 0
       const liquidities = Session.get('metamaskUniswapLiquidities').dtc * 2
       const oneYearReward = metamask.farmRewardPerBlock() * 28800 * 365
       const apr = oneYearReward / liquidities
@@ -51,8 +55,15 @@ Template.farm.helpers({
     allowance: function() {
         return Session.get('metamaskFarmAllowance')
     },
+    isFarmActive: () => {
+      return window.metamask.activeFarm()
+    },
     legacyFarmBalance: function() {
-      return Session.get('metamaskLpFarmingLegacy') / Math.pow(10,18)
+      let legacyFarmBals = Session.get('metamaskLpFarmingLegacy')
+      let result = 0
+      for (let i in legacyFarmBals)
+        result += legacyFarmBals[i] / Math.pow(10,18)
+      return result
     }
   })
 

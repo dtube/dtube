@@ -101,6 +101,7 @@
     "FARM_ENABLE": "Enable Farm",
     "FARM_GET_DTUBE_BNB_LP": "Get DTC/BNB LP",
     "FARM_HARVEST_REWARD": "Harvest Reward",
+    "FARM_INACTIVE": "There are currently no active farms at the moment. Return here when the next liquidity farm goes live.",
     "FARM_LP_AVAILABLE": "LPs Available",
     "FARM_LP_FARMING": "LPs Farming",
     "FARM_LP_DEPOSIT": "Deposit LP",

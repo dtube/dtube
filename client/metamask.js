@@ -39,8 +39,8 @@ const minErc20ABI = [
 // those are for the farming pool
 const busdAddress = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 const pcsBnbBusd = '0x58f876857a02d6762e0101bb5c46a8c1ed44dc16'
-const legacySmartChefAddress = '0x7de7b570318414526cd3442c8b5a8446b69756d6'
-const smartChefAddress = '0xf4d33503ea1fc1d53f8febc450940cc66504c584'
+const legacySmartChefAddress = ['0x7de7b570318414526cd3442c8b5a8446b69756d6','0xf4d33503ea1fc1d53f8febc450940cc66504c584']
+const smartChefAddress = ''
 const smartChefAbi = [{"inputs":[{"internalType":"contract IBEP20","name":"_syrup","type":"address"},{"internalType":"contract IBEP20","name":"_rewardToken","type":"address"},{"internalType":"uint256","name":"_rewardPerBlock","type":"uint256"},{"internalType":"uint256","name":"_startBlock","type":"uint256"},{"internalType":"uint256","name":"_bonusEndBlock","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"inputs":[],"name":"bonusEndBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"emergencyRewardWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_from","type":"uint256"},{"internalType":"uint256","name":"_to","type":"uint256"}],"name":"getMultiplier","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"massUpdatePools","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_user","type":"address"}],"name":"pendingReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"poolInfo","outputs":[{"internalType":"contract IBEP20","name":"lpToken","type":"address"},{"internalType":"uint256","name":"allocPoint","type":"uint256"},{"internalType":"uint256","name":"lastRewardBlock","type":"uint256"},{"internalType":"uint256","name":"accCakePerShare","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"rewardPerBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rewardToken","outputs":[{"internalType":"contract IBEP20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"startBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"stopReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"syrup","outputs":[{"internalType":"contract IBEP20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_pid","type":"uint256"}],"name":"updatePool","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"userInfo","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"rewardDebt","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 
 window.metamask = {
@@ -118,7 +118,13 @@ window.metamask = {
             Session.set('metamaskLpBalance', res/Math.pow(10,18))
         })
     },
+    activeFarm: () => {
+        return smartChefAddress
+    },
     farmUserInfo: () => {
+        if (!Session.get('metamaskLpFarmingLegacy'))
+            Session.set('metamaskLpFarmingLegacy',Array(legacySmartChefAddress.length).fill(0))
+        if (!smartChefAddress) return
         let walletAddress = Session.get('metamaskAddress')
         let contract = new w3.eth.Contract(smartChefAbi,smartChefAddress);
         contract.methods.userInfo(walletAddress).call().then(function(res) {
@@ -126,6 +132,7 @@ window.metamask = {
         })
     },
     farmPending: () => {
+        if (!smartChefAddress) return
         let walletAddress = Session.get('metamaskAddress')
         let contract = new w3.eth.Contract(smartChefAbi,smartChefAddress);
         contract.methods.pendingReward(walletAddress).call().then(function(res) {
@@ -133,6 +140,7 @@ window.metamask = {
         })
     },
     farmAllowance: () => {
+        if (!smartChefAddress) return
         let walletAddress = Session.get('metamaskAddress')
         let contract = new w3.eth.Contract(minErc20ABI,metamask.lpAddress());
         contract.methods.allowance(walletAddress,smartChefAddress).call().then(function(res) {
@@ -157,9 +165,13 @@ window.metamask = {
     },
     legacyFarmUserInfo: () => {
         let walletAddress = Session.get('metamaskAddress')
-        let contract = new w3.eth.Contract(smartChefAbi,legacySmartChefAddress);
-        contract.methods.userInfo(walletAddress).call().then(function(res) {
-            Session.set('metamaskLpFarmingLegacy', parseInt(res.amount))
+        legacySmartChefAddress.forEach((addr,idx) => {
+            let contract = new w3.eth.Contract(smartChefAbi,addr);
+            contract.methods.userInfo(walletAddress).call().then(function(res) {
+                let legacyFarmBals = Session.get('metamaskLpFarmingLegacy')
+                legacyFarmBals[idx] = parseInt(res.amount)
+                Session.set('metamaskLpFarmingLegacy', legacyFarmBals)
+            })
         })
     },
     loadLiquidities: () => {
@@ -212,16 +224,16 @@ window.metamask = {
             console.log(err)
         })
     },
-    withdrawLPLegacy: () => {
+    withdrawLPLegacy: async () => {
         // withdraw all tokens from legacy farm
-        let contract = new w3.eth.Contract(smartChefAbi,legacySmartChefAddress)
-        contract.methods.withdraw(parseInt(Session.get('metamaskLpFarmingLegacy'))).send({
-            from: Session.get('metamaskAddress')
-        }).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+        let legacyFarmBals = Session.get('metamaskLpFarmingLegacy')
+        for (let i in legacyFarmBals)
+            if (legacyFarmBals[i]) {
+                let contract = new w3.eth.Contract(smartChefAbi,legacySmartChefAddress[i])
+                await contract.methods.emergencyWithdraw().send({
+                    from: Session.get('metamaskAddress')
+                })
+            }
     },
     loadDepositAddressBalance: async () => {
         // load available liquidity for deposits
