@@ -36,6 +36,8 @@ Users.refreshUsers = function(usernames, cb) {
       user.vt = chainusers[i].vt
       user.approves = chainusers[i].approves
       user.maxVt = chainusers[i].maxVt
+      user.proposalVotes = chainusers[i].proposalVotes
+      user.voteLock = chainusers[i].voteLock
       Users.update({username: user.username, network: 'avalon'}, user)
 
       if (cb) cb()
