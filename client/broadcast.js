@@ -592,6 +592,8 @@ broadcast = {
                 if (jsonMetadata.videoId)
                     permlink = String(jsonMetadata.videoId)
             }
+            if (permlink.length > 50)
+                permlink = permlink.substr(0,50)
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
             if (!newWif && !activeuser.isMasterKey && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(4) == -1)
@@ -630,6 +632,8 @@ broadcast = {
         commentEdit: (permlink, json, cb, newWif) => {
             if (!permlink || !json)
                 return cb({ error: 'missing permlink or json' })
+            if (permlink.length > 50)
+                permlink = permlink.substr(0,50)
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
             if (!newWif && !activeuser.isMasterKey && activeuser.allowedTxTypes && activeuser.allowedTxTypes.indexOf(28) == -1)
@@ -661,6 +665,8 @@ broadcast = {
                 if (jsonMetadata.videoId)
                     permlink = String(jsonMetadata.videoId)
             }
+            if (permlink.length > 50)
+                permlink = permlink.substr(0,50)
             if (!Session.get('activeUsername') || Session.get('isDTCDisabled')) return
                 // can be cross posted but wont be promoted on steem
             let activeuser = Users.findOne({username: Session.get('activeUsername'), network: 'avalon'})
