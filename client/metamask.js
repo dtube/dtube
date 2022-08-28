@@ -22,6 +22,13 @@ const minErc20ABI = [
     },
     {
         "constant":true,
+        "inputs":[],
+        "name":"totalSupply",
+        "outputs":[{"name":"totalSupply","type":"uint256"}],
+        "type":"function"
+    },
+    {
+        "constant":true,
         "inputs":[{"name":"from","type":"address"},{"name":"to","type":"address"}],
         "name":"allowance",
         "outputs":[{"name":"allowance","type":"uint256"}],
@@ -40,8 +47,47 @@ const minErc20ABI = [
 const busdAddress = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 const pcsBnbBusd = '0x58f876857a02d6762e0101bb5c46a8c1ed44dc16'
 const legacySmartChefAddress = ['0x7de7b570318414526cd3442c8b5a8446b69756d6','0xf4d33503ea1fc1d53f8febc450940cc66504c584']
-const smartChefAddress = ''
-const smartChefAbi = [{"inputs":[{"internalType":"contract IBEP20","name":"_syrup","type":"address"},{"internalType":"contract IBEP20","name":"_rewardToken","type":"address"},{"internalType":"uint256","name":"_rewardPerBlock","type":"uint256"},{"internalType":"uint256","name":"_startBlock","type":"uint256"},{"internalType":"uint256","name":"_bonusEndBlock","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"EmergencyWithdraw","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"inputs":[],"name":"bonusEndBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"deposit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"emergencyRewardWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"emergencyWithdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_from","type":"uint256"},{"internalType":"uint256","name":"_to","type":"uint256"}],"name":"getMultiplier","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"massUpdatePools","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_user","type":"address"}],"name":"pendingReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"poolInfo","outputs":[{"internalType":"contract IBEP20","name":"lpToken","type":"address"},{"internalType":"uint256","name":"allocPoint","type":"uint256"},{"internalType":"uint256","name":"lastRewardBlock","type":"uint256"},{"internalType":"uint256","name":"accCakePerShare","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"rewardPerBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"rewardToken","outputs":[{"internalType":"contract IBEP20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"startBlock","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"stopReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"syrup","outputs":[{"internalType":"contract IBEP20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_pid","type":"uint256"}],"name":"updatePool","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"userInfo","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"rewardDebt","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+const smartChefAddress = '0xae84bc4613b638aa19d10d58180ec730bd8c37af'
+const smartChefAbi = [
+    {
+      "inputs": [{"internalType": "uint256","name": "_amount","type": "uint256"}],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "emergencyWithdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+        "inputs": [{"internalType": "address","name": "_user","type": "address"}],
+        "name": "pendingReward",
+        "outputs": [{"internalType": "uint256","name": "","type": "uint256"}],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{"internalType": "address","name": "","type": "address"}],
+        "name": "userInfo",
+        "outputs": [
+            {"internalType": "uint256","name": "amount","type": "uint256"},
+            {"internalType": "uint256","name": "rewardDebt","type": "uint256"}
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [{"internalType": "uint256","name": "_amount","type": "uint256"}],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
 
 window.metamask = {
     connect: () => {
@@ -92,6 +138,7 @@ window.metamask = {
         metamask.loadDepositAddressBalance()
         metamask.loadGasPrice()
         metamask.loadLiquidities()
+        metamask.bscFarmTvl()
 
         if (Session.get('metamaskNetwork') == 56 || Session.get('metamaskNetwork') == "0x38") {
             metamask.loadBNBLiquidities()
@@ -161,7 +208,7 @@ window.metamask = {
         })
     },
     farmRewardPerBlock: () => {
-        return 0.01
+        return 0.0057
     },
     legacyFarmUserInfo: () => {
         let walletAddress = Session.get('metamaskAddress')
@@ -173,6 +220,20 @@ window.metamask = {
                 Session.set('metamaskLpFarmingLegacy', legacyFarmBals)
             })
         })
+    },
+    bscFarmTvl: () => {
+        // bsc farm tvl
+        if (!smartChefAddress) return
+        let contract = new w3.eth.Contract(minErc20ABI,pancakeswapPairAddress);
+        contract.methods.balanceOf(smartChefAddress).call().then((balance) => {
+            let contract = new w3.eth.Contract(minErc20ABI,pancakeswapPairAddress);
+            contract.methods.totalSupply().call().then((lpsupply) => {
+                Session.set('bscFarmingLiquidities',{
+                    farming: parseInt(balance),
+                    total: parseInt(lpsupply)
+                })
+            });
+        });
     },
     loadLiquidities: () => {
         // this loads the pooled liquidities on uniswap

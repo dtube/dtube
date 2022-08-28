@@ -10,7 +10,15 @@ Template.farm.helpers({
         return price.toFixed(3)
     },
     dtcLiq: function () {
+      if (!Session.get('bscFarmingLiquidities'))
         return Session.get('metamaskUniswapLiquidities')
+      else {
+        let farmingPct = Session.get('bscFarmingLiquidities').farming/Session.get('bscFarmingLiquidities').total
+        return {
+          dtc: Math.round(Session.get('metamaskUniswapLiquidities').dtc * farmingPct * 100) / 100,
+          weth: Session.get('metamaskUniswapLiquidities').weth * farmingPct
+        }
+      }
     },
     lpBalance: function() {
         return Session.get('metamaskLpBalance')
@@ -23,12 +31,15 @@ Template.farm.helpers({
     },
     totalValueLocked: function() {
         let price = 0
+        let farmingPct = 1
+        if (Session.get('bscFarmingLiquidities'))
+          farmingPct = Session.get('bscFarmingLiquidities').farming/Session.get('bscFarmingLiquidities').total
         if (Session.get('metamaskBnbLiquidities') && Session.get('metamaskUniswapLiquidities')) {
             price = Session.get('metamaskUniswapLiquidities').weth
             price /= Session.get('metamaskUniswapLiquidities').dtc
             price *= Session.get('metamaskBnbLiquidities').busd
             price /= Session.get('metamaskBnbLiquidities').bnb
-            return formatter.format((Session.get('metamaskUniswapLiquidities').dtc * 2 * price))
+            return formatter.format((Session.get('metamaskUniswapLiquidities').dtc * 2 * price * farmingPct))
         } else {
           return price
         }
@@ -36,20 +47,30 @@ Template.farm.helpers({
     apy: () => {
       if (!window.metamask.activeFarm())
         return 0
+      let farmingPct = 1
+      if (Session.get('bscFarmingLiquidities'))
+        farmingPct = Session.get('bscFarmingLiquidities').farming/Session.get('bscFarmingLiquidities').total
+      if (farmingPct === 0)
+        farmingPct = 0.000001
       const liquidities = Session.get('metamaskUniswapLiquidities').dtc * 2
       const oneYearReward = metamask.farmRewardPerBlock() * 28800 * 365
       const apr = oneYearReward / liquidities
       const aprd = apr / 365
-      const apy = Math.pow(1+aprd, 365) - 1
+      const apy = (Math.pow(1+aprd, 365) - 1) / farmingPct
       return (100*apy).toFixed(1)
     },
     aprd: () => {
       if (!window.metamask.activeFarm())
         return 0
+      let farmingPct = 1
+      if (Session.get('bscFarmingLiquidities'))
+        farmingPct = Session.get('bscFarmingLiquidities').farming/Session.get('bscFarmingLiquidities').total
+      if (farmingPct === 0)
+        farmingPct = 0.000001
       const liquidities = Session.get('metamaskUniswapLiquidities').dtc * 2
       const oneYearReward = metamask.farmRewardPerBlock() * 28800 * 365
       const apr = oneYearReward / liquidities
-      const aprd = apr / 365
+      const aprd = (apr / 365) / farmingPct
       return (aprd*100).toFixed(4)
     },
     allowance: function() {
