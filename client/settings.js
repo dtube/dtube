@@ -22,22 +22,21 @@ Meteor.settings.public = {
       "https://api.avalonblocks.com",
       "https://avalon.tibfox.com",
       "https://dtube.fso.ovh",
-      "https://dtube.club/mainnetapi",
+      "https://dtube.tekraze.com",
       "http://localhost:3001",
     ],
     "HiveAPINodes": [
       "https://anyx.io",
       "https://techcoderx.com",
-      "https://api.followbtcnews.com",
       "https://hived.privex.io",
-      "https://hived.hive-engine.com",
       "https://api.deathwing.me",
       "https://api.c0ff33a.uk",
       "https://hived.emre.sh",
       "https://rpc.ecency.com",
       "https://rpc.ausbit.dev",
       "https://hive-api.arcange.eu",
-      "https://hive.roelandp.nl"
+      "https://hive.roelandp.nl",
+      "https://api.hive.blue"
     ],
     "BlurtAPINodes": [
       "https://rpc.blurt.world",
