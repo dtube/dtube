@@ -794,7 +794,7 @@ Videos.parseFromSteem = function(video, isComment, network) {
         newVideo = {
             json: JSON.parse(video.json_metadata).video
         }
-        if (newVideo.json && newVideo.json.info && newVideo.json.content)
+        if (newVideo.json && newVideo.json.info && newVideo.json.content && !newVideo.json.files)
             newVideo.json = Videos.convertToNewFormat(newVideo.json, video)
         newVideo.json.app = JSON.parse(video.json_metadata).app
         newVideo.json.tags = JSON.parse(video.json_metadata).tags
