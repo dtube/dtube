@@ -19,7 +19,6 @@ Meteor.settings.public = {
     "AvalonAPINodes": [
       "https://avalon.d.tube",
       "https://api.avalonblocks.com",
-      "https://avalon.sagarkothari88.one",
       "https://dtube.fso.ovh",
       "https://dtube.tekraze.com",
       "http://localhost:3001",
