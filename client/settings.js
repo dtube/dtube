@@ -5,7 +5,6 @@ Meteor.settings.public = {
     "loadLimit": 50,
     "displayNodes": [
       // "https://snap1.d.tube",
-      "https://ipfs.d.tube",
       "https://video.oneloveipfs.com",
       "https://ipfs.io",
       "https://ipfs.infura.io",
@@ -20,7 +19,6 @@ Meteor.settings.public = {
     "AvalonAPINodes": [
       "https://avalon.d.tube",
       "https://api.avalonblocks.com",
-      "https://avalon.sagarkothari88.one",
       "https://dtube.fso.ovh",
       "https://dtube.tekraze.com",
       "http://localhost:3001",
