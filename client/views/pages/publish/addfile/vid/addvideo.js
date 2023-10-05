@@ -183,15 +183,17 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
       let tusVideoUpload = new tus.Upload(file,{
         endpoint: 'https://tusd.oneloveipfs.com/files',
         retryDelays: [0,3000,5000,10000,20000],
-        parallelUploads: 10,
+        parallelUploads: (/iPad|iPhone|iPod/.test(navigator.userAgent || navigator.vendor || window.opera) && !window.MSStream) ? 1 : 10,
+        headers: {
+          'Authorization': 'Bearer '+window.btoa(JSON.stringify({keychain: true})).replace(/={1,2}$/, '')+'.'+Session.get('Upload token for uploader.oneloveipfs.com'),
+        },
         metadata: {
-          access_token: Session.get('Upload token for uploader.oneloveipfs.com'),
-          keychain: true,
-          type: 'videos'
+          type: 'videos',
+          createSprite: 'true'
         },
         onError: (e) => {
           $(progressid).hide()
-          cb(error)
+          cb(e)
         },
         onProgress: (bu,bt) => {
           $(progressid).progress({ value: bu, total: bt})
