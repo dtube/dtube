@@ -11,22 +11,25 @@
     "@trust/webcrypto": "^0.9.0",
     "bufferutil": "^4.0.1",
     "cheerio": "^1.0.0-rc.2",
+    "cross-fetch": "^4.0.0",
     "dtube-autolinker": "1.4.3",
     "file-saver": "^2.0.1",
     "imagesloaded": "^4.1.4",
     "is-ipfs": "^6.0.2",
-    "javalon": "^1.0.36",
+    "javalon2": "^1.0.1",
     "jsoun": "^0.1.4",
     "languages": "^0.1.3",
     "meteor-node-stubs": "^0.2.11",
-    "moment": "^2.18.1",
+    "moment": "^2.30.1",
     "moment-with-locales-es6": "^2.18.1",
+    "node-fetch": "^3.3.2",
     "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
+    "postcss": "^8.4.33",
     "qrcode": "^1.3.3",
     "run-parallel": "^1.1.9",
     "socket.io-client": "^4.4.0",
-    "steem": "^0.7.4",
+    "steem": "^0.7.11",
     "text-encoding": "^0.6.4",
     "tus-js-client": "^3.0.1",
     "url-parse": "^1.4.4",
@@ -34,7 +37,7 @@
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3"
+    "autoprefixer": "^10.4.17"
   },
   "postcss": {
     "plugins": {
