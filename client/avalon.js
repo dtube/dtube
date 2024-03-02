@@ -1,4 +1,4 @@
-const javalon = require('javalon')
+const javalon = require('javalon2')
 
 if (localStorage.getItem('avalonAPI')) {
     javalon.init({api: localStorage.getItem('avalonAPI')})
