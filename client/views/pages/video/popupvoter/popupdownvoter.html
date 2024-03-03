@@ -1,0 +1,16 @@
+<template name="popupdownvoter">
+    <div id="popupupdownvote" class="ui flowing bottom center inverted popup popupdownvotes" >
+        <div class="ui mini middle aligned divided list">
+            {{#each displayVoters votes 1}}
+                <div class="ui item"><a href='/c/{{u}}'>
+                    <div class="content">
+                        <div class="header">
+                            {{u}}
+                            <span style="color:#b5b5b5"> ({{vt}} VP)</span>
+                        </div>
+                    </div>
+                </a></div>
+            {{/each}}
+        </div>
+    </div>
+</template>

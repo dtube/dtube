@@ -1,0 +1,20 @@
+<template name='coin'>
+  <div class="ui container">
+    <div class="ui equal width grid" style="margin:auto;margin-top:10px;margin-bottom:25px">
+      <div class="ten wide column">
+        <h2 class="ui center aligned header">
+          {{translate 'COIN_TITLE'}}
+        </h2>
+        <p>{{translate 'COIN_PARAGRAPH'}}</p>
+        {{>buttonbuycoin}}
+      </div>
+      <div class="six wide column" style="text-align: right;">
+        <h3>DTUBE Price: ${{coinPrice}}</h3>
+        <h3>Total Supply: {{coinSupply}}</h3>
+        <h3>Market Cap: {{coinMarketcap}}</h3>
+      </div>
+    </div>
+    <script src="https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js"></script>
+    <coingecko-coin-price-chart-widget  coin-id="dtube-coin" currency="usd" locale="en"></coingecko-coin-price-chart-widget>
+  </div>
+</template>

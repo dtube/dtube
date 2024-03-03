@@ -1,0 +1,65 @@
+/*
+  DO NOT MODIFY - This file has been generated and will be regenerated
+  Semantic UI v2.3.1
+*/
+/*******************************
+        Import Directives
+*******************************/
+
+/*------------------
+       Theme
+-------------------*/
+
+@theme: @@element;
+
+/*--------------------
+   Site Variables
+---------------------*/
+
+/* Default site.variables */
+@import "@{themesFolder}/default/globals/site.variables.import.less";
+
+/* Packaged site.variables */
+@import "@{themesFolder}/@{site}/globals/site.variables.import.less";
+
+/* Component's site.variables */
+@import (optional) "@{themesFolder}/@{theme}/globals/site.variables.import.less";
+
+/* Site theme site.variables */
+@import (optional) "@{siteFolder}/globals/site.variables.import.less";
+
+
+/*-------------------
+ Component Variables
+---------------------*/
+
+/* Default */
+@import "@{themesFolder}/default/@{type}s/@{element}.variables.import.less";
+
+/* Packaged Theme */
+@import (optional) "@{themesFolder}/@{theme}/@{type}s/@{element}.variables.import.less";
+
+/* Site Theme */
+@import (optional) "@{siteFolder}/@{type}s/@{element}.variables.import.less";
+
+
+/*******************************
+             Mix-ins
+*******************************/
+
+/*------------------
+       Fonts
+-------------------*/
+
+.loadFonts() when (@importGoogleFonts) {
+  @import url('@{googleProtocol}fonts.googleapis.com/css?family=@{googleFontRequest}');
+}
+
+/*------------------
+     Overrides
+-------------------*/
+
+.loadUIOverrides() {
+  @import (optional) "@{themesFolder}/@{theme}/@{type}s/@{element}.overrides.import.less";
+  @import (optional) "@{siteFolder}/@{type}s/@{element}.overrides.import.less";
+}

@@ -1,0 +1,109 @@
+#dropzone
+{
+  font-size: 18px;
+  text-align: center;
+  color: gray;
+  width: 100%;
+  max-width: 360px;
+  height: 280px;
+  border: 7px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+#dropzone:hover
+{
+  border: 7px solid rgb(210, 210, 210);
+}
+
+#dropzone > div
+{
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#dropzone .icon
+{
+  margin: 25px 0 25px 0;
+  color: rgb(220, 220, 220);
+  font-size: 2.9em;
+  height: auto;
+  transition: color 0.2s ease;
+}
+
+#dropzone:hover .icon
+{
+  color: rgb(215, 215, 215);
+}
+
+#dropzone h2
+{
+  margin: 10px 0;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+#dropzone h3
+{
+  margin: 10px 0;
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+#previewzone canvas
+{
+  max-width:100%;
+  max-height: 250px;
+}
+
+#previewzone video
+{
+  max-width:100%;
+  max-height: 250px;
+}
+
+#infozone
+{
+  /* margin-top: 20px; */
+}
+
+#snapFile
+{
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.preview input[type="file"]
+{
+  display: none;
+}
+
+.article.nightmode #videouploadsteps .ui.segment
+{
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.article.nightmode #videouploadsteps .ui.segment a.item,
+.article.nightmode #videouploadsteps .ui.segment label
+{
+  color: rgb(240, 240, 240) !important;
+}
+
+
+
+.ui.message.streamlive-message {
+  width:50%;
+  float:left;
+  background-color:#FFF;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+}

@@ -1,0 +1,41 @@
+<template name='newaccount'>
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <h2 class="ui header">{{translate 'ACCOUNT_CREATOR_TITLE'}}</h2>
+        <p>{{translate 'ACCOUNT_CREATOR_NOTICE1'}}<br><br>{{translate 'ACCOUNT_CREATOR_NOTICE2'}}</p>
+        <form class="ui large form wid-ful ">
+          <div class="ui segments">
+            <div class="ui segment" style="padding: 20px;">
+              <div class="field">
+                <label>{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}</label>
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  <input type="text" name="newacc_username" id="newacc_username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}">
+                </div>
+                <p id="newusernamedet"></p>
+              </div>
+              {{#if generatedKeys}}
+              {{>keypair}}<br>
+              {{else}}
+              <div class="field">
+                <label>{{ translate 'NEWACCOUNT_PUBLICKEY'}}</label>
+                <div class="ui left icon action input">
+                  <i class="lock open icon"></i>
+                  <input type="text" name="newacc_publickey" placeholder="{{ translate 'NEWACCOUNT_PUBLICKEY'}}">
+                  <button data-tooltip="{{translate 'KEYPAIR_GENERATE'}}" id="avalonkeygen" class="ui tiny icon button">
+                    <i class="key icon"></i>
+                  </button>
+                </div>
+              </div>
+              {{/if}}
+              <div id="newaccbutton" class="ui fluid labeled small button" tabindex="0">
+                <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+                  <i class="user plus icon red" style="background:white;opacity:1;"></i>
+                  <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'NEWACCOUNT_NEWACCOUNT'}}</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+</template>
+  

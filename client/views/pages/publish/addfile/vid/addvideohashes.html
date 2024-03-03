@@ -1,0 +1,37 @@
+<template name="addvideohashes">
+    <div class="two fields">
+        <div class="field">
+            <label>* {{ translateHash 'UPLOAD_VIDEOHASH' this}}</label>
+            <input type="text" name="vid.src" placeholder="{{ translateHash 'UPLOAD_VIDEOHASH' this}}" value="{{json.ipfs.videohash}}">
+        </div>
+        <div class="field">
+            <label>{{ translateHash 'UPLOAD_SPRITEHASH' this}}</label>
+            <input type="text" name="img.spr" placeholder="{{ translateHash 'UPLOAD_SPRITEHASH' this}}" value="{{json.ipfs.spritehash}}">
+        </div>
+    </div>
+    <div class="four fields">
+        <div class="field">
+            <label>{{ translateHash 'UPLOAD_VIDEO240HASH' this}}</label>
+            <input type="text" name="vid.240" placeholder="{{ translateHash 'UPLOAD_VIDEO240HASH' this}}" value="{{json.ipfs.video240hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translateHash 'UPLOAD_VIDEO480HASH' this}}</label>
+            <input type="text" name="vid.480" placeholder="{{ translateHash 'UPLOAD_VIDEO480HASH' this}}" value="{{json.ipfs.video480hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translateHash 'UPLOAD_VIDEO720HASH' this}}</label>
+            <input type="text" name="vid.720" placeholder="{{ translateHash 'UPLOAD_VIDEO720HASH' this}}" value="{{json.ipfs.video720hash}}">
+        </div>
+        <div class="field">
+            <label>{{ translateHash 'UPLOAD_VIDEO1080HASH' this}}</label>
+            <input type="text" name="vid.1080" placeholder="{{ translateHash 'UPLOAD_VIDEO1080HASH' this}}" value="{{json.ipfs.video1080hash}}">
+        </div>
+    </div>
+    {{#unless equals this "sia"}}
+        <div class="field">
+            <label>{{ translateHash 'DEFAULT_GATEWAY_OVERWRITE' }}
+            <i class="info circle icon" id="gwoinfo" data-content="{{ translateHash 'DEFAULT_GATEWAY_OVERWRITE_INFO' this}}"></i></label>
+            <input type="text" name="gw" placeholder="{{ translateHash 'DEFAULT_GATEWAY_OVERWRITE' this}}" value="{{ json.ipfs.gateway }}">
+        </div>
+    {{/unless}}
+</template>

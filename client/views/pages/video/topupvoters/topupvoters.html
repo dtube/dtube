@@ -1,0 +1,30 @@
+<template name="topupvoters">
+    {{#each topVoters votes votesSteem votesHive votesBlurt 9}}
+    {{#if equals network 'dtc'}}
+    <a id="top-curator" href="/c/{{u}}"
+        data-tooltip="{{#if vt}}{{u}} ({{displayPayout vt 0}}VP){{else}}{{voter}} ({{displayPayout rshares 0}}RS){{/if}}"
+        data-inverted="" data-position="top center">
+        {{#if downvote}}
+        <span class="ui image avatar circular "
+            style="background-color: #f3f3f3;border: 1px solid red; z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+        </span>
+        {{else}}
+        <span class="ui image avatar circular "
+            style="background-color: #f3f3f3;z-index: {{zindex}}; background-image:url('{{userPic u ''}}')">
+        </span>
+        {{/if}}
+    </a>
+    {{/if}}
+    {{/each}}
+    {{#if nonTopVotesCount votes votesSteem votesHive votesBlurt 9}}
+    <a id="top-curator" style="width:30px;height: 30px;">
+        <span id="votecount" class="ui red circular label"
+        style="background-color: #ff0000;line-height: 4px; z-index: 5;    right: 0px;     padding: initial!important;
+        padding-top: 6px!important;
+        position: absolute; width: 30px!important; height: 30px!important; max-width: 30px;max-height: 30px;min-width: 30px;min-height: 30px;
+        top: 1px;"><div style="margin-bottom: 7px;">+</div>{{nonTopVotesCount votes votesSteem votesHive votesBlurt 9}}
+    </span>
+        <!-- <span class="ui red circular label" style="z-index:0;">+{{nonTopVotesCount votes votesSteem votesHive votesBlurt 3}}</span>-->
+    </a>
+    {{/if}}
+</template>

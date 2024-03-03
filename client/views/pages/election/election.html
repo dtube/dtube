@@ -1,0 +1,122 @@
+<template name="election">
+    <div class="ui container">
+        <h2 class="ui center aligned icon header">
+            <i class="circular users icon"></i>
+        </h2>
+        <h2 class="ui center aligned header">
+            {{translate 'ELECTION_TITLE'}}
+            {{>badgehelp 'leaders'}}
+        </h2>
+        <p>{{translate 'ELECTION_PARAGRAPH'}}</p>
+        <div class="ui toggle checkbox" style="margin-bottom: 1em;">
+            <input type="checkbox" tabindex="0" class="hidden hidedisabledleaders">
+            <label>{{translate 'ELECTION_HIDE_DISABLED'}}</label>
+        </div>
+        <table class="ui basic compact table align-center-mobile">
+            <thead>
+                <tr>
+                    <th class='collapsing'>#</th>
+                    <th>{{translate 'ELECTION_USERNAME'}}</th>
+                    <th class='right aligned align-center-mobile-votes' style="min-width: 150px;">{{translate 'ELECTION_TOTAL_VOTES'}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each leaders}}{{#if or pub_leader isDisabledShown}}
+                    <tr class="{{#if isInSchedule @index}}topleader {{#if isNightMode}}nightmodetopleader{{/if}}{{else}}nontopleader {{#if isNightMode}}nightmodeleader{{/if}}{{/if}}">
+                        <td>
+                            {{#if isInSchedule @index}}
+                                <strong>{{position}}</strong>
+                            {{else}}
+                                {{position}}
+                            {{/if}}
+                        </td>
+                        <td>
+                            <div class="ui image header" title="{{json.node.ws}}">
+                                <img src="{{userPic name 'small'}}" class="ui mini rounded image" style="{{#unless pub_leader}}filter: grayscale(100%);{{/unless}}">
+                                <div class="content">
+                                    {{#if pub_leader}}
+                                        <a href="/c/{{name}}" class="leader {{#if isNightMode}}nightmodetext{{/if}}">{{name}}</a>
+                                    {{else}}
+                                        <a href="/c/{{name}}" class="leader disabled {{#if isNightMode}}nightmodetext{{/if}}"><strike>{{name}}</strike></a>
+                                    {{/if}}
+                                    <div class="sub header">
+                                        {{#if json.profile.website}}
+                                            <a href="{{json.profile.website}}" target="_blank" class="{{#if isNightMode}}nightmodelinks{{/if}}">
+                                                {{json.profile.website}}
+                                            </a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class='right aligned align-center-mobile-votes'>
+                            {{#if isVotingFor name}}
+                                <div class="ui red dtube button vote unvotetop" data-username="{{name}}" tabindex="0">
+                                    <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{ translate 'ELECTION_UNVOTE'}}
+                                    </div>
+                                    <div class="ui label btnlabel">
+                                        {{displayPayout node_appr 0}}
+                                    </div>
+                                </div>
+                            {{else}}
+                                <div class="ui blue dtube button vote votetop {{#if or (not pub_leader) (and (isInSchedule @index) (not (isActive @index)))}}disabled{{/if}}" data-username="{{name}}" tabindex="0" data-content="Vote">
+                                    <div style="display:inline-block;padding: 0.8em 1em;">
+                                        {{#if not pub_leader}}
+                                        {{ translate 'GLOBAL_DISABLED' }}
+                                        {{else}}
+                                        {{#if and (isInSchedule @index) (not (isActive @index))}}
+                                        {{ translate 'GLOBAL_STALE' }}
+                                        {{else}}
+                                        {{ translate 'ELECTION_VOTE'}}
+                                        {{/if}}
+                                        {{/if}}
+                                    </div>
+                                    <div class="ui label btnlabel">
+                                        {{displayPayout node_appr 0}}
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                {{/if}}{{/each}}
+                {{#each myOtherVotes}}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h4 class="ui image header">
+                            <img src="{{userPic this 'small'}}" class="ui mini rounded image">
+                            <div class="content">
+                                <a href="/c/{{name}}" style="color: black;">{{this}}</a>
+                                <div class="sub header">
+                                    {{#if json.profile.website}}
+                                        {{json.profile.website}}
+                                    {{/if}}
+                                </div>
+                            </div></h4>
+                        </td>
+                        <td class='right aligned'>
+                            <div class="ui red dtube button vote unvotetop" data-username="{{this}}" tabindex="0">
+                                <div style="display:inline-block;padding: 0.8em 1em;">
+                                    {{ translate 'ELECTION_UNVOTE'}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <h4>
+            Vote for someone else
+        </h4>
+        <div class="ui action input">
+            <input id="newleader" type="text" placeholder="Username">
+            <div id="votenew" class="ui blue dtube button vote" tabindex="0">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'ELECTION_VOTE'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+  

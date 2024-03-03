@@ -1,0 +1,93 @@
+<template name="topbar">
+  {{#if isSearchingMobile}}
+    {{> mobilesearch}}
+  {{else}}
+    <div class="ui large borderless main menu fixed" style="height:57px;z-index:9000;">
+      <div class="left floated menu" style="width:60%">
+        {{#if scot}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <img class="sidebar icon needsclick" alt="" style="width:45px;" src="https://about.d.tube/img/kit/Logo_Black_D.svg" >
+          </div>
+          <a href='/' class="blacklogo header item" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{scot.logo}}" >
+          </a>
+          <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{scot.logonight}}" >
+          </a>
+        {{else}}
+          <div class="sidebartoggleicon item header needsclick" style="cursor: pointer;">
+            <i class="sidebar icon needsclick" style="font-size:1.4em; margin:1px 0 0 0;"></i>
+          </div>
+          <a href='/' class="blacklogo header item" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{settings.logo}}" >
+          </a>
+          <a href='/' class="whitelogo header item dsp-non" id='textlogo'>
+            <img  alt="" style="width:90px;" src="{{settings.logonight}}" >
+          </a>
+          <a href='/coin' class="header item" id="coinprice">
+            ${{coinPriceFormatted}}
+          </a>
+        {{/if}}
+        <div class="ui item grid tablet only computer only" style="width:inherit;">
+          <div class="ui search wid-ful">
+            <div class="ui icon input wid-ful">
+              <form class='searchForm wid-ful'>
+                <input id='dsearch' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
+              </form>
+              <i class="search link icon" id="searchIcon"></i>
+            </div>
+            {{#if searchSuggestions}}
+              <div class="results" style="margin-left: 1em;">
+                {{#each searchSuggestions}}
+                <a class="result" style="padding: 0.45714286em 0.6285714em;">
+                  <div class="content">
+                    <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">
+                    <div class="title" style="padding-top: 7px;">
+                      {{this}}
+                    </div>
+                  </div>
+                </a>
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="right floated menu">
+        <a id="mobilesearch" class="ui item grid mobile only" style="margin:0px;padding: 0.92857143em 1.14285714em;">
+          <i class="search icon" style='font-size:1.3em; margin:0;padding:0;'></i>
+        </a>
+        {{#if isLoggedOn}}
+          {{#if mainUser.balance}}
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispDTC" data-content="{{translate 'TOPBAR_DTC_EXPLAIN'}}">
+                <i class="icon red play" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayMoney mainUser.balance 1 ''}}</strong>DTC
+            </div>
+            <div class="ui item {{#if isNightMode}}nightmodetext{{/if}}" id="dispVT" data-content="{{translate 'TOPBAR_VT_EXPLAIN'}}">
+                <i class="icon yellow lightning" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.vtDisplay 0}}</strong>VP
+            </div>
+            <!-- <div class="ui item">
+                <i class="icon database" style="font-size: 12px;margin-right:0"></i>
+                <strong>{{displayPayout mainUser.bwDisplay 0}}</strong>B
+            </div> -->
+          {{/if}}
+          <a href='/publish' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_UPLOAD_VIDEO"}}'>
+            <i class="upload icon" style='font-size:1.3em; margin:0;'></i>
+          </a>
+          {{> notificationdropdown}}
+          <!--<a href='/golive' class="ui item" title='{{ translate "TOPBAR_TOOLTIP_GO_LIVE"}}'>-->
+            <!--<i class="podcast icon" style='font-size:1.3em; margin:0;'></i>-->
+          <!--</a>-->
+        {{/if}}
+        {{#if isLoggedOn}}
+          {{> accountsdropdown}}
+        {{else}}
+          <div class="topbarLogin">
+            {{> buttonlogin}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+</template>

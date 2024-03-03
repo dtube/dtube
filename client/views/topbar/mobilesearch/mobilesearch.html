@@ -1,0 +1,25 @@
+<template name="mobilesearch">
+    <div class="ui search wid-ful fixed menu">
+        <div class="ui big icon input wid-ful">
+            <button class="ui compact icon button">
+                <i class="angle left icon"></i>
+            </button>
+            <form class='searchForm wid-ful'>
+                <input id='dsearchmobile' type="text" name='search' placeholder="{{ translate 'TOPBAR_PLACEHOLDER_SEARCH_VIDEOS'}}" autocomplete="off">
+            </form>
+            <i class="search link icon" id="searchIconMobile"></i>
+        </div>
+        {{#if searchSuggestions}}
+            <div class="results wid-ful" style="margin-left: 1em;">
+                {{#each searchSuggestions}}
+                    <a class="result">
+                        <div class="content">
+                            <img class="ui avatar image" src="{{userPic this}}" style="height: 32px; width: auto; border-radius: 50%; vertical-align: middle; margin-left: 0.3em">                            
+                            <div class="title">{{this}}</div>
+                        </div>
+                    </a>
+                {{/each}}
+            </div>
+        {{/if}}
+    </div>
+</template>

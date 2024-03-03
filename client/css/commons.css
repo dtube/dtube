@@ -1,0 +1,124 @@
+.pos-abs {
+  position: absolute!important;
+}
+
+.pos-rel {
+  position: relative!important;
+}
+
+.lock-vscroll {
+  position: fixed; 
+  overflow-y:scroll;
+  width: 100%;
+}
+
+.dsp-inh {
+  display: inherit!important;
+}
+
+.dsp-flx {
+  display: flex!important;
+}
+
+.dsp-blk {
+  display: block!important;
+}
+
+.dsp-non {
+  display: none!important;
+}
+
+.mb-1 {
+  margin-bottom: 1.1em;
+}
+
+.mb-2 {
+  margin-bottom: 1.2em;
+}
+
+.mb-3 {
+  margin-bottom: 1.3em;
+}
+
+.mb-4 {
+  margin-bottom: 1.4em;
+}
+
+.mb-5 {
+  margin-bottom: 1.5em;
+}
+
+.pdg-non {
+  padding: 0px!important;
+}
+
+.pdg-5 {
+  padding: 5px!important;
+}
+
+.wid-ful {
+  width: 100%!important;
+}
+
+.mrg-non {
+  margin: 0px!important;
+}
+
+.brd-rad-non{
+  border-radius:0px!important;
+}
+
+.crd-lab {
+  display: inline;
+  margin-left: 5px;
+  padding: 10px 10px 5px 10px;
+}
+
+.crd-spa-lab{
+  font-size:13px;
+  color:#555;
+}
+
+.crd-spa-lab.nightmode {
+  color: aliceblue;
+  background: unset!important;
+}
+
+.ui.card.card-notification{
+  min-height:fit-content;
+  margin: 0px 0px;
+  white-space: inherit;
+  width:100%!important;
+  min-width:400px!important;
+  background: rgba(255,0,0,0.1);
+}
+
+.ui.card.card-notification.nightmode{
+  min-height:fit-content;
+  margin: 0px 0px;
+  white-space: inherit;
+  width:100%!important;
+  min-width:400px!important;
+  background: rgba(160, 33, 33, 0.2) !important
+}
+
+
+.ui.card.card-notification.opened{
+  background: #fff;
+}
+
+.ui.card.card-notification.nightmode.opened{
+  background: #000!important;
+}
+
+.ui.card.card-notification a {
+  color: #000;
+}
+
+.ui.card.card-notification.nightmode a {
+  color: #fff;
+}
+
+.upper { 
+  text-transform:uppercase!important;
+}

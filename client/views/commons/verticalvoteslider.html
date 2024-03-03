@@ -1,0 +1,75 @@
+<template name="verticalvoteslider">
+    {{#if equals voteType 'down'}}
+    <button class="ui icon button votebutton down voteslider {{sliderclass}}">
+        {{#if downvoted}}
+        <i class="thumbs down icon red"></i>
+        {{else}}
+        <i class="thumbs down icon"></i>
+        {{/if}}
+        <span>{{uniques content.votes content.votesSteem content.votesHive content.votesBlurt 'down'}}</span>
+    </button>
+    <button class="ui icon button votebutton down votesliderloader dsp-non {{sliderclass}}">
+        <div class="ui mini red active centered inline loader"></div>
+    </button>
+    {{else}}
+    <button class="ui icon button votebutton up voteslider {{sliderclass}}">
+        {{#if upvoted}}
+        <i class="thumbs up icon red"></i>
+        {{else}}
+        <i class="thumbs up icon"></i>
+        {{/if}}
+        <span>{{uniques content.votes content.votesSteem content.votesHive content.votesBlurt 'up'}}</span>
+    </button>
+    <button class="ui icon button votebutton up votesliderloader dsp-non {{sliderclass}}">
+        <div class="ui mini red active centered inline loader"></div>
+    </button>
+    {{/if}}
+    <div class="ui {{voteType}}vote popup top center transition hidden vertical {{sliderclass}} {{#if isNightMode}}nightmode{{/if}}">
+        <div class="item">
+            {{#if dtubeVotable content}}
+            <div class="ui equal width grid mrg-non">
+                <div class="sixteen wide column pdg-non" style="width: 80px!important;">
+                    <i class="icon yellow lightning"></i> <strong
+                        id="votevt{{voteType}}{{sliderclass}}">{{displayPayout mainUser.vtDisplay 0}}</strong>VP
+                </div>
+            </div>
+            {{/if}}
+            <div class="pos-rel" style="width: 60px; height: 210px;">
+                <div class="vertical-slider-bubble" id="sliderBubble{{voteType}}{{sliderclass}}">
+                    <span>{{displayPayout voteVt}}</span></div>
+                <input type="range" min="0.1" max="100" step="0.1" class="vslider vertical" id="voterange{{voteType}}{{sliderclass}}">
+                <div id="vsliderbackholder" class="vsliderbackholder {{color}}"></div>
+                <div id="vsliderholder{{voteType}}{{sliderclass}}" class="vsliderholder"></div>
+                <div id="bubblevsliderholder{{voteType}}{{sliderclass}}" class="bubblevsliderholder">
+                    <img style="width: 30px;" src="./DTube_files/images/logos/{{contentNetwork content false}}_round.png">
+                </div>
+            </div>
+            <div class="simplevote pos-rel" style="display: grid;z-index: 99999;">
+                {{#if dtubeVotable content}}
+                    {{#if or (not isComment) (canTipAuthor content)}}
+                    <div class="ui tiny button addtag {{sliderclass}} dsp-blk">
+                        {{#if and (not isComment) (canTipAuthor content)}}
+                            Tag+Tip
+                        {{else}}
+                            {{#if not isComment}}Add Tag{{else}}Tip{{/if}}
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                {{/if}}
+                <div class="ui button verticalslider {{voteType}}vote {{sliderclass}} upper dsp-blk">
+                    <i class="thumbs {{voteType}} icon"></i></div>
+            </div>
+            <div class="tagvote dsp-non {{voteType}} pos-rel" style="display: grid;z-index: 99999;text-align: center;">
+                <div class="ui tiny button removetag">Remove</div>
+                {{#if not isComment}}
+                <b>Tag:</b> <input type="string" value="{{convertTag t}}" class="tagvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
+                {{/if}}
+                {{#if canTipAuthor content}}
+                <b>Tip(%):</b><input type="number" value="{{#if equals voteType 'up'}}25{{else}}0{{/if}}" class="tipvalue {{sliderclass}}" style="max-width: 80px; text-align: center;" />
+                {{/if}}
+                <div class="ui button verticalslider {{voteType}}votetag {{sliderclass}} upper dsp-blk">
+                    <i class="thumbs {{voteType}} icon"></i><span>+</span></div>
+            </div>
+        </div>
+    </div>
+</template>

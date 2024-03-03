@@ -1,0 +1,47 @@
+
+<template name="senddtcmodal">
+    <!-- Send DTC Modal -->
+    <div class="ui small modal transferdtc {{#if isNightMode}}nightmodemodal{{/if}}" style="z-index:1001; position: fixed; top: 250px; left:50%; transform: translate(-50%, -50%)">
+        <div class="header" style="border-bottom: 0">
+            {{ translate 'TRANSFER_TO' recipient}}
+            <img class="ui avatar image" src="{{userPic recipient}}">            
+        </div>
+        <div class="content">
+            <form class="ui large form wid-ful ">
+                <div class="ui segments">
+                    <div class="ui segment" style="padding: 20px;">
+                        <div class="field">
+                            <label>{{ translate 'TRANSFER_AMOUNT'}} ({{ translate 'BALANCE' }}: {{ displayMoney balance 0 'DTC' }})</label>
+                            <div class="ui left icon input">
+                            <i class="calculator icon"></i>
+                            <input type="number" min="0.01" step="0.01" id="transfer_amount" value="1">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>{{ translate 'TRANSFER_MEMO'}}</label>
+                            <div class="ui left icon input">
+                            <i class="pencil icon"></i>
+                            <input type="text" id="transfer_memo" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div id="confirmTransfer" class="ui right labeled icon button red dtube pos-rel {{#unless isValid}}disabled{{/unless}}">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    Confirm
+                </div>
+                <i class="icon check red" style="background:white;opacity:1;"></i>
+                <i class="icon white loading spinner dsp-non" style="background-color: transparent;opacity:1;"></i>
+            </div>
+            <div id="cancelTransfer" class="ui right labeled icon button grey dtube pos-rel">
+                <div style="display:inline-block;padding: 0.8em 1em;">
+                    {{ translate 'BUTTON_CANCEL' }}
+                </div>
+                <i class="icon x" style="background:white;opacity:1;"></i>
+            </div>
+        </div>
+    </div>
+</template>

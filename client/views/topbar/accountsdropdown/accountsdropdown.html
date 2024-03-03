@@ -1,0 +1,88 @@
+<template name="accountsdropdown">
+    <a href="/login" class="ui item top inline right floated" style="float: right;">
+        <img class="ui avatar image" src="{{topbarAvatarUrl}}" style="height: 35px; width: auto; border-radius: 50%; vertical-align: middle;">
+        <div style="margin-left: 5px; vertical-align: middle;">{{topbarUsername}}</div>
+        <!-- <i class="dropdown icon"></i>
+        <div class="menu">
+            {{#if activeUsername}}
+            <div class="item inline">
+                <i class="left dropdown icon" style="margin-right: 10px;"></i>
+                <div style="margin-right: 10px;">{{activeUsername}} <div style="font-size: 9px; display: inline-block;">(Avalon)</div></div>
+                <div class="left menu">
+                    <div class="ui toggle checkbox dtcSwitch networkSwitch">
+                        <label>Enabled</label>
+                        <input type="checkbox" id="dtcSwitch" name="dtcSwitch">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="header" style='font-size: 1rem'>
+                      <i class="bolt icon"></i>Voting @ {{voteWeight}}%
+                    </div>
+                    <div style='text-align: center'>
+                      <div class='ui buttons'>
+                          <button id='minus1vp' class="ui compact red basic button" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                          <button id='plus1vp' class="ui compact blue basic button" style='width: 50%; border-radius: 0rem;'>+1%</button>
+                      </div>
+                    </div>
+                    <div class="divider"></div>
+                    <a class='item' href='/c/{{mainUser.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+                    <div class="item logOut logOutAvalon" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+                </div>
+            </div>
+            {{/if}}
+            {{#if activeUsernameHive}}
+            <div class="item inline">
+                <i class="left dropdown icon" style="margin-right: 10px;"></i>
+                <div style="margin-right: 10px;">{{activeUsernameHive}} <div style="font-size: 9px; display: inline-block;">(Hive)</div></div>
+                <div class="left menu">
+                    <div class="ui toggle checkbox hiveSwitch networkSwitch">
+                        <label>Enabled</label>
+                        <input type="checkbox" id="hiveSwitch" name="hiveSwitch">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="header" style='font-size: 1rem'>
+                        <i class="bolt icon"></i>Voting @ {{voteWeightHive}}%
+                        </div>
+                        <div style='text-align: center'>
+                        <div class='ui buttons'>
+                            <button id='minus1vphive' class="ui compact red basic button needsclick" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                            <button id='plus1vphive' class="ui compact blue basic button needsclick" style='width: 50%; border-radius: 0rem;'>+1%</button>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <a class='item' href='/c/{{mainUserHive.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+                    <div class="item logOut logOutHive" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+                </div>
+            </div>
+            {{/if}}
+            {{#if activeUsernameSteem}}
+            <div class="item inline">
+                <i class="left dropdown icon" style="margin-right: 10px;"></i>
+                <div style="margin-right: 10px;">{{activeUsernameSteem}} <div style="font-size: 9px; display: inline-block;">(Steem)</div></div>
+                <div class="left menu">
+                    <div class="ui toggle checkbox steemSwitch networkSwitch">
+                        <label>Enabled</label>
+                        <input type="checkbox" id="steemSwitch" name="steemSwitch">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="header" style='font-size: 1rem'>
+                        <i class="bolt icon"></i>Voting @ {{voteWeightSteem}}%
+                        </div>
+                        <div style='text-align: center'>
+                        <div class='ui buttons'>
+                            <button id='minus1vpsteem' class="ui compact red basic button needsclick" style='width: 50%; border-radius: 0rem; margin-right: 0px'>-1%</button>
+                            <button id='plus1vpsteem' class="ui compact blue basic button needsclick" style='width: 50%; border-radius: 0rem;'>+1%</button>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <a class='item' href='/c/{{mainUserSteem.username}}'><i class="video play icon"></i> {{ translate 'USERS_CHANNEL'}}</a>
+                    <div class="item logOut logOutSteem" data-username='{{ user.username }}'><i class="sign out icon"></i> {{ translate 'USERS_LOG_OUT'}}</div>            
+                </div>
+            </div>
+            {{/if}}
+            {{#if incompleteLogin}}
+            <a href="/login" class="item">{{ translate 'USERS_ADD_ANOTHER_ACCOUNT' }}</a>
+            {{/if}}
+            <a href="/settings" class="item">{{ translate 'SETTINGS' }}</a>
+        </div> -->
+    </a>
+</template>

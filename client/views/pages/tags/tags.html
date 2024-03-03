@@ -1,0 +1,92 @@
+<template name="tags">
+  {{#if isOnMobile}}
+  <div style="margin-left:10px;margin-right:10px;" class="ui content">
+    <h2 style="max-width: calc(100% - 90px);margin-bottom: 10px;margin-top: 10px;">
+      {{ translate 'TAGS_RESULTS_FOR'}} 
+      {{currentTag}}
+    </h2>
+    <div class="ui grid mrg-non">
+      <div class="ui selection dropdown ddtag" style="min-width:8.5em;z-index: 100;">
+        <input type="hidden" name="date">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_DATE'}} </div>
+        <div class="menu">
+          <div class="item period" data-value="7">{{ translate 'TAGS_THIS_WEEK'}}</div>
+          <div class="item period" data-value="30">{{ translate 'TAGS_THIS_MONTH'}}</div>
+          <div class="item period" data-value="99999">{{ translate 'TAGS_ALL_TIME'}}</div>
+        </div>
+      </div>
+      <div class="ui selection dropdown ddtag" style="min-width:7em;margin-left:5px;margin-right:5px;z-index: 100;">
+        <input type="hidden" name="sort">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_SORT_BY'}} </div>
+        <div class="menu">
+          <div class="item sortby" data-value="ups">{{ translate 'TAGS_VOTES'}} </div>
+          <div class="item sortby" data-value="dist">{{ translate 'TAGS_PAYOUT'}} </div>
+          <div class="item sortby" data-value="ts">{{ translate 'TAGS_DATE'}} </div>
+        </div>
+      </div>
+      <div class="ui selection dropdown ddtag" style="min-width:8em;z-index: 100;">
+        <input type="hidden" name="duration">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_DURATION'}} </div>
+        <div class="menu">
+          <div class="item duration" data-value="9999999">{{ translate 'TAGS_ALL'}} </div>
+          <div class="item duration" data-text="{{ translate 'TAGS_SHORT_SELECTED'}} " data-value="1200">{{ translate 'TAGS_SHORT'}} </div>
+          <div class="item duration" data-text="{{ translate 'TAGS_VERY_SHORT_SELECTED'}} " data-value="300">{{ translate 'TAGS_VERY_SHORT'}} </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      {{#each tagVideos}}
+      {{> mobilevideosearchresult}}
+      {{/each}}
+    </div>
+  </div>
+  {{else}}
+  <div class="ui container">
+    <h2>
+      {{ translate 'TAGS_RESULTS_FOR'}} 
+      {{currentTag}}
+    </h2>
+    <div style="margin-bottom:20px;">
+      <div name="date" class="ui selection dropdown ddtag">
+        <input type="hidden" name="date">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_DATE'}}</div>
+        <div class="menu">
+          <div class="item period" data-value="7">{{ translate 'TAGS_THIS_WEEK'}}</div>
+          <div class="item period" data-value="30">{{ translate 'TAGS_THIS_MONTH'}}</div>
+          <div class="item period" data-value="99999">{{ translate 'TAGS_ALL_TIME'}}</div>
+        </div>
+      </div>
+      <div class="ui selection dropdown ddtag">
+        <input type="hidden" name="sort">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_SORT_BY'}}</div>
+        <div class="menu">
+          <div class="item sortby" data-value="tags.{{currentTag}}">{{ translate 'TAGS_VOTES'}} </div>
+          <div class="item sortby" data-value="dist">{{ translate 'TAGS_PAYOUT'}} </div>
+          <div class="item sortby" data-value="ts">{{ translate 'TAGS_DATE'}} </div>
+        </div>
+      </div>
+      <div class="ui selection dropdown ddtag">
+        <input type="hidden" name="duration">
+        <i class="dropdown icon"></i>
+        <div class="default text almostblack">{{ translate 'TAGS_DURATION'}}</div>
+        <div class="menu">
+          <div class="item duration" data-value="9999999">{{ translate 'TAGS_ALL'}}</div>
+          <div class="item duration" data-value="1200">{{ translate 'TAGS_SHORT'}}</div>
+          <div class="item duration" data-value="300">{{ translate 'TAGS_VERY_SHORT'}}</div>
+        </div>
+      </div>
+    </div>
+      {{#each tagVideos}}
+      {{> videosearchresult}}
+      {{/each}}
+  </div>
+  {{/if}}
+  {{#if moreThan20}}
+  <div class="ui blue morebtn button" id="moretagres" style="display: block;">{{translate 'SEARCH_LOAD_MORE'}}</div>
+  {{/if}}
+</template>

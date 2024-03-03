@@ -1,0 +1,21 @@
+<template name='notificationdropdown'>
+    <div class="ui item top right floated dropdown dropdownnotification">
+      {{#if notificationsUnseen}}
+        {{#if isOnMobile}}
+          <i id="notification" class="alarm icon" style='color:red; font-size:1.3em; margin:0;'></i>
+        {{else}}
+          <i id="notification" class="alarm icon" style='font-size:1.3em; margin:0;'></i>
+          <span id="notificationcount" style="background:red;font-weight:800;" class="notificationdtube">
+            {{notificationsUnseen}}
+          </span>
+        {{/if}}
+      {{else}}
+        <i id="notification" class="alarm icon" style='font-size:1.3em; margin:0;'></i>
+      {{/if}}
+      {{#unless isOnMobile}}
+        <div id="notificationmenu" class="menu" style="overflow-y: auto;max-height: 600px;margin-top:0px; min-width: 400px;">
+          {{> notificationmenu}}
+        </div>
+      {{/unless}}
+    </div>
+  </template>

@@ -1,0 +1,46 @@
+<template name='loginavalon'>
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <h1>DTube Login</h1>
+        <p><a href="https://github.com/dtube/avalon">Avalon blockchain</a> is dedicated to DTube's usage. Connecting with it will allow you to monetize your videos with DTC indefinitely in time.</p>
+        <p>Authenticate with a DTube private key. {{>badgehelp 'keys'}}<br/>You may use your custom keys or the master key.</p>
+        <form class="ui large form wid-ful ">
+        <div class="ui segments">
+            <div class="ui segment loginsegment" style="padding: 20px;">
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_AVALON_USERNAME'}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="key icon"></i>
+                    <input type="password" name="privatekey" placeholder="{{ translate 'LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY'}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                    <input type="checkbox" name="rememberme" checked>
+                    <label class="text">{{ translate 'LOGIN_REMEMBER_ME'}}</label>
+                    </div>
+                </div>
+                <div id="loginbutton" class="ui fluid labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+                    <i class="sign in icon red" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
+                    </button>
+                </div>
+                <div class="ui message" style="margin-top:20px;">
+                    {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
+                    <a href="https://signup.dtube.fso.ovh" target="_blank"> 
+                        {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} d.tube</a>
+                    <br />
+                </div>
+                <a class='otherNetwork' href='/login'> 
+                    <i class="angle left icon"></i> {{ translate 'LOGIN_OTHER_NETWORK'}}
+                </a>
+            </div>
+        </div>
+        </form>
+    </div>
+</template>

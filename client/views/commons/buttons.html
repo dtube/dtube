@@ -1,0 +1,91 @@
+<template name='buttonsubscribe'>
+    <div class="ui red dtube button subscribe" tabindex="0">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'VIDEO_SUBSCRIBE'}}
+        </div>
+        <div class="ui label btnlabel">
+            {{{subCount info.author}}}
+        </div>
+    </div>
+</template>
+
+<template name='buttonunsubscribe'>
+    <div class="ui grey dtube button unsubscribe" tabindex="0">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'VIDEO_UNSUBSCRIBE'}}
+        </div>
+        <div class="ui label btnlabel">
+            {{{subCount info.author}}}
+        </div>
+    </div>
+</template>
+
+<template name='buttonlogin'>
+    <a href="/login">
+        <div class="ui right labeled icon button red dtube pos-rel">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{ translate "TOPBAR_LOGIN"}}
+            </div>
+            <i class="icon sign in red" style="background:white;opacity:1;"></i>
+        </div>
+    </a>
+</template>
+
+<template name='buttonloginavalon'>
+    <a href="/login/dtube">
+        <div class="ui right labeled icon button red dtube pos-rel">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{ translate "TOPBAR_LOGIN"}}
+            </div>
+            <i class="icon sign in red" style="background:white;opacity:1;"></i>
+        </div>
+    </a>
+</template>
+
+<template name='buttonedit'>
+    <div class="ui right labeled icon button red editvideo dtube pos-rel">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'VIDEO_EDIT'}}
+        </div>
+        <i class="icon edit red" style="background:white;opacity:1;"></i>
+    </div>
+</template>
+
+<template name='buttontransfer'>
+    <div class="ui right labeled icon button green transferdtcbtn dtube pos-rel">
+        <div style="display:inline-block;padding: 0.8em 1em;">
+            {{ translate 'CHANNEL_TRANSFER'}}
+        </div>
+        <i class="icon gift green" style="background:white;opacity:1;"></i>
+    </div>
+    {{>senddtcmodal}}
+</template>
+
+<template name='buttontransfersmall'>
+    <button class="ui icon grey button transferdtcbtn tipbtn pos-rel">
+        <i class="icon gift" style="color: black;"></i>
+    </button>
+    {{>senddtcmodal}}
+</template>
+
+<template name='buttonblockexplorer'>
+    <a href="https://avalonblocks.com/#/@{{explorerUsername}}" target="_blank">
+        <div class="ui right labeled icon button blue dtube pos-rel blockexploreraccount">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{translate 'BLOCK_EXPLORER'}}
+            </div>
+            <i class="icon cubes blue" style="background:white;opacity:1;"></i>
+        </div>
+    </a>
+</template>
+
+<template name='buttonbuycoin'>
+    <a href="https://pancakeswap.finance/swap?outputCurrency=0xd3cceb42b544e91eee02eb585cc9a7b47247bfde" target="_blank">
+        <div class="ui right labeled icon button red dtube pos-rel blockexploreraccount">
+            <div style="display:inline-block;padding: 0.8em 1em;">
+                {{translate 'COIN_BUY'}}
+            </div>
+            <i class="icon chart line red" style="background:white;opacity:1;"></i>
+        </div>
+    </a>
+</template>

@@ -1,0 +1,371 @@
+
+
+.ui.progress {
+  text-align: left;
+}
+
+.ui.tabular.menu .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 500;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+}
+
+.ui.tabular.menu.mobile .item {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid transparent;
+  font-weight: 500;
+  color: rgba(82, 82, 82, 0.8);
+  font-size: 1em;
+  text-align: center;
+  width: 33%;
+  display: inline-block;
+}
+
+.ui.tabular.menu .item:hover {
+  background: transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
+.ui.tabular.menu .active.item {
+  border-bottom: 2px solid rgba(236, 12, 12, 1);
+  color: rgba(0, 0, 0, 1);
+  border-top-width: 0px;
+  background: transparent;
+  font-weight: 500;
+  box-shadow: none;
+  border-radius: 0px !important;
+  margin-bottom: 0px;
+}
+
+.spritehash {
+  width: 210px;
+  height: 118px;
+}
+
+.ui.card>.content {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
+  background: none;
+  margin: 0em;
+  padding: 0.5em 0.5em;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-size: 1em;
+  border-radius: 0em;
+}
+
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
+  background-color: #ff1a1a !important;
+}
+
+.ui.toggle.checkbox~.box:before, .ui.toggle.checkbox~label:before {
+  background-color: #ff1a1a !important;
+}
+
+.ui.toggle.checkbox.nightmode .box:before, .ui.toggle.checkbox.nightmode label:before {
+  background-color: rgb(70,70,70);
+}
+
+.nightmode {
+  background: #111111!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightmodeinverted {
+  background: rgb(240, 240, 240)!important;
+  color: #111111!important;
+}
+
+.nightmodetext:not(.dtubesidebaricon) {
+  color: rgb(240, 240, 240)!important;
+}
+
+.ui.menu .ui.dropdown .menu.nightmode > .item {
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightsecondarytext {
+  color: rgb(180, 180, 180)!important;
+}
+
+.nightsegment {
+  border-top: 1px solid rgba(209, 209, 209, 0.15)!important;
+}
+
+.nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightmodegray {
+  background: #1d1d1d!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.nightbutton {
+  background: #222222!important;
+  color: rgb(240, 240, 240)!important;
+}
+
+.channelcover {
+  min-height: 150px;
+  max-height: 240px;
+  position: relative;
+  overflow: hidden;
+  background-position: left;
+  /* object-fit: contain; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 500;
+}
+
+a.nightmodelinks {
+  color: rgba(236, 12, 12, 1)
+}
+
+.breadcrumb a.nightmodelinks {
+  color: rgba(236, 12, 12, 1)!important;
+}
+
+.ui.inline.dropdown>.text {
+  font-weight: 500;
+}
+
+.channelbga {
+  background: #40E0D0;
+  background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+  background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);
+}
+
+.channelbgb {
+  background: #ee0979;
+  background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+}
+
+.channelbgc {
+  background: #f85032;
+  background: -webkit-linear-gradient(to right, #e73827, #f85032);
+  background: linear-gradient(to right, #e73827, #f85032);
+}
+
+.channelbgd {
+  background: #16A085;
+  background: -webkit-linear-gradient(to right, #F4D03F, #16A085);
+  background: linear-gradient(to right, #F4D03F, #16A085);
+}
+
+.channelbge {
+  background: #FC5C7D;
+  background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+  background: linear-gradient(to right, #6A82FB, #FC5C7D);
+}
+
+.dropdown.ddtag {
+  height: 30px;
+}
+
+.almostblack {
+  color: #262626!important;
+}
+
+textarea {
+  white-space: pre-wrap;
+}
+
+.ui.button > .ui.icon {
+  color: white;
+  opacity:1;
+ }
+
+ .ui.multiple.dropdown > .label{
+  line-height: 1.4em;
+ }
+
+ .btnlabel{
+  display: inline-block!important;
+  background: white!important;
+  opacity: 1!important;
+  font-family: 'Roboto'!important;
+  font-weight: 600!important;
+  color:black!important;
+  font-size: 13px!important;
+  line-height: 1.5!important;
+  border-radius: 0px!important;
+  margin-right: -1px!important;
+ }
+
+ .ui.labeled.icon.buttons > .button > .icon, .ui.labeled.icon.button > .icon{
+   line-height: 0!important;
+ }
+
+ .ui.dropdown .menu .left.menu {
+  left: auto !important;
+  right: 100% !important;
+}
+
+.morebtn {
+  margin-left: auto!important;
+  margin-right: auto!important;
+  width: 150px!important;
+}
+
+.keypairpopupbtn {
+  float: right;
+}
+
+.newcustomkey h5 {
+  margin-block-start: 0.5em;
+}
+
+.nightmodetable tbody tr:nth-child(odd) { background-color: rgb(40,40,40); }
+.nightmodetable tbody tr:nth-child(even) { background-color: rgb(30,30,30); }
+.nightmodetable tbody tr { color: #ffffff; }
+.nightmodetable tbody tr a { color: red; }
+
+.leader {
+  color: black;
+}
+
+.leader.nightmodeleader {
+  color: white!important;
+}
+
+.nontopleader.nightmodeleader {
+  color: white;
+}
+
+.nontopleader.nightmodeleader:nth-child(odd) { background-color: rgb(40,40,40); }
+.nontopleader.nightmodeleader:nth-child(even) { background-color: rgb(30,30,30); }
+
+.leader.disabled,
+.nightmodetext.leader.disabled {
+  color: grey!important;
+}
+
+.leader.disabled.nightmodeleader {
+  color: lightgrey!important;
+}
+
+.nightmodetopleader:nth-child(odd) { background-color: rgb(20,50,20); }
+.nightmodetopleader:nth-child(even) { background-color: rgb(15,40,15); }
+
+.topleader {
+  background: #fcfff5;
+  color: #2c662d;
+  box-shadow: 0px 0px 0px #a3c293 inset;
+}
+
+.topleader.nightmodetopleader {
+  color: lawngreen;
+}
+
+.ui.table thead.nightmode {
+  background: rgba(82, 82, 82, 0.8);
+}
+
+.ui.toggle.checkbox input:checked ~ .box,
+.ui.toggle.checkbox input:checked ~ label.nightmodetext,
+.ui.checkbox label.nightmode,
+.ui.checkbox + label.nightmode,
+.ui.nightmode #promorereplylbl,
+.publishfield label.nightmodetext {
+  color: rgb(240,240,240)!important;
+}
+
+.nightmodeaccordion,
+.nightmodeaccordion .newcustomkey .checkbox { background-color: rgb(30,30,30)!important; }
+.nightmodeaccordion .title { color: #ffffff!important; }
+
+.ui.form.nightmode .segments .segment { background-color: #000000; }
+.ui.form.nightmode .segments .segment .field label,
+.ui.form.nightmode .segments .segment .field a,
+.ui.form.nightmode .segments .segment .field i,
+.votenetwork .content .header.nightmodetext,
+.ui.nightsegment .ui.slider.checkbox input:checked ~ .box,
+.ui.nightsegment .ui.slider.checkbox input:checked ~ label { color: #ffffff!important; }
+
+input.nightmode:not(.hslider),
+textarea.nightmode,
+.dropdown.nightmode:not(.dropdownnotification):not(.dropdownvideoshare):not(.dropdownvideosettings):not(.dropdownsettings),
+.nightmode .settingspage select,
+.ui.form.nightmode .segments .segment .field input {
+  color: #ffffff!important;
+  background-color: rgb(30,30,30)!important;
+}
+
+#newkey-id.nightmode {
+  color: #ffffff!important;
+  background-color: rgb(0,0,0)!important;
+}
+
+#replytext.nightmode {
+  background-color: rgb(0,0,0)!important;
+}
+
+.nightmodemodal .header,
+.nightmodemodal .actions { background-color: rgb(45,45,45)!important; }
+.nightmodemodal .content { background-color: rgb(0,0,0)!important; }
+.nightmodemodal .actions #cancelTransfer .icon,
+.nightmodemodal .actions #cancelTransact .icon,
+.transferdtcbtn.tipbtn .gift.nightmodetext,
+.ui.tiny.icon.button .icon.nightmodetext,
+#cancelReply .icon.nightmodetext { color: rgb(40,40,40)!important;}
+
+.ui.table.nightmodetable tr.warning, .ui.table.nightmodetable td.warning {
+  background: #404400!important;
+  color: #ffffff!important;
+}
+
+.ui.table.nightmodetable tr.positive, .ui.table.nightmodetable td.positive {
+  background: unset!important;
+  color: #ffffff!important;
+}
+
+/* To center leaders column in leader table for mobile */
+@media only screen and (max-width: 429px){
+  .ui,table,thead,tr td.align-center-mobile {
+    text-align: center;
+  }
+  .ui,table,tbody,tr th.align-center-mobile {
+    text-align: center;
+  }
+
+  .ui,table,thead,tr td.right.aligned.align-center-mobile-votes {
+    text-align: center;
+    padding-bottom: 12px;
+  }
+  .ui,table,tbody,tr th.right.aligned.align-center-mobile-votes {
+    text-align: center;
+    padding-bottom: 12px;
+  }
+  .ui.table, thead,tr.topleader {
+    padding-bottom: 12px;
+  }
+  .ui.table, tbody,tr.topleader {
+    padding-bottom: 12px;
+  }
+
+  .ui.table, tbody,tr td .ui.image.header.content.sub-header {
+    overflow-wrap: anywhere;
+  }
+
+  .ui.table, thead,tr td .ui.image.header.content.sub-header {
+    overflow-wrap: anywhere;
+  }
+}

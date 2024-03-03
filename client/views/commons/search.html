@@ -1,0 +1,54 @@
+<template name='search'>
+  {{#if isOnMobile}}
+  <div style="margin-left:5px;margin-right:10px;" class="ui content">
+    <h2 style="max-width: calc(100% - 90px);margin-bottom:20px;">
+      {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+      {{ search.response.hits.total.value }} 
+      {{#if isPlural search.response.hits.total.value}} 
+      {{translate 'SEARCH_RESULTS'}} 
+      {{else}} 
+      {{translate 'SEARCH_RESULT'}} 
+      {{/if}} 
+      {{ translate 'SEARCH_RESULTS_FOR'}} 
+      {{search.query}}
+    </h2>
+    <!-- <div class="ui top right floated pos-abs" style="top: 70px;right: 10px;">
+      <a href='https://www.asksteem.com/' target='_blank'>
+        <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+      </a>
+    </div> -->
+    {{#each search.response.results}} 
+    {{> mobilevideosearchresult}} 
+    {{/each}}
+  </div>
+  {{else}}
+  <div class="ui container">
+    <h2> 
+      {{#if isPlural search.response.hits.total.value}}
+      {{ translate 'SEARCH_RESULTS_THERE_ARE'}} 
+      {{else}}
+      {{ translate 'SEARCH_RESULTS_THERE_IS'}} 
+      {{/if}}
+      {{search.response.hits.total.value}} 
+      {{#if isPlural search.response.hits.total.value}}
+      {{ translate 'SEARCH_RESULTS'}} 
+      {{else}} 
+      {{translate 'SEARCH_RESULT'}} 
+      {{/if}} 
+      {{ translate 'SEARCH_RESULTS_FOR'}}
+      {{search.query}}
+      <!-- <div class="ui top right floated" style="float: right;margin-left: 20px;right: 20px;">
+        <a href='https://www.asksteem.com/' target='_blank'>
+          <img class="ui tiny top sticky right floated image" src="https://cdn.hoxly.com/asksteem/attribution.png">
+        </a>
+      </div> -->
+    </h2>
+    {{#each search.response.results}} 
+    {{> videosearchresult}} 
+    {{/each}}
+  </div>
+  {{/if}}
+  {{#if moreThan20}}
+  <div class="ui blue morebtn button" id="moresearchres" style="display: block;">{{translate 'SEARCH_LOAD_MORE'}}</div>
+  {{/if}}
+</template>

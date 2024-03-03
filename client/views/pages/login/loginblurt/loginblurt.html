@@ -1,0 +1,68 @@
+<template name="loginblurt">
+    <div class="ui grid" style="max-width:600px;margin:auto;margin-top:10px;">
+        <h1>Blurt login</h1>
+        <p>Authenticate with your Blurt private posting key or Blurt Keychain.</p>
+        <form class="ui large form wid-ful ">
+        <div class="ui segments">
+            <div class="ui segment" style="padding: 20px;">
+                {{#if usingBlurtKeychain}}
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input id="keychain_username" type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
+                    </div>
+                </div>
+                <div id="loginkeychain" class="ui fluid labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui fluid blue right labeled dtube icon submit button">
+                    <i class="sign in icon blue" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_WHALEVAULT_LOGIN'}}</div>
+                    </button>
+                </div>
+                <div class="ui horizontal divider noborder">
+                    <label class="text">Or</label>
+                </div>
+                <div id="loginforceprivatekey" class="ui fluid labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+                    <i class="sign in icon red" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_FORCE_PRIVATEKEY'}}</div>
+                    </button>
+                </div>
+                {{else}}
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input id="username" type="text" name="username" placeholder="{{ translate 'LOGIN_PLACEHOLDER_STEEM_USERNAME'}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                    <i class="key icon"></i>
+                    <input type="password" name="privatekey" placeholder="{{ translate 'LOGIN_PLACEHOLDER_PRIVATE_POSTING_KEY'}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui slider checkbox">
+                    <input type="checkbox" name="rememberme" checked>
+                    <label class="text">{{ translate 'LOGIN_REMEMBER_ME'}}</label>
+                    </div>
+                </div>
+                <div id="loginbutton" class="ui fluid labeled small button" tabindex="0">
+                    <button type="submit" name="button" class="ui fluid red right labeled dtube icon submit button">
+                    <i class="sign in icon red" style="background:white;opacity:1;"></i>
+                    <div  style="display:inline-block;padding: 0.8em 1em;">{{ translate 'LOGIN_BUTTON_LOGIN'}}</div>
+                    </button>
+                </div>
+                {{/if}}
+                <div class="ui message" style="margin-top:20px;">
+                    {{ translate 'LOGIN_LINK_NO_ACCOUNT'}}
+                    <a href="https://signup.blurtwallet.com/" target="_blank">
+                        {{ translate 'LOGIN_LINK_SIGN_UP_ON'}} blurt.blog</a>
+                </div>
+                <a class='otherNetwork' href='/login'>
+                    <i class="angle left icon"></i> {{ translate 'LOGIN_OTHER_NETWORK'}}
+                </a>
+            </div>
+        </div>
+        </form>
+    </div>
+</template>

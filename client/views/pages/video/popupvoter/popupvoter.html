@@ -1,0 +1,147 @@
+<template name="popupvoter">
+    <div id="popupupvote" class="ui flowing bottom right inverted popup popupupvotes" style="padding: 0px;">
+        {{#if or3 distSteem distHive distBlurt}}
+        <div class="ui top attached tabular menu inverted">
+            <a class="active item votenetwork first" data-tab="first">Dtube</a>
+            <a class="item votenetwork second" data-tab="second">Others</a>
+        </div>
+        {{/if}}
+        <div class="ui bottom active attached votenetwork tab first inverted" style="padding: 10px;max-height: 600px; overflow: auto;">
+            <div class="ui mini middle aligned divided list">
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
+                {{#if equals network 'dtc'}}
+                {{#if downvote}}
+                <div class="ui item">
+                    <a href='/c/{{u}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{u}}
+                                <span style="color:#020202"> ({{displayPayout vt 0}} VP)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui item">
+                    <a href='/c/{{u}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{u}}
+                                <span style="color:#b5b5b5"> ({{displayPayout vt 0}} VP)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="ui bottom attached votenetwork tab second inverted" style="padding: 10px;max-height: 600px; overflow: auto;">
+            {{#if distSteem}}
+            <div class="ui mini middle aligned divided list">
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            STEEM
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
+                {{#if equals network 'steem'}}
+                {{#if downvote}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if distHive}}
+            <div class="ui mini middle aligned divided list" >
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            HIVE
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
+                {{#if equals network 'hive'}}
+                {{#if downvote}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#ff0000"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
+            {{#if distBlurt}}
+            <div class="ui mini middle aligned divided list" >
+                <div class="ui item">
+                    <div class="content">
+                        <div class="header">
+                            BLURT
+                        </div>
+                    </div>
+                </div>
+                {{#each topVoters votes votesSteem votesHive votesBlurt 15}}
+                {{#if equals network 'blurt'}}
+                <div class="ui item">
+                    <a href='/c/{{voter}}'>
+                        <div class="content">
+                            <div class="header">
+                                {{voter}}
+                                <span style="color:#b5b5b5"> ({{votePercentage(percent)}}%)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+        <a href="/v/{{author}}/{{link}}/votes" class="ui button red dtube fluid" style="padding: 5px;">
+            View All
+        </a>
+    </div>
+</template>

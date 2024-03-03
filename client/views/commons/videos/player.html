@@ -1,0 +1,12 @@
+<template name='player'>
+    {{#unless isOnMobile}}
+        <div style='position: relative'>
+          <div class="mirrors" style="display:none">
+            {{#each availProviders}}
+              <img title="Watch using {{disp}}" class="mirrorLogo" src="./DTube_files/images/logos/{{logo}}">
+            {{/each}}
+          </div>
+        </div>
+      {{/unless}}
+    <div class="ui embed player"></div>
+</template>

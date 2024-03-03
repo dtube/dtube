@@ -1,0 +1,25 @@
+<template name='trendingvideos'>
+  <div class="ui infinite">
+    {{#if isOnMobile}}
+      <div class="ui grid" style="margin: 10px 0px">
+        <h2 class="mb-2">
+          {{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}
+          {{>badgehelp 'video-rankings'}}
+        </h2>
+        {{> verticalvideoband trendingVideos}}
+        <div class="sixteen wide column">
+            <div class="ui large centered inline text loader"></div>
+        </div>
+      </div>
+    {{else}}
+      <div class="ui container">
+        <h2 class="mb-2">
+          {{ translate 'HOME_TITLE_TRENDING_VIDEOS'}}
+          {{>badgehelp 'video-rankings'}}
+        </h2>
+        {{> videoband trendingVideos}}
+        <div class="ui large centered inline text loader"></div>
+      </div>
+    {{/if}}
+  </div>
+</template>
