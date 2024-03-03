@@ -2,7 +2,8 @@
   "name": "drtube",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "build": ""
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
