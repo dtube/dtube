@@ -1,5 +1,5 @@
 Search = {
-    api: 'https://search.d.tube',
+    api: 'https://search.dtube.fso.ovh',
     //api: 'http://localhost:9200',
     text: (query, sort, startpos, cb) => {
         var url = Search.api+'/avalon.contents/_search?q=(NOT pa:*) AND '+query+'&size=20'
