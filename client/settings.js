@@ -6,6 +6,7 @@ Meteor.settings.public = {
     "displayNodes": [
       // "https://snap1.d.tube",
       "https://video.oneloveipfs.com",
+      "https://dweb.link",
       "https://ipfs.io",
       "https://ipfs.infura.io",
       "https://gateway.pinata.cloud",

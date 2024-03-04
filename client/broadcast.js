@@ -1383,7 +1383,7 @@ var genSteemBody = function(author, permlink, video) {
     var files = video.files
     if (!files) return body
     if (files.ipfs && files.ipfs.vid && files.ipfs.vid.src)
-        body += '<a href=\'https://ipfs.io/ipfs/' + files.ipfs.vid.src + '\'> ▶️ IPFS</a><br />'
+        body += '<a href=\'https://dweb.link/ipfs/' + files.ipfs.vid.src + '\'> ▶️ IPFS</a><br />'
     if (files.btfs && files.btfs.vid && files.btfs.vid.src)
         body += '<a href=\'https://btfs.d.tube/btfs/' + files.btfs.vid.src + '\'> ▶️ BTFS</a><br />'
     if (files.sia && files.sia.vid && files.sia.vid.src)
