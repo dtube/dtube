@@ -184,7 +184,7 @@
         {{#if isOnMobile}}
         {{#if userVideosAndResteems}}
         <div class="ui grid mobile only content videorecommendedmobile">
-          <center><iframe data-aa='2295175' src='//ad.a-ads.com/2295175?size=320x100' style='width:320px; height:100px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe></center>
+          {{> videoads}}
           <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
           {{> verticalvideoband userVideosAndResteems}}
         </div>
@@ -261,7 +261,7 @@
     {{else}}
     <div class="pdg-5 relatedcol four wide column computer only">
       <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
-        <center><iframe data-aa='2265357' src='//ad.a-ads.com/2265357?size=250x250' style='width:250px; height:250px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe></center>
+        {{> videoads}}
         <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
         {{#if userVideosAndResteems}}
         {{> verticalvideoband userVideosAndResteems}}
