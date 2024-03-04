@@ -290,14 +290,14 @@ Template.publish.events({
                 else if (this.type == 'img')
                 gw = 'snap1.d.tube'
             else
-                gw = 'player.d.tube'
+                gw = 'gateway.btfs.io'
             if (this.tech == 'IPFS')
                 if (this.type == 'img' && this.ver == 'spr')
-                    gw = 'ipfs.io'
+                    gw = 'dweb.link'
                 else if (this.type == 'img' || this.type == 'sub')
                 gw = 'snap1.d.tube'
             else
-                gw = 'ipfs.io'
+                gw = 'dweb.link'
         }
 
         window.open("https://" + gw + "/" + this.tech.toLowerCase() + "/" + this.hash);
