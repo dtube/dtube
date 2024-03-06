@@ -9,6 +9,10 @@ Search = {
             url += '&from='+startpos
         fetch(url, {
             method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
         }).then(res => res.json()).then(function(res) {
             res.results = []
             for (let i = 0; i < res.hits.hits.length; i++) {
@@ -34,6 +38,10 @@ Search = {
         }
         fetch(Search.api+'/avalon.contents/_search', {
             method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify(esQuery),
         }).then(res => res.json()).then(function(res) {
             res.results = []
@@ -48,6 +56,10 @@ Search = {
         var url = Search.api+'/avalon.accounts/_search?q=name:*'+query+'*&size=5&sort=balance:desc'
         fetch(url, {
             method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            }
         }).then(res => res.json()).then(function(res) {
             res.results = []
             for (let i = 0; i < res.hits.hits.length; i++) {
