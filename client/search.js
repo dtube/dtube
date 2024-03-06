@@ -41,7 +41,7 @@ Search = {
             headers: {
               'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json'
-            }
+            },
             body: JSON.stringify(esQuery),
         }).then(res => res.json()).then(function(res) {
             res.results = []
