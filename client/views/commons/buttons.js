@@ -19,7 +19,7 @@
     var memo = $('#transfer_memo').val()
     var receiver = FlowRouter.getParam("author")
     if (receiver == 'ionomy' || receiver == 'dtube.swap') {
-      Meteor.blockchainError("Transfers to this account are temporarly disabled as they've probably an outdated software code.")
+      toastr.warning("Transfers to this account are temporarly disabled as they've probably an outdated software code.")
     } else {
       broadcast.avalon.transfer(receiver, amount, memo, function(err, res) {
         $("#confirmTransfer").removeClass('disabled')
