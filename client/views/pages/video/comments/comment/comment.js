@@ -9,8 +9,10 @@ Template.comment.helpers({
     isDMCABanned: function(username) {
         $.get('https://dmca.dtube.fso.ovh/v/'+author+'/'+permlink, (json, result) => {
             if (result == 'success')
-                return json.dmca !== 0;
-            return false;
+                if(json.dmca !== 0) {
+                    let element = document.getElementById(+author+'/'+permlink);
+                    element.remove();
+                }
         })
     },
     picture: function(id) {
