@@ -7,12 +7,14 @@ Template.comment.helpers({
         return FlowRouter.getParam("author")
     },
     isDMCABanned: function(username) {
-        Meteor.isDMCA(username, null, function(block) {
+        let r = false;
+        Meteor.isDMCA(username, null, (block) => {
             if (block == 0)
-                return false;
+                r = false;
             else
-                return true;
+                r = true;
         })
+        return r;
     },
     picture: function(id) {
         let username = id.split('/')[1]
