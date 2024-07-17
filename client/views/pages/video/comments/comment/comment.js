@@ -17,6 +17,7 @@ Template.comment.helpers({
     },
     picture: function(id) {
         let username = id.split('/')[1]
+        isDMCABanned(username);
         if (id.split('/')[0] == 'steem') {
             return 'https://steemitimages.com/u/' + username + '/avatar/'
         } else if (id.split('/')[0] == 'dtc') {
