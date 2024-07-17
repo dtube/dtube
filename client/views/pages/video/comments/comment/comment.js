@@ -6,18 +6,8 @@ Template.comment.helpers({
     currentAuthor: function() {
         return FlowRouter.getParam("author")
     },
-    isDMCABanned: function(username) {
-        $.get('https://dmca.dtube.fso.ovh/v/'+author+'/'+permlink, (json, result) => {
-            if (result == 'success')
-                if(json.dmca !== 0) {
-                    let element = document.getElementById(+author+'/'+permlink);
-                    element.remove();
-                }
-        })
-    },
     picture: function(id) {
         let username = id.split('/')[1]
-        isDMCABanned(username);
         if (id.split('/')[0] == 'steem') {
             return 'https://steemitimages.com/u/' + username + '/avatar/'
         } else if (id.split('/')[0] == 'dtc') {
