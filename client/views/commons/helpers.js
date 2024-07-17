@@ -111,23 +111,29 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
         var tree = []
         for (let i = 0; i < length; i++) {
             if (dtc && dtc[i]) {
-                console.log(dtc[i]);
-                if (tree.length == 0) {
-                    tree.push(JSON.parse(JSON.stringify(dtc[i])))
-                } else {
-                    var exists = false
-                    for (let y = 0; y < tree.length; y++) {
-                        if (tree[y].json.refs && tree[y].json.refs.indexOf(dtc[i]._id) > -1) {
-                            exists = true
-                            tree[y].comments = mergeTree(tree[y].comments, dtc[i].comments)
-                            tree[y].dist = dtc[i].dist
-                            tree[y].votes = dtc[i].votes
-                            tree[y].ups += dtc[i].votes
-                            tree[y].downs += dtc[i].votes
+                $.get("https://dmca.dtube.fso.ovh/v/"+dtc[i].author, function(json, result {
+                if (result == 'success')
+                    if (+json.dmca === 0) {
+                        if (tree.length == 0) {
+                            tree.push(JSON.parse(JSON.stringify(dtc[i])))
+                        } else {
+                            var exists = false
+                            for (let y = 0; y < tree.length; y++) {
+                                if (tree[y].json.refs && tree[y].json.refs.indexOf(dtc[i]._id) > -1) {
+                                    exists = true
+                                    tree[y].comments = mergeTree(tree[y].comments, dtc[i].comments)
+                                    tree[y].dist = dtc[i].dist
+                                    tree[y].votes = dtc[i].votes
+                                    tree[y].ups += dtc[i].votes
+                                    tree[y].downs += dtc[i].votes
+                                }
+                            }
+                            if (!exists) tree.push(JSON.parse(JSON.stringify(dtc[i])))
                         }
+                    } else {
+                        console.log("Hidden comment: "+dtc[i]._id);
                     }
-                    if (!exists) tree.push(JSON.parse(JSON.stringify(dtc[i])))
-                }
+                })
             }
             if (steem && steem[i]) {
                 if (tree.length == 0) {
