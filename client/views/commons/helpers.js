@@ -111,7 +111,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
         var tree = []
         for (let i = 0; i < length; i++) {
             if (dtc && dtc[i]) {
-                $.get("https://dmca.dtube.fso.ovh/v/"+dtc[i].author+"/null"+, function(json, result) {
+                $.get("https://dmca.dtube.fso.ovh/v/"+dtc[i].author+"/null", function(json, result) {
                 if (result == 'success')
                     if (+json.dmca === 0) {
                         if (tree.length == 0) {
