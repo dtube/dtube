@@ -6,6 +6,15 @@ Template.comment.helpers({
     currentAuthor: function() {
         return FlowRouter.getParam("author")
     },
+    isDmcaBanned: function(username) {
+        Meteor.isDMCA(username, null, function(block) {
+            if (block == 0)
+                return false;
+            else
+                return true;
+        })
+)
+    },
     picture: function(id) {
         let username = id.split('/')[1]
         if (id.split('/')[0] == 'steem') {
