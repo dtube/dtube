@@ -2,10 +2,7 @@
   <div class="ui threaded comments" style='max-width: 9999px;'>
     <div class="ui fluid">
       {{#each mergeComments comments commentsSteem}} 
-      {{if isDMCABanned}}
-      {{else}}
         {{> comment}}
-      {{#if}}
       {{/each}}
     </div>
   </div>
