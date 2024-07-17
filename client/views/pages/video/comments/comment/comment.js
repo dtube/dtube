@@ -6,7 +6,7 @@ Template.comment.helpers({
     currentAuthor: function() {
         return FlowRouter.getParam("author")
     },
-    isDmcaBanned: function(username) {
+    isDMCABanned: function(username) {
         Meteor.isDMCA(username, null, function(block) {
             if (block == 0)
                 return false;
