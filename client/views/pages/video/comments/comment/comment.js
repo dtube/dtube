@@ -7,14 +7,11 @@ Template.comment.helpers({
         return FlowRouter.getParam("author")
     },
     isDMCABanned: function(username) {
-        let r = false;
-        Meteor.isDMCA(username, null, (block) => {
-            if (block == 0)
-                r = false;
-            else
-                r = true;
+        $.get('https://dmca.dtube.fso.ovh/v/'+author+'/'+permlink, (json, result) => {
+            if (result == 'success')
+                return json.dmca !== 0;
+            return false;
         })
-        return r;
     },
     picture: function(id) {
         let username = id.split('/')[1]
