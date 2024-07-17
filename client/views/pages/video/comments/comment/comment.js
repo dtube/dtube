@@ -13,7 +13,6 @@ Template.comment.helpers({
             else
                 return true;
         })
-)
     },
     picture: function(id) {
         let username = id.split('/')[1]
