@@ -111,6 +111,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
         var tree = []
         for (let i = 0; i < length; i++) {
             if (dtc && dtc[i]) {
+                console.log(dtc[i]);
                 if (tree.length == 0) {
                     tree.push(JSON.parse(JSON.stringify(dtc[i])))
                 } else {
