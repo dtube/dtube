@@ -8,47 +8,47 @@ import Autolinker from 'dtube-autolinker'
 // they should always return cleanly and be fast
 // as they rerun on each template rerender
 
-Template.registerHelper('equals', function(one, two) {
+Template.registerHelper('equals', function (one, two) {
     if (one == two) return true;
     return false;
 });
 
 
-Template.registerHelper('or', function(one, two) {
+Template.registerHelper('or', function (one, two) {
     if (one || two) return true;
     return false;
 });
 
-Template.registerHelper('or3', function(one, two, three) {
-  if (one || two || three) return true;
-  return false;
+Template.registerHelper('or3', function (one, two, three) {
+    if (one || two || three) return true;
+    return false;
 });
 
-Template.registerHelper('and', function(one,two) {
+Template.registerHelper('and', function (one, two) {
     return one && two
 })
 
-Template.registerHelper('not', function(itm) {
+Template.registerHelper('not', function (itm) {
     return !itm
 })
 
-Template.registerHelper('count', function(array) {
+Template.registerHelper('count', function (array) {
     if (!array) return 0;
     return array.length;
 });
 
-Template.registerHelper('pipe', function(one, two) {
+Template.registerHelper('pipe', function (one, two) {
     return one || two
 });
 
-Template.registerHelper('isOnMobile', function() {
+Template.registerHelper('isOnMobile', function () {
     if (/Mobi/.test(navigator.userAgent)) {
         return true;
     }
     return false;
 });
 
-Template.registerHelper('isOnIDevice', function() {
+Template.registerHelper('isOnIDevice', function () {
     var iDevices = [
         'iPad Simulator',
         'iPhone Simulator',
@@ -67,18 +67,18 @@ Template.registerHelper('isOnIDevice', function() {
     return false;
 });
 
-Template.registerHelper('isTabletOrLower', function() {
+Template.registerHelper('isTabletOrLower', function () {
     if (window.innerWidth < 1180) {
         return true;
     }
     return false;
 });
 
-Template.registerHelper('session', function(key) {
+Template.registerHelper('session', function (key) {
     return Session.get(key)
 });
 
-Template.registerHelper('upvotes', function(active_votes) {
+Template.registerHelper('upvotes', function (active_votes) {
     if (!active_votes) return -1;
     var count = 0;
     for (var i = 0; i < active_votes.length; i++) {
@@ -87,7 +87,7 @@ Template.registerHelper('upvotes', function(active_votes) {
     return count;
 });
 
-Template.registerHelper('downvotes', function(active_votes) {
+Template.registerHelper('downvotes', function (active_votes) {
     if (!active_votes) return -1;
     var count = 0;
     for (var i = 0; i < active_votes.length; i++) {
@@ -96,7 +96,7 @@ Template.registerHelper('downvotes', function(active_votes) {
     return count;
 });
 
-Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
+Template.registerHelper('mergeComments', function (dtc, steem, hive, blurt) {
     function mergeTree(dtc, steem, hive, blurt) {
         if (!steem && !dtc && !hive && !blurt) return []
         if (!steem && !hive && !blurt) return dtc
@@ -107,7 +107,7 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
         if (steem && steem.length > length) length = steem.length
         if (hive && hive.length > length) length = hive.length
         if (blurt && blurt.length > length) length = blurt.length
-            // console.log('comment length',length)
+        // console.log('comment length',length)
         var tree = []
         for (let i = 0; i < length; i++) {
             if (dtc && dtc[i]) {
@@ -165,35 +165,35 @@ Template.registerHelper('mergeComments', function(dtc, steem, hive, blurt) {
                 }
             }
             if (blurt && blurt[i]) {
-              if (tree.length == 0) {
-                  tree.push(JSON.parse(JSON.stringify(blurt[i])))
-              } else {
-                  var exists = false
-                  for (let y = 0; y < tree.length; y++) {
-                      if (tree[y].json.refs && tree[y].json.refs.indexOf(blurt[i]._id) > -1) {
-                          exists = true
-                          tree[y].comments = mergeTree(tree[y].comments, blurt[i].comments)
-                          tree[y].distSteem = blurt[i].distSteem
-                          tree[y].votesSteem = blurt[i].votesSteem
-                          tree[y].ups += blurt[i].votes
-                          tree[y].downs += blurt[i].votes
-                      }
-                  }
-                  if (!exists) tree.push(JSON.parse(JSON.stringify(blurt[i])))
-              }
-          }
+                if (tree.length == 0) {
+                    tree.push(JSON.parse(JSON.stringify(blurt[i])))
+                } else {
+                    var exists = false
+                    for (let y = 0; y < tree.length; y++) {
+                        if (tree[y].json.refs && tree[y].json.refs.indexOf(blurt[i]._id) > -1) {
+                            exists = true
+                            tree[y].comments = mergeTree(tree[y].comments, blurt[i].comments)
+                            tree[y].distSteem = blurt[i].distSteem
+                            tree[y].votesSteem = blurt[i].votesSteem
+                            tree[y].ups += blurt[i].votes
+                            tree[y].downs += blurt[i].votes
+                        }
+                    }
+                    if (!exists) tree.push(JSON.parse(JSON.stringify(blurt[i])))
+                }
+            }
         }
-        return tree
+        return tree;
     }
     return mergeTree(dtc, steem, hive, blurt)
 })
 
-Template.registerHelper('userPic', function(username, size) {
+Template.registerHelper('userPic', function (username, size) {
     if (!size || typeof size != 'string') size = ''
     return javalon.config.api + '/image/avatar/' + username + '/' + size
 });
 
-Template.registerHelper('userPicSteem', function(username, size) {
+Template.registerHelper('userPicSteem', function (username, size) {
     if (!size || typeof size != 'string') size = ''
     return 'https://steemitimages.com/u/' + username + '/avatar/' + size
 });
@@ -204,15 +204,15 @@ Template.registerHelper('userPicHive', (username, size) => {
 })
 
 Template.registerHelper('userPicBlurt', (username, size) => {
-  if (!size || typeof size != 'string') size = ''
-  return 'https://imgp.blurt.world/profileimage/' + username + '/' + size
+    if (!size || typeof size != 'string') size = ''
+    return 'https://imgp.blurt.world/profileimage/' + username + '/' + size
 })
 
-Template.registerHelper('userCover', function(username) {
+Template.registerHelper('userCover', function (username) {
     return javalon.config.api + '/image/cover/' + username
 })
 
-Template.registerHelper('isReplying', function(content) {
+Template.registerHelper('isReplying', function (content) {
     if (!Session.get('replyingTo')) return false
     if (!content) return false
     if (!content.author) return false
@@ -221,12 +221,12 @@ Template.registerHelper('isReplying', function(content) {
     return false
 });
 
-Template.registerHelper('isReplyingRoot', function() {
+Template.registerHelper('isReplyingRoot', function () {
     if (!Session.get('replyingTo')) return true
     return false
 });
 
-Template.registerHelper('displayCurrency', function(string) {
+Template.registerHelper('displayCurrency', function (string) {
     if (!string) return
     var amount = string.split(' ')[0]
     var currency = string.split(' ')[1]
@@ -255,12 +255,12 @@ function cuteNumber(num, digits) {
     return newNum;
 }
 
-Template.registerHelper('displayPayout', function(ups, downs) {
+Template.registerHelper('displayPayout', function (ups, downs) {
     if (!ups && !downs) return 0
     return cuteNumber(ups - downs)
 })
 
-Template.registerHelper('displayRewards', function(dtc, steem, scot, hive, blurt) {
+Template.registerHelper('displayRewards', function (dtc, steem, scot, hive, blurt) {
     var rewards = []
     if (Session.get('scot') && scot) {
         return Scot.formatCurrency(scot, Session.get('scot'))
@@ -276,7 +276,7 @@ Template.registerHelper('displayRewards', function(dtc, steem, scot, hive, blurt
     return rewards.join(' + ')
 })
 
-Template.registerHelper('displayMoney', function(amount, shorten, symbol) {
+Template.registerHelper('displayMoney', function (amount, shorten, symbol) {
     amount = Math.round(amount)
     amount = amount / 100
     var string = ''
@@ -292,11 +292,11 @@ Template.registerHelper('displayMoney', function(amount, shorten, symbol) {
     return string
 })
 
-Template.registerHelper('displayScot', function(distScot, scot) {
+Template.registerHelper('displayScot', function (distScot, scot) {
     return Scot.formatCurrency(distScot, scot)
 })
 
-Template.registerHelper('displayVotingPower', function(user, shorten) {
+Template.registerHelper('displayVotingPower', function (user, shorten) {
     if (shorten)
         return cuteNumber(avalon.votingPower(user)) + 'VP'
     else {
@@ -305,15 +305,15 @@ Template.registerHelper('displayVotingPower', function(user, shorten) {
     }
 })
 
-Template.registerHelper('displayBandwidth', function(user) {
+Template.registerHelper('displayBandwidth', function (user) {
     return cuteNumber(avalon.bandwidth(user))
 })
 
-Template.registerHelper('displayPayoutUpvote', function(share, rewards) {
+Template.registerHelper('displayPayoutUpvote', function (share, rewards) {
     return (Number(share) * rewards).toFixed(3);
 })
 
-Template.registerHelper('displayVoters', function(votes, isDownvote) {
+Template.registerHelper('displayVoters', function (votes, isDownvote) {
     if (!votes) return
     var newVotes = []
     for (let i = 0; i < votes.length; i++) {
@@ -334,7 +334,7 @@ Template.registerHelper('displayVoters', function(votes, isDownvote) {
                 newVotes.push({ u: votes[i].u, vt: votes[i].vt, ts: votes[i].ts })
         }
     }
-    newVotes.sort(function(a, b) {
+    newVotes.sort(function (a, b) {
         return b.vt - a.vt
     })
     if (isDownvote) newVotes.reverse()
@@ -353,7 +353,7 @@ Template.registerHelper('displayVoters', function(votes, isDownvote) {
     return top20
 })
 
-Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, votesBlurt, x) {
+Template.registerHelper('topVoters', function (votes, votesSteem, votesHive, votesBlurt, x) {
     if (!votes || votes.length == 0) votes = []
     if (!votesSteem || votesSteem.length == 0) votesSteem = []
     if (!votesHive || votesHive.length == 0) votesHive = []
@@ -362,17 +362,17 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, vote
     var votesSteem = JSON.parse(JSON.stringify(votesSteem))
     var votesHive = JSON.parse(JSON.stringify(votesHive))
     var votesBlurt = JSON.parse(JSON.stringify(votesBlurt))
-    votes.sort(function(a, b) {
+    votes.sort(function (a, b) {
         return Math.abs(b.vt) - Math.abs(a.vt)
     })
-    votesSteem.sort(function(a, b) {
+    votesSteem.sort(function (a, b) {
         return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
     })
     votesHive.sort((a, b) => {
         return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
     })
     votesBlurt.sort((a, b) => {
-      return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
+        return Math.abs(parseInt(b.rshares)) - Math.abs(parseInt(a.rshares))
     })
 
     var top = []
@@ -422,8 +422,8 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, vote
         }
 
         if (topBlurt[i]) {
-          topBlurt[i].network = 'blurt'
-          realTop.push(topBlurt[i])
+            topBlurt[i].network = 'blurt'
+            realTop.push(topBlurt[i])
         }
     }
     var zi = 800
@@ -434,7 +434,7 @@ Template.registerHelper('topVoters', function(votes, votesSteem, votesHive, vote
     return realTop
 })
 
-Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHive, votesBlurt, x) {
+Template.registerHelper('nonTopVotesCount', function (votes, votesSteem, votesHive, votesBlurt, x) {
     var total = 0
     if (votes)
         if (votes.length >= x)
@@ -452,25 +452,25 @@ Template.registerHelper('nonTopVotesCount', function(votes, votesSteem, votesHiv
     return total
 })
 
-Template.registerHelper('timeAgoReal', function(timestamp) {
+Template.registerHelper('timeAgoReal', function (timestamp) {
     return moment(timestamp).fromNow()
 })
 
-Template.registerHelper('timeAgoTimestamp', function(timestamp) {
+Template.registerHelper('timeAgoTimestamp', function (timestamp) {
     return moment(timestamp * 1000).fromNow()
 })
 
-Template.registerHelper('timeAgo', function(ts) {
+Template.registerHelper('timeAgo', function (ts) {
     var date = new Date(ts)
     return moment(date).fromNow()
 })
 
-Template.registerHelper('timeDisplay', function(ts) {
+Template.registerHelper('timeDisplay', function (ts) {
     var date = new Date(parseInt(ts))
     return moment(date).format("ll")
 })
 
-Template.registerHelper('durationDisplay', function(seconds) {
+Template.registerHelper('durationDisplay', function (seconds) {
     seconds = parseFloat(seconds)
     if (seconds > 3600) {
         return moment('2000-01-01 00:00:00').add(moment.duration(seconds * 1000)).format('HH:mm:ss')
@@ -479,7 +479,7 @@ Template.registerHelper('durationDisplay', function(seconds) {
     }
 })
 
-Template.registerHelper('hasUpvoted', function(video) {
+Template.registerHelper('hasUpvoted', function (video) {
     if (!video) return false
 
     if (video.votes && Session.get('activeUsername'))
@@ -509,7 +509,7 @@ Template.registerHelper('hasUpvoted', function(video) {
     return false
 })
 
-Template.registerHelper('hasDownvoted', function(video) {
+Template.registerHelper('hasDownvoted', function (video) {
     if (!video) return false
     if (video.votes && Session.get('activeUsername'))
         for (var i = 0; i < video.votes.length; i++) {
@@ -532,7 +532,7 @@ Template.registerHelper('hasDownvoted', function(video) {
     return false
 })
 
-Template.registerHelper('uniques', function(votes, votesSteem, votesHive, votesBlurt, type) {
+Template.registerHelper('uniques', function (votes, votesSteem, votesHive, votesBlurt, type) {
     if (!votes) votes = []
     if (!votesSteem) votesSteem = []
     if (!votesHive) votesHive = []
@@ -541,35 +541,35 @@ Template.registerHelper('uniques', function(votes, votesSteem, votesHive, votesB
     for (let i = 0; i < votes.length; i++) {
         if (votes[i].vt > 0 && type == 'up')
             counter++
-            if (votes[i].vt < 0 && type == 'down')
-                counter++
+        if (votes[i].vt < 0 && type == 'down')
+            counter++
     }
     for (let i = 0; i < votesSteem.length; i++) {
         if (votesSteem[i].percent > 0 && type == 'up')
             counter++
-            if (votesSteem[i].percent < 0 && type == 'down')
-                counter++
+        if (votesSteem[i].percent < 0 && type == 'down')
+            counter++
     }
     for (let i = 0; i < votesHive.length; i++) {
         if (votesHive[i].percent > 0 && type == 'up')
             counter++
-            if (votesHive[i].percent < 0 && type == 'down')
-                counter++
+        if (votesHive[i].percent < 0 && type == 'down')
+            counter++
     }
     // no downvotes in Blurt
     for (let i = 0; i < votesBlurt.length; i++) {
-      if (votesBlurt[i].percent > 0 && type == 'up')
-          counter++
+        if (votesBlurt[i].percent > 0 && type == 'up')
+            counter++
     }
     return counter
 })
 
-Template.registerHelper('lengthOf', function(array) {
+Template.registerHelper('lengthOf', function (array) {
     if (!array) return
     return array.length
 })
 
-Template.registerHelper('isPlural', function(array) {
+Template.registerHelper('isPlural', function (array) {
     if (!array) return
     if (array.length == 1) return false
     return true
@@ -580,7 +580,7 @@ Template.registerHelper('isPlural', function(array) {
 // returns 0 if video is 100% safe
 // returns 1 if video is negative (vp upvotes < vp downvotes)
 // returns 2 if video has the nsfw tag
-Template.registerHelper('censorshipLevel', function(video) {
+Template.registerHelper('censorshipLevel', function (video) {
     let nsfwTags = ['nsfw', 'porn']
     if (!video || !video.json)
         return -1
@@ -595,7 +595,7 @@ Template.registerHelper('censorshipLevel', function(video) {
     return 0
 })
 
-Template.registerHelper('isVideoHidden', function(video) {
+Template.registerHelper('isVideoHidden', function (video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
     if (censor == -1)
         return true
@@ -607,7 +607,7 @@ Template.registerHelper('isVideoHidden', function(video) {
     return false
 })
 
-Template.registerHelper('isVideoBlurred', function(video) {
+Template.registerHelper('isVideoBlurred', function (video) {
     var censor = UI._globalHelpers.censorshipLevel(video)
     if (censor == 1 && parseInt(Session.get('censorSetting')) === 1)
         return true
@@ -617,7 +617,7 @@ Template.registerHelper('isVideoBlurred', function(video) {
     return false
 })
 
-Template.registerHelper('syntaxed', function(text, text2) {
+Template.registerHelper('syntaxed', function (text, text2) {
     if (!text) text = text2
     if (!text) return ''
     if (typeof text != 'string')
@@ -633,7 +633,7 @@ Template.registerHelper('syntaxed', function(text, text2) {
 
     // time travelling stuff
     var re = /(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)/g
-    text.replace(re, function(match, p1, p2, p3) {
+    text.replace(re, function (match, p1, p2, p3) {
         var seconds = parseInt(p3) + 60 * parseInt(p2)
         if (p1) seconds += 3600 * parseInt(p1)
         if (p1) text = text.replace(match, '<a class="seekTo" onclick=\'Template.video.seekTo(' + seconds + ')\'>' + p1 + ':' + p2 + ':' + p3 + '</a>')
@@ -663,7 +663,7 @@ Template.registerHelper('syntaxed', function(text, text2) {
     return text
 })
 
-Template.registerHelper('humanFilesize', function(bits, si) {
+Template.registerHelper('humanFilesize', function (bits, si) {
     var thresh = si ? 1000 : 1024;
     if (Math.abs(bits) < thresh) {
         return bits + ' B';
@@ -677,7 +677,7 @@ Template.registerHelper('humanFilesize', function(bits, si) {
     return bits.toFixed(1) + ' ' + units[u];
 })
 
-Template.registerHelper('settings', function() {
+Template.registerHelper('settings', function () {
     return Meteor.settings.public
 })
 
@@ -685,42 +685,42 @@ Template.registerHelper('thirdPartyUploadEndpoints', () => {
     return Meteor.settings.public.remote.thirdPartyUploadEndpoints
 })
 
-Template.registerHelper('isSubscribedTo', function(following) {
+Template.registerHelper('isSubscribedTo', function (following) {
     var sub = Subs.findOne({ follower: Session.get('activeUsername'), following: following })
     if (sub) return true
     return false;
 })
 
-Template.registerHelper('getEmbedCode', function(author, permlink) {
+Template.registerHelper('getEmbedCode', function (author, permlink) {
     var code = '<iframe width="560" height="315" src="https://emb.d.tube/#!/@@@author@@@/@@@permlink@@@" frameborder="0" allowfullscreen></iframe>'
     code = code.replace('@@@author@@@', author)
     code = code.replace('@@@permlink@@@', permlink)
     return code
 })
 
-Template.registerHelper('getPercent', function(string) {
+Template.registerHelper('getPercent', function (string) {
     return parseInt(string)
 })
 
-Template.registerHelper('displayShortDescription', function(string) {
+Template.registerHelper('displayShortDescription', function (string) {
     return string.substring(0, 130)
 })
 
-Template.registerHelper('displayDate', function(date) {
+Template.registerHelper('displayDate', function (date) {
     return moment(date).format('MMMM Do YYYY');
 })
 
-Template.registerHelper('displayDateFull', function(date) {
+Template.registerHelper('displayDateFull', function (date) {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 })
 
-Template.registerHelper('arrayify', function(obj) {
+Template.registerHelper('arrayify', function (obj) {
     var result = [];
     for (var key in obj) result.push({ key: key, value: obj[key] });
     return result;
 });
 
-Template.registerHelper('inputTags', function(tags) {
+Template.registerHelper('inputTags', function (tags) {
     if (!tags) return ''
     var ok = []
     for (var i = 0; i < tags.length; i++) {
@@ -731,11 +731,11 @@ Template.registerHelper('inputTags', function(tags) {
     return ok.join(',')
 });
 
-Template.registerHelper('activeUsername', function() {
+Template.registerHelper('activeUsername', function () {
     return Session.get('activeUsername')
 })
 
-Template.registerHelper('activeUsernameSteem', function() {
+Template.registerHelper('activeUsernameSteem', function () {
     return Session.get('activeUsernameSteem')
 })
 
@@ -744,14 +744,14 @@ Template.registerHelper('activeUsernameHive', () => {
 })
 
 Template.registerHelper('activeUsernameBlurt', () => {
-  return Session.get('activeUsernameBlurt')
+    return Session.get('activeUsernameBlurt')
 })
 
 Template.registerHelper('getVideoDesc', (video) => {
     return video.desc || video.description
 })
 
-Template.registerHelper('subCount', function() {
+Template.registerHelper('subCount', function () {
     var user = ChainUsers.findOne({ name: FlowRouter.getParam("author") })
     if (user)
         return user.followersCount
@@ -759,14 +759,14 @@ Template.registerHelper('subCount', function() {
         return 0
 })
 
-Template.registerHelper('lowerThan', function(n, p) {
+Template.registerHelper('lowerThan', function (n, p) {
     n = parseInt(n)
     p = parseInt(p)
     if (p < n) return true
     return false
 })
 
-Template.registerHelper('topTags', function() {
+Template.registerHelper('topTags', function () {
     // CLIENT SIDE TRENDING TAGS !?
     var videos = Videos.find({ source: 'chainByHot' }, { limit: 50, sort: { score: -1 } }).fetch()
     var tags = {}
@@ -803,26 +803,26 @@ Template.registerHelper('topTags', function() {
         if (ignoredTags.indexOf(key) == -1)
             array.push({ tag: key, vt: tags[key] })
 
-    array = array.sort(function(a, b) { return b.vt - a.vt })
+    array = array.sort(function (a, b) { return b.vt - a.vt })
     array = array.slice(0, 10)
     return array
 })
 
-Template.registerHelper('scot', function() {
+Template.registerHelper('scot', function () {
     return Session.get('scot')
 })
 
-Template.registerHelper('isOnWatchAgain', function() {
+Template.registerHelper('isOnWatchAgain', function () {
     if (FlowRouter._current.path == '/history')
         return true
     return false
 })
 
-Template.registerHelper('encodeURIComponent', function(text) {
+Template.registerHelper('encodeURIComponent', function (text) {
     return encodeURIComponent(text)
 })
 
-Template.registerHelper('steemVotable', function(content) {
+Template.registerHelper('steemVotable', function (content) {
     if (Session.get('activeUsernameSteem')) {
         if (content._id.startsWith('steem'))
             return true
@@ -834,7 +834,7 @@ Template.registerHelper('steemVotable', function(content) {
     } else return false
 })
 
-Template.registerHelper('hiveVotable', function(content) {
+Template.registerHelper('hiveVotable', function (content) {
     if (Session.get('activeUsernameHive')) {
         if (content._id.startsWith('hive'))
             return true
@@ -846,19 +846,19 @@ Template.registerHelper('hiveVotable', function(content) {
     } else return false
 })
 
-Template.registerHelper('blurtVotable', function(content) {
-  if (Session.get('activeUsernameBlurt')) {
-      if (content._id.startsWith('blurt'))
-          return true
-      if (!content.json.refs) return false
-      for (let r in content.json.refs)
-          if (content.json.refs[r].startsWith('blurt'))
-              return true
-      return false
-  } else return false
+Template.registerHelper('blurtVotable', function (content) {
+    if (Session.get('activeUsernameBlurt')) {
+        if (content._id.startsWith('blurt'))
+            return true
+        if (!content.json.refs) return false
+        for (let r in content.json.refs)
+            if (content.json.refs[r].startsWith('blurt'))
+                return true
+        return false
+    } else return false
 })
 
-Template.registerHelper('dtubeVotable', function(content) {
+Template.registerHelper('dtubeVotable', function (content) {
     if (Session.get('activeUsername')) {
         if (content && content._id.startsWith('dtc'))
             return true
@@ -870,7 +870,7 @@ Template.registerHelper('dtubeVotable', function(content) {
     } else return false
 })
 
-Template.registerHelper('contentNetwork', function(content, ignoreVotable) {
+Template.registerHelper('contentNetwork', function (content, ignoreVotable) {
     if (!content)
         return
     let network = 'dtube'
@@ -897,19 +897,19 @@ Template.registerHelper('contentNetwork', function(content, ignoreVotable) {
     return network
 })
 
-Template.registerHelper('isNightMode',() => {
+Template.registerHelper('isNightMode', () => {
     return UserSettings.get('isInNightMode')
 })
 
-Template.registerHelper('hasMetamask',() => {
+Template.registerHelper('hasMetamask', () => {
     return Session.get('hasMetamask')
 })
 
-Template.registerHelper('metamaskAddress',() => {
+Template.registerHelper('metamaskAddress', () => {
     return Session.get('metamaskAddress')
 })
 
-Template.registerHelper('fallbackThumbnailUrl',(url) => {
+Template.registerHelper('fallbackThumbnailUrl', (url) => {
     // no fallback for 3rd party thumbnails
     if (!url.includes('/ipfs/') && !url.includes('/btfs/')) return ''
 
@@ -917,7 +917,7 @@ Template.registerHelper('fallbackThumbnailUrl',(url) => {
     for (let g in Meteor.settings.public.remote.displayNodes) {
         if (url.startsWith(Meteor.settings.public.remote.displayNodes[g])) {
             if (g < Meteor.settings.public.remote.displayNodes.length)
-                return url.replace(Meteor.settings.public.remote.displayNodes[g],Meteor.settings.public.remote.displayNodes[parseInt(g)+1])
+                return url.replace(Meteor.settings.public.remote.displayNodes[g], Meteor.settings.public.remote.displayNodes[parseInt(g) + 1])
             else
                 return '' // no more gateways
         }
@@ -930,10 +930,10 @@ Template.registerHelper('fallbackThumbnailUrl',(url) => {
     return splitUrl.join(ipfsOrBtfs)
 })
 
-Template.registerHelper('coinPrice',() => {
+Template.registerHelper('coinPrice', () => {
     return Session.get('coinPrice')
 })
 
-Template.registerHelper('coinPriceFormatted',() => {
-    return Math.round(Session.get('coinPrice')*1000)/1000;
+Template.registerHelper('coinPriceFormatted', () => {
+    return Math.round(Session.get('coinPrice') * 1000) / 1000;
 })

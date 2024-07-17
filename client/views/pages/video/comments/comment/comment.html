@@ -1,5 +1,6 @@
 <template name='comment'>
-  <div class="title comment" style="text-align:left; padding-bottom: 1em;">
+  {{#unless isUserDMCABanned author}}
+  <div class="title comment" style="text-align:left; padding-bottom: 1em;" id="{{author}}/{{link}}">
     <div class="ui comment" style='max-width: 9999px;'>
       <a class="ui mini circular avatar image" style="margin-right:10px;width:48px;height:48px;">
         <div
@@ -84,4 +85,5 @@
     {{/with}}
   </div>
   {{/if}}
+  {{/unless}}
 </template>
