@@ -2,8 +2,14 @@ import './buffer';
 import steem from 'steem'
 import hive from '@hiveio/hive-js'
 import blurt from '@blurtfoundation/blurtjs'
-
 console.log('Starting DTube APP')
+
+$.get("https://raw.githubusercontent.com/dtubego/dmca/master/dmca.json", function(json, result) {
+  if (result == 'success') {
+    json = JSON.parse(json);
+    Session.set("DMCAUsers", json.authors);
+  }
+});
 
 FlowRouter.wait();
 Meteor.startup(function(){
