@@ -42,7 +42,7 @@ Template.election.helpers({
     isInSchedule: (leaderIndex) => {
         let leaders = Session.get('leaders')
         let maxIndex = -1
-        let maxLeaders = 15
+        let maxLeaders = 5
         while (maxLeaders > 0 && maxIndex < leaders.length - 1) {
             maxIndex++
             if (leaders[maxIndex].pub_leader)
