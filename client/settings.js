@@ -23,6 +23,7 @@ Meteor.settings.public = {
       "https://api.avalonblocks.com",
       "https://dtube.tekraze.com",
       "http://localhost:3001",
+      "https://testnet.dtube.fso.ovh",
     ],
     "HiveAPINodes": [
       "https://anyx.io",
