@@ -5,7 +5,7 @@
 
 # DTube App
 
-This is the main javascript application you can use on d.tube. This is probably the starting point for anyone wanting to contribute to d.tube.
+This is the main javascript application you can use on dtube.app website. This is probably the starting point for anyone wanting to contribute to d.tube.
 
 ## Preview
 
@@ -66,7 +66,7 @@ If you are using windows, the `meteor npm` seems to be buggy at times. You can t
 
 After each meteor or package.json update, you will need to re-run `meteor npm install`
 
-For any help, feel free to join us in our [Discord Channel](https://discord.gg/dtube)
+For any help, feel free to join us in our [Discord Channel](https://discord.gg/QsBnrwqsSV)
 
 ## Contributing
 If you want to contribute to the project, please read [this page](https://d.tube/#!/wiki/contribute).
