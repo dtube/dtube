@@ -34,7 +34,7 @@
     "steem": "^0.6.6",
     "text-encoding": "^0.6.4",
     "tus-js-client": "^3.0.1",
-    "url-parse": "^1.4.4",
+    "url-parse": "^1.5.10",
     "utf-8-validate": "^5.0.1",
     "xss": "^0.3.8"
   },
