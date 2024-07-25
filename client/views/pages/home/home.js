@@ -17,7 +17,7 @@ Template.home.helpers({
   },
   feedVideos: function () {
     return Videos.find({ source: 'chainByFeed-' + Session.get('activeUsername'), "json.hide": {$ne: 1} }, {limit: sliderMaxSize}).fetch()
-  }
+  },
 })
 
 Template.home.events({
@@ -38,7 +38,9 @@ Template.home.events({
 })
 
 Template.home.rendered = function () {
-  Videos.refreshBlockchain(function() {})
+  if(Session.get("initialized") == null)
+    Session.set("initialized", false);
+  Videos.refreshBlockchain(() => {})
   Template.settingsdropdown.nightMode();
   if (/Mobi/.test(navigator.userAgent)) {
     Template.sidebar.empty()
