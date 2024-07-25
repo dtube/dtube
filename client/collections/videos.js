@@ -5,6 +5,23 @@ Videos = new Mongo.Collection(null)
 
 Videos.refreshBlockchain = function(cb) {
     var nbCompleted = 0;
+    var returnFn = function() {
+        if (! Session.get("initialized") && Session.get('lastHot') && Session.get('lastTrending') && Session.get('lastCreated')) {
+            console.log("hot: "+Session.get('lastHot'))
+            console.log("trending: "+Session.get('lastTrending'))
+            console.log("created: "+Session.get('lastCreated'))
+            console.log("Loaded video data")
+            Session.set("initialized", true)
+            BlazeLayout.reset()
+            BlazeLayout.render('masterLayout', {
+                main: "home",
+                nav: "nav",
+            })
+            cb()
+        } else if (! Session.get("initialized") ) {
+            Videos.refreshBlockchain(cb)
+        }
+    }
     if (!Session.get('lastHot'))
         Videos.getVideosBy('hot', null, function() {
             returnFn()
@@ -17,10 +34,6 @@ Videos.refreshBlockchain = function(cb) {
         Videos.getVideosBy('created', null, function() {
             returnFn()
         })
-    var returnFn = function() {
-        if (Session.get('lastHot') && Session.get('lastTrending') && Session.get('lastCreated'))
-            cb()
-    }
 }
 
 Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
@@ -441,7 +454,7 @@ Videos.getVideosByBlogAvalon = function(author, cb) {
     })
 }
 
-Videos.getVideosBy = function(type, limit, cb) {
+Videos.getVideosBy = async function(type, limit, cb) {
     if (!limit) limit = Meteor.settings.public.remote.loadLimit
 
     switch (type) {
@@ -576,8 +589,8 @@ Videos.getVideosBy = function(type, limit, cb) {
                 lastLink = Session.get('lastCreated').authorperm.split('/')[1]
             if (!Session.get('scot'))
                 avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
-                    Session.set('lastCreated', result[result.length - 1])
                     if (err === null || err === '') {
+                        Session.set('lastCreated', result[result.length - 1])
                         var i, len = result.length;
                         var videos = []
                         for (i = 0; i < len; i++) {
