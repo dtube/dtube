@@ -38,8 +38,6 @@ Template.home.events({
 })
 
 Template.home.rendered = function () {
-  if(Session.get("initialized") == null)
-    Session.set("initialized", false);
   Videos.refreshBlockchain(() => {})
   Template.settingsdropdown.nightMode();
   if (/Mobi/.test(navigator.userAgent)) {
