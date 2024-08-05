@@ -1,5 +1,6 @@
 .DS_Store
-
+build
+run.sh
 node_modules/
 package-lock.json
 
