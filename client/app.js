@@ -2,6 +2,8 @@ import './buffer';
 import steem from 'steem'
 import hive from '@hiveio/hive-js'
 import blurt from '@blurtfoundation/blurtjs'
+import jQuery from 'jquery';
+
 console.log('Starting DTube APP')
 
 $.get("https://raw.githubusercontent.com/dtubego/dmca/master/dmca.json", function(json, result) {
