@@ -3,7 +3,7 @@ import steem from 'steem'
 import hive from '@hiveio/hive-js'
 import blurt from '@blurtfoundation/blurtjs'
 import jQuery from 'jquery';
-
+import fetch from 'unfetch';
 
 console.log('Starting DTube APP')
 

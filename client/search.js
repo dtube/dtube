@@ -1,3 +1,5 @@
+import fetch from 'unfetch';
+
 Search = {
     api: 'https://search.dtube.fso.ovh',
     //api: 'http://localhost:9200',
@@ -37,7 +39,7 @@ Search = {
             }
         }
         fetch(Search.api+'/avalon.contents/_search', {
-            method: 'POST',
+            method: 'GET',
             headers: {
               'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json'
