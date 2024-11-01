@@ -451,7 +451,7 @@ Template.video.loadState = function () {
                     // content is not available on avalon nor steem
                     hive.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (hiveerror, hiveresult) => {
                         // content is not available on avalon, steem, or hive
-                        if (hiveerror || Object.keys(hiveresult.content).length == 0) {
+                        if (hiveerror || typeof hiveresult.content == 'undefined' || Object.keys(hiveresult.content).length == 0) {
                             blurt.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (blurterror, blurtresult) => {
                                 if (blurterror) throw blurterror
                                 isLoadingState = false
