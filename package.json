@@ -25,7 +25,7 @@
     "meteor-node-stubs": "^0.2.11",
     "mkdirp": "^3.0.1",
     "moment": "^2.18.1",
-    "moment-with-locales-es6": "^1.0.1",
+    "moment-with-locales-es6": "^2.18.1",
     "owl.carousel": "^2.3.4",
     "postcss": "^8.4.40",
     "qrcode": "^1.3.3",

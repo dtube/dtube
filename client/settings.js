@@ -18,10 +18,11 @@ Meteor.settings.public = {
       "https://steem.61bts.com"
     ],
     "AvalonAPINodes": [
+      "https://api.avalonblocks.com",
       "https://dtube.fso.ovh",
       "https://avalon.luminade.fun",
-      "https://api.avalonblocks.com",
       "https://dtube.tekraze.com",
+      "https://avalon.d.tube",
       "http://localhost:3001",
       "https://testnet.dtube.fso.ovh",
     ],
