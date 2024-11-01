@@ -12,7 +12,8 @@ Template.addvideoprogress.update = function() {
   var token = Session.get('uploadToken')
   var url = (Session.get('remoteSettings').localhost == true)
     ? 'http://localhost:5000/getProgressByToken/'+token
-    : 'https://'+Session.get('upldr')+'.d.tube/getProgressByToken/'+token
+    : 'https://upload.dtube.app/getProgressByToken/'+token
+    //: 'https://'+Session.get('upldr')+'.dtube.app/getProgressByToken/'+token
   var credentials = Session.get('upldr') == 'cluster' ? true : false
   $.ajax({
     cache: false,
@@ -73,7 +74,7 @@ Template.addvideoprogress.update = function() {
               }
             }
           }
-          $('input[name="gw"]').val('https://player.d.tube')
+          $('input[name="gw"]').val('https://ipfs.io/ipfs/')
     
           if (data.sprite)
             $('input[name="img.spr"]').val(data.sprite.ipfsAddSprite.hash)

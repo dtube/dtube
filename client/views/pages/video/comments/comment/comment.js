@@ -6,6 +6,9 @@ Template.comment.helpers({
     currentAuthor: function() {
         return FlowRouter.getParam("author")
     },
+    isUserDMCABanned: function (username) {
+        return Session.get("DMCAUsers").indexOf(username) > -1;
+    },
     picture: function(id) {
         let username = id.split('/')[1]
         if (id.split('/')[0] == 'steem') {

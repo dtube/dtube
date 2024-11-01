@@ -6,6 +6,7 @@ Meteor.settings.public = {
     "displayNodes": [
       // "https://snap1.d.tube",
       "https://video.oneloveipfs.com",
+      "https://dweb.link",
       "https://ipfs.io",
       "https://ipfs.infura.io",
       "https://gateway.pinata.cloud",
@@ -19,9 +20,11 @@ Meteor.settings.public = {
     "AvalonAPINodes": [
       "https://api.avalonblocks.com",
       "https://dtube.fso.ovh",
+      "https://avalon.luminade.fun",
       "https://dtube.tekraze.com",
       "https://avalon.d.tube",
       "http://localhost:3001",
+      "https://testnet.dtube.fso.ovh",
     ],
     "HiveAPINodes": [
       "https://anyx.io",
