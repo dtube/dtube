@@ -1,0 +1,1 @@
+Version = new Mongo.Collection(null);

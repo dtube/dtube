@@ -83,7 +83,7 @@ function getOEmbedData(url, callback) {
         callback(sanitizeVideo(video, url));
       }
     }
-    xhr.open("GET", 'https://avalon.d.tube/oembed/'+encodeURIComponent(url));
+    xhr.open("GET", 'https://dtube.fso.ovh/oembed/'+encodeURIComponent(url));
     //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
     xhr.send();
 }
@@ -97,7 +97,7 @@ function getOpenGraphData(url, callback) {
         callback(sanitizeVideo(video, url));
       }
     }
-    xhr.open("GET", 'https://avalon.d.tube/opengraph/'+encodeURIComponent(url));
+    xhr.open("GET", 'https://dtube.fso.ovh/opengraph/'+encodeURIComponent(url));
     //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
     xhr.send();
 }  
@@ -142,7 +142,7 @@ function getYoutubeVideoData(url, callback) {
         callback(sanitizeVideo(video, url));
       }
     }
-    xhr.open("GET", 'https://avalon.d.tube/youtube/'+videoId);
+    xhr.open("GET", 'https://dtube.fso.ovh/youtube/'+videoId);
     //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0")
     xhr.send();
 }

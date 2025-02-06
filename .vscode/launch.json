@@ -1,12 +1,40 @@
 {
-    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
-    // Pointez pour afficher la description des attributs existants.
-    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Meteor: Run",
+      "runtimeExecutable": "meteor",
+      "outputCapture": "std",
+      "noDebug": "true",
+      "runtimeArgs": [
+        "run",
+        "--port",
+        "3000"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Meteor: Debug",
+      "runtimeExecutable": "meteor",
+      "runtimeArgs": [
+        "run",
+        "--port",
+        "3000",
+        "--inspect-brk"
+      ],
+      "outputCapture": "std",
+      "serverReadyAction": {
+        "pattern": "App running at: http://localhost:([0-9]+)/",
+        "uriFormat": "http://localhost:%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch"
+    }
+  ]
 }

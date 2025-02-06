@@ -5,6 +5,23 @@ Videos = new Mongo.Collection(null)
 
 Videos.refreshBlockchain = function(cb) {
     var nbCompleted = 0;
+    var returnFn = function() {
+        if (! Session.get("initialized") && Session.get('lastHot') && Session.get('lastTrending') && Session.get('lastCreated')) {
+            console.log("hot: "+Session.get('lastHot'))
+            console.log("trending: "+Session.get('lastTrending'))
+            console.log("created: "+Session.get('lastCreated'))
+            console.log("Loaded video data")
+            Session.set("initialized", true)
+            BlazeLayout.reset()
+            BlazeLayout.render('masterLayout', {
+                main: "home",
+                nav: "nav",
+            })
+            cb()
+        } else if (! Session.get("initialized") ) {
+            Videos.refreshBlockchain(cb)
+        }
+    }
     if (!Session.get('lastHot'))
         Videos.getVideosBy('hot', null, function() {
             returnFn()
@@ -17,10 +34,6 @@ Videos.refreshBlockchain = function(cb) {
         Videos.getVideosBy('created', null, function() {
             returnFn()
         })
-    var returnFn = function() {
-        if (Session.get('lastHot') && Session.get('lastTrending') && Session.get('lastCreated'))
-            cb()
-    }
 }
 
 Videos.getVideosRelatedTo = function(id, author, link, days, cb) {
@@ -441,7 +454,7 @@ Videos.getVideosByBlogAvalon = function(author, cb) {
     })
 }
 
-Videos.getVideosBy = function(type, limit, cb) {
+Videos.getVideosBy = async function(type, limit, cb) {
     if (!limit) limit = Meteor.settings.public.remote.loadLimit
 
     switch (type) {
@@ -576,8 +589,8 @@ Videos.getVideosBy = function(type, limit, cb) {
                 lastLink = Session.get('lastCreated').authorperm.split('/')[1]
             if (!Session.get('scot'))
                 avalon.getNewDiscussions(lastAuthor, lastLink, function(err, result) {
-                    Session.set('lastCreated', result[result.length - 1])
                     if (err === null || err === '') {
+                        Session.set('lastCreated', result[result.length - 1])
                         var i, len = result.length;
                         var videos = []
                         for (i = 0; i < len; i++) {
@@ -1048,7 +1061,7 @@ Videos.getOverlayUrl = function(video) {
     if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["360"])
         return 'https://btfs.d.tube/btfs/' + video.json.files.btfs.img["360"]
     if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["360"])
-        return 'https://ipfs.io/ipfs/' + video.json.files.ipfs.img["360"]
+        return 'https://dweb.link/ipfs/' + video.json.files.ipfs.img["360"]
     if (video.json.files && video.json.files.youtube)
         return 'https://i.ytimg.com/vi/' + video.json.files.youtube + '/hqdefault.jpg'
     return ''
@@ -1062,12 +1075,12 @@ Videos.getThumbnailUrl = function(video) {
     if (video.json.files && video.json.files.btfs && video.json.files.btfs.img && video.json.files.btfs.img["118"])
         return 'https://btfs.d.tube/btfs/' + video.json.files.btfs.img["118"]
     if (video.json.files && video.json.files.ipfs && video.json.files.ipfs.img && video.json.files.ipfs.img["118"])
-        return 'https://ipfs.io/ipfs/' + video.json.files.ipfs.img["118"]
+        return 'https://dweb.link/ipfs/' + video.json.files.ipfs.img["118"]
     if (video.json.files && video.json.files.youtube)
         return 'https://i.ytimg.com/vi/' + video.json.files.youtube + '/mqdefault.jpg'
 
-    if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://ipfs.io/ipfs/' + video.json.ipfs.snaphash
-    if (video.json.info && video.json.info.snaphash) return 'https://ipfs.io/ipfs/' + video.json.info.snaphash
+    if (video.json.ipfs && video.json.ipfs.snaphash) return 'https://dweb.link/ipfs/' + video.json.ipfs.snaphash
+    if (video.json.info && video.json.info.snaphash) return 'https://dweb.link/ipfs/' + video.json.info.snaphash
         // console.log('Found video with no thumbnail!!', video)
     return ''
 }
@@ -1106,7 +1119,7 @@ Videos.convertToNewFormat = function(oldJson, video) {
         title: oldJson.info.title,
         description: oldJson.content.description,
         duration: oldJson.info.duration,
-        thumbnailUrl: 'https://ipfs.io/ipfs/' + oldJson.info.snaphash,
+        thumbnailUrl: 'https://dweb.link/ipfs/' + oldJson.info.snaphash,
         ipfs: {
             snaphash: oldJson.info.snaphash,
             spritehash: oldJson.info.spritehash,

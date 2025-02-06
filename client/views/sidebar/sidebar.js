@@ -13,6 +13,15 @@ Template.sidebar.events({
     },
 })
 
+Template.sidebar.helpers({
+    version: () => {
+        return Version.findOne({});
+    },
+    versionShortCommit: () => {
+        return Version.findOne({}).commit.substring(0,5);
+    }
+});
+
 Template.sidebar.resetActiveMenu = function() {
     $('#homesidebarmenu').removeClass('activemenu')
     $('#channelsidebarmenu').removeClass('activemenu')

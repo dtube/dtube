@@ -1,4 +1,6 @@
-var isLoadingState = false
+import { originaldtubers } from '../../../originaldtubers.js';
+var isLoadingState = false;
+
 
 Template.video.rendered = function () {
     Session.set('isSearchingMobile', false)
@@ -34,7 +36,16 @@ Template.video.rendered = function () {
                 position: 'bottom right',
             });
     }, 1000)
-
+    setTimeout(originaldtubers.checkUser(FlowRouter.getParam("author"), async (err, res) => {
+        await res;
+        if (res == true) {
+            $('.'+FlowRouter.getParam("author")+"_original").removeAttr("hidden");
+        } else if (! err) {
+            // not an original creator.
+        } else {
+            console.log(err);
+        }
+    }), 30000);
     if (typeof showdown === 'undefined')
         jQuery.ajax({
             url: 'https://cdn.rawgit.com/showdownjs/showdown/1.9.1/dist/showdown.min.js',
@@ -440,7 +451,7 @@ Template.video.loadState = function () {
                     // content is not available on avalon nor steem
                     hive.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (hiveerror, hiveresult) => {
                         // content is not available on avalon, steem, or hive
-                        if (hiveerror || Object.keys(hiveresult.content).length == 0) {
+                        if (hiveerror || typeof hiveresult.content == 'undefined' || Object.keys(hiveresult.content).length == 0) {
                             blurt.api.getState('/dtube/@' + FlowRouter.getParam('author') + '/' + FlowRouter.getParam("permlink"), (blurterror, blurtresult) => {
                                 if (blurterror) throw blurterror
                                 isLoadingState = false

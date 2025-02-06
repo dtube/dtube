@@ -2,39 +2,49 @@
   "name": "drtube",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "build": ""
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "@blurtfoundation/blurtjs": "^0.1.3",
     "@hiveio/hive-js": "^2.0.4",
     "@trust/webcrypto": "^0.9.0",
+    "autoprefixer": "^10.4.20",
+    "browserslist": "^4.23.0",
     "bufferutil": "^4.0.1",
+    "caniuse-lite": "^1.0.30001593",
     "cheerio": "^1.0.0-rc.2",
     "dtube-autolinker": "1.4.3",
+    "electron": "^31.3.1",
+    "fibers": "^5.0.3",
     "file-saver": "^2.0.1",
     "imagesloaded": "^4.1.4",
     "is-ipfs": "^6.0.2",
-    "javalon": "^1.0.36",
+    "javalon2": "^1.1.5",
+    "jquery": "^3.7.1",
     "jsoun": "^0.1.4",
     "languages": "^0.1.3",
     "meteor-node-stubs": "^0.2.11",
+    "mkdirp": "^3.0.1",
     "moment": "^2.18.1",
     "moment-with-locales-es6": "^2.18.1",
-    "node-webcrypto-ossl": "^1.0.37",
     "owl.carousel": "^2.3.4",
+    "postcss": "^8.4.40",
+    "promise": "^8.3.0",
     "qrcode": "^1.3.3",
     "run-parallel": "^1.1.9",
-    "socket.io-client": "^4.4.0",
-    "steem": "^0.7.4",
+    "socket.io-client": "^4.8.1",
+    "steem": "^0.7.11",
     "text-encoding": "^0.6.4",
-    "tus-js-client": "^3.0.1",
-    "url-parse": "^1.4.4",
+    "tus-js-client": "^3.1.3",
+    "unfetch": "^5.0.0",
+    "url-parse": "^1.5.10",
     "utf-8-validate": "^5.0.1",
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.3"
+    "webpack-cli": "^5.1.4"
   },
   "postcss": {
     "plugins": {
