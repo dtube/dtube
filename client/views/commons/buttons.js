@@ -18,16 +18,20 @@
     var amount = Math.floor(parseFloat($('#transfer_amount').val())*100)
     var memo = $('#transfer_memo').val()
     var receiver = FlowRouter.getParam("author")
-    broadcast.avalon.transfer(receiver, amount, memo, function(err, res) {
-      $("#confirmTransfer").removeClass('disabled')
-      $("#confirmTransfer > i.loading").addClass('dsp-non')
-      $("#confirmTransfer > i.check").removeClass('dsp-non')
-      if (err) Meteor.blockchainError(err)
-      else {
-        toastr.success(translate('TRANSFER_SUCCESS_DESC', $('#transfer_amount').val(), receiver), translate('TRANSFER_SUCCESS_TITLE'))
-        $('.transferdtc').hide()
-      }
-    })
+    if (receiver == 'ionomy' || receiver == 'dtube.swap') {
+      toastr.warning("Transfers to this account are temporarly disabled as they've probably an outdated software code.")
+    } else {
+      broadcast.avalon.transfer(receiver, amount, memo, function(err, res) {
+        $("#confirmTransfer").removeClass('disabled')
+        $("#confirmTransfer > i.loading").addClass('dsp-non')
+        $("#confirmTransfer > i.check").removeClass('dsp-non')
+        if (err) Meteor.blockchainError(err)
+        else {
+          toastr.success(translate('TRANSFER_SUCCESS_DESC', $('#transfer_amount').val(), receiver), translate('TRANSFER_SUCCESS_TITLE'))
+          $('.transferdtc').hide()
+        }
+      })
+    }
   }
 
   Template.buttontransfersmall.events({

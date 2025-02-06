@@ -149,7 +149,8 @@ Template.addvideoformfile.setBestUploadEndpoint = function (cb) {
   Template.addvideoformfile.uploadVideo = function (file, progressid, cb) {
     var postUrl = (Session.get('remoteSettings').localhost == true)
       ? 'http://localhost:5000/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
-      : 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+      //: 'https://'+Session.get('upldr')+'.d.tube/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
+      : 'https://upload.dtube.app/uploadVideo?videoEncodingFormats=240p,480p,720p,1080p&sprite=true'
     let formData = new FormData()
 
     if (Session.get('uploadEndpoint') !== 'uploader.oneloveipfs.com')
@@ -516,7 +517,8 @@ function handleUploadEndpointCheckError(req,status,mainerror) {
 function getUploaderStatus (upldr) {
     var url = (Session.get('remoteSettings').localhost == true)
       ? 'http://localhost:5000/getStatus'
-      : 'https://'+upldr+'.d.tube/getStatus'
+      //: 'https://'+upldr+'.d.tube/getStatus'
+      : 'https://upload.dtube.app/getStatus'
     if (Session.get('scot')) {
       var scotUpldr = Session.get('scot').token.toLowerCase()+'.upldr.dtube.top'
       url = url.replace('cluster.d.tube', scotUpldr)

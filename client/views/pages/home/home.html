@@ -1,6 +1,7 @@
 <template name='home'>
   {{#if isOnMobile}}
     <div style="margin-left:auto;margin-right:auto;margin-top:1rem;max-width: 642px;padding-left:5px;padding-right:5px;" class="ui content">
+        <center><iframe src="./DTube_files/mobiletopbarad.html" style='width:330px; height:120px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe></center>
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">
@@ -63,6 +64,7 @@
     </div>
   {{else}}
     <div  class="ui container">
+        <center><iframe style='width:990px; height:110px; border:0px; padding:0; overflow:hidden; background-color: transparent;' src="./DTube_files/computertopbarad.html"></iframe></center>
         {{#if feedVideos}}
         <div class="ui left aligned grid" style="margin-bottom:0rem;margin-left:0rem;margin-right:0rem;margin-top:1rem">
           <div class="left floated left aligned ten wide column block-header" style="padding-left:0px;">

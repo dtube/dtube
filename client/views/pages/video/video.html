@@ -99,7 +99,7 @@
               {{/if}}
               <div class="channelLink" style="margin-top:10px;">
                 <a href="/c/{{video.author}}">
-                  {{video.author}}
+                  <img src="DTube_files/images/v-red.png" hidden class="{{video.author}}_original" />{{video.author}}
                 </a>
               </div>
               {{#unless equals activeUser user.name}}
@@ -184,6 +184,7 @@
         {{#if isOnMobile}}
         {{#if userVideosAndResteems}}
         <div class="ui grid mobile only content videorecommendedmobile">
+          <center><iframe style='width:320px; height:100px; border:0px; padding:0; overflow:hidden; background-color: transparent;' src="./DTube_files/mobilead.html"></iframe></center>
           <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
           {{> verticalvideoband userVideosAndResteems}}
         </div>
@@ -253,13 +254,19 @@
     {{#unless isOnMobile}}
     {{#if isTabletOrLower}}
     <div class="four wide column tablet only">
+      <center><iframe style='width:330px; height:120px; border:0px; padding:0; overflow:hidden; background-color: transparent;' src="./DTube_files/mobilead.html"></iframe></center>
       <div class="ui grid videorecommendedtablet" style='margin-top:0px'>
         {{> verticalvideoband userVideosAndResteems}}
+        <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
+        {{#if userVideosAndResteems}}
+        {{> verticalvideoband userVideosAndResteems}}
+        {{/if}}
       </div>
     </div>
     {{else}}
     <div class="pdg-5 relatedcol four wide column computer only">
       <div class="ui grid videorecommendedcomputer" style="margin-right: -5rem;">
+        <center><iframe style='width:260px; height:270px; border:0px; padding:0; overflow:hidden; background-color: transparent;' src="./DTube_files/computerad.html"></iframe></center>
         <h3>{{ translate 'VIDEO_RELATED_VIDEOS'}}</h3>
         {{#if userVideosAndResteems}}
         {{> verticalvideoband userVideosAndResteems}}

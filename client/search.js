@@ -1,5 +1,7 @@
+import fetch from 'unfetch';
+
 Search = {
-    api: 'https://search.d.tube',
+    api: 'https://search.dtube.fso.ovh',
     //api: 'http://localhost:9200',
     text: (query, sort, startpos, cb) => {
         var url = Search.api+'/avalon.contents/_search?q=(NOT pa:*) AND '+query+'&size=20'
@@ -37,12 +39,12 @@ Search = {
             }
         }
         fetch(Search.api+'/avalon.contents/_search', {
-            method: 'POST',
-            body: JSON.stringify(esQuery),
+            method: 'GET',
             headers: {
-              'Accept': 'application/json',
+              'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(esQuery),
         }).then(res => res.json()).then(function(res) {
             res.results = []
             for (let i = 0; i < res.hits.hits.length; i++) {

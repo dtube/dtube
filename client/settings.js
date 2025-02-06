@@ -5,8 +5,10 @@ Meteor.settings.public = {
     "loadLimit": 50,
     "displayNodes": [
       // "https://snap1.d.tube",
-      "https://video.oneloveipfs.com",
+      "https://video.dtube.app",
+      "https://dweb.link",
       "https://ipfs.io",
+      "https://flk-ipfs.xyz",
       "https://ipfs.infura.io",
       "https://gateway.pinata.cloud",
       "http://127.0.0.1:8080"
@@ -17,13 +19,15 @@ Meteor.settings.public = {
       "https://steem.61bts.com"
     ],
     "AvalonAPINodes": [
-      "https://avalon.d.tube",
       "https://api.avalonblocks.com",
       "https://dtube.fso.ovh",
+      "https://avalon.luminade.fun",
       "https://dtube.tekraze.com",
       "https://dtube.alloyxuast.co.uk",
       "https://dtube.nekosunevr.co.uk",
+      "https://avalon.d.tube",
       "http://localhost:3001",
+      "https://testnet.dtube.fso.ovh",
     ],
     "HiveAPINodes": [
       "https://anyx.io",
