@@ -1,3 +1,7 @@
+# THIS CODEBASE IS DEPRECATED AND UNMAINTAINED.
+# YOU CAN STILL USE IT [HERE](https://dtube.app)
+# THE NEW [D.TUBE](https://d.tube) IS CLOSE SOURCE
+
 <!---
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/dtube/localized.svg)](https://crowdin.com/project/dtube)
 -->
